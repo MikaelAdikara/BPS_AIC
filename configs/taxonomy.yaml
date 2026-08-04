@@ -1,0 +1,77 @@
+# Taksonomi aspek — transkripsi langsung blueprint bagian 18.2
+#
+# STATUS: USULAN, MENUNGGU KONFIRMASI SCOPE FREEZE (Fase 0).
+# Nilai di bawah belum dikunci. Setelah dikonfirmasi, ubah status menjadi FROZEN
+# dan perubahan berikutnya wajib persetujuan seluruh tim (blueprint bagian 39.1).
+#
+# Mekanisme adaptasi (bagian 18.2): aspek universal selalu aktif; aspek spesifik
+# kategori diaktifkan/dinonaktifkan dari field `category` pada data ingestion.
+# Menambah kategori TIDAK memerlukan retraining model — hanya pemetaan label output.
+
+status: proposed # proposed | frozen
+version: 0.1.0
+source: "INSIGHTULASAN_BLUEPRINT.md bagian 18.2"
+
+# Enum kategori produk — selaras schema Raw Review (bagian 25.1)
+categories: [fashion, food_beverage, craft, electronics, other]
+
+aspects:
+  - id: kualitas_produk
+    label: "Kualitas produk"
+    scope: universal
+
+  - id: kesesuaian_deskripsi
+    label: "Kesesuaian deskripsi"
+    scope: universal
+
+  - id: harga_value
+    label: "Harga dan value"
+    scope: universal
+
+  - id: ukuran_varian
+    label: "Ukuran/varian"
+    scope: category_specific
+    active_for: [fashion, craft, electronics, other]
+    label_overrides:
+      food_beverage: "Porsi/takaran" # bagian 18.2: diganti untuk F&B
+      craft: "Dimensi produk"
+    # F&B tetap memakai aspek ini dengan label berbeda, bukan dinonaktifkan.
+    active_for_note: "Untuk food_beverage aspek ini aktif dengan label 'Porsi/takaran'."
+
+  - id: rasa_kualitas_makanan
+    label: "Rasa/kualitas makanan"
+    scope: category_specific
+    active_for: [food_beverage]
+
+  - id: kemasan
+    label: "Kemasan"
+    scope: universal
+    relevance_weight:
+      food_beverage: high # bagian 18.2: bobot relevansi lebih tinggi untuk F&B
+
+  - id: pengiriman
+    label: "Pengiriman"
+    scope: universal
+
+  - id: pelayanan_penjual
+    label: "Pelayanan/respons penjual"
+    scope: universal
+
+  - id: kelengkapan
+    label: "Kelengkapan"
+    scope: category_specific
+    active_for: [craft, electronics, fashion, other]
+
+  - id: keaslian
+    label: "Keaslian"
+    scope: category_specific
+    active_for: [fashion, craft, electronics]
+
+  - id: kemudahan_penggunaan
+    label: "Kemudahan penggunaan"
+    scope: category_specific
+    active_for: [craft, electronics, other]
+
+# Enum sentimen dan severity — schema Text Prediction (bagian 25.4)
+sentiments: [positif, negatif, netral]
+severities: [rendah, sedang, tinggi]

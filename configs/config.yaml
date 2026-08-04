@@ -1,0 +1,82 @@
+# Konfigurasi runtime InsightUlasan
+# Blueprint bagian 27.2: threshold, path model, dan batas ukuran TIDAK di-hardcode dalam kode.
+# File ini di-commit (tidak berisi secret). Secret/override lokal lewat .env (lihat .env.example).
+#
+# STATUS: kerangka Fase 0. Nilai yang harus berasal dari eksperimen sengaja dikosongkan (null)
+# agar tidak ada angka default yang menyamar sebagai hasil kalibrasi.
+
+version: 0.1.0
+
+mode: full # full | fallback (bagian 30.2)
+
+models:
+  text:
+    primary: "indobenchmark/indobert-base-p1"
+    fallback: "tfidf_logreg" # baseline deterministic (bagian 17.1)
+    version: null # diisi setelah fine-tuning Fase 2
+  vision:
+    primary: "openai/clip-vit-base-patch32"
+    fallback: "google/siglip-base-patch16-224"
+    version: null
+  embedding:
+    primary: "BAAI/bge-m3"
+    fallback: "intfloat/multilingual-e5-base"
+    version: null
+  orchestrator:
+    primary: "sea-lion" # varian quantized dipilih pada Fase 5
+    fallback: "sailor2"
+    quantization: "q4"
+    version: null
+
+vector_store:
+  provider: chroma # ADR-007
+  mode: embedded # embedded | server
+  collection: "session_reviews"
+
+retrieval:
+  top_k: 5
+  # Di bawah ambang ini sistem menjawab "data belum cukup" TANPA memanggil LLM (bagian 21.3).
+  min_similarity: null # dikalibrasi pada Fase 4
+  mmr_diversity: true # diversifikasi ringan (bagian 21.1)
+  dedupe_near_duplicates: true
+
+priority_score:
+  # Formula final (bagian 22.2), BUKAN perkalian mentah enam faktor:
+  # score = frequency_norm * severity_norm * confidence_norm
+  #         * (1 + w_recency * recency_norm + w_benchmark_gap * benchmark_gap_norm)
+  # lalu di-scale ke 0-100.
+  w_recency: 0.3
+  w_benchmark_gap: 0.2
+  # [REQUIRES VALIDATION] bobot di atas wajib diuji sensitivity +-50% (bagian 22.2, 34)
+  # sebelum dianggap final.
+  urgency_thresholds: # skor 0-100 -> label urgensi; dikalibrasi ulang saat evaluasi
+    rendah: null
+    sedang: null
+    tinggi: null
+
+data_quality:
+  # Di bawah ambang ini: banner peringatan, urgensi dibatasi maksimal "Sedang" (bagian 22.2).
+  min_reviews_for_full_confidence: 15
+
+benchmark:
+  # Baseline kategori di-precompute SEKALI dari dataset publik (bagian 24.1, ADR-012).
+  baseline_path: "data/processed/category_baseline.json"
+  min_sample_size_for_confidence: 100
+
+limits: # bagian 27.2, 36
+  max_upload_mb: 10
+  max_image_mb: 5
+  max_reviews_per_request: 1000
+
+timeouts_seconds: # bagian 27.3 tool contracts
+  preprocess_reviews: 10
+  redact_personal_data: 5
+  classify_text_aspects: 15 # per 100 ulasan
+  classify_review_image: 5 # per foto
+  retrieve_evidence: 3
+  calculate_aspect_statistics: 2
+  calculate_priority_score: 2
+  compare_category_baseline: 2
+  generate_action_recommendations: 8
+  answer_review_question: 8
+  analyze_total: 30

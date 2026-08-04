@@ -1,0 +1,70 @@
+# Kelas visual dan prompt ensemble — transkripsi langsung blueprint bagian 19.1
+#
+# STATUS: USULAN, MENUNGGU KONFIRMASI SCOPE FREEZE (Fase 0).
+#
+# Prinsip yang tidak dinegosiasikan:
+# - Maksimal 3-4 kelas (bagian 19.1, dossier 21B.2 Langkah 3).
+# - Model WAJIB abstain saat confidence rendah — tidak pernah memaksakan label.
+# - Skor per kelas = rata-rata skor kemiripan seluruh varian prompt kelas tersebut,
+#   bukan satu prompt tunggal (bagian 19.1).
+# - Campuran prompt Bahasa Indonesia + Inggris disengaja: CLIP dilatih dominan data Inggris.
+
+status: proposed # proposed | frozen
+version: 0.1.0
+source: "INSIGHTULASAN_BLUEPRINT.md bagian 19.1-19.2"
+
+classes:
+  - id: produk_rusak
+    label: "Produk rusak/cacat"
+    prompts_positive:
+      - "foto produk yang rusak, sobek, atau cacat"
+      - "a photo of a damaged or defective product"
+    prompts_contrast:
+      - "foto produk dalam kondisi baik dan utuh"
+
+  - id: salah_kirim
+    label: "Salah kirim/tidak sesuai"
+    prompts_positive:
+      - "foto produk yang berbeda dari yang dipesan"
+      - "a photo of a wrong or mismatched item"
+    prompts_contrast:
+      - "foto produk yang sesuai dengan pesanan"
+
+  - id: kemasan_rusak
+    label: "Kemasan rusak"
+    prompts_positive:
+      - "foto kemasan atau bungkus yang rusak saat diterima"
+      - "a photo of damaged packaging"
+    prompts_contrast:
+      - "foto kemasan yang rapi dan utuh"
+
+  - id: normal
+    label: "Normal/tidak ada masalah visual"
+    prompts_positive:
+      - "foto produk normal tanpa masalah terlihat"
+    prompts_contrast: []
+    note: "Kelas default jika tidak ada kelas lain yang menang dengan confidence cukup."
+
+# Abstention (bagian 19.2) — WAJIB, bukan opsional
+abstention:
+  message: "Tidak dapat menyimpulkan kondisi produk dari foto ini."
+  # Threshold absolut dan margin top1-vs-top2 ditetapkan dari DISTRIBUSI SKOR pada
+  # sampel validasi Fase 3, BUKAN angka default. Sengaja dikosongkan sampai saat itu.
+  min_confidence: null
+  min_margin_top1_top2: null
+  calibration_source: "distribusi skor sampel validasi Apify (~250-300 foto), Fase 3"
+
+# Gate wajib sebelum hasil visual boleh diklaim di proposal/video (bagian 19.3, 26.2)
+go_no_go_gate:
+  status: not_yet_evaluated
+  decided_at_phase: 3
+  primary_metric: selective_accuracy
+  secondary_metric: coverage
+  note: >
+    Tidak ada target minimum yang diklaim di muka. Hasil dilaporkan apa adanya, dan
+    keputusan GO / CONDITIONAL GO / NO-GO menentukan seberapa kuat klaim visual boleh
+    ditulis di proposal dan video.
+
+# Kelas dapat DIGABUNG jika terbukti tidak terpisahkan pada evaluasi (bagian 26.2 langkah 10),
+# mis. "salah_kirim" vs "produk_rusak" — menggabungkan lebih baik daripada memaksakan
+# granularitas yang tidak didukung data.

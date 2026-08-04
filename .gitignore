@@ -1,0 +1,62 @@
+# --- Data (bagian 31.1: data/raw, interim, processed TIDAK di-commit) ---
+data/raw/*
+data/interim/*
+data/processed/*
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# --- Model artifacts (bagian 31.1: tidak di-commit, diunduh via script) ---
+models/
+*.safetensors
+*.gguf
+*.onnx
+*.bin
+*.pt
+*.pth
+.cache/
+.huggingface/
+
+# --- Secrets & config lokal ---
+.env
+.env.local
+*.local.yaml
+
+# --- Dokumen referensi biner (sumber .md tetap di-commit) ---
+docs/reference/*.pdf
+docs/reference/*.docx
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# --- Node / frontend ---
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Sesi runtime (session-only storage, bagian 27.2 / ADR-010) ---
+apps/api/tmp/
+tmp/
+sessions/
+
+# --- Editor & OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
