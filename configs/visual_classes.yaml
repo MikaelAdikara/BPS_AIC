@@ -1,6 +1,6 @@
 # Kelas visual dan prompt ensemble — transkripsi langsung blueprint bagian 19.1
 #
-# STATUS: USULAN, MENUNGGU KONFIRMASI SCOPE FREEZE (Fase 0).
+# STATUS: FROZEN (Fase 0, dikonfirmasi) — 4 kelas.
 #
 # Prinsip yang tidak dinegosiasikan:
 # - Maksimal 3-4 kelas (bagian 19.1, dossier 21B.2 Langkah 3).
@@ -9,8 +9,9 @@
 #   bukan satu prompt tunggal (bagian 19.1).
 # - Campuran prompt Bahasa Indonesia + Inggris disengaja: CLIP dilatih dominan data Inggris.
 
-status: proposed # proposed | frozen
-version: 0.1.0
+status: frozen
+frozen_at_phase: 0
+version: 1.0.0
 source: "INSIGHTULASAN_BLUEPRINT.md bagian 19.1-19.2"
 
 classes:
@@ -65,6 +66,8 @@ go_no_go_gate:
     keputusan GO / CONDITIONAL GO / NO-GO menentukan seberapa kuat klaim visual boleh
     ditulis di proposal dan video.
 
-# Kelas dapat DIGABUNG jika terbukti tidak terpisahkan pada evaluasi (bagian 26.2 langkah 10),
-# mis. "salah_kirim" vs "produk_rusak" — menggabungkan lebih baik daripada memaksakan
-# granularitas yang tidak didukung data.
+# Satu-satunya perubahan kelas yang masih terbuka setelah freeze (bagian 26.2 langkah 10):
+# kelas dapat DIGABUNG jika evaluasi Fase 3 membuktikan keduanya tidak terpisahkan
+# (kandidat paling mungkin: "salah_kirim" vs "produk_rusak"). Menggabungkan lebih baik
+# daripada memaksakan granularitas yang tidak didukung data. Penambahan kelas baru TIDAK
+# terbuka — batas maksimal tetap 4 kelas.

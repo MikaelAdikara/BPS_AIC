@@ -1,21 +1,22 @@
-# Taksonomi aspek — transkripsi langsung blueprint bagian 18.2
+# Taksonomi aspek — blueprint bagian 18.2
 #
-# STATUS: USULAN, MENUNGGU KONFIRMASI SCOPE FREEZE (Fase 0).
-# Nilai di bawah belum dikunci. Setelah dikonfirmasi, ubah status menjadi FROZEN
-# dan perubahan berikutnya wajib persetujuan seluruh tim (blueprint bagian 39.1).
+# STATUS: FROZEN (Fase 0, dikonfirmasi). Perubahan setelah titik ini wajib persetujuan
+# seluruh tim dan HARUS diedit di blueprint lebih dulu (blueprint bagian 39.1).
 #
-# Mekanisme adaptasi (bagian 18.2): aspek universal selalu aktif; aspek spesifik
-# kategori diaktifkan/dinonaktifkan dari field `category` pada data ingestion.
-# Menambah kategori TIDAK memerlukan retraining model — hanya pemetaan label output.
+# Mekanisme adaptasi (bagian 18.2): aspek universal selalu aktif; aspek spesifik kategori
+# diaktifkan/dinonaktifkan dari field `category` pada data ingestion. Menambah kategori baru
+# TIDAK memerlukan retraining model — hanya pemetaan label output ke taksonomi ini.
 
-status: proposed # proposed | frozen
-version: 0.1.0
+status: frozen
+frozen_at_phase: 0
+version: 1.0.0
 source: "INSIGHTULASAN_BLUEPRINT.md bagian 18.2"
 
 # Enum kategori produk — selaras schema Raw Review (bagian 25.1)
 categories: [fashion, food_beverage, craft, electronics, other]
 
 aspects:
+  # --- Universal: aktif di semua kategori ---
   - id: kualitas_produk
     label: "Kualitas produk"
     scope: universal
@@ -27,21 +28,6 @@ aspects:
   - id: harga_value
     label: "Harga dan value"
     scope: universal
-
-  - id: ukuran_varian
-    label: "Ukuran/varian"
-    scope: category_specific
-    active_for: [fashion, craft, electronics, other]
-    label_overrides:
-      food_beverage: "Porsi/takaran" # bagian 18.2: diganti untuk F&B
-      craft: "Dimensi produk"
-    # F&B tetap memakai aspek ini dengan label berbeda, bukan dinonaktifkan.
-    active_for_note: "Untuk food_beverage aspek ini aktif dengan label 'Porsi/takaran'."
-
-  - id: rasa_kualitas_makanan
-    label: "Rasa/kualitas makanan"
-    scope: category_specific
-    active_for: [food_beverage]
 
   - id: kemasan
     label: "Kemasan"
@@ -57,20 +43,46 @@ aspects:
     label: "Pelayanan/respons penjual"
     scope: universal
 
+  # --- Universal dengan relabel per kategori ---
+  # Keputusan Fase 0: "porsi/takaran" untuk F&B adalah RELABEL aspek yang sama,
+  # bukan aspek terpisah. Alasan: bentuk keluhannya identik secara struktural
+  # ("jumlah/ukuran tidak sesuai ekspektasi"), sehingga tidak perlu kelas label
+  # tambahan yang harus dipetakan dari dataset publik.
+  - id: ukuran_varian
+    label: "Ukuran/varian"
+    scope: universal_with_relabel
+    label_overrides:
+      food_beverage: "Porsi/takaran"
+      craft: "Dimensi produk"
+
+  # --- Spesifik kategori: dinonaktifkan di kategori yang tidak relevan ---
+  - id: rasa_kualitas_makanan
+    label: "Rasa/kualitas makanan"
+    scope: category_specific
+    active_for: [food_beverage]
+    # Blueprint 18.2 eksplisit: "dinonaktifkan otomatis berbasis kategori produk".
+
   - id: kelengkapan
     label: "Kelengkapan"
     scope: category_specific
-    active_for: [craft, electronics, fashion, other]
+    active_for: [fashion, craft, electronics, other]
 
   - id: keaslian
     label: "Keaslian"
     scope: category_specific
-    active_for: [fashion, craft, electronics]
+    active_for: [fashion, craft, electronics, other]
 
   - id: kemudahan_penggunaan
     label: "Kemudahan penggunaan"
     scope: category_specific
     active_for: [craft, electronics, other]
+
+# Catatan interpretasi (Fase 0): blueprint 18.2 hanya menyebut penonaktifan otomatis secara
+# eksplisit untuk rasa_kualitas_makanan; untuk kelengkapan/keaslian/kemudahan_penggunaan
+# blueprint memakai frasa "kurang relevan". Keputusan tim: perlakukan "kurang relevan"
+# sebagai NONAKTIF pada kategori tersebut, karena menampilkan aspek yang tidak relevan
+# (mis. "keaslian" untuk toko F&B) merusak kepercayaan pada relevansi sistem (persona 5.3).
+# Ini murni keputusan config — dapat dibalik tanpa retraining.
 
 # Enum sentimen dan severity — schema Text Prediction (bagian 25.4)
 sentiments: [positif, negatif, netral]
