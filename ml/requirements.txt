@@ -1,0 +1,8 @@
+# Dependensi pipeline ml/ (training, validasi, evaluasi) - TERPISAH dari runtime apps/api.
+# Fase 1 (data + baseline) hanya butuh baris di bawah ini; torch/transformers ditambahkan
+# pada Fase 2 saat fine-tuning IndoBERT dimulai, agar setup Fase 1 tetap ringan.
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+huggingface_hub>=0.24
+pyyaml>=6.0
