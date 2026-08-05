@@ -1,0 +1,175 @@
+{
+  "seed": 42,
+  "model": "TF-IDF(char_wb 3-5) + LogisticRegression(class_weight=balanced)",
+  "train_clauses": 69800,
+  "label_warning": "silver_* diukur pada label labeling function (ADR-015), BUKAN akurasi sebenarnya. Hanya stress_challange yang labelnya independen dari LF kita.",
+  "sentiment_fit_seconds": 9.5,
+  "sentiment": {
+    "silver_test": {
+      "n": 11192,
+      "macro_f1": 0.563,
+      "per_class_f1": {
+        "negatif": 0.7191,
+        "netral": 0.1126,
+        "positif": 0.8573
+      },
+      "support": {
+        "negatif": 1842,
+        "netral": 256,
+        "positif": 9094
+      },
+      "_label": "silver_test"
+    },
+    "silver_test_unseen": {
+      "n": 6383,
+      "macro_f1": 0.5611,
+      "per_class_f1": {
+        "negatif": 0.7195,
+        "netral": 0.1373,
+        "positif": 0.8265
+      },
+      "support": {
+        "negatif": 1645,
+        "netral": 190,
+        "positif": 4548
+      },
+      "_label": "silver_test_unseen"
+    },
+    "stress_challange": {
+      "n": 4840,
+      "macro_f1": 0.7202,
+      "per_class_f1": {
+        "negatif": 0.8041,
+        "netral": 0.6085,
+        "positif": 0.7479
+      },
+      "support": {
+        "negatif": 1804,
+        "netral": 1223,
+        "positif": 1813
+      },
+      "_label": "stress_challange",
+      "by_phenomenon_macro_f1": {
+        "mixed_sentiment": 0.1131,
+        "negation": 0.1626,
+        "sarcasm": 0.1978,
+        "ambiguous": 0.2365,
+        "question_conditional": 0.4589,
+        "aspect_based": 0.5522,
+        "contextual": 0.6083,
+        "comparative": 0.6556,
+        "typos_informal": 0.7355,
+        "short_vague": 0.7777,
+        "colloquial_slang": 0.7888,
+        "emotional_exaggeration": 0.8254
+      }
+    }
+  },
+  "aspect_fit_seconds": 12.9,
+  "aspect": {
+    "silver_test": {
+      "n": 11192,
+      "macro_f1": 0.9379,
+      "micro_f1": 0.9638,
+      "per_class": {
+        "kualitas_produk": {
+          "f1": 0.9339,
+          "support": 1704
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.9948,
+          "support": 1332
+        },
+        "harga_value": {
+          "f1": 0.9764,
+          "support": 355
+        },
+        "ukuran_varian": {
+          "f1": 0.9795,
+          "support": 312
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.9231,
+          "support": 62
+        },
+        "kemasan": {
+          "f1": 0.9447,
+          "support": 470
+        },
+        "pengiriman": {
+          "f1": 0.9782,
+          "support": 1401
+        },
+        "pelayanan_penjual": {
+          "f1": 0.9831,
+          "support": 1047
+        },
+        "kelengkapan": {
+          "f1": 0.7857,
+          "support": 46
+        },
+        "keaslian": {
+          "f1": 0.9465,
+          "support": 119
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.8712,
+          "support": 144
+        }
+      },
+      "_label": "silver_test"
+    },
+    "silver_test_unseen": {
+      "n": 6383,
+      "macro_f1": 0.9232,
+      "micro_f1": 0.9458,
+      "per_class": {
+        "kualitas_produk": {
+          "f1": 0.8904,
+          "support": 932
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.9909,
+          "support": 713
+        },
+        "harga_value": {
+          "f1": 0.9741,
+          "support": 247
+        },
+        "ukuran_varian": {
+          "f1": 0.9754,
+          "support": 259
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.918,
+          "support": 58
+        },
+        "kemasan": {
+          "f1": 0.917,
+          "support": 265
+        },
+        "pengiriman": {
+          "f1": 0.9683,
+          "support": 894
+        },
+        "pelayanan_penjual": {
+          "f1": 0.9758,
+          "support": 587
+        },
+        "kelengkapan": {
+          "f1": 0.7708,
+          "support": 39
+        },
+        "keaslian": {
+          "f1": 0.915,
+          "support": 74
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.8595,
+          "support": 106
+        }
+      },
+      "_label": "silver_test_unseen"
+    }
+  }
+}
