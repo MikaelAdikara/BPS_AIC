@@ -50,7 +50,7 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | 1 | Data & baseline — unduh, harmonisasi, split, baseline TF-IDF | ✅ selesai | **GO** — split product-level terverifikasi bersih, baseline tercatat |
 | 2 | Model teks — fine-tuning IndoBERT | ✅ selesai | **GO** — macro F1 di atas baseline pada aspek & sentimen |
 | 3 | Model visual — zero-shot CLIP, threshold, kalibrasi | ⏸ menunggu data foto | **gate kritis** — go/no-go berbasis selective accuracy aktual |
-| 4 | Retrieval & action engine (RET-01, ACT-01) | ⬜ belum | Action Card lolos spot-check anti-generik |
+| 4 | Retrieval & action engine (RET-01, ACT-01) | 🔄 berjalan | skoring & benchmark selesai; retrieval menyusul |
 | 5 | Backend FastAPI — 6 endpoint, 10 tool contract | ⬜ belum | `/analyze` menghasilkan AnalysisResult valid |
 | 6 | Frontend React — 4 screen | ⬜ belum | alur unggah → hasil berjalan di browser |
 | 7 | Integrasi — termasuk jalur kegagalan & fallback | ⬜ belum | seluruh integration test hijau |

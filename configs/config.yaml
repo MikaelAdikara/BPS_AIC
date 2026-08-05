@@ -49,10 +49,16 @@ priority_score:
   w_benchmark_gap: 0.2
   # [REQUIRES VALIDATION] bobot di atas wajib diuji sensitivity +-50% (bagian 22.2, 34)
   # sebelum dianggap final.
-  urgency_thresholds: # skor 0-100 -> label urgensi; dikalibrasi ulang saat evaluasi
-    rendah: null
-    sedang: null
-    tinggi: null
+  # Skor 0-100 -> label urgensi. PROVISIONAL: nilai ini diturunkan dari distribusi skor pada
+  # dataset demo (scripts/demo_action_engine.py), bukan angka karangan, TETAPI belum divalidasi
+  # terhadap penilaian manusia. Dikalibrasi ulang pada Fase 8.
+  urgency_thresholds:
+    tinggi: 12.0
+    sedang: 5.0
+    # di bawah `sedang` -> rendah
+
+  # Skala normalisasi gap benchmark: gap 20 poin persentase dianggap maksimal.
+  benchmark_gap_scale: 0.20
 
 data_quality:
   # Di bawah ambang ini: banner peringatan, urgensi dibatasi maksimal "Sedang" (bagian 22.2).
