@@ -253,7 +253,12 @@ def main() -> int:
 
             running += loss.item()
             if step % 200 == 0:
-                print(f"  epoch {epoch} step {step}/{len(train_loader)} loss {running/step:.4f}")
+                # flush=True wajib: saat stdout diarahkan ke file, Python memakai block
+                # buffering sehingga progres training tidak terlihat sampai proses berakhir.
+                print(
+                    f"  epoch {epoch} step {step}/{len(train_loader)} loss {running/step:.4f}",
+                    flush=True,
+                )
 
         probs, sent_pred = predict(model, val_loader, device)
         threshold = tune_threshold(probs, y_val_aspect)
@@ -270,7 +275,8 @@ def main() -> int:
         })
         print(
             f"epoch {epoch}: val aspek {asp_metrics['macro_f1']} | "
-            f"val sentimen {sent_metrics['macro_f1']} | gabungan {score:.4f}"
+            f"val sentimen {sent_metrics['macro_f1']} | gabungan {score:.4f}",
+            flush=True,
         )
 
         if score > best["score"]:
