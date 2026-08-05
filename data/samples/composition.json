@@ -1,0 +1,23 @@
+{
+  "total_reviews": 120,
+  "informal_share": 0.308,
+  "rating_distribution": {
+    "1": 5,
+    "2": 4,
+    "3": 8,
+    "4": 20,
+    "5": 83
+  },
+  "aspect_mentions": {
+    "pengiriman": 53,
+    "kesesuaian_deskripsi": 47,
+    "kualitas_produk": 34,
+    "pelayanan_penjual": 32,
+    "ukuran_varian": 31,
+    "harga_value": 21,
+    "kemasan": 20,
+    "keaslian": 6,
+    "kemudahan_penggunaan": 5
+  },
+  "reviews_with_image": 0
+}

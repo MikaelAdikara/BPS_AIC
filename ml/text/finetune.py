@@ -60,29 +60,47 @@ def set_seed(seed: int = SEED) -> None:
 
 
 class ClauseDataset(Dataset):
-    def __init__(self, df: pd.DataFrame, tokenizer, max_len: int = 64):
+    """Menyimpan teks mentah; tokenisasi dilakukan per batch oleh `Collator`.
+
+    Klausa ulasan sangat pendek - median 5 token, p99 18 token. Mem-padding setiap
+    contoh ke panjang tetap membuat sebagian besar komputasi attention terbuang pada
+    token padding. Karena itu padding dilakukan DINAMIS per batch (sepanjang contoh
+    terpanjang di batch itu saja), bukan ke `max_len`.
+    """
+
+    def __init__(self, df: pd.DataFrame):
         self.texts = df["clause_text"].fillna("").astype(str).tolist()
         self.aspects = df[ASPECT_COLS].values.astype("float32")
         self.sentiments = df["sentiment"].map({s: i for i, s in enumerate(SENTIMENTS)}).values
-        self.tokenizer = tokenizer
-        self.max_len = max_len
 
     def __len__(self) -> int:
         return len(self.texts)
 
-    def __getitem__(self, idx: int) -> dict:
+    def __getitem__(self, idx: int) -> tuple[str, np.ndarray, int]:
+        return self.texts[idx], self.aspects[idx], int(self.sentiments[idx])
+
+
+class Collator:
+    """Tokenisasi + padding dinamis per batch."""
+
+    def __init__(self, tokenizer, max_len: int = 32):
+        self.tokenizer = tokenizer
+        self.max_len = max_len  # batas atas pengaman; 32 sudah menampung 99,9% klausa
+
+    def __call__(self, batch: list[tuple[str, np.ndarray, int]]) -> dict:
+        texts, aspects, sentiments = zip(*batch)
         enc = self.tokenizer(
-            self.texts[idx],
+            list(texts),
             truncation=True,
             max_length=self.max_len,
-            padding="max_length",
+            padding=True,  # pad ke contoh terpanjang di batch ini saja
             return_tensors="pt",
         )
         return {
-            "input_ids": enc["input_ids"].squeeze(0),
-            "attention_mask": enc["attention_mask"].squeeze(0),
-            "aspect_labels": torch.tensor(self.aspects[idx]),
-            "sentiment_label": torch.tensor(int(self.sentiments[idx])),
+            "input_ids": enc["input_ids"],
+            "attention_mask": enc["attention_mask"],
+            "aspect_labels": torch.tensor(np.array(aspects), dtype=torch.float32),
+            "sentiment_label": torch.tensor(sentiments, dtype=torch.long),
         }
 
 
@@ -183,7 +201,7 @@ def main() -> int:
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=2e-5)
-    parser.add_argument("--max-len", type=int, default=64)
+    parser.add_argument("--max-len", type=int, default=32)
     parser.add_argument("--limit-train", type=int, default=0, help="0 = pakai semua")
     args = parser.parse_args()
 
@@ -206,11 +224,12 @@ def main() -> int:
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model = DualHeadClassifier().to(device)
 
+    collate = Collator(tokenizer, args.max_len)
     train_loader = DataLoader(
-        ClauseDataset(train, tokenizer, args.max_len), batch_size=args.batch_size, shuffle=True
+        ClauseDataset(train), batch_size=args.batch_size, shuffle=True, collate_fn=collate
     )
-    val_loader = DataLoader(ClauseDataset(val, tokenizer, args.max_len), batch_size=64)
-    test_loader = DataLoader(ClauseDataset(test, tokenizer, args.max_len), batch_size=64)
+    val_loader = DataLoader(ClauseDataset(val), batch_size=128, collate_fn=collate)
+    test_loader = DataLoader(ClauseDataset(test), batch_size=128, collate_fn=collate)
 
     aspect_loss_fn = nn.BCEWithLogitsLoss(pos_weight=_pos_weight(train).to(device))
     sentiment_loss_fn = nn.CrossEntropyLoss(weight=_sentiment_weight(train).to(device))
@@ -349,9 +368,7 @@ def main() -> int:
         stress = stress[stress["clause_text"].str.len() >= 3].reset_index(drop=True)
         for col in ASPECT_COLS:
             stress[col] = 0
-        stress_loader = DataLoader(
-            ClauseDataset(stress, tokenizer, args.max_len), batch_size=64
-        )
+        stress_loader = DataLoader(ClauseDataset(stress), batch_size=128, collate_fn=collate)
         _, stress_pred = predict(model, stress_loader, device)
         y_stress = stress["sentiment"].map({s: i for i, s in enumerate(SENTIMENTS)}).values
         overall = eval_sentiment(stress_pred, y_stress)
