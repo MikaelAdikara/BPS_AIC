@@ -1,0 +1,50 @@
+{
+  "dataset": "challange.json",
+  "n": 4840,
+  "contamination_check": {
+    "label_vs_rating_derived_agreement": 0.9833,
+    "verdict": "TERKONTAMINASI - label pada dasarnya adalah pemetaan rating, bukan penilaian independen atas teks"
+  },
+  "usable_for_variant_selection": false,
+  "variants": {
+    "A_prior_penuh (Fase 1)": {
+      "macro_f1": 0.9327,
+      "per_class_f1": {
+        "negatif": 0.9721,
+        "netral": 0.8961,
+        "positif": 0.9301
+      },
+      "predicted_distribution": {
+        "positif": 2047,
+        "negatif": 1784,
+        "netral": 1009
+      }
+    },
+    "B_tanpa_sinyal_netral": {
+      "macro_f1": 0.719,
+      "per_class_f1": {
+        "negatif": 0.7864,
+        "netral": 0.6145,
+        "positif": 0.7559
+      },
+      "predicted_distribution": {
+        "netral": 2165,
+        "positif": 1473,
+        "negatif": 1202
+      }
+    },
+    "C_prior_hanya_terpolarisasi": {
+      "macro_f1": 0.9171,
+      "per_class_f1": {
+        "negatif": 0.9721,
+        "netral": 0.8704,
+        "positif": 0.9087
+      },
+      "predicted_distribution": {
+        "positif": 1933,
+        "negatif": 1784,
+        "netral": 1123
+      }
+    }
+  }
+}
