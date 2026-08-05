@@ -60,3 +60,6 @@ sessions/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Log training (dihasilkan ulang saat menjalankan script)
+ml/evaluation/*.log

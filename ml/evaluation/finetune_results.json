@@ -1,0 +1,214 @@
+{
+  "seed": 42,
+  "model": "indobenchmark/indobert-base-p1",
+  "architecture": "encoder bersama + dua head terpisah (aspek multi-label, sentimen 3 kelas)",
+  "hyperparameters": {
+    "epochs": 1,
+    "batch_size": 16,
+    "lr": 2e-05,
+    "max_len": 64,
+    "optimizer": "AdamW",
+    "scheduler": "OneCycleLR",
+    "train_clauses": 1500
+  },
+  "device": "cuda",
+  "train_seconds": 271.2,
+  "best_epoch": 1,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.6915,
+      "val_aspect_macro_f1": 0.4922,
+      "val_sentiment_macro_f1": 0.5231,
+      "val_combined": 0.5077,
+      "aspect_threshold": 0.7
+    }
+  ],
+  "label_warning": "Metrik silver_* mengukur kecocokan terhadap labeling function (ADR-015), BUKAN akurasi sebenarnya. Angka proposal menunggu gold test set berlabel manusia.",
+  "aspect": {
+    "silver_test": {
+      "threshold": 0.7,
+      "macro_f1": 0.4925,
+      "micro_f1": 0.6338,
+      "per_class": {
+        "kualitas_produk": {
+          "f1": 0.3611,
+          "support": 1704
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.8915,
+          "support": 1332
+        },
+        "harga_value": {
+          "f1": 0.5942,
+          "support": 355
+        },
+        "ukuran_varian": {
+          "f1": 0.4303,
+          "support": 312
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.0,
+          "support": 62
+        },
+        "kemasan": {
+          "f1": 0.6341,
+          "support": 470
+        },
+        "pengiriman": {
+          "f1": 0.6915,
+          "support": 1401
+        },
+        "pelayanan_penjual": {
+          "f1": 0.7104,
+          "support": 1047
+        },
+        "kelengkapan": {
+          "f1": 0.0,
+          "support": 46
+        },
+        "keaslian": {
+          "f1": 0.6136,
+          "support": 119
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.4907,
+          "support": 144
+        }
+      }
+    },
+    "silver_test_unseen": {
+      "threshold": 0.7,
+      "macro_f1": 0.4514,
+      "micro_f1": 0.5862,
+      "per_class": {
+        "kualitas_produk": {
+          "f1": 0.2378,
+          "support": 1279
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.8529,
+          "support": 1011
+        },
+        "harga_value": {
+          "f1": 0.6072,
+          "support": 313
+        },
+        "ukuran_varian": {
+          "f1": 0.4284,
+          "support": 308
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.0,
+          "support": 62
+        },
+        "kemasan": {
+          "f1": 0.5063,
+          "support": 351
+        },
+        "pengiriman": {
+          "f1": 0.6629,
+          "support": 1148
+        },
+        "pelayanan_penjual": {
+          "f1": 0.7214,
+          "support": 814
+        },
+        "kelengkapan": {
+          "f1": 0.0,
+          "support": 46
+        },
+        "keaslian": {
+          "f1": 0.5342,
+          "support": 104
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.4149,
+          "support": 130
+        }
+      }
+    }
+  },
+  "sentiment": {
+    "silver_test": {
+      "macro_f1": 0.5405,
+      "per_class_f1": {
+        "negatif": 0.6931,
+        "netral": 0.0073,
+        "positif": 0.9212
+      },
+      "support": {
+        "negatif": 1842,
+        "netral": 256,
+        "positif": 9094
+      }
+    },
+    "silver_test_unseen": {
+      "macro_f1": 0.5321,
+      "per_class_f1": {
+        "negatif": 0.6933,
+        "netral": 0.0084,
+        "positif": 0.8945
+      },
+      "support": {
+        "negatif": 1795,
+        "netral": 220,
+        "positif": 6604
+      }
+    },
+    "silver_test_by_origin::clause_polarity": {
+      "macro_f1": 0.6234,
+      "per_class_f1": {
+        "negatif": 0.8866,
+        "netral": 0.0,
+        "positif": 0.9837
+      },
+      "support": {
+        "negatif": 702,
+        "netral": 0,
+        "positif": 5473
+      }
+    },
+    "silver_test_by_origin::review_prior": {
+      "macro_f1": 0.4743,
+      "per_class_f1": {
+        "negatif": 0.5945,
+        "netral": 0.0074,
+        "positif": 0.8211
+      },
+      "support": {
+        "negatif": 1140,
+        "netral": 256,
+        "positif": 3621
+      }
+    },
+    "stress_challange": {
+      "macro_f1": 0.4962,
+      "per_class_f1": {
+        "negatif": 0.7986,
+        "netral": 0.0,
+        "positif": 0.6899
+      },
+      "support": {
+        "negatif": 1804,
+        "netral": 1223,
+        "positif": 1813
+      },
+      "note": "Label diturunkan dari rating (98,3%), bukan penilaian independen atas teks. Dipakai sebagai diagnostik per fenomena, bukan ground truth.",
+      "by_phenomenon_macro_f1": {
+        "ambiguous": 0.0,
+        "mixed_sentiment": 0.1856,
+        "negation": 0.2418,
+        "sarcasm": 0.2727,
+        "contextual": 0.3404,
+        "question_conditional": 0.3498,
+        "comparative": 0.3776,
+        "typos_informal": 0.5246,
+        "aspect_based": 0.5522,
+        "colloquial_slang": 0.5662,
+        "short_vague": 0.5882,
+        "emotional_exaggeration": 0.9088
+      }
+    }
+  }
+}
