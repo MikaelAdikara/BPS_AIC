@@ -12,6 +12,7 @@ dapat ditelusuri balik ke salah satu baris di sini beserta script yang menghasil
 | E01 | 2026-08-05 | 1 | Dataset build | `ml/text/build_dataset.py` | seed=42, split produk 70/15/15 | jumlah klausa, leakage | 39.986 ulasan → 96.300 klausa; train 69.800 / val 15.308 / test 11.192; leakage produk & review_id = 0 | Label SILVER dari labeling function (ADR-015) |
 | E02 | 2026-08-05 | 1 | Baseline sentimen | `ml/text/baseline.py` | TF-IDF char_wb 3–5, LogReg balanced, seed=42 | macro F1 | silver_test **0,563**; unseen **0,561**; stress challange **0,720** | netral F1 hanya 0,113 pada silver (support 256) — label silver netral bermasalah |
 | E03 | 2026-08-05 | 1 | Baseline aspek | `ml/text/baseline.py` | TF-IDF char_wb 3–5, OvR LogReg balanced, seed=42 | macro F1 multi-label | silver_test **0,938**; unseen **0,923** | **Angka ini sirkular** — mengukur kecocokan terhadap labeling function, bukan akurasi |
+| E04 | 2026-08-05 | 2 | Fine-tune IndoBERT | `ml/text/finetune.py` | 3 epoch, batch 32, lr 2e-5, max_len 32, seed=42, GTX 1650, 112,8 mnt | macro F1 | aspek silver **0,985**; sentimen silver **0,628**; stress **0,730** | Gate Fase 2 **GO**. Kenaikan pada label independen hanya +0,010 — lihat catatan di bawah |
 
 ## Catatan E02 — rincian stress test per fenomena
 
@@ -37,6 +38,36 @@ Pola ini konsisten dengan argumen dossier bagian 13.1: pendekatan berbasis kecoc
 menangani typo dan slang dengan baik (0,74–0,79) namun runtuh pada fenomena komposisional —
 negasi, sarkasme, dan sentimen campuran (0,11–0,20). Inilah tepatnya celah yang harus ditutup
 model kontekstual pada Fase 2, dan menjadi pembanding yang bermakna untuk bagian 34 baseline #3.
+
+## Catatan E04 — apa yang sebenarnya berubah
+
+Rata-rata stress naik tipis (+0,010), tetapi menyembunyikan dua arah yang berlawanan:
+
+| Fenomena | Baseline | Fine-tuned | Selisih |
+| --- | --- | --- | --- |
+| negation | 0,163 | 0,559 | **+0,397** |
+| mixed_sentiment | 0,113 | 0,311 | **+0,198** |
+| emotional_exaggeration | 0,825 | 0,987 | +0,162 |
+| typos_informal | 0,736 | 0,805 | +0,069 |
+| sarcasm | 0,198 | 0,179 | **−0,018** |
+| ambiguous | 0,236 | 0,199 | **−0,037** |
+| question_conditional | 0,459 | 0,358 | **−0,101** |
+
+Fine-tuning menutup celah **negasi** secara meyakinkan — fenomena yang memang diargumentasikan
+tidak tertangani pendekatan permukaan. Sarkasme **tidak membaik**, dan itu konsisten: labeling
+function berbasis leksikon secara desain melabeli kalimat sarkastik dengan salah, sehingga model
+mewarisi kesalahan itu.
+
+## Catatan E04 — stratifikasi menurut asal label
+
+| Asal label | Macro F1 |
+| --- | --- |
+| `clause_polarity` | **0,993** |
+| `review_prior` | **0,564** |
+
+Jurang 0,43 pada model dan distribusi yang sama, dibedakan hanya oleh asal label, adalah bukti
+bahwa aturan `review_prior` menghasilkan label yang tidak dapat dipelajari. Revisi aturan
+ditunda sampai gold test set tersedia sebagai penengah yang sah.
 
 ## Yang belum diukur
 
