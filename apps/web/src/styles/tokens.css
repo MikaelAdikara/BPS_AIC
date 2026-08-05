@@ -1,0 +1,208 @@
+/* InsightUlasan — design tokens
+ *
+ * Sumber kebenaran warna, tipografi, dan spasi. Dokumentasi naratifnya ada di
+ * docs/BRAND_GUIDELINES.md; kalau keduanya berbeda, FILE INI yang benar.
+ *
+ * Seluruh pasangan warna teks di bawah sudah diverifikasi >= 4.5:1 (WCAG AA).
+ * Jangan mengubah nilai warna tanpa menjalankan ulang pemeriksaan kontras.
+ */
+
+:root {
+  /* ---------- Permukaan & teks ---------- */
+  --paper: #f7f7f5;
+  --surface: #ffffff;
+  --surface-sunken: #efefec;
+  --ink: #1a1d26;
+  --ink-muted: #5a6070;
+  --rule: #dedfda;
+
+  /* ---------- Merek: nila (rujukan tarum, indigo tekstil Indonesia) ---------- */
+  --nila-700: #2b3a8f;
+  --nila-500: #4356c7;
+  --nila-100: #e6e9f8;
+
+  /* ---------- Semantik ----------
+   * Urgensi selalu PILL TERISI di dalam kartu.
+   * Error selalu KOTAK BERGARIS di luar alur konten.
+   * Dibedakan bentuk, bukan hanya rona.
+   */
+  --urgency-high: #b3261e;
+  --urgency-high-surface: #fbe9e7;
+  --urgency-medium: #9c5d00;
+  --urgency-medium-surface: #fdf0dc;
+  --urgency-low: #5a6070;
+  --urgency-low-surface: #efefec;
+
+  --positive: #1f6b4a;
+  --positive-surface: #e3f1ea;
+
+  /* Keyakinan rendah / abstain — ABU-ABU, TIDAK PERNAH MERAH.
+   * Abstain adalah keputusan jujur model, bukan kegagalan. Mewarnainya merah
+   * membuat pengguna mengira ada yang rusak lalu berhenti memercayai hasilnya. */
+  --abstain: #636774;
+  --abstain-surface: #f0f0ee;
+
+  --error: #b3261e;
+  --error-surface: #fbe9e7;
+
+  --focus: var(--nila-500);
+
+  /* ---------- Tipografi ----------
+   * Mono = fakta terhitung & kutipan verbatim. Sans = narasi manusia.
+   * Pemisahan ini menyampaikan janji inti produk tanpa satu kata pun penjelasan. */
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display-l: 1.875rem; /* 30px */
+  --text-display-m: 1.5rem;   /* 24px */
+  --text-title: 1.1875rem;    /* 19px */
+  --text-body: 1rem;          /* 16px — lantai untuk konten yang harus dibaca */
+  --text-body-s: 0.875rem;    /* 14px — metadata saja */
+  --text-label: 0.8125rem;    /* 13px — eyebrow/header saja, bukan kalimat */
+  --text-stat: 1rem;
+  --text-quote: 0.9375rem;    /* 15px */
+
+  --leading-display-l: 2.25rem;
+  --leading-display-m: 2rem;
+  --leading-title: 1.625rem;
+  --leading-body: 1.625rem;
+  --leading-quote: 1.625rem;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-label: 0.04em;
+  --tracking-display: -0.02em;
+
+  /* ---------- Spasi (basis 4px) ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-14: 3.5rem;
+  --space-18: 4.5rem;
+
+  /* ---------- Bentuk ---------- */
+  --radius-card: 10px;
+  --radius-input: 8px;
+  --radius-pill: 999px;
+  --border-evidence: 3px; /* garis kiri evidence strip */
+
+  /* Satu tingkat elevasi saja — kedalaman datang dari garis dan permukaan. */
+  --shadow-card: 0 1px 2px rgba(26, 29, 38, 0.06);
+
+  /* ---------- Tata letak ---------- */
+  --content-max: 35rem; /* 560px — panjang baris nyaman, kartu tetap objek tunggal */
+  --gutter: var(--space-4);
+  --tap-target-min: 44px;
+
+  /* ---------- Gerak ---------- */
+  --motion-state: 160ms;
+  --motion-panel: 200ms;
+  --motion-stage-gap: 120ms; /* jeda antar tahap checklist pemrosesan */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (min-width: 600px) {
+  :root {
+    --gutter: var(--space-6);
+  }
+}
+
+/* Mode gelap didukung lewat token, bukan prioritas Tier 1.
+ * Kontras seluruh pasangan di bawah juga sudah diverifikasi >= 4.5:1. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #14161c;
+    --surface: #1c1f27;
+    --surface-sunken: #23262f;
+    --ink: #ecedf0;
+    --ink-muted: #a2a7b5;
+    --rule: #2e323c;
+
+    --nila-700: #93a2f2;
+    --nila-500: #aab6f6;
+    --nila-100: #232841;
+
+    --urgency-high: #f4867d;
+    --urgency-high-surface: #331d1b;
+    --urgency-medium: #e0a44e;
+    --urgency-medium-surface: #2f2517;
+    --urgency-low: #a2a7b5;
+    --urgency-low-surface: #23262f;
+
+    --positive: #62c795;
+    --positive-surface: #16291f;
+
+    --abstain: #9aa0ae;
+    --abstain-surface: #21242c;
+
+    --error: #f4867d;
+    --error-surface: #331d1b;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ---------- Dasar ---------- */
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Angka hasil hitungan dan kutipan verbatim — selalu mono, selalu tabular.
+ * IBM Plex Mono ber-x-height lebih kecil dari Plus Jakarta Sans, jadi saat muncul
+ * di tengah kalimat sans ukurannya dinaikkan agar terlihat sepadan. */
+.stat,
+.quote {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat {
+  font-size: calc(var(--text-stat) + 1px);
+  font-weight: var(--weight-semibold);
+}
+
+.quote {
+  font-size: var(--text-quote);
+  line-height: var(--leading-quote);
+}
+
+/* Cincin fokus selalu terlihat. Jangan pernah `outline: none` tanpa pengganti. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-input);
+}
+
+button,
+[role="button"] {
+  min-height: var(--tap-target-min);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
