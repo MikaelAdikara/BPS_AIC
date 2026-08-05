@@ -25,9 +25,12 @@ sys.path.insert(0, str(REPO_ROOT / "apps" / "api"))
 from app.adapters.text_model import TextModelAdapter  # noqa: E402
 from app.schemas import Category, ProcessedReview  # noqa: E402
 from app.tools import (  # noqa: E402
+    build_action_card,
     calculate_aspect_statistics,
     calculate_priority_score,
     compare_category_baseline,
+    fuse_all,
+    has_concrete_numbers,
 )
 
 DEMO_PATH = REPO_ROOT / "data" / "samples" / "demo_reviews.csv"
@@ -116,6 +119,40 @@ def main() -> int:
     print(f"\n  tiga teratas stabil terhadap pergeseran bobot: {'YA' if stable else 'TIDAK'}")
     if not stable:
         print("  -> formula perlu ditinjau ulang sebelum dianggap final (bagian 22.2)")
+
+    # ---- Action Card versi template deterministic (jalur FALLBACK MODE) ----
+    print("\n\n=== ACTION CARD (narasi template deterministic, tanpa LLM) ===")
+    fused = fuse_all(predictions)
+    contradictions = [f for f in fused if f.contradiction_flag]
+    print(f"kontradiksi teks-visual terdeteksi: {len(contradictions)} "
+          f"(nol karena dataset demo belum punya foto)\n")
+
+    generic = 0
+    for rank, (aggregate, result) in enumerate(scored[:3], start=1):
+        card = build_action_card(
+            action_id=f"ACT-DEMO-{rank:03d}",
+            aggregate=aggregate,
+            priority=result,
+            total_reviews=len(reviews),
+            benchmark=benchmark_by_aspect.get(aggregate.aspect),
+        )
+        if not has_concrete_numbers(card):
+            generic += 1
+
+        print(f"┌─ #{rank}  [{card.urgency.value.upper()}]  skor {card.priority_score}")
+        print(f"│  {card.title}")
+        print(f"│  {card.one_line_summary}")
+        print(f"│")
+        print(f"│  Rekomendasi : {card.recommended_action}")
+        print(f"│  Hasil       : {card.expected_outcome}")
+        print(f"│  Usaha       : {card.estimated_effort}")
+        print(f"│  Pelaksana   : {card.suggested_owner}")
+        print(f"│  Bila salah  : {card.risk_if_recommendation_wrong}")
+        print(f"│  Kategori    : {card.action_category.value}")
+        print(f"└─ user_action: {card.user_action}  (selalu None - keputusan milik manusia)\n")
+
+    print(f"pemeriksaan anti-generik (bagian 22.3): "
+          f"{'LULUS - semua rekomendasi memuat angka' if not generic else f'{generic} kartu tanpa angka'}")
     return 0
 
 

@@ -50,7 +50,7 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | 1 | Data & baseline — unduh, harmonisasi, split, baseline TF-IDF | ✅ selesai | **GO** — split product-level terverifikasi bersih, baseline tercatat |
 | 2 | Model teks — fine-tuning IndoBERT | ✅ selesai | **GO** — macro F1 di atas baseline pada aspek & sentimen |
 | 3 | Model visual — zero-shot CLIP, threshold, kalibrasi | ⏸ menunggu data foto | **gate kritis** — go/no-go berbasis selective accuracy aktual |
-| 4 | Retrieval & action engine (RET-01, ACT-01) | 🔄 berjalan | skoring & benchmark selesai; retrieval menyusul |
+| 4 | Retrieval & action engine (RET-01, ACT-01) | 🔄 berjalan | ACT-01, fusion, benchmark selesai; RET-01 menyusul |
 | 5 | Backend FastAPI — 6 endpoint, 10 tool contract | ⬜ belum | `/analyze` menghasilkan AnalysisResult valid |
 | 6 | Frontend React — 4 screen | ⬜ belum | alur unggah → hasil berjalan di browser |
 | 7 | Integrasi — termasuk jalur kegagalan & fallback | ⬜ belum | seluruh integration test hijau |
@@ -493,6 +493,7 @@ docker/                docker-compose.yml                            [Fase 9]
 | Dokumen | Isi |
 | --- | --- |
 | [docs/SCOPE_FREEZE.md](docs/SCOPE_FREEZE.md) | Cakupan yang dikunci: taksonomi, kelas visual, fitur, formula prioritas, dan daftar keputusan yang sengaja ditunda |
+| [docs/BRAND_GUIDELINES.md](docs/BRAND_GUIDELINES.md) | Identitas visual, palet semantik, tipografi, anatomi komponen, nada bahasa |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Diagram arsitektur + 16 Architecture Decision Record |
 | [docs/MODEL_CARD.md](docs/MODEL_CARD.md) | Metrik terukur beserta batas penafsirannya, rencana evaluasi |
 | [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Sumber, lisensi, pemrosesan, sumber label, bias yang diketahui |
