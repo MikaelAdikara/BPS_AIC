@@ -75,4 +75,5 @@ ditunda sampai gold test set tersedia sebagai penengah yang sah.
   (`data/annotation/gold_annotation_task.csv`, 500 klausa) tetapi belum dilabeli. Sampai selesai,
   belum ada satu pun angka NLP-01 yang layak masuk proposal.
 - Presisi/recall labeling function terhadap gold — dihitung setelah anotasi selesai.
-- Fine-tuning IndoBERT (Fase 2).
+- Revisi aturan sentimen `review_prior` — bukti sudah ada (E04), penengahnya belum.
+- Model visual (Fase 3) — menunggu foto validasi.
