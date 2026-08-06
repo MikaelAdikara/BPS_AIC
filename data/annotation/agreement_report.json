@@ -1,0 +1,16 @@
+{
+  "total_klausa": 500,
+  "kesepakatan_aspek_persis": 0.564,
+  "kesepakatan_sentimen": 0.804,
+  "kesepakatan_keduanya": 0.476,
+  "perlu_adjudikasi": 262,
+  "sampel_kontrol_sepakat": 40,
+  "total_baris_ditinjau_manusia": 302,
+  "beda_pada": {
+    "-": 238,
+    "aspek": 164,
+    "aspek + sentimen": 54,
+    "sentimen": 44
+  },
+  "catatan": "Kesepakatan BUKAN ukuran kebenaran - keduanya bisa sama-sama salah. Angka ini hanya menunjukkan berapa banyak baris yang perlu diputuskan manusia."
+}

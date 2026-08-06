@@ -146,7 +146,35 @@ aspek agar presisi labeling function ikut terukur, bukan hanya recall-nya.
 
 Label silver sengaja **tidak** disertakan di berkas anotasi untuk menghindari anchoring bias.
 
-**Sampai berkas ini dilabeli, tidak ada satu pun angka NLP-01 yang layak masuk proposal.**
+**Status: pra-anotasi selesai, adjudikasi manusia belum.**
+
+Alur yang dipakai (ADR-017): labeling function → pra-anotasi LLM → adjudikasi manusia.
+LLM membaca seluruh 500 klausa secara semantik, lalu hasilnya dibandingkan terhadap label silver.
+
+| Ukuran | Hasil |
+| --- | --- |
+| Kesepakatan aspek (persis) | 56,4% |
+| Kesepakatan sentimen | 80,4% |
+| Sepakat pada keduanya | 47,6% |
+| **Perlu adjudikasi manusia** | **302 baris** (262 berbeda + 40 kontrol acak) |
+
+Perselisihan itu sendiri sudah menyingkap tiga bug labeling function yang nyata:
+
+1. **"enak" memicu `rasa_kualitas_makanan`** pada konteks non-makanan — "enak dipakai",
+   "enak dimainin" ikut terlabeli rasa (22 kasus over-label).
+2. **Aturan cadangan "barang" memicu `kualitas_produk`** pada kalimat yang sebenarnya soal
+   pengiriman — "barang sudah di terima" terlabeli kualitas produk dan positif, padahal
+   `pengiriman` dan netral.
+3. **Variasi kata membuat leksikon meleset** — "lama banget sampenya" tidak terdeteksi karena
+   leksikon hanya memuat "sampai".
+
+Terukur terhadap pembacaan LLM (**bukan** gold): presisi labeling function ~79%, recall ~65%.
+
+**Angka kesepakatan bukan ukuran kebenaran** — keduanya bisa sama-sama keliru, dan keduanya
+berangkat dari definisi taksonomi yang sama sehingga tidak independen penuh. Ia hanya menunjukkan
+berapa banyak baris yang perlu diputuskan manusia.
+
+**Sampai adjudikasi selesai, tidak ada satu pun angka NLP-01 yang layak masuk proposal.**
 
 ## 6. Catatan asal-usul: tidak ada label aspek di dataset manapun
 

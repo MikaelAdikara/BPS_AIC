@@ -67,3 +67,15 @@ berbeda dari asumsi blueprint. Disetujui eksplisit sebelum dieksekusi.
 | Rationale | Melatih pada data dengan duplikasi 87% menyebabkan kebocoran duplikat lintas split dan mengajarkan distribusi buatan. Sebaliknya, penandaan fenomena pada `challange.json` persis memenuhi kebutuhan bagian 33.1: "performa slang/typo diuji terpisah pada subset ulasan sangat informal". |
 | Consequences & Risk | Volume data latih berkurang dari rencana awal, dikompensasi Tokopedia 2019 (40.607 ulasan nyata). Hasil pada stress test kemungkinan jauh lebih rendah dari test set utama — itu memang tujuannya, dan dilaporkan terpisah. |
 | Revisit condition | Tidak direncanakan berubah. |
+
+### ADR-017 — Gold test set lewat pra-anotasi LLM + adjudikasi manusia
+
+| Aspek | Keterangan |
+| --- | --- |
+| Context | ADR-015 mensyaratkan gold test set berlabel manusia sebagai satu-satunya penengah yang sah. Melabeli 500 klausa dari nol memakan ~3–4 jam waktu tim, dan itu menjadi penghambat tunggal bagi seluruh angka NLP-01. |
+| Decision | Tiga tahap: (1) labeling function menghasilkan label silver, (2) LLM membaca tiap klausa secara semantik dan menghasilkan pra-anotasi independen, (3) manusia mengadjudikasi **hanya baris yang kedua sumbernya berbeda**, ditambah sampel acak baris yang disepakati sebagai kontrol. Hasil akhir disebut **human-adjudicated**, bukan anotasi manusia dari nol. |
+| Alternatives | Manusia melabeli seluruh 500 dari nol (asal-usul terkuat, tetapi 3–4 jam dan menghambat semuanya); LLM melabeli sendiri tanpa adjudikasi (tidak sah dipakai mengevaluasi model yang labeling function-nya ditulis oleh pihak yang sama). |
+| Rationale | Beban manusia turun dari 500 ke 302 baris, sementara keputusan akhir tetap di tangan manusia. Sampel kontrol menjaga terhadap kekeliruan yang kebetulan disepakati kedua sumber otomatis — justru jenis kesalahan yang paling berbahaya karena tidak meninggalkan jejak. |
+| Consequences & Risk | Pra-anotasi LLM **tidak independen sepenuhnya** dari labeling function: keduanya berangkat dari definisi taksonomi yang sama. Karena itu kesepakatan antara keduanya TIDAK boleh dilaporkan sebagai ukuran akurasi, dan hanya baris hasil adjudikasi yang boleh menjadi dasar angka proposal. Provenance wajib ditulis eksplisit di MODEL_CARD dan proposal. |
+| Hasil awal | Kesepakatan aspek 56,4%, sentimen 80,4%. Perselisihan menyingkap tiga bug labeling function yang nyata: kata "enak" memicu aspek rasa pada konteks non-makanan, aturan cadangan "barang" memicu kualitas produk pada kalimat pengiriman, dan variasi kata ("sampenya" vs "sampai") membuat leksikon meleset. |
+| Revisit condition | Bila hasil adjudikasi menunjukkan pra-anotasi LLM menyimpang sistematis pada aspek tertentu, aspek itu dilabeli manusia penuh pada iterasi berikutnya. |
