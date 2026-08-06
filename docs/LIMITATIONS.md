@@ -48,6 +48,30 @@ selalu `tidak_cukup_data`. Tren hanya dapat dihitung bila data pengguna menyerta
 Sistem melaporkan `tidak_cukup_data` alih-alih menebak "stabil" — menebak akan menyiratkan
 sistem sudah memeriksa dan tidak menemukan perubahan.
 
+### Bahasa daerah dan Inggris ditangani buruk — terukur (Fase 2)
+
+Blueprint bagian 42.1 mengandaikan sistem tahan terhadap "campuran bahasa daerah". Diuji pada
+NusaX-senti (expert-generated), klaim itu **tidak bertahan**:
+
+| Bahasa | Leksikon | TF-IDF | IndoBERT |
+| --- | --- | --- | --- |
+| Indonesia | 0,686 | 0,396 | 0,519 |
+| Inggris | 0,298 | 0,336 | 0,411 |
+| Jawa | 0,477 | 0,435 | 0,434 |
+| Sunda | 0,355 | 0,296 | 0,351 |
+| Minang | 0,434 | 0,355 | 0,382 |
+
+Tidak satu pun pendekatan menangani bahasa daerah dengan baik. Ulasan berbahasa Inggris juga
+lemah, padahal **11,2% klausa pada data kami memuat kata Inggris** dan 6,5% didominasi Inggris —
+"recommended seller", "packing bagus", "order 2 pcs barang working semua".
+
+Satu bug konkret yang sudah teridentifikasi: penanda negasi hanya memuat bentuk Indonesia
+(tidak/bukan/belum/jangan/tanpa/kurang), sehingga **"kualitas not oke" terbaca positif**.
+
+Konsekuensi untuk klaim: sistem boleh disebut menangani **Bahasa Indonesia informal termasuk
+slang dan typo** — itu terukur. Sistem **tidak boleh** disebut menangani bahasa daerah, dan
+dukungan bahasa Inggris harus disebut terbatas.
+
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._

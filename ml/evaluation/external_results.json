@@ -1,0 +1,183 @@
+{
+  "catatan": "Seluruh label di sini dibuat MANUSIA dan independen dari labeling function kita. NusaX berdomain media sosial sehingga mengukur generalisasi lintas domain, bukan performa in-domain. PRDECT-ID berlabel biner (tanpa kelas netral).",
+  "sumber": {
+    "nusax": "indonlp/NusaX-senti, expert-generated, CC-BY-SA-4.0",
+    "prdect": "ZakyF/PRDECT-ID kolom Sentiment, CC-BY-4.0, hanya split test"
+  },
+  "hasil": {
+    "nusax_ind (Indonesia)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.6858,
+        "per_class": {
+          "negatif": 0.6393,
+          "netral": 0.6093,
+          "positif": 0.8087
+        },
+        "n": 400
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.3955,
+        "per_class": {
+          "negatif": 0.6072,
+          "netral": 0.0885,
+          "positif": 0.4907
+        },
+        "n": 400
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.5188,
+        "per_class": {
+          "negatif": 0.7462,
+          "netral": 0.0206,
+          "positif": 0.7896
+        },
+        "n": 400
+      }
+    },
+    "nusax_eng (Inggris)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.2982,
+        "per_class": {
+          "negatif": 0.0129,
+          "netral": 0.4292,
+          "positif": 0.4525
+        },
+        "n": 400
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.3361,
+        "per_class": {
+          "negatif": 0.2857,
+          "netral": 0.1138,
+          "positif": 0.6087
+        },
+        "n": 400
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.4113,
+        "per_class": {
+          "negatif": 0.4948,
+          "netral": 0.1261,
+          "positif": 0.6131
+        },
+        "n": 400
+      }
+    },
+    "nusax_jav (Jawa)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.4769,
+        "per_class": {
+          "negatif": 0.2054,
+          "netral": 0.5146,
+          "positif": 0.7106
+        },
+        "n": 400
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.4352,
+        "per_class": {
+          "negatif": 0.5729,
+          "netral": 0.1034,
+          "positif": 0.6294
+        },
+        "n": 400
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.4337,
+        "per_class": {
+          "negatif": 0.6103,
+          "netral": 0.02,
+          "positif": 0.671
+        },
+        "n": 400
+      }
+    },
+    "nusax_sun (Sunda)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.3554,
+        "per_class": {
+          "negatif": 0.2759,
+          "netral": 0.4412,
+          "positif": 0.3492
+        },
+        "n": 400
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.2961,
+        "per_class": {
+          "negatif": 0.5533,
+          "netral": 0.125,
+          "positif": 0.21
+        },
+        "n": 400
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.3513,
+        "per_class": {
+          "negatif": 0.5143,
+          "netral": 0.0,
+          "positif": 0.5397
+        },
+        "n": 400
+      }
+    },
+    "nusax_min (Minang)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.4341,
+        "per_class": {
+          "negatif": 0.2814,
+          "netral": 0.4787,
+          "positif": 0.5422
+        },
+        "n": 400
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.3552,
+        "per_class": {
+          "negatif": 0.5816,
+          "netral": 0.0935,
+          "positif": 0.3907
+        },
+        "n": 400
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.3816,
+        "per_class": {
+          "negatif": 0.5975,
+          "netral": 0.0202,
+          "positif": 0.527
+        },
+        "n": 400
+      }
+    },
+    "prdect_test (label manusia)": {
+      "lexicon_rule_based": {
+        "macro_f1": 0.543,
+        "per_class": {
+          "negatif": 0.7338,
+          "netral": 0.0,
+          "positif": 0.8952
+        },
+        "n": 804
+      },
+      "tfidf_logreg": {
+        "macro_f1": 0.612,
+        "per_class": {
+          "negatif": 0.9168,
+          "netral": 0.0,
+          "positif": 0.9193
+        },
+        "n": 804
+      },
+      "indobert_finetuned": {
+        "macro_f1": 0.6346,
+        "per_class": {
+          "negatif": 0.9518,
+          "netral": 0.0,
+          "positif": 0.9521
+        },
+        "n": 804
+      }
+    }
+  }
+}

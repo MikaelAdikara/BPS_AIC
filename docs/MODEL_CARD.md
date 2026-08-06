@@ -236,3 +236,68 @@ _Diisi setelah error analysis (bagian 26.1 langkah 15). Lihat juga [LIMITATIONS.
 
 ## 8. Reproducibility
 _Seed, hyperparameter, versi model, dan perintah reproduksi dicatat di sini setelah training._
+
+
+### 3.4 Evaluasi pada dataset berlabel MANUSIA yang sudah ada — tanpa anotasi tambahan
+
+Script: `ml/text/evaluate_external.py` · hasil: `ml/evaluation/external_results.json`.
+
+Menjawab pertanyaan "apakah cukup memakai data berlabel yang sudah ada?". Untuk **sentimen**:
+bisa, dan inilah hasilnya. Untuk **aspek**: tidak — penelusuran delapan variasi kueri di
+HuggingFace tidak menemukan dataset ABSA Bahasa Indonesia domain e-commerce berlisensi jelas
+(`carant-ai/compiled-absa-indonesian` gated tanpa lisensi; CASA = ulasan mobil, HoASA = hotel,
+skema aspeknya tidak sepadan). Validasi aspek tetap bergantung gold set kita.
+
+#### A. In-domain, label manusia — PRDECT-ID split test (n=804)
+
+Label `Sentiment` berlabel manusia dari makalah Data in Brief, **biner** (tanpa kelas netral),
+dievaluasi hanya pada split test sehingga produknya terpisah dari data latih.
+
+| Pendekatan | F1 negatif | F1 positif | macro (2 kelas) |
+| --- | --- | --- | --- |
+| Leksikon rule-based | 0,734 | 0,895 | 0,815 |
+| TF-IDF + Logistic Regression | 0,917 | 0,919 | 0,918 |
+| **IndoBERT fine-tuned** | **0,952** | **0,952** | **0,952** |
+
+Prediksi `netral` oleh model tetap dihitung salah pada kedua kelas, jadi angka ini sudah memuat
+hukuman itu.
+
+**Ini benchmark paling relevan yang kita punya**: domain yang sama dengan produk (ulasan
+e-commerce Indonesia), label dibuat manusia, dan sepenuhnya independen dari labeling function
+maupun pra-anotasi kita. Di sini fine-tuning terbukti memberi nilai tambah nyata — IndoBERT
+unggul 0,034 di atas TF-IDF dan 0,137 di atas leksikon.
+
+#### B. Lintas bahasa — NusaX-senti (expert-generated, CC-BY-SA-4.0, n=400 per bahasa)
+
+Domain media sosial, bukan e-commerce. Mengukur **generalisasi lintas domain**, bukan performa
+in-domain — dua hal yang tidak boleh ditukar penyebutannya.
+
+| Bahasa | Leksikon | TF-IDF | IndoBERT |
+| --- | --- | --- | --- |
+| Indonesia | **0,686** | 0,396 | 0,519 |
+| Inggris | 0,298 | 0,336 | **0,411** |
+| Jawa | **0,477** | 0,435 | 0,434 |
+| Sunda | **0,355** | 0,296 | 0,351 |
+| Minang | **0,434** | 0,355 | 0,382 |
+
+Tiga bacaan yang harus disampaikan apa adanya:
+
+1. **Di luar domain, leksikon justru menang.** Model terlatih menyerap gaya bahasa ulasan
+   e-commerce dan generalisasinya lebih buruk pada teks media sosial. Ini bukan kegagalan
+   produk — domain kita memang e-commerce — tetapi membatalkan klaim apa pun soal keunggulan
+   umum model kami di luar domainnya.
+2. **Kelas netral runtuh di semua model terlatih** (0,02–0,13 berbanding leksikon 0,43–0,61).
+   Akar masalah yang sama dengan §3.2 dan §3.3: aturan `review_prior`.
+3. **Bahasa daerah dan Inggris ditangani buruk** oleh semua pendekatan (0,30–0,48). Lihat
+   konsekuensinya di LIMITATIONS.
+
+#### C. Yang berubah dari kesimpulan sebelumnya
+
+Pada gold set §3.3 (label dari pra-anotasi LLM), IndoBERT tampak setara TF-IDF. Pada PRDECT
+berlabel manusia, IndoBERT unggul jelas. Selisih arah ini adalah **bukti bahwa gold set kami
+memang membawa keterbatasan independensi yang dicatat di ADR-017** — label gold berasal dari
+pembacaan yang sama dengan yang merancang leksikon, sehingga cenderung menguntungkan pendekatan
+bergaya leksikon.
+
+Karena itu **§3.4A adalah angka rujukan utama untuk sentimen**, dan gold set dipakai untuk aspek
+(yang memang tidak punya alternatif berlabel manusia).
