@@ -13,6 +13,7 @@ dapat ditelusuri balik ke salah satu baris di sini beserta script yang menghasil
 | E02 | 2026-08-05 | 1 | Baseline sentimen | `ml/text/baseline.py` | TF-IDF char_wb 3–5, LogReg balanced, seed=42 | macro F1 | silver_test **0,563**; unseen **0,561**; stress challange **0,720** | netral F1 hanya 0,113 pada silver (support 256) — label silver netral bermasalah |
 | E03 | 2026-08-05 | 1 | Baseline aspek | `ml/text/baseline.py` | TF-IDF char_wb 3–5, OvR LogReg balanced, seed=42 | macro F1 multi-label | silver_test **0,938**; unseen **0,923** | **Angka ini sirkular** — mengukur kecocokan terhadap labeling function, bukan akurasi |
 | E04 | 2026-08-05 | 2 | Fine-tune IndoBERT | `ml/text/finetune.py` | 3 epoch, batch 32, lr 2e-5, max_len 32, seed=42, GTX 1650, 112,8 mnt | macro F1 | aspek silver **0,985**; sentimen silver **0,628**; stress **0,730** | Gate Fase 2 **GO**. Kenaikan pada label independen hanya +0,010 — lihat catatan di bawah |
+| E05 | 2026-08-06 | 2 | Evaluasi GOLD | `ml/text/evaluate_gold.py` | gold 500 klausa (ADR-017) | macro F1 | leksikon aspek **0,734** sent **0,599** · TF-IDF **0,744**/**0,676** · IndoBERT **0,733**/**0,668** | **Gate Fase 2 DIREVISI** — pada aspek fine-tuning tidak menambah apa pun |
 
 ## Catatan E02 — rincian stress test per fenomena
 
@@ -38,8 +39,6 @@ Pola ini konsisten dengan argumen dossier bagian 13.1: pendekatan berbasis kecoc
 menangani typo dan slang dengan baik (0,74–0,79) namun runtuh pada fenomena komposisional —
 negasi, sarkasme, dan sentimen campuran (0,11–0,20). Inilah tepatnya celah yang harus ditutup
 model kontekstual pada Fase 2, dan menjadi pembanding yang bermakna untuk bagian 34 baseline #3.
-
-| E05 | 2026-08-06 | 2 | Evaluasi GOLD | `ml/text/evaluate_gold.py` | gold 500 klausa (ADR-017) | macro F1 | leksikon aspek **0,734** sent **0,599** · TF-IDF **0,744**/**0,676** · IndoBERT **0,733**/**0,668** | **Gate Fase 2 DIREVISI** — pada aspek fine-tuning tidak menambah apa pun |
 
 ## Catatan E05 — angka yang berlaku, dan pembalikan verdict
 
@@ -100,9 +99,5 @@ ditunda sampai gold test set tersedia sebagai penengah yang sah.
 
 ## Yang belum diukur
 
-- **Gold test set berlabel manusia** — berkas anotasi sudah disiapkan
-  (`data/annotation/gold_annotation_task.csv`, 500 klausa) tetapi belum dilabeli. Sampai selesai,
-  belum ada satu pun angka NLP-01 yang layak masuk proposal.
-- Presisi/recall labeling function terhadap gold — dihitung setelah anotasi selesai.
 - Retraining setelah leksikon diperbaiki dan aturan netral direvisi — bukti dan penengahnya kini lengkap (E05).
 - Model visual (Fase 3) — menunggu foto validasi.
