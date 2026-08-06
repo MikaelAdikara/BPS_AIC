@@ -15,7 +15,9 @@ from lexicon import (
     NEGATION_PATTERN,
     NEGATION_WINDOW,
     NEGATIVE_PATTERN,
+    NEGATIVE_PHRASE_PATTERN,
     POSITIVE_PATTERN,
+    POSITIVE_PHRASE_PATTERN,
     SLANG_MAP,
 )
 
@@ -60,13 +62,30 @@ def split_clauses(text: str, min_chars: int = 3) -> list[str]:
 def polarity_score(clause: str) -> tuple[int, int]:
     """Hitung (jumlah sinyal positif, jumlah sinyal negatif) dengan penanganan negasi.
 
-    Kata polaritas yang berada dalam NEGATION_WINDOW token sesudah penanda negasi
-    dibalik arahnya - "tidak bagus" dihitung sebagai sinyal negatif, bukan positif.
+    Dua lapis pencocokan, karena keduanya menangkap hal berbeda:
+
+    1. **Frasa multi-kata** dicocokkan pada seluruh klausa. Ini bukan penyempurnaan opsional -
+       tanpanya, istilah seperti "terima kasih", "worth it", dan "sesuai harapan" TIDAK PERNAH
+       cocok sama sekali, karena pencocokan per token tidak akan pernah melihat dua kata
+       sekaligus. Bug ini ditemukan saat menelaah klausa yang tidak punya sinyal polaritas pada
+       gold set: sebagian besar ternyata ucapan terima kasih yang seharusnya terdeteksi positif.
+    2. **Kata tunggal** dicocokkan per token, supaya negasi dapat dilacak posisinya. Kata
+       polaritas dalam NEGATION_WINDOW token sesudah penanda negasi dibalik arahnya -
+       "tidak bagus" dihitung negatif, bukan positif.
+
+    Frasa multi-kata sengaja TIDAK ikut aturan negasi: bentuk seperti "tidak terima kasih"
+    praktis tidak muncul pada ulasan, sehingga menambah kerumitan tanpa manfaat.
     """
-    tokens = _TOKEN.findall(clause)
-    negated_until = -1
     pos = neg = 0
 
+    for pattern, is_positive in ((POSITIVE_PHRASE_PATTERN, True), (NEGATIVE_PHRASE_PATTERN, False)):
+        if pattern is not None:
+            hits = len(pattern.findall(clause))
+            pos += hits if is_positive else 0
+            neg += 0 if is_positive else hits
+
+    tokens = _TOKEN.findall(clause)
+    negated_until = -1
     for idx, token in enumerate(tokens):
         if NEGATION_PATTERN.fullmatch(token):
             negated_until = idx + NEGATION_WINDOW

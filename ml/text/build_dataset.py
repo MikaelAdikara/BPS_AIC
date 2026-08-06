@@ -125,8 +125,18 @@ def _label_clause(clause: str, review_sentiment: str, rating: float) -> dict:
     elif neg > pos:
         sentiment, origin = "negatif", "clause_polarity"
     else:
-        # Tidak ada sinyal polaritas di klausa -> pakai label tingkat ulasan sebagai prior.
-        sentiment, origin = review_sentiment, "review_prior"
+        # Klausa tanpa sinyal polaritas dilabeli NETRAL, bukan mewarisi sentimen ulasan.
+        #
+        # Aturan lama (`review_prior`) terbukti merusak. Karena 84% ulasan berlabel positif,
+        # hampir seluruh klausa tanpa sinyal ikut jadi positif - termasuk pernyataan datar
+        # seperti "paket sudah diterima". Akibatnya kelas netral hanya 2,3% dari data latih,
+        # model belajar bahwa netral nyaris tidak pernah benar, lalu berhenti memprediksinya
+        # (F1 netral 0,02-0,28 di semua evaluasi Fase 2).
+        #
+        # Diukur pada gold: dengan aturan ini macro F1 leksikon 0,658, dibanding 0,497 bila
+        # memakai prior ulasan. Sentimen adalah properti klausa - klausa tanpa muatan
+        # penilaian memang netral, terlepas dari rating ulasannya.
+        sentiment, origin = "netral", "no_polarity_signal"
 
     # Severity deterministic dari rating (heuristik, didokumentasikan di DATASET_CARD).
     if sentiment != "negatif":

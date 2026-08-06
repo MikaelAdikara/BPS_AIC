@@ -57,6 +57,10 @@ ASPECT_TERMS: dict[str, list[str]] = {
         "rusak", "cacat", "sobek", "robek", "pecah", "patah", "penyok", "lecet", "retak",
         "bocor", "luntur", "berkarat", "awet", "tahan lama", "rapuh", "gampang rusak",
         "kualitasnya", "barangnya bagus", "barangnya jelek",
+        # Ditambahkan setelah error analysis pada gold: sifat fisik produk yang jelas.
+        "nyaman", "awet", "berfungsi", "fungsi", "kokoh", "empuk", "ringan", "tebal",
+        "tipis", "nerawang", "mulus", "kinclong", "lentur", "kuat", "mutunya",
+        "quality", "material", "sturdy", "durable", "broken", "damaged", "defective",
     ],
     "kesesuaian_deskripsi": [
         "sesuai", "kesesuaian", "deskripsi", "keterangan", "sesuai gambar", "sesuai foto",
@@ -73,9 +77,13 @@ ASPECT_TERMS: dict[str, list[str]] = {
         "model", "tipe", "salah warna", "salah ukuran", "porsi", "takaran", "dimensi",
         "gramasi", "isi bersih",
     ],
+    # "enak", "wangi", dan "aroma" SENGAJA TIDAK ADA di sini. Diukur pada gold, ketiganya
+    # memicu aspek rasa pada klausa non-makanan ("enak dipakai", "enak dimainin", "aroma tidak
+    # nyaman dari matrasnya") dan menjadi sumber over-label terbesar aspek ini.
     "rasa_kualitas_makanan": [
-        "rasa", "rasanya", "enak", "manis", "asin", "gurih", "hambar", "pahit", "asem",
-        "basi", "kadaluarsa", "kadaluwarsa", "expired", "renyah", "aroma", "wangi",
+        "rasa", "rasanya", "rasa nya", "manis", "asin", "gurih", "hambar", "pahit", "asem",
+        "basi", "kadaluarsa", "kadaluwarsa", "expired", "renyah", "sedap", "tawar",
+        "taste", "tasty", "delicious", "flavor",
     ],
     "kemasan": [
         "kemasan", "kemasannya", "packing", "packaging", "bungkus", "dus", "kardus", "box",
@@ -86,6 +94,15 @@ ASPECT_TERMS: dict[str, list[str]] = {
         "ekspedisi", "ongkir", "ongkos kirim", "resi", "paket", "telat", "terlambat",
         "jne", "j&t", "jnt", "sicepat", "anteraja", "gosend", "grab", "ninja", "pos",
         "estimasi", "proses kirim",
+        # Ditambahkan setelah error analysis pada gold: "barang sudah diterima" dan "lama
+        # banget sampenya" sebelumnya tidak terdeteksi sama sekali, lalu jatuh ke aturan
+        # cadangan dan salah terlabeli kualitas_produk.
+        "diterima", "sampe", "sampenya", "nyampe", "nyampai", "dtg", "dikirimkan",
+        "pengantaran", "delivery", "shipping", "shipped", "arrived", "courier",
+        # Awalan "di-" sering ditulis terpisah pada ulasan informal ("barang sudah di terima").
+        # Bentuk terpisah ini perlu didaftarkan sendiri karena pencocokan berbasis kata utuh
+        # tidak akan menyamakannya dengan bentuk gabungnya.
+        "di terima", "di kirim", "di kirimkan", "di antar",
     ],
     "pelayanan_penjual": [
         "seller", "penjual", "pelayanan", "pelayanannya", "respon", "responnya", "ramah",
@@ -102,11 +119,15 @@ ASPECT_TERMS: dict[str, list[str]] = {
         "asli", "ori", "original", "palsu", "kw", "tiruan", "abal", "abal-abal", "bajakan",
         "keaslian", "authentic", "replika",
     ],
+    # Bentuk telanjang "dipakai"/"digunakan"/"pemakaian" DIBUANG. Diukur pada gold, keduanya
+    # memicu aspek ini pada klausa yang sebenarnya soal kenyamanan produk ("nyaman dipakai")
+    # - kemudahan pemakaian butuh penanda kemudahan/kesulitan yang eksplisit.
     "kemudahan_penggunaan": [
-        "mudah dipakai", "gampang dipakai", "mudah digunakan", "susah dipakai", "ribet",
-        "praktis", "simpel", "rumit", "instalasi", "dipasang", "pemasangan", "cara pakai",
-        "mudah dipasang", "user friendly", "gampang digunakan", "penggunaan", "pemakaian",
-        "dioperasikan", "digunakan", "dipakai", "settingnya", "pengoperasian",
+        "mudah dipakai", "gampang dipakai", "mudah digunakan", "gampang digunakan",
+        "susah dipakai", "susah digunakan", "ribet", "praktis", "simpel", "rumit",
+        "instalasi", "dipasang", "pemasangan", "cara pakai", "mudah dipasang",
+        "user friendly", "settingan", "settingannya", "pengoperasian", "tutorial",
+        "easy to use", "easy", "simple", "complicated",
     ],
 }
 
@@ -128,19 +149,42 @@ POSITIVE_TERMS: list[str] = [
     "lengkap", "asli", "original", "mudah", "gampang", "praktis", "top", "sip", "cocok",
     "nyaman", "berkualitas", "terjangkau", "memuaskan", "sempurna", "istimewa", "bermanfaat",
     "terbaik", "terima kasih", "amanah", "terpercaya", "sesuai harapan", "sesuai ekspektasi",
+    # 11,2% klausa pada data kami memuat kata Inggris; tanpa istilah ini klausa seperti
+    # "working just great" atau "seller quick response" tidak punya sinyal polaritas sama sekali.
+    "great", "excellent", "perfect", "love", "best", "satisfied", "awesome", "amazing",
+    "works", "working", "comfortable", "genuine", "helpful", "quick", "smooth", "worth it",
+    # Ditambahkan setelah menelaah klausa tanpa sinyal pada gold - mayoritasnya ternyata
+    # ucapan terima kasih dan rekomendasi yang seharusnya terdeteksi.
+    "recommend", "recomended", "rekomen", "senang", "tks", "thx", "makasih", "mksh",
+    "trims", "joss", "josss", "mantul", "sukses", "berhasil", "lancar", "murmer",
+    "gacor", "worth", "salut", "respect", "recommended seller", "terima kasih banyak",
 ]
 
 NEGATIVE_TERMS: list[str] = [
+    # Istilah Inggris - lihat catatan pada POSITIVE_TERMS.
+    "bad", "poor", "slow", "expensive", "broken", "damaged", "disappointed", "terrible",
+    "awful", "defective", "wrong", "missing", "fake", "useless", "worse", "worst",
     "jelek", "buruk", "rusak", "cacat", "kecewa", "mengecewakan", "lambat", "lama", "telat",
     "terlambat", "mahal", "kemahalan", "palsu", "tiruan", "sobek", "robek", "pecah", "patah",
     "penyok", "lecet", "retak", "bau", "basi", "hilang", "susah", "ribet", "rumit", "salah",
     "komplain", "retur", "zonk", "parah", "nyesel", "menyesal", "bocor", "luntur", "gagal",
     "kotor", "murahan", "rapuh", "kadaluarsa", "expired", "kurang", "mengecewakan",
     "kekecilan", "kebesaran", "sempit", "hambar", "berkarat", "abal", "nipu", "tipu",
+    # Ditambahkan setelah menelaah klausa tanpa sinyal pada gold.
+    "copot", "lepas", "macet", "bolong", "mati", "rugi", "khawatir", "hadeuh", "hadeuhh",
+    "kapok", "nyesal", "protes", "lambat", "molor", "kusem", "kusam", "murahan",
+    "tidak bertanggung jawab", "tidak berfungsi", "tidak bisa dipakai", "kurang memuaskan",
 ]
 
 # Penanda negasi — membalik polaritas kata sesudahnya dalam jendela terbatas.
-NEGATION_MARKERS: list[str] = ["tidak", "bukan", "belum", "jangan", "tanpa", "kurang"]
+# Bentuk Inggris WAJIB ada: tanpa "not", klausa campuran seperti "kualitas not oke" terbaca
+# POSITIF karena hanya kata "oke" yang terdeteksi. Bug nyata, ditemukan saat mengukur porsi
+# bahasa Inggris pada data (11,2% klausa memuat kata Inggris).
+NEGATION_MARKERS: list[str] = [
+    "tidak", "bukan", "belum", "jangan", "tanpa", "kurang",
+    "not", "no", "never", "without", "isnt", "dont", "doesnt", "didnt",
+    "wasnt", "cant", "cannot", "nothing",
+]
 NEGATION_WINDOW = 3  # jumlah kata sesudah penanda yang terkena pembalikan
 
 # Konjungsi kontras — pemisah klausa. "bagus tapi lama" harus jadi dua klausa,
@@ -165,5 +209,19 @@ POSITIVE_PATTERN = _compile_terms(POSITIVE_TERMS)
 NEGATIVE_PATTERN = _compile_terms(NEGATIVE_TERMS)
 NEGATION_PATTERN = _compile_terms(NEGATION_MARKERS)
 FALLBACK_PATTERN = _compile_terms(FALLBACK_TERMS)
+
+
+def _compile_phrases(terms: list[str]) -> re.Pattern[str] | None:
+    """Pola khusus istilah MULTI-KATA, dicocokkan pada seluruh klausa.
+
+    Pencocokan per token tidak akan pernah melihat "terima kasih" sebagai satu kesatuan,
+    sehingga frasa semacam itu perlu jalur sendiri (lihat polarity_score).
+    """
+    phrases = [t for t in terms if " " in t]
+    return _compile_terms(phrases) if phrases else None
+
+
+POSITIVE_PHRASE_PATTERN = _compile_phrases(POSITIVE_TERMS)
+NEGATIVE_PHRASE_PATTERN = _compile_phrases(NEGATIVE_TERMS)
 
 ALL_ASPECTS: tuple[str, ...] = tuple(ASPECT_TERMS.keys())
