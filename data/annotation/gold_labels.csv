@@ -1,0 +1,501 @@
+clause_id,clause_text,category_produk,asp_kualitas_produk,asp_kesesuaian_deskripsi,asp_harga_value,asp_ukuran_varian,asp_rasa_kualitas_makanan,asp_kemasan,asp_pengiriman,asp_pelayanan_penjual,asp_kelengkapan,asp_keaslian,asp_kemudahan_penggunaan,sentimen,severity
+r038862_c1,karena ibu saya senang,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r018405_c4,kalau original pasti bakalan jadi langganan karena harga nya benar2 bersaing sama yang lain,fashion,0,0,1,0,0,0,0,0,0,1,0,negatif,sedang
+r000250_c0,mengecewakan sih,other,0,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r016641_c1,packing rapi,fashion,0,0,0,0,0,1,0,0,0,0,0,positif,
+r038843_c1,di deskripsi saya ada tulis hitam kenapa barang di kasih warna biru,other,0,1,0,1,0,0,0,0,0,0,0,negatif,tinggi
+r002519_c2,suara lumayan,electronics,1,0,0,0,0,0,0,0,0,0,0,netral,
+r013681_c2,144pcs hampir sebagian alas copot dari bodynya,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r000577_c0,sangat tidak cocok dengan yang tidak suka manis,food_beverage,0,0,0,0,1,0,0,0,0,0,0,netral,
+r025781_c2,murah,electronics,0,0,1,0,0,0,0,0,0,0,0,positif,
+r022786_c1,belum dibuka,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r029934_c0,mantap barang bagus,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r001637_c2,reply : saya sudah kirim bukti tambahan lwt wa,craft,0,0,0,0,0,0,0,1,0,0,0,netral,
+r035635_c2,recommend,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r035444_c0,standar sesuai harga,other,0,0,1,0,0,0,0,0,0,0,0,netral,
+r003230_c0,toko tidak bertanggung jawab,electronics,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r039791_c1,dan keren,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r027505_c0,barang sudah di terima,electronics,0,0,0,0,0,0,1,0,0,0,0,netral,
+r038971_c2,surabaya jakarta produk sesuai deskripsi,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r003348_c0,nyaman banget dipakai,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035652_c0,mkasihh sis,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r008411_c2,mdh&#34,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r002279_c1,bahkan libur barang dikirim sangat recommended,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r004849_c6,saya khawatir ini tidak ori,other,0,0,0,0,0,0,0,0,0,1,0,negatif,sedang
+r002823_c1,jahitannya rapi,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035949_c1,sesuai dengan harga,other,0,0,1,0,0,0,0,0,0,0,0,positif,
+r013408_c0,barang sesuai deskripsi,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r018411_c3,bisa bri tahu settingannya bro,fashion,0,0,0,0,0,0,0,0,0,0,1,netral,
+r022798_c2,dan cepat respon recommended seller,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r015620_c1,ukuran 42nya abis,fashion,0,0,0,1,0,0,0,0,0,0,0,netral,
+r000413_c0,sudah lama tidak makan,food_beverage,0,0,0,0,0,0,0,0,0,0,0,netral,
+r000094_c2,terus menghubungi cs nya,electronics,0,0,0,0,0,0,0,1,0,0,0,netral,
+r013412_c1,spekernya mati sebelah,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r025441_c0,cat5e lentur and working just great,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035895_c0,packing rapih dan barang sesuai,other,0,1,0,0,0,1,0,0,0,0,0,positif,
+r018394_c1,barang apalagi ada flash sale,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r022948_c3,rugi,electronics,0,0,1,0,0,0,0,0,0,0,0,negatif,sedang
+r014106_c1,pas banget dengan body miro,electronics,0,0,0,1,0,0,0,0,0,0,0,positif,
+r004154_c1,harga murah banget,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r006019_c0,barang sudah nyampe sesuai pesanan,craft,0,1,0,0,0,0,1,0,0,0,0,positif,
+r015621_c1,untuk harga segitu kualitas cukup memuaskan,fashion,1,0,1,0,0,0,0,0,0,0,0,positif,
+r028810_c0,tks,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r003752_c0,pesen yang besar sama yang kecil warna putih,other,0,0,0,1,0,0,0,0,0,0,0,netral,
+r039057_c1,terima kasih,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r016838_c1,pengiriman super cepat,fashion,0,0,0,0,0,0,1,0,0,0,0,positif,
+r009159_c1,warna sesuai pesanan saya,fashion,0,1,0,1,0,0,0,0,0,0,0,positif,
+r004159_c0,harga oke,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r022673_c0,produk oke,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r014122_c3,barangnya bagus bonusnya yahud,electronics,1,0,0,0,0,0,0,0,1,0,0,positif,
+r015659_c2,nya agak ke&#39,fashion,0,0,0,0,0,0,0,0,0,0,0,netral,
+r037836_c0,kualitas bagus dan recommended untuk membersihkan karet bet dari debu atau kotoran,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022591_c3,buat yang butuh joystick yang murah bisa pesan disini,electronics,0,0,1,0,0,0,0,0,0,0,0,positif,
+r004803_c12,sampai tgl 21,other,0,0,0,0,0,0,1,0,0,0,0,netral,
+r039245_c0,barang saya rasa cukup bagus,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035951_c1,setelah di keluarkan beberapa waktu (sehari) bau agak berkurang,other,1,0,0,0,0,0,0,0,0,0,0,negatif,rendah
+r004919_c0,barang sudah sampai,electronics,0,0,0,0,0,0,1,0,0,0,0,netral,
+r002775_c1,tidak sesuai,fashion,0,1,0,0,0,0,0,0,0,0,0,negatif,sedang
+r013133_c1,enak d pake ngegame,electronics,0,0,0,0,0,0,0,0,0,0,1,positif,
+r003754_c0,diterima dalam keadaan packing terbuka dan terlihat sudah pecah,other,1,0,0,0,0,1,0,0,0,0,0,negatif,tinggi
+r018239_c1,pengiriman cepat,fashion,0,0,0,0,0,0,1,0,0,0,0,positif,
+r036805_c0,memang harga menentukan kualitas,other,1,0,1,0,0,0,0,0,0,0,0,netral,
+r000094_c4,hadeuhh,electronics,0,0,0,0,0,0,0,0,0,0,0,negatif,rendah
+r014303_c2,terima kasih gan bonus nya,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r033304_c0,kualitas oke pemakaian pas recommended,fashion,1,0,0,0,0,0,0,0,0,0,1,positif,
+r038965_c0,jne yes,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r011904_c0,kwalitas sesuai dengan harga nya,electronics,1,0,1,0,0,0,0,0,0,0,0,positif,
+r022456_c0,barang sesuai gambar,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r022343_c0,terima kasih gan barang sudah saya terima dengan baik,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r006519_c0,barang sesuai deskripsi,craft,0,1,0,0,0,0,0,0,0,0,0,positif,
+r013897_c3,bagus seller,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r017177_c1,kebetulan pas,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r004228_c5,modelnya cantik,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r000308_c1,toko juga sudah terpercaya,other,0,0,0,0,0,0,0,1,0,0,0,positif,
+r028569_c0,barang tidak sesuai dengan yang original bawaannya,electronics,0,1,0,0,0,0,0,0,0,1,0,negatif,tinggi
+r018298_c0,ori fossil,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r015606_c2,nyaman dipakai,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r008397_c1,pesanan sudah sampai dan langsung dipakai,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r020873_c0,manrap bsk dapat bonus lagi yah,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r004144_c1,kualitas sesuai harga,fashion,1,0,1,0,0,0,0,0,0,0,0,positif,
+r035950_c0,barangnya bagus,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r003833_c0,cover buku tidak bagus,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r003529_c2,packaging rapi,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r020203_c0,buckle harga 200ribu,fashion,0,0,1,0,0,0,0,0,0,0,0,netral,
+r016433_c3,walau ane minta custom ketebelan ternyata,fashion,0,0,0,1,0,0,0,0,0,0,0,netral,
+r001304_c0,cepat resp seller pengiriman cepat packaging rapih aman barang lengkap sesuaii thankss a lott,other,0,1,0,0,0,1,1,1,1,0,0,positif,
+r035934_c1,belum dipakai,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r038893_c0,cukup sudah lumayan gan ukuran dan warna sesuai dengan foto,other,0,1,0,1,0,0,0,0,0,0,0,positif,
+r016395_c1,pengiriman tettunda sama saja pake jne mahal di ongkir pake gosend kalau tertunda sperti ini,fashion,0,0,1,0,0,0,1,0,0,0,0,negatif,sedang
+r000361_c3,thamos train set,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r022834_c0,sudah dipasang,electronics,0,0,0,0,0,0,0,0,0,0,1,netral,
+r004745_c0,barang original,electronics,0,0,0,0,0,0,0,0,0,1,0,positif,
+r032780_c1,ini toko mantap pnya is the best,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r039049_c0,terimakasih barang sudah sampai,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r016382_c1,recommended sangat,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r006954_c2,pemasangan juga gampang bisa sendiri,fashion,0,0,0,0,0,0,0,0,0,0,1,positif,
+r000414_c1,ini pemesanan untuk yang kesekian kalinya,food_beverage,0,0,0,0,0,0,0,0,0,0,0,positif,
+r001507_c0,kapok saya beli kembang api di toko ini bilang nya,craft,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r032616_c0,harga murah dan bisa di gunakan dan pasti jadi rutin beli,electronics,0,0,1,0,0,0,0,0,0,0,1,positif,
+r003019_c2,kualitas suara standar sebanding dengan harga,other,1,0,1,0,0,0,0,0,0,0,0,netral,
+r004918_c3,kecewa sih,electronics,0,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r014521_c0,pas ukuran kualitas unggulan,fashion,1,0,0,1,0,0,0,0,0,0,0,positif,
+r000951_c0,tidak mengkilap dan cepat hilang,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r008419_c4,sudah seminggu statusnya rumah kosong,electronics,0,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r022819_c0,semoga awet tidak mudah pecah,electronics,1,0,0,0,0,0,0,0,0,0,0,netral,
+r032701_c0,datang cepat dan sesuai dengan gambar langsung bisa dipakai,electronics,0,1,0,0,0,0,1,0,0,0,0,positif,
+r003680_c6,boro2 dikonsumsi,other,1,0,0,0,1,0,0,0,0,0,0,negatif,tinggi
+r022694_c2,kondisi mulus sesuai dengan deskripsi,electronics,1,1,0,0,0,0,0,0,0,0,0,positif,
+r003108_c2,dari saya sendiri tidak kirim kesana karena ribet dalam ongkir dan pengiriman nya,electronics,0,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r022813_c0,respon seller sangat baik dan cepat tentunya barang sesuai,electronics,0,1,0,0,0,0,0,1,0,0,0,positif,
+r025771_c2,thks gan,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r001696_c1,tercium aroma kecoa yang sgt menyengat,craft,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r000530_c3,enak tidak cape jadi makin sering masak biar hemat dan sehat dirumahmakasi yaa sudah mempermudah masak,food_beverage,0,0,0,0,0,0,0,0,0,0,1,positif,
+r028294_c0,terima kasih sempet ada problem,electronics,0,0,0,0,0,0,0,1,0,0,0,netral,
+r017412_c0,sepatunya super ringan,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r003328_c0,menggunakan bahan alami,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022516_c4,terima kasih,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r003802_c2,bukan buku original,other,0,0,0,0,0,0,0,0,0,1,0,negatif,tinggi
+r004621_c5,pas unboxing isi paket tetap kering,electronics,0,0,0,0,0,1,0,0,0,0,0,positif,
+r002835_c0,seller ramah,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r002926_c2,warnanya bagus,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r039217_c0,oke tks sesuai dengan gambar,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r025603_c0,respon cepat,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r022507_c1,di packing pakai kresek😂😂,electronics,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r002823_c5,nyaman dipakai,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022344_c3,hanya plastik hitam mudah robek,electronics,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r033126_c0,respon penjual sangat cepat dan barang sesuai pesanan,electronics,0,1,0,0,0,0,0,1,0,0,0,positif,
+r034440_c0,seller cepat respon barang sesuai harga,other,0,0,1,0,0,0,0,1,0,0,0,positif,
+r016709_c0,mantap sendalnnya kokoh,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r002791_c3,tolong sebelum kirim di cek dulu kualitas biar tidak gini,fashion,1,0,0,0,0,0,0,1,0,0,0,negatif,sedang
+r015257_c2,bagus dan enak pakai terima kasih,fashion,1,0,0,0,0,0,0,0,0,0,1,positif,
+r037016_c1,mudah dipakai,other,0,0,0,0,0,0,0,0,0,0,1,positif,
+r035442_c2,kualitas sesuai gambar,other,1,1,0,0,0,0,0,0,0,0,0,positif,
+r017891_c3,saya yang tinggi 165 berat 60 saja kegedean banget untuk ukuran m nya,fashion,0,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r005020_c1,cocok buat warm tone,other,0,0,0,1,0,0,0,0,0,0,0,positif,
+r000796_c3,produk original,other,0,0,0,0,0,0,0,0,0,1,0,positif,
+r022322_c1,semua tombolnya berfungsi dengan baik dan enak dimainin,electronics,1,0,0,0,0,0,0,0,0,0,1,positif,
+r016351_c0,barang manstap sesuai deskrifsi,fashion,1,1,0,0,0,0,0,0,0,0,0,positif,
+r006700_c0,barang bagus pake banget pengiriman mantap,craft,1,0,0,0,0,0,1,0,0,0,0,positif,
+r006706_c0,kualitas barang terbukti baik,craft,1,0,0,0,0,0,0,0,0,0,0,positif,
+r019739_c2,kualitas produk baik,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r017397_c5,dan dapat bonus banyak sekali,fashion,0,0,0,0,0,0,0,0,1,0,0,positif,
+r002905_c3,ini keren banget si harga terjangkau kualitas oke,fashion,1,0,1,0,0,0,0,0,0,0,0,positif,
+r013614_c0,baranh sudah sampai hanya packing kurang aman,electronics,0,0,0,0,0,1,1,0,0,0,0,negatif,sedang
+r035978_c1,pengiriman bagus dan sesuai harapan,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r002793_c5,warna pink�y tidak soft seperti gambar (maaf) pink�y seperti warna taplak meja hajatan,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang
+r007076_c2,cepat respon dapet bonus pula 👍👍,fashion,0,0,0,0,0,0,0,1,1,0,0,positif,
+r001717_c0,barang tidak lengkap,craft,0,0,0,0,0,0,0,0,1,0,0,negatif,tinggi
+r022406_c0,barang bagus,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035417_c2,respon cepat,other,0,0,0,0,0,0,0,1,0,0,0,positif,
+r018413_c0,produk ori lengkap dengan box,fashion,0,0,0,0,0,1,0,0,1,1,0,positif,
+r029947_c1,jadi yaudah lah,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r039036_c0,barang sudah diterima dengan baik,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r007072_c1,ukuran pas,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r028147_c5,deskripsi sesuai stock-,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r015348_c1,empuk semoga awet dan tahan lama,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r028279_c1,berfungsi dengan baik,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r005226_c2,pake dimobil,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r005008_c1,masih jauh tahan lama merk sebelah,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r020793_c1,terima kasih seller,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r022949_c0,kinclong lah pokokny mantap ea ea,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022621_c0,bagus lumayan dengan harga segini,electronics,1,0,1,0,0,0,0,0,0,0,0,positif,
+r004230_c3,warnanya cantik,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r037024_c0,kualitas bagus pemakaian hemat bisa untuk 2 pasang lebih,other,1,0,1,0,0,0,0,0,0,0,0,positif,
+r035884_c0,kwalitas mantap,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r004845_c0,paket datang kardus penyok & robek,other,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r004816_c4,trus bahannya juga nerawang alias tipis dan pengait bagian perutnya juga gmpang lepas,other,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r016909_c0,respon sellet cepat,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r002199_c1,barang sudah diterima dengan baik dan sudah di tes,other,1,0,0,0,0,0,1,0,0,0,0,positif,
+r036110_c0,terima kasih barang sudah diterima dengan baik,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r013707_c1,pengiriman cepat,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r015643_c1,sedikit kebesaran,fashion,0,0,0,1,0,0,0,0,0,0,0,negatif,rendah
+r008452_c0,bagus sesuai gambar,electronics,1,1,0,0,0,0,0,0,0,0,0,positif,
+r001120_c1,packing,other,0,0,0,0,0,1,0,0,0,0,0,netral,
+r016524_c1,harga terjangkau,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r036021_c3,tidak dapet warna pink,other,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang
+r004231_c3,bisa kepakek untuk di rumah saja warnanya cantik,fashion,0,0,0,1,0,0,0,0,0,0,1,positif,
+r004852_c0,kemasannya kurang baikk kotakya tidak rapih seperti bekas,other,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r002811_c2,thanks,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r003799_c3,mohon menggunakan bubble wrap supaya tidak terjadi kerusakan dalam pengiriman,other,0,0,0,0,0,1,1,0,0,0,0,negatif,sedang
+r005100_c1,rasanya enak,other,0,0,0,0,1,0,0,0,0,0,0,positif,
+r003045_c2,manual pake bahasa china sulit dipahami,other,0,0,0,0,0,0,0,0,1,0,1,negatif,sedang
+r002552_c0,dikirimnya lama,electronics,0,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r004707_c1,pengiriman baik,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r035443_c3,sesaknya luar biasa,other,0,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r019936_c2,dan juga ori,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r034223_c1,sesuai pesanan,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r002613_c0,bahanny tidak enak,fashion,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r022368_c0,rapih,electronics,0,0,0,0,0,1,0,0,0,0,0,positif,
+r003839_c1,sudah mahal beli buku import,other,0,0,1,0,0,0,0,0,0,0,0,negatif,sedang
+r003840_c1,penjual bingung sendiri apakah stok masih ready atau tidak,other,0,0,0,0,0,0,0,1,0,0,0,negatif,sedang
+r036072_c2,kemasan baik,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r003715_c5,kurir beratnggung jawab dan pesankan lagi warna hitam pakai toko online lain,other,0,0,0,0,0,0,1,1,0,0,0,netral,
+r022810_c0,ntaps,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r032844_c0,baguuss,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r015608_c1,original,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r015659_c1,nya sesuai gambar mungkin size&#39,fashion,0,1,0,1,0,0,0,0,0,0,0,positif,
+r002499_c4,dan ada bonus kartu perdana smartfren,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r035907_c1,ada aroma tidak nyaman dari matrasnya,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r003561_c1,benar benar ukuran super mini,other,0,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r002497_c2,seller: packaging oke,electronics,0,0,0,0,0,1,0,0,0,0,0,positif,
+r029929_c5,yang pasti prosedur penukaran hrs kita ikuti dong,electronics,0,0,0,0,0,0,0,1,0,0,0,netral,
+r003855_c6,dan tidak nyaman,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r005225_c1,maza sih dengan harga segitu produk yang di tawarkan bisa mantap,other,1,0,1,0,0,0,0,0,0,0,0,positif,
+r037628_c0,barang bagus lengkap sesuai pesanan,other,1,1,0,0,0,0,0,0,1,0,0,positif,
+r020067_c0,packing nya rapi,fashion,0,0,0,0,0,1,0,0,0,0,0,positif,
+r003715_c10,pakai bubble wrap murah kok,other,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r014771_c0,terima kasih kak barangnga sudah sampai :) bagus dan sesuai ukuran,fashion,1,0,0,1,0,0,1,0,0,0,0,positif,
+r014206_c2,recommended seller banget,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r011633_c2,murah meriah,electronics,0,0,1,0,0,0,0,0,0,0,0,positif,
+r036070_c0,sangat memuaskan,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r004226_c1,modelnya cantik,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r002193_c2,eh ada bonus nya juga ya,other,0,0,0,0,0,0,0,0,1,0,0,positif,
+r035428_c0,mmg buat ukuran anak2 buat buyer mmg sulit membayangkan 10inch,other,0,1,0,1,0,0,0,0,0,0,0,netral,
+r004816_c2,paa barang datang baru juga dipakai 2 jam masa bolong pas bagian miss v nya,other,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r003265_c13,smoga awet dan bener asli,electronics,1,0,0,0,0,0,0,0,0,1,0,netral,
+r004628_c1,kelengkapan sesuai,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r039576_c2,menyenangkan sekali,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r013141_c1,diatas ekspektasi deh,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r002507_c18,penjualnya ramah banget,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r004446_c2,gak smpet foto sya ksihkan sama nenek sya,fashion,0,0,0,0,0,0,0,0,0,0,0,netral,
+r022776_c1,sesuai produk terima kasih bos respon cepat nya,electronics,0,1,0,0,0,0,0,1,0,0,0,positif,
+r015515_c1,proses cepat,fashion,0,0,0,0,0,0,1,0,0,0,0,positif,
+r002309_c0,buku pasti ori,other,0,0,0,0,0,0,0,0,0,1,0,positif,
+r006960_c0,barang bagus sesuai harapan,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022309_c0,barang sudah sampai,electronics,0,0,0,0,0,0,1,0,0,0,0,netral,
+r000523_c2,rasanya mantap,food_beverage,0,0,0,0,1,0,0,0,0,0,0,positif,
+r022598_c0,puas sekali,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r022798_c0,jumlah barang sesuai,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r017479_c0,ah kereen banged sepatunya,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r017891_c1,barang original,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r022948_c0,barang yang di pesan tidak sesuai pesanan,electronics,0,1,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r004918_c14,disetting dulu lighting/white balancenya supaya akurat & netral warnanya antar produk,electronics,0,0,0,1,0,0,0,0,0,0,1,netral,
+r006956_c1,harga kompetitif,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r006957_c1,terima kasih,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r003941_c2,tp barang yang datang penyok,other,1,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r001413_c3,sebelumnya sudah chating katanya oke hufth,craft,0,0,0,0,0,0,0,1,0,0,0,negatif,sedang
+r014728_c2,tidak bisa kaki sakit,fashion,1,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r022389_c1,mantap,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r036668_c1,kemasan oke,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r003373_c13,packaging aman,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r022655_c1,cepat respon packing rapi dan sesuai pesanan,electronics,0,1,0,0,0,1,0,1,0,0,0,positif,
+r035944_c0,terima kasih sist,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r004925_c0,pengiriman cepat,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r022557_c0,mantap,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r000369_c0,proses cepat produk bagus finising mulus,other,1,0,0,0,0,0,1,0,0,0,0,positif,
+r037031_c0,lengket,other,1,0,0,0,0,0,0,0,0,0,0,negatif,rendah
+r039786_c1,sudah menulis warna ungu di catatan,other,0,0,0,1,0,0,0,0,0,0,0,netral,
+r003663_c2,ga tau ini promo gara2 emang abisin stok penyok atau toko cabangnya yang bermasalah,other,1,0,0,0,0,0,0,1,0,0,0,negatif,sedang
+r028065_c4,barang sesuai dengan gambar,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r038902_c2,hari ini langsung dipakai,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r039032_c1,packing rapi,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r034224_c0,barang tlh kmi terima dengan baik n cepat,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r004458_c5,gambar kanan adalah barang original sesuai display,fashion,0,1,0,0,0,0,0,0,0,1,0,positif,
+r004763_c2,suaranya jernih,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r003722_c6,kalau pengiriman dan packing tidak aman,other,0,0,0,0,0,1,1,0,0,0,0,negatif,sedang
+r003335_c0,barang ori,other,0,0,0,0,0,0,0,0,0,1,0,positif,
+r035900_c2,bagus,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r001277_c1,wanginya enak & bikin tangan jadi halus abis dipakai,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r028599_c3,nanti nunggu anaknya pulang hari sabtu,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r037909_c1,enak dipakaii,other,0,0,0,0,0,0,0,0,0,0,1,positif,
+r005807_c1,untuk mollar jangan pakai yang ini :),craft,0,0,0,0,0,0,0,0,0,0,1,negatif,sedang
+r033124_c0,barang ori,electronics,0,0,0,0,0,0,0,0,0,1,0,positif,
+r014883_c0,sedap gurih,fashion,0,0,0,0,1,0,0,0,0,0,0,positif,
+r022671_c3,sudah dicoba dan bagus,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r004366_c0,minta size 43 yang dikirim size 44,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,tinggi
+r025444_c3,saya rasa tidak ada masalah,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r022618_c0,bagus respon cepat,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r002371_c4,mantapp jiwa,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r016479_c2,kalau bisa buat sampai ukuran 50 gan,fashion,0,0,0,1,0,0,0,0,0,0,0,netral,
+r020790_c0,kabel berfungsi dengan baik,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022394_c1,sudah dipake enak barang nya alhamdulillah tidak ada kendala,electronics,1,0,0,0,0,0,0,0,0,0,1,positif,
+r020089_c0,jamnya sudah sampai,fashion,0,0,0,0,0,0,1,0,0,0,0,netral,
+r034139_c1,lama nya kirim barang nya,other,0,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r001623_c0,dikirim bor nya kurang satu,craft,0,0,0,0,0,0,0,0,1,0,0,negatif,tinggi
+r002864_c0,-respon cepat & segera diproses -pengiriman rapi & cepat -piyama sesuai & nyaman digunakan -adminnya ada inisiatif untuk mengirimkan warna piyama yang berbeda -,fashion,1,1,0,0,0,0,1,1,0,0,0,positif,
+r016476_c0,produk original buat an indonesia cintai lah produksi indonesia,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r028813_c0,bagus,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r022764_c1,recomm sudah top marktop,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r004621_c0,guercep pol,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r002507_c0,barang original,electronics,0,0,0,0,0,0,0,0,0,1,0,positif,
+r032780_c0,kayakx tidak perlu basa basi,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r018082_c1,semoga bisa dipakai dalam waktu lama,fashion,1,0,0,0,0,0,0,0,0,0,0,netral,
+r029942_c4,penjual respon sangat baik,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r036803_c4,apakah versi 2015 nya,other,0,1,0,0,0,0,0,0,0,0,0,netral,
+r016526_c2,seller quick response,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r017826_c1,sepatunya enak dipake,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r037150_c1,terima kasih,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r029024_c1,yg asli 2800 yang dikirim,electronics,0,1,0,0,0,0,0,0,0,1,0,negatif,sedang
+r036047_c0,terimakasih untuk ds nya yaa,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r002835_c2,tidak nyangka ternyata paketnya bagus banget dan kacamatanya memang sangat berguna buat orang yang sering pakai hp,fashion,1,0,0,0,0,1,0,0,0,0,0,positif,
+r020131_c0,jam original n packaging rapi,fashion,0,0,0,0,0,1,0,0,0,1,0,positif,
+r004847_c2,ini mau untuk kado,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r002371_c2,barang bagus dan ori,other,1,0,0,0,0,0,0,0,0,1,0,positif,
+r003561_c10,sejengkal,other,0,0,0,1,0,0,0,0,0,0,0,netral,
+r003465_c4,disetrika kayaknya lengket,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r013731_c1,cuman produk g sesuai pesanan warna,electronics,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang
+r034354_c0,packing bagus sehingga barang aman,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r014799_c2,produk dikirimkan dengan tutorial penggunaan yang sangat efektif membersihkan kotoran,fashion,0,0,0,0,0,0,0,0,1,0,1,positif,
+r022712_c3,langsung saya pake terimakasih banyak gan,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r035956_c0,terima kasih sudah diterima dgb baik,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r016519_c1,barang sudah nyampe,fashion,0,0,0,0,0,0,1,0,0,0,0,netral,
+r035639_c2,brang bagus (y) tidak mengecewakan,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r028599_c0,respon sangat cepat,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r016733_c0,barang sesuai dengan deskripsi dan nyaman dipakai,fashion,1,1,0,0,0,0,0,0,0,0,0,positif,
+r020871_c0,packing rapi,electronics,0,0,0,0,0,1,0,0,0,0,0,positif,
+r000557_c2,edit: rasanya juga asin banget,food_beverage,0,0,0,0,1,0,0,0,0,0,0,negatif,sedang
+r002511_c0,barang dan pengiriman sesuai,electronics,0,1,0,0,0,0,1,0,0,0,0,positif,
+r002837_c2,rekomendit banget deh pokok nya buat beli disini dan juga lengkap lagi,fashion,0,0,0,0,0,0,0,1,1,0,0,positif,
+r016167_c3,sesuai ekspektasi saya recommended seller,fashion,0,1,0,0,0,0,0,1,0,0,0,positif,
+r016008_c0,warna cokelatnya ternyata lebih terang daripada gambar,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,rendah
+r000413_c3,sambel ttp enak,food_beverage,0,0,0,0,1,0,0,0,0,0,0,positif,
+r005225_c5,gel nya sangat lembut,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r007079_c1,seller responsif,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r028438_c1,terkadang gambar burem terang om,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r035964_c1,bagus,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r022589_c0,l 2 di pencet rada kurang enak,electronics,1,0,0,0,0,0,0,0,0,0,1,negatif,rendah
+r000139_c0,kualitas suara oke banget apalagi dengan harga yang terjangkau barang pun dijamin ori karena sudah terdaftar di website razer langsung pokoknya bagus lah bassnya juga kerasa,electronics,1,0,1,0,0,0,0,0,0,1,0,positif,
+r003393_c2,panjang tongkat 100cm ada 2 sisi,electronics,0,0,0,1,0,0,0,0,0,0,0,netral,
+r015342_c2,biasanya pesan sepatu ukuran 36,fashion,0,0,0,1,0,0,0,0,0,0,0,netral,
+r029281_c2,cepat banget prosesnya,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r003754_c3,malah ribet dan jadi repot sendiri,other,0,0,0,0,0,0,0,0,0,0,1,negatif,sedang
+r000494_c0,emang rasanya kaya basi apa gimana,food_beverage,0,0,0,0,1,0,0,0,0,0,0,negatif,tinggi
+r014478_c0,produk sudah diterima dengan baik,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r028276_c0,mantap barang dkrim sesuai deskripsi,electronics,0,1,0,0,0,0,1,0,0,0,0,positif,
+r015936_c3,thanks bata,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r013406_c0,lumayan untuk harga yang semurah ini,electronics,0,0,1,0,0,0,0,0,0,0,0,positif,
+r030279_c0,bagus original,electronics,1,0,0,0,0,0,0,0,0,1,0,positif,
+r002405_c0,harga tidak mahal,other,0,0,1,0,0,0,0,0,0,0,0,positif,
+r014206_c1,barang sudah diterima komplit,electronics,0,0,0,0,0,0,1,0,1,0,0,positif,
+r039013_c1,pengiriman wuz,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r016194_c1,enteng,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r016760_c2,saya cukup senang dengan packaging nya,fashion,0,0,0,0,0,1,0,0,0,0,0,positif,
+r002655_c0,bahan nya tipis,fashion,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r019962_c0,sesuai pesanan respon penjual baik,fashion,0,1,0,0,0,0,0,1,0,0,0,positif,
+r022560_c0,barang sudah diterima dan berfungsi dengan baik,electronics,1,0,0,0,0,0,1,0,0,0,0,positif,
+r000298_c1,cat tidak rapih dan bahan kyk plastik murahan,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r022449_c0,barang sesuai dan pengiriman cepat tanpa basa basi,electronics,0,1,0,0,0,0,1,0,0,0,0,positif,
+r018333_c0,cantik bangeet jamnyaa💖,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r018369_c0,mantap kali,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r022382_c0,respon cepat,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r003921_c2,warna produk sesuai,other,0,1,0,1,0,0,0,0,0,0,0,positif,
+r022999_c0,produk sesuai spek,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r034115_c6,lengkap dengan plastik pembungkus nya,other,0,0,0,0,0,1,0,0,1,0,0,positif,
+r003213_c0,pokoknya jangan ada yang beli disini,electronics,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r019985_c2,sukaa,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r002369_c0,pengiriman cepat + aman banyak bubble wrap,other,0,0,0,0,0,1,1,0,0,0,0,positif,
+r011947_c0,terimakasih barang sesuai diskripsi,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r018241_c1,harga sangat kompetitif,fashion,0,0,1,0,0,0,0,0,0,0,0,positif,
+r004137_c4,bahannya memang random dan tidak bisa milih,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,rendah
+r022382_c1,30 menit sampai di tangan sendiri,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r028569_c3,untuk yang mau beli baterai k2450 harus di tanyakan dulu untuk ukuran yang original baterai bawannya kaalau memang ingin yang bawaannya,electronics,0,0,0,1,0,0,0,0,0,1,0,netral,
+r006530_c2,barang lengkap 4,craft,0,0,0,0,0,0,0,0,1,0,0,positif,
+r003941_c6,sy punya video unboxingnya,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r022628_c2,4 (k-one) karena beda merek dengan yang diminta diawal overall produk oke,electronics,1,1,0,0,0,0,0,0,0,0,0,netral,
+r037817_c1,uda direndam air panas pun tidak hilang baunya,other,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r015563_c2,thanks,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r004231_c1,ngasih gratisan harus sesuai ukuran juga,fashion,0,0,0,1,0,0,0,0,1,0,0,negatif,sedang
+r030072_c1,rekomanded seller,electronics,0,0,0,0,0,0,0,1,0,0,0,positif,
+r011418_c1,masih berasa suara bassnya walau sedikit,electronics,1,0,0,0,0,0,0,0,0,0,0,netral,
+r000844_c4,respon buruk parah,other,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r003752_c1,yang kecil warnanya kusem cenderung warna kuning kaya plastik murah,other,1,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r033303_c1,size pas untuk ukuran lokal,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r037850_c0,pengantaran bagus cuman bikin rubber bat tambah rusak kw,other,1,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r036108_c1,kirimnya cepat responnya cepat puaslah sama pelayanannya,other,0,0,0,0,0,0,1,1,0,0,0,positif,
+r011624_c0,kwalitas barang sesuai harga,electronics,1,0,1,0,0,0,0,0,0,0,0,positif,
+r002748_c0,tidak sesuai gambar depan terlalu pendek,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang
+r038878_c0,barang sesuai pesanan,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r004538_c1,bonus 2 pic,other,0,0,0,0,0,0,0,0,1,0,0,positif,
+r001639_c0,barang tidak bisa dipakai,craft,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r025442_c1,pengiriman cepat,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r022558_c0,mantap,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r004628_c0,kualitas bahan bagus,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035968_c0,sip,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r037828_c1,sangat puas dengan produk dan pelayanannya yang sangat cepat,other,1,0,0,0,0,0,0,1,0,0,0,positif,
+r026853_c0,lengkap sesuai pesanan,electronics,0,1,0,0,0,0,0,0,1,0,0,positif,
+r018387_c1,ori,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r028032_c0,oke packing cukup baik,electronics,0,0,0,0,0,1,0,0,0,0,0,positif,
+r002511_c2,alarm clock agak mengarah keatas,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,rendah
+r017970_c1,enak banget dipakai,fashion,0,0,0,0,0,0,0,0,0,0,1,positif,
+r003561_c13,dengan harg lumayan mahal,other,0,0,1,0,0,0,0,0,0,0,0,negatif,rendah
+r002507_c11,suaranya gurih,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r000576_c6,manis buatan banget,food_beverage,0,0,0,0,1,0,0,0,0,0,0,negatif,sedang
+r014870_c0,bagusbtas,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r013413_c1,semua barang oke punya,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r002243_c2,semoga tidak ada kendala saat pemakaian,other,0,0,0,0,0,0,0,0,0,0,1,netral,
+r000793_c1,packing safety bingitz,other,0,0,0,0,0,1,0,0,0,0,0,positif,
+r009152_c0,pengiriman cepat barang sesuai dengan harga,fashion,0,0,1,0,0,0,1,0,0,0,0,positif,
+r038909_c2,produknya sejauh ini bisa dipakai,other,1,0,0,0,0,0,0,0,0,0,1,netral,
+r004847_c1,alhasil dusnya babakbelur penyok & sobek sana sini,other,0,0,0,0,0,1,0,0,0,0,0,negatif,tinggi
+r014427_c0,produk oke packing rapih dan pengiriman cepat,electronics,1,0,0,0,0,1,1,0,0,0,0,positif,
+r013720_c2,jangan asal kirim pesanan kl barang tidak ada atau tidak sesuai pesanan,electronics,0,1,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r001413_c1,kalau ada mau pesen balo gold sama silvernya saja 10 pcs,craft,0,0,0,1,0,0,0,0,0,0,0,netral,
+r004812_c3,chat tidak pernah di bls,other,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r022582_c5,salam sukses *ralat : ternyata bisa,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r011631_c0,tingkatkan trus pelayanannya,electronics,0,0,0,0,0,0,0,1,0,0,0,netral,
+r002355_c0,mantap ori,other,0,0,0,0,0,0,0,0,0,1,0,positif,
+r015510_c0,mantap,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r023001_c4,bass nya mayan ada,electronics,1,0,0,0,0,0,0,0,0,0,0,netral,
+r037153_c1,terimamakasih,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r035945_c0,cepat respon barng bagus sesuai dengan foto yang ditampilkan,other,1,1,0,0,0,0,0,1,0,0,0,positif,
+r022478_c0,terima kasih sudah kirim cepat gan,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r004842_c7,penjual tidak meminta maaf atas kesalahan yang dilakukan,other,0,0,0,0,0,0,0,1,0,0,0,negatif,tinggi
+r018309_c0,barang ori 100%,fashion,0,0,0,0,0,0,0,0,0,1,0,positif,
+r014723_c0,suka,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r013731_c2,di box hitam isinya doreng,electronics,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang
+r003125_c0,barang cacad,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,tinggi
+r003881_c2,tetap saja dikirim,other,0,0,0,0,0,0,0,1,0,0,0,negatif,sedang
+r027502_c1,kok tidak bisa digunakan yaa,electronics,1,0,0,0,0,0,0,0,0,0,1,negatif,tinggi
+r019958_c1,bahkan menurut gua lebih bagus aslinya di banding gambarnya,fashion,1,1,0,0,0,0,0,0,0,0,0,positif,
+r000427_c0,di foto bonus foto besar,food_beverage,0,1,0,0,0,0,0,0,0,0,0,netral,
+r025796_c1,pengiriman cepat,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r003556_c1,packing tidak ada pengamanan,other,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r028599_c1,barang sesuai pesanan,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r014120_c0,responnya cepat banget pengiriman cepat banget barang oke bgt,electronics,1,0,0,0,0,0,1,1,0,0,0,positif,
+r013134_c3,main jadi lebih asik,electronics,0,0,0,0,0,0,0,0,0,0,1,positif,
+r020635_c0,respon cepat pengiriman juga cepat terima kasih gan,electronics,0,0,0,0,0,0,1,1,0,0,0,positif,
+r002984_c1,nyaman dipakai,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r005813_c0,barang dan isinya sesuai pesanan,craft,0,1,0,0,0,0,0,0,1,0,0,positif,
+r038896_c0,mungkin lebih baik lagi kalau disediakan ukuran,other,0,1,0,1,0,0,0,0,0,0,0,negatif,rendah
+r016902_c0,sesuai dengan gambar persis plus ini bagus banget sendalnya terlihat mahal,fashion,1,1,0,0,0,0,0,0,0,0,0,positif,
+r037848_c2,terima kasih,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r017833_c0,produk bagus,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r020679_c2,sudah dicoba smua berfungsi baik,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r034140_c0,barang sampai kurang dari 1 jam,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r003227_c0,fitur kurang memuaskan hanya sedikit seperti band yang sebelumnya belum layar sentuh full tidak sesuai dengan harga,electronics,1,1,1,0,0,0,0,0,0,0,0,negatif,sedang
+r022860_c0,oke gan manntap gan,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r023001_c2,suara nya mayan bagus untuk harga 100rban,electronics,1,0,1,0,0,0,0,0,0,0,0,positif,
+r036059_c1,pengiriman sangat cepat langsung dikirim pada hari pembayaran produk juga seperti di gambar bagus quality sya ksh 5 stars ^^,other,1,1,0,0,0,0,1,0,0,0,0,positif,
+r006934_c0,barang bagus sesuai deskripsi terima kasih,craft,1,1,0,0,0,0,0,0,0,0,0,positif,
+r000415_c1,isinya banyak,food_beverage,0,0,0,0,0,0,0,0,1,0,0,positif,
+r015726_c1,kondisi perfect,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r022682_c4,but oke lah,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r001990_c2,dikirim warna biru),other,0,0,0,1,0,0,0,0,0,0,0,netral,
+r015108_c1,ampe pegel ngetiknya,fashion,0,0,0,0,0,0,0,0,0,0,0,netral,
+r038911_c0,barang sudah sampai,other,0,0,0,0,0,0,1,0,0,0,0,netral,
+r036803_c0,tidak sesuai gambar,other,0,1,0,0,0,0,0,0,0,0,0,negatif,sedang
+r003344_c1,ada hooknya yang bisa ditarik jadi kalau celana kegedean,other,1,0,0,1,0,0,0,0,0,0,0,positif,
+r017397_c6,bahkan lebih banyak bonus nya dari pada apa yang saya beli,fashion,0,0,0,0,0,0,0,0,1,0,0,positif,
+r014111_c3,bonus atau gimana ya sis,electronics,0,0,0,0,0,0,0,0,1,0,0,netral,
+r022344_c0,barang sudah diterima,electronics,0,0,0,0,0,0,1,0,0,0,0,netral,
+r014783_c2,bagus dan enak dipakai,fashion,1,0,0,0,0,0,0,0,0,0,1,positif,
+r007070_c0,barang sesuai dengan harga mayan buat kerja,fashion,1,0,1,0,0,0,0,0,0,0,0,positif,
+r022633_c0,baguus gan barangnyaa cumaan agak macet di l2nya ajaa sisanyaa joos,electronics,1,0,0,0,0,0,0,0,0,0,0,negatif,rendah
+r005985_c1,barang asli,craft,0,0,0,0,0,0,0,0,0,1,0,positif,
+r039241_c0,barang bagus dan packing rapi,other,1,0,0,0,0,1,0,0,0,0,0,positif,
+r003345_c0,nyaman banget dipakai,other,1,0,0,0,0,0,0,0,0,0,0,positif,
+r015342_c4,yang ini sempit,fashion,0,0,0,1,0,0,0,0,0,0,0,negatif,sedang
+r025769_c1,responnya cepat tanpa banyak basa-basi langsung dikirim &amp,electronics,0,0,0,0,0,0,1,1,0,0,0,positif,
+r028306_c0,sesuai dengan deskripsi dan bisa dipakai,electronics,0,1,0,0,0,0,0,0,0,0,1,positif,
+r002010_c2,banyak kotoran ramatnya,other,1,0,0,0,0,0,0,0,0,0,0,negatif,sedang
+r016012_c1,kualitas oke banget empuk nyaman dipakai,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r038843_c2,apakah di deskripsi hilang atau tidak tercantum untuk warna yang di pilih,other,0,1,0,1,0,0,0,0,0,0,0,negatif,rendah
+r039590_c1,barang sesuai dengan deskripsi,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r002131_c1,aseli dan aman,other,0,0,0,0,0,0,0,0,0,1,0,positif,
+r036006_c1,sesuai dengan harga,other,0,0,1,0,0,0,0,0,0,0,0,positif,
+r014501_c0,mantap bro tidak salah dengan brodo selalu memuaskan,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r003557_c1,kardus saja jadi ada bagian laci yang pecah,other,1,0,0,0,0,1,0,0,0,0,0,negatif,tinggi
+r034119_c0,sipp lahh,other,0,0,0,0,0,0,0,0,0,0,0,positif,
+r032571_c0,pengiriman cepat,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r006695_c0,mantap,craft,0,0,0,0,0,0,0,0,0,0,0,positif,
+r016270_c0,yang saya pesan merah d kirim abu,fashion,0,1,0,1,0,0,0,0,0,0,0,negatif,tinggi
+r003561_c2,tidak ada bedanya dengan box,other,0,0,0,0,0,1,0,0,0,0,0,netral,
+r013703_c0,mantap barang sesuai deskripsi terima kasih,electronics,0,1,0,0,0,0,0,0,0,0,0,positif,
+r017171_c0,barang sesuai gambar,fashion,0,1,0,0,0,0,0,0,0,0,0,positif,
+r013607_c1,terima kasih gan,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r018078_c1,respon juga baik,fashion,0,0,0,0,0,0,0,1,0,0,0,positif,
+r020418_c1,kirain kayak toko sebelah qoo10 beli barang 1 bulan barang g nyampai malang dbilang barang hilang,fashion,0,0,0,0,0,0,1,0,0,0,0,positif,
+r013672_c0,barang bagus,electronics,1,0,0,0,0,0,0,0,0,0,0,positif,
+r035443_c2,ini dipakai untuk anak saya yang masih umur 8tahun,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r035458_c0,salah warna,other,0,1,0,1,0,0,0,0,0,0,0,negatif,tinggi
+r003683_c8,bungkus juga cm kardus saja tanpa dilapis apapun,other,0,0,0,0,0,1,0,0,0,0,0,negatif,sedang
+r018376_c4,sejauh ini mesin tidak ada masalah cuman strap kulitnya keliatan kulit palsu,fashion,1,0,0,0,0,0,0,0,0,1,0,negatif,sedang
+r000491_c0,lama banget sampenya,food_beverage,0,0,0,0,0,0,1,0,0,0,0,negatif,sedang
+r035953_c1,pengiriman tepat waktu,other,0,0,0,0,0,0,1,0,0,0,0,positif,
+r005225_c10,ini benar murni saya sebagai pembeli,other,0,0,0,0,0,0,0,0,0,0,0,netral,
+r002357_c0,cepat response pengiriman cepat packing aman dan rapi buku ori harga bersaing,other,0,0,1,0,0,1,1,1,0,1,0,positif,
+r022530_c1,cepat sampe juga,electronics,0,0,0,0,0,0,1,0,0,0,0,positif,
+r021677_c2,tidak bisa di gunakan,electronics,1,0,0,0,0,0,0,0,0,0,1,negatif,tinggi
+r004747_c1,kelengkapan sesuai,electronics,0,0,0,0,0,0,0,0,1,0,0,positif,
+r014890_c0,design nya lucu banget trus enak dipakai :),fashion,1,0,0,0,0,0,0,0,0,0,1,positif,
+r000567_c0,kue nya pas dateng dicoba asem,food_beverage,0,0,0,0,1,0,0,0,0,0,0,negatif,tinggi
+r015192_c3,produk nya pokoknya enak dan nyaman serta berkualitas,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r003385_c1,penjualnya ramah banget nyaman di punggung packaging aman,other,1,0,0,0,0,1,0,1,0,0,0,positif,
+r028888_c2,kenapa ya,electronics,0,0,0,0,0,0,0,0,0,0,0,netral,
+r002984_c3,warnanya cantik,fashion,0,0,0,1,0,0,0,0,0,0,0,positif,
+r014769_c0,suka banget 😍 nyaman dipake,fashion,1,0,0,0,0,0,0,0,0,0,0,positif,
+r000571_c0,tidak sesuai gambar disitu gulanya yang hijau kenapa dikirimnya yang kuning sih beda mereka harga rasanya juga beda lbh enak yang hijau kenapa begini tokped jadi pengguna baru malah nyesel,food_beverage,0,1,1,1,1,0,0,0,0,0,0,negatif,tinggi
+r039224_c0,barang sesuai diskripsi,other,0,1,0,0,0,0,0,0,0,0,0,positif,
+r004226_c3,istri suka banget,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r025791_c1,dan sesuai deskripsi seller cepat respon,electronics,0,1,0,0,0,0,0,1,0,0,0,positif,
+r029079_c2,trims,electronics,0,0,0,0,0,0,0,0,0,0,0,positif,
+r000524_c0,enak enak enak enak sekali,food_beverage,0,0,0,0,1,0,0,0,0,0,0,positif,
+r018369_c3,mantap lah,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r036107_c0,barang sudahsampai,other,0,0,0,0,0,0,1,0,0,0,0,netral,
+r022869_c1,packing rapi dan cepat sampai,electronics,0,0,0,0,0,1,1,0,0,0,0,positif,
+r022398_c0,mantap lah dengan harga segitu,electronics,0,0,1,0,0,0,0,0,0,0,0,positif,
+r001413_c0,sudah tanya sebelumnya sama penjualnya ada tidak balon warna gold dama silver,craft,0,0,0,1,0,0,0,1,0,0,0,netral,
+r006002_c1,barang asli krisbow,craft,0,0,0,0,0,0,0,0,0,1,0,positif,
+r020013_c1,cepat,fashion,0,0,0,0,0,0,1,0,0,0,0,positif,
+r017169_c1,siip,fashion,0,0,0,0,0,0,0,0,0,0,0,positif,
+r039054_c0,tidak jelas apa ukuran nya,other,0,1,0,1,0,0,0,0,0,0,0,negatif,sedang

@@ -1,0 +1,180 @@
+{
+  "gold_provenance": "Pembacaan semantik LLM atas 500 klausa, ditinjau dan disetujui tim (ADR-017). Untuk 302 baris yang leksikon dan LLM berbeda, tim memutuskan kolom LLM benar. BUKAN anotasi manusia independen dari nol - seluruh label berasal dari satu sumber pembacaan yang sama.",
+  "n_gold": 500,
+  "aspect_label_density": 1.166,
+  "sentiment_distribution": {
+    "positif": 322,
+    "negatif": 108,
+    "netral": 70
+  },
+  "models": {
+    "lexicon_rule_based": {
+      "aspect_macro_f1": 0.7338,
+      "aspect_micro_f1": 0.7156,
+      "aspect_per_class": {
+        "kualitas_produk": {
+          "f1": 0.4271,
+          "support": 139
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.7733,
+          "support": 76
+        },
+        "harga_value": {
+          "f1": 0.9136,
+          "support": 40
+        },
+        "ukuran_varian": {
+          "f1": 0.8172,
+          "support": 53
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.4889,
+          "support": 12
+        },
+        "kemasan": {
+          "f1": 0.907,
+          "support": 44
+        },
+        "pengiriman": {
+          "f1": 0.7176,
+          "support": 72
+        },
+        "pelayanan_penjual": {
+          "f1": 0.8119,
+          "support": 59
+        },
+        "kelengkapan": {
+          "f1": 0.8136,
+          "support": 28
+        },
+        "keaslian": {
+          "f1": 0.9688,
+          "support": 32
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.4333,
+          "support": 28
+        }
+      },
+      "sentiment_macro_f1": 0.5993,
+      "sentiment_per_class": {
+        "negatif": 0.5548,
+        "netral": 0.4332,
+        "positif": 0.8099
+      }
+    },
+    "tfidf_logreg": {
+      "aspect_macro_f1": 0.7441,
+      "aspect_micro_f1": 0.7259,
+      "aspect_per_class": {
+        "kualitas_produk": {
+          "f1": 0.4831,
+          "support": 139
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.7651,
+          "support": 76
+        },
+        "harga_value": {
+          "f1": 0.925,
+          "support": 40
+        },
+        "ukuran_varian": {
+          "f1": 0.8172,
+          "support": 53
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.4545,
+          "support": 12
+        },
+        "kemasan": {
+          "f1": 0.907,
+          "support": 44
+        },
+        "pengiriman": {
+          "f1": 0.7313,
+          "support": 72
+        },
+        "pelayanan_penjual": {
+          "f1": 0.8235,
+          "support": 59
+        },
+        "kelengkapan": {
+          "f1": 0.8197,
+          "support": 28
+        },
+        "keaslian": {
+          "f1": 0.9508,
+          "support": 32
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.5079,
+          "support": 28
+        }
+      },
+      "sentiment_macro_f1": 0.6755,
+      "sentiment_per_class": {
+        "negatif": 0.7328,
+        "netral": 0.4028,
+        "positif": 0.891
+      }
+    },
+    "indobert_finetuned": {
+      "aspect_macro_f1": 0.7328,
+      "aspect_micro_f1": 0.7156,
+      "aspect_per_class": {
+        "kualitas_produk": {
+          "f1": 0.4249,
+          "support": 139
+        },
+        "kesesuaian_deskripsi": {
+          "f1": 0.7733,
+          "support": 76
+        },
+        "harga_value": {
+          "f1": 0.9136,
+          "support": 40
+        },
+        "ukuran_varian": {
+          "f1": 0.8172,
+          "support": 53
+        },
+        "rasa_kualitas_makanan": {
+          "f1": 0.4545,
+          "support": 12
+        },
+        "kemasan": {
+          "f1": 0.907,
+          "support": 44
+        },
+        "pengiriman": {
+          "f1": 0.7176,
+          "support": 72
+        },
+        "pelayanan_penjual": {
+          "f1": 0.8235,
+          "support": 59
+        },
+        "kelengkapan": {
+          "f1": 0.8276,
+          "support": 28
+        },
+        "keaslian": {
+          "f1": 0.9688,
+          "support": 32
+        },
+        "kemudahan_penggunaan": {
+          "f1": 0.4333,
+          "support": 28
+        }
+      },
+      "sentiment_macro_f1": 0.6683,
+      "sentiment_per_class": {
+        "negatif": 0.8053,
+        "netral": 0.2824,
+        "positif": 0.9173
+      }
+    }
+  }
+}

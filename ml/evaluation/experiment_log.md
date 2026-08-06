@@ -39,6 +39,35 @@ menangani typo dan slang dengan baik (0,74–0,79) namun runtuh pada fenomena ko
 negasi, sarkasme, dan sentimen campuran (0,11–0,20). Inilah tepatnya celah yang harus ditutup
 model kontekstual pada Fase 2, dan menjadi pembanding yang bermakna untuk bagian 34 baseline #3.
 
+| E05 | 2026-08-06 | 2 | Evaluasi GOLD | `ml/text/evaluate_gold.py` | gold 500 klausa (ADR-017) | macro F1 | leksikon aspek **0,734** sent **0,599** · TF-IDF **0,744**/**0,676** · IndoBERT **0,733**/**0,668** | **Gate Fase 2 DIREVISI** — pada aspek fine-tuning tidak menambah apa pun |
+
+## Catatan E05 — angka yang berlaku, dan pembalikan verdict
+
+Diukur pada gold, kesimpulan Fase 2 yang semula GO tidak bertahan.
+
+**Aspek — tujuh dari sebelas kelas identik sampai tiga desimal antara leksikon dan IndoBERT**
+(kualitas_produk 0,427/0,425 · kesesuaian_deskripsi 0,773/0,773 · harga_value 0,914/0,914 ·
+ukuran_varian 0,817/0,817 · kemasan 0,907/0,907 · pengiriman 0,718/0,718 · keaslian 0,969/0,969).
+Model mereproduksi aturan leksikon, tidak memindahkan satu pun keputusan. Risiko sirkularitas
+ADR-015 terwujud hampir sepenuhnya.
+
+Selisih 0,011 antara TF-IDF dan IndoBERT ada dalam rentang derau untuk n=500 — tidak boleh
+dilaporkan sebagai satu mengalahkan yang lain.
+
+**Sentimen — fine-tuning benar-benar bekerja, kecuali netral:**
+
+| Kelas | Leksikon | TF-IDF | IndoBERT | n |
+| --- | --- | --- | --- | --- |
+| negatif | 0,555 | 0,733 | **0,805** | 108 |
+| positif | 0,810 | 0,891 | **0,917** | 322 |
+| netral | 0,433 | 0,403 | **0,282** | 70 |
+
+Unggul telak pada dua kelas terbesar, runtuh pada netral — dan kelas ketiga itu yang menyeret
+macro F1-nya ke bawah TF-IDF.
+
+Dua akar masalah ada di **label**, bukan di model: label aspek 100% keluaran leksikon sehingga
+model tidak mungkin melampauinya, dan aturan `review_prior` merusak kelas netral.
+
 ## Catatan E04 — apa yang sebenarnya berubah
 
 Rata-rata stress naik tipis (+0,010), tetapi menyembunyikan dua arah yang berlawanan:
@@ -75,5 +104,5 @@ ditunda sampai gold test set tersedia sebagai penengah yang sah.
   (`data/annotation/gold_annotation_task.csv`, 500 klausa) tetapi belum dilabeli. Sampai selesai,
   belum ada satu pun angka NLP-01 yang layak masuk proposal.
 - Presisi/recall labeling function terhadap gold — dihitung setelah anotasi selesai.
-- Revisi aturan sentimen `review_prior` — bukti sudah ada (E04), penengahnya belum.
+- Retraining setelah leksikon diperbaiki dan aturan netral direvisi — bukti dan penengahnya kini lengkap (E05).
 - Model visual (Fase 3) — menunggu foto validasi.

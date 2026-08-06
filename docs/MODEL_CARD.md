@@ -144,8 +144,81 @@ penengah yang sah, dan retraining sebelum itu berarti menebak dua kali.
 `rasa_kualitas_makanan` 0,984. Aspek bersupport kecil tetap paling rapuh — konsisten dengan
 keterbatasan cakupan kategori pada DATASET_CARD §5.
 
-### 3.3 Evaluasi pada gold test set berlabel manusia
-_Belum tersedia. Ini akan menjadi satu-satunya angka NLP-01 yang layak dikutip di proposal._
+### 3.3 Evaluasi pada gold test set — **angka yang berlaku**
+
+Script: `ml/text/evaluate_gold.py` · gold: `data/annotation/gold_labels.csv` (500 klausa) ·
+hasil mentah: `ml/evaluation/gold_results.json`.
+
+**Asal-usul label gold, dibaca apa adanya (ADR-017).** Label berasal dari pembacaan semantik LLM
+atas 500 klausa, ditinjau dan disetujui tim; pada 302 baris yang leksikon dan LLM berbeda, tim
+memutuskan kolom LLM yang benar. Ini **bukan** anotasi manusia independen dari nol — seluruh label
+berasal dari satu sumber pembacaan yang sama. Angka di bawah mengukur kesesuaian model terhadap
+pembacaan itu. Jauh lebih bermakna daripada metrik silver yang sirkular, tetapi tidak setara
+dengan gold beranotasi manusia independen, dan harus disebut demikian di proposal.
+
+| Pendekatan | Aspek macro F1 | Aspek micro F1 | Sentimen macro F1 |
+| --- | --- | --- | --- |
+| Leksikon rule-based | 0,734 | 0,716 | 0,599 |
+| TF-IDF + Logistic Regression | **0,744** | **0,726** | **0,676** |
+| IndoBERT fine-tuned | 0,733 | 0,716 | 0,668 |
+
+#### Temuan utama: pada ASPEK, fine-tuning tidak menambah apa pun
+
+Bandingkan F1 per kelas antara leksikon dan IndoBERT:
+
+| Aspek | Leksikon | IndoBERT | n |
+| --- | --- | --- | --- |
+| kualitas_produk | 0,427 | 0,425 | 139 |
+| kesesuaian_deskripsi | 0,773 | 0,773 | 76 |
+| harga_value | 0,914 | 0,914 | 40 |
+| ukuran_varian | 0,817 | 0,817 | 53 |
+| kemasan | 0,907 | 0,907 | 44 |
+| pengiriman | 0,718 | 0,718 | 72 |
+| keaslian | 0,969 | 0,969 | 32 |
+| kemudahan_penggunaan | 0,433 | 0,433 | 28 |
+
+Tujuh dari sebelas kelas **identik sampai tiga desimal**. Model tidak memindahkan satu pun
+keputusan; ia mereproduksi aturan leksikon. Inilah risiko sirkularitas ADR-015 yang terwujud
+hampir sepenuhnya — dan hanya terlihat setelah diukur pada label yang dibuat proses berbeda.
+
+Selisih 0,011 antara TF-IDF dan IndoBERT pada aspek berada dalam rentang derau untuk n=500 dan
+**tidak boleh** dilaporkan sebagai "TF-IDF mengalahkan IndoBERT". Yang layak dilaporkan: ketiga
+pendekatan setara pada aspek, dan tidak satu pun mengungguli aturan leksikon secara berarti.
+
+#### Pada SENTIMEN, fine-tuning benar-benar bekerja — kecuali kelas netral
+
+| Kelas | Leksikon | TF-IDF | IndoBERT | n |
+| --- | --- | --- | --- | --- |
+| negatif | 0,555 | 0,733 | **0,805** | 108 |
+| positif | 0,810 | 0,891 | **0,917** | 322 |
+| netral | 0,433 | 0,403 | **0,282** | 70 |
+
+IndoBERT unggul telak pada dua kelas terbesar — negatif naik 0,25 poin di atas leksikon. Tetapi
+kelas `netral` runtuh ke 0,282, dan itu menyeret macro F1-nya ke bawah TF-IDF. Rata-rata makro
+menyembunyikan kenyataan bahwa model ini sebenarnya jauh lebih baik pada dua pertiga kasus.
+
+Penyebabnya sudah diketahui dan tercatat sejak Fase 2: 44% label sentimen klausa mewarisi
+sentimen tingkat ulasan (`review_prior`) alih-alih berasal dari isi klausanya. Model belajar
+bahwa `netral` nyaris tidak pernah benar, lalu berhenti memprediksinya.
+
+#### Gate Fase 2 — **DIREVISI**
+
+Gate Fase 2 semula dinyatakan **GO** berdasarkan metrik silver. Diukur pada gold, verdict itu
+tidak bertahan:
+
+| Task | Verdict |
+| --- | --- |
+| Aspek | **TIDAK LULUS** — setara aturan leksikon, fine-tuning tidak memberi nilai tambah |
+| Sentimen | **LULUS sebagian** — jauh lebih baik pada negatif dan positif, gagal pada netral |
+
+Dua akar masalahnya sudah teridentifikasi tepat, dan keduanya ada di **label**, bukan di model:
+
+1. Label aspek 100% keluaran leksikon, sehingga model tidak mungkin melampaui leksikon.
+2. Aturan `review_prior` merusak kelas netral.
+
+Dua kelas terlemah — `kualitas_produk` 0,43 dan `kemudahan_penggunaan` 0,43 — persis dua tempat
+bug leksikon ditemukan saat adjudikasi (aturan cadangan "barang", dan kata "enak"/"dipakai" yang
+memicu aspek keliru).
 
 ## 4. Metrik evaluasi — model visual (bagian 33.2)
 _Accuracy pada kasus tidak abstain, macro F1, coverage, abstention rate, selective accuracy,
