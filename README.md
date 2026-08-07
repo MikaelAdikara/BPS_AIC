@@ -52,7 +52,7 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | 3 | Model visual — zero-shot CLIP, threshold, kalibrasi | ⏸ menunggu data foto | **gate kritis** — go/no-go berbasis selective accuracy aktual |
 | 4 | Retrieval & action engine (RET-01, ACT-01) | ✅ selesai | Action Card lolos spot-check anti-generik; RET-01 menolak menjawab saat bukti tak memadai |
 | 5 | Backend FastAPI — 6 endpoint, 10 tool contract | 🔄 berjalan | 6 endpoint jalan; orchestrator belum, sistem berjalan di FALLBACK MODE |
-| 6 | Frontend React — 4 screen | ⬜ belum | alur unggah → hasil berjalan di browser |
+| 6 | Frontend React — 4 screen | 🔄 berjalan | 4 layar terbangun; alur penuh terverifikasi lewat API, transisi layar belum diuji di browser |
 | 7 | Integrasi — termasuk jalur kegagalan & fallback | ⬜ belum | seluruh integration test hijau |
 | 8 | Evaluasi penuh + error analysis | ⬜ belum | metrik tercatat apa adanya |
 | 9 | Docker & reproducibility | ⬜ belum | **gate kritis** — fresh clone tanpa cache berhasil |

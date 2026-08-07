@@ -1,0 +1,303 @@
+/* Gaya komponen InsightUlasan. Seluruh nilai berasal dari tokens.css — jangan menulis
+ * warna, ukuran, atau spasi mentah di sini. Rujukan: docs/BRAND_GUIDELINES.md. */
+
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.shell {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--gutter) var(--space-18);
+}
+
+/* ---------- Tipografi ---------- */
+.display-l {
+  font-size: var(--text-display-l);
+  line-height: var(--leading-display-l);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  margin: 0 0 var(--space-2);
+}
+.display-m {
+  font-size: var(--text-display-m);
+  line-height: var(--leading-display-m);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
+  margin: 0 0 var(--space-3);
+}
+.title {
+  font-size: var(--text-title);
+  line-height: var(--leading-title);
+  font-weight: var(--weight-semibold);
+  margin: 0 0 var(--space-2);
+}
+.body-s {
+  font-size: var(--text-body-s);
+  color: var(--ink-muted);
+}
+.label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.lead {
+  color: var(--ink-muted);
+  margin: 0 0 var(--space-6);
+}
+
+/* ---------- Kartu ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- Pill urgensi ----------
+ * Warna TIDAK PERNAH menjadi satu-satunya penanda: teksnya selalu ikut. */
+.pill {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.pill--tinggi {
+  background: var(--urgency-high);
+  color: #fff;
+}
+.pill--sedang {
+  background: var(--urgency-medium);
+  color: #fff;
+}
+.pill--rendah {
+  background: var(--urgency-low-surface);
+  color: var(--urgency-low);
+}
+
+/* ---------- Evidence strip: elemen tanda tangan produk ---------- */
+.evidence {
+  background: var(--surface-sunken);
+  border-left: var(--border-evidence) solid var(--nila-700);
+  border-radius: 0 var(--radius-input) var(--radius-input) 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-2) 0;
+}
+.evidence__quote {
+  font-family: var(--font-mono);
+  font-size: var(--text-quote);
+  line-height: var(--leading-quote);
+  margin: 0;
+}
+.evidence__meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--ink-muted);
+  margin-top: var(--space-2);
+}
+
+/* Angka hasil hitungan selalu mono + tabular. */
+.stat {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-semibold);
+  font-size: calc(var(--text-stat) + 1px);
+}
+
+/* ---------- Tombol ---------- */
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+.btn {
+  min-height: var(--tap-target-min);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-input);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background var(--motion-state) var(--ease-out);
+}
+.btn--primary {
+  background: var(--nila-700);
+  color: #fff;
+}
+.btn--primary:hover {
+  background: var(--nila-500);
+}
+.btn--outline {
+  background: transparent;
+  border-color: var(--rule);
+  color: var(--ink);
+}
+.btn--text {
+  background: transparent;
+  color: var(--ink-muted);
+}
+.btn[aria-pressed="true"] {
+  background: var(--nila-100);
+  color: var(--nila-700);
+  border-color: var(--nila-700);
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.linkish {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--nila-700);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  min-height: auto;
+}
+
+/* ---------- Banner ---------- */
+.banner {
+  border-radius: var(--radius-input);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-body-s);
+}
+.banner--warn {
+  background: var(--urgency-medium-surface);
+  color: var(--urgency-medium);
+}
+.banner--muted {
+  background: var(--abstain-surface);
+  color: var(--abstain);
+}
+/* Error selalu KOTAK BERGARIS, bukan pill — dibedakan bentuk dari urgensi. */
+.banner--error {
+  background: var(--error-surface);
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+/* ---------- Input ---------- */
+.textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-input);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  resize: vertical;
+}
+
+/* ---------- Checklist pemrosesan: satu-satunya momen terorkestrasi ---------- */
+.stage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  color: var(--ink-muted);
+  animation: stage-in var(--motion-panel) var(--ease-out) both;
+}
+.stage--done {
+  color: var(--ink);
+}
+.stage__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--rule);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  flex: none;
+}
+.stage--done .stage__mark {
+  background: var(--nila-700);
+  border-color: var(--nila-700);
+  color: #fff;
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.progress {
+  height: 6px;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin: var(--space-4) 0;
+}
+.progress__bar {
+  height: 100%;
+  background: var(--nila-700);
+  transition: width var(--motion-panel) var(--ease-out);
+}
+
+/* ---------- Drawer bukti ---------- */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 29, 38, 0.4);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
+}
+.drawer {
+  background: var(--surface);
+  width: min(480px, 100%);
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-6) var(--gutter);
+}
+@media (max-width: 599px) {
+  .drawer {
+    width: 100%;
+  }
+}
+
+/* ---------- Tabel benchmark ---------- */
+.bench {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-body-s);
+}
+.bench th {
+  text-align: left;
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding-bottom: var(--space-2);
+}
+.bench td {
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--rule);
+}
+.bench td:not(:first-child) {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
