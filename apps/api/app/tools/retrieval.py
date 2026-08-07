@@ -44,6 +44,10 @@ class IndexedReview:
     text: str
     vector: np.ndarray
     aspects: frozenset[str]
+    # Aspek yang disebut NEGATIF pada ulasan ini. Dipisahkan dari `aspects` karena bukti untuk
+    # Action Card keluhan harus berupa keluhan - kutipan pujian pada kartu keluhan justru
+    # merusak kepercayaan yang ingin dibangun bukti itu.
+    negative_aspects: frozenset[str] = frozenset()
     product_id: str | None = None
     rating: int | None = None
 
@@ -80,26 +84,40 @@ class EvidenceIndex:
                 text=r["text"],
                 vector=v,
                 aspects=frozenset(r.get("aspects", [])),
+                negative_aspects=frozenset(r.get("negative_aspects", [])),
                 product_id=r.get("product_id"),
                 rating=r.get("rating"),
             )
             for r, v in zip(reviews, vectors)
         ]
 
-    def _candidates(self, aspect: Aspect | None) -> list[IndexedReview]:
+    def _candidates(self, aspect: Aspect | None, negative_only: bool) -> list[IndexedReview]:
         """Filter metadata SEBELUM ranking similarity (bagian 21.1) - mengurangi derau."""
         if aspect is None:
             return self.items
+
+        if negative_only:
+            # Bukti untuk kartu keluhan HARUS keluhan. Diukur pada dataset demo, tanpa filter
+            # ini kartu "perbaiki keterangan ukuran" mendapat kutipan "warna/ukuran sesuai" -
+            # bukti yang membantah klaimnya sendiri.
+            negative = [i for i in self.items if aspect.value in i.negative_aspects]
+            if negative:
+                return negative
+
         filtered = [i for i in self.items if aspect.value in i.aspects]
         # Bila filter menyisakan terlalu sedikit, jangan kosongkan hasil - lebih baik mencari
         # di seluruh indeks daripada mengembalikan tangan kosong karena metadata tidak lengkap.
         return filtered if len(filtered) >= 3 else self.items
 
     def retrieve(
-        self, query: str, aspect: Aspect | None = None, top_k: int = 5
+        self, query: str, aspect: Aspect | None = None, top_k: int = 5,
+        negative_only: bool = False,
     ) -> list[EvidenceCitation]:
-        """Ambil kutipan paling relevan. Daftar KOSONG berarti data belum cukup."""
-        candidates = self._candidates(aspect)
+        """Ambil kutipan paling relevan. Daftar KOSONG berarti data belum cukup.
+
+        `negative_only` dipakai saat bukti diminta untuk Action Card keluhan.
+        """
+        candidates = self._candidates(aspect, negative_only)
         if not candidates:
             return []
 
@@ -142,7 +160,8 @@ class EvidenceIndex:
 
 
 def retrieve_evidence(
-    index: EvidenceIndex, query: str, aspect: Aspect | None = None, top_k: int = 5
+    index: EvidenceIndex, query: str, aspect: Aspect | None = None, top_k: int = 5,
+    negative_only: bool = False,
 ) -> list[EvidenceCitation]:
     """Bentuk fungsi sesuai tool contract bagian 27.3."""
-    return index.retrieve(query=query, aspect=aspect, top_k=top_k)
+    return index.retrieve(query=query, aspect=aspect, top_k=top_k, negative_only=negative_only)

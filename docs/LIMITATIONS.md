@@ -72,6 +72,21 @@ Konsekuensi untuk klaim: sistem boleh disebut menangani **Bahasa Indonesia infor
 slang dan typo** — itu terukur. Sistem **tidak boleh** disebut menangani bahasa daerah, dan
 dukungan bahasa Inggris harus disebut terbatas.
 
+### Bukti ditampilkan utuh, sehingga kadang terbaca positif (Fase 5)
+
+Klasifikasi berjalan di tingkat **klausa**, tetapi bukti diindeks dan ditampilkan di tingkat
+**ulasan utuh** (blueprint bagian 21.1: kutipan sepotong justru mengurangi kepercayaan).
+
+Konsekuensinya terlihat pada ulasan campuran. Sebuah ulasan yang memuji pelayanan tetapi
+mengeluh soal kualitas akan sah menjadi bukti untuk Action Card kualitas — namun kutipan yang
+tampil adalah keseluruhan ulasannya, yang bisa terbaca positif sekilas.
+
+Bukti sudah difilter agar hanya ulasan yang benar-benar memuat keluhan pada aspek itu yang
+dipilih (tanpa filter ini, kartu "perbaiki keterangan ukuran" sempat mendapat kutipan
+"warna/ukuran sesuai"). Yang belum dilakukan adalah menyorot klausa keluhannya di dalam kutipan.
+Itu pekerjaan frontend pada Fase 6 dan tercatat sebagai perbaikan yang direncanakan, bukan
+sebagai sesuatu yang sudah beres.
+
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._
