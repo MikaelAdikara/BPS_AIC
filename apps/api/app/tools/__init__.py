@@ -8,7 +8,7 @@ Status implementasi:
     redact_personal_data()          - Fase 5
     classify_text_aspects()         - Fase 5 (adapter ke model Fase 2)
     classify_review_image()         - Fase 5 (adapter ke model Fase 3)
-    retrieve_evidence()             - Fase 4 (menyusul)
+    retrieve_evidence()             - selesai
     calculate_aspect_statistics()   - selesai
     calculate_priority_score()      - selesai
     compare_category_baseline()     - selesai
@@ -20,6 +20,7 @@ from .actions import build_action_card, has_concrete_numbers
 from .benchmark import compare_category_baseline, load_baseline
 from .fusion import fuse_all, fuse_review
 from .priority import PriorityResult, calculate_priority_score
+from .retrieval import EvidenceIndex, retrieve_evidence
 from .statistics import calculate_aspect_statistics
 
 __all__ = [
@@ -32,4 +33,6 @@ __all__ = [
     "compare_category_baseline",
     "load_baseline",
     "PriorityResult",
+    "EvidenceIndex",
+    "retrieve_evidence",
 ]

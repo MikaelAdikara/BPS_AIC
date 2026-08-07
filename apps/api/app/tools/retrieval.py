@@ -1,0 +1,148 @@
+"""retrieve_evidence() — RET-01, tool contract bagian 27.3 (desain bagian 21).
+
+Mengambil kutipan ulasan ASLI sebagai bukti setiap klaim. Ini fondasi kepercayaan produk:
+pemilik UMKM yang skeptis pada AI ingin melihat kalimat pelanggannya sendiri, bukan ringkasan
+(bagian 8.1, JTBD-07).
+
+Empat perilaku yang mengikat, semuanya berasal dari bagian 21:
+
+- **Unit indexing adalah ULASAN, bukan klausa.** Klausa dipakai untuk klasifikasi karena
+  sentimennya per-aspek, tetapi bukti yang ditunjukkan ke pengguna harus utuh - kutipan
+  sepotong justru mengurangi kepercayaan.
+- **Menolak menjawab lebih baik daripada mengarang.** Bila skor kemiripan tertinggi di bawah
+  ambang, fungsi mengembalikan daftar kosong dan pemanggilnya WAJIB menampilkan "data belum
+  cukup" - LLM tidak pernah dipanggil untuk mengarang kutipan (bagian 21.3).
+- **Deduplikasi near-duplicate**, supaya top-k tidak dipenuhi ulasan yang isinya nyaris sama.
+- **Diversifikasi ringan (MMR)**, supaya bukti tidak seluruhnya berasal dari satu produk.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+
+import numpy as np
+
+from ..schemas import Aspect, EvidenceCitation
+
+# Di bawah ambang ini, sistem menyatakan data belum cukup dan TIDAK memanggil LLM.
+# Nilai ini dikalibrasi pada Fase 8; sampai saat itu dipakai ambang konservatif.
+DEFAULT_MIN_SIMILARITY = 0.30
+
+# Bobot relevansi vs keberagaman pada MMR. 1.0 = murni relevansi.
+MMR_LAMBDA = 0.7
+
+# Dua ulasan dianggap near-duplicate bila kemiripan token-nya melewati ini.
+NEAR_DUPLICATE_THRESHOLD = 0.85
+
+_WORD = re.compile(r"\w+")
+
+
+@dataclass
+class IndexedReview:
+    review_id: str
+    text: str
+    vector: np.ndarray
+    aspects: frozenset[str]
+    product_id: str | None = None
+    rating: int | None = None
+
+
+def _token_overlap(a: str, b: str) -> float:
+    ta, tb = set(_WORD.findall(a.lower())), set(_WORD.findall(b.lower()))
+    if not ta or not tb:
+        return 0.0
+    return len(ta & tb) / len(ta | tb)
+
+
+class EvidenceIndex:
+    """Indeks bukti untuk SATU sesi analisis.
+
+    Cakupannya sengaja dibatasi per sesi (bagian 23.3 session_scope): retrieval tidak pernah
+    menjangkau data pengguna lain, dan indeksnya hilang bersama sesinya.
+    """
+
+    def __init__(self, adapter, min_similarity: float = DEFAULT_MIN_SIMILARITY):
+        self.adapter = adapter
+        self.min_similarity = min_similarity
+        self.items: list[IndexedReview] = []
+
+    def build(self, reviews: list[dict]) -> None:
+        """Bangun indeks dari ulasan sesi. `reviews` memuat review_id, text, aspects, dst."""
+        texts = [r["text"] for r in reviews]
+        if not texts:
+            self.items = []
+            return
+        vectors = self.adapter.encode(texts, corpus=texts)
+        self.items = [
+            IndexedReview(
+                review_id=r["review_id"],
+                text=r["text"],
+                vector=v,
+                aspects=frozenset(r.get("aspects", [])),
+                product_id=r.get("product_id"),
+                rating=r.get("rating"),
+            )
+            for r, v in zip(reviews, vectors)
+        ]
+
+    def _candidates(self, aspect: Aspect | None) -> list[IndexedReview]:
+        """Filter metadata SEBELUM ranking similarity (bagian 21.1) - mengurangi derau."""
+        if aspect is None:
+            return self.items
+        filtered = [i for i in self.items if aspect.value in i.aspects]
+        # Bila filter menyisakan terlalu sedikit, jangan kosongkan hasil - lebih baik mencari
+        # di seluruh indeks daripada mengembalikan tangan kosong karena metadata tidak lengkap.
+        return filtered if len(filtered) >= 3 else self.items
+
+    def retrieve(
+        self, query: str, aspect: Aspect | None = None, top_k: int = 5
+    ) -> list[EvidenceCitation]:
+        """Ambil kutipan paling relevan. Daftar KOSONG berarti data belum cukup."""
+        candidates = self._candidates(aspect)
+        if not candidates:
+            return []
+
+        query_vector = self.adapter.encode(
+            [query], corpus=[i.text for i in self.items]
+        )[0]
+        scores = np.array([float(query_vector @ i.vector) for i in candidates])
+
+        eligible = [(s, c) for s, c in zip(scores, candidates) if s >= self.min_similarity]
+        if not eligible:
+            # Ambang tidak terlampaui - sistem menolak menjawab alih-alih mengarang bukti.
+            return []
+        eligible.sort(key=lambda x: -x[0])
+
+        selected: list[tuple[float, IndexedReview]] = []
+        for score, item in eligible:
+            if len(selected) >= top_k:
+                break
+            # Deduplikasi near-duplicate.
+            if any(_token_overlap(item.text, s.text) >= NEAR_DUPLICATE_THRESHOLD for _, s in selected):
+                continue
+            # Diversifikasi ringan: turunkan peringkat bukti dari produk yang sudah terwakili.
+            if item.product_id and any(
+                s.product_id == item.product_id for _, s in selected
+            ):
+                score *= MMR_LAMBDA
+            selected.append((score, item))
+
+        selected.sort(key=lambda x: -x[0])
+        return [
+            EvidenceCitation(
+                citation_id=f"c{idx + 1}",
+                review_id=item.review_id,
+                quote=item.text,  # kutipan ASLI, tidak diparafrase (bagian 25.10)
+                relevance_score=round(min(max(float(score), 0.0), 1.0), 4),
+                aspect=aspect,
+            )
+            for idx, (score, item) in enumerate(selected)
+        ]
+
+
+def retrieve_evidence(
+    index: EvidenceIndex, query: str, aspect: Aspect | None = None, top_k: int = 5
+) -> list[EvidenceCitation]:
+    """Bentuk fungsi sesuai tool contract bagian 27.3."""
+    return index.retrieve(query=query, aspect=aspect, top_k=top_k)
