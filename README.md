@@ -48,9 +48,9 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | --- | --- | --- | --- |
 | 0 | Scope freeze — taksonomi aspek, kelas visual, kontrak data | ✅ selesai | **GO** — taksonomi & kelas visual dikunci |
 | 1 | Data & baseline — unduh, harmonisasi, split, baseline TF-IDF | ✅ selesai | **GO** — split product-level terverifikasi bersih, baseline tercatat |
-| 2 | Model teks — fine-tuning IndoBERT | ⚠ perlu iterasi | **DIREVISI** — pada gold, aspek setara leksikon; sentimen unggul kecuali kelas netral |
+| 2 | Model teks — fine-tuning IndoBERT | ✅ selesai | **Sentimen LULUS** (0,730 vs leksikon 0,700 pada label expert); **aspek TIDAK LULUS** — setara leksikon, lihat MODEL_CARD §4.3 |
 | 3 | Model visual — zero-shot CLIP, threshold, kalibrasi | ⏸ menunggu data foto | **gate kritis** — go/no-go berbasis selective accuracy aktual |
-| 4 | Retrieval & action engine (RET-01, ACT-01) | 🔄 berjalan | ACT-01, fusion, benchmark selesai; RET-01 menyusul |
+| 4 | Retrieval & action engine (RET-01, ACT-01) | ✅ selesai | Action Card lolos spot-check anti-generik; RET-01 menolak menjawab saat bukti tak memadai |
 | 5 | Backend FastAPI — 6 endpoint, 10 tool contract | ⬜ belum | `/analyze` menghasilkan AnalysisResult valid |
 | 6 | Frontend React — 4 screen | ⬜ belum | alur unggah → hasil berjalan di browser |
 | 7 | Integrasi — termasuk jalur kegagalan & fallback | ⬜ belum | seluruh integration test hijau |

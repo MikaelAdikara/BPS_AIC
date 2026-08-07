@@ -7,174 +7,174 @@
   "hasil": {
     "nusax_ind (Indonesia)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.6858,
+        "macro_f1": 0.6998,
         "per_class": {
-          "negatif": 0.6393,
-          "netral": 0.6093,
-          "positif": 0.8087
+          "negatif": 0.695,
+          "netral": 0.61,
+          "positif": 0.7943
         },
         "n": 400
       },
       "tfidf_logreg": {
-        "macro_f1": 0.3955,
+        "macro_f1": 0.627,
         "per_class": {
-          "negatif": 0.6072,
-          "netral": 0.0885,
-          "positif": 0.4907
+          "negatif": 0.6258,
+          "netral": 0.6454,
+          "positif": 0.6099
         },
         "n": 400
       },
       "indobert_finetuned": {
-        "macro_f1": 0.5188,
+        "macro_f1": 0.7301,
         "per_class": {
-          "negatif": 0.7462,
-          "netral": 0.0206,
-          "positif": 0.7896
+          "negatif": 0.7176,
+          "netral": 0.6452,
+          "positif": 0.8276
         },
         "n": 400
       }
     },
     "nusax_eng (Inggris)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.2982,
+        "macro_f1": 0.517,
         "per_class": {
-          "negatif": 0.0129,
-          "netral": 0.4292,
-          "positif": 0.4525
+          "negatif": 0.3404,
+          "netral": 0.4942,
+          "positif": 0.7164
         },
         "n": 400
       },
       "tfidf_logreg": {
-        "macro_f1": 0.3361,
+        "macro_f1": 0.4178,
         "per_class": {
-          "negatif": 0.2857,
-          "netral": 0.1138,
-          "positif": 0.6087
+          "negatif": 0.1714,
+          "netral": 0.4802,
+          "positif": 0.6016
         },
         "n": 400
       },
       "indobert_finetuned": {
-        "macro_f1": 0.4113,
+        "macro_f1": 0.4693,
         "per_class": {
-          "negatif": 0.4948,
-          "netral": 0.1261,
-          "positif": 0.6131
+          "negatif": 0.2171,
+          "netral": 0.49,
+          "positif": 0.7007
         },
         "n": 400
       }
     },
     "nusax_jav (Jawa)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.4769,
+        "macro_f1": 0.4994,
         "per_class": {
-          "negatif": 0.2054,
-          "netral": 0.5146,
-          "positif": 0.7106
+          "negatif": 0.2769,
+          "netral": 0.5181,
+          "positif": 0.7033
         },
         "n": 400
       },
       "tfidf_logreg": {
-        "macro_f1": 0.4352,
+        "macro_f1": 0.4509,
         "per_class": {
-          "negatif": 0.5729,
-          "netral": 0.1034,
-          "positif": 0.6294
+          "negatif": 0.3347,
+          "netral": 0.5134,
+          "positif": 0.5047
         },
         "n": 400
       },
       "indobert_finetuned": {
-        "macro_f1": 0.4337,
+        "macro_f1": 0.5174,
         "per_class": {
-          "negatif": 0.6103,
-          "netral": 0.02,
-          "positif": 0.671
+          "negatif": 0.3046,
+          "netral": 0.5354,
+          "positif": 0.7122
         },
         "n": 400
       }
     },
     "nusax_sun (Sunda)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.3554,
+        "macro_f1": 0.3762,
         "per_class": {
-          "negatif": 0.2759,
-          "netral": 0.4412,
-          "positif": 0.3492
+          "negatif": 0.3396,
+          "netral": 0.4433,
+          "positif": 0.3455
         },
         "n": 400
       },
       "tfidf_logreg": {
-        "macro_f1": 0.2961,
+        "macro_f1": 0.286,
         "per_class": {
-          "negatif": 0.5533,
-          "netral": 0.125,
-          "positif": 0.21
+          "negatif": 0.3525,
+          "netral": 0.4543,
+          "positif": 0.0513
         },
         "n": 400
       },
       "indobert_finetuned": {
-        "macro_f1": 0.3513,
+        "macro_f1": 0.3876,
         "per_class": {
-          "negatif": 0.5143,
-          "netral": 0.0,
-          "positif": 0.5397
+          "negatif": 0.3429,
+          "netral": 0.4506,
+          "positif": 0.3692
         },
         "n": 400
       }
     },
     "nusax_min (Minang)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.4341,
+        "macro_f1": 0.4573,
         "per_class": {
-          "negatif": 0.2814,
-          "netral": 0.4787,
-          "positif": 0.5422
+          "negatif": 0.3382,
+          "netral": 0.4835,
+          "positif": 0.5502
         },
         "n": 400
       },
       "tfidf_logreg": {
-        "macro_f1": 0.3552,
+        "macro_f1": 0.4727,
         "per_class": {
-          "negatif": 0.5816,
-          "netral": 0.0935,
-          "positif": 0.3907
+          "negatif": 0.4488,
+          "netral": 0.557,
+          "positif": 0.4121
         },
         "n": 400
       },
       "indobert_finetuned": {
-        "macro_f1": 0.3816,
+        "macro_f1": 0.4684,
         "per_class": {
-          "negatif": 0.5975,
-          "netral": 0.0202,
-          "positif": 0.527
+          "negatif": 0.3415,
+          "netral": 0.4958,
+          "positif": 0.5678
         },
         "n": 400
       }
     },
     "prdect_test (label manusia)": {
       "lexicon_rule_based": {
-        "macro_f1": 0.543,
+        "macro_f1": 0.5545,
         "per_class": {
-          "negatif": 0.7338,
+          "negatif": 0.7618,
           "netral": 0.0,
-          "positif": 0.8952
+          "positif": 0.9017
         },
         "n": 804
       },
       "tfidf_logreg": {
-        "macro_f1": 0.612,
+        "macro_f1": 0.5695,
         "per_class": {
-          "negatif": 0.9168,
+          "negatif": 0.8404,
           "netral": 0.0,
-          "positif": 0.9193
+          "positif": 0.8681
         },
         "n": 804
       },
       "indobert_finetuned": {
-        "macro_f1": 0.6346,
+        "macro_f1": 0.5675,
         "per_class": {
-          "negatif": 0.9518,
+          "negatif": 0.796,
           "netral": 0.0,
-          "positif": 0.9521
+          "positif": 0.9063
         },
         "n": 804
       }

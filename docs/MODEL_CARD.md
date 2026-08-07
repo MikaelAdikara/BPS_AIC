@@ -1,7 +1,8 @@
 # Model Card
 
-> **Placeholder (Fase 0).** Diisi pada Fase 2 (model teks), Fase 3 (model visual), dan Fase 8
-> (evaluasi penuh), sesuai blueprint bagian 26.1 langkah 19 dan bagian 33.
+> **Angka yang berlaku ada di §4** (iterasi kedua, setelah labeling function diperbaiki).
+> §3 dipertahankan sebagai jejak proses: ia memperlihatkan bagaimana kesimpulan berubah ketika
+> metrik silver yang sirkular akhirnya diuji terhadap label independen.
 >
 > **Aturan pengisian:** setiap angka di dokumen ini WAJIB berasal dari script/notebook evaluasi
 > yang benar-benar dijalankan dan dapat ditelusuri balik (blueprint bagian 40). Tidak ada target,
@@ -11,10 +12,10 @@
 
 | Komponen | Model | Status |
 | --- | --- | --- |
-| Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | belum dilatih |
+| Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | **terlatih** — lihat §4 untuk angka yang berlaku |
 | Text fallback | TF-IDF + Logistic Regression | **terlatih (baseline Fase 1)** |
 | Visual Intelligence (VIS-01) | CLIP ViT-B/32 zero-shot, frozen | belum dievaluasi |
-| Embedding (RET-01) | BGE-M3 | belum diintegrasikan |
+| Embedding (RET-01) | BGE-M3 | **terintegrasi** (fallback E5 → TF-IDF) |
 | Orchestrator | SEA-LION quantized | belum diintegrasikan |
 
 ## 2. Data training
@@ -301,3 +302,75 @@ bergaya leksikon.
 
 Karena itu **§3.4A adalah angka rujukan utama untuk sentimen**, dan gold set dipakai untuk aspek
 (yang memang tidak punya alternatif berlabel manusia).
+
+
+---
+
+## 4. Setelah perbaikan labeling function (iterasi kedua)
+
+Script sama, label diperbaiki (lihat DATASET_CARD §5). Model dilatih ulang 2 epoch.
+Hasil: `ml/evaluation/gold_results.json`, `external_results.json`.
+
+### 4.1 Perbaikan nyata pada data berlabel manusia
+
+**NusaX-senti — expert-generated, 3 kelas, inilah skema label yang sama dengan produk kami:**
+
+| Bahasa | IndoBERT sebelum | IndoBERT sesudah | Selisih |
+| --- | --- | --- | --- |
+| Indonesia | 0,519 | **0,730** | **+0,211** |
+| Jawa | 0,434 | 0,517 | +0,083 |
+| Inggris | 0,411 | 0,469 | +0,058 |
+| Sunda | 0,351 | 0,388 | +0,037 |
+| Minang | 0,382 | 0,468 | +0,086 |
+
+**Kelas netral akhirnya berfungsi.** Pada NusaX Indonesia F1 netral naik dari **0,021 ke 0,645**.
+Sebelumnya model praktis tidak pernah memprediksi netral sama sekali; sekarang ia memakainya
+dengan benar. Ini menutup masalah yang sudah teridentifikasi sejak Fase 1.
+
+Stress test (sarkasme/negasi/slang) naik 0,730 → **0,770**.
+
+### 4.2 Ongkosnya: PRDECT biner turun — sebagian besar artefak skema label
+
+| Pendekatan | macro-biner sebelum | sesudah |
+| --- | --- | --- |
+| Leksikon | 0,815 | 0,832 |
+| TF-IDF | 0,918 | 0,854 |
+| IndoBERT | **0,952** | **0,851** |
+
+Penurunan ini perlu dibaca hati-hati. PRDECT-ID hanya punya dua label — pelabelnya dipaksa
+memilih positif atau negatif, tidak ada netral. Model kami kini memprediksi netral pada 13,9%
+ulasan, dan pada dataset berskema biner setiap prediksi netral otomatis dihitung salah.
+
+Matriks kebingungan menunjukkan sumbernya:
+
+| gold ↓ / prediksi → | negatif | netral | positif |
+| --- | --- | --- | --- |
+| negatif | 292 | **91** | 37 |
+| positif | 8 | **21** | 355 |
+
+**Pada 692 ulasan yang modelnya benar-benar memutuskan positif atau negatif, akurasinya 93,5%.**
+Jadi penurunan itu bukan model menjadi lebih keliru, melainkan model menjadi lebih berhati-hati
+pada skema label yang tidak menyediakan pilihan itu.
+
+**Tetapi ada satu hal yang harus diakui sebagai kelemahan nyata, bukan artefak:** dari 112
+prediksi netral, **91 di antaranya sebenarnya keluhan** — berbanding hanya 21 pada ulasan
+positif. Model kurang berani menyebut sesuatu negatif. Untuk produk ini itu penting, karena
+deteksi keluhanlah yang menggerakkan Action Card. Perbaikannya (menurunkan ambang kelas negatif
+atau menaikkan bobot kelasnya) belum dikerjakan dan tercatat sebagai pekerjaan Fase 8.
+
+### 4.3 Gate Fase 2 — verdict akhir
+
+| Task | Verdict | Dasar |
+| --- | --- | --- |
+| **Sentimen** | **LULUS** | Pada data berlabel expert 3 kelas, IndoBERT 0,730 mengungguli leksikon 0,700 dan TF-IDF 0,627; kelas netral pulih dari 0,021 ke 0,645 |
+| **Aspek** | **TIDAK LULUS** | Pada gold, IndoBERT 0,766 masih setara leksikon 0,770 |
+
+Aspek tidak lulus bukan karena kurang usaha, melainkan karena **secara struktural tidak bisa**:
+label aspeknya 100% keluaran leksikon, sehingga model tidak punya sumber informasi untuk
+melampaui leksikon. Satu-satunya jalan keluar adalah label aspek berlabel manusia dalam volume
+latih — dan dataset semacam itu tidak tersedia untuk Bahasa Indonesia domain e-commerce
+(sudah ditelusuri, DATASET_CARD §6).
+
+**Konsekuensi jujur untuk proposal:** klaim kustomisasi model teks bertumpu pada **sentimen**,
+di mana fine-tuning terbukti memberi nilai tambah pada label independen. Untuk **aspek**, yang
+layak diklaim adalah pipeline weak-supervision-nya, bukan keunggulan model atas aturan leksikon.

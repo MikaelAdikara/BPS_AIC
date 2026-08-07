@@ -3,7 +3,7 @@
   "model": "indobenchmark/indobert-base-p1",
   "architecture": "encoder bersama + dua head terpisah (aspek multi-label, sentimen 3 kelas)",
   "hyperparameters": {
-    "epochs": 3,
+    "epochs": 2,
     "batch_size": 32,
     "lr": 2e-05,
     "max_len": 32,
@@ -12,31 +12,23 @@
     "train_clauses": 69800
   },
   "device": "cuda",
-  "train_seconds": 6767.6,
-  "best_epoch": 3,
+  "train_seconds": 4555.2,
+  "best_epoch": 2,
   "history": [
     {
       "epoch": 1,
-      "train_loss": 0.9631,
-      "val_aspect_macro_f1": 0.9666,
-      "val_sentiment_macro_f1": 0.5851,
-      "val_combined": 0.7758,
+      "train_loss": 0.3144,
+      "val_aspect_macro_f1": 0.9825,
+      "val_sentiment_macro_f1": 0.9881,
+      "val_combined": 0.9853,
       "aspect_threshold": 0.7
     },
     {
       "epoch": 2,
-      "train_loss": 0.5871,
-      "val_aspect_macro_f1": 0.9816,
-      "val_sentiment_macro_f1": 0.6211,
-      "val_combined": 0.8014,
-      "aspect_threshold": 0.7
-    },
-    {
-      "epoch": 3,
-      "train_loss": 0.4283,
-      "val_aspect_macro_f1": 0.9844,
-      "val_sentiment_macro_f1": 0.6348,
-      "val_combined": 0.8096,
+      "train_loss": 0.0425,
+      "val_aspect_macro_f1": 0.9851,
+      "val_sentiment_macro_f1": 0.9915,
+      "val_combined": 0.9883,
       "aspect_threshold": 0.7
     }
   ],
@@ -44,43 +36,43 @@
   "aspect": {
     "silver_test": {
       "threshold": 0.7,
-      "macro_f1": 0.9849,
-      "micro_f1": 0.9928,
+      "macro_f1": 0.9924,
+      "micro_f1": 0.9977,
       "per_class": {
         "kualitas_produk": {
-          "f1": 0.9906,
-          "support": 1704
+          "f1": 0.9965,
+          "support": 1850
         },
         "kesesuaian_deskripsi": {
-          "f1": 0.9974,
+          "f1": 0.9985,
           "support": 1332
         },
         "harga_value": {
-          "f1": 0.9916,
+          "f1": 0.9972,
           "support": 355
         },
         "ukuran_varian": {
-          "f1": 0.9795,
+          "f1": 1.0,
           "support": 312
         },
         "rasa_kualitas_makanan": {
-          "f1": 0.9839,
-          "support": 62
+          "f1": 1.0,
+          "support": 25
         },
         "kemasan": {
-          "f1": 0.9968,
+          "f1": 1.0,
           "support": 470
         },
         "pengiriman": {
-          "f1": 0.9971,
-          "support": 1401
+          "f1": 0.9989,
+          "support": 1843
         },
         "pelayanan_penjual": {
-          "f1": 0.9919,
+          "f1": 0.9981,
           "support": 1047
         },
         "kelengkapan": {
-          "f1": 0.9263,
+          "f1": 0.967,
           "support": 46
         },
         "keaslian": {
@@ -88,50 +80,50 @@
           "support": 119
         },
         "kemudahan_penggunaan": {
-          "f1": 0.9828,
-          "support": 144
+          "f1": 0.9647,
+          "support": 43
         }
       }
     },
     "silver_test_unseen": {
       "threshold": 0.7,
-      "macro_f1": 0.9806,
-      "micro_f1": 0.9884,
+      "macro_f1": 0.9891,
+      "micro_f1": 0.9965,
       "per_class": {
         "kualitas_produk": {
-          "f1": 0.9829,
-          "support": 932
+          "f1": 0.9941,
+          "support": 1096
         },
         "kesesuaian_deskripsi": {
-          "f1": 0.9951,
+          "f1": 0.9972,
           "support": 713
         },
         "harga_value": {
-          "f1": 0.9879,
+          "f1": 0.9959,
           "support": 247
         },
         "ukuran_varian": {
-          "f1": 0.9754,
+          "f1": 1.0,
           "support": 259
         },
         "rasa_kualitas_makanan": {
-          "f1": 0.9828,
-          "support": 58
+          "f1": 1.0,
+          "support": 24
         },
         "kemasan": {
-          "f1": 0.9944,
+          "f1": 1.0,
           "support": 265
         },
         "pengiriman": {
-          "f1": 0.9955,
-          "support": 894
+          "f1": 0.9982,
+          "support": 1135
         },
         "pelayanan_penjual": {
-          "f1": 0.989,
+          "f1": 0.9991,
           "support": 587
         },
         "kelengkapan": {
-          "f1": 0.9136,
+          "f1": 0.961,
           "support": 39
         },
         "keaslian": {
@@ -139,69 +131,58 @@
           "support": 74
         },
         "kemudahan_penggunaan": {
-          "f1": 0.9767,
-          "support": 106
+          "f1": 0.9412,
+          "support": 26
         }
       }
     }
   },
   "sentiment": {
     "silver_test": {
-      "macro_f1": 0.6275,
+      "macro_f1": 0.9908,
       "per_class_f1": {
-        "negatif": 0.8017,
-        "netral": 0.136,
-        "positif": 0.9446
+        "negatif": 0.9794,
+        "netral": 0.9948,
+        "positif": 0.9981
       },
       "support": {
-        "negatif": 1842,
-        "netral": 256,
-        "positif": 9094
+        "negatif": 743,
+        "netral": 4134,
+        "positif": 6315
       }
     },
     "silver_test_unseen": {
-      "macro_f1": 0.6158,
+      "macro_f1": 0.9881,
       "per_class_f1": {
-        "negatif": 0.7986,
-        "netral": 0.1453,
-        "positif": 0.9035
+        "negatif": 0.9754,
+        "netral": 0.993,
+        "positif": 0.9958
       },
       "support": {
-        "negatif": 1645,
-        "netral": 190,
-        "positif": 4548
+        "negatif": 622,
+        "netral": 3012,
+        "positif": 2749
       }
     },
     "silver_test_by_origin::clause_polarity": {
-      "macro_f1": 0.9932,
+      "macro_f1": 0.6632,
       "per_class_f1": {
-        "negatif": 0.988,
-        "positif": 0.9984
+        "negatif": 0.9912,
+        "netral": 0.0,
+        "positif": 0.9985
       },
       "support": {
-        "negatif": 702,
-        "positif": 5473
-      }
-    },
-    "silver_test_by_origin::review_prior": {
-      "macro_f1": 0.5638,
-      "per_class_f1": {
-        "negatif": 0.697,
-        "netral": 0.136,
-        "positif": 0.8584
-      },
-      "support": {
-        "negatif": 1140,
-        "netral": 256,
-        "positif": 3621
+        "negatif": 743,
+        "netral": 0,
+        "positif": 6315
       }
     },
     "stress_challange": {
-      "macro_f1": 0.73,
+      "macro_f1": 0.7701,
       "per_class_f1": {
-        "negatif": 0.8473,
-        "netral": 0.5562,
-        "positif": 0.7865
+        "negatif": 0.8302,
+        "netral": 0.6704,
+        "positif": 0.8098
       },
       "support": {
         "negatif": 1804,
@@ -210,18 +191,18 @@
       },
       "note": "Label diturunkan dari rating (98,3%), bukan penilaian independen atas teks. Dipakai sebagai diagnostik per fenomena, bukan ground truth.",
       "by_phenomenon_macro_f1": {
-        "sarcasm": 0.1795,
-        "ambiguous": 0.1991,
-        "mixed_sentiment": 0.3107,
-        "question_conditional": 0.3581,
-        "negation": 0.5595,
-        "aspect_based": 0.5709,
-        "contextual": 0.5892,
-        "comparative": 0.6864,
-        "typos_informal": 0.8048,
-        "short_vague": 0.8254,
-        "colloquial_slang": 0.8267,
-        "emotional_exaggeration": 0.987
+        "sarcasm": 0.0657,
+        "question_conditional": 0.2775,
+        "ambiguous": 0.3173,
+        "mixed_sentiment": 0.4114,
+        "comparative": 0.4571,
+        "aspect_based": 0.5401,
+        "negation": 0.6091,
+        "emotional_exaggeration": 0.6201,
+        "colloquial_slang": 0.6496,
+        "typos_informal": 0.7687,
+        "short_vague": 0.7702,
+        "contextual": 0.7854
       }
     }
   }

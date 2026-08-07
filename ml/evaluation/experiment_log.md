@@ -14,6 +14,7 @@ dapat ditelusuri balik ke salah satu baris di sini beserta script yang menghasil
 | E03 | 2026-08-05 | 1 | Baseline aspek | `ml/text/baseline.py` | TF-IDF char_wb 3–5, OvR LogReg balanced, seed=42 | macro F1 multi-label | silver_test **0,938**; unseen **0,923** | **Angka ini sirkular** — mengukur kecocokan terhadap labeling function, bukan akurasi |
 | E04 | 2026-08-05 | 2 | Fine-tune IndoBERT | `ml/text/finetune.py` | 3 epoch, batch 32, lr 2e-5, max_len 32, seed=42, GTX 1650, 112,8 mnt | macro F1 | aspek silver **0,985**; sentimen silver **0,628**; stress **0,730** | Gate Fase 2 **GO**. Kenaikan pada label independen hanya +0,010 — lihat catatan di bawah |
 | E05 | 2026-08-06 | 2 | Evaluasi GOLD | `ml/text/evaluate_gold.py` | gold 500 klausa (ADR-017) | macro F1 | leksikon aspek **0,734** sent **0,599** · TF-IDF **0,744**/**0,676** · IndoBERT **0,733**/**0,668** | **Gate Fase 2 DIREVISI** — pada aspek fine-tuning tidak menambah apa pun |
+| E06 | 2026-08-06 | 2 | Latih ulang label diperbaiki | `ml/text/finetune.py` | 2 epoch, batch 32, seed 42 | macro F1 | NusaX-ind **0,730** (dari 0,519); netral **0,645** (dari 0,021); gold aspek 0,766; PRDECT biner 0,851 (dari 0,952) | Gate sentimen **LULUS**, aspek **TIDAK LULUS** — lihat MODEL_CARD §4 |
 
 ## Catatan E02 — rincian stress test per fenomena
 
@@ -99,5 +100,5 @@ ditunda sampai gold test set tersedia sebagai penengah yang sah.
 
 ## Yang belum diukur
 
-- Retraining setelah leksikon diperbaiki dan aturan netral direvisi — bukti dan penengahnya kini lengkap (E05).
+- Ambang kelas negatif — model kurang berani menyebut negatif (91 keluhan diprediksi netral pada PRDECT). Penyetelan ditunda ke Fase 8.
 - Model visual (Fase 3) — menunggu foto validasi.
