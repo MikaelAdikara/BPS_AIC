@@ -305,6 +305,19 @@ def main() -> int:
                 "state": {k: v.detach().cpu().clone() for k, v in model.state_dict().items()},
                 "threshold": threshold,
             }
+            # Checkpoint ditulis ke disk SETIAP kali membaik, bukan hanya di akhir.
+            # Dua run sebelumnya mati di tengah jalan tanpa traceback dan seluruh hasil
+            # training hilang - menyimpan per epoch membuat kegagalan itu hanya memakan
+            # satu epoch, bukan semuanya.
+            MODEL_OUT.mkdir(parents=True, exist_ok=True)
+            torch.save(
+                {"state_dict": best["state"], "aspect_threshold": threshold,
+                 "aspects": list(ALL_ASPECTS), "sentiments": SENTIMENTS,
+                 "base_model": MODEL_NAME, "epoch": epoch, "val_combined": score},
+                MODEL_OUT / "model.pt",
+            )
+            tokenizer.save_pretrained(MODEL_OUT)
+            print(f"  checkpoint disimpan (epoch {epoch})", flush=True)
 
     train_seconds = round(time.time() - t_start, 1)
     print(f"\nmemuat checkpoint terbaik: epoch {best['epoch']} (val gabungan {best['score']:.4f})")
