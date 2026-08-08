@@ -474,6 +474,7 @@ data/
   schemas/             JSON schema kontrak data
 configs/               taksonomi aspek, kelas visual, threshold      FROZEN sejak Fase 0
 docs/                  MODEL_CARD, DATASET_CARD, ARCHITECTURE, LIMITATIONS, RESPONSIBLE_AI
+docs/design/           rancangan SaaS penuh + prototipe antarmuka 14 layar
 docs/reference/        blueprint sistem, dossier riset, ringkasan aturan
 scripts/               unduh dataset, precompute baseline
 tests/                 unit / integration / e2e                      [Fase 5+]
@@ -494,6 +495,8 @@ docker/                docker-compose.yml                            [Fase 9]
 | --- | --- |
 | [docs/SCOPE_FREEZE.md](docs/SCOPE_FREEZE.md) | Cakupan yang dikunci: taksonomi, kelas visual, fitur, formula prioritas, dan daftar keputusan yang sengaja ditunda |
 | [docs/BRAND_GUIDELINES.md](docs/BRAND_GUIDELINES.md) | Identitas visual, palet semantik, tipografi, anatomi komponen, nada bahasa |
+| [docs/design/SAAS_DESIGN.md](docs/design/SAAS_DESIGN.md) | Rancangan produk SaaS penuh: use case, arsitektur informasi, 14 layar, peta fitur, pemisahan Tier 1/2/3 |
+| [docs/design/prototype.html](docs/design/prototype.html) | Prototipe antarmuka 14 layar yang dapat diklik — buka di browser |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Diagram arsitektur + 16 Architecture Decision Record |
 | [docs/MODEL_CARD.md](docs/MODEL_CARD.md) | Metrik terukur beserta batas penafsirannya, rencana evaluasi |
 | [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Sumber, lisensi, pemrosesan, sumber label, bias yang diketahui |

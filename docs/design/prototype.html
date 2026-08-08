@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InsightUlasan — Rancangan Antarmuka Lengkap</title>
+<style>
+/* ==========================================================================
+   Token — disalin dari apps/web/src/styles/tokens.css.
+   Nilai di sini WAJIB sama dengan aplikasi; kalau berbeda, aplikasi yang benar.
+   ========================================================================== */
+:root {
+  --paper:#f7f7f5; --surface:#fff; --surface-sunken:#efefec;
+  --ink:#1a1d26; --ink-muted:#5a6070; --rule:#dedfda;
+  --nila-700:#2b3a8f; --nila-500:#4356c7; --nila-100:#e6e9f8;
+  --urgency-high:#b3261e; --urgency-high-surface:#fbe9e7;
+  --urgency-medium:#9c5d00; --urgency-medium-surface:#fdf0dc;
+  --urgency-low:#5a6070; --urgency-low-surface:#efefec;
+  --positive:#1f6b4a; --positive-surface:#e3f1ea;
+  --abstain:#636774; --abstain-surface:#f0f0ee;
+  --font-sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+  --space-5:1.25rem; --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem;
+  --radius-card:10px; --radius-input:8px; --radius-pill:999px;
+  --shadow-card:0 1px 2px rgba(26,29,38,.06);
+  --content-max:35rem;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#e8e8e4;color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.625}
+
+/* ==========================================================================
+   Rangka prototipe — INI BUKAN BAGIAN PRODUK.
+   Sidebar, badge tier, dan pengalih lebar hanya alat baca. Produk aslinya
+   tidak punya navigasi global sama sekali (batas MVP rulebook 5.2).
+   ========================================================================== */
+.proto{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+.nav{background:#1a1d26;color:#e8e8e4;padding:var(--space-5);position:sticky;top:0;height:100vh;overflow-y:auto}
+.nav h1{font-size:1.05rem;margin:0 0 var(--space-1)}
+.nav .sub{font-size:.8rem;color:#9aa0b0;margin:0 0 var(--space-5);line-height:1.5}
+.nav-group{margin-bottom:var(--space-5)}
+.nav-group__title{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#8b91a3;margin-bottom:var(--space-2);display:flex;align-items:center;gap:6px}
+.nav a{display:block;padding:7px 10px;border-radius:6px;color:#d4d7e0;text-decoration:none;font-size:.875rem;line-height:1.4}
+.nav a:hover{background:#2a2e3d}
+.nav a.on{background:var(--nila-500);color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.dot--built{background:#4ade80}.dot--design{background:#fbbf24}.dot--road{background:#8b91a3}
+
+.stage{padding:var(--space-6);display:flex;flex-direction:column;align-items:center;gap:var(--space-4)}
+.bar{width:100%;max-width:960px;display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;justify-content:space-between}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:var(--radius-pill);font-size:.78rem;font-weight:600}
+.badge--built{background:#dcfce7;color:#14532d}
+.badge--design{background:#fef3c7;color:#78350f}
+.badge--road{background:#e5e7eb;color:#374151}
+.toggle{display:flex;gap:4px;background:#d5d5d0;padding:3px;border-radius:8px}
+.toggle button{border:none;background:none;padding:5px 12px;border-radius:6px;font-family:inherit;font-size:.82rem;cursor:pointer;color:#4b5563}
+.toggle button.on{background:#fff;color:var(--ink);font-weight:600}
+.why{width:100%;max-width:960px;background:#fffbeb;border-left:3px solid #d97706;padding:var(--space-3) var(--space-4);border-radius:0 8px 8px 0;font-size:.86rem;line-height:1.6}
+.why b{color:#78350f}
+.frame{background:var(--paper);border-radius:14px;box-shadow:0 6px 24px rgba(26,29,38,.13);width:100%;max-width:var(--content-max);transition:max-width .2s;overflow:hidden}
+.frame.wide{max-width:960px}
+.screen{display:none;padding:var(--space-6) var(--space-5) var(--space-10)}
+.screen.on{display:block}
+
+/* ==========================================================================
+   Komponen produk — mengikuti apps/web/src/styles/app.css
+   ========================================================================== */
+.display-l{font-size:1.875rem;line-height:2.25rem;font-weight:700;letter-spacing:-.02em;margin:0 0 var(--space-3)}
+.display-m{font-size:1.5rem;line-height:2rem;font-weight:700;letter-spacing:-.02em;margin:0 0 var(--space-3)}
+.title{font-size:1.1875rem;line-height:1.625rem;font-weight:600;margin:0 0 var(--space-3)}
+.lead{font-size:1rem;line-height:1.625;color:var(--ink-muted);margin:0 0 var(--space-6)}
+.body-s{font-size:.875rem;line-height:1.55;color:var(--ink-muted);margin:var(--space-2) 0}
+.label{font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;font-weight:600;color:var(--ink-muted);display:block}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:var(--space-5);margin-bottom:var(--space-4)}
+.card--positive{border-left:3px solid var(--positive)}
+.stat{font-family:var(--font-mono);font-size:1rem;background:var(--surface-sunken);padding:1px 5px;border-radius:4px;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:var(--space-1) var(--space-3);border-radius:var(--radius-pill);font-size:.8125rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--space-3)}
+.pill--tinggi{background:var(--urgency-high);color:#fff}
+.pill--sedang{background:var(--urgency-medium);color:#fff}
+.pill--rendah{background:var(--urgency-low-surface);color:var(--urgency-low)}
+.pill--positive{background:var(--positive-surface);color:var(--positive)}
+.evidence{background:var(--surface-sunken);border-left:3px solid var(--nila-700);border-radius:0 8px 8px 0;padding:var(--space-3) var(--space-4);margin:var(--space-2) 0}
+.evidence__quote{font-family:var(--font-mono);font-size:.9375rem;line-height:1.625;margin:0}
+.evidence__meta{font-family:var(--font-mono);font-size:.8125rem;color:var(--ink-muted);margin-top:var(--space-2)}
+.btn{border:none;border-radius:var(--radius-input);padding:11px 18px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;min-height:44px}
+.btn--primary{background:var(--nila-700);color:#fff}
+.btn--outline{background:transparent;color:var(--nila-700);border:1px solid var(--nila-700)}
+.btn--text{background:none;color:var(--ink-muted)}
+.actions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-4)}
+.linkish{background:none;border:none;color:var(--nila-700);font-family:inherit;font-size:.9375rem;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.banner{padding:var(--space-3) var(--space-4);border-radius:8px;margin:var(--space-3) 0;font-size:.9375rem;line-height:1.55}
+.banner--warn{background:var(--urgency-medium-surface);color:#6b3f00}
+.banner--muted{background:var(--abstain-surface);color:var(--abstain)}
+.textarea,.input{width:100%;padding:var(--space-3);border:1px solid var(--rule);border-radius:var(--radius-input);background:var(--surface);font-family:inherit;font-size:1rem;color:var(--ink)}
+.textarea{min-height:120px;resize:vertical}
+table.bench{width:100%;border-collapse:collapse;font-size:.9375rem}
+table.bench th{text-align:left;font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted);padding:var(--space-2) 0;border-bottom:1px solid var(--rule)}
+table.bench td{padding:var(--space-2) 0;border-bottom:1px solid var(--rule)}
+table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:var(--space-1);border-bottom:1px solid var(--rule);margin:var(--space-6) 0 var(--space-5)}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:var(--space-3) var(--space-4);font-family:inherit;font-size:1rem;color:var(--ink-muted);cursor:pointer;margin-bottom:-1px}
+.tab.on{color:var(--nila-700);border-bottom-color:var(--nila-700);font-weight:600}
+.dropzone{display:grid;justify-items:center;gap:var(--space-3);padding:var(--space-8) var(--space-4);border:2px dashed var(--rule);border-radius:var(--radius-card);background:var(--surface);text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-3)}
+.chip{padding:var(--space-2) var(--space-3);border:1px solid var(--rule);border-radius:var(--radius-pill);background:var(--surface-sunken);font-family:inherit;font-size:.875rem;cursor:pointer}
+.notes{margin:var(--space-4) 0 0;padding-left:var(--space-5);color:var(--ink-muted);font-size:.875rem}
+.notes li+li{margin-top:var(--space-2)}
+.quality{display:flex;align-items:center;gap:var(--space-5);flex-wrap:wrap}
+.quality__number{font-size:1.875rem;font-weight:700;background:none;padding:0}
+.stg{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) 0}
+.stg__mark{width:22px;height:22px;border-radius:50%;border:2px solid var(--rule);display:grid;place-items:center;font-size:13px;flex:none}
+.stg--done .stg__mark{background:var(--nila-700);border-color:var(--nila-700);color:#fff}
+.progress{height:6px;background:var(--surface-sunken);border-radius:3px;overflow:hidden;margin:var(--space-4) 0}
+.progress__bar{height:100%;background:var(--nila-700)}
+.mapper{display:grid;gap:var(--space-4);grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:var(--space-3)}
+.tag{display:inline-block;margin-left:6px;padding:0 7px;border-radius:var(--radius-pill);background:var(--nila-100);color:var(--nila-700);font-size:.7rem;text-transform:none;letter-spacing:0}
+.photo{aspect-ratio:1;background:var(--surface-sunken);border:1px solid var(--rule);border-radius:8px;display:grid;place-items:center;color:var(--ink-muted);font-size:.75rem;text-align:center;padding:4px}
+.grid-photo{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:var(--space-2);margin-top:var(--space-3)}
+
+/* Tier 2/3 — komponen khusus rancangan */
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+.kanban__col{background:var(--surface-sunken);border-radius:8px;padding:var(--space-3);min-height:180px}
+.kanban__col h4{margin:0 0 var(--space-3);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted)}
+.mini{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:var(--space-3);margin-bottom:var(--space-2);font-size:.875rem;line-height:1.45}
+.spark{display:flex;align-items:flex-end;gap:5px;height:96px;margin:var(--space-4) 0 var(--space-2)}
+.spark div{flex:1;background:var(--nila-500);border-radius:3px 3px 0 0;position:relative}
+.spark div.hi{background:var(--urgency-high)}
+.axis{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.72rem;color:var(--ink-muted)}
+.rowline{display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--rule);gap:var(--space-3)}
+.rowline:last-child{border-bottom:none}
+.switch{width:38px;height:22px;border-radius:11px;background:var(--nila-700);position:relative;flex:none}
+.switch::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;right:3px}
+.switch.off{background:#c9cad0}.switch.off::after{left:3px;right:auto}
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--space-3)}
+.price__card{border:1px solid var(--rule);border-radius:var(--radius-card);padding:var(--space-4);background:var(--surface)}
+.price__card.on{border-color:var(--nila-700);border-width:2px}
+.price__amt{font-family:var(--font-mono);font-size:1.4rem;font-weight:700}
+.conn{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);border:1px solid var(--rule);border-radius:8px;background:var(--surface);margin-bottom:var(--space-2)}
+.conn__logo{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;font-weight:700;color:#fff;flex:none;font-size:.9rem}
+.ghost{border:1.5px dashed #b9bac0;border-radius:var(--radius-card);padding:var(--space-4);background:rgba(255,255,255,.5)}
+
+/* Pada lebar HP, kanban menumpuk. Tiga kolom di layar 5 inci menghasilkan kartu selebar
+   165px — terlalu sempit untuk dibaca, dan mockup yang menampilkannya akan menyesatkan
+   perancang yang mengira itu memang bentuk yang dimaksud. */
+.frame:not(.wide) .kanban{grid-template-columns:1fr}
+.frame:not(.wide) .mapper{grid-template-columns:1fr}
+
+@media(max-width:860px){
+  .proto{grid-template-columns:1fr}
+  .nav{position:static;height:auto}
+  .kanban,.price{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="proto">
+
+<!-- ====================== NAVIGASI PROTOTIPE (bukan produk) ====================== -->
+<nav class="nav">
+  <h1>InsightUlasan</h1>
+  <p class="sub">Rancangan antarmuka lengkap.<br />Panel kiri ini <b>alat baca prototipe</b>, bukan bagian produk — aplikasi aslinya tidak punya navigasi global.</p>
+
+  <div class="nav-group">
+    <div class="nav-group__title"><span class="dot dot--built"></span> Tier 1 — sudah berfungsi</div>
+    <a href="#" class="on" data-s="s1">1 · Beranda &amp; Input</a>
+    <a href="#" data-s="s2">2 · Memproses</a>
+    <a href="#" data-s="s3">3 · Hasil Analisis</a>
+    <a href="#" data-s="s4">4 · Panel Bukti</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group__title"><span class="dot dot--design"></span> Tier 2 — dirancang, belum dibangun</div>
+    <a href="#" data-s="s5">5 · Ruang Kerja</a>
+    <a href="#" data-s="s6">6 · Papan Tindakan</a>
+    <a href="#" data-s="s7">7 · Tren &amp; Perbandingan</a>
+    <a href="#" data-s="s8">8 · Laporan &amp; Ekspor</a>
+    <a href="#" data-s="s9">9 · Unggah Foto Massal</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group__title"><span class="dot dot--road"></span> Tier 3 — roadmap</div>
+    <a href="#" data-s="s10">10 · Masuk &amp; Multi-toko</a>
+    <a href="#" data-s="s11">11 · Koneksi Marketplace</a>
+    <a href="#" data-s="s12">12 · Tim &amp; Peran</a>
+    <a href="#" data-s="s13">13 · Langganan</a>
+    <a href="#" data-s="s14">14 · Tata Kelola &amp; Audit</a>
+  </div>
+</nav>
+
+<!-- ====================== PANGGUNG ====================== -->
+<main class="stage">
+  <div class="bar">
+    <span id="tierBadge" class="badge badge--built">● Tier 1 — sudah berfungsi di repo</span>
+    <div class="toggle">
+      <button class="on" data-w="mobile">HP (Bu Rina)</button>
+      <button data-w="desktop">Layar lebar</button>
+    </div>
+  </div>
+  <div class="why" id="why"></div>
+
+  <div class="frame" id="frame">
+
+  <!-- ============ S1 · BERANDA & INPUT ============ -->
+  <section class="screen on" id="s1">
+    <h1 class="display-l">InsightUlasan</h1>
+    <p class="lead">Ubah ulasan pelanggan jadi langkah nyata — masalah paling mendesak, bukti kutipan aslinya, dan apa yang bisa dikerjakan minggu ini.</p>
+
+    <div class="tabs">
+      <button class="tab">Tempel teks</button>
+      <button class="tab on">Unggah berkas</button>
+      <button class="tab">Data contoh</button>
+    </div>
+
+    <div class="dropzone">
+      <p style="margin:0">Tarik berkas CSV atau JSON ke sini</p>
+      <button class="btn btn--outline">Pilih berkas</button>
+      <p class="body-s" style="margin:0">Maksimal 5 MB · 1.000 baris pertama yang dipakai</p>
+    </div>
+
+    <p class="body-s"><b>ulasan-toko-juli.csv</b> terbaca · <span class="stat">5</span> kolom</p>
+
+    <h2 class="title" style="margin-top:var(--space-6)">Cocokkan kolom</h2>
+    <p class="body-s">Tebakan otomatis di bawah dapat Anda ubah. Hanya kolom teks ulasan yang wajib.</p>
+    <div class="mapper">
+      <div><label class="label">Kolom teks ulasan</label><input class="input" value="Customer Review Text" readonly /></div>
+      <div><label class="label">Kolom rating</label><input class="input" value="Star Rating" readonly /></div>
+      <div><label class="label">Kolom tanggal</label><input class="input" value="Purchase Date" readonly /></div>
+      <div><label class="label">Kolom nama produk</label><input class="input" value="Item" readonly /></div>
+    </div>
+
+    <label class="label" style="margin-top:var(--space-5)">Kategori produk (untuk pembanding)</label>
+    <input class="input" value="Fashion" readonly />
+
+    <h2 class="title" style="margin-top:var(--space-6)">Pratinjau</h2>
+    <table class="bench">
+      <thead><tr><th>Order ID</th><th>Customer Review Text<span class="tag">teks ulasan</span></th><th>Star Rating<span class="tag">rating</span></th></tr></thead>
+      <tbody>
+        <tr><td>1001</td><td>Sepatunya bagus, tapi ukurannya kekecilan…</td><td>2</td></tr>
+        <tr><td>1002</td><td>Pengiriman cepat sekali, packing rapi…</td><td>5</td></tr>
+        <tr><td>1003</td><td>Barang datang dalam keadaan rusak…</td><td>1</td></tr>
+      </tbody>
+    </table>
+    <p class="body-s">Menampilkan 3 dari <span class="stat">120</span> baris terbaca</p>
+
+    <div class="ghost" style="margin-top:var(--space-5)">
+      <span class="badge badge--design" style="margin-bottom:8px">● Rancangan — menunggu model visual</span>
+      <p class="body-s" style="margin-top:var(--space-2)"><b>Foto ulasan (opsional).</b> Slot ini sengaja belum aktif: model visual belum lolos go/no-go gate, dan tombol yang tidak berfungsi lebih merusak kepercayaan daripada tidak ada tombol.</p>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary">Analisis 120 ulasan</button>
+      <button class="btn btn--text">Ganti berkas</button>
+    </div>
+
+    <p class="body-s" style="margin-top:var(--space-6)">Data Anda hanya diproses selama sesi ini dan tidak disimpan permanen. Nomor telepon dan data pribadi yang terdeteksi disamarkan sebelum dianalisis.</p>
+  </section>
+
+  <!-- ============ S2 · MEMPROSES ============ -->
+  <section class="screen" id="s2">
+    <h1 class="display-m">Sedang menganalisis…</h1>
+    <div class="progress"><div class="progress__bar" style="width:75%"></div></div>
+    <div class="stg stg--done"><span class="stg__mark">✓</span> Memproses teks ulasan</div>
+    <div class="stg stg--done"><span class="stg__mark">✓</span> Mengambil bukti pendukung</div>
+    <div class="stg stg--done"><span class="stg__mark">✓</span> Menghitung prioritas</div>
+    <div class="stg"><span class="stg__mark"></span> Menyusun rekomendasi</div>
+    <p class="body-s" style="margin-top:var(--space-6)">Biasanya kurang dari satu menit untuk 100 ulasan.</p>
+    <div class="banner banner--muted" style="margin-top:var(--space-6)">Kalau satu tahap gagal, tahap itu ditandai dan sisanya tetap jalan. Sistem tidak berhenti total hanya karena satu bagian bermasalah.</div>
+  </section>
+
+  <!-- ============ S3 · HASIL ANALISIS ============ -->
+  <section class="screen" id="s3">
+    <span class="label">Hasil analisis</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Ringkasan</h1>
+    <p>Dari <span class="stat">120</span> ulasan, <span class="stat">6</span> aspek memuat keluhan. Yang paling sering adalah ukuran varian — <span class="stat">20</span> ulasan (<span class="stat">17%</span>).</p>
+
+    <div class="banner banner--muted">Mode sederhana aktif — sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
+
+    <div class="card">
+      <div class="quality">
+        <div style="display:grid;justify-items:center;min-width:5rem;color:var(--positive)">
+          <span class="stat quality__number">100</span><span class="body-s">dari 100</span>
+        </div>
+        <div>
+          <h3 class="title" style="margin:0">Kualitas data Anda: Baik</h3>
+          <p class="body-s"><span class="stat">120</span> dari <span class="stat">120</span> baris dianalisis · <span class="stat">120</span> punya rating · <span class="stat">120</span> punya tanggal</p>
+        </div>
+      </div>
+      <ul class="notes"><li>Data Anda lengkap — hasil analisis dapat dibaca dengan percaya diri.</li></ul>
+    </div>
+
+    <h2 class="title" style="margin-top:var(--space-8)">Yang perlu dikerjakan lebih dulu</h2>
+
+    <article class="card">
+      <span class="pill pill--tinggi">Tinggi</span>
+      <h3 class="title">Perbaiki keterangan ukuran atau varian di halaman produk</h3>
+      <p>Periksa kembali keterangan ukuran pada halaman produk Anda. <span class="stat">20</span> dari <span class="stat">120</span> ulasan (<span class="stat">17%</span>) menyebut hal ini. Keluhan ini meningkat dalam 30 hari terakhir. Angka ini <span class="stat">14%</span> poin di atas rata-rata kategori sejenis.</p>
+      <blockquote class="evidence">
+        <p class="evidence__quote">"Kecil banget seperti nya salah size"</p>
+        <div class="evidence__meta">Ulasan demo_009 · 3/5 · 2026-07-06 · relevansi 0.7312</div>
+      </blockquote>
+      <button class="linkish">Lihat semua bukti (3) →</button>
+      <div class="actions">
+        <button class="btn btn--primary">Terima</button>
+        <button class="btn btn--outline">Tolak</button>
+        <button class="btn btn--text">Simpan dulu</button>
+      </div>
+    </article>
+
+    <article class="card">
+      <span class="pill pill--sedang">Sedang</span>
+      <h3 class="title">Periksa kualitas produk pada batch terbaru</h3>
+      <p><span class="stat">10</span> dari <span class="stat">120</span> ulasan (<span class="stat">8%</span>) menyebut masalah ini.</p>
+      <button class="linkish">Lihat semua bukti (3) →</button>
+      <div class="actions">
+        <button class="btn btn--primary">Terima</button>
+        <button class="btn btn--outline">Tolak</button>
+        <button class="btn btn--text">Simpan dulu</button>
+      </div>
+    </article>
+
+    <section class="card card--positive">
+      <span class="pill pill--positive">Kekuatan</span>
+      <h3 class="title">Yang sudah Anda lakukan dengan baik</h3>
+      <p class="body-s">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi — sistem tidak menuliskan materi iklannya untuk Anda.</p>
+      <p style="margin:var(--space-4) 0 0"><b>Produk Anda dinilai sesuai dengan deskripsinya</b></p>
+      <p class="body-s"><span class="stat">45</span> sebutan positif · <span class="stat">92%</span> dari yang membahas kesesuaian deskripsi</p>
+      <blockquote class="evidence">
+        <p class="evidence__quote">"Barang sudah sampai sesuai dengan deskripsi, terima kasih"</p>
+        <div class="evidence__meta">Ulasan demo_047 · 5/5 · 2026-07-11 · relevansi 0.7771</div>
+      </blockquote>
+    </section>
+
+    <section class="card">
+      <h3 class="title">Temuan dari foto</h3>
+      <div class="grid-photo">
+        <div class="photo">kemasan rusak<br />82%</div>
+        <div class="photo">produk rusak<br />76%</div>
+        <div class="photo" style="opacity:.55">tidak<br />disimpulkan</div>
+      </div>
+      <p class="banner banner--muted" style="margin-top:var(--space-4)"><span class="stat">1</span> foto tidak disimpulkan karena sistem tidak cukup yakin. Foto itu menunggu Anda periksa sendiri — sistem sengaja tidak menebak.</p>
+    </section>
+
+    <section class="card">
+      <h3 class="title">Perbandingan kategori sejenis</h3>
+      <p class="body-s">Dibandingkan rata-rata kategori dari data publik. Bukan data toko pesaing, dan bersifat historis.</p>
+      <table class="bench">
+        <thead><tr><th>Aspek</th><th>Toko Anda</th><th>Rata-rata</th><th>Selisih</th></tr></thead>
+        <tbody>
+          <tr><td>ukuran/varian</td><td>17%</td><td>3%</td><td style="color:var(--urgency-high)">+14%</td></tr>
+          <tr><td>kualitas produk</td><td>8%</td><td>3%</td><td style="color:var(--urgency-high)">+5%</td></tr>
+          <tr><td>kemasan</td><td>1%</td><td>1%</td><td style="color:var(--positive)">+0%</td></tr>
+        </tbody>
+      </table>
+      <p class="body-s">Dari <span class="stat">8939</span> ulasan pembanding · keyakinan tinggi</p>
+    </section>
+
+    <section class="card">
+      <h3 class="title">Tanya data Anda</h3>
+      <p class="body-s">Jawaban hanya disusun dari ulasan yang Anda unggah dan selalu menyertakan kutipannya. Jika buktinya tidak ada, sistem akan mengatakan tidak tahu.</p>
+      <label class="label">Pertanyaan Anda</label>
+      <input class="input" value="Bagaimana pendapat pembeli tentang pengiriman?" readonly />
+      <div class="chips">
+        <span class="chip">Apa keluhan yang paling sering muncul?</span>
+        <span class="chip">Apakah ada masalah dengan ukuran?</span>
+      </div>
+      <p style="margin-top:var(--space-5)">Dari <span class="stat">120</span> ulasan, <span class="stat">62</span> membahas pengiriman. <span class="stat">3</span> di antaranya berisi keluhan (<span class="stat">5%</span>), <span class="stat">41</span> positif.</p>
+      <blockquote class="evidence">
+        <p class="evidence__quote">"packing aman. pengiriman on time. seller responsif."</p>
+        <div class="evidence__meta">Ulasan demo_043 · 5/5 · 2026-07-24 · relevansi 0.8429</div>
+      </blockquote>
+    </section>
+
+    <p class="body-s">Model: indobert-nlp01@thr0.7 · mode fallback</p>
+    <button class="btn btn--outline">Mulai analisis baru</button>
+  </section>
+
+  <!-- ============ S4 · PANEL BUKTI ============ -->
+  <section class="screen" id="s4">
+    <button class="linkish">← Kembali ke hasil</button>
+    <h1 class="display-m" style="margin-top:var(--space-4)">Bukti untuk: Perbaiki keterangan ukuran atau varian</h1>
+    <p class="body-s"><span class="stat">20</span> dari <span class="stat">120</span> ulasan (<span class="stat">17%</span>) menyebut masalah pada ukuran atau varian</p>
+
+    <blockquote class="evidence">
+      <p class="evidence__quote">"Kecil banget seperti nya salah size"</p>
+      <div class="evidence__meta">Ulasan demo_009 · 3/5 · 2026-07-06 · relevansi 0.7312</div>
+    </blockquote>
+    <blockquote class="evidence">
+      <p class="evidence__quote">"ukuran yg dikirim tidak sesuai, malah ukuran yg diminta seperti ditulis ulang"</p>
+      <div class="evidence__meta">Ulasan demo_012 · 1/5 · 2026-07-15 · relevansi 0.7178</div>
+    </blockquote>
+    <blockquote class="evidence">
+      <p class="evidence__quote">"paket lah di terima ...hanya size nya kebesaran....."</p>
+      <div class="evidence__meta">Ulasan demo_020 · 3/5 · 2026-07-19 · relevansi 0.6975</div>
+    </blockquote>
+
+    <h3 class="title" style="margin-top:var(--space-8)">Bukti visual</h3>
+    <div class="grid-photo" style="max-width:260px"><div class="photo">produk berbeda<br />79%</div></div>
+    <p class="body-s">Foto pada ulasan <span class="stat">demo_012</span> terdeteksi sebagai <b>produk berbeda dari pesanan</b>.</p>
+
+    <h3 class="title" style="margin-top:var(--space-6)">Kenapa ini diprioritaskan</h3>
+    <p><span class="stat">20</span> dari <span class="stat">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="stat">14%</span> poin di atas baseline kategori (n=<span class="stat">8939</span>).</p>
+
+    <h3 class="title" style="margin-top:var(--space-6)">Kalau rekomendasi ini keliru</h3>
+    <p class="body-s">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan — periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
+  </section>
+
+  <!-- ============ S5 · RUANG KERJA (Tier 2) ============ -->
+  <section class="screen" id="s5">
+    <span class="label">Ruang kerja</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Selamat malam, Bu Rina</h1>
+    <p class="lead">Satu pertanyaan yang dijawab layar ini: <b>ada yang berubah sejak terakhir saya cek?</b></p>
+
+    <div class="card">
+      <span class="pill pill--tinggi">Perlu perhatian</span>
+      <h3 class="title">Keluhan ukuran naik lagi minggu ini</h3>
+      <p><span class="stat">8</span> keluhan baru sejak analisis terakhir (<span class="stat">2 Agu</span>), naik dari <span class="stat">5</span> minggu sebelumnya.</p>
+      <div class="actions"><button class="btn btn--primary">Analisis ulasan baru</button></div>
+    </div>
+
+    <div class="card">
+      <h3 class="title">Tindakan yang sedang berjalan</h3>
+      <div class="rowline"><span>Revisi size chart varian M &amp; L</span><span class="badge badge--design">Sedang dikerjakan</span></div>
+      <div class="rowline"><span>Ganti vendor kemasan</span><span class="badge badge--built">Selesai</span></div>
+      <button class="linkish" style="margin-top:var(--space-3)">Buka papan tindakan →</button>
+    </div>
+
+    <div class="card">
+      <h3 class="title">Toko Anda</h3>
+      <div class="rowline"><span><b>Rina Fashion</b><br /><span class="body-s">Terakhir dianalisis 2 Agu · 120 ulasan</span></span><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Buka</button></div>
+      <div class="rowline"><span><b>Rina Kids</b><br /><span class="body-s">Belum ada analisis</span></span><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Buka</button></div>
+    </div>
+  </section>
+
+  <!-- ============ S6 · PAPAN TINDAKAN (Tier 2) ============ -->
+  <section class="screen" id="s6">
+    <span class="label">Papan tindakan</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Apa yang sudah dikerjakan</h1>
+    <p class="lead">Action Card yang Anda terima pindah ke sini. Statusnya Anda yang ubah — sistem tidak pernah menandai sendiri sesuatu sebagai selesai.</p>
+
+    <div class="kanban">
+      <div class="kanban__col"><h4>Belum dikerjakan</h4>
+        <div class="mini"><b>Tinjau ulang harga varian termurah</b><br /><span class="body-s">1 keluhan · rendah</span></div>
+      </div>
+      <div class="kanban__col"><h4>Sedang dikerjakan</h4>
+        <div class="mini"><b>Revisi size chart M &amp; L</b><br /><span class="body-s">Ani · tenggat 12 Agu</span></div>
+      </div>
+      <div class="kanban__col"><h4>Selesai</h4>
+        <div class="mini"><b>Ganti vendor kemasan</b><br /><span class="body-s">Selesai 28 Jul</span></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:var(--space-5)">
+      <h3 class="title">Sebelum &amp; sesudah</h3>
+      <p class="body-s">Perbandingan keluhan kemasan sebelum dan sesudah tindakan ditandai selesai.</p>
+      <div class="rowline"><span>Sebelum (1–28 Jul)</span><span class="stat">9 keluhan</span></div>
+      <div class="rowline"><span>Sesudah (29 Jul–8 Agu)</span><span class="stat" style="color:var(--positive)">2 keluhan</span></div>
+      <div class="banner banner--muted" style="margin-top:var(--space-4)">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah — sistem hanya menunjukkan angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
+    </div>
+  </section>
+
+  <!-- ============ S7 · TREN (Tier 2) ============ -->
+  <section class="screen" id="s7">
+    <span class="label">Tren</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Keluhan dari waktu ke waktu</h1>
+    <p class="lead">Hanya tersedia setelah ada beberapa kali analisis — grafik dari satu batch akan menyesatkan.</p>
+
+    <div class="card">
+      <h3 class="title">Keluhan ukuran per minggu</h3>
+      <div class="spark">
+        <div style="height:34%"></div><div style="height:41%"></div><div style="height:38%"></div>
+        <div style="height:57%"></div><div style="height:63%"></div><div style="height:78%" class="hi"></div>
+      </div>
+      <div class="axis"><span>28 Jun</span><span>5 Jul</span><span>12 Jul</span><span>19 Jul</span><span>26 Jul</span><span>2 Agu</span></div>
+      <p class="body-s" style="margin-top:var(--space-4)">Naik <span class="stat">6</span> minggu berturut-turut. Titik terakhir dihitung dari <span class="stat">28</span> ulasan.</p>
+    </div>
+
+    <div class="card">
+      <h3 class="title">Bandingkan dua periode</h3>
+      <table class="bench">
+        <thead><tr><th>Aspek</th><th>Juni</th><th>Juli</th><th>Selisih</th></tr></thead>
+        <tbody>
+          <tr><td>ukuran/varian</td><td>9%</td><td>17%</td><td style="color:var(--urgency-high)">+8%</td></tr>
+          <tr><td>pengiriman</td><td>7%</td><td>3%</td><td style="color:var(--positive)">−4%</td></tr>
+          <tr><td>kemasan</td><td>6%</td><td>1%</td><td style="color:var(--positive)">−5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ S8 · LAPORAN (Tier 2) ============ -->
+  <section class="screen" id="s8">
+    <span class="label">Laporan</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Bagikan hasilnya</h1>
+    <p class="lead">Untuk Admin Toko yang perlu menunjukkan temuan ke pemilik tanpa membuka aplikasi.</p>
+
+    <div class="card">
+      <h3 class="title">Isi laporan</h3>
+      <div class="rowline"><span>Ringkasan &amp; kualitas data</span><span class="switch"></span></div>
+      <div class="rowline"><span>Action Card + kutipan bukti</span><span class="switch"></span></div>
+      <div class="rowline"><span>Temuan positif</span><span class="switch"></span></div>
+      <div class="rowline"><span>Perbandingan kategori</span><span class="switch off"></span></div>
+      <div class="banner banner--muted" style="margin-top:var(--space-4)">Kutipan pelanggan ikut tercetak. Pastikan laporan ini hanya dibagikan internal — data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
+      <div class="actions">
+        <button class="btn btn--primary">Unduh PDF</button>
+        <button class="btn btn--outline">Unduh CSV</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ S9 · FOTO MASSAL (Tier 2) ============ -->
+  <section class="screen" id="s9">
+    <span class="label">Foto ulasan</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Unggah foto massal</h1>
+    <p class="lead">Foto dicocokkan ke ulasan lewat nama berkas atau kolom <span class="stat">review_id</span>.</p>
+    <div class="dropzone"><p style="margin:0">Tarik folder foto ke sini</p><button class="btn btn--outline">Pilih folder</button></div>
+    <div class="card" style="margin-top:var(--space-4)">
+      <h3 class="title">Hasil pencocokan</h3>
+      <div class="rowline"><span>Cocok otomatis</span><span class="stat" style="color:var(--positive)">243 foto</span></div>
+      <div class="rowline"><span>Tidak ada ulasan yang cocok</span><span class="stat">17 foto</span></div>
+      <div class="rowline"><span>Terlalu buram untuk dinilai</span><span class="stat">6 foto</span></div>
+      <div class="grid-photo">
+        <div class="photo">IMG_2201</div><div class="photo">IMG_2202</div><div class="photo">IMG_2203</div><div class="photo" style="opacity:.5">buram</div>
+      </div>
+      <p class="banner banner--muted" style="margin-top:var(--space-4)">Foto diproses hanya selama sesi ini lalu dihapus. Wajah atau identitas yang tidak sengaja terekam tidak pernah ikut tersimpan.</p>
+    </div>
+  </section>
+
+  <!-- ============ S10 · MASUK (Tier 3) ============ -->
+  <section class="screen" id="s10">
+    <span class="label">Roadmap</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Masuk ke akun</h1>
+    <p class="lead">Tidak ada di MVP — rulebook eksplisit melarang sistem otentikasi kompleks pada penyisihan. Dirancang untuk versi pasca-kompetisi.</p>
+    <div class="card">
+      <label class="label">Nomor WhatsApp atau email</label>
+      <input class="input" value="rina@rinafashion.id" readonly />
+      <label class="label" style="margin-top:var(--space-4)">Kata sandi</label>
+      <input class="input" value="••••••••" readonly />
+      <div class="actions"><button class="btn btn--primary">Masuk</button></div>
+      <p class="body-s">Masuk lewat WhatsApp dipilih karena mayoritas UMKM sasaran lebih akrab dengan nomor daripada email.</p>
+    </div>
+    <div class="card">
+      <h3 class="title">Pilih toko</h3>
+      <div class="rowline"><span><b>Rina Fashion</b><br /><span class="body-s">Pemilik</span></span><span class="badge badge--built">Aktif</span></div>
+      <div class="rowline"><span><b>Rina Kids</b><br /><span class="body-s">Pemilik</span></span><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Pilih</button></div>
+    </div>
+  </section>
+
+  <!-- ============ S11 · KONEKSI (Tier 3) ============ -->
+  <section class="screen" id="s11">
+    <span class="label">Roadmap</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Koneksi marketplace</h1>
+    <p class="lead">Menghapus langkah unggah manual — ulasan baru masuk sendiri. Bergantung ketersediaan API resmi, jadi ditulis sebagai rencana, bukan janji.</p>
+    <div class="conn"><div class="conn__logo" style="background:#ee4d2d">S</div><div style="flex:1"><b>Shopee</b><br /><span class="body-s">Tarik ulasan otomatis tiap minggu</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
+    <div class="conn"><div class="conn__logo" style="background:#42b549">T</div><div style="flex:1"><b>Tokopedia</b><br /><span class="body-s">Tarik ulasan otomatis tiap minggu</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
+    <div class="conn"><div class="conn__logo" style="background:#25d366">W</div><div style="flex:1"><b>WhatsApp Business</b><br /><span class="body-s">Analisis keluhan dari chat pelanggan</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
+    <div class="banner banner--warn">Menghubungkan akun berarti InsightUlasan membaca ulasan toko Anda secara berkala. Anda dapat memutusnya kapan saja, dan data tetap tidak dipakai melatih model.</div>
+  </section>
+
+  <!-- ============ S12 · TIM (Tier 3) ============ -->
+  <section class="screen" id="s12">
+    <span class="label">Roadmap</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Tim &amp; peran</h1>
+    <p class="lead">Menjawab persona Admin Toko: staf menjalankan analisis, pemilik yang memutuskan.</p>
+    <div class="card">
+      <div class="rowline"><span><b>Bu Rina</b><br /><span class="body-s">rina@rinafashion.id</span></span><span class="badge badge--built">Pemilik</span></div>
+      <div class="rowline"><span><b>Ani</b><br /><span class="body-s">ani@rinafashion.id</span></span><span class="badge badge--design">Admin toko</span></div>
+      <div class="rowline"><span><b>Dwi</b><br /><span class="body-s">dwi@rinafashion.id</span></span><span class="badge badge--road">Hanya lihat</span></div>
+      <div class="actions"><button class="btn btn--outline">Undang anggota</button></div>
+    </div>
+    <div class="card">
+      <h3 class="title">Batas peran</h3>
+      <div class="rowline"><span>Menjalankan analisis</span><span class="body-s">Semua peran</span></div>
+      <div class="rowline"><span>Menerima / menolak rekomendasi</span><span class="body-s">Pemilik saja</span></div>
+      <div class="rowline"><span>Menghubungkan marketplace</span><span class="body-s">Pemilik saja</span></div>
+    </div>
+  </section>
+
+  <!-- ============ S13 · LANGGANAN (Tier 3) ============ -->
+  <section class="screen" id="s13">
+    <span class="label">Roadmap</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Langganan</h1>
+    <p class="lead">Model freemium: yang gratis harus benar-benar berguna sendirian, bukan demo yang lumpuh.</p>
+    <div class="price">
+      <div class="price__card on">
+        <b>Gratis</b><p class="price__amt">Rp 0</p>
+        <p class="body-s">1 toko · 200 ulasan/bulan · seluruh Action Card &amp; bukti</p>
+      </div>
+      <div class="price__card">
+        <b>Toko</b><p class="price__amt">Rp 49rb<span style="font-size:.8rem">/bln</span></p>
+        <p class="body-s">3 toko · 5.000 ulasan · tren, papan tindakan, ekspor PDF</p>
+      </div>
+      <div class="price__card">
+        <b>Tim</b><p class="price__amt">Rp 149rb<span style="font-size:.8rem">/bln</span></p>
+        <p class="body-s">Toko tanpa batas · anggota tim · koneksi marketplace</p>
+      </div>
+    </div>
+    <div class="banner banner--muted">Batas paket gratis dipilih agar UMKM mikro — sasaran utama produk ini — tidak pernah terpaksa membayar untuk menjawab pertanyaan intinya: "besok saya benahi apa?"</div>
+  </section>
+
+  <!-- ============ S14 · TATA KELOLA (Tier 3) ============ -->
+  <section class="screen" id="s14">
+    <span class="label">Roadmap</span>
+    <h1 class="display-m" style="margin-top:var(--space-2)">Tata kelola &amp; jejak audit</h1>
+    <p class="lead">Untuk UMKM yang secara hukum bertanggung jawab atas data pelanggannya (UU PDP).</p>
+    <div class="card">
+      <h3 class="title">Data Anda</h3>
+      <div class="rowline"><span>Simpan hasil analisis</span><span class="body-s">90 hari</span></div>
+      <div class="rowline"><span>Simpan teks ulasan mentah</span><span class="body-s">Tidak pernah</span></div>
+      <div class="rowline"><span>Pakai data saya untuk melatih model</span><span class="switch off"></span></div>
+      <div class="actions"><button class="btn btn--outline" style="color:var(--urgency-high);border-color:var(--urgency-high)">Hapus semua data saya</button></div>
+    </div>
+    <div class="card">
+      <h3 class="title">Jejak aktivitas</h3>
+      <div class="rowline"><span>Ani menjalankan analisis · 120 ulasan</span><span class="body-s">8 Agu 21:14</span></div>
+      <div class="rowline"><span>Bu Rina menerima "Revisi size chart"</span><span class="body-s">8 Agu 21:22</span></div>
+      <div class="rowline"><span>Ani mengunduh laporan PDF</span><span class="body-s">8 Agu 21:30</span></div>
+    </div>
+  </section>
+
+  </div>
+</main>
+</div>
+
+<script>
+// Alasan desain per layar — ditulis di sini supaya perancang UI tahu apa yang
+// tidak boleh hilang saat tampilannya dipercantik.
+const WHY = {
+  s1:"<b>Kenapa begini:</b> tiga cara masuk (tempel / unggah / contoh) karena Bu Rina belum tentu punya ekspor CSV rapi, dan juri butuh jalur data contoh. Pemetaan kolom muncul otomatis tapi bisa ditimpa — ekspor marketplace jarang seragam. Slot foto sengaja dinonaktifkan, bukan dihilangkan.",
+  s2:"<b>Kenapa begini:</b> checklist bertahap, bukan spinner. Pengguna dengan literasi digital sedang perlu bukti sistem benar-benar bekerja. Ini satu-satunya animasi di seluruh produk.",
+  s3:"<b>Kenapa begini:</b> satu halaman gulir, tanpa tab. Urutannya mengikuti pertanyaan Bu Rina: apa ringkasnya → seberapa layak dipercaya → apa yang harus dikerjakan → apa yang sudah bagus → bagaimana dibanding toko lain → boleh saya tanya sendiri. Angka dan kutipan selalu monospace supaya terbaca sebagai fakta terhitung, bukan karangan.",
+  s4:"<b>Kenapa begini:</b> panel geser, bukan halaman baru — konteks hasil tidak hilang. Setiap kutipan membawa rating dan tanggal supaya pengguna bisa menimbang bobotnya sendiri.",
+  s5:"<b>Kenapa Tier 2:</b> layar ini baru masuk akal setelah ada lebih dari satu sesi analisis. Di MVP ia justru menambah langkah tanpa menambah jawaban.",
+  s6:"<b>Kenapa Tier 2:</b> butuh penyimpanan lintas sesi, yang eksplisit di luar batas MVP. Perhatikan peringatan sebab-akibat — tanpa itu, papan ini mengundang kesimpulan yang tidak didukung data.",
+  s7:"<b>Kenapa Tier 2:</b> rulebook menyebut dashboard analitik lanjutan sebagai contoh over-scope. Grafik tren dari satu batch juga menyesatkan secara statistik.",
+  s8:"<b>Kenapa Tier 2:</b> menjawab persona Admin Toko yang harus melapor ke pemilik. Di Tier 1, tangkapan layar sudah cukup.",
+  s9:"<b>Kenapa Tier 2:</b> menunggu model visual lolos go/no-go gate. Pencocokan foto-ke-ulasan juga menambah kompleksitas UI yang tidak wajib MVP.",
+  s10:"<b>Kenapa Tier 3:</b> rulebook menyebut otentikasi kompleks sebagai contoh backend terlalu rumit. Masuk lewat nomor WhatsApp dipilih karena lebih akrab bagi UMKM daripada email.",
+  s11:"<b>Kenapa Tier 3:</b> bergantung API resmi marketplace yang ketersediaannya di luar kendali tim. Ditulis sebagai rencana, tidak pernah diklaim berfungsi.",
+  s12:"<b>Kenapa Tier 3:</b> peran hanya bermakna kalau ada akun. Batas perannya mengunci satu prinsip: yang menerima rekomendasi tetap manusia pemilik keputusan.",
+  s13:"<b>Kenapa Tier 3:</b> model bisnis dirancang sejak riset, bukan tempelan. Paket gratis sengaja cukup untuk menjawab pertanyaan inti UMKM mikro.",
+  s14:"<b>Kenapa Tier 3:</b> audit trail baru relevan saat multi-pengguna. Tombol hapus data dan larangan melatih model dari data pengguna sudah berlaku sejak Tier 1."
+};
+const TIER = {
+  s1:"built",s2:"built",s3:"built",s4:"built",
+  s5:"design",s6:"design",s7:"design",s8:"design",s9:"design",
+  s10:"road",s11:"road",s12:"road",s13:"road",s14:"road"
+};
+const TIER_TEXT = {
+  built:"● Tier 1 — sudah berfungsi di repo",
+  design:"● Tier 2 — rancangan, belum dibangun",
+  road:"● Tier 3 — roadmap pasca-kompetisi"
+};
+
+const badge = document.getElementById('tierBadge');
+const why = document.getElementById('why');
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on', s.id===id));
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.s===id));
+  const t = TIER[id];
+  badge.className = 'badge badge--'+t;
+  badge.textContent = TIER_TEXT[t];
+  why.innerHTML = WHY[id];
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav a').forEach(a=>{
+  a.addEventListener('click', e=>{ e.preventDefault(); show(a.dataset.s); });
+});
+document.querySelectorAll('.toggle button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.toggle button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById('frame').classList.toggle('wide', b.dataset.w==='desktop');
+  });
+});
+show('s1');
+</script>
+</body>
+</html>
