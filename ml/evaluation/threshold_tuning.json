@@ -1,0 +1,246 @@
+{
+  "catatan": "tau dipilih pada NusaX split TRAIN dan dilaporkan pada split test yang tidak pernah dilihat saat memilih. tau=0.5 setara perilaku argmax lama.",
+  "tau_terpilih": 0.2,
+  "sapuan_pada_tuning": [
+    {
+      "tau": 0.2,
+      "macro_f1": 0.7175,
+      "negatif": {
+        "f1": 0.6532,
+        "precision": 0.9238,
+        "recall": 0.5052
+      }
+    },
+    {
+      "tau": 0.225,
+      "macro_f1": 0.7175,
+      "negatif": {
+        "f1": 0.6532,
+        "precision": 0.9238,
+        "recall": 0.5052
+      }
+    },
+    {
+      "tau": 0.25,
+      "macro_f1": 0.7175,
+      "negatif": {
+        "f1": 0.6532,
+        "precision": 0.9238,
+        "recall": 0.5052
+      }
+    },
+    {
+      "tau": 0.275,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.3,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.325,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.35,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.375,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.4,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.425,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.45,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.475,
+      "macro_f1": 0.7153,
+      "negatif": {
+        "f1": 0.6486,
+        "precision": 0.9231,
+        "recall": 0.5
+      }
+    },
+    {
+      "tau": 0.5,
+      "macro_f1": 0.7131,
+      "negatif": {
+        "f1": 0.6441,
+        "precision": 0.9223,
+        "recall": 0.4948
+      }
+    },
+    {
+      "tau": 0.525,
+      "macro_f1": 0.7131,
+      "negatif": {
+        "f1": 0.6441,
+        "precision": 0.9223,
+        "recall": 0.4948
+      }
+    },
+    {
+      "tau": 0.55,
+      "macro_f1": 0.7131,
+      "negatif": {
+        "f1": 0.6441,
+        "precision": 0.9223,
+        "recall": 0.4948
+      }
+    }
+  ],
+  "hasil_pada_test": {
+    "nusax_ind_test": {
+      "n": 400,
+      "kelas": [
+        "negatif",
+        "netral",
+        "positif"
+      ],
+      "argmax_lama": {
+        "macro_f1": 0.7291,
+        "per_kelas": {
+          "negatif": {
+            "f1": 0.7109,
+            "precision": 0.8835,
+            "recall": 0.5948
+          },
+          "netral": {
+            "f1": 0.6452,
+            "precision": 0.5263,
+            "recall": 0.8333
+          },
+          "positif": {
+            "f1": 0.8311,
+            "precision": 0.8483,
+            "recall": 0.8146
+          }
+        }
+      },
+      "tau_0.2": {
+        "macro_f1": 0.7294,
+        "per_kelas": {
+          "negatif": {
+            "f1": 0.7132,
+            "precision": 0.8762,
+            "recall": 0.6013
+          },
+          "netral": {
+            "f1": 0.6478,
+            "precision": 0.5298,
+            "recall": 0.8333
+          },
+          "positif": {
+            "f1": 0.8271,
+            "precision": 0.8472,
+            "recall": 0.8079
+          }
+        }
+      }
+    },
+    "prdect_test": {
+      "n": 804,
+      "kelas": [
+        "negatif",
+        "positif"
+      ],
+      "argmax_lama": {
+        "macro_f1": 0.8375,
+        "per_kelas": {
+          "negatif": {
+            "f1": 0.7779,
+            "precision": 0.9963,
+            "recall": 0.6381
+          },
+          "positif": {
+            "f1": 0.8971,
+            "precision": 0.8558,
+            "recall": 0.9427
+          }
+        }
+      },
+      "tau_0.2": {
+        "macro_f1": 0.8384,
+        "per_kelas": {
+          "negatif": {
+            "f1": 0.7797,
+            "precision": 0.9963,
+            "recall": 0.6405
+          },
+          "positif": {
+            "f1": 0.8971,
+            "precision": 0.8558,
+            "recall": 0.9427
+          }
+        }
+      }
+    }
+  },
+  "kesimpulan": {
+    "keputusan": "TIDAK DITERAPKAN. Ambang dibiarkan pada perilaku argmax lama (tau=0.5).",
+    "alasan": "Perbaikan yang dihasilkan berada dalam derau: macro F1 NusaX test 0.7291 -> 0.7294, PRDECT test 0.8375 -> 0.8384, recall negatif PRDECT 0.6381 -> 0.6405. Menerapkan perubahan sebesar itu, yang dipilih dari 500 dokumen, adalah overfitting yang menyamar sebagai perbaikan.",
+    "diagnosis": {
+      "catatan": "Hipotesis awal keliru. Kekurangpanggilan negatif BUKAN masalah aturan keputusan di batas ambang - model justru yakin ketika ia salah.",
+      "dokumen_negatif_prdect": 420,
+      "terlewat_argmax": 128,
+      "dapat_diselamatkan_ambang_0.2_sampai_0.5": 1,
+      "P_negatif_di_bawah_0.10": 113,
+      "persen_di_bawah_0.10": 88.3,
+      "median_P_negatif_pada_yang_terlewat": 0.0006
+    },
+    "lever_sebenarnya": {
+      "temuan": "11 dari 128 dokumen yang terlewat (8,6%) SUDAH punya klausa dengan P(negatif) >= 0.5, tetapi kalah pada agregasi suara terbanyak tingkat dokumen.",
+      "kenapa_penting": "Ulasan yang memuji tiga hal dan mengeluhkan satu hal tetap sebuah keluhan bagi produk ini. Aturan mayoritas menenggelamkan keluhan tunggal itu justru pada kasus yang paling sering ditemui pada ulasan nyata.",
+      "langkah_berikut": "Uji aturan agregasi 'ada satu klausa negatif yakin -> dokumen negatif' terhadap aturan mayoritas, dengan evaluasinya sendiri. Sisa 88% membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusan."
+    }
+  }
+}

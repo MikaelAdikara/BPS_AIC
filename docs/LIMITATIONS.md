@@ -119,6 +119,28 @@ dan panel temuan visual sudah terpasang, tetapi endpoint unggah gambar maupun mo
 terlatih belum ada (lihat butir 1 di atas). Layar pertama menyatakan hal ini apa adanya alih-alih
 menyediakan slot yang tidak berfungsi.
 
+## Fase 8 — penyetelan ambang negatif tidak menyelesaikan masalahnya
+
+Model kurang memanggil kelas negatif: **128 dari 420 ulasan PRDECT berlabel negatif** oleh
+manusia diprediksi bukan-negatif. Hipotesis awal adalah `argmax` yang berpihak ke kelas
+mayoritas, sehingga ambang khusus kelas negatif seharusnya menolongnya.
+
+**Hipotesis itu keliru, dan pengukurannya menunjukkan kenapa.** Dari 128 yang terlewat, hanya
+**satu** yang probabilitas negatif tertingginya berada di rentang 0,20–0,50 — satu-satunya
+rentang yang dapat diselamatkan ambang. Sebanyak **113 (88,3%)** justru berada di bawah 0,10,
+dengan median 0,0006. Model bukan ragu lalu memilih salah; ia yakin dan salah.
+
+Penyetelan ambang karena itu **tidak diterapkan**. Perbaikannya berada dalam derau (macro F1
+PRDECT 0,8375 → 0,8384), dan menerapkan perubahan sekecil itu yang dipilih dari 500 dokumen
+hanya akan terlihat seperti perbaikan tanpa menjadi perbaikan.
+
+**Yang justru terlihat sebagai jalur nyata:** 11 dari 128 yang terlewat (8,6%) sudah memiliki
+klausa dengan P(negatif) ≥ 0,5, tetapi kalah pada agregasi suara terbanyak tingkat dokumen.
+Ulasan yang memuji tiga hal dan mengeluhkan satu hal tetap sebuah keluhan bagi produk ini —
+dan aturan mayoritas justru menenggelamkannya. Menguji aturan "ada satu klausa negatif yang
+yakin → dokumen negatif" adalah langkah berikutnya, dengan evaluasinya sendiri. Sisa 88%
+membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusan.
+
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._
