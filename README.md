@@ -60,9 +60,9 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 
 > ### Yang perlu diketahui pembaca sekarang
 >
-> **Belum ada aplikasi yang dapat dijalankan.** Yang sudah berfungsi adalah pipeline data dan model teks di `ml/` — dapat dijalankan penuh, lihat [bagian 9](#9-menjalankan-yang-sudah-ada).
+> **Aplikasi sudah dapat dijalankan.** API, antarmuka web, dan pipeline `ml/` berjalan penuh — lihat [bagian 9](#9-menjalankan-yang-sudah-ada).
 >
-> **Setup guide `docker compose` sengaja belum ditulis.** Ditulis pada Fase 9, setelah reproducibility test dari fresh clone benar-benar lulus — bukan sebelumnya. Menulis perintah yang belum pernah diuji justru merugikan pihak yang mencoba menjalankannya.
+> **`docker compose` sudah dikonfigurasi, tetapi belum pernah dijalankan sampai selesai.** Docker tidak terpasang di mesin pengembangan, sehingga konfigurasinya baru diperiksa secara statis (sintaks compose, keberadaan seluruh sumber `COPY`, kecocokan jalur di dalam container, endpoint healthcheck). Rinciannya beserta apa yang sudah dan belum diverifikasi ada di [docker/README.md](docker/README.md). Perintahnya ditulis apa adanya dengan catatan itu, bukan disajikan seolah sudah terbukti.
 >
 > **Tidak ada angka performa yang dikutip sebagai capaian di README ini.** Metrik yang sudah terukur beserta batas penafsirannya ada di [docs/MODEL_CARD.md](docs/MODEL_CARD.md).
 
@@ -318,7 +318,31 @@ Dua kotak bertanda adalah **gate kritis**. Fase 3 menentukan seberapa kuat klaim
 
 ## 9. Menjalankan yang sudah ada
 
-Bagian ini menjelaskan pipeline data dan model teks yang **sudah berfungsi hari ini**. Aplikasi web dan `docker compose` menyusul pada Fase 5–9.
+Bagian ini menjelaskan apa yang **sudah berfungsi hari ini**.
+
+### 9.0 Cara tercepat — docker compose
+
+```bash
+docker compose up --build
+```
+
+Antarmuka di <http://localhost:3000>, API di <http://localhost:8000>. Container frontend menunggu API melewati healthcheck `/api/v1/readiness`, sehingga halaman tidak pernah tampil sebelum modelnya siap.
+
+Bobot IndoBERT (476 MB) tidak masuk git dan dipasang dari `./models` sebagai volume read-only. **Kalau folder itu kosong, sistem tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` — seluruh alur tetap dapat didemonstrasikan, hasilnya saja lebih lemah.
+
+> Konfigurasi ini belum pernah dijalankan sampai selesai karena Docker tidak terpasang di mesin pengembangan. Apa yang sudah diverifikasi secara statis, dan apa yang belum, dicatat di [docker/README.md](docker/README.md).
+
+### 9.0.1 Menjalankan tanpa Docker
+
+```bash
+python -m uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000
+```
+
+```bash
+npm run dev --prefix apps/web
+```
+
+Jalur ini **sudah terverifikasi berjalan**: API siap dalam ~53 detik pada CPU, dan antarmuka menghasilkan analisis penuh atas 120 ulasan contoh.
 
 ### 9.1 Prasyarat
 
@@ -478,7 +502,8 @@ docs/design/           rancangan SaaS penuh + prototipe antarmuka 14 layar
 docs/reference/        blueprint sistem, dossier riset, ringkasan aturan
 scripts/               unduh dataset, precompute baseline
 tests/                 unit / integration / e2e                      [Fase 5+]
-docker/                docker-compose.yml                            [Fase 9]
+docker/                Dockerfile api & web, nginx.conf, catatan verifikasi
+docker-compose.yml     deployment lokal dua service (di root, bukan docker/)
 ```
 
 ## 15. Konvensi pengembangan
