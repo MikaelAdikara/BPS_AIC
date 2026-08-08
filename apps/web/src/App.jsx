@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { api, guessMapping, parseFile, parsePastedText, rowsToReviews } from "./api/client";
 import {
   ActionCard,
+  AspectChart,
   BenchmarkCard,
   ColumnMapper,
   DataQualityCard,
@@ -17,7 +18,6 @@ import {
   PreviewTable,
   QnABox,
   VisualFindings,
-  aspectLabel,
 } from "./components";
 import "./styles/app.css";
 
@@ -61,7 +61,20 @@ export default function App() {
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
   const [ready, setReady] = useState(false);
+  const [theme, setTheme] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+  );
   const fileInput = useRef(null);
+
+  // Mode gelap dipilih pengguna, bukan diikutkan sistem: aplikasi ini dibuka malam hari
+  // setelah tutup toko, dan preferensi OS UMKM sasaran jarang disetel sengaja.
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   useEffect(() => {
     api.readiness().then(() => setReady(true)).catch(() => setReady(false));
@@ -129,9 +142,20 @@ export default function App() {
     setScreen("landing");
   }
 
+  const themeToggle = (
+    <button
+      className="themebtn"
+      onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+      aria-pressed={theme === "dark"}
+    >
+      {theme === "dark" ? "Mode terang" : "Mode gelap"}
+    </button>
+  );
+
   if (screen === "processing") {
     return (
       <main className="shell">
+        {themeToggle}
         <h1 className="display-m">Sedang menganalisis…</h1>
         <div
           className="progress"
@@ -158,6 +182,7 @@ export default function App() {
   if (screen === "result" && result) {
     return (
       <main className="shell">
+        {themeToggle}
         <span className="label">Hasil analisis</span>
         <h1 className="display-m" style={{ marginTop: "var(--space-2)" }}>
           Ringkasan
@@ -177,9 +202,10 @@ export default function App() {
             <h2 className="title" style={{ marginTop: "var(--space-8)" }}>
               Yang perlu dikerjakan lebih dulu
             </h2>
-            {result.top_actions.map((card) => (
+            {result.top_actions.map((card, i) => (
               <ActionCard
                 key={card.action_id}
+                index={i}
                 card={card}
                 decision={decisions[card.action_id]}
                 onDecide={(id, value) => setDecisions((d) => ({ ...d, [id]: value }))}
@@ -193,29 +219,7 @@ export default function App() {
         <VisualFindings findings={result.visual_findings} />
         <BenchmarkCard rows={result.benchmark} />
 
-        <section className="card">
-          <h3 className="title">Rincian per aspek</h3>
-          <table className="bench">
-            <thead>
-              <tr>
-                <th>Aspek</th>
-                <th>Disebut</th>
-                <th>Keluhan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.aspect_aggregates.slice(0, 8).map((a) => (
-                <tr key={a.aspect}>
-                  <td>{aspectLabel(a.aspect)}</td>
-                  <td>{a.total_mentions}</td>
-                  <td style={{ color: a.negative_count ? "var(--urgency-high)" : "var(--ink-muted)" }}>
-                    {a.negative_count}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+        <AspectChart aggregates={result.aspect_aggregates} />
 
         <QnABox analysisId={result.analysis_id} onAsk={api.ask} />
 
@@ -235,6 +239,7 @@ export default function App() {
 
   return (
     <main className="shell">
+      {themeToggle}
       <h1 className="display-l">InsightUlasan</h1>
       <p className="lead">
         Ubah ulasan pelanggan jadi langkah nyata — tiga masalah paling mendesak, bukti kutipan

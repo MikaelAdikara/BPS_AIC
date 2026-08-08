@@ -94,8 +94,21 @@
   --radius-pill: 999px;
   --border-evidence: 3px; /* garis kiri evidence strip */
 
-  /* Satu tingkat elevasi saja — kedalaman datang dari garis dan permukaan. */
+  /* Tiga tingkat elevasi. Sebelumnya hanya satu, dan akibatnya panel bukti terlihat
+   * sedatar kartu di belakangnya — pengguna kehilangan petunjuk mana yang di atas. */
   --shadow-card: 0 1px 2px rgba(26, 29, 38, 0.06);
+  --shadow-raised: 0 4px 16px -4px rgba(26, 29, 38, 0.12), 0 1px 3px rgba(26, 29, 38, 0.06);
+  --shadow-overlay: 0 20px 48px -12px rgba(26, 29, 38, 0.24);
+
+  /* ---------- Palet grafik ----------
+   * Lolos enam pemeriksaan scripts/validate_palette.js pada permukaan terang:
+   * pita lightness, lantai chroma, pemisahan CVD (deutan ΔE 14,7), lantai
+   * penglihatan normal (17,0), dan kontras >= 3:1. Slot pertama sengaja warna merek.
+   * Hijau TIDAK dipakai sebagai seri — ia dikunci untuk status positif. */
+  --chart-1: #4356c7;
+  --chart-2: #0891b2;
+  --chart-3: #c2740a;
+  --chart-4: #c0357a;
 
   /* ---------- Tata letak ---------- */
   --content-max: 35rem; /* 560px — panjang baris nyaman, kartu tetap objek tunggal */
@@ -105,53 +118,68 @@
   /* ---------- Gerak ---------- */
   --motion-state: 160ms;
   --motion-panel: 200ms;
+  --motion-reveal: 380ms; /* masuknya kartu hasil */
+  --motion-stagger: 60ms; /* jeda antar kartu saat muncul berurutan */
   --motion-stage-gap: 120ms; /* jeda antar tahap checklist pemrosesan */
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 600px) {
   :root {
-    --gutter: var(--space-6);
+  --gutter: var(--space-6);
   }
 }
 
-/* Mode gelap didukung lewat token, bukan prioritas Tier 1.
- * Kontras seluruh pasangan di bawah juga sudah diverifikasi >= 4.5:1. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #14161c;
-    --surface: #1c1f27;
-    --surface-sunken: #23262f;
-    --ink: #ecedf0;
-    --ink-muted: #a2a7b5;
-    --rule: #2e323c;
-
-    --nila-700: #93a2f2;
-    --nila-500: #aab6f6;
-    --nila-100: #232841;
-
-    --urgency-high: #f4867d;
-    --urgency-high-surface: #331d1b;
-    --urgency-medium: #e0a44e;
-    --urgency-medium-surface: #2f2517;
-    --urgency-low: #a2a7b5;
-    --urgency-low-surface: #23262f;
-
-    --positive: #62c795;
-    --positive-surface: #16291f;
-
-    --abstain: #9aa0ae;
-    --abstain-surface: #21242c;
-
-    --error: #f4867d;
-    --error-surface: #331d1b;
-
-    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  }
-}
-
+/* ---------- Mode gelap ----------
+ * SATU sumber kebenaran. Sebelumnya nilai gelap ada di dua tempat sekaligus
+ * (media query preferensi OS dan blok data-theme), dan yang menang bergantung
+ * urutan berkas — persis jenis kekeliruan yang tidak terlihat sampai warnanya
+ * berbeda di satu mesin saja.
+ *
+ * Preferensi OS tetap dihormati: App.jsx membacanya sekali saat muat dan
+ * menyetel data-theme. Pilihan eksplisit pengguna selalu menang setelah itu.
+ *
+ * Kontras seluruh pasangan di bawah sudah diverifikasi >= 4.5:1. Palet grafiknya
+ * punya langkah sendiri yang lolos validate_palette.js pada permukaan gelap
+ * (pita lightness 0,48-0,67) — bukan hasil pembalikan warna terang. */
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --paper: #14161c;
+  --surface: #1c1f27;
+  --surface-sunken: #23262f;
+  --ink: #ecedf0;
+  --ink-muted: #a2a7b5;
+  --rule: #2e323c;
+
+  --nila-700: #93a2f2;
+  --nila-500: #aab6f6;
+  --nila-100: #232841;
+
+  --urgency-high: #f4867d;
+  --urgency-high-surface: #331d1b;
+  --urgency-medium: #e0a44e;
+  --urgency-medium-surface: #2f2517;
+  --urgency-low: #a2a7b5;
+  --urgency-low-surface: #23262f;
+
+  --positive: #62c795;
+  --positive-surface: #16291f;
+
+  --abstain: #9aa0ae;
+  --abstain-surface: #21242c;
+
+  --error: #f4867d;
+  --error-surface: #331d1b;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-raised: 0 4px 16px -4px rgba(0, 0, 0, 0.5);
+  --shadow-overlay: 0 20px 48px -12px rgba(0, 0, 0, 0.7);
+
+  --chart-1: #6b78e8;
+  --chart-2: #0e93a8;
+  --chart-3: #b8790f;
+  --chart-4: #c04a80;
 }
 
 /* ---------- Dasar ---------- */

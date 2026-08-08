@@ -469,3 +469,120 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* ================================================================================
+ * Lapisan visual modern: grafik, elevasi, dan gerak masuk hasil
+ * ============================================================================= */
+
+/* ---------- Grafik batang horizontal ---------- */
+.legend {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  font-size: var(--text-body-s);
+  color: var(--ink-muted);
+  margin-bottom: var(--space-4);
+}
+.legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: var(--space-2);
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.bar {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 2.5rem;
+  gap: var(--space-3);
+  align-items: center;
+  font-size: var(--text-body-s);
+}
+.bar__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Jeda 2px antarsegmen supaya dua warna tidak menyatu jadi satu batang panjang. */
+.bar__track {
+  height: 22px;
+  background: var(--surface-sunken);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+.bar__fill {
+  height: 100%;
+  border-radius: 4px;
+  transform-origin: left;
+  animation: bar-grow var(--motion-reveal) var(--ease-emphasis) both;
+}
+.bar__val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink-muted);
+}
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@media (max-width: 30rem) {
+  .bar { grid-template-columns: 6rem 1fr 2.25rem; }
+}
+
+/* ---------- Gerak masuk kartu hasil ----------
+ * Berurutan, bukan serentak: mata mengikuti satu kartu pada satu waktu, dan jeda
+ * 60ms cukup terasa berurutan tanpa membuat layar terasa lambat dimuat. */
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.reveal {
+  animation: card-rise var(--motion-reveal) var(--ease-emphasis) both;
+}
+
+/* ---------- Elevasi berlapis ---------- */
+.drawer {
+  box-shadow: var(--shadow-overlay);
+}
+.card:hover {
+  box-shadow: var(--shadow-raised);
+}
+.card {
+  transition: box-shadow var(--motion-panel) var(--ease-out);
+}
+
+/* ---------- Pengalih tema ---------- */
+.themebtn {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 30;
+  min-height: 38px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-s);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+}
+.themebtn:hover { border-color: var(--ink-muted); }
+
+/* Pengguna yang meminta gerak dikurangi tidak mendapat animasi apa pun. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

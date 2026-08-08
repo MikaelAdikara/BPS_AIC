@@ -1,8 +1,12 @@
 # Rancangan Produk SaaS — InsightUlasan
 
 Dokumen ini adalah rancangan antarmuka **lengkap** untuk InsightUlasan sebagai produk SaaS utuh,
-beserta alasan di balik setiap keputusan bentuknya. Prototipe visualnya:
-[`prototype.html`](prototype.html) — buka di browser, 14 layar, dapat diklik.
+beserta alasan di balik setiap keputusan bentuknya. Dua prototipe menyertainya:
+
+| Berkas | Isi |
+| --- | --- |
+| [`site.html`](site.html) | **Produk penuh, fidelitas tinggi** — situs publik, login, lalu dashboard beranimasi dengan grafik. Ini acuan visual utama |
+| [`prototype.html`](prototype.html) | Kerangka 14 layar beranotasi tier, untuk membaca cakupan dan alasan per layar |
 
 Token warna dan tipografi di prototipe disalin dari
 [`apps/web/src/styles/tokens.css`](../../apps/web/src/styles/tokens.css). Kalau keduanya berbeda,

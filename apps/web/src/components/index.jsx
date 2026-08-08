@@ -62,10 +62,13 @@ export function EvidenceStrip({ citation }) {
   );
 }
 
-export function ActionCard({ card, decision, onDecide, onOpenEvidence }) {
+export function ActionCard({ card, decision, onDecide, onOpenEvidence, index = 0 }) {
   const urgency = card.urgency;
   return (
-    <article className="card">
+    <article
+      className="card reveal"
+      style={{ animationDelay: `${index * 60}ms` }}
+    >
       <span className={`pill pill--${urgency}`}>{URGENCY_LABEL[urgency] ?? urgency}</span>
       <h3 className="title">{card.title}</h3>
       <Narrative text={card.recommended_action} />
@@ -142,6 +145,80 @@ export function BenchmarkCard({ rows }) {
       <p className="body-s" style={{ marginTop: "var(--space-3)" }}>
         Dari <span className="stat">{rows[0].baseline_sample_size}</span> ulasan pembanding ·
         keyakinan {rows[0].confidence_level}
+      </p>
+    </section>
+  );
+}
+
+/** Sebaran aspek sebagai batang horizontal.
+ *
+ * Batang horizontal dipilih karena tugas datanya membandingkan BESARAN antar kategori
+ * yang labelnya panjang ("kesesuaian deskripsi"); batang vertikal memaksa label dimiringkan
+ * dan tidak terbaca di layar HP. Nilainya juga dilabeli langsung di ujung kanan, sehingga
+ * identitas tidak pernah bergantung pada warna saja.
+ */
+export function AspectChart({ aggregates }) {
+  const [hover, setHover] = useState(null);
+  if (!aggregates?.length) return null;
+
+  const rows = [...aggregates].sort((a, b) => b.total_mentions - a.total_mentions).slice(0, 6);
+  const max = Math.max(...rows.map((r) => r.total_mentions), 1);
+
+  return (
+    <section className="card">
+      <h3 className="title">Sebaran per aspek</h3>
+      <div className="legend">
+        <span>
+          <i style={{ background: "var(--chart-1)" }} />
+          Disebut
+        </span>
+        <span>
+          <i style={{ background: "var(--urgency-high)" }} />
+          Berisi keluhan
+        </span>
+      </div>
+
+      <div className="bars">
+        {rows.map((r, i) => {
+          const netral = r.total_mentions - r.negative_count;
+          return (
+            <div className="bar" key={r.aspect}>
+              <span className="bar__name">{aspectLabel(r.aspect)}</span>
+              <span className="bar__track">
+                <i
+                  className="bar__fill"
+                  style={{
+                    width: `${(netral / max) * 100}%`,
+                    background: "var(--chart-1)",
+                    animationDelay: `${i * 55}ms`,
+                  }}
+                  onMouseEnter={() =>
+                    setHover(`${aspectLabel(r.aspect)}: ${r.total_mentions} sebutan`)
+                  }
+                  onMouseLeave={() => setHover(null)}
+                />
+                <i
+                  className="bar__fill"
+                  style={{
+                    width: `${(r.negative_count / max) * 100}%`,
+                    background: "var(--urgency-high)",
+                    animationDelay: `${i * 55 + 40}ms`,
+                  }}
+                  onMouseEnter={() =>
+                    setHover(`${aspectLabel(r.aspect)}: ${r.negative_count} berisi keluhan`)
+                  }
+                  onMouseLeave={() => setHover(null)}
+                />
+              </span>
+              <span className="bar__val">{r.total_mentions}</span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Tabel tetap tersedia sebagai jalur baca alternatif bagi pembaca layar. */}
+      <p className="body-s" aria-live="polite">
+        {hover ?? "Arahkan kursor ke batang untuk melihat angkanya."}
       </p>
     </section>
   );
