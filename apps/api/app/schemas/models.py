@@ -177,13 +177,20 @@ class BenchmarkRecord(_Base):
 
 
 class EvidenceCitation(_Base):
-    """Bagian 25.10. `quote` adalah kutipan ASLI, tidak diparafrase."""
+    """Bagian 25.10. `quote` adalah kutipan ASLI, tidak diparafrase.
+
+    `rating` dan `timestamp` ikut dibawa agar pengguna dapat menimbang bobot tiap kutipan:
+    keluhan bintang 1 dari minggu lalu tidak sama beratnya dengan bintang 3 dari enam bulan
+    lalu. Tanpa keduanya, semua kutipan tampak sama pentingnya.
+    """
 
     citation_id: str
     review_id: str
     quote: str
     relevance_score: float = Field(ge=0.0, le=1.0)
     aspect: Aspect | None = None
+    rating: int | None = Field(default=None, ge=1, le=5)
+    timestamp: datetime | None = None
 
 
 # --------------------------------------------------------------------------------------
@@ -231,6 +238,39 @@ class ActionCard(_Base):
 # --------------------------------------------------------------------------------------
 # 25.11 - 25.13  Keluaran API
 # --------------------------------------------------------------------------------------
+class Opportunity(_Base):
+    """OPP-01 — aspek yang justru DIPUJI pelanggan (blueprint bagian 8.2, 22.3).
+
+    Disajikan sebagai sinyal untuk materi promosi, BUKAN sebagai teks iklan yang ditulis
+    sistem (bagian 3.1: produk ini sengaja bukan generator konten marketing).
+    """
+
+    aspect: Aspect
+    positive_count: int = Field(ge=0)
+    total_reviews: int = Field(ge=0)
+    pct_positive: float = Field(ge=0.0, le=1.0)
+    highlight: str
+    evidence_quotes: list[EvidenceCitation] = Field(default_factory=list)
+
+
+class DataQuality(_Base):
+    """ING-05 — skor kualitas data batch yang diunggah.
+
+    Ditampilkan supaya pengguna tahu seberapa jauh hasil ini layak dipercaya, alih-alih
+    menerima angka apa adanya tanpa konteks.
+    """
+
+    score: int = Field(ge=0, le=100)
+    level: str  # baik | cukup | terbatas
+    total_uploaded: int = Field(ge=0)
+    used: int = Field(ge=0)
+    skipped: int = Field(ge=0)
+    with_rating: int = Field(ge=0)
+    with_timestamp: int = Field(ge=0)
+    pii_redacted: int = Field(ge=0)
+    notes: list[str] = Field(default_factory=list)
+
+
 class AnalysisSummary(_Base):
     total_reviews: int = Field(ge=0)
     reviews_with_image: int = Field(ge=0)
@@ -246,6 +286,8 @@ class AnalysisResult(_Base):
     aspect_aggregates: list[AspectAggregate] = Field(default_factory=list)
     visual_findings: list[VisualPrediction] = Field(default_factory=list)
     benchmark: list[BenchmarkRecord] = Field(default_factory=list)
+    opportunities: list[Opportunity] = Field(default_factory=list)
+    data_quality: DataQuality | None = None
     warnings: list[str] = Field(default_factory=list)
     mode: AnalysisMode
     model_versions: dict[str, str] = Field(default_factory=dict)

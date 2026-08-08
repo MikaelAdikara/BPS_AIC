@@ -50,6 +50,7 @@ class IndexedReview:
     negative_aspects: frozenset[str] = frozenset()
     product_id: str | None = None
     rating: int | None = None
+    timestamp: object | None = None
 
 
 def _token_overlap(a: str, b: str) -> float:
@@ -87,6 +88,7 @@ class EvidenceIndex:
                 negative_aspects=frozenset(r.get("negative_aspects", [])),
                 product_id=r.get("product_id"),
                 rating=r.get("rating"),
+                timestamp=r.get("timestamp"),
             )
             for r, v in zip(reviews, vectors)
         ]
@@ -154,6 +156,8 @@ class EvidenceIndex:
                 quote=item.text,  # kutipan ASLI, tidak diparafrase (bagian 25.10)
                 relevance_score=round(min(max(float(score), 0.0), 1.0), 4),
                 aspect=aspect,
+                rating=item.rating,
+                timestamp=item.timestamp,
             )
             for idx, (score, item) in enumerate(selected)
         ]

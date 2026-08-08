@@ -197,17 +197,15 @@ def analyze(payload: AnalyzeRequest, request: Request):
 
 @app.post("/api/v1/questions", response_model=QnAResponse)
 def questions(payload: QuestionRequest):
-    """Q&A ter-ground. Pada FALLBACK MODE fitur ini dinonaktifkan dengan pesan jelas.
+    """Q&A ter-ground: jawaban disusun dari angka analisis dan selalu membawa kutipannya.
 
-    Menonaktifkan lebih jujur daripada menjawab tanpa orchestrator: jawaban yang tidak
-    ter-ground pada bukti persis yang dihindari produk ini (bagian 30.2).
+    Tanpa orchestrator, jawaban memakai kalimat template — sama seperti ringkasan eksekutif pada
+    FALLBACK MODE (ADR-014). Yang tidak pernah berubah adalah syaratnya: tanpa bukti yang dapat
+    dikutip, sistem menolak menjawab alih-alih mengarang (bagian 30.2).
     """
-    return QnAResponse(
-        answer="",
-        citations=[],
-        no_answer=True,
-        no_answer_reason=(
-            "Tanya jawab sedang tidak tersedia karena sistem berjalan dalam mode sederhana. "
-            "Seluruh angka, skor, dan bukti pada hasil analisis tetap lengkap."
-        ),
-    )
+    if not state["ready"] or state["service"] is None:
+        return QnAResponse(
+            answer="", citations=[], no_answer=True,
+            no_answer_reason="Sistem masih menyiapkan model. Coba lagi sebentar lagi.",
+        )
+    return state["service"].answer(payload.analysis_id, payload.question)

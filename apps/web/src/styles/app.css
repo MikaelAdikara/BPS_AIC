@@ -301,3 +301,171 @@
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
+
+/* ================================================================================
+ * Tier 1 lanjutan: unggah berkas, kualitas data, peluang, tanya-jawab
+ * ============================================================================= */
+
+/* ---------- Tab sumber data ---------- */
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: 1px solid var(--rule);
+  margin: var(--space-6) 0 var(--space-5);
+}
+.tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--ink-muted);
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+.tab--active {
+  color: var(--nila-700);
+  border-bottom-color: var(--nila-700);
+  font-weight: var(--weight-semibold);
+}
+
+/* ---------- Dropzone ---------- */
+.dropzone {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  border: 2px dashed var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  text-align: center;
+}
+/* Input file asli disembunyikan secara visual tetapi tetap terjangkau pembaca layar —
+   `display:none` akan memutus jalur keyboard menuju kontrol ini. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Input satu baris & select ---------- */
+.input {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-input);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+}
+
+/* ---------- Pemetaan kolom ---------- */
+.mapper {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: var(--space-3);
+}
+
+/* ---------- Pratinjau berkas ---------- */
+.preview {
+  overflow-x: auto;
+  margin-top: var(--space-3);
+}
+/* Sel dipotong agar satu ulasan panjang tidak mendorong tabel keluar layar; teks utuhnya
+   tetap dapat dibaca setelah analisis, pada panel bukti. */
+.preview__cell {
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--nila-100);
+  color: var(--nila-700);
+  font-size: var(--text-label);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ---------- Skor kualitas data ---------- */
+.quality {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+.quality__score {
+  display: grid;
+  justify-items: center;
+  min-width: 5rem;
+}
+.quality__number {
+  font-size: var(--text-display-l);
+  font-weight: var(--weight-bold);
+  background: none;
+  padding: 0;
+}
+.notes {
+  margin: var(--space-4) 0 0;
+  padding-left: var(--space-5);
+  color: var(--ink-muted);
+  font-size: var(--text-body-s);
+  line-height: var(--leading-body);
+}
+.notes li + li {
+  margin-top: var(--space-2);
+}
+
+/* ---------- Temuan positif (OPP-01) ---------- */
+.card--positive {
+  border-left: var(--border-evidence) solid var(--positive);
+}
+.pill--positive {
+  background: var(--positive-surface);
+  color: var(--positive);
+}
+.opp + .opp {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Tanya jawab ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.chip {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-s);
+  cursor: pointer;
+  text-align: left;
+}
+.chip:hover:not(:disabled) {
+  border-color: var(--nila-500);
+  color: var(--nila-700);
+}
+.chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

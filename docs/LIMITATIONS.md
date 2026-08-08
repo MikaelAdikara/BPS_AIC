@@ -87,6 +87,38 @@ dipilih (tanpa filter ini, kartu "perbaiki keterangan ukuran" sempat mendapat ku
 Itu pekerjaan frontend pada Fase 6 dan tercatat sebagai perbaikan yang direncanakan, bukan
 sebagai sesuatu yang sudah beres.
 
+## Keterbatasan fitur Tier 1 yang baru dibangun
+
+**Tanya jawab hanya mengenali satu topik per pertanyaan.** `_detect_aspect()` memilih aspek
+dengan kata kunci terbanyak, sehingga "bagaimana pengiriman dan kemasannya?" dijawab untuk salah
+satunya saja. Pertanyaan majemuk, perbandingan antar periode, dan pertanyaan lanjutan ("kenapa
+begitu?") belum ditangani.
+
+**Penjaga pertanyaan di luar domain lebih mudah menolak pada batch kecil.** Penjaganya
+membandingkan kata pada pertanyaan dengan kosakata ulasan pengguna. Batch 10 ulasan hanya
+memuat beberapa puluh kata unik, sehingga pertanyaan yang sebenarnya wajar dapat ikut ditolak.
+Arah kegagalan ini dipilih sadar: penolakan terlihat oleh pengguna dan dapat diperbaiki, jawaban
+keliru yang disertai kutipan meyakinkan tidak.
+
+**Pemenggal imbuhan pada penjaga domain tidak menangani peluluhan bunyi.** "pengiriman" menjadi
+"irim", bukan "kirim", karena huruf yang luluh tidak dapat dipulihkan tanpa menebak. Yang
+dibutuhkan penjaga hanyalah konsistensi antara pertanyaan dan korpus, sehingga ini tidak
+merugikan — efeknya hanya membuat penjaga sedikit lebih ketat.
+
+**OPP-01 memakai ambang tetap, belum dikalibrasi.** Aspek disebut "dipuji" bila ≥70% sebutannya
+positif dan disebut minimal 5 kali. Kedua angka ini ditetapkan dari penalaran, bukan dari
+pengujian terhadap penilaian manusia tentang apa yang pantas disebut kekuatan toko.
+
+**Skor kualitas data (ING-05) adalah heuristik, bukan ukuran tervalidasi.** Bobot penaltinya
+(−35 untuk <15 ulasan, −20 untuk rating/tanggal yang banyak kosong) dipilih agar urutannya masuk
+akal, dan belum pernah diuji terhadap seberapa akurat hasil analisis sebenarnya pada tiap
+tingkat. Skornya sebaiknya dibaca sebagai peringatan relatif, bukan sebagai probabilitas.
+
+**Unggahan foto belum ada di antarmuka.** Skema `ReviewImage` dan `VisualPrediction` sudah siap
+dan panel temuan visual sudah terpasang, tetapi endpoint unggah gambar maupun model visual
+terlatih belum ada (lihat butir 1 di atas). Layar pertama menyatakan hal ini apa adanya alih-alih
+menyediakan slot yang tidak berfungsi.
+
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._

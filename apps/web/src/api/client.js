@@ -42,6 +42,11 @@ export const api = {
   sample: () => request("/api/v1/demo/sample"),
   analyze: (reviews) =>
     request("/api/v1/analyze", { method: "POST", body: JSON.stringify({ reviews }) }),
+  ask: (analysisId, question) =>
+    request("/api/v1/questions", {
+      method: "POST",
+      body: JSON.stringify({ analysis_id: analysisId, question }),
+    }),
 };
 
 /** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan. */
@@ -56,4 +61,159 @@ export function parsePastedText(text) {
       category: "other",
       source: "manual_upload",
     }));
+}
+
+// --------------------------------------------------------------------------------------
+// ING-02 / ING-07 — unggah berkas dan pemetaan kolom
+// --------------------------------------------------------------------------------------
+
+/** Pecah satu baris CSV dengan menghormati tanda kutip.
+ *
+ * `split(",")` merusak ulasan asli, karena ulasan pelanggan hampir selalu memuat koma.
+ * Kutip ganda di dalam sel di-escape sebagai `""` mengikuti RFC 4180.
+ */
+function splitCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (inQuotes) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cell += '"';
+        i += 1;
+      } else if (ch === '"') {
+        inQuotes = false;
+      } else {
+        cell += ch;
+      }
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ",") {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += ch;
+    }
+  }
+  cells.push(cell);
+  return cells.map((c) => c.trim());
+}
+
+function parseCsv(raw) {
+  // Sel yang dikutip boleh memuat newline, sehingga pemisahan baris tidak dapat dilakukan
+  // dengan split("\n") sebelum tahu posisi kutipnya.
+  const lines = [];
+  let current = "";
+  let inQuotes = false;
+  for (const ch of raw.replace(/\r\n/g, "\n")) {
+    if (ch === '"') inQuotes = !inQuotes;
+    if (ch === "\n" && !inQuotes) {
+      lines.push(current);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  if (current.trim()) lines.push(current);
+
+  const nonEmpty = lines.filter((l) => l.trim());
+  if (!nonEmpty.length) return { columns: [], rows: [] };
+
+  const columns = splitCsvLine(nonEmpty[0]);
+  const rows = nonEmpty.slice(1).map((line) => {
+    const cells = splitCsvLine(line);
+    return Object.fromEntries(columns.map((c, i) => [c, cells[i] ?? ""]));
+  });
+  return { columns, rows };
+}
+
+function parseJson(raw) {
+  const data = JSON.parse(raw);
+  // Beberapa ekspor membungkus larik di dalam objek; ambil larik pertama yang ditemukan.
+  const rows = Array.isArray(data)
+    ? data
+    : Object.values(data).find((v) => Array.isArray(v)) ?? [];
+  if (!rows.length) return { columns: [], rows: [] };
+  const columns = [...new Set(rows.flatMap((r) => Object.keys(r ?? {})))];
+  return { columns, rows: rows.map((r) => ({ ...r })) };
+}
+
+export const MAX_FILE_BYTES = 5 * 1024 * 1024;
+export const MAX_ROWS = 1000;
+
+/** Baca berkas CSV/JSON menjadi {columns, rows}. Melempar Error berbahasa Indonesia. */
+export async function parseFile(file) {
+  if (file.size > MAX_FILE_BYTES) {
+    throw new Error("Berkas melebihi 5 MB. Coba unggah sebagian datanya lebih dulu.");
+  }
+  const raw = await file.text();
+  const isJson = file.name.toLowerCase().endsWith(".json") || raw.trimStart().startsWith("[");
+  let parsed;
+  try {
+    parsed = isJson ? parseJson(raw) : parseCsv(raw);
+  } catch {
+    throw new Error("Berkas tidak dapat dibaca. Pastikan formatnya CSV atau JSON yang utuh.");
+  }
+  if (!parsed.rows.length) {
+    throw new Error("Berkas terbaca tetapi tidak berisi baris data.");
+  }
+  return { ...parsed, truncated: parsed.rows.length > MAX_ROWS, rows: parsed.rows.slice(0, MAX_ROWS) };
+}
+
+// Nama kolom yang lazim dipakai ekspor marketplace Indonesia maupun dataset publik.
+const COLUMN_HINTS = {
+  text: ["review", "ulasan", "text", "content", "comment", "komentar", "isi", "review_text", "customer_review"],
+  rating: ["rating", "star", "bintang", "score", "nilai", "skor"],
+  timestamp: ["date", "tanggal", "timestamp", "created_at", "waktu", "time"],
+  product_name: ["product", "produk", "nama_produk", "product_name", "item", "title"],
+};
+
+/** ING-07 — tebak pemetaan kolom; pengguna tetap dapat menimpanya di UI. */
+export function guessMapping(columns) {
+  const mapping = { text: "", rating: "", timestamp: "", product_name: "" };
+  const lower = columns.map((c) => String(c).toLowerCase().trim());
+  for (const [field, hints] of Object.entries(COLUMN_HINTS)) {
+    // Cocokkan persis lebih dulu; padanan sebagian mudah salah sasaran
+    // ("rating_count" bukan rating, "review_id" bukan teks ulasan).
+    let idx = lower.findIndex((c) => hints.includes(c));
+    if (idx === -1) idx = lower.findIndex((c) => hints.some((h) => c.includes(h) && !c.includes("id")));
+    if (idx !== -1) mapping[field] = columns[idx];
+  }
+  return mapping;
+}
+
+const MONTH_OK = /^\d{4}-\d{2}-\d{2}/;
+
+function toIsoOrNull(value) {
+  if (!value) return null;
+  const s = String(value).trim();
+  if (MONTH_OK.test(s)) return s.length === 10 ? `${s}T00:00:00` : s;
+  const parsed = new Date(s);
+  return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString().slice(0, 19);
+}
+
+/** Ubah baris berkas menjadi RawReview memakai pemetaan kolom yang dipilih pengguna. */
+export function rowsToReviews(rows, mapping, category = "other") {
+  const out = [];
+  rows.forEach((row, index) => {
+    const text = String(row[mapping.text] ?? "").trim();
+    if (text.length < 3) return; // baris kosong dilewati, dihitung sebagai skipped oleh backend
+
+    const ratingRaw = mapping.rating ? Number(String(row[mapping.rating]).replace(",", ".")) : NaN;
+    const rating = Number.isFinite(ratingRaw) && ratingRaw >= 1 && ratingRaw <= 5
+      ? Math.round(ratingRaw)
+      : null;
+
+    out.push({
+      review_id: `file_${index + 1}`,
+      text,
+      rating,
+      timestamp: mapping.timestamp ? toIsoOrNull(row[mapping.timestamp]) : null,
+      product_name: mapping.product_name ? String(row[mapping.product_name] ?? "") || null : null,
+      category,
+      source: "manual_upload",
+    });
+  });
+  return out;
 }

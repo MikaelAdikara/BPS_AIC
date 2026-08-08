@@ -4,9 +4,21 @@
  * Landing → Processing → Result → Evidence, sesuai batas MVP satu input → satu output AI.
  */
 
-import { useEffect, useState } from "react";
-import { api, parsePastedText } from "./api/client";
-import { ActionCard, BenchmarkCard, EvidenceDrawer, Narrative, aspectLabel } from "./components";
+import { useEffect, useRef, useState } from "react";
+import { api, guessMapping, parseFile, parsePastedText, rowsToReviews } from "./api/client";
+import {
+  ActionCard,
+  BenchmarkCard,
+  ColumnMapper,
+  DataQualityCard,
+  EvidenceDrawer,
+  Narrative,
+  OpportunitySection,
+  PreviewTable,
+  QnABox,
+  VisualFindings,
+  aspectLabel,
+} from "./components";
 import "./styles/app.css";
 
 const STAGES = [
@@ -27,15 +39,29 @@ const WARNING_TEXT = {
   data_kosong: "Tidak ada ulasan yang dapat dianalisis dari data ini.",
 };
 
+const CATEGORIES = [
+  ["other", "Lainnya / campuran"],
+  ["fashion", "Fashion"],
+  ["electronics", "Elektronik"],
+  ["food_beverage", "Makanan & minuman"],
+  ["beauty", "Kecantikan"],
+  ["home_living", "Rumah tangga"],
+];
+
 export default function App() {
   const [screen, setScreen] = useState("landing");
+  const [tab, setTab] = useState("paste"); // paste | file
   const [text, setText] = useState("");
+  const [file, setFile] = useState(null); // { name, columns, rows, truncated }
+  const [mapping, setMapping] = useState({});
+  const [category, setCategory] = useState("other");
   const [stage, setStage] = useState(0);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
   const [ready, setReady] = useState(false);
+  const fileInput = useRef(null);
 
   useEffect(() => {
     api.readiness().then(() => setReady(true)).catch(() => setReady(false));
@@ -78,6 +104,20 @@ export default function App() {
         }))
       );
     } catch (err) {
+      setError({ message: err.message });
+    }
+  }
+
+  async function onPickFile(picked) {
+    if (!picked) return;
+    setError(null);
+    try {
+      const parsed = await parseFile(picked);
+      setFile({ name: picked.name, ...parsed });
+      setMapping(guessMapping(parsed.columns));
+      setTab("file");
+    } catch (err) {
+      setFile(null);
       setError({ message: err.message });
     }
   }
@@ -130,6 +170,8 @@ export default function App() {
           </div>
         ))}
 
+        <DataQualityCard quality={result.data_quality} />
+
         {result.top_actions.length > 0 && (
           <>
             <h2 className="title" style={{ marginTop: "var(--space-8)" }}>
@@ -147,6 +189,8 @@ export default function App() {
           </>
         )}
 
+        <OpportunitySection opportunities={result.opportunities} />
+        <VisualFindings findings={result.visual_findings} />
         <BenchmarkCard rows={result.benchmark} />
 
         <section className="card">
@@ -173,6 +217,8 @@ export default function App() {
           </table>
         </section>
 
+        <QnABox analysisId={result.analysis_id} onAsk={api.ask} />
+
         <p className="body-s">
           Model: {result.model_versions?.text} · mode {result.mode}
         </p>
@@ -184,6 +230,8 @@ export default function App() {
       </main>
     );
   }
+
+  const mappedReviews = file ? rowsToReviews(file.rows, mapping, category) : [];
 
   return (
     <main className="shell">
@@ -205,30 +253,132 @@ export default function App() {
         </div>
       )}
 
-      <label className="label" htmlFor="paste">
-        Tempel ulasan Anda — satu ulasan per baris
-      </label>
-      <textarea
-        id="paste"
-        className="textarea"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder={"ukurannya kekecilan padahal pesan L\npengiriman cepat, packing rapi\n…"}
-        style={{ marginTop: "var(--space-2)" }}
-      />
-
-      <div className="actions">
-        <button className="btn btn--primary" disabled={!ready} onClick={() => run(parsePastedText(text))}>
-          Analisis sekarang
-        </button>
-        <button className="btn btn--outline" disabled={!ready} onClick={runSample}>
-          Coba dengan data contoh
-        </button>
+      <div className="tabs" role="tablist">
+        {[
+          ["paste", "Tempel teks"],
+          ["file", "Unggah berkas"],
+        ].map(([id, label]) => (
+          <button
+            key={id}
+            role="tab"
+            aria-selected={tab === id}
+            className={`tab ${tab === id ? "tab--active" : ""}`}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
+
+      {tab === "paste" ? (
+        <>
+          <label className="label" htmlFor="paste">
+            Tempel ulasan Anda — satu ulasan per baris
+          </label>
+          <textarea
+            id="paste"
+            className="textarea"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={"ukurannya kekecilan padahal pesan L\npengiriman cepat, packing rapi\n…"}
+            style={{ marginTop: "var(--space-2)" }}
+          />
+          <div className="actions">
+            <button className="btn btn--primary" disabled={!ready} onClick={() => run(parsePastedText(text))}>
+              Analisis sekarang
+            </button>
+            <button className="btn btn--outline" disabled={!ready} onClick={runSample}>
+              Coba dengan data contoh
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div
+            className="dropzone"
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              onPickFile(e.dataTransfer.files?.[0]);
+            }}
+          >
+            <p style={{ margin: 0 }}>Tarik berkas CSV atau JSON ke sini</p>
+            <button className="btn btn--outline" onClick={() => fileInput.current?.click()}>
+              Pilih berkas
+            </button>
+            <input
+              ref={fileInput}
+              type="file"
+              accept=".csv,.json,text/csv,application/json"
+              className="sr-only"
+              onChange={(e) => onPickFile(e.target.files?.[0])}
+            />
+            <p className="body-s" style={{ margin: 0 }}>
+              Maksimal 5 MB · 1.000 baris pertama yang dipakai
+            </p>
+          </div>
+
+          {file && (
+            <>
+              <p className="body-s" style={{ marginTop: "var(--space-4)" }}>
+                <strong>{file.name}</strong> terbaca ·{" "}
+                <span className="stat">{file.columns.length}</span> kolom
+                {file.truncated && " · sisanya dipotong di 1.000 baris"}
+              </p>
+
+              <h2 className="title" style={{ marginTop: "var(--space-6)" }}>
+                Cocokkan kolom
+              </h2>
+              <p className="body-s">
+                Tebakan otomatis di bawah dapat Anda ubah. Hanya kolom teks ulasan yang wajib.
+              </p>
+              <ColumnMapper columns={file.columns} mapping={mapping} onChange={setMapping} />
+
+              <label className="label" htmlFor="cat" style={{ marginTop: "var(--space-4)", display: "block" }}>
+                Kategori produk (untuk pembanding)
+              </label>
+              <select
+                id="cat"
+                className="input"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {CATEGORIES.map(([v, l]) => (
+                  <option key={v} value={v}>
+                    {l}
+                  </option>
+                ))}
+              </select>
+
+              <h2 className="title" style={{ marginTop: "var(--space-6)" }}>
+                Pratinjau
+              </h2>
+              <PreviewTable rows={file.rows} columns={file.columns} mapping={mapping} />
+
+              <div className="actions">
+                <button
+                  className="btn btn--primary"
+                  disabled={!ready || !mapping.text || !mappedReviews.length}
+                  onClick={() => run(mappedReviews)}
+                >
+                  Analisis {mappedReviews.length || ""} ulasan
+                </button>
+                <button className="btn btn--text" onClick={() => setFile(null)}>
+                  Ganti berkas
+                </button>
+              </div>
+              {!mapping.text && (
+                <p className="body-s">Pilih kolom teks ulasan lebih dulu untuk mulai menganalisis.</p>
+              )}
+            </>
+          )}
+        </>
+      )}
 
       <p className="body-s" style={{ marginTop: "var(--space-6)" }}>
         Data Anda hanya diproses selama sesi ini dan tidak disimpan permanen. Nomor telepon dan
-        data pribadi yang terdeteksi disamarkan sebelum dianalisis.
+        data pribadi yang terdeteksi disamarkan sebelum dianalisis. Foto ulasan belum didukung
+        pada versi ini.
       </p>
     </main>
   );

@@ -19,6 +19,7 @@ from datetime import datetime
 
 from ..schemas import (
     AnalysisMode,
+    QnAResponse,
     AnalysisResult,
     AnalysisSummary,
     Category,
@@ -26,13 +27,18 @@ from ..schemas import (
 )
 from ..tools import (
     EvidenceIndex,
+    QnAContext,
+    QnAStore,
+    answer_question,
     build_action_card,
     calculate_aspect_statistics,
     calculate_priority_score,
     compare_category_baseline,
+    find_opportunities,
     fuse_all,
     load_baseline,
     preprocess_reviews,
+    score_data_quality,
 )
 
 MAX_ACTION_CARDS = 5
@@ -54,6 +60,21 @@ class AnalyzeService:
         # karena nilainya bergantung model embedding yang dipakai - ambang yang cocok untuk
         # BGE-M3 belum tentu cocok untuk fallback TF-IDF.
         self.min_similarity = min_similarity
+        # Konteks Q&A hidup di memori proses saja dan kedaluwarsa sendiri (lihat tools/qna.py).
+        self.qna_store = QnAStore()
+
+    def answer(self, analysis_id: str, question: str) -> QnAResponse:
+        """QNA-01 — jawab hanya dari analisis yang bersangkutan, tidak dari batch lain."""
+        context = self.qna_store.get(analysis_id)
+        if context is None:
+            return QnAResponse(
+                answer="", citations=[], no_answer=True,
+                no_answer_reason=(
+                    "Hasil analisis ini sudah tidak tersimpan. Jalankan analisis ulang untuk "
+                    "dapat bertanya lagi."
+                ),
+            )
+        return answer_question(context, question)
 
     def _dominant_category(self, reviews) -> Category:
         if not reviews:
@@ -87,6 +108,7 @@ class AnalyzeService:
                 "aspects": aspects_by_review.get(r.review_id, []),
                 "negative_aspects": negative_by_review.get(r.review_id, []),
                 "rating": r.rating,
+                "timestamp": r.timestamp,
             }
             for r in reviews
         ])
@@ -177,11 +199,36 @@ class AnalyzeService:
                 )
             )
 
+        # OPP-01 — aspek yang justru dipuji, disajikan sebagai sinyal untuk materi promosi.
+        positive_evidence = {}
+        if index is not None:
+            for agg in aggregates:
+                if agg.positive_count >= 5:
+                    positive_evidence[agg.aspect] = index.retrieve(
+                        query=agg.aspect.value.replace("_", " "), aspect=agg.aspect, top_k=2
+                    )
+        opportunities = find_opportunities(aggregates, len(reviews), positive_evidence)
+
+        data_quality = score_data_quality(
+            total_uploaded=len(raw_reviews),
+            used=len(reviews),
+            skipped=pre.skipped,
+            with_rating=sum(1 for r in reviews if r.rating is not None),
+            with_timestamp=sum(1 for r in reviews if r.timestamp is not None),
+            pii_redacted=pre.pii_redacted_count,
+        )
+
         if mode == AnalysisMode.FALLBACK:
             warnings.append("mode_sederhana")
 
+        analysis_id = f"an_{uuid.uuid4().hex[:12]}"
+        self.qna_store.put(
+            analysis_id,
+            QnAContext(index=index, aggregates=aggregates, total_reviews=len(reviews)),
+        )
+
         return AnalysisResult(
-            analysis_id=f"an_{uuid.uuid4().hex[:12]}",
+            analysis_id=analysis_id,
             summary=AnalysisSummary(
                 total_reviews=len(reviews),
                 reviews_with_image=sum(1 for r in reviews if r.has_image),
@@ -191,6 +238,8 @@ class AnalyzeService:
             aspect_aggregates=aggregates,
             visual_findings=visual_predictions,
             benchmark=benchmarks,
+            opportunities=opportunities,
+            data_quality=data_quality,
             warnings=warnings,
             mode=mode,
             model_versions={

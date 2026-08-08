@@ -143,3 +143,32 @@ def test_metadata_dipertahankan():
 def test_batch_kosong_tidak_error():
     result = preprocess_reviews([])
     assert result.reviews == []
+
+
+# ---------------------------------------------------------------- normalisasi teks
+
+
+def test_entitas_html_dipulihkan_sebelum_dianalisis():
+    """Kutipan bukti ditampilkan verbatim, sehingga entitas yang lolos muncul sebagai sampah
+    tepat pada elemen yang paling menentukan kepercayaan pengguna."""
+    raw = [_raw("r1", "Seller bilang &#34;memang begitu&#34; padahal barang &amp; kardus rusak")]
+    review = preprocess_reviews(raw).reviews[0]
+    assert "&#34;" not in review.clean_text and "&amp;" not in review.clean_text
+    assert '"memang begitu"' in review.clean_text
+    assert "barang & kardus" in review.clean_text
+
+
+def test_spasi_dan_baris_baru_berlebih_dirapikan():
+    review = preprocess_reviews([_raw("r1", "  paketnya   telat\n\nsekali  ")]).reviews[0]
+    assert review.clean_text == "paketnya telat sekali"
+
+
+def test_duplikat_terdeteksi_setelah_normalisasi():
+    """Dua ulasan yang hanya berbeda spasi adalah duplikat yang sama, dan menghitungnya dua kali
+    akan menggandakan bobot satu keluhan pada statistik."""
+    result = preprocess_reviews([
+        _raw("r1", "ukuran kekecilan"),
+        _raw("r2", "ukuran   kekecilan  "),
+    ])
+    assert len(result.reviews) == 1
+    assert result.skipped == 1

@@ -21,6 +21,8 @@ from .benchmark import compare_category_baseline, load_baseline
 from .fusion import fuse_all, fuse_review
 from .ingestion import PreprocessResult, preprocess_reviews
 from .privacy import redact_personal_data
+from .opportunity import find_opportunities, score_data_quality
+from .qna import QnAContext, QnAStore, answer_question
 from .priority import PriorityResult, calculate_priority_score
 from .retrieval import EvidenceIndex, retrieve_evidence
 from .statistics import calculate_aspect_statistics
@@ -37,6 +39,11 @@ __all__ = [
     "PriorityResult",
     "EvidenceIndex",
     "retrieve_evidence",
+    "find_opportunities",
+    "QnAContext",
+    "QnAStore",
+    "answer_question",
+    "score_data_quality",
     "preprocess_reviews",
     "PreprocessResult",
     "redact_personal_data",

@@ -10,6 +10,8 @@ mengunggah 200 ulasan tidak boleh kehilangan semuanya karena tiga baris bermasal
 
 from __future__ import annotations
 
+import html
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 
@@ -32,6 +34,19 @@ class PreprocessResult:
     pii_redacted_count: int = 0
 
 
+def _normalize_text(raw_text: str | None) -> str:
+    """Rapikan teks mentah sebelum apa pun menyentuhnya.
+
+    Entitas HTML wajib dipulihkan di sini. Ekspor marketplace kerap membawa `&#34;` atau `&amp;`
+    apa adanya, dan karena kutipan bukti ditampilkan VERBATIM, entitas yang lolos akan muncul
+    sebagai sampah di layar — tepat pada elemen yang paling menentukan kepercayaan pengguna.
+    Memulihkannya di hulu juga membuat model melihat teks yang sama dengan yang dibaca manusia.
+    """
+    text = html.unescape(raw_text or "")
+    # Ekspor CSV kerap menyisakan baris baru dan spasi ganda di tengah kalimat.
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def preprocess_reviews(raw: list[RawReview], now: datetime | None = None) -> PreprocessResult:
     """Validasi, redaksi PII, dan normalisasi batch ulasan mentah.
 
@@ -48,7 +63,7 @@ def preprocess_reviews(raw: list[RawReview], now: datetime | None = None) -> Pre
     seen_texts: set[str] = set()
 
     for item in raw:
-        text = (item.text or "").strip()
+        text = _normalize_text(item.text)
 
         if len(text) < MIN_TEXT_LENGTH and not item.image_paths:
             result.skipped += 1

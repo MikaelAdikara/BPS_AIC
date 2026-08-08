@@ -25,9 +25,11 @@ from .models import (
     AspectAggregate,
     AspectPrediction,
     BenchmarkRecord,
+    DataQuality,
     ErrorResponse,
     EvidenceCitation,
     MultimodalEvidence,
+    Opportunity,
     ProcessedReview,
     QnARequest,
     QnAResponse,
@@ -39,7 +41,7 @@ from .models import (
 
 __all__ = [
     "ActionCard", "ActionCategory", "AnalysisMode", "AnalysisResult", "AnalysisSummary",
-    "Aspect", "AspectAggregate", "AspectPrediction", "BenchmarkRecord", "Category",
+    "Aspect", "AspectAggregate", "AspectPrediction", "BenchmarkRecord", "Category", "DataQuality", "Opportunity",
     "ConfidenceLevel", "ErrorCode", "ErrorResponse", "EvidenceCitation", "FusedEvidenceType",
     "ImageQualityFlag", "MultimodalEvidence", "ProcessedReview", "QnARequest", "QnAResponse",
     "RawReview", "ReviewImage", "ReviewSource", "Sentiment", "Severity", "TextPrediction",
