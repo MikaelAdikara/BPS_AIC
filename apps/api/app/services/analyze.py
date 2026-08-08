@@ -42,11 +42,18 @@ EVIDENCE_PER_CARD = 3
 class AnalyzeService:
     """Menjalankan pipeline analisis penuh untuk satu batch ulasan."""
 
-    def __init__(self, text_adapter, embedding_adapter=None, orchestrator=None, baseline=None):
+    def __init__(
+        self, text_adapter, embedding_adapter=None, orchestrator=None, baseline=None,
+        min_similarity: float | None = None,
+    ):
         self.text_adapter = text_adapter
         self.embedding_adapter = embedding_adapter
         self.orchestrator = orchestrator
         self.baseline = baseline if baseline is not None else load_baseline()
+        # Ambang relevansi bukti dapat dikonfigurasi (configs/config.yaml retrieval.min_similarity)
+        # karena nilainya bergantung model embedding yang dipakai - ambang yang cocok untuk
+        # BGE-M3 belum tentu cocok untuk fallback TF-IDF.
+        self.min_similarity = min_similarity
 
     def _dominant_category(self, reviews) -> Category:
         if not reviews:
@@ -68,7 +75,11 @@ class AnalyzeService:
             ]
             for p in predictions
         }
-        index = EvidenceIndex(self.embedding_adapter)
+        index = (
+            EvidenceIndex(self.embedding_adapter, min_similarity=self.min_similarity)
+            if self.min_similarity is not None
+            else EvidenceIndex(self.embedding_adapter)
+        )
         index.build([
             {
                 "review_id": r.review_id,
