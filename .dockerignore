@@ -1,0 +1,38 @@
+# Konteks build dikirim utuh ke daemon Docker sebelum satu baris Dockerfile dijalankan.
+# Tanpa berkas ini, .venv + node_modules + data/ mentah ikut terkirim — beberapa GB yang
+# tidak satu pun dipakai image akhir, dan build terasa menggantung sebelum mulai.
+
+.git/
+.gitignore
+
+# Lingkungan & cache
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+node_modules/
+apps/web/dist/
+
+# Bobot model dipasang sebagai volume saat runtime, bukan dibakar ke image (476 MB).
+models/
+
+# Dataset pelatihan dan artefak evaluasi tidak pernah dibaca saat melayani request.
+# Dua berkas yang memang dibutuhkan disalin eksplisit di api.Dockerfile.
+data/
+!data/processed/category_baseline.json
+!data/samples/demo_reviews.csv
+
+# Dokumen, prototipe desain, dan rujukan
+docs/
+tests/
+scripts/
+*.md
+!README.md
+
+# Berkas lokal
+.claude/
+.env
+.env.*
+*.log

@@ -1,0 +1,56 @@
+# InsightUlasan — deployment lokal (blueprint bagian 30).
+#
+# Diletakkan di ROOT, bukan di docker/, karena juri menjalankan `docker compose up` dari
+# root repository. Ini menutup pertanyaan terbuka yang dicatat docker/README.md.
+#
+# Dua service, bukan tiga: indeks bukti dibangun per sesi di dalam proses api dan hilang
+# bersama sesinya (ADR-007, ADR-010), sehingga vector-store terpisah tidak punya pekerjaan.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Checkpoint 476 MB tidak ikut ke git (lihat .gitignore), jadi ia dipasang dari host.
+      # Read-only: proses inference tidak pernah punya alasan menulis ke bobot modelnya.
+      # Kalau folder ini kosong, sistem TETAP berjalan memakai jalur leksikon dan menyatakan
+      # keterbatasannya di /api/v1/readiness — bukan gagal total.
+      - ./models:/app/models:ro
+      # Cache HuggingFace dipertahankan supaya `docker compose up` kedua tidak mengunduh
+      # ulang model embedding, dan supaya sistem dapat berjalan penuh offline setelahnya.
+      - hf-cache:/cache/hf
+    environment:
+      - TZ=Asia/Jakarta
+    healthcheck:
+      # Menguji /readiness, bukan /health: /health menjawab begitu proses hidup, sedangkan
+      # frontend baru berguna setelah model selesai dimuat.
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/readiness', timeout=5).status==200 else 1)\""]
+      interval: 10s
+      timeout: 8s
+      # Pemuatan IndoBERT pada CPU dingin terukur ~53 detik di mesin pengembang. start_period
+      # 120 detik memberi kelonggaran pada mesin yang lebih lambat tanpa menandai container
+      # sebagai tidak sehat padahal ia sedang bekerja normal.
+      start_period: 120s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      - TZ=Asia/Jakarta
+
+volumes:
+  hf-cache:
+
+# Tidak ada volume untuk data pengguna. Ulasan yang diunggah hidup selama satu request dan
+# tidak pernah menyentuh disk (ADR-010) — ketiadaan volume di sini adalah bagian dari janji
+# itu, bukan kelalaian konfigurasi.
