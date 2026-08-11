@@ -51,16 +51,40 @@ abstention:
   message: "Tidak dapat menyimpulkan kondisi produk dari foto ini."
   # Threshold absolut dan margin top1-vs-top2 ditetapkan dari DISTRIBUSI SKOR pada
   # sampel validasi Fase 3, BUKAN angka default. Sengaja dikosongkan sampai saat itu.
-  min_confidence: null
-  min_margin_top1_top2: null
-  calibration_source: "distribusi skor sampel validasi Apify (~250-300 foto), Fase 3"
+  # Dikalibrasi Fase 3 pada 97 foto ulasan Shopee berlabel manusia. Nilainya DIPERTAHANKAN
+  # sebagai catatan, meski gerbang memutuskan NO-GO — bila kelak dijalankan ulang dengan
+  # encoder lain, angka ini menjadi pembanding.
+  min_confidence: 0.60
+  min_margin_top1_top2: 0.0
+  calibration_source: "97 foto ulasan Shopee berlabel manusia, Fase 3 (11 Agustus 2026)"
 
 # Gate wajib sebelum hasil visual boleh diklaim di proposal/video (bagian 19.3, 26.2)
 go_no_go_gate:
-  status: not_yet_evaluated
+  status: NO_GO
   decided_at_phase: 3
+  decided_on: "2026-08-11"
+  evidence: "ml/evaluation/visual_gate.json"
   primary_metric: selective_accuracy
   secondary_metric: coverage
+  hasil:
+    model: "openai/clip-vit-base-patch32 (beku, zero-shot)"
+    n_foto_berlabel: 97
+    selective_accuracy_pada_uji: 0.786
+    coverage_pada_uji: 0.275
+    akurasi_argmax: 0.45
+    akurasi_selalu_tebak_normal: 0.61
+    alarm_palsu_pada_foto_normal: 0.61
+  alasan: >
+    Selective accuracy 79% tampak memadai, tetapi hanya dihasilkan dari 14 foto yang dijawab
+    dan sebelas di antaranya kelas normal — model berani menjawab justru pada kelas mayoritas
+    dan abstain pada hampir seluruh foto bermasalah. Pemeriksaan yang tidak dapat dikelabui
+    ambang: akurasi argmax 45% BERADA DI BAWAH pembanding sepele "selalu tebak normal" (61%),
+    dan 61% foto normal salah ditandai bermasalah. Model tidak mendeteksi kerusakan; ia
+    condong menebak produk_rusak untuk lebih dari separuh foto apa pun isinya.
+  konsekuensi: >
+    Hasil visual TIDAK ditampilkan di antarmuka, TIDAK disebut di proposal, dan TIDAK muncul
+    di video promosi. Kode VIS-01 tetap berada di repositori sebagai komponen yang gracefully
+    degrade dan sebagai bukti proses evaluasi yang dijalankan apa adanya.
   note: >
     Tidak ada target minimum yang diklaim di muka. Hasil dilaporkan apa adanya, dan
     keputusan GO / CONDITIONAL GO / NO-GO menentukan seberapa kuat klaim visual boleh

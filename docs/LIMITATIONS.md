@@ -6,7 +6,7 @@
 
 ## Keterbatasan yang sudah diketahui sejak desain
 
-1. **Generalisasi zero-shot CLIP pada foto ulasan konsumen Indonesia belum terbukti.**
+1. **Generalisasi zero-shot CLIP pada foto ulasan konsumen Indonesia SUDAH DIUJI dan GAGAL** (lihat bagian gerbang di bawah; butir ini semula berbunyi "belum terbukti").
    Literatur pendukung berasal dari domain industri/manufaktur, bukan foto konsumen.
    Baru terjawab setelah go/no-go gate Fase 3 (blueprint bagian 19.3, 26.2).
 2. **Baseline kategori bersifat historis dan statis**, bukan pemantauan kompetitor real-time,
@@ -140,6 +140,45 @@ Ulasan yang memuji tiga hal dan mengeluhkan satu hal tetap sebuah keluhan bagi p
 dan aturan mayoritas justru menenggelamkannya. Menguji aturan "ada satu klausa negatif yang
 yakin → dokumen negatif" adalah langkah berikutnya, dengan evaluasinya sendiri. Sisa 88%
 membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusan.
+
+## Gerbang Fase 3: VIS-01 dinyatakan NO-GO
+
+Dijalankan 11 Agustus 2026 atas 97 foto ulasan Shopee berlabel manusia, memakai
+`openai/clip-vit-base-patch32` beku dengan prompt ensemble sesuai `visual_classes.yaml`.
+
+Selective accuracy pada split uji **78,6%** — angka yang sekilas memadai. Ia menyesatkan.
+Dari 14 foto yang dijawab, **sebelas di antaranya kelas `normal`**: model berani menjawab
+justru pada kelas mayoritas dan abstain pada hampir seluruh foto bermasalah.
+
+Pemeriksaan yang tidak dapat dikelabui pengaturan ambang:
+
+| Ukuran | Nilai |
+| --- | --- |
+| Akurasi argmax (tanpa abstention) | **45%** |
+| Akurasi "selalu tebak `normal`" | **61%** |
+| Foto normal yang salah ditandai bermasalah | **61%** |
+| Recall gabungan kelas bermasalah | 86% |
+
+**Model bekerja lebih buruk daripada menebak `normal` untuk semuanya.** Recall 86% pada kelas
+bermasalah tampak baik hanya karena model condong menebak `produk_rusak` untuk lebih dari
+separuh foto apa pun isinya — 26 dari 57 foto normal ikut tertandai. Ia tidak mendeteksi
+kerusakan; ia bias ke satu kelas.
+
+Prompt Bahasa Indonesia + Inggris (45%) mengungguli prompt Inggris saja (37%), berlawanan
+dengan dugaan bahwa CLIP yang dilatih dominan berbahasa Inggris akan lebih cocok dengan prompt
+Inggris. Keduanya tetap di bawah pembanding sepele.
+
+Satu perilaku yang benar: model **abstain pada 2 dari 2** foto yang manusia sendiri tandai
+"sulit dinilai".
+
+**Konsekuensi yang mengikat.** Hasil visual tidak ditampilkan di antarmuka, tidak disebut di
+proposal, dan tidak muncul di video promosi. Kode VIS-01 tetap di repositori sebagai komponen
+yang gracefully degrade dan sebagai bukti bahwa gerbangnya benar-benar dijalankan.
+
+Batas pengujian ini yang perlu diketahui: 97 foto dari dua produk fesyen satu penjual. Hasil
+NO-GO berlaku untuk kondisi itu, bukan pernyataan bahwa CLIP tidak dapat dipakai selamanya.
+Encoder lain, prompt lain, atau kategori produk lain dapat memberi hasil berbeda — dan
+mengujinya adalah pekerjaan Tier 2, bukan klaim yang boleh dibuat sekarang.
 
 ## Temuan taksonomi: `salah_kirim` sulit dilabeli dari foto saja
 

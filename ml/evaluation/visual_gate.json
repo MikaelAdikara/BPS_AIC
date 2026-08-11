@@ -1,0 +1,146 @@
+{
+  "catatan": "Ambang dipilih pada split KALIBRASI dan dilaporkan pada split UJI yang tidak pernah dilihat saat memilih. Split dilakukan per ULASAN, bukan per foto, karena satu ulasan kerap melampirkan foto yang nyaris identik.",
+  "model": "openai/clip-vit-base-patch32",
+  "n_foto": 97,
+  "kelas_tidak_dilaporkan": "Kelas dengan n < 10 tidak boleh disebut sebagai capaian. Pada batch ini kemasan_rusak (n=4, dua di antaranya diperiksa dan tampak keliru) dan salah_kirim (n=7) masuk kategori itu.",
+  "varian_prompt": {
+    "all": {
+      "ambang_dari_kalibrasi": {
+        "min_confidence": 0.6,
+        "min_margin": 0.0,
+        "pada_split_kalibrasi": {
+          "selective_accuracy": 0.6154,
+          "coverage": 0.3095
+        }
+      },
+      "pada_split_uji": {
+        "min_confidence": 0.6,
+        "min_margin": 0.0,
+        "n_dinilai": 51,
+        "n_dijawab": 14,
+        "coverage": 0.2745,
+        "selective_accuracy": 0.7857,
+        "per_kelas": {
+          "normal": {
+            "n": 11,
+            "akurasi": 0.8182
+          },
+          "produk_rusak": {
+            "n": 2,
+            "akurasi": 1.0
+          },
+          "salah_kirim": {
+            "n": 1,
+            "akurasi": 0.0
+          }
+        },
+        "abstain_pada_sulit": "2/2"
+      },
+      "diagnosa_tanpa_abstain": {
+        "matriks": {
+          "produk_rusak": {
+            "produk_rusak": 18,
+            "salah_kirim": 3,
+            "kemasan_rusak": 0,
+            "normal": 4
+          },
+          "salah_kirim": {
+            "produk_rusak": 5,
+            "salah_kirim": 0,
+            "kemasan_rusak": 1,
+            "normal": 1
+          },
+          "kemasan_rusak": {
+            "produk_rusak": 2,
+            "salah_kirim": 0,
+            "kemasan_rusak": 2,
+            "normal": 0
+          },
+          "normal": {
+            "produk_rusak": 26,
+            "salah_kirim": 9,
+            "kemasan_rusak": 0,
+            "normal": 22
+          }
+        },
+        "akurasi_argmax": 0.4516,
+        "akurasi_selalu_tebak_normal": 0.6129,
+        "recall_masalah_gabungan": 0.8611,
+        "alarm_palsu_pada_normal": 0.614
+      },
+      "keputusan": "NO-GO",
+      "alasan": "Akurasi argmax 45% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 61% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah — model menjawab terutama pada kelas mayoritas."
+    },
+    "en": {
+      "ambang_dari_kalibrasi": {
+        "min_confidence": 0.3,
+        "min_margin": 0.5,
+        "pada_split_kalibrasi": {
+          "selective_accuracy": 0.4706,
+          "coverage": 0.4048
+        }
+      },
+      "pada_split_uji": {
+        "min_confidence": 0.3,
+        "min_margin": 0.5,
+        "n_dinilai": 51,
+        "n_dijawab": 23,
+        "coverage": 0.451,
+        "selective_accuracy": 0.3478,
+        "per_kelas": {
+          "normal": {
+            "n": 16,
+            "akurasi": 0.375
+          },
+          "salah_kirim": {
+            "n": 3,
+            "akurasi": 0.0
+          },
+          "produk_rusak": {
+            "n": 3,
+            "akurasi": 0.3333
+          },
+          "kemasan_rusak": {
+            "n": 1,
+            "akurasi": 1.0
+          }
+        },
+        "abstain_pada_sulit": "2/2"
+      },
+      "diagnosa_tanpa_abstain": {
+        "matriks": {
+          "produk_rusak": {
+            "produk_rusak": 14,
+            "salah_kirim": 6,
+            "kemasan_rusak": 1,
+            "normal": 4
+          },
+          "salah_kirim": {
+            "produk_rusak": 2,
+            "salah_kirim": 1,
+            "kemasan_rusak": 3,
+            "normal": 1
+          },
+          "kemasan_rusak": {
+            "produk_rusak": 0,
+            "salah_kirim": 0,
+            "kemasan_rusak": 3,
+            "normal": 1
+          },
+          "normal": {
+            "produk_rusak": 10,
+            "salah_kirim": 19,
+            "kemasan_rusak": 12,
+            "normal": 16
+          }
+        },
+        "akurasi_argmax": 0.3656,
+        "akurasi_selalu_tebak_normal": 0.6129,
+        "recall_masalah_gabungan": 0.8333,
+        "alarm_palsu_pada_normal": 0.7193
+      },
+      "keputusan": "NO-GO",
+      "alasan": "Akurasi argmax 37% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 72% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah — model menjawab terutama pada kelas mayoritas."
+    }
+  }
+}
