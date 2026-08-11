@@ -42,7 +42,7 @@ KEYS = {
     "images": ["images", "image_urls", "imageUrls", "media", "photos"],
     "text": ["comment", "text", "review", "content", "reviewText"],
     "rating": ["rating", "star", "ratingStar", "score"],
-    "product": ["productName", "product_name", "product", "itemName"],
+    "product": ["productName", "product_name", "product", "itemName", "itemId"],
 }
 
 
@@ -67,6 +67,46 @@ def as_urls(value) -> list[str]:
     return [u for u in out if str(u).startswith("http")]
 
 
+def audit_batch(rows: list[dict]) -> list[str]:
+    """Periksa apakah batch ini benar-benar dapat dipakai menguji model visual.
+
+    Batch pertama yang kami ambil lolos syarat jumlah (40 foto, di atas minimum 20-30) tetapi
+    **tidak berguna sama sekali**: 20 ulasan, satu produk, seluruhnya bintang lima. Dari
+    ulasan bintang lima hampir mustahil muncul foto produk rusak, salah kirim, atau kemasan
+    rusak — sehingga tiga dari empat kelas tidak punya satu pun contoh, dan pertanyaan yang
+    ingin dijawab ("apakah model mengenali masalah?") tidak dapat dijawab.
+
+    Pemeriksaan ini menyala di depan, bukan setelah berjam-jam pelabelan terbuang.
+    """
+    catatan: list[str] = []
+    if not rows:
+        return ["Tidak ada baris terbaca."]
+
+    bintang = [r.get("ratingStar") or r.get("rating") for r in rows]
+    bintang = [b for b in bintang if isinstance(b, int)]
+    rendah = sum(1 for b in bintang if b <= 3)
+    produk = {r.get("itemId") or r.get("productName") for r in rows}
+
+    if bintang and rendah == 0:
+        catatan.append(
+            f"SELURUH {len(bintang)} ulasan berbintang tinggi (tidak ada <= 3). Kelas "
+            "produk_rusak / salah_kirim / kemasan_rusak hampir pasti tidak akan punya contoh, "
+            "sehingga batch ini tidak dapat mengukur kemampuan model mendeteksi masalah."
+        )
+    elif bintang and rendah / len(bintang) < 0.2:
+        catatan.append(
+            f"Hanya {rendah} dari {len(bintang)} ulasan berbintang <= 3. Contoh kelas bermasalah "
+            "kemungkinan terlalu sedikit untuk menyimpulkan apa pun."
+        )
+
+    if len(produk) < 2:
+        catatan.append(
+            f"Seluruh ulasan berasal dari SATU produk ({produk}). Hasil validasi tidak akan "
+            "terpisahkan dari ciri khas satu listing itu saja."
+        )
+    return catatan
+
+
 def load_rows(path: Path) -> list[dict]:
     data = json.loads(path.read_text(encoding="utf-8"))
     if isinstance(data, dict):
@@ -78,6 +118,8 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("export", type=Path, help="berkas JSON hasil ekspor Apify")
     ap.add_argument("--max", type=int, default=300, help="batas jumlah foto (default 300)")
+    ap.add_argument("--paksa", action="store_true",
+                    help="lanjut meski audit menyatakan batch tidak layak untuk validasi")
     args = ap.parse_args()
 
     if not args.export.exists():
@@ -86,6 +128,19 @@ def main() -> int:
 
     rows = load_rows(args.export)
     print(f"{len(rows)} ulasan terbaca dari ekspor.")
+
+    catatan = audit_batch(rows)
+    if catatan:
+        print("\n--- PERIKSA DULU SEBELUM MELABELI ---")
+        for c in catatan:
+            print(f"  ! {c}")
+        if not args.paksa:
+            print(
+                "\nPengunduhan dihentikan. Ambil batch yang lebih beragam lebih dulu, atau "
+                "jalankan ulang dengan --paksa bila Anda memang hanya ingin melihat isinya."
+            )
+            return 2
+        print("\n--paksa dipakai — lanjut meski batch ini tidak layak untuk validasi.\n")
 
     PHOTO_DIR.mkdir(parents=True, exist_ok=True)
     TASK_CSV.parent.mkdir(parents=True, exist_ok=True)
