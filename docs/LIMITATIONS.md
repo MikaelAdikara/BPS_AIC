@@ -163,7 +163,28 @@ Pilihan kedua lebih jujur terhadap arsitektur: teks memang sudah menangkap "pesa
 putih" dengan baik, dan memaksakan tugas itu ke model visual menambah klaim yang tidak dapat
 dipenuhi.
 
-## Kualitas pelabelan visual: 10 dari 97 foto perlu ditinjau ulang
+## Kualitas pelabelan visual setelah peninjauan ulang
+
+Setelah peninjauan, **16 label berubah** — tiga belas di antaranya `salah_kirim` menjadi
+`normal`. Perubahan itu tepat: pada sebagian besar foto, salah kirim memang tidak terlihat
+(lihat bagian di atas). Sebaran akhir: normal 57, produk_rusak 25, salah_kirim 7,
+kemasan_rusak 4, sulit dinilai 4.
+
+**Tiga label yang saya periksa langsung tetap tidak diubah**, dan dicatat apa adanya sebagai
+derau label yang diketahui (~3% dari 97):
+
+| Foto | Label | Yang terlihat pada fotonya |
+| --- | --- | --- |
+| `796ed1191e18afb1` | produk_rusak | Tiga kaos utuh terbentang, ulasan bintang lima memuji |
+| `2dae67bc04783c9d` | kemasan_rusak | Paket hitam tersegel rapi, tanpa sobekan |
+| `fee23abfd41eeb1e` | kemasan_rusak | Plastik utuh; label "mahogany" berdampingan dengan isi hitam |
+
+Derau 3% wajar untuk pekerjaan anotasi mana pun dan tidak mengubah kesimpulan gerbang. Yang
+berubah adalah nasib satu kelas: dari empat label `kemasan_rusak`, dua di antaranya diperiksa
+dan tampak keliru, sehingga **`kemasan_rusak` tetap tidak dapat dievaluasi** pada batch ini.
+Angka kelas itu tidak boleh dilaporkan sebagai capaian, berapa pun hasilnya nanti.
+
+## Catatan pemeriksaan awal (sebelum peninjauan)
 
 Pemeriksaan silang atas lima foto contoh menemukan tiga label yang keliru, seluruhnya berpola
 sama: **foto yang MENAMPILKAN kemasan dilabeli `kemasan_rusak` meski kemasannya utuh.** Dua dari
