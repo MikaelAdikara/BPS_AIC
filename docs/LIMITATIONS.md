@@ -141,6 +141,43 @@ dan aturan mayoritas justru menenggelamkannya. Menguji aturan "ada satu klausa n
 yakin → dokumen negatif" adalah langkah berikutnya, dengan evaluasinya sendiri. Sisa 88%
 membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusan.
 
+## Temuan taksonomi: `salah_kirim` sulit dilabeli dari foto saja
+
+Saat memeriksa hasil pelabelan 97 foto, satu persoalan struktural muncul yang bukan kesalahan
+pelabel. **Foto kaos putih terlihat sama persis, baik ketika putih memang yang dipesan maupun
+ketika pembeli memesan hitam.** Bukti "salah kirim" hanya terlihat pada sebagian kecil foto yang
+kebetulan memuat label pengiriman berdampingan dengan isinya.
+
+Konsekuensinya: label `salah_kirim` yang diberikan berdasarkan teks ulasan mengukur sesuatu yang
+**tidak pernah dilihat model**, sehingga akurasi kelas ini akan tampak buruk bukan karena
+modelnya lemah, melainkan karena tugasnya memang mustahil dari satu foto.
+
+Ini perlu diputuskan sebelum gerbang Fase 3 dijalankan. Dua kemungkinan, keduanya sah:
+
+1. Batasi `salah_kirim` hanya pada foto yang memuat bukti terlihat (label pengiriman + isi yang
+   berbeda), dan labeli sisanya `normal`.
+2. Gabungkan `salah_kirim` ke `normal` untuk keperluan evaluasi visual, lalu nyatakan bahwa
+   deteksi salah kirim ditangani jalur teks, bukan jalur visual.
+
+Pilihan kedua lebih jujur terhadap arsitektur: teks memang sudah menangkap "pesan hitam datang
+putih" dengan baik, dan memaksakan tugas itu ke model visual menambah klaim yang tidak dapat
+dipenuhi.
+
+## Kualitas pelabelan visual: 10 dari 97 foto perlu ditinjau ulang
+
+Pemeriksaan silang atas lima foto contoh menemukan tiga label yang keliru, seluruhnya berpola
+sama: **foto yang MENAMPILKAN kemasan dilabeli `kemasan_rusak` meski kemasannya utuh.** Dua dari
+tiga label `kemasan_rusak` jatuh pada kasus ini — satu foto paket tersegel rapi, satu foto label
+pengiriman yang justru membuktikan salah kirim.
+
+Dengan hanya tiga label `kemasan_rusak` dan dua di antaranya keliru, kelas itu **tidak dapat
+dievaluasi** pada batch ini terlepas dari perbaikan label.
+
+Satu kekeliruan lain ditemukan pada foto ulasan bintang lima yang memuji dan menampilkan tiga
+kaos utuh, tetapi dilabeli `produk_rusak` — kemungkinan besar salah tekan pada foto pertama.
+
+Angka-angka ini dicatat sebelum perbaikan dilakukan, supaya jejak koreksinya terlihat.
+
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._
