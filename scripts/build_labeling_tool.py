@@ -32,18 +32,48 @@ CLASSES = [
 ]
 
 
+MASALAH = {"produk_rusak", "salah_kirim", "kemasan_rusak"}
+
+
+def perlu_ditinjau(rows: list[dict]) -> dict[str, str]:
+    """Foto yang layak dilihat ulang, beserta alasannya.
+
+    Tiga tanda ini lahir dari pemeriksaan silang nyata, bukan dugaan: satu foto ulasan bintang
+    lima berisi tiga kaos utuh ternyata terlabeli `produk_rusak`, dan dua dari tiga
+    `kemasan_rusak` ternyata paket yang sepenuhnya utuh — foto yang MENAMPILKAN kemasan
+    disangka kemasan yang rusak.
+    """
+    tandai: dict[str, str] = {}
+    for r in rows:
+        f, label, bintang = r["image_file"], r["label_manusia"], r["rating"]
+        if bintang in ("4", "5") and label in MASALAH:
+            tandai[f] = "Ulasan bintang tinggi tetapi dilabeli bermasalah"
+        elif label == "kemasan_rusak":
+            tandai[f] = "Pastikan BUNGKUSNYA yang rusak, bukan sekadar tampak di foto"
+        elif bintang in ("1", "2", "3") and label == "normal":
+            tandai[f] = "Ulasan mengeluh — pastikan fotonya memang tidak menunjukkan apa pun"
+    return tandai
+
+
 def main() -> int:
     if not TASK_CSV.exists():
         print(f"Belum ada {TASK_CSV}. Jalankan prepare_apify_photos.py lebih dulu.")
         return 1
 
     rows = list(csv.DictReader(TASK_CSV.open(encoding="utf-8")))
-    data = json.dumps(rows, ensure_ascii=False)
-    classes = json.dumps(CLASSES, ensure_ascii=False)
+    tandai = perlu_ditinjau(rows)
 
-    OUT_HTML.write_text(TEMPLATE.replace("__DATA__", data).replace("__CLASSES__", classes),
-                        encoding="utf-8")
+    OUT_HTML.write_text(
+        TEMPLATE.replace("__DATA__", json.dumps(rows, ensure_ascii=False))
+        .replace("__CLASSES__", json.dumps(CLASSES, ensure_ascii=False))
+        .replace("__FLAGS__", json.dumps(tandai, ensure_ascii=False)),
+        encoding="utf-8",
+    )
     print(f"{len(rows)} foto siap dilabeli.")
+    if tandai:
+        print(f"{len(tandai)} foto ditandai perlu ditinjau ulang:")
+        for f, alasan in tandai.items():
+            print(f"  {f}  — {alasan}")
     print(f"Buka: {OUT_HTML}")
     return 0
 
@@ -90,6 +120,13 @@ button kbd{float:right;font-family:"IBM Plex Mono",monospace;font-size:.72rem;co
   font-weight:600;margin-top:18px;display:inline-block}
 .tally{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:14px}
 .tally span{font-family:"IBM Plex Mono",monospace}
+.queue{background:#fdf0dc;border:1px solid #e8c98a;border-radius:12px;padding:13px 16px;
+  margin-bottom:14px;font-size:.88rem;line-height:1.9}
+.jump{font-family:"IBM Plex Mono",monospace;font-size:.75rem;padding:3px 8px;margin:0 5px 0 0;
+  border-radius:6px;border:1px solid #e8c98a;background:#fff}
+.jump.on{background:var(--med);color:#fff;border-color:var(--med)}
+.flag{background:#fdf0dc;color:#6b3f00;border-radius:8px;padding:9px 12px;margin-bottom:12px;
+  font-size:.85rem}
 </style></head><body>
 <header>
   <h1>Pelabelan foto ulasan</h1>
@@ -101,9 +138,24 @@ button kbd{float:right;font-family:"IBM Plex Mono",monospace;font-size:.72rem;co
 <script>
 const ROWS = __DATA__;
 const CLASSES = __CLASSES__;
+const FLAGS = __FLAGS__;
 const KEY = "insightulasan_label_v1";
-let saved = JSON.parse(localStorage.getItem(KEY) || "{}");
-let i = ROWS.findIndex(r => !saved[r.image_file]);
+
+// Label yang sudah ada di CSV menjadi titik mulai. Tanpa ini, membuka alat setelah mengunduh
+// CSV akan terlihat seolah seluruh pekerjaan sebelumnya hilang.
+let saved = JSON.parse(localStorage.getItem(KEY) || "null");
+if (!saved) {
+  saved = {};
+  ROWS.forEach(r => {
+    if (r.label_manusia || r.sulit_dinilai)
+      saved[r.image_file] = {label: r.label_manusia || "", sulit: r.sulit_dinilai || ""};
+  });
+  localStorage.setItem(KEY, JSON.stringify(saved));
+}
+
+// Bila ada foto bertanda, mulailah dari situ — itu satu-satunya pekerjaan yang tersisa.
+const ANTRE = ROWS.map((r, n) => [r.image_file, n]).filter(([f]) => FLAGS[f]).map(([, n]) => n);
+let i = ANTRE.length ? ANTRE[0] : ROWS.findIndex(r => !saved[r.image_file]);
 if (i < 0) i = ROWS.length;
 
 function simpan(file, label, sulit){
@@ -133,8 +185,14 @@ function render(){
     return;
   }
 
-  const r = ROWS[i], sudah = saved[r.image_file];
-  main.innerHTML = `<div class="card">
+  const r = ROWS[i], sudah = saved[r.image_file], alasan = FLAGS[r.image_file];
+  main.innerHTML =
+    (ANTRE.length ? `<div class="queue"><b>${ANTRE.length} foto perlu ditinjau ulang</b>
+      — klik untuk melompat:<br />` +
+      ANTRE.map(n => `<button class="jump ${n === i ? "on" : ""}" data-ke="${n}"
+        >${ROWS[n].image_file.slice(0,8)}</button>`).join("") + `</div>` : "") +
+    `<div class="card">
+    ${alasan ? `<div class="flag">Ditandai: ${alasan}</div>` : ""}
     <img src="../raw/review_photos/${r.image_file}" alt="Foto ulasan ${i+1}" />
     <div class="meta">${r.image_file} · rating ${r.rating || "-"} · produk ${r.product_name || "-"}</div>
     ${r.review_text ? `<div class="quote">${r.review_text.replace(/</g,"&lt;")}</div>`
@@ -157,6 +215,8 @@ function render(){
   main.querySelector("[data-sulit]").onclick = () => { simpan(r.image_file, "", "ya"); i++; render(); };
   document.getElementById("prev").onclick = () => { if(i>0){ i--; render(); } };
   document.getElementById("next").onclick = () => { i++; render(); };
+  main.querySelectorAll("[data-ke]").forEach(b =>
+    b.onclick = () => { i = +b.dataset.ke; render(); });
 }
 document.addEventListener("keydown", e => {
   if (i >= ROWS.length) return;
