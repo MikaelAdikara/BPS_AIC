@@ -86,6 +86,8 @@ def audit_batch(rows: list[dict]) -> list[str]:
     bintang = [b for b in bintang if isinstance(b, int)]
     rendah = sum(1 for b in bintang if b <= 3)
     produk = {r.get("itemId") or r.get("productName") for r in rows}
+    foto_rendah = sum(len(as_urls(pick(r, KEYS["images"])))
+                      for r in rows if (r.get("ratingStar") or 5) <= 3)
 
     if bintang and rendah == 0:
         catatan.append(
@@ -97,6 +99,12 @@ def audit_batch(rows: list[dict]) -> list[str]:
         catatan.append(
             f"Hanya {rendah} dari {len(bintang)} ulasan berbintang <= 3. Contoh kelas bermasalah "
             "kemungkinan terlalu sedikit untuk menyimpulkan apa pun."
+        )
+
+    elif foto_rendah < 20:
+        catatan.append(
+            f"Hanya ~{foto_rendah} foto berasal dari ulasan bintang <= 3. Gerbang validasi "
+            "meminta minimum 20-30 foto pada sisi bermasalah."
         )
 
     if len(produk) < 2:
@@ -116,18 +124,27 @@ def load_rows(path: Path) -> list[dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("export", type=Path, help="berkas JSON hasil ekspor Apify")
+    ap.add_argument("export", type=Path, nargs="+",
+                    help="satu atau beberapa berkas JSON hasil ekspor Apify")
     ap.add_argument("--max", type=int, default=300, help="batas jumlah foto (default 300)")
     ap.add_argument("--paksa", action="store_true",
                     help="lanjut meski audit menyatakan batch tidak layak untuk validasi")
     args = ap.parse_args()
 
-    if not args.export.exists():
-        print(f"Berkas tidak ditemukan: {args.export}", file=sys.stderr)
+    hilang = [p for p in args.export if not p.exists()]
+    if hilang:
+        print(f"Berkas tidak ditemukan: {hilang}", file=sys.stderr)
         return 1
 
-    rows = load_rows(args.export)
-    print(f"{len(rows)} ulasan terbaca dari ekspor.")
+    # Batch digabung LEBIH DULU, lalu diaudit sebagai satu kesatuan. Mengaudit per berkas
+    # akan menolak batch bintang-satu (satu produk) padahal justru itu yang melengkapi
+    # batch bintang-lima sebelumnya — yang dinilai adalah cakupan gabungannya.
+    rows: list[dict] = []
+    for path in args.export:
+        bagian = load_rows(path)
+        print(f"  {path.name}: {len(bagian)} ulasan")
+        rows.extend(bagian)
+    print(f"{len(rows)} ulasan terbaca dari {len(args.export)} berkas.")
 
     catatan = audit_batch(rows)
     if catatan:
