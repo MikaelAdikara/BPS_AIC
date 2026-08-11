@@ -332,7 +332,17 @@ Bobot IndoBERT (476 MB) tidak masuk git dan dipasang dari `./models` sebagai vol
 
 > Konfigurasi ini belum pernah dijalankan sampai selesai karena Docker tidak terpasang di mesin pengembangan. Apa yang sudah diverifikasi secara statis, dan apa yang belum, dicatat di [docker/README.md](docker/README.md).
 
-### 9.0.1 Menjalankan tanpa Docker
+### 9.0.1 Mengunduh checkpoint model
+
+Bobot IndoBERT (476 MB) tidak masuk git. Unduh sekali:
+
+```bash
+python scripts/download_checkpoint.py
+```
+
+Tanpa berkas ini sistem **tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` — tetapi yang berjalan bukan sistem yang dijelaskan proposal.
+
+### 9.0.2 Menjalankan tanpa Docker
 
 ```bash
 python -m uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000

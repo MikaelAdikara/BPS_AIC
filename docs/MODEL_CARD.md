@@ -374,3 +374,48 @@ latih — dan dataset semacam itu tidak tersedia untuk Bahasa Indonesia domain e
 **Konsekuensi jujur untuk proposal:** klaim kustomisasi model teks bertumpu pada **sentimen**,
 di mana fine-tuning terbukti memberi nilai tambah pada label independen. Untuk **aspek**, yang
 layak diklaim adalah pipeline weak-supervision-nya, bukan keunggulan model atas aturan leksikon.
+
+
+---
+
+## VIS-01 — hasil gerbang Fase 3
+
+Dijalankan 11 Agustus 2026. **Keputusan: NO-GO.** Bukti lengkap:
+[`ml/evaluation/visual_gate.json`](../ml/evaluation/visual_gate.json).
+
+| Aspek | Keterangan |
+| --- | --- |
+| Model | `openai/clip-vit-base-patch32`, beku, zero-shot dengan prompt ensemble |
+| Data uji | 97 foto ulasan Shopee berlabel manusia, 2 produk fesyen, 1 penjual |
+| Protokol | Ambang dikalibrasi pada split terpisah; split per ULASAN, bukan per foto |
+
+### Angka
+
+| Ukuran | Nilai |
+| --- | --- |
+| Selective accuracy (split uji) | 0,786 pada coverage 0,275 |
+| Akurasi argmax tanpa abstention | **0,45** |
+| Akurasi "selalu tebak `normal`" | **0,61** |
+| Foto normal yang salah ditandai bermasalah | 0,61 |
+| Abstain pada foto yang manusia tandai sulit | 2 / 2 |
+
+**Selective accuracy 0,786 tidak boleh dikutip.** Dari 14 foto yang dijawab, sebelas kelas
+`normal` — angka itu dihasilkan dengan menjawab pada kelas mayoritas dan abstain pada hampir
+seluruh foto bermasalah. Pemeriksaan yang menentukan adalah baris berikutnya: akurasi argmax
+0,45 **berada di bawah** pembanding sepele 0,61.
+
+Prompt campuran Indonesia+Inggris (0,45) mengungguli prompt Inggris saja (0,37) — berlawanan
+dengan dugaan bahwa CLIP berbahasa Inggris lebih cocok dengan prompt Inggris. Keduanya tetap
+di bawah pembanding sepele.
+
+### Konsekuensi
+
+Hasil visual **tidak ditampilkan di antarmuka, tidak disebut di proposal, tidak muncul di
+video promosi**. Status ini dikunci di
+[`configs/visual_classes.yaml`](../configs/visual_classes.yaml). Kode VIS-01 tetap berada di
+repositori sebagai komponen yang gracefully degrade dan sebagai bukti bahwa gerbangnya
+dijalankan apa adanya.
+
+Batas kesimpulan: 97 foto dari dua produk fesyen satu penjual. NO-GO berlaku untuk kondisi
+itu, bukan pernyataan bahwa CLIP tidak dapat dipakai. Encoder lain, prompt lain, atau kategori
+produk lain dapat memberi hasil berbeda — dan mengujinya adalah pekerjaan Tier 2.

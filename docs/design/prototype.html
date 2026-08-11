@@ -332,12 +332,11 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 
     <section class="card">
       <h3 class="title">Temuan dari foto</h3>
-      <div class="grid-photo">
-        <div class="photo">kemasan rusak<br />82%</div>
-        <div class="photo">produk rusak<br />76%</div>
-        <div class="photo" style="opacity:.55">tidak<br />disimpulkan</div>
+      <div class="banner banner--warn">
+        <b>Tidak ditampilkan — gerbang Fase 3 memutuskan NO-GO (11 Agustus 2026).</b>
+        <div style="margin-top:var(--space-2)">Model visual diuji pada <span class="stat">97</span> foto ulasan berlabel manusia. Akurasinya <span class="stat">45%</span>, di bawah pembanding sepele "selalu tebak normal" (<span class="stat">61%</span>), dan <span class="stat">61%</span> foto normal salah ditandai bermasalah.</div>
       </div>
-      <p class="banner banner--muted" style="margin-top:var(--space-4)"><span class="stat">1</span> foto tidak disimpulkan karena sistem tidak cukup yakin. Foto itu menunggu Anda periksa sendiri — sistem sengaja tidak menebak.</p>
+      <p class="body-s">Menampilkan hasil ini akan memberi keyakinan palsu tepat pada kasus yang paling perlu diperiksa sendiri. Kode jalur visual tetap ada dan mundur rapi ke analisis teks-saja. Angka lengkapnya di <span class="stat">ml/evaluation/visual_gate.json</span>.</p>
     </section>
 
     <section class="card">
@@ -392,10 +391,6 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
       <p class="evidence__quote">"paket lah di terima ...hanya size nya kebesaran....."</p>
       <div class="evidence__meta">Ulasan demo_020 · 3/5 · 2026-07-19 · relevansi 0.6975</div>
     </blockquote>
-
-    <h3 class="title" style="margin-top:var(--space-8)">Bukti visual</h3>
-    <div class="grid-photo" style="max-width:260px"><div class="photo">produk berbeda<br />79%</div></div>
-    <p class="body-s">Foto pada ulasan <span class="stat">demo_012</span> terdeteksi sebagai <b>produk berbeda dari pesanan</b>.</p>
 
     <h3 class="title" style="margin-top:var(--space-6)">Kenapa ini diprioritaskan</h3>
     <p><span class="stat">20</span> dari <span class="stat">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="stat">14%</span> poin di atas baseline kategori (n=<span class="stat">8939</span>).</p>
