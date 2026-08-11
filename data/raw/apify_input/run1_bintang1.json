@@ -1,0 +1,10 @@
+{
+  "startUrls": [
+    { "url": "https://shopee.co.id/product-i.1397514834.48953031481" },
+    { "url": "https://shopee.co.id/product-i.932528254.29260633950" },
+    { "url": "https://shopee.co.id/product-i.1321834771.29656852450" }
+  ],
+  "contentFilter": "with media",
+  "starFilter": "1",
+  "maxReviewsPerProduct": 100
+}
