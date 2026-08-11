@@ -67,3 +67,4 @@ ml/evaluation/*.log
 # Dependensi & build frontend
 node_modules/
 apps/web/dist/
+data/annotation/label.html
