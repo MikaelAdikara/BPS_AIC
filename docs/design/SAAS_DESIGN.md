@@ -24,6 +24,10 @@ keluaran model yang memang ada**, bukan fitur yang ditambahkan agar terlihat ram
 | Tindak lanjut | Papan tindakan · **Pantauan** · Laporan | `user_action` pada Action Card; ambang dijalankan atas angka yang sudah dihitung |
 | Sistem | **Kesehatan model** · Tim · Langganan · Data &amp; privasi | MODEL_CARD, hasil gerbang VIS-01, status FALLBACK MODE |
 
+Ditambah **keadaan kosong** (layar pertama sebelum ada analisis) dan **palet perintah ⌘K**
+yang melompat ke layar mana pun — pola SaaS modern yang sekaligus menjadi jalur cepat saat
+demo langsung ke juri.
+
 Empat layar bertanda tebal adalah penambahan yang paling menaikkan nilai produk:
 
 - **Cari bukti** memakai indeks embedding yang sama dengan penyusun bukti Action Card. Ia
@@ -34,6 +38,29 @@ Empat layar bertanda tebal adalah penambahan yang paling menaikkan nilai produk:
 - **Kesehatan model** adalah elemen tanda tangan produk ini: satu-satunya layar yang
   menampilkan rapor AI-nya sendiri, termasuk fitur foto yang dinyatakan NO-GO dan dimatikan.
   Tidak ada pesaing yang menampilkan kegagalannya sendiri di dalam produk.
+
+### Empat field ACT-01 yang sebelumnya dihitung tetapi tidak pernah tampil
+
+Pemeriksaan skema `ActionCard` terhadap prototipe menemukan enam field yang tidak muncul di
+antarmuka. Dua di antaranya ternyata memang tampil (frekuensi dan rekomendasi, hanya lolos dari
+pencocokan kata kunci). **Empat sisanya benar-benar hilang**, dan justru keempatnya yang
+mengubah kartu dari laporan menjadi tugas yang dapat dieksekusi:
+
+| Field | Kini tampil sebagai |
+| --- | --- |
+| `action_category` | Jenis tindakan |
+| `estimated_effort` | Perkiraan usaha |
+| `suggested_owner` | Usulan penanggung jawab |
+| `expected_outcome` | Hasil yang diharapkan |
+
+Ditampilkan pada panel bukti sebagai blok "Rencana kerjanya", disertai catatan bahwa perkiraan
+usaha dan penanggung jawab disusun dari kategori tindakan — bukan dari pengetahuan tentang tim
+pengguna. Tanpa catatan itu, angka tersebut mudah dibaca sebagai kepastian yang tidak dimiliki
+sistem.
+
+`risk_if_not_done` juga dinaikkan menjadi blok tersendiri ("Kalau dibiarkan"), berdampingan
+dengan `risk_if_recommendation_wrong` yang sudah ada. Menampilkan kedua arah risiko sekaligus
+menjaga keputusan tetap seimbang: biaya bertindak dan biaya diam sama-sama terlihat.
 
 ### Yang sengaja dihindari pada tampilannya
 
