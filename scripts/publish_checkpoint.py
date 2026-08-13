@@ -1,6 +1,6 @@
 """Unggah checkpoint IndoBERT ke HuggingFace Hub (Fase 9, distribusi model).
 
-Bobot berukuran 476 MB dan tidak masuk git. Tanpa jalur distribusi, juri yang meng-clone
+Bobot berukuran 499 MB dan tidak masuk git. Tanpa jalur distribusi, juri yang meng-clone
 repositori hanya mendapat jalur leksikon — sistemnya berjalan, tetapi bukan sistem yang
 dijelaskan proposal.
 

@@ -14,7 +14,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      # Checkpoint 476 MB tidak ikut ke git (lihat .gitignore), jadi ia dipasang dari host.
+      # Checkpoint 499 MB tidak ikut ke git (lihat .gitignore), jadi ia dipasang dari host.
       # Read-only: proses inference tidak pernah punya alasan menulis ke bobot modelnya.
       # Kalau folder ini kosong, sistem TETAP berjalan memakai jalur leksikon dan menyatakan
       # keterbatasannya di /api/v1/readiness — bukan gagal total.

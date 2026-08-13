@@ -25,7 +25,7 @@ ADR-010), sehingga service ketiga tidak punya pekerjaan yang tersisa.
 
 ## Checkpoint model
 
-Bobot IndoBERT berukuran 476 MB dan tidak masuk git (lihat `.gitignore`). Compose
+Bobot IndoBERT berukuran 499 MB dan tidak masuk git (lihat `.gitignore`). Compose
 memasangnya dari host sebagai volume **read-only**:
 
 ```yaml

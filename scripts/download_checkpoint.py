@@ -31,7 +31,7 @@ def main() -> int:
         print("Pasang dulu: pip install huggingface_hub", file=sys.stderr)
         return 1
 
-    print(f"Mengunduh {CHECKPOINT_REPO} (~476 MB)…", flush=True)
+    print(f"Mengunduh {CHECKPOINT_REPO} (~499 MB)…", flush=True)
     snapshot_download(repo_id=CHECKPOINT_REPO, local_dir=str(DEST))
     print(f"Selesai: {DEST}")
     print("Jalankan ulang API agar checkpoint terbaca.")

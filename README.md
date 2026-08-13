@@ -328,13 +328,13 @@ docker compose up --build
 
 Antarmuka di <http://localhost:3000>, API di <http://localhost:8000>. Container frontend menunggu API melewati healthcheck `/api/v1/readiness`, sehingga halaman tidak pernah tampil sebelum modelnya siap.
 
-Bobot IndoBERT (476 MB) tidak masuk git dan dipasang dari `./models` sebagai volume read-only. **Kalau folder itu kosong, sistem tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` — seluruh alur tetap dapat didemonstrasikan, hasilnya saja lebih lemah.
+Bobot IndoBERT (499 MB) tidak masuk git dan dipasang dari `./models` sebagai volume read-only. **Kalau folder itu kosong, sistem tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` — seluruh alur tetap dapat didemonstrasikan, hasilnya saja lebih lemah.
 
 > Konfigurasi ini belum pernah dijalankan sampai selesai karena Docker tidak terpasang di mesin pengembangan. Apa yang sudah diverifikasi secara statis, dan apa yang belum, dicatat di [docker/README.md](docker/README.md).
 
 ### 9.0.1 Mengunduh checkpoint model
 
-Bobot IndoBERT (476 MB) tidak masuk git. Unduh sekali:
+Bobot IndoBERT (499 MB) tidak masuk git. Unduh sekali:
 
 ```bash
 python scripts/download_checkpoint.py

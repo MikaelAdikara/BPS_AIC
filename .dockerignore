@@ -15,7 +15,7 @@ __pycache__/
 node_modules/
 apps/web/dist/
 
-# Bobot model dipasang sebagai volume saat runtime, bukan dibakar ke image (476 MB).
+# Bobot model dipasang sebagai volume saat runtime, bukan dibakar ke image (499 MB).
 models/
 
 # Dataset pelatihan dan artefak evaluasi tidak pernah dibaca saat melayani request.
