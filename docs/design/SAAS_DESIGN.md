@@ -5,12 +5,48 @@ beserta alasan di balik setiap keputusan bentuknya. Dua prototipe menyertainya:
 
 | Berkas | Isi |
 | --- | --- |
-| [`site.html`](site.html) | **Produk penuh, fidelitas tinggi** — situs publik, login, lalu dashboard beranimasi dengan grafik. Ini acuan visual utama |
+| [`site.html`](site.html) | **Produk SaaS penuh** — situs publik (7 bagian), login, lalu dashboard 14 layar berkelompok. Ini acuan visual utama |
 | [`prototype.html`](prototype.html) | Kerangka 14 layar beranotasi tier, untuk membaca cakupan dan alasan per layar |
 
 Token warna dan tipografi di prototipe disalin dari
 [`apps/web/src/styles/tokens.css`](../../apps/web/src/styles/tokens.css). Kalau keduanya berbeda,
 **aplikasi yang benar** — prototipe mengikuti, bukan sebaliknya.
+
+## 0. Peta layar `site.html`
+
+Empat belas layar aplikasi, dikelompokkan menurut pekerjaan — dan **setiap layar turun dari
+keluaran model yang memang ada**, bukan fitur yang ditambahkan agar terlihat ramai.
+
+| Kelompok | Layar | Keluaran model yang menjadi sumbernya |
+| --- | --- | --- |
+| Analisis | Ruang kerja · Analisis baru · Hasil | `AnalysisResult` penuh (ACT-01, ING-05, OPP-01, BEN-01, QNA-01) |
+| Eksplorasi | **Cari bukti** · **Peta aspek** · **Perbandingan varian** · Tren | Indeks embedding RET-01; `AspectAggregate` dipotong per periode dan per varian |
+| Tindak lanjut | Papan tindakan · **Pantauan** · Laporan | `user_action` pada Action Card; ambang dijalankan atas angka yang sudah dihitung |
+| Sistem | **Kesehatan model** · Tim · Langganan · Data &amp; privasi | MODEL_CARD, hasil gerbang VIS-01, status FALLBACK MODE |
+
+Empat layar bertanda tebal adalah penambahan yang paling menaikkan nilai produk:
+
+- **Cari bukti** memakai indeks embedding yang sama dengan penyusun bukti Action Card. Ia
+  mengubah RET-01 dari mesin di balik layar menjadi alat yang langsung dipakai pengguna.
+- **Perbandingan varian** menjawab pertanyaan yang tidak terjawab angka agregat: "keluhan
+  ukuran 17%" tidak dapat ditindaklanjuti, tetapi "varian Mocca L menyumbang separuhnya" bisa.
+- **Pantauan** menjalankan ambang atas angka yang sudah dihitung sistem — bukan tebakan baru.
+- **Kesehatan model** adalah elemen tanda tangan produk ini: satu-satunya layar yang
+  menampilkan rapor AI-nya sendiri, termasuk fitur foto yang dinyatakan NO-GO dan dimatikan.
+  Tidak ada pesaing yang menampilkan kegagalannya sendiri di dalam produk.
+
+### Yang sengaja dihindari pada tampilannya
+
+Diaudit terhadap daftar larangan desain produksi:
+
+| Larangan | Penanganan |
+| --- | --- |
+| Side-stripe border sebagai aksen kartu | Dihapus dari Action Card; urgensi dibawa pill bertulisan + tint permukaan. Garis kiri hanya tersisa pada blockquote kutipan — konvensi tipografi, dan elemen tanda tangan merek |
+| Grid kartu identik | Bagian masalah memakai tiga blok berbobot berbeda; bagian fitur memakai satu blok utama + daftar |
+| Template hero-metric (angka besar + label + gradien) | Ringkasan angka disajikan sebagai satu baris tipografis, bukan empat ubin seragam |
+| `z-index` sembarang | Skala semantik: sticky 20 → scrim 60 → drawer 61 → toast 80 |
+| Border 1px + bayangan blur besar pada elemen sama | Border memakai `box-shadow` ring 1px; bayangan angkat hanya pada elemen melayang |
+| Animasi seragam di semua bagian | Tiap reveal disesuaikan isinya; `prefers-reduced-motion` mematikan seluruhnya |
 
 ---
 

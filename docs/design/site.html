@@ -3,521 +3,575 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InsightUlasan — Situs & Dashboard</title>
+<title>InsightUlasan — Situs &amp; Dashboard</title>
 <style>
 /* ==========================================================================
-   TOKEN
-   Warna merek & semantik diwarisi dari apps/web/src/styles/tokens.css.
-   Palet grafik BARU, lolos enam pemeriksaan validate_palette.js:
-     terang  #4356c7 #0891b2 #c2740a #c0357a  (CVD deutan ΔE 14.7, normal 17.0)
-     gelap   #6b78e8 #0e93a8 #b8790f #c04a80  (langkah sendiri, bukan pembalikan)
-   Hijau sengaja TIDAK dipakai sebagai seri grafik — ia dikunci untuk status positif.
+   TOKEN — diwarisi dari apps/web/src/styles/tokens.css.
+   Palet grafik lolos enam pemeriksaan validate_palette.js:
+     terang  #4356c7 #0891b2 #c2740a #c0357a   (CVD deutan ΔE 14,7 · normal 17,0)
+     gelap   #6b78e8 #0e93a8 #b8790f #c04a80   (pita lightness gelap 0,48–0,67)
+   Hijau TIDAK dipakai sebagai seri grafik — ia dikunci untuk status positif.
    ========================================================================== */
 :root{
-  --paper:#f7f7f5; --surface:#fff; --sunken:#efefec; --elevated:#fff;
-  --ink:#1a1d26; --ink-2:#3d4354; --ink-muted:#5a6070; --rule:#e3e3de;
-  --nila-900:#1b2560; --nila-700:#2b3a8f; --nila-500:#4356c7; --nila-300:#93a0e6; --nila-100:#e6e9f8;
-  --high:#b3261e; --high-bg:#fbe9e7; --med:#9c5d00; --med-bg:#fdf0dc;
-  --low:#5a6070; --low-bg:#efefec; --pos:#1f6b4a; --pos-bg:#e3f1ea;
-  --abstain:#636774; --abstain-bg:#f0f0ee;
+  --paper:#f7f7f5; --surface:#fff; --sunken:#efefec; --raised:#fff;
+  --ink:#14161d; --ink-2:#3a4051; --ink-muted:#565d70; --rule:#e2e2dd;
+  --nila-900:#1b2560; --nila-700:#2b3a8f; --nila-500:#4356c7; --nila-100:#e6e9f8;
+  --high:#a8221b; --high-bg:#fbe9e7; --med:#8a5200; --med-bg:#fdf0dc;
+  --low:#565d70; --low-bg:#eeeeea; --pos:#1a5f42; --pos-bg:#e3f1ea;
+  --abstain:#585c68; --abstain-bg:#f0f0ee;
   --c1:#4356c7; --c2:#0891b2; --c3:#c2740a; --c4:#c0357a;
   --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
-  --r-card:14px; --r-input:10px; --r-pill:999px;
-  --sh-1:0 1px 2px rgba(20,22,30,.06);
-  --sh-2:0 4px 16px -4px rgba(20,22,30,.12), 0 1px 3px rgba(20,22,30,.06);
-  --sh-3:0 20px 48px -12px rgba(20,22,30,.24);
-  /* Token gerak — riset: 200–300ms untuk transisi UI; >500ms terasa lamban. */
-  --t-fast:150ms; --t-base:260ms; --t-slow:420ms;
-  --ease-out:cubic-bezier(.16,1,.3,1); --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --r:12px; --r-in:9px; --r-pill:999px;
+  /* Satu bayangan per peran, tidak pernah digabung dengan border sebagai hiasan. */
+  --sh-line:0 0 0 1px var(--rule);
+  --sh-lift:0 6px 14px -8px rgba(20,22,29,.30);
+  --sh-over:0 24px 44px -20px rgba(20,22,29,.42);
+  --t-fast:140ms; --t:240ms; --t-slow:400ms;
+  --out:cubic-bezier(.22,1,.36,1);            /* ease-out-quint */
+  --inout:cubic-bezier(.65,0,.35,1);
+  /* Skala z semantik — bukan 999. */
+  --z-sticky:20; --z-drawer-scrim:60; --z-drawer:61; --z-toast:80;
 }
 :root[data-theme="dark"]{
-  --paper:#121316; --surface:#191b20; --sunken:#212430; --elevated:#1f222a;
-  --ink:#eceef4; --ink-2:#c3c7d4; --ink-muted:#9096a6; --rule:#2c303c;
-  --nila-100:#232a4d; --nila-300:#8f9cea; --nila-500:#7c8cf0; --nila-700:#9aa6f4;
+  --paper:#111318; --surface:#191c22; --sunken:#20242d; --raised:#1e222a;
+  --ink:#f0f1f5; --ink-2:#c8ccd8; --ink-muted:#a2a8b8; --rule:#2b303b;
+  --nila-100:#232a4d; --nila-500:#8b98f3; --nila-700:#a3aef6; --nila-900:#c3cbfa;
   --high:#f0837a; --high-bg:#3a1f1d; --med:#e2a94e; --med-bg:#38290f;
-  --low:#9096a6; --low-bg:#242833;
-  --pos:#5cc297; --pos-bg:#12291f; --abstain:#8e93a3; --abstain-bg:#232630;
+  --low:#a2a8b8; --low-bg:#242833; --pos:#5cc297; --pos-bg:#12291f;
+  --abstain:#9096a6; --abstain-bg:#232630;
   --c1:#6b78e8; --c2:#0e93a8; --c3:#b8790f; --c4:#c04a80;
-  --sh-1:0 1px 2px rgba(0,0,0,.4); --sh-2:0 4px 16px -4px rgba(0,0,0,.5);
-  --sh-3:0 20px 48px -12px rgba(0,0,0,.7);
+  --sh-line:0 0 0 1px var(--rule);
+  --sh-lift:0 6px 14px -8px rgba(0,0,0,.7);
+  --sh-over:0 24px 44px -20px rgba(0,0,0,.85);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
   font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
-  transition:background var(--t-base),color var(--t-base)}
-h1,h2,h3,h4{margin:0;line-height:1.2;letter-spacing:-.021em;font-weight:700}
-p{margin:0}
-button{font-family:inherit;font-size:inherit;cursor:pointer}
+  transition:background var(--t),color var(--t)}
+h1,h2,h3,h4{margin:0;line-height:1.15;font-weight:700;text-wrap:balance}
+h1,h2{letter-spacing:-.032em}
+p{margin:0;text-wrap:pretty}
+button{font:inherit;cursor:pointer}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--nila-500);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:2px solid var(--nila-500);outline-offset:3px;border-radius:5px}
+::placeholder{color:var(--ink-muted);opacity:1}
 
-/* Angka & kutipan selalu monospace — tesis produk, bukan selera. */
-.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+/* Angka hasil hitungan & kutipan verbatim SELALU monospace — tesis produk. */
+.n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
 
-/* ---------- Gerak ---------- */
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ---------- Gerak: tiap reveal disesuaikan isinya, bukan satu fade seragam ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-@keyframes drawIn{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
-@keyframes growUp{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-@keyframes slideL{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
-.rise{animation:rise var(--t-slow) var(--ease-out) both}
+@keyframes slideL{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes draw{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:0}}
+.rise{animation:rise var(--t-slow) var(--out) both}
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
-    transition-duration:.01ms!important;scroll-behavior:auto!important}
+  *,*::before,*::after{animation:none!important;transition:none!important;
+    scroll-behavior:auto!important}
+  .rise,.strip,.ev{opacity:1!important;transform:none!important}
 }
 
-/* ==========================================================================
-   TAMPILAN (routing)
-   ========================================================================== */
 .view{display:none}
-.view.on{display:block;animation:fade var(--t-base) var(--ease-out)}
+.view.on{display:block;animation:fade var(--t) var(--out)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ==========================================================================
+   TOMBOL
+   ========================================================================== */
+.btn{border:none;border-radius:var(--r-in);padding:11px 19px;font-weight:600;min-height:46px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+  transition:background var(--t-fast),color var(--t-fast),box-shadow var(--t-fast)}
+.btn--pri{background:var(--nila-700);color:#fff}
+.btn--pri:hover{background:var(--nila-900)}
+.btn--gh{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule)}
+.btn--gh:hover{box-shadow:inset 0 0 0 1px var(--ink-muted)}
+.btn--sm{min-height:36px;padding:7px 14px;font-size:.875rem}
+.btn--txt{background:none;color:var(--nila-700);padding:0;min-height:0;font-weight:600;
+  text-decoration:underline;text-underline-offset:3px;border:none}
 
 /* ==========================================================================
    SITUS PUBLIK
    ========================================================================== */
-.top{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);
-  background:color-mix(in srgb,var(--paper) 82%,transparent);border-bottom:1px solid var(--rule)}
-.top__in{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:22px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.03em;font-size:1.06rem}
-.mark{width:26px;height:26px;border-radius:7px;background:var(--nila-700);display:grid;place-items:center;flex:none}
-.mark span{display:block;width:11px;height:2px;background:#fff;border-radius:1px;
-  box-shadow:0 4px 0 rgba(255,255,255,.9),0 -4px 0 rgba(255,255,255,.55)}
-.top nav{display:flex;gap:4px;margin-left:auto}
-.top nav a{padding:8px 13px;border-radius:8px;text-decoration:none;font-size:.9rem;color:var(--ink-muted)}
+.top{position:sticky;top:0;z-index:var(--z-sticky);backdrop-filter:blur(12px);
+  background:color-mix(in srgb,var(--paper) 84%,transparent);
+  box-shadow:0 1px 0 var(--rule)}
+.top__in{max-width:1120px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.03em;font-size:1.05rem}
+.mark{width:25px;height:25px;border-radius:7px;background:var(--nila-700);display:grid;
+  place-items:center;flex:none}
+.mark i{display:block;width:11px;height:2px;background:#fff;border-radius:1px;
+  box-shadow:0 4px 0 rgba(255,255,255,.9),0 -4px 0 rgba(255,255,255,.5)}
+.top nav{display:flex;gap:2px;margin-left:auto}
+.top nav a{padding:8px 12px;border-radius:8px;text-decoration:none;font-size:.9rem;color:var(--ink-muted)}
 .top nav a:hover{background:var(--sunken);color:var(--ink)}
 
-.btn{border:none;border-radius:var(--r-input);padding:12px 20px;font-weight:600;
-  min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  text-decoration:none;transition:transform var(--t-fast) var(--ease-out),
-    box-shadow var(--t-fast),background var(--t-fast),opacity var(--t-fast)}
-.btn:active{transform:translateY(1px)}
-.btn--pri{background:var(--nila-700);color:#fff;box-shadow:var(--sh-1)}
-.btn--pri:hover{background:var(--nila-900);box-shadow:var(--sh-2)}
-.btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
-.btn--ghost:hover{border-color:var(--ink-muted);background:var(--surface)}
-.btn--sm{min-height:38px;padding:8px 15px;font-size:.875rem}
-.btn--text{background:none;border:none;color:var(--nila-700);padding:0;min-height:0;font-weight:600}
+.hero{padding:74px 0 62px}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.5rem);margin:0 0 18px}
+.hero .sub{font-size:1.1rem;color:var(--ink-2);max-width:34ch}
+.hero .cta{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}
+.hero .fine{margin-top:15px;font-size:.85rem;color:var(--ink-muted)}
+.kicker{display:inline-block;font-size:.82rem;font-weight:700;color:var(--nila-700);
+  margin-bottom:16px}
 
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-.hero{padding:76px 0 68px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-40% 30% 40% -20%;pointer-events:none;
-  background:radial-gradient(closest-side,var(--nila-100),transparent 72%);opacity:.85}
-.hero__grid{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;border-radius:var(--r-pill);
-  background:var(--nila-100);color:var(--nila-700);font-size:.8rem;font-weight:700;letter-spacing:.01em}
-.hero h1{font-size:clamp(2.25rem,4.4vw,3.4rem);margin:20px 0 18px;letter-spacing:-.035em}
-.hero .sub{font-size:1.115rem;color:var(--ink-muted);max-width:35ch}
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.hero .fine{margin-top:16px;font-size:.85rem;color:var(--ink-muted)}
-
-/* SIGNATURE: jejak bukti — angka membuka kalimat pelanggan yang menghasilkannya. */
-.trail{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);
-  box-shadow:var(--sh-3);padding:22px;position:relative}
-.trail__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.trail__tag{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}
-.trail__claim{font-size:1.06rem;line-height:1.5}
-.trail__claim b{cursor:pointer;border-bottom:2px dashed var(--nila-500);padding-bottom:1px}
-.trail__hint{font-size:.8rem;color:var(--ink-muted);margin-top:12px;display:flex;align-items:center;gap:6px}
-.strip{background:var(--sunken);border-left:3px solid var(--nila-700);border-radius:0 9px 9px 0;
-  padding:11px 14px;margin-top:9px;opacity:0}
-.strip.in{animation:slideL var(--t-slow) var(--ease-out) both}
-.strip q{font-family:var(--mono);font-size:.855rem;line-height:1.55;display:block;quotes:'"' '"'}
+/* SIGNATURE — jejak bukti: angka membuka kalimat pelanggan yang menghasilkannya. */
+.trail{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-over);padding:22px}
+.trail__hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;
+  font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}
+.trail__claim{font-size:1.05rem;line-height:1.5}
+.trail__claim b{cursor:pointer;border-bottom:2px dashed var(--nila-500);padding-bottom:1px;
+  font-family:var(--mono);font-variant-numeric:tabular-nums}
+.trail__hint{font-size:.8rem;color:var(--ink-muted);margin-top:13px}
+.strip{background:var(--sunken);border-radius:9px;padding:11px 14px;margin-top:9px;opacity:0}
+.strip.in{animation:slideL var(--t-slow) var(--out) both}
+.strip q{font-family:var(--mono);font-size:.85rem;line-height:1.55;display:block;quotes:'"' '"'}
 .strip .meta{font-family:var(--mono);font-size:.72rem;color:var(--ink-muted);margin-top:6px}
 
-.sect{padding:66px 0;border-top:1px solid var(--rule)}
-.sect__lead{max-width:56ch;margin-bottom:38px}
-.sect h2{font-size:clamp(1.5rem,2.7vw,2.05rem);letter-spacing:-.03em;margin-bottom:12px}
-.sect__lead p{color:var(--ink-muted);font-size:1.03rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:18px}
-.tile{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);
-  padding:22px;transition:transform var(--t-base) var(--ease-out),box-shadow var(--t-base)}
-.tile:hover{transform:translateY(-3px);box-shadow:var(--sh-2)}
-.tile h3{font-size:1.02rem;margin-bottom:8px}
-.tile p{font-size:.9rem;color:var(--ink-muted)}
-.tile .ic{width:38px;height:38px;border-radius:10px;background:var(--nila-100);color:var(--nila-700);
-  display:grid;place-items:center;margin-bottom:14px;font-weight:800}
+.sect{padding:64px 0;box-shadow:inset 0 1px 0 var(--rule)}
+.sect h2{font-size:clamp(1.55rem,2.8vw,2.05rem);margin-bottom:12px}
+.sect .lead{color:var(--ink-2);font-size:1.02rem;max-width:58ch}
+.sect__hd{margin-bottom:38px}
 
-/* Langkah bernomor: dipakai karena isinya MEMANG urutan yang harus dijalani. */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;counter-reset:s}
-.step{position:relative;padding-top:32px}
-.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);
-  position:absolute;top:0;left:0;font-family:var(--mono);font-size:.82rem;font-weight:700;
-  color:var(--nila-500);letter-spacing:.06em}
-.step::after{content:"";position:absolute;top:9px;left:34px;right:0;height:1px;background:var(--rule)}
+/* Masalah: tiga blok dengan bobot BERBEDA, bukan tiga kartu identik. */
+.probs{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:34px;align-items:start}
+.prob h3{font-size:1.05rem;margin-bottom:9px}
+.prob p{color:var(--ink-muted);font-size:.93rem}
+.prob--lead h3{font-size:1.3rem}
+.prob--lead p{font-size:1rem;color:var(--ink-2)}
+
+/* Langkah bernomor: dipakai karena isinya MEMANG urutan yang dijalani. */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:26px;counter-reset:s}
+.step{position:relative;padding-top:30px;box-shadow:inset 0 1px 0 var(--rule)}
+.step::before{counter-increment:s;content:counter(s,decimal-leading-zero);position:absolute;
+  top:10px;left:0;font-family:var(--mono);font-size:.8rem;font-weight:700;color:var(--nila-500)}
 .step h3{font-size:1rem;margin-bottom:7px}
-.step p{font-size:.888rem;color:var(--ink-muted)}
+.step p{font-size:.9rem;color:var(--ink-muted)}
 
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.plan{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);padding:24px}
-.plan--on{border:2px solid var(--nila-700);position:relative}
-.plan--on::after{content:"Paling dipakai UMKM mikro";position:absolute;top:-11px;left:22px;
-  background:var(--nila-700);color:#fff;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:var(--r-pill)}
-.plan .amt{font-family:var(--mono);font-size:1.75rem;font-weight:700;margin:10px 0 4px}
-.plan ul{list-style:none;padding:0;margin:16px 0 0;font-size:.888rem;color:var(--ink-muted)}
-.plan li{padding-left:20px;position:relative;margin-bottom:8px}
+/* Fitur: satu blok utama + daftar, bukan enam kartu seragam. */
+.feat{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
+.feat__main{background:var(--nila-100);border-radius:var(--r);padding:28px}
+.feat__main h3{font-size:1.25rem;margin-bottom:11px;color:var(--nila-900)}
+.feat__main p{color:var(--nila-900);opacity:.85;font-size:.96rem}
+.flist{display:flex;flex-direction:column}
+.flist div{padding:17px 0;box-shadow:inset 0 1px 0 var(--rule)}
+.flist div:first-child{box-shadow:none;padding-top:0}
+.flist h4{font-size:1rem;margin-bottom:5px}
+.flist p{font-size:.9rem;color:var(--ink-muted)}
+
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:16px}
+.plan{background:var(--surface);border-radius:var(--r);padding:24px;box-shadow:var(--sh-line)}
+.plan--on{box-shadow:0 0 0 2px var(--nila-700);position:relative}
+.plan--on::after{content:"Paling dipakai UMKM mikro";position:absolute;top:-10px;left:20px;
+  background:var(--nila-700);color:#fff;font-size:.68rem;font-weight:700;padding:3px 10px;
+  border-radius:var(--r-pill)}
+.plan .amt{font-family:var(--mono);font-size:1.7rem;font-weight:700;margin:9px 0 3px}
+.plan ul{list-style:none;padding:0;margin:15px 0 0;font-size:.89rem;color:var(--ink-muted)}
+.plan li{padding-left:19px;position:relative;margin-bottom:7px}
 .plan li::before{content:"✓";position:absolute;left:0;color:var(--pos);font-weight:700}
 
-.foot{border-top:1px solid var(--rule);padding:36px 0;color:var(--ink-muted);font-size:.86rem}
-.foot__in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.faq div{padding:19px 0;box-shadow:inset 0 1px 0 var(--rule)}
+.faq h4{font-size:1rem;margin-bottom:6px}
+.faq p{font-size:.93rem;color:var(--ink-muted);max-width:70ch}
+.foot{padding:34px 0;box-shadow:inset 0 1px 0 var(--rule);color:var(--ink-muted);font-size:.86rem}
+.foot__in{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
 
 /* ==========================================================================
    LOGIN
    ========================================================================== */
-.auth{min-height:100vh;display:grid;place-items:center;padding:28px}
-.auth__card{width:100%;max-width:404px;background:var(--surface);border:1px solid var(--rule);
-  border-radius:18px;box-shadow:var(--sh-3);padding:34px}
-.field{margin-bottom:15px}
-.field label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.03em;
-  text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
-.inp{width:100%;padding:12px 14px;border:1px solid var(--rule);border-radius:var(--r-input);
-  background:var(--paper);color:var(--ink);font-family:inherit;font-size:1rem;
+.auth{min-height:100vh;display:grid;place-items:center;padding:26px}
+.auth__card{width:100%;max-width:400px;background:var(--surface);border-radius:16px;
+  box-shadow:var(--sh-over);padding:32px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink-2);margin-bottom:6px}
+.inp{width:100%;padding:11px 13px;border:1px solid var(--rule);border-radius:var(--r-in);
+  background:var(--paper);color:var(--ink);font:inherit;
   transition:border-color var(--t-fast),box-shadow var(--t-fast)}
 .inp:focus{outline:none;border-color:var(--nila-500);box-shadow:0 0 0 3px var(--nila-100)}
 
 /* ==========================================================================
-   APLIKASI — kerangka sidebar
+   KERANGKA APLIKASI
    ========================================================================== */
-.shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
-.side{background:var(--surface);border-right:1px solid var(--rule);padding:18px 14px;
-  position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:5px;overflow-y:auto}
-.side .brand{padding:5px 8px 16px}
+.shell{display:grid;grid-template-columns:238px 1fr;min-height:100vh}
+.side{background:var(--surface);box-shadow:1px 0 0 var(--rule);padding:16px 12px;position:sticky;
+  top:0;height:100vh;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.side .brand{padding:5px 8px 14px}
 .side__lbl{font-size:.67rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-muted);
-  font-weight:700;padding:14px 10px 6px}
-.side a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;
-  text-decoration:none;font-size:.905rem;color:var(--ink-2);transition:background var(--t-fast),color var(--t-fast)}
+  font-weight:700;padding:13px 10px 5px}
+.side a{display:flex;align-items:center;gap:10px;padding:8px 11px;border-radius:8px;
+  text-decoration:none;font-size:.9rem;color:var(--ink-2);
+  transition:background var(--t-fast),color var(--t-fast)}
 .side a:hover{background:var(--sunken)}
 .side a.on{background:var(--nila-700);color:#fff;font-weight:600}
-.side a .k{width:17px;text-align:center;flex:none;opacity:.85}
-.side__foot{margin-top:auto;border-top:1px solid var(--rule);padding-top:12px}
-.tierdot{width:6px;height:6px;border-radius:50%;margin-left:auto;flex:none}
-.tierdot--d{background:#e0a12b}.tierdot--r{background:#9aa0b0}
+.side a .k{width:16px;text-align:center;flex:none;opacity:.8;font-size:.85rem}
+.tier{width:6px;height:6px;border-radius:50%;margin-left:auto;flex:none}
+.tier--d{background:#d69a2b}.tier--r{background:#9aa0b0}
+.side__foot{margin-top:auto;padding-top:11px;box-shadow:inset 0 1px 0 var(--rule)}
 
 .main{min-width:0;display:flex;flex-direction:column}
-.appbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);
-  backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);padding:13px 26px;
-  display:flex;align-items:center;gap:14px}
-.appbar h2{font-size:1.06rem}
+.appbar{position:sticky;top:0;z-index:var(--z-sticky);padding:12px 24px;display:flex;
+  align-items:center;gap:13px;backdrop-filter:blur(12px);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);box-shadow:0 1px 0 var(--rule)}
+.appbar h2{font-size:1.02rem;letter-spacing:-.02em}
 .appbar .sp{margin-left:auto;display:flex;gap:9px;align-items:center}
-.kbd{font-family:var(--mono);font-size:.72rem;border:1px solid var(--rule);border-bottom-width:2px;
-  border-radius:5px;padding:2px 6px;color:var(--ink-muted);background:var(--surface)}
-.body{padding:26px;max-width:1180px;width:100%}
+.kbd{font-family:var(--mono);font-size:.72rem;box-shadow:var(--sh-line);border-radius:5px;
+  padding:3px 6px;color:var(--ink-muted)}
+.body{padding:24px;max-width:1180px;width:100%}
+.page{display:none}.page.on{display:block}
 
-.panel{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);
-  box-shadow:var(--sh-1);padding:20px;margin-bottom:16px}
-.panel__h{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.panel__h h3{font-size:1.02rem}
-.panel__h .sp{margin-left:auto;font-size:.83rem;color:var(--ink-muted)}
+.panel{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-line);padding:19px;
+  margin-bottom:15px}
+.panel__h{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.panel__h h3{font-size:1rem}
+.panel__h .sp{margin-left:auto;font-size:.82rem;color:var(--ink-muted)}
 
-/* Ubin statistik — hero number kecil, bukan grafik. */
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin-bottom:16px}
-.kpi{background:var(--surface);border:1px solid var(--rule);border-radius:var(--r-card);
-  padding:17px 18px;box-shadow:var(--sh-1);position:relative;overflow:hidden;
-  transition:transform var(--t-base) var(--ease-out),box-shadow var(--t-base)}
-.kpi:hover{transform:translateY(-2px);box-shadow:var(--sh-2)}
-.kpi .lbl{font-size:.78rem;color:var(--ink-muted);font-weight:600}
-.kpi .val{font-family:var(--mono);font-size:1.95rem;font-weight:700;letter-spacing:-.03em;
-  line-height:1.15;margin:5px 0 2px;font-variant-numeric:tabular-nums}
-.kpi .delta{font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+/* Ringkasan angka: SATU baris tipografis, bukan empat ubin seragam. */
+.summary{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-line);padding:20px 22px;
+  margin-bottom:15px;display:flex;gap:34px;flex-wrap:wrap;align-items:baseline}
+.summary div{min-width:0}
+.summary .v{font-family:var(--mono);font-size:1.65rem;font-weight:700;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;display:block;line-height:1.1}
+.summary .l{font-size:.8rem;color:var(--ink-muted)}
+.summary .d{font-size:.78rem;font-weight:600}
 .up{color:var(--high)}.down{color:var(--pos)}.flat{color:var(--ink-muted)}
 
-/* Kartu aksi */
-.act{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--rule);
-  border-radius:var(--r-card);padding:20px;margin-bottom:14px;box-shadow:var(--sh-1)}
-.act--h{border-left-color:var(--high)}.act--m{border-left-color:var(--med)}.act--l{border-left-color:var(--low)}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:var(--r-pill);
-  font-size:.73rem;font-weight:700;letter-spacing:.045em;text-transform:uppercase}
+/* Kartu aksi — TANPA side-stripe. Urgensi dibawa pill bertulisan + tint permukaan. */
+.act{border-radius:var(--r);padding:19px;margin-bottom:13px;background:var(--surface);
+  box-shadow:var(--sh-line)}
+.act--h{background:var(--high-bg)}
+.act--m{background:var(--med-bg)}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-pill);
+  font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .pill--h{background:var(--high);color:#fff}
 .pill--m{background:var(--med);color:#fff}
 .pill--l{background:var(--low-bg);color:var(--low)}
 .pill--p{background:var(--pos-bg);color:var(--pos)}
-.act h4{font-size:1.06rem;margin:11px 0 8px}
-.act p{font-size:.94rem;color:var(--ink-2)}
-.row{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px;align-items:center}
+.act h4{font-size:1.04rem;margin:10px 0 7px}
+.act p{font-size:.93rem;color:var(--ink-2)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
 
+/* Kutipan: garis kiri DIPERTAHANKAN — ini blockquote, konvensi tipografi kutipan,
+   dan elemen tanda tangan produk (BRAND_GUIDELINES). Bukan hiasan kartu. */
 .ev{background:var(--sunken);border-left:3px solid var(--nila-700);border-radius:0 9px 9px 0;
-  padding:12px 15px;margin-top:11px}
-.ev q{font-family:var(--mono);font-size:.885rem;line-height:1.6;display:block;quotes:'"' '"'}
-.ev .meta{font-family:var(--mono);font-size:.735rem;color:var(--ink-muted);margin-top:7px}
+  padding:11px 14px;margin-top:10px}
+.ev q{font-family:var(--mono);font-size:.87rem;line-height:1.6;display:block;quotes:'"' '"'}
+.ev .meta{font-family:var(--mono);font-size:.73rem;color:var(--ink-muted);margin-top:6px}
 
-.note{padding:12px 15px;border-radius:10px;font-size:.9rem;margin:12px 0;line-height:1.5}
+.note{padding:11px 14px;border-radius:10px;font-size:.9rem;margin:11px 0;line-height:1.5}
 .note--w{background:var(--med-bg);color:var(--med)}
 .note--m{background:var(--abstain-bg);color:var(--abstain)}
 .note--p{background:var(--pos-bg);color:var(--pos)}
+.note--h{background:var(--high-bg);color:var(--high)}
 
-table.t{width:100%;border-collapse:collapse;font-size:.9rem}
+table.t{width:100%;border-collapse:collapse;font-size:.89rem}
 table.t th{text-align:left;font-size:.71rem;letter-spacing:.05em;text-transform:uppercase;
-  color:var(--ink-muted);padding:8px 0;border-bottom:1px solid var(--rule);font-weight:700}
-table.t td{padding:10px 0;border-bottom:1px solid var(--rule)}
-table.t tr:last-child td{border-bottom:none}
-table.t td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+  color:var(--ink-muted);padding:8px 0;box-shadow:inset 0 -1px 0 var(--rule);font-weight:700}
+table.t td{padding:9px 0;box-shadow:inset 0 -1px 0 var(--rule)}
+table.t tr:last-child td{box-shadow:none}
+table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
 
 /* ---------- Grafik ---------- */
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-muted);margin-bottom:12px}
+.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-muted);margin-bottom:11px}
 .legend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
 .chart{position:relative}
-.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);
-  padding:7px 10px;border-radius:8px;font-size:.78rem;line-height:1.45;box-shadow:var(--sh-2);
-  opacity:0;transition:opacity var(--t-fast);white-space:nowrap;z-index:5;transform:translate(-50%,-124%)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);padding:6px 9px;
+  border-radius:7px;font-size:.77rem;box-shadow:var(--sh-lift);opacity:0;
+  transition:opacity var(--t-fast);white-space:nowrap;z-index:5;transform:translate(-50%,-122%)}
 .tip.on{opacity:1}
-.tip .q{font-family:var(--mono);font-weight:600}
-/* Batang: ujung membulat 4px, jeda 2px antarbatang (spesifikasi mark dataviz). */
-.bars{display:flex;flex-direction:column;gap:11px}
-.bar{display:grid;grid-template-columns:132px 1fr 46px;gap:12px;align-items:center;font-size:.875rem}
-.bar__track{height:22px;background:var(--sunken);border-radius:5px;overflow:hidden;display:flex;gap:2px}
-.bar__fill{height:100%;border-radius:4px;transform-origin:left;animation:growUp var(--t-slow) var(--ease-out) both}
-.bar__val{font-family:var(--mono);font-size:.82rem;text-align:right;color:var(--ink-muted)}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar{display:grid;grid-template-columns:128px 1fr 44px;gap:11px;align-items:center;font-size:.86rem}
+.bar__t{height:20px;background:var(--sunken);border-radius:5px;overflow:hidden;display:flex;gap:2px}
+.bar__f{height:100%;border-radius:4px;transform-origin:left;
+  animation:grow var(--t-slow) var(--out) both}
+.bar__v{font-family:var(--mono);font-size:.8rem;text-align:right;color:var(--ink-muted)}
 
-/* ---------- Panel bukti ---------- */
-.scrim{position:fixed;inset:0;background:rgba(16,18,26,.42);backdrop-filter:blur(2px);
-  z-index:60;display:none;animation:fade var(--t-base)}
-.scrim.on{display:block}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(500px,100%);background:var(--surface);
-  border-left:1px solid var(--rule);box-shadow:var(--sh-3);z-index:61;overflow-y:auto;padding:24px;
-  transform:translateX(100%);transition:transform var(--t-base) var(--ease-out)}
-.drawer.on{transform:none}
+/* Peta aspek — heatmap aspek × periode */
+.heat{display:grid;gap:3px;font-size:.78rem;overflow-x:auto}
+.heat__row{display:grid;grid-template-columns:118px repeat(6,minmax(46px,1fr));gap:3px;align-items:center}
+.heat__c{height:34px;border-radius:5px;display:grid;place-items:center;font-family:var(--mono);
+  font-weight:600;font-size:.76rem;color:#fff;cursor:default}
+.heat__h{font-size:.7rem;color:var(--ink-muted);text-align:center;font-family:var(--mono)}
+.heat__l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-2)}
 
-/* ---------- Kanban ---------- */
-.kb{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.kb__c{background:var(--sunken);border-radius:12px;padding:13px;min-height:150px}
-.kb__c h4{font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:11px}
-.mini{background:var(--surface);border:1px solid var(--rule);border-radius:9px;padding:12px;
-  margin-bottom:9px;font-size:.87rem;box-shadow:var(--sh-1)}
+/* Kanban */
+.kb{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.kb__c{background:var(--sunken);border-radius:11px;padding:12px;min-height:140px}
+.kb__c h4{font-size:.73rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-muted);
+  margin-bottom:10px}
+.mini{background:var(--surface);border-radius:8px;padding:11px;margin-bottom:8px;font-size:.86rem;
+  box-shadow:var(--sh-line)}
 
-.dz{display:grid;justify-items:center;gap:13px;padding:40px 20px;border:2px dashed var(--rule);
-  border-radius:var(--r-card);background:var(--surface);text-align:center;
-  transition:border-color var(--t-base),background var(--t-base)}
+.dz{display:grid;justify-items:center;gap:12px;padding:36px 20px;border:2px dashed var(--rule);
+  border-radius:var(--r);background:var(--surface);text-align:center;
+  transition:border-color var(--t),background var(--t)}
 .dz:hover{border-color:var(--nila-500);background:var(--nila-100)}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.chip{padding:7px 13px;border:1px solid var(--rule);border-radius:var(--r-pill);
-  background:var(--sunken);font-size:.855rem;transition:border-color var(--t-fast),color var(--t-fast)}
-.chip:hover{border-color:var(--nila-500);color:var(--nila-700)}
-.stg{display:flex;align-items:center;gap:12px;padding:8px 0;color:var(--ink-muted)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.chip{padding:6px 12px;border-radius:var(--r-pill);background:var(--sunken);font-size:.85rem;
+  border:none;color:var(--ink-2);transition:color var(--t-fast),background var(--t-fast)}
+.chip:hover{background:var(--nila-100);color:var(--nila-700)}
+.stg{display:flex;align-items:center;gap:11px;padding:7px 0;color:var(--ink-muted)}
 .stg.ok{color:var(--ink)}
-.stg .m{width:23px;height:23px;border-radius:50%;border:2px solid var(--rule);display:grid;
-  place-items:center;font-size:12px;flex:none;transition:background var(--t-base),border-color var(--t-base)}
-.stg.ok .m{background:var(--nila-700);border-color:var(--nila-700);color:#fff}
-.prog{height:5px;background:var(--sunken);border-radius:3px;overflow:hidden;margin:16px 0}
-.prog i{display:block;height:100%;background:var(--nila-700);border-radius:3px;transition:width var(--t-slow) var(--ease-out)}
+.stg .m{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--rule);
+  display:grid;place-items:center;font-size:12px;flex:none;transition:background var(--t)}
+.stg.ok .m{background:var(--nila-700);box-shadow:none;color:#fff}
+.prog{height:5px;background:var(--sunken);border-radius:3px;overflow:hidden;margin:14px 0}
+.prog i{display:block;height:100%;background:var(--nila-700);transition:width var(--t-slow) var(--out)}
 
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:var(--r-pill);
   font-size:.71rem;font-weight:700}
 .badge--d{background:var(--med-bg);color:var(--med)}
 .badge--r{background:var(--low-bg);color:var(--low)}
-.rowline{display:flex;justify-content:space-between;align-items:center;gap:12px;
-  padding:12px 0;border-bottom:1px solid var(--rule)}
-.rowline:last-child{border-bottom:none}
-.sw{width:38px;height:22px;border-radius:11px;background:var(--nila-700);position:relative;flex:none;cursor:pointer}
-.sw::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;
-  top:3px;right:3px;transition:all var(--t-fast) var(--ease-out)}
-.sw.off{background:#c3c5cc}.sw.off::after{left:3px;right:auto}
+.badge--p{background:var(--pos-bg);color:var(--pos)}
+.badge--h{background:var(--high-bg);color:var(--high)}
+.rowline{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;
+  box-shadow:inset 0 -1px 0 var(--rule)}
+.rowline:last-child{box-shadow:none}
+.sw{width:37px;height:21px;border-radius:11px;background:var(--nila-700);position:relative;
+  flex:none;cursor:pointer;border:none}
+.sw::after{content:"";position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;
+  top:3px;right:3px;transition:all var(--t-fast) var(--out)}
+.sw.off{background:#c2c4cc}.sw.off::after{left:3px;right:auto}
 
-@media(max-width:900px){
-  .hero__grid{grid-template-columns:1fr;gap:36px}
+/* Panel bukti */
+.scrim{position:fixed;inset:0;background:rgba(14,16,22,.44);z-index:var(--z-drawer-scrim);
+  display:none;animation:fade var(--t)}
+.scrim.on{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(490px,100%);background:var(--surface);
+  box-shadow:var(--sh-over);z-index:var(--z-drawer);overflow-y:auto;padding:22px;
+  transform:translateX(100%);transition:transform var(--t) var(--out)}
+.drawer.on{transform:none}
+
+@media(max-width:960px){
+  .hero__grid,.feat,.probs{grid-template-columns:1fr;gap:32px}
   .shell{grid-template-columns:1fr}
-  .side{position:fixed;left:0;top:0;bottom:0;width:236px;z-index:70;transform:translateX(-100%);
-    transition:transform var(--t-base) var(--ease-out)}
+  .side{position:fixed;left:0;top:0;bottom:0;width:238px;z-index:var(--z-toast);
+    transform:translateX(-100%);transition:transform var(--t) var(--out)}
   .side.open{transform:none}
   .kb{grid-template-columns:1fr}
   .top nav{display:none}
-  .bar{grid-template-columns:96px 1fr 42px}
+  .bar{grid-template-columns:92px 1fr 40px}
+  .summary{gap:22px}
 }
-@media(min-width:901px){.burger{display:none}}
+@media(min-width:961px){.burger{display:none}}
 </style>
 </head>
 <body>
 
-<!-- ============================== SITUS PUBLIK ============================== -->
+<!-- ============================ SITUS PUBLIK ============================ -->
 <div class="view on" id="v-landing">
-  <header class="top">
-    <div class="top__in">
-      <div class="brand"><span class="mark"><span></span></span> InsightUlasan</div>
-      <nav>
-        <a href="#masalah">Masalah</a>
-        <a href="#cara">Cara kerja</a>
-        <a href="#fitur">Fitur</a>
-        <a href="#harga">Harga</a>
-      </nav>
-      <button class="btn btn--ghost btn--sm" data-theme-toggle>Mode gelap</button>
-      <button class="btn btn--pri btn--sm" data-go="login">Masuk</button>
+  <header class="top"><div class="top__in">
+    <div class="brand"><span class="mark"><i></i></span> InsightUlasan</div>
+    <nav>
+      <a href="#masalah">Masalah</a><a href="#cara">Cara kerja</a>
+      <a href="#fitur">Fitur</a><a href="#buka">Keterbukaan</a><a href="#harga">Harga</a>
+    </nav>
+    <button class="btn btn--gh btn--sm" data-tema>Mode gelap</button>
+    <button class="btn btn--pri btn--sm" data-go="login">Masuk</button>
+  </div></header>
+
+  <section class="hero"><div class="wrap hero__grid">
+    <div>
+      <span class="kicker rise">Untuk pemilik toko online</span>
+      <h1 class="rise" style="animation-delay:60ms">Ratusan ulasan.<br />Satu jawaban: besok benahi apa.</h1>
+      <p class="sub rise" style="animation-delay:120ms">InsightUlasan membaca ulasan pelanggan Anda, mengurutkan masalah yang paling mendesak, dan menunjukkan kutipan aslinya — supaya Anda memeriksa sendiri, bukan sekadar percaya.</p>
+      <div class="cta rise" style="animation-delay:180ms">
+        <button class="btn btn--pri" data-go="app-analyze">Coba dengan data contoh</button>
+        <button class="btn btn--gh" data-go="login">Masuk ke dashboard</button>
+      </div>
+      <p class="fine rise" style="animation-delay:240ms">Gratis 200 ulasan/bulan · Tanpa kartu kredit · Data tidak disimpan permanen</p>
     </div>
-  </header>
-
-  <section class="hero">
-    <div class="wrap hero__grid">
-      <div>
-        <span class="eyebrow rise">Untuk pemilik toko online</span>
-        <h1 class="rise" style="animation-delay:60ms">Ratusan ulasan.<br />Satu jawaban:<br />besok benahi apa.</h1>
-        <p class="sub rise" style="animation-delay:120ms">InsightUlasan membaca ulasan pelanggan Anda, menemukan masalah yang paling mendesak, dan menunjukkan kutipan aslinya — supaya Anda bisa memeriksa sendiri, bukan sekadar percaya.</p>
-        <div class="cta rise" style="animation-delay:180ms">
-          <button class="btn btn--pri" data-go="app-analyze">Coba dengan data contoh</button>
-          <button class="btn btn--ghost" data-go="login">Masuk ke dashboard</button>
-        </div>
-        <p class="fine rise" style="animation-delay:240ms">Gratis untuk 200 ulasan/bulan · Tanpa kartu kredit · Data tidak disimpan permanen</p>
-      </div>
-
-      <!-- SIGNATURE: klik angkanya, kalimat pelanggan yang menghasilkannya muncul. -->
-      <div class="trail rise" style="animation-delay:300ms">
-        <div class="trail__head">
-          <span class="trail__tag">Hasil analisis</span>
-          <span class="pill pill--h">Prioritas tinggi</span>
-        </div>
-        <p class="trail__claim">Keluhan ukuran naik jadi <b class="num" id="heroNum" tabindex="0" role="button" aria-expanded="false">17%</b> bulan ini — <span class="num">14</span> poin di atas rata-rata kategori fesyen.</p>
-        <div id="heroEv"></div>
-        <p class="trail__hint" id="heroHint">↑ Ketuk angkanya — setiap angka bisa ditelusuri ke ulasan aslinya</p>
-      </div>
+    <div class="trail rise" style="animation-delay:300ms">
+      <div class="trail__hd"><span>Hasil analisis</span><span class="pill pill--h">Prioritas tinggi</span></div>
+      <p class="trail__claim">Keluhan ukuran naik jadi <b id="heroNum" tabindex="0" role="button" aria-expanded="false">17%</b> bulan ini — <span class="n">14</span> poin di atas rata-rata kategori fesyen.</p>
+      <div id="heroEv"></div>
+      <p class="trail__hint" id="heroHint">Ketuk angkanya — setiap angka dapat ditelusuri ke ulasan aslinya.</p>
     </div>
-  </section>
+  </div></section>
 
-  <section class="sect" id="masalah">
-    <div class="wrap">
-      <div class="sect__lead">
-        <h2>Ulasan menumpuk lebih cepat daripada waktu membacanya</h2>
-        <p>Bu Rina menutup toko jam sembilan malam. Ada 120 ulasan baru sejak minggu lalu. Yang ia butuhkan bukan grafik sentimen — ia butuh tahu barang mana yang harus dibenahi besok pagi.</p>
-      </div>
-      <div class="cards">
-        <div class="tile"><div class="ic">A</div><h3>Bahasa ulasan tidak rapi</h3><p>"kekecilan", "sampenya lama", "sesuai deskripsi ga" — singkatan, typo, dan campuran bahasa Inggris membuat pencarian kata kunci gagal total.</p></div>
-        <div class="tile"><div class="ic">B</div><h3>Tahu masalahnya, tidak tahu urutannya</h3><p>Sepuluh keluhan berbeda muncul bersamaan. Mana yang dikerjakan lebih dulu — yang paling sering, atau yang paling merugikan?</p></div>
-        <div class="tile"><div class="ic">C</div><h3>Sulit percaya angka dari AI</h3><p>Kesimpulan tanpa bukti hanya menambah keraguan. Setiap angka harus bisa ditelusuri ke kalimat pelanggan yang sebenarnya.</p></div>
-      </div>
+  <section class="sect" id="masalah"><div class="wrap">
+    <div class="sect__hd">
+      <h2>Ulasan menumpuk lebih cepat daripada waktu membacanya</h2>
+      <p class="lead">Bu Rina menutup toko jam sembilan malam. Ada 120 ulasan baru sejak minggu lalu. Yang ia butuhkan bukan grafik sentimen — ia butuh tahu barang mana yang dibenahi besok pagi.</p>
     </div>
-  </section>
-
-  <section class="sect" id="cara">
-    <div class="wrap">
-      <div class="sect__lead"><h2>Empat langkah, sekali jalan</h2>
-        <p>Tidak ada yang perlu disiapkan selain ekspor ulasan dari marketplace Anda.</p></div>
-      <div class="steps">
-        <div class="step"><h3>Masukkan ulasan</h3><p>Unggah CSV atau JSON, tempel teks langsung, atau pakai data contoh. Kolom dikenali otomatis dan bisa Anda perbaiki.</p></div>
-        <div class="step"><h3>Sistem membaca</h3><p>Model bahasa Indonesia memilah tiap kalimat menjadi aspek dan sentimen. Nomor telepon disamarkan sebelum apa pun diproses.</p></div>
-        <div class="step"><h3>Masalah diurutkan</h3><p>Frekuensi, keparahan, tren, dan jarak dari rata-rata kategori dihitung dengan rumus tetap — bukan dikarang model.</p></div>
-        <div class="step"><h3>Anda memutuskan</h3><p>Setiap rekomendasi datang dengan kutipan aslinya dan tombol terima atau tolak. Sistem tidak pernah menjalankan apa pun sendiri.</p></div>
-      </div>
+    <div class="probs">
+      <div class="prob prob--lead"><h3>Tahu masalahnya, tidak tahu urutannya</h3>
+        <p>Sepuluh keluhan muncul bersamaan. Mana yang dikerjakan lebih dulu — yang paling sering, atau yang paling merugikan? Inilah jarak antara "analisis sentimen" dan keputusan yang benar-benar bisa diambil.</p></div>
+      <div class="prob"><h3>Bahasa ulasan tidak rapi</h3>
+        <p>"kekecilan", "sampenya lama", singkatan, typo, campuran Inggris. Pencarian kata kunci gagal total di sini.</p></div>
+      <div class="prob"><h3>Sulit percaya angka dari AI</h3>
+        <p>Kesimpulan tanpa bukti hanya menambah keraguan. Tiap angka harus bisa ditelusuri ke kalimat pelanggan yang sebenarnya.</p></div>
     </div>
-  </section>
+  </div></section>
 
-  <section class="sect" id="fitur">
-    <div class="wrap">
-      <div class="sect__lead"><h2>Yang Anda dapat</h2>
-        <p>Dirancang untuk dibuka malam hari di HP, bukan untuk dipelototi di layar besar sepanjang hari.</p></div>
-      <div class="cards">
-        <div class="tile"><div class="ic">1</div><h3>Kartu tindakan berurutan</h3><p>Tiga sampai lima hal paling mendesak, lengkap dengan alasan kenapa ia diprioritaskan dan risikonya kalau rekomendasi itu keliru.</p></div>
-        <div class="tile"><div class="ic">2</div><h3>Kutipan asli, bukan parafrase</h3><p>Setiap klaim membawa kalimat pelanggan apa adanya beserta rating dan tanggalnya, supaya bobotnya bisa Anda timbang sendiri.</p></div>
-        <div class="tile"><div class="ic">3</div><h3>Pembanding kategori</h3><p>Tahu apakah 17% keluhan ukuran itu wajar atau bermasalah, dibanding rata-rata toko sejenis dari data publik.</p></div>
-        <div class="tile"><div class="ic">4</div><h3>Tanya data Anda sendiri</h3><p>Ajukan pertanyaan bebas. Kalau buktinya tidak ada di ulasan Anda, sistem menjawab tidak tahu — bukan mengarang.</p></div>
-        <div class="tile"><div class="ic">5</div><h3>Temuan kekuatan</h3><p>Bukan cuma keluhan. Aspek yang justru dipuji pelanggan ikut ditampilkan sebagai bahan promosi yang jujur.</p></div>
-        <div class="tile"><div class="ic">6</div><h3>Skor kualitas data</h3><p>Tahu seberapa layak hasilnya dipercaya, dan bagian mana dari data Anda yang membatasi kesimpulannya.</p></div>
+  <section class="sect" id="cara"><div class="wrap">
+    <div class="sect__hd"><h2>Empat langkah, sekali jalan</h2>
+      <p class="lead">Tidak ada yang perlu disiapkan selain ekspor ulasan dari marketplace Anda.</p></div>
+    <div class="steps">
+      <div class="step"><h3>Masukkan ulasan</h3><p>Unggah CSV/JSON, tempel teks, atau pakai data contoh. Kolom dikenali otomatis dan bisa Anda perbaiki.</p></div>
+      <div class="step"><h3>Sistem membaca</h3><p>Model bahasa Indonesia memilah tiap kalimat menjadi aspek dan sentimen. Nomor telepon disamarkan sebelum apa pun diproses.</p></div>
+      <div class="step"><h3>Masalah diurutkan</h3><p>Frekuensi, keparahan, tren, dan jarak dari rata-rata kategori dihitung dengan rumus tetap — bukan dikarang model.</p></div>
+      <div class="step"><h3>Anda memutuskan</h3><p>Tiap rekomendasi membawa kutipan aslinya dan tombol terima atau tolak. Sistem tidak pernah menjalankan apa pun sendiri.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sect" id="fitur"><div class="wrap">
+    <div class="sect__hd"><h2>Yang Anda dapat</h2>
+      <p class="lead">Dirancang untuk dibuka malam hari di HP, bukan untuk dipelototi di layar besar sepanjang hari.</p></div>
+    <div class="feat">
+      <div class="feat__main">
+        <h3>Kartu tindakan berurutan</h3>
+        <p>Tiga sampai lima hal paling mendesak, lengkap dengan alasan kenapa ia diprioritaskan, apa yang terjadi kalau dibiarkan, dan risikonya kalau rekomendasi itu justru keliru. Tiap kartu adalah satu keputusan yang bisa Anda terima atau tolak — bukan laporan yang harus ditafsirkan sendiri.</p>
+        <p style="margin-top:14px;font-size:.88rem"><b>Ini bagian yang membedakan InsightUlasan</b> dari alat analisis sentimen biasa: jembatan dari skor ke tindakan.</p>
+      </div>
+      <div class="flist">
+        <div><h4>Kutipan asli, bukan parafrase</h4><p>Tiap klaim membawa kalimat pelanggan apa adanya beserta rating dan tanggalnya.</p></div>
+        <div><h4>Cari bukti semantik</h4><p>Ketik "keluhan soal warna" — sistem menemukan ulasan yang membahasnya meski tidak memakai kata itu.</p></div>
+        <div><h4>Peta aspek per periode</h4><p>Lihat aspek mana yang memburuk dari minggu ke minggu, bukan hanya potret sesaat.</p></div>
+        <div><h4>Pembanding kategori</h4><p>Tahu apakah 17% keluhan ukuran itu wajar atau bermasalah dibanding rata-rata toko sejenis.</p></div>
+        <div><h4>Tanya data Anda sendiri</h4><p>Ajukan pertanyaan bebas. Kalau buktinya tidak ada, sistem menjawab tidak tahu — bukan mengarang.</p></div>
+        <div><h4>Temuan kekuatan</h4><p>Bukan cuma keluhan. Aspek yang justru dipuji ikut ditampilkan sebagai bahan promosi yang jujur.</p></div>
       </div>
     </div>
-  </section>
+  </div></section>
 
-  <section class="sect" id="harga">
-    <div class="wrap">
-      <div class="sect__lead"><h2>Harga</h2>
-        <p>Paket gratis sengaja dibuat cukup untuk menjawab pertanyaan inti UMKM mikro — bukan demo yang lumpuh.</p></div>
-      <div class="plans">
-        <div class="plan plan--on"><b>Gratis</b><p class="amt">Rp 0</p><p style="font-size:.86rem;color:var(--ink-muted)">selamanya</p>
-          <ul><li>1 toko</li><li>200 ulasan per bulan</li><li>Seluruh kartu tindakan &amp; bukti</li><li>Tanya jawab data</li></ul></div>
-        <div class="plan"><b>Toko</b><p class="amt">Rp 49rb</p><p style="font-size:.86rem;color:var(--ink-muted)">per bulan</p>
-          <ul><li>3 toko</li><li>5.000 ulasan per bulan</li><li>Tren antarperiode</li><li>Papan tindakan</li><li>Ekspor PDF</li></ul></div>
-        <div class="plan"><b>Tim</b><p class="amt">Rp 149rb</p><p style="font-size:.86rem;color:var(--ink-muted)">per bulan</p>
-          <ul><li>Toko tanpa batas</li><li>Anggota tim &amp; peran</li><li>Koneksi marketplace</li><li>Jejak audit</li></ul></div>
+  <section class="sect" id="buka"><div class="wrap">
+    <div class="sect__hd"><h2>Kami tunjukkan juga bagian yang belum berhasil</h2>
+      <p class="lead">Hampir semua produk AI memamerkan angka terbaiknya. Kami menampilkan rapor lengkapnya di dalam aplikasi — termasuk satu fitur yang kami putuskan tidak layak ditampilkan.</p></div>
+    <div class="feat">
+      <div class="flist">
+        <div><h4>Analisis sentimen: tervalidasi</h4><p>Diuji pada label manusia independen (NusaX, PRDECT-ID). Macro F1 <span class="n">0,730</span> berbanding <span class="n">0,700</span> milik baseline leksikon.</p></div>
+        <div><h4>Analisis foto: dinyatakan tidak layak</h4><p>Diuji pada <span class="n">97</span> foto berlabel manusia. Akurasinya <span class="n">45%</span> — di bawah menebak "normal" untuk semuanya (<span class="n">61%</span>). Fiturnya kami matikan.</p></div>
+        <div><h4>Kelemahan yang kami ketahui</h4><p>Model kurang memanggil keluhan negatif: <span class="n">128</span> dari <span class="n">420</span> ulasan negatif tidak dikenali. Tertulis di halaman Kesehatan Model.</p></div>
+      </div>
+      <div class="feat__main" style="background:var(--sunken)">
+        <h3 style="color:var(--ink)">Kenapa ini kami tampilkan</h3>
+        <p style="color:var(--ink-2);opacity:1">Pemilik toko akan mengambil keputusan bisnis dari angka ini. Menyembunyikan batasnya berarti membiarkan ia salah mengambil keputusan tanpa tahu ia sedang berisiko.</p>
+        <p style="color:var(--ink-2);opacity:1;margin-top:13px">Setiap layar hasil menyebutkan model apa yang dipakai, seberapa layak datanya dipercaya, dan kapan sistem menolak menyimpulkan.</p>
       </div>
     </div>
-  </section>
+  </div></section>
+
+  <section class="sect" id="harga"><div class="wrap">
+    <div class="sect__hd"><h2>Harga</h2>
+      <p class="lead">Paket gratis sengaja dibuat cukup menjawab pertanyaan inti UMKM mikro — bukan demo yang lumpuh.</p></div>
+    <div class="plans">
+      <div class="plan plan--on"><b>Gratis</b><p class="amt">Rp 0</p>
+        <p style="font-size:.85rem;color:var(--ink-muted)">selamanya</p>
+        <ul><li>1 toko</li><li>200 ulasan per bulan</li><li>Seluruh kartu tindakan &amp; bukti</li><li>Tanya jawab data</li><li>Cari bukti semantik</li></ul></div>
+      <div class="plan"><b>Toko</b><p class="amt">Rp 49rb</p>
+        <p style="font-size:.85rem;color:var(--ink-muted)">per bulan</p>
+        <ul><li>3 toko</li><li>5.000 ulasan per bulan</li><li>Peta aspek &amp; tren</li><li>Papan tindakan</li><li>Pantauan otomatis</li><li>Ekspor PDF</li></ul></div>
+      <div class="plan"><b>Tim</b><p class="amt">Rp 149rb</p>
+        <p style="font-size:.85rem;color:var(--ink-muted)">per bulan</p>
+        <ul><li>Toko tanpa batas</li><li>Anggota tim &amp; peran</li><li>Koneksi marketplace</li><li>Jejak audit</li></ul></div>
+    </div>
+  </div></section>
+
+  <section class="sect"><div class="wrap">
+    <div class="sect__hd"><h2>Pertanyaan yang sering muncul</h2></div>
+    <div class="faq">
+      <div><h4>Data ulasan saya disimpan?</h4><p>Tidak. Ulasan diproses selama satu sesi analisis lalu hilang. Tidak ada volume basis data untuk data pengguna, dan itu bagian dari rancangannya — bukan kelalaian konfigurasi.</p></div>
+      <div><h4>Data saya dipakai melatih model?</h4><p>Tidak, dan pengaturannya dapat Anda lihat sendiri di halaman Data &amp; Privasi.</p></div>
+      <div><h4>Kalau sistemnya salah bagaimana?</h4><p>Tiap kartu tindakan menyebutkan risikonya kalau rekomendasi itu keliru, dan tidak ada yang berjalan otomatis — Anda yang menerima atau menolak.</p></div>
+      <div><h4>Perlu paham teknis untuk memakainya?</h4><p>Tidak. Tidak ada istilah teknis di antarmuka: bukan "confidence 0,86" tetapi "cukup yakin".</p></div>
+    </div>
+  </div></section>
 
   <footer class="foot"><div class="wrap foot__in">
-    <div class="brand" style="font-size:.95rem"><span class="mark"><span></span></span> InsightUlasan</div>
+    <div class="brand" style="font-size:.94rem"><span class="mark"><i></i></span> InsightUlasan</div>
     <span>Proyek AIC COMPFEST 18 · Smart Commerce</span>
   </div></footer>
 </div>
 
-<!-- ============================== LOGIN ============================== -->
-<div class="view" id="v-login">
-  <div class="auth">
-    <div class="auth__card rise">
-      <div class="brand" style="margin-bottom:20px"><span class="mark"><span></span></span> InsightUlasan</div>
-      <h2 style="font-size:1.4rem;margin-bottom:6px">Masuk ke dashboard</h2>
-      <p style="font-size:.9rem;color:var(--ink-muted);margin-bottom:22px">Pakai nomor WhatsApp yang sama dengan toko Anda.</p>
-      <div class="field"><label for="wa">Nomor WhatsApp</label><input class="inp" id="wa" value="0812 3456 7890" /></div>
-      <div class="field"><label for="pw">Kata sandi</label><input class="inp" id="pw" type="password" value="rahasia123" /></div>
-      <button class="btn btn--pri" style="width:100%" data-go="app-home">Masuk</button>
-      <p style="font-size:.82rem;color:var(--ink-muted);margin-top:16px;text-align:center">
-        Belum punya akun? <button class="btn--text" data-go="app-home">Coba tanpa daftar</button></p>
-      <p style="font-size:.78rem;color:var(--ink-muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--rule)">
-        Masuk lewat nomor dipilih karena mayoritas UMKM sasaran lebih akrab dengan WhatsApp daripada email.</p>
-    </div>
-  </div>
-</div>
+<!-- ============================ LOGIN ============================ -->
+<div class="view" id="v-login"><div class="auth"><div class="auth__card rise">
+  <div class="brand" style="margin-bottom:18px"><span class="mark"><i></i></span> InsightUlasan</div>
+  <h2 style="font-size:1.35rem;margin-bottom:6px">Masuk ke dashboard</h2>
+  <p style="font-size:.9rem;color:var(--ink-muted);margin-bottom:20px">Pakai nomor WhatsApp yang sama dengan toko Anda.</p>
+  <div class="field"><label for="wa">Nomor WhatsApp</label><input class="inp" id="wa" value="0812 3456 7890" /></div>
+  <div class="field"><label for="pw">Kata sandi</label><input class="inp" id="pw" type="password" value="rahasia123" /></div>
+  <button class="btn btn--pri" style="width:100%" data-go="app-home">Masuk</button>
+  <p style="font-size:.82rem;color:var(--ink-muted);margin-top:15px;text-align:center">
+    Belum punya akun? <button class="btn--txt" data-go="app-home">Coba tanpa daftar</button></p>
+  <p style="font-size:.78rem;color:var(--ink-muted);margin-top:18px;padding-top:15px;box-shadow:inset 0 1px 0 var(--rule)">
+    Masuk lewat nomor dipilih karena mayoritas UMKM sasaran lebih akrab dengan WhatsApp daripada email.</p>
+</div></div></div>
 
-<!-- ============================== APLIKASI ============================== -->
-<div class="view" id="v-app">
-<div class="shell">
+<!-- ============================ APLIKASI ============================ -->
+<div class="view" id="v-app"><div class="shell">
   <aside class="side" id="side">
-    <div class="brand"><span class="mark"><span></span></span> InsightUlasan</div>
+    <div class="brand"><span class="mark"><i></i></span> InsightUlasan</div>
+    <div class="side__lbl">Analisis</div>
     <a href="#" data-p="app-home" class="on"><span class="k">◱</span> Ruang kerja</a>
     <a href="#" data-p="app-analyze"><span class="k">↑</span> Analisis baru</a>
     <a href="#" data-p="app-result"><span class="k">◈</span> Hasil analisis</a>
+    <div class="side__lbl">Eksplorasi</div>
+    <a href="#" data-p="app-search"><span class="k">⌕</span> Cari bukti</a>
+    <a href="#" data-p="app-map"><span class="k">▦</span> Peta aspek <i class="tier tier--d"></i></a>
+    <a href="#" data-p="app-variant"><span class="k">◫</span> Perbandingan varian <i class="tier tier--d"></i></a>
+    <a href="#" data-p="app-trend"><span class="k">◠</span> Tren <i class="tier tier--d"></i></a>
     <div class="side__lbl">Tindak lanjut</div>
-    <a href="#" data-p="app-actions"><span class="k">☑</span> Papan tindakan <i class="tierdot tierdot--d"></i></a>
-    <a href="#" data-p="app-trends"><span class="k">◠</span> Tren <i class="tierdot tierdot--d"></i></a>
-    <a href="#" data-p="app-reports"><span class="k">▤</span> Laporan <i class="tierdot tierdot--d"></i></a>
-    <div class="side__lbl">Akun</div>
-    <a href="#" data-p="app-team"><span class="k">◎</span> Tim &amp; peran <i class="tierdot tierdot--r"></i></a>
-    <a href="#" data-p="app-settings"><span class="k">⚙</span> Data &amp; privasi <i class="tierdot tierdot--r"></i></a>
+    <a href="#" data-p="app-board"><span class="k">☑</span> Papan tindakan <i class="tier tier--d"></i></a>
+    <a href="#" data-p="app-watch"><span class="k">◔</span> Pantauan <i class="tier tier--d"></i></a>
+    <a href="#" data-p="app-report"><span class="k">▤</span> Laporan <i class="tier tier--d"></i></a>
+    <div class="side__lbl">Sistem</div>
+    <a href="#" data-p="app-model"><span class="k">◎</span> Kesehatan model</a>
+    <a href="#" data-p="app-team"><span class="k">⚇</span> Tim &amp; peran <i class="tier tier--r"></i></a>
+    <a href="#" data-p="app-plan"><span class="k">◇</span> Langganan <i class="tier tier--r"></i></a>
+    <a href="#" data-p="app-privacy"><span class="k">⚙</span> Data &amp; privasi</a>
     <div class="side__foot">
       <div style="display:flex;align-items:center;gap:9px;padding:6px 4px">
-        <div style="width:30px;height:30px;border-radius:8px;background:var(--nila-100);color:var(--nila-700);display:grid;place-items:center;font-weight:800;font-size:.8rem">RF</div>
-        <div style="min-width:0"><div style="font-size:.85rem;font-weight:600">Rina Fashion</div>
-          <div style="font-size:.72rem;color:var(--ink-muted)">Paket gratis</div></div>
+        <div style="width:29px;height:29px;border-radius:8px;background:var(--nila-100);
+          color:var(--nila-700);display:grid;place-items:center;font-weight:800;font-size:.78rem">RF</div>
+        <div style="min-width:0"><div style="font-size:.84rem;font-weight:600">Rina Fashion</div>
+          <div style="font-size:.71rem;color:var(--ink-muted)">Paket gratis</div></div>
       </div>
-      <button class="btn btn--ghost btn--sm" style="width:100%;margin-top:8px" data-go="landing">Keluar</button>
+      <button class="btn btn--gh btn--sm" style="width:100%;margin-top:7px" data-go="landing">Keluar</button>
     </div>
   </aside>
 
   <div class="main">
     <div class="appbar">
-      <button class="btn btn--ghost btn--sm burger" id="burger" aria-label="Buka menu">☰</button>
+      <button class="btn btn--gh btn--sm burger" id="burger" aria-label="Buka menu">☰</button>
       <h2 id="pageTitle">Ruang kerja</h2>
-      <div class="sp">
-        <span class="kbd">⌘K</span>
-        <button class="btn btn--ghost btn--sm" data-theme-toggle>Mode gelap</button>
-      </div>
+      <div class="sp"><span class="kbd">⌘K</span>
+        <button class="btn btn--gh btn--sm" data-tema>Mode gelap</button></div>
     </div>
     <div class="body">
 
       <!-- ---------- RUANG KERJA ---------- -->
       <div class="page on" id="p-app-home">
-        <div class="tiles">
-          <div class="kpi rise"><div class="lbl">Ulasan dianalisis</div><div class="val" data-count="120">0</div><div class="delta flat">batch 2 Agu</div></div>
-          <div class="kpi rise" style="animation-delay:60ms"><div class="lbl">Aspek bermasalah</div><div class="val" data-count="6">0</div><div class="delta up">▲ 2 dari bulan lalu</div></div>
-          <div class="kpi rise" style="animation-delay:120ms"><div class="lbl">Keluhan terbanyak</div><div class="val" data-count="17" data-suffix="%">0</div><div class="delta up">▲ ukuran/varian</div></div>
-          <div class="kpi rise" style="animation-delay:180ms"><div class="lbl">Kualitas data</div><div class="val" data-count="100">0</div><div class="delta down">Baik</div></div>
+        <div class="summary rise">
+          <div><span class="v" data-c="120">0</span><span class="l">ulasan dianalisis</span></div>
+          <div><span class="v" data-c="6">0</span><span class="l">aspek bermasalah</span>
+            <span class="d up"> ▲ 2 dari bulan lalu</span></div>
+          <div><span class="v" data-c="17" data-s="%">0</span><span class="l">keluhan terbanyak: ukuran</span></div>
+          <div><span class="v" data-c="100">0</span><span class="l">kualitas data</span>
+            <span class="d down"> Baik</span></div>
         </div>
 
-        <div class="panel rise" style="animation-delay:240ms">
-          <div class="panel__h"><h3>Keluhan per aspek</h3>
-            <span class="sp">dari 120 ulasan batch terakhir</span></div>
-          <div class="legend">
-            <span><i style="background:var(--c1)"></i>Disebut</span>
-            <span><i style="background:var(--high)"></i>Berisi keluhan</span>
-          </div>
-          <div class="bars chart" id="barChart"></div>
-          <div class="tip" id="barTip"></div>
+        <div class="act act--h rise" style="animation-delay:60ms">
+          <span class="pill pill--h">Perlu perhatian</span>
+          <h4>Keluhan ukuran naik lagi minggu ini</h4>
+          <p><span class="n">8</span> keluhan baru sejak analisis terakhir (<span class="n">2 Agu</span>), naik dari <span class="n">5</span> minggu sebelumnya.</p>
+          <div class="row"><button class="btn btn--pri btn--sm" data-p="app-analyze">Analisis ulasan baru</button>
+            <button class="btn--txt" data-p="app-result">Lihat hasil terakhir →</button></div>
         </div>
 
-        <div class="panel rise" style="animation-delay:300ms">
-          <div class="panel__h"><h3>Yang perlu dikerjakan lebih dulu</h3>
-            <button class="btn--text sp" data-p="app-result">Lihat hasil lengkap →</button></div>
-          <div class="act act--h">
-            <span class="pill pill--h">Tinggi</span>
-            <h4>Perbaiki keterangan ukuran atau varian di halaman produk</h4>
-            <p><span class="num">20</span> dari <span class="num">120</span> ulasan (<span class="num">17%</span>) menyebut hal ini, dan trennya meningkat dalam 30 hari terakhir.</p>
-            <div class="row"><button class="btn btn--pri btn--sm">Terima</button>
-              <button class="btn btn--ghost btn--sm">Tolak</button>
-              <button class="btn--text" data-ev>Lihat bukti (3) →</button></div>
-          </div>
+        <div class="panel rise" style="animation-delay:120ms">
+          <div class="panel__h"><h3>Keluhan per aspek</h3><span class="sp">120 ulasan batch terakhir</span></div>
+          <div class="legend"><span><i style="background:var(--c1)"></i>Disebut</span>
+            <span><i style="background:var(--high)"></i>Berisi keluhan</span></div>
+          <div class="bars chart" id="barChart"></div><div class="tip" id="barTip"></div>
+        </div>
+
+        <div class="panel rise" style="animation-delay:180ms">
+          <div class="panel__h"><h3>Tindakan berjalan</h3>
+            <button class="btn--txt sp" data-p="app-board">Buka papan →</button></div>
+          <div class="rowline"><span>Revisi size chart varian M &amp; L</span><span class="badge badge--d">Sedang dikerjakan</span></div>
+          <div class="rowline"><span>Ganti vendor kemasan</span><span class="badge badge--p">Selesai</span></div>
         </div>
       </div>
 
@@ -525,127 +579,180 @@ table.t td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-alig
       <div class="page" id="p-app-analyze">
         <div class="panel">
           <div class="panel__h"><h3>Masukkan ulasan</h3></div>
-          <div class="dz">
-            <p style="margin:0;font-weight:600">Tarik berkas CSV atau JSON ke sini</p>
-            <p style="margin:0;font-size:.86rem;color:var(--ink-muted)">atau tempel teks · maksimal 5 MB · 1.000 baris pertama</p>
-            <button class="btn btn--pri btn--sm">Pilih berkas</button>
-          </div>
-          <p style="font-size:.88rem;color:var(--ink-muted);margin-top:14px">
-            <b>ulasan-toko-juli.csv</b> terbaca · <span class="num">5</span> kolom · <span class="num">120</span> baris</p>
+          <div class="dz"><p style="margin:0;font-weight:600">Tarik berkas CSV atau JSON ke sini</p>
+            <p style="margin:0;font-size:.85rem;color:var(--ink-muted)">atau tempel teks · maks 5 MB · 1.000 baris pertama</p>
+            <button class="btn btn--pri btn--sm">Pilih berkas</button></div>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-top:13px">
+            <b>ulasan-toko-juli.csv</b> terbaca · <span class="n">5</span> kolom · <span class="n">120</span> baris</p>
         </div>
-
         <div class="panel">
           <div class="panel__h"><h3>Cocokkan kolom</h3><span class="sp">tebakan otomatis, bisa diubah</span></div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px">
             <div class="field"><label>Teks ulasan</label><input class="inp" value="Customer Review Text" /></div>
             <div class="field"><label>Rating</label><input class="inp" value="Star Rating" /></div>
             <div class="field"><label>Tanggal</label><input class="inp" value="Purchase Date" /></div>
             <div class="field"><label>Nama produk</label><input class="inp" value="Item" /></div>
           </div>
-          <table class="t" style="margin-top:10px">
+          <table class="t" style="margin-top:8px">
             <thead><tr><th>Teks ulasan</th><th style="text-align:right">Rating</th><th style="text-align:right">Tanggal</th></tr></thead>
             <tbody>
-              <tr><td>Sepatunya bagus, tapi ukurannya kekecilan…</td><td class="n">2</td><td class="n">01-06</td></tr>
-              <tr><td>Pengiriman cepat sekali, packing rapi…</td><td class="n">5</td><td class="n">03-06</td></tr>
-              <tr><td>Barang datang dalam keadaan rusak…</td><td class="n">1</td><td class="n">05-06</td></tr>
-            </tbody>
-          </table>
+              <tr><td>Sepatunya bagus, tapi ukurannya kekecilan…</td><td class="num">2</td><td class="num">01-06</td></tr>
+              <tr><td>Pengiriman cepat sekali, packing rapi…</td><td class="num">5</td><td class="num">03-06</td></tr>
+              <tr><td>Barang datang dalam keadaan rusak…</td><td class="num">1</td><td class="num">05-06</td></tr>
+            </tbody></table>
           <div class="row"><button class="btn btn--pri" id="runBtn">Analisis 120 ulasan</button>
-            <button class="btn btn--ghost">Ganti berkas</button></div>
+            <button class="btn btn--gh">Ganti berkas</button></div>
         </div>
-
         <div class="panel" id="runPanel" style="display:none">
           <div class="panel__h"><h3>Sedang menganalisis…</h3></div>
           <div class="prog"><i id="progBar" style="width:0%"></i></div>
-          <div class="stg" data-s="0"><span class="m"></span> Memproses teks ulasan</div>
-          <div class="stg" data-s="1"><span class="m"></span> Mengambil bukti pendukung</div>
-          <div class="stg" data-s="2"><span class="m"></span> Menghitung prioritas</div>
-          <div class="stg" data-s="3"><span class="m"></span> Menyusun rekomendasi</div>
-          <p style="font-size:.86rem;color:var(--ink-muted);margin-top:14px">Biasanya kurang dari satu menit untuk 100 ulasan.</p>
+          <div class="stg"><span class="m"></span> Memproses teks ulasan</div>
+          <div class="stg"><span class="m"></span> Mengambil bukti pendukung</div>
+          <div class="stg"><span class="m"></span> Menghitung prioritas</div>
+          <div class="stg"><span class="m"></span> Menyusun rekomendasi</div>
         </div>
       </div>
 
-      <!-- ---------- HASIL ANALISIS ---------- -->
+      <!-- ---------- HASIL ---------- -->
       <div class="page" id="p-app-result">
         <div class="panel rise">
           <div class="panel__h"><h3>Ringkasan</h3><span class="sp">batch 2 Agu · 120 ulasan</span></div>
-          <p style="font-size:1.04rem">Dari <span class="num">120</span> ulasan, <span class="num">6</span> aspek memuat keluhan. Yang paling sering adalah <b>ukuran varian</b> — <span class="num">20</span> ulasan (<span class="num">17%</span>).</p>
+          <p style="font-size:1.02rem">Dari <span class="n">120</span> ulasan, <span class="n">6</span> aspek memuat keluhan. Yang paling sering adalah <b>ukuran varian</b> — <span class="n">20</span> ulasan (<span class="n">17%</span>).</p>
           <div class="note note--m">Mode sederhana aktif — sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
         </div>
 
         <div class="panel rise" style="animation-delay:60ms">
-          <div class="panel__h"><h3>Kualitas data</h3></div>
-          <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
-            <div style="display:grid;justify-items:center;color:var(--pos)">
-              <span class="num" style="font-size:2.4rem;line-height:1">100</span>
-              <span style="font-size:.78rem;color:var(--ink-muted)">dari 100</span></div>
-            <div><b>Baik</b>
-              <p style="font-size:.88rem;color:var(--ink-muted)"><span class="num">120</span>/<span class="num">120</span> baris dianalisis · <span class="num">120</span> punya rating · <span class="num">120</span> punya tanggal</p>
-              <p style="font-size:.88rem;color:var(--ink-muted);margin-top:6px">Data Anda lengkap — hasil analisis dapat dibaca dengan percaya diri.</p></div>
-          </div>
+          <div class="panel__h"><h3>Kualitas data</h3><span class="sp">skor 100 dari 100</span></div>
+          <p style="font-size:.92rem;color:var(--ink-2)"><b>Baik.</b> <span class="n">120</span>/<span class="n">120</span> baris dianalisis · <span class="n">120</span> punya rating · <span class="n">120</span> punya tanggal. Hasil analisis dapat dibaca dengan percaya diri.</p>
         </div>
 
-        <h3 style="margin:24px 0 14px;font-size:1.1rem">Yang perlu dikerjakan lebih dulu</h3>
+        <h3 style="margin:22px 0 12px;font-size:1.06rem">Yang perlu dikerjakan lebih dulu</h3>
 
         <div class="act act--h rise">
           <span class="pill pill--h">Tinggi</span>
           <h4>Perbaiki keterangan ukuran atau varian di halaman produk</h4>
-          <p>Periksa kembali keterangan ukuran pada halaman produk Anda. <span class="num">20</span> dari <span class="num">120</span> ulasan (<span class="num">17%</span>) menyebut hal ini. Keluhan ini meningkat dalam 30 hari terakhir, dan <span class="num">14</span> poin di atas rata-rata kategori sejenis.</p>
+          <p><span class="n">20</span> dari <span class="n">120</span> ulasan (<span class="n">17%</span>) menyebut hal ini. Keluhan meningkat dalam 30 hari terakhir, dan <span class="n">14</span> poin di atas rata-rata kategori sejenis.</p>
           <div class="ev"><q>Kecil banget seperti nya salah size</q>
-            <div class="meta">Ulasan demo_009 · 3/5 · 2026-07-06 · relevansi 0.7312</div></div>
+            <div class="meta">demo_009 · 3/5 · 2026-07-06 · relevansi 0.7312</div></div>
           <div class="row"><button class="btn btn--pri btn--sm">Terima</button>
-            <button class="btn btn--ghost btn--sm">Tolak</button>
-            <button class="btn btn--ghost btn--sm">Simpan dulu</button>
-            <button class="btn--text" data-ev>Lihat semua bukti (3) →</button></div>
+            <button class="btn btn--gh btn--sm">Tolak</button>
+            <button class="btn btn--gh btn--sm">Simpan dulu</button>
+            <button class="btn--txt" data-ev>Lihat semua bukti (3) →</button></div>
         </div>
 
         <div class="act act--m rise" style="animation-delay:60ms">
           <span class="pill pill--m">Sedang</span>
           <h4>Periksa kualitas produk pada batch terbaru</h4>
-          <p><span class="num">10</span> dari <span class="num">120</span> ulasan (<span class="num">8%</span>) menyebut masalah ini.</p>
+          <p><span class="n">10</span> dari <span class="n">120</span> ulasan (<span class="n">8%</span>) menyebut masalah ini.</p>
           <div class="row"><button class="btn btn--pri btn--sm">Terima</button>
-            <button class="btn btn--ghost btn--sm">Tolak</button>
-            <button class="btn--text" data-ev>Lihat semua bukti (3) →</button></div>
+            <button class="btn btn--gh btn--sm">Tolak</button>
+            <button class="btn--txt" data-ev>Lihat semua bukti (3) →</button></div>
         </div>
 
-        <div class="panel rise" style="animation-delay:120ms" >
+        <div class="panel rise" style="animation-delay:120ms">
           <div class="panel__h"><span class="pill pill--p">Kekuatan</span></div>
-          <h4 style="font-size:1.04rem;margin-bottom:8px">Yang sudah Anda lakukan dengan baik</h4>
-          <p style="font-size:.9rem;color:var(--ink-muted)">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi — sistem tidak menuliskan materi iklannya untuk Anda.</p>
-          <p style="margin-top:14px"><b>Produk Anda dinilai sesuai dengan deskripsinya</b></p>
-          <p style="font-size:.88rem;color:var(--ink-muted)"><span class="num">45</span> sebutan positif · <span class="num">92%</span> dari yang membahas kesesuaian deskripsi</p>
+          <h4 style="font-size:1.02rem;margin-bottom:7px">Yang sudah Anda lakukan dengan baik</h4>
+          <p style="font-size:.89rem;color:var(--ink-muted)">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi — sistem tidak menuliskan materi iklannya untuk Anda.</p>
+          <p style="margin-top:13px"><b>Produk Anda dinilai sesuai dengan deskripsinya</b></p>
+          <p style="font-size:.87rem;color:var(--ink-muted)"><span class="n">45</span> sebutan positif · <span class="n">92%</span> dari yang membahas kesesuaian deskripsi</p>
           <div class="ev"><q>Barang sudah sampai sesuai dengan deskripsi, terima kasih</q>
-            <div class="meta">Ulasan demo_047 · 5/5 · 2026-07-11 · relevansi 0.7771</div></div>
+            <div class="meta">demo_047 · 5/5 · 2026-07-11 · relevansi 0.7771</div></div>
         </div>
 
         <div class="panel rise" style="animation-delay:180ms">
-          <div class="panel__h"><h3>Perbandingan kategori sejenis</h3>
-            <span class="sp">n=8.939 ulasan pembanding</span></div>
-          <p style="font-size:.88rem;color:var(--ink-muted);margin-bottom:14px">Rata-rata kategori dari data publik. Bukan data toko pesaing, dan bersifat historis.</p>
-          <div class="legend">
-            <span><i style="background:var(--c1)"></i>Toko Anda</span>
-            <span><i style="background:var(--c2)"></i>Rata-rata kategori</span>
-          </div>
-          <div class="bars chart" id="benchChart"></div>
-          <div class="tip" id="benchTip"></div>
+          <div class="panel__h"><h3>Temuan dari foto</h3></div>
+          <div class="note note--w"><b>Tidak ditampilkan — gerbang Fase 3 memutuskan NO-GO.</b>
+            Model visual diuji pada <span class="n">97</span> foto berlabel manusia. Akurasinya
+            <span class="n">45%</span>, di bawah menebak "normal" untuk semuanya (<span class="n">61%</span>).
+            Menampilkan hasilnya akan memberi keyakinan palsu tepat pada kasus yang paling perlu Anda periksa sendiri.</div>
         </div>
 
         <div class="panel rise" style="animation-delay:240ms">
+          <div class="panel__h"><h3>Perbandingan kategori</h3><span class="sp">n=8.939 pembanding</span></div>
+          <div class="legend"><span><i style="background:var(--c1)"></i>Toko Anda</span>
+            <span><i style="background:var(--c2)"></i>Rata-rata kategori</span></div>
+          <div class="bars chart" id="benchChart"></div><div class="tip" id="benchTip"></div>
+        </div>
+
+        <div class="panel rise" style="animation-delay:300ms">
           <div class="panel__h"><h3>Tanya data Anda</h3></div>
-          <p style="font-size:.88rem;color:var(--ink-muted);margin-bottom:12px">Jawaban hanya disusun dari ulasan yang Anda unggah dan selalu menyertakan kutipannya. Kalau buktinya tidak ada, sistem mengatakan tidak tahu.</p>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:11px">Jawaban hanya disusun dari ulasan yang Anda unggah dan selalu menyertakan kutipannya. Kalau buktinya tidak ada, sistem mengatakan tidak tahu.</p>
           <input class="inp" id="qInput" placeholder="Misalnya: keluhan apa yang paling sering muncul?" />
           <div class="chips">
             <button class="chip" data-q="1">Apa keluhan yang paling sering muncul?</button>
             <button class="chip" data-q="2">Bagaimana pendapat pembeli tentang pengiriman?</button>
             <button class="chip" data-q="3">Berapa harga saham Telkom besok?</button>
           </div>
-          <div id="qOut" style="margin-top:16px"></div>
+          <div id="qOut" style="margin-top:14px"></div>
+        </div>
+      </div>
+
+      <!-- ---------- CARI BUKTI ---------- -->
+      <div class="page" id="p-app-search">
+        <div class="panel">
+          <div class="panel__h"><h3>Cari bukti</h3><span class="sp">pencarian makna, bukan kata kunci</span></div>
+          <p style="font-size:.88rem;color:var(--ink-muted);margin-bottom:11px">Memakai indeks embedding yang sama dengan yang menyusun bukti pada kartu tindakan. Ulasan yang membahas hal serupa ikut ditemukan meski tidak memakai kata yang Anda ketik.</p>
+          <input class="inp" id="sInput" value="keluhan soal warna yang dikirim" />
+          <div class="chips">
+            <button class="chip" data-s="warna">keluhan soal warna</button>
+            <button class="chip" data-s="ukuran">ukuran tidak pas</button>
+            <button class="chip" data-s="kirim">masalah pengiriman</button>
+          </div>
+          <div id="sOut" style="margin-top:15px"></div>
+        </div>
+      </div>
+
+      <!-- ---------- PETA ASPEK ---------- -->
+      <div class="page" id="p-app-map">
+        <div class="note note--w">Rancangan Tier 2 — belum dibangun. Membutuhkan penyimpanan lintas sesi.</div>
+        <div class="panel">
+          <div class="panel__h"><h3>Peta aspek per minggu</h3><span class="sp">% ulasan yang mengeluh</span></div>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:13px">Warna menunjukkan porsi keluhan; angkanya tetap tertulis supaya tidak bergantung warna saja.</p>
+          <div class="heat chart" id="heat"></div><div class="tip" id="heatTip"></div>
+        </div>
+      </div>
+
+      <!-- ---------- PERBANDINGAN VARIAN ---------- -->
+      <div class="page" id="p-app-variant">
+        <div class="note note--w">Rancangan Tier 2 — memerlukan kolom varian pada data unggahan.</div>
+        <div class="panel">
+          <div class="panel__h"><h3>Varian mana yang paling bermasalah</h3></div>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:12px">Keluhan dipecah per varian yang dibeli. Ini yang mengubah "keluhan ukuran 17%" menjadi tindakan konkret: varian mana yang size chart-nya perlu diperbaiki lebih dulu.</p>
+          <table class="t">
+            <thead><tr><th>Varian</th><th style="text-align:right">Ulasan</th><th style="text-align:right">Keluhan</th><th style="text-align:right">Porsi</th></tr></thead>
+            <tbody>
+              <tr><td>Mocca, L</td><td class="num">24</td><td class="num">11</td><td class="num" style="color:var(--high)">46%</td></tr>
+              <tr><td>Hitam, M</td><td class="num">31</td><td class="num">6</td><td class="num" style="color:var(--med)">19%</td></tr>
+              <tr><td>Putih, M</td><td class="num">19</td><td class="num">2</td><td class="num">11%</td></tr>
+              <tr><td>Maroon, S</td><td class="num">17</td><td class="num">1</td><td class="num" style="color:var(--pos)">6%</td></tr>
+            </tbody></table>
+          <div class="note note--m">Varian <b>Mocca L</b> menyumbang hampir separuh keluhan ukuran meski jumlah ulasannya bukan yang terbanyak. Memperbaiki satu varian ini lebih murah daripada merombak seluruh size chart.</div>
+        </div>
+      </div>
+
+      <!-- ---------- TREN ---------- -->
+      <div class="page" id="p-app-trend">
+        <div class="note note--w">Rancangan Tier 2 — tren dari satu batch menyesatkan secara statistik.</div>
+        <div class="panel">
+          <div class="panel__h"><h3>Keluhan ukuran per minggu</h3><span class="sp">6 batch terakhir</span></div>
+          <div class="chart" id="lineWrap"></div><div class="tip" id="lineTip"></div>
+          <p style="font-size:.85rem;color:var(--ink-muted);margin-top:9px">Naik <span class="n">6</span> minggu berturut-turut. Titik terakhir dihitung dari <span class="n">28</span> ulasan.</p>
+        </div>
+        <div class="panel">
+          <div class="panel__h"><h3>Bandingkan dua periode</h3></div>
+          <table class="t">
+            <thead><tr><th>Aspek</th><th style="text-align:right">Juni</th><th style="text-align:right">Juli</th><th style="text-align:right">Selisih</th></tr></thead>
+            <tbody>
+              <tr><td>ukuran/varian</td><td class="num">9%</td><td class="num">17%</td><td class="num" style="color:var(--high)">+8</td></tr>
+              <tr><td>pengiriman</td><td class="num">7%</td><td class="num">3%</td><td class="num" style="color:var(--pos)">−4</td></tr>
+              <tr><td>kemasan</td><td class="num">6%</td><td class="num">1%</td><td class="num" style="color:var(--pos)">−5</td></tr>
+            </tbody></table>
         </div>
       </div>
 
       <!-- ---------- PAPAN TINDAKAN ---------- -->
-      <div class="page" id="p-app-actions">
-        <div class="note note--w">Rancangan Tier 2 — belum dibangun. Butuh penyimpanan lintas sesi, yang berada di luar batas MVP penyisihan.</div>
+      <div class="page" id="p-app-board">
+        <div class="note note--w">Rancangan Tier 2 — membutuhkan penyimpanan lintas sesi.</div>
         <div class="panel">
           <div class="panel__h"><h3>Tindakan Anda</h3><span class="sp">status hanya berubah kalau Anda yang mengubahnya</span></div>
           <div class="kb">
@@ -659,36 +766,33 @@ table.t td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-alig
         </div>
         <div class="panel">
           <div class="panel__h"><h3>Sebelum &amp; sesudah</h3></div>
-          <div class="rowline"><span>Keluhan kemasan sebelum (1–28 Jul)</span><span class="num">9</span></div>
-          <div class="rowline"><span>Sesudah (29 Jul–8 Agu)</span><span class="num" style="color:var(--pos)">2</span></div>
+          <div class="rowline"><span>Keluhan kemasan sebelum (1–28 Jul)</span><span class="n">9</span></div>
+          <div class="rowline"><span>Sesudah (29 Jul–8 Agu)</span><span class="n" style="color:var(--pos)">2</span></div>
           <div class="note note--m">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah — sistem menaruh angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
         </div>
       </div>
 
-      <!-- ---------- TREN ---------- -->
-      <div class="page" id="p-app-trends">
-        <div class="note note--w">Rancangan Tier 2 — belum dibangun. Rulebook menyebut dashboard analitik lanjutan sebagai contoh over-scope, dan tren dari satu batch menyesatkan secara statistik.</div>
+      <!-- ---------- PANTAUAN ---------- -->
+      <div class="page" id="p-app-watch">
+        <div class="note note--w">Rancangan Tier 2 — membutuhkan analisis terjadwal.</div>
         <div class="panel">
-          <div class="panel__h"><h3>Keluhan ukuran per minggu</h3><span class="sp">6 batch terakhir</span></div>
-          <div class="chart" id="lineWrap"></div>
-          <div class="tip" id="lineTip"></div>
-          <p style="font-size:.86rem;color:var(--ink-muted);margin-top:10px">Naik <span class="num">6</span> minggu berturut-turut. Titik terakhir dihitung dari <span class="num">28</span> ulasan.</p>
+          <div class="panel__h"><h3>Beri tahu saya kalau…</h3></div>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:12px">Aturan dijalankan pada tiap analisis baru. Yang dipantau adalah angka yang sudah dihitung sistem — bukan tebakan tambahan.</p>
+          <div class="rowline"><span>Keluhan <b>ukuran</b> melewati <span class="n">15%</span></span><span class="sw"></span></div>
+          <div class="rowline"><span>Aspek mana pun naik lebih dari <span class="n">5</span> poin dibanding batch sebelumnya</span><span class="sw"></span></div>
+          <div class="rowline"><span>Muncul aspek bermasalah yang sebelumnya tidak pernah ada</span><span class="sw"></span></div>
+          <div class="rowline"><span>Skor kualitas data turun di bawah <span class="n">45</span></span><span class="sw off"></span></div>
+          <div class="row"><button class="btn btn--gh btn--sm">Tambah aturan</button></div>
         </div>
         <div class="panel">
-          <div class="panel__h"><h3>Bandingkan dua periode</h3></div>
-          <table class="t">
-            <thead><tr><th>Aspek</th><th style="text-align:right">Juni</th><th style="text-align:right">Juli</th><th style="text-align:right">Selisih</th></tr></thead>
-            <tbody>
-              <tr><td>ukuran/varian</td><td class="n">9%</td><td class="n">17%</td><td class="n" style="color:var(--high)">+8</td></tr>
-              <tr><td>pengiriman</td><td class="n">7%</td><td class="n">3%</td><td class="n" style="color:var(--pos)">−4</td></tr>
-              <tr><td>kemasan</td><td class="n">6%</td><td class="n">1%</td><td class="n" style="color:var(--pos)">−5</td></tr>
-            </tbody>
-          </table>
+          <div class="panel__h"><h3>Riwayat pemberitahuan</h3></div>
+          <div class="rowline"><span><b>Keluhan ukuran 17%</b> melewati ambang 15%</span><span style="font-size:.83rem;color:var(--ink-muted)">2 Agu</span></div>
+          <div class="rowline"><span><b>Kemasan</b> turun dari 6% ke 1%</span><span style="font-size:.83rem;color:var(--ink-muted)">28 Jul</span></div>
         </div>
       </div>
 
       <!-- ---------- LAPORAN ---------- -->
-      <div class="page" id="p-app-reports">
+      <div class="page" id="p-app-report">
         <div class="note note--w">Rancangan Tier 2 — belum dibangun.</div>
         <div class="panel">
           <div class="panel__h"><h3>Isi laporan</h3></div>
@@ -697,262 +801,351 @@ table.t td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-alig
           <div class="rowline"><span>Temuan kekuatan</span><span class="sw"></span></div>
           <div class="rowline"><span>Perbandingan kategori</span><span class="sw off"></span></div>
           <div class="note note--m">Kutipan pelanggan ikut tercetak. Pastikan laporan hanya dibagikan internal — data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
-          <div class="row"><button class="btn btn--pri btn--sm">Unduh PDF</button><button class="btn btn--ghost btn--sm">Unduh CSV</button></div>
+          <div class="row"><button class="btn btn--pri btn--sm">Unduh PDF</button>
+            <button class="btn btn--gh btn--sm">Unduh CSV</button></div>
+        </div>
+      </div>
+
+      <!-- ---------- KESEHATAN MODEL (signature) ---------- -->
+      <div class="page" id="p-app-model">
+        <div class="panel rise">
+          <div class="panel__h"><h3>Kesehatan model</h3><span class="sp">diperbarui 11 Agu 2026</span></div>
+          <p style="font-size:.92rem;color:var(--ink-2)">Halaman ini menampilkan rapor sistem yang Anda pakai, termasuk bagian yang belum berhasil. Anda mengambil keputusan bisnis dari angka di aplikasi ini — menyembunyikan batasnya berarti membiarkan Anda salah memutuskan tanpa tahu sedang berisiko.</p>
+        </div>
+
+        <div class="panel rise" style="animation-delay:60ms">
+          <div class="panel__h"><h3>Analisis sentimen</h3><span class="sp"><span class="badge badge--p">Tervalidasi</span></span></div>
+          <table class="t">
+            <thead><tr><th>Diuji pada</th><th style="text-align:right">Model kami</th><th style="text-align:right">Baseline leksikon</th></tr></thead>
+            <tbody>
+              <tr><td>NusaX-senti (label ahli)</td><td class="num" style="color:var(--pos)">0,730</td><td class="num">0,700</td></tr>
+              <tr><td>Kelas netral saja</td><td class="num" style="color:var(--pos)">0,645</td><td class="num">0,021</td></tr>
+              <tr><td>PRDECT-ID (label manusia)</td><td class="num" style="color:var(--pos)">0,838</td><td class="num">—</td></tr>
+            </tbody></table>
+          <p style="font-size:.85rem;color:var(--ink-muted);margin-top:10px">Label uji dibuat manusia dan independen dari aturan yang kami tulis sendiri — itu syarat agar angkanya berarti.</p>
+        </div>
+
+        <div class="panel rise" style="animation-delay:120ms">
+          <div class="panel__h"><h3>Analisis foto</h3><span class="sp"><span class="badge badge--h">Dimatikan</span></span></div>
+          <p style="font-size:.92rem;color:var(--ink-2)">Diuji pada <span class="n">97</span> foto ulasan berlabel manusia. Hasilnya tidak layak dipakai, dan fiturnya kami matikan alih-alih menampilkannya dengan peringatan kecil.</p>
+          <table class="t" style="margin-top:11px">
+            <tbody>
+              <tr><td>Akurasi model</td><td class="num" style="color:var(--high)">45%</td></tr>
+              <tr><td>Akurasi menebak "normal" untuk semuanya</td><td class="num">61%</td></tr>
+              <tr><td>Foto normal yang salah ditandai bermasalah</td><td class="num" style="color:var(--high)">61%</td></tr>
+            </tbody></table>
+          <div class="note note--h">Model bekerja lebih buruk daripada menebak. Ia tidak mendeteksi kerusakan — ia condong menebak "produk rusak" untuk lebih dari separuh foto apa pun isinya.</div>
+        </div>
+
+        <div class="panel rise" style="animation-delay:180ms">
+          <div class="panel__h"><h3>Kelemahan yang kami ketahui</h3></div>
+          <div class="rowline"><span>Keluhan negatif yang tidak dikenali</span><span class="n">128 dari 420</span></div>
+          <div class="rowline"><span>Label aspek belum divalidasi label manusia</span><span class="badge badge--d">Diketahui</span></div>
+          <div class="rowline"><span>Pembanding kategori bersifat historis, bukan pemantauan langsung</span><span class="badge badge--d">Diketahui</span></div>
+          <p style="font-size:.85rem;color:var(--ink-muted);margin-top:11px">Model yang dipakai: <span class="n">indobert-nlp01@thr0.7</span> · mode <span class="n">sederhana</span></p>
         </div>
       </div>
 
       <!-- ---------- TIM ---------- -->
       <div class="page" id="p-app-team">
-        <div class="note note--w">Roadmap Tier 3 — rulebook menyebut otentikasi kompleks sebagai backend terlalu rumit untuk MVP.</div>
+        <div class="note note--w">Roadmap Tier 3 — rulebook menyebut otentikasi kompleks di luar batas MVP.</div>
         <div class="panel">
           <div class="panel__h"><h3>Anggota</h3></div>
-          <div class="rowline"><span><b>Bu Rina</b><br /><span style="font-size:.84rem;color:var(--ink-muted)">rina@rinafashion.id</span></span><span class="badge badge--d">Pemilik</span></div>
-          <div class="rowline"><span><b>Ani</b><br /><span style="font-size:.84rem;color:var(--ink-muted)">ani@rinafashion.id</span></span><span class="badge badge--r">Admin toko</span></div>
+          <div class="rowline"><span><b>Bu Rina</b><br /><span style="font-size:.83rem;color:var(--ink-muted)">rina@rinafashion.id</span></span><span class="badge badge--d">Pemilik</span></div>
+          <div class="rowline"><span><b>Ani</b><br /><span style="font-size:.83rem;color:var(--ink-muted)">ani@rinafashion.id</span></span><span class="badge badge--r">Admin toko</span></div>
+          <div class="row"><button class="btn btn--gh btn--sm">Undang anggota</button></div>
         </div>
         <div class="panel">
           <div class="panel__h"><h3>Batas peran</h3></div>
           <div class="rowline"><span>Menjalankan analisis</span><span style="font-size:.86rem;color:var(--ink-muted)">Semua peran</span></div>
           <div class="rowline"><span>Menerima / menolak rekomendasi</span><span style="font-size:.86rem;color:var(--ink-muted)">Pemilik saja</span></div>
+          <div class="rowline"><span>Menghubungkan marketplace</span><span style="font-size:.86rem;color:var(--ink-muted)">Pemilik saja</span></div>
+        </div>
+      </div>
+
+      <!-- ---------- LANGGANAN ---------- -->
+      <div class="page" id="p-app-plan">
+        <div class="note note--w">Roadmap Tier 3.</div>
+        <div class="panel">
+          <div class="panel__h"><h3>Pemakaian bulan ini</h3></div>
+          <div class="rowline"><span>Ulasan dianalisis</span><span><span class="n">120</span> dari <span class="n">200</span></span></div>
+          <div class="prog"><i style="width:60%"></i></div>
+          <p style="font-size:.85rem;color:var(--ink-muted)">Paket gratis menyediakan 200 ulasan per bulan — cukup untuk toko yang menerima sekitar 50 ulasan per minggu.</p>
+        </div>
+        <div class="panel">
+          <div class="panel__h"><h3>Paket</h3></div>
+          <div class="rowline"><span><b>Gratis</b> — 1 toko, 200 ulasan</span><span class="badge badge--p">Aktif</span></div>
+          <div class="rowline"><span><b>Toko</b> — 3 toko, 5.000 ulasan, tren &amp; papan tindakan</span><span class="n">Rp 49rb</span></div>
+          <div class="rowline"><span><b>Tim</b> — tanpa batas, peran, koneksi marketplace</span><span class="n">Rp 149rb</span></div>
         </div>
       </div>
 
       <!-- ---------- DATA & PRIVASI ---------- -->
-      <div class="page" id="p-app-settings">
+      <div class="page" id="p-app-privacy">
         <div class="panel">
           <div class="panel__h"><h3>Data Anda</h3></div>
           <div class="rowline"><span>Simpan teks ulasan mentah</span><span style="font-size:.86rem;color:var(--ink-muted)">Tidak pernah</span></div>
           <div class="rowline"><span>Pakai data saya untuk melatih model</span><span class="sw off"></span></div>
+          <div class="rowline"><span>Nomor telepon &amp; data pribadi disamarkan sebelum diproses</span><span style="font-size:.86rem;color:var(--pos)">Selalu aktif</span></div>
           <div class="rowline"><span>Simpan hasil analisis</span><span style="font-size:.86rem;color:var(--ink-muted)">90 hari <span class="badge badge--r">Tier 3</span></span></div>
-          <div class="row"><button class="btn btn--ghost btn--sm" style="color:var(--high);border-color:var(--high)">Hapus semua data saya</button></div>
+          <div class="row"><button class="btn btn--gh btn--sm" style="color:var(--high);box-shadow:inset 0 0 0 1px var(--high)">Hapus semua data saya</button></div>
         </div>
         <div class="panel">
           <div class="panel__h"><h3>Tampilan</h3></div>
-          <div class="rowline"><span>Mode gelap</span><span class="sw off" data-theme-toggle></span></div>
+          <div class="rowline"><span>Mode gelap</span><button class="sw off" data-tema aria-label="Mode gelap"></button></div>
           <p style="font-size:.84rem;color:var(--ink-muted)">Mode gelap punya palet grafiknya sendiri yang divalidasi terpisah, bukan hasil pembalikan warna otomatis.</p>
         </div>
       </div>
 
     </div>
   </div>
-</div>
-</div>
+</div></div>
 
-<!-- ============================== PANEL BUKTI ============================== -->
+<!-- ============================ PANEL BUKTI ============================ -->
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Bukti pendukung">
-  <button class="btn--text" id="drawerClose">← Kembali ke hasil</button>
-  <h3 style="font-size:1.2rem;margin:16px 0 6px" tabindex="-1" id="drawerH">Bukti untuk: Perbaiki keterangan ukuran atau varian</h3>
-  <p style="font-size:.87rem;color:var(--ink-muted)"><span class="num">20</span> dari <span class="num">120</span> ulasan (<span class="num">17%</span>) menyebut masalah pada ukuran atau varian</p>
+  <button class="btn--txt" id="drawerClose">← Kembali ke hasil</button>
+  <h3 style="font-size:1.15rem;margin:14px 0 6px" tabindex="-1" id="drawerH">Bukti untuk: Perbaiki keterangan ukuran atau varian</h3>
+  <p style="font-size:.86rem;color:var(--ink-muted)"><span class="n">20</span> dari <span class="n">120</span> ulasan (<span class="n">17%</span>) menyebut masalah pada ukuran atau varian</p>
   <div class="ev"><q>Kecil banget seperti nya salah size</q><div class="meta">demo_009 · 3/5 · 2026-07-06 · relevansi 0.7312</div></div>
   <div class="ev"><q>ukuran yg dikirim tidak sesuai, malah ukuran yg diminta seperti ditulis ulang</q><div class="meta">demo_012 · 1/5 · 2026-07-15 · relevansi 0.7178</div></div>
   <div class="ev"><q>paket lah di terima ...hanya size nya kebesaran.....</q><div class="meta">demo_020 · 3/5 · 2026-07-19 · relevansi 0.6975</div></div>
-  <h4 style="margin:26px 0 8px;font-size:1rem">Kenapa ini diprioritaskan</h4>
-  <p style="font-size:.92rem;color:var(--ink-2)"><span class="num">20</span> dari <span class="num">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="num">14</span> poin di atas baseline kategori (n=<span class="num">8939</span>).</p>
-  <h4 style="margin:22px 0 8px;font-size:1rem">Kalau rekomendasi ini keliru</h4>
-  <p style="font-size:.92rem;color:var(--ink-muted)">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan — periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
+  <h4 style="margin:24px 0 7px;font-size:.98rem">Kenapa ini diprioritaskan</h4>
+  <p style="font-size:.9rem;color:var(--ink-2)"><span class="n">20</span> dari <span class="n">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="n">14</span> poin di atas baseline kategori (n=<span class="n">8939</span>).</p>
+  <h4 style="margin:20px 0 7px;font-size:.98rem">Kalau rekomendasi ini keliru</h4>
+  <p style="font-size:.9rem;color:var(--ink-muted)">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan — periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
 </aside>
 
 <script>
 /* ====================== Navigasi ====================== */
-const views = { landing:'v-landing', login:'v-login' };
+const VIEWS = {landing:"v-landing", login:"v-login"};
+const TITLES = {"app-home":"Ruang kerja","app-analyze":"Analisis baru","app-result":"Hasil analisis",
+  "app-search":"Cari bukti","app-map":"Peta aspek","app-variant":"Perbandingan varian",
+  "app-trend":"Tren","app-board":"Papan tindakan","app-watch":"Pantauan","app-report":"Laporan",
+  "app-model":"Kesehatan model","app-team":"Tim & peran","app-plan":"Langganan",
+  "app-privacy":"Data & privasi"};
+
 function goView(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-  const target = views[id] ? views[id] : 'v-app';
-  document.getElementById(target).classList.add('on');
-  if(!views[id]) showPage(id);
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("on"));
+  document.getElementById(VIEWS[id] || "v-app").classList.add("on");
+  if(!VIEWS[id]) showPage(id);
   window.scrollTo(0,0);
 }
-const TITLES = {'app-home':'Ruang kerja','app-analyze':'Analisis baru','app-result':'Hasil analisis',
-  'app-actions':'Papan tindakan','app-trends':'Tren','app-reports':'Laporan',
-  'app-team':'Tim & peran','app-settings':'Data & privasi'};
 function showPage(p){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
-  const el = document.getElementById('p-'+p);
-  if(el){ el.classList.add('on'); el.querySelectorAll('.rise').forEach(n=>{
-    n.style.animation='none'; void n.offsetWidth; n.style.animation=''; }); }
-  document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on', a.dataset.p===p));
-  document.getElementById('pageTitle').textContent = TITLES[p]||'';
-  document.getElementById('side').classList.remove('open');
+  document.querySelectorAll(".page").forEach(x => x.classList.remove("on"));
+  const el = document.getElementById("p-"+p);
+  if(el){ el.classList.add("on");
+    el.querySelectorAll(".rise").forEach(n => { n.style.animation="none"; void n.offsetWidth; n.style.animation=""; }); }
+  document.querySelectorAll(".side a").forEach(a => a.classList.toggle("on", a.dataset.p===p));
+  document.getElementById("pageTitle").textContent = TITLES[p] || "";
+  document.getElementById("side").classList.remove("open");
   countUp();
 }
-document.addEventListener('click', e=>{
-  const go = e.target.closest('[data-go]');   if(go){ e.preventDefault(); goView(go.dataset.go); }
-  const pg = e.target.closest('[data-p]');    if(pg){ e.preventDefault(); showPage(pg.dataset.p); }
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); goView(g.dataset.go); }
+  const p = e.target.closest("[data-p]");  if(p){ e.preventDefault(); showPage(p.dataset.p); }
 });
-document.getElementById('burger').onclick = ()=>document.getElementById('side').classList.toggle('open');
+document.getElementById("burger").onclick = () => document.getElementById("side").classList.toggle("open");
 
 /* ====================== Tema ====================== */
-document.addEventListener('click', e=>{
-  if(!e.target.closest('[data-theme-toggle]')) return;
-  const dark = document.documentElement.dataset.theme === 'dark';
-  document.documentElement.dataset.theme = dark ? 'light' : 'dark';
-  document.querySelectorAll('[data-theme-toggle]').forEach(b=>{
-    if(b.tagName==='BUTTON') b.textContent = dark ? 'Mode gelap' : 'Mode terang';
-    else b.classList.toggle('off', dark);
+document.addEventListener("click", e => {
+  if(!e.target.closest("[data-tema]")) return;
+  const gelap = document.documentElement.dataset.theme === "dark";
+  document.documentElement.dataset.theme = gelap ? "light" : "dark";
+  document.querySelectorAll("[data-tema]").forEach(b => {
+    if(b.classList.contains("sw")) b.classList.toggle("off", gelap);
+    else b.textContent = gelap ? "Mode gelap" : "Mode terang";
   });
-  drawBars(); drawBench(); drawLine();
+  drawBars(); drawBench(); drawLine(); drawHeat();
 });
 
 /* ====================== Angka menghitung naik ====================== */
+const KURANGI_GERAK = matchMedia("(prefers-reduced-motion: reduce)").matches;
 function countUp(){
-  document.querySelectorAll('.page.on [data-count]').forEach(el=>{
-    const to = +el.dataset.count, suf = el.dataset.suffix||'';
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent = to+suf; return; }
-    const t0 = performance.now(), dur = 620;
+  document.querySelectorAll(".page.on [data-c]").forEach(el => {
+    const to = +el.dataset.c, suf = el.dataset.s || "";
+    if(KURANGI_GERAK){ el.textContent = to+suf; return; }
+    const t0 = performance.now();
     (function step(t){
-      const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
+      const k = Math.min(1,(t-t0)/620), e = 1-Math.pow(1-k,4);
       el.textContent = Math.round(to*e)+suf;
       if(k<1) requestAnimationFrame(step);
     })(t0);
   });
 }
 
-/* ====================== SIGNATURE: jejak bukti di hero ====================== */
+/* ====================== SIGNATURE: jejak bukti ====================== */
 const HERO_EV = [
-  ['Kecil banget seperti nya salah size','demo_009 · 3/5 · 6 Jul'],
-  ['ukuran yg dikirim tidak sesuai, malah ukuran yg diminta seperti ditulis ulang','demo_012 · 1/5 · 15 Jul'],
-  ['paket lah di terima ...hanya size nya kebesaran.....','demo_020 · 3/5 · 19 Jul']
+  ["Kecil banget seperti nya salah size","demo_009 · 3/5 · 6 Jul"],
+  ["ukuran yg dikirim tidak sesuai, malah ukuran yg diminta seperti ditulis ulang","demo_012 · 1/5 · 15 Jul"],
+  ["paket lah di terima ...hanya size nya kebesaran.....","demo_020 · 3/5 · 19 Jul"]
 ];
 let heroOpen = false;
 function toggleHero(){
-  const box = document.getElementById('heroEv'), hint = document.getElementById('heroHint');
-  const btn = document.getElementById('heroNum');
+  const box = document.getElementById("heroEv"), hint = document.getElementById("heroHint"),
+        btn = document.getElementById("heroNum");
   heroOpen = !heroOpen;
-  btn.setAttribute('aria-expanded', String(heroOpen));
-  if(!heroOpen){ box.innerHTML=''; hint.textContent='↑ Ketuk angkanya — setiap angka bisa ditelusuri ke ulasan aslinya'; return; }
-  hint.textContent = 'Tiga dari 20 ulasan yang menghasilkan angka itu.';
-  box.innerHTML = HERO_EV.map(([q,m],i)=>
-    `<div class="strip in" style="animation-delay:${i*90}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join('');
+  btn.setAttribute("aria-expanded", String(heroOpen));
+  if(!heroOpen){ box.innerHTML=""; hint.textContent="Ketuk angkanya — setiap angka dapat ditelusuri ke ulasan aslinya."; return; }
+  hint.textContent = "Tiga dari 20 ulasan yang menghasilkan angka itu.";
+  box.innerHTML = HERO_EV.map(([q,m],i) =>
+    `<div class="strip in" style="animation-delay:${i*90}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join("");
 }
-document.getElementById('heroNum').addEventListener('click', toggleHero);
-document.getElementById('heroNum').addEventListener('keydown', e=>{
-  if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleHero(); }});
-setTimeout(()=>{ if(!heroOpen) toggleHero(); }, 1500);
+document.getElementById("heroNum").addEventListener("click", toggleHero);
+document.getElementById("heroNum").addEventListener("keydown", e => {
+  if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggleHero(); }});
+setTimeout(() => { if(!heroOpen) toggleHero(); }, 1400);
 
 /* ====================== Grafik ======================
-   Batang horizontal dipilih karena tugas datanya PERBANDINGAN BESARAN antar
-   kategori berlabel panjang — label aspek muat terbaca penuh, tidak dimiringkan.
-   Setiap batang punya tooltip; nilainya juga dilabeli langsung, sehingga
-   identitas tidak pernah bergantung warna saja.                              */
-const ASPEK = [
-  ['ukuran/varian',38,20],['kualitas produk',62,10],['kesesuaian deskripsi',49,4],
-  ['pengiriman',62,3],['harga',22,1],['kemasan',21,1]
-];
+   Batang horizontal: label aspek panjang dan harus terbaca penuh di HP.
+   Nilainya dilabeli langsung, sehingga identitas tidak bergantung warna saja. */
+const ASPEK = [["ukuran/varian",38,20],["kualitas produk",62,10],["kesesuaian deskripsi",49,4],
+               ["pengiriman",62,3],["harga",22,1],["kemasan",21,1]];
 function drawBars(){
-  const host = document.getElementById('barChart'); if(!host) return;
-  const max = Math.max(...ASPEK.map(a=>a[1]));
-  host.innerHTML = ASPEK.map(([n,total,neg],i)=>{
-    const wT=(total-neg)/max*100, wN=neg/max*100;
-    return `<div class="bar"><span>${n}</span>
-      <span class="bar__track">
-        <i class="bar__fill" style="width:${wT}%;background:var(--c1);animation-delay:${i*55}ms"
-           data-t="${n}: ${total} sebutan"></i>
-        <i class="bar__fill" style="width:${wN}%;background:var(--high);animation-delay:${i*55+40}ms"
-           data-t="${n}: ${neg} berisi keluhan"></i>
-      </span><span class="bar__val">${total}</span></div>`;
-  }).join('');
-  bindTip(host, document.getElementById('barTip'));
+  const h = document.getElementById("barChart"); if(!h) return;
+  const max = Math.max(...ASPEK.map(a => a[1]));
+  h.innerHTML = ASPEK.map(([n,t,g],i) => `<div class="bar"><span>${n}</span>
+    <span class="bar__t">
+      <i class="bar__f" style="width:${(t-g)/max*100}%;background:var(--c1);animation-delay:${i*55}ms" data-t="${n}: ${t} sebutan"></i>
+      <i class="bar__f" style="width:${g/max*100}%;background:var(--high);animation-delay:${i*55+40}ms" data-t="${n}: ${g} berisi keluhan"></i>
+    </span><span class="bar__v">${t}</span></div>`).join("");
+  tip(h, document.getElementById("barTip"));
 }
-const BENCH = [['ukuran/varian',17,3],['kualitas produk',8,3],['kesesuaian deskripsi',3,2],['kemasan',1,1]];
+const BENCH = [["ukuran/varian",17,3],["kualitas produk",8,3],["kesesuaian deskripsi",3,2],["kemasan",1,1]];
 function drawBench(){
-  const host = document.getElementById('benchChart'); if(!host) return;
-  const max = 20;
-  host.innerHTML = BENCH.map(([n,toko,base],i)=>
-    `<div class="bar"><span>${n}</span>
-      <span class="bar__track" style="background:transparent;flex-direction:column;gap:3px;height:26px">
-        <i class="bar__fill" style="width:${toko/max*100}%;height:11px;background:var(--c1);animation-delay:${i*55}ms" data-t="Toko Anda: ${toko}%"></i>
-        <i class="bar__fill" style="width:${base/max*100}%;height:11px;background:var(--c2);animation-delay:${i*55+40}ms" data-t="Rata-rata kategori: ${base}%"></i>
-      </span><span class="bar__val">${toko>base?'+':''}${toko-base}</span></div>`).join('');
-  bindTip(host, document.getElementById('benchTip'));
+  const h = document.getElementById("benchChart"); if(!h) return;
+  h.innerHTML = BENCH.map(([n,a,b],i) => `<div class="bar"><span>${n}</span>
+    <span class="bar__t" style="background:transparent;flex-direction:column;gap:3px;height:25px">
+      <i class="bar__f" style="width:${a/20*100}%;height:11px;background:var(--c1);animation-delay:${i*55}ms" data-t="Toko Anda: ${a}%"></i>
+      <i class="bar__f" style="width:${b/20*100}%;height:11px;background:var(--c2);animation-delay:${i*55+40}ms" data-t="Rata-rata kategori: ${b}%"></i>
+    </span><span class="bar__v">${a>b?"+":""}${a-b}</span></div>`).join("");
+  tip(h, document.getElementById("benchTip"));
 }
-/* Garis: tugas datanya PERUBAHAN SEIRING WAKTU, jadi satu seri garis dengan
-   crosshair — bukan batang, karena yang dibaca adalah arah, bukan besaran. */
-const TREN = [[ '28 Jun',9],['5 Jul',11],['12 Jul',10],['19 Jul',15],['26 Jul',17],['2 Agu',20]];
+/* Garis: tugas datanya PERUBAHAN SEIRING WAKTU — yang dibaca arah, bukan besaran. */
+const TREN = [["28 Jun",9],["5 Jul",11],["12 Jul",10],["19 Jul",15],["26 Jul",17],["2 Agu",20]];
 function drawLine(){
-  const host = document.getElementById('lineWrap'); if(!host) return;
-  const W=680,H=190,P={t:16,r:16,b:26,l:30}, max=24;
+  const h = document.getElementById("lineWrap"); if(!h) return;
+  const W=680,H=190,P={t:16,r:16,b:26,l:30},max=24;
   const x=i=>P.l+i*(W-P.l-P.r)/(TREN.length-1), y=v=>H-P.b-(v/max)*(H-P.t-P.b);
   const pts=TREN.map((d,i)=>[x(i),y(d[1])]);
-  const path=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
-  const area=path+` L${pts.at(-1)[0]} ${H-P.b} L${pts[0][0]} ${H-P.b} Z`;
-  host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img"
-      aria-label="Keluhan ukuran naik dari 9 pada 28 Juni menjadi 20 pada 2 Agustus">
+  const path=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  h.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img"
+    aria-label="Keluhan ukuran naik dari 9 pada 28 Juni menjadi 20 pada 2 Agustus">
     <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="var(--c1)" stop-opacity=".22"/>
+      <stop offset="0" stop-color="var(--c1)" stop-opacity=".2"/>
       <stop offset="1" stop-color="var(--c1)" stop-opacity="0"/></linearGradient></defs>
-    ${[0,8,16,24].map(v=>`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}"
-        stroke="var(--rule)" stroke-width="1"/>
-      <text x="${P.l-7}" y="${y(v)+4}" text-anchor="end" font-size="10"
-        font-family="var(--mono)" fill="var(--ink-muted)">${v}</text>`).join('')}
-    <path d="${area}" fill="url(#g)"/>
-    <path d="${path}" fill="none" stroke="var(--c1)" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round"
-      style="--len:1200;stroke-dasharray:1200;animation:drawIn 900ms var(--ease-out) both"/>
-    ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="var(--surface)"
-       stroke="var(--c1)" stroke-width="2" data-t="${TREN[i][0]}: ${TREN[i][1]} keluhan"
-       style="animation:fade 300ms ${600+i*70}ms both"/>`).join('')}
+    ${[0,8,16,24].map(v=>`<line x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)"/>
+      <text x="${P.l-7}" y="${y(v)+4}" text-anchor="end" font-size="10" font-family="var(--mono)"
+        fill="var(--ink-muted)">${v}</text>`).join("")}
+    <path d="${path} L${pts.at(-1)[0]} ${H-P.b} L${pts[0][0]} ${H-P.b} Z" fill="url(#g)"/>
+    <path d="${path}" fill="none" stroke="var(--c1)" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round" style="--len:1200;stroke-dasharray:1200;animation:draw 900ms var(--out) both"/>
+    ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="var(--surface)" stroke="var(--c1)"
+      stroke-width="2" data-t="${TREN[i][0]}: ${TREN[i][1]} keluhan" style="animation:fade 300ms ${600+i*70}ms both"/>`).join("")}
     ${TREN.map((d,i)=>`<text x="${x(i)}" y="${H-7}" text-anchor="middle" font-size="10"
-       font-family="var(--mono)" fill="var(--ink-muted)">${d[0]}</text>`).join('')}
-    <text x="${pts.at(-1)[0]-6}" y="${pts.at(-1)[1]-12}" text-anchor="end" font-size="12"
-      font-weight="700" font-family="var(--mono)" fill="var(--c1)">20</text>
-  </svg>`;
-  bindTip(host, document.getElementById('lineTip'));
+      font-family="var(--mono)" fill="var(--ink-muted)">${d[0]}</text>`).join("")}
+    <text x="${pts.at(-1)[0]-6}" y="${pts.at(-1)[1]-12}" text-anchor="end" font-size="12" font-weight="700"
+      font-family="var(--mono)" fill="var(--c1)">20</text></svg>`;
+  tip(h, document.getElementById("lineTip"));
 }
-/* Lapisan hover wajib untuk grafik HTML/SVG (spesifikasi interaksi dataviz). */
-function bindTip(host, tip){
-  host.querySelectorAll('[data-t]').forEach(m=>{
-    m.addEventListener('mouseenter', e=>{
-      const r=m.getBoundingClientRect(), h=host.getBoundingClientRect();
-      tip.textContent=m.dataset.t;
-      tip.style.left=(r.left-h.left+r.width/2)+'px';
-      tip.style.top=(r.top-h.top)+'px';
-      tip.classList.add('on');
+/* Heatmap: satu hue, terang→gelap. Sekuensial, bukan pelangi. */
+const MINGGU = ["28 Jun","5 Jul","12 Jul","19 Jul","26 Jul","2 Agu"];
+const PETA = [["ukuran/varian",[9,11,10,15,17,20]],["kualitas produk",[7,6,8,7,9,8]],
+              ["kesesuaian deskripsi",[4,3,5,3,4,3]],["pengiriman",[7,6,5,4,3,3]],
+              ["kemasan",[6,5,4,2,1,1]],["harga",[2,1,2,1,1,1]]];
+function drawHeat(){
+  const h = document.getElementById("heat"); if(!h) return;
+  const max = 20;
+  h.innerHTML = `<div class="heat__row"><span></span>${MINGGU.map(m=>`<span class="heat__h">${m}</span>`).join("")}</div>` +
+    PETA.map(([n,vals]) => `<div class="heat__row"><span class="heat__l">${n}</span>` +
+      vals.map((v,i) => {
+        const k = v/max;
+        const bg = k < .12 ? "var(--sunken)" : `color-mix(in srgb, var(--c1) ${Math.round(18+k*82)}%, var(--paper))`;
+        const fg = k < .35 ? "var(--ink-2)" : "#fff";
+        return `<span class="heat__c" style="background:${bg};color:${fg}" data-t="${n} · ${MINGGU[i]}: ${v}%">${v}</span>`;
+      }).join("") + `</div>`).join("");
+  tip(h, document.getElementById("heatTip"));
+}
+function tip(host, el){
+  host.querySelectorAll("[data-t]").forEach(m => {
+    m.addEventListener("mouseenter", () => {
+      const r = m.getBoundingClientRect(), b = host.getBoundingClientRect();
+      el.textContent = m.dataset.t;
+      el.style.left = (r.left-b.left+r.width/2)+"px";
+      el.style.top = (r.top-b.top)+"px";
+      el.classList.add("on");
     });
-    m.addEventListener('mouseleave', ()=>tip.classList.remove('on'));
+    m.addEventListener("mouseleave", () => el.classList.remove("on"));
   });
 }
 
 /* ====================== Panel bukti ====================== */
-const scrim=document.getElementById('scrim'), drawer=document.getElementById('drawer');
-function openDrawer(){ scrim.classList.add('on'); drawer.classList.add('on');
-  setTimeout(()=>document.getElementById('drawerH').focus(),60); }
-function closeDrawer(){ scrim.classList.remove('on'); drawer.classList.remove('on'); }
-document.addEventListener('click', e=>{ if(e.target.closest('[data-ev]')) openDrawer(); });
-scrim.onclick=closeDrawer; document.getElementById('drawerClose').onclick=closeDrawer;
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDrawer(); });
+const scrim = document.getElementById("scrim"), drawer = document.getElementById("drawer");
+function openDrawer(){ scrim.classList.add("on"); drawer.classList.add("on");
+  setTimeout(() => document.getElementById("drawerH").focus(), 60); }
+function closeDrawer(){ scrim.classList.remove("on"); drawer.classList.remove("on"); }
+document.addEventListener("click", e => { if(e.target.closest("[data-ev]")) openDrawer(); });
+scrim.onclick = closeDrawer;
+document.getElementById("drawerClose").onclick = closeDrawer;
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeDrawer(); });
 
 /* ====================== Tanya jawab ====================== */
-const JAWAB={
-  1:{a:'Dari <span class="num">120</span> ulasan, keluhan terbanyak ada pada <b>ukuran varian</b> — <span class="num">20</span> ulasan.',
-     e:[['Kecil banget seperti nya salah size','demo_009 · 3/5']]},
-  2:{a:'Dari <span class="num">120</span> ulasan, <span class="num">62</span> membahas pengiriman. <span class="num">3</span> di antaranya berisi keluhan (<span class="num">5%</span>), <span class="num">41</span> positif.',
-     e:[['packing aman. pengiriman on time. seller responsif.','demo_043 · 5/5']]},
-  3:{tolak:'Pertanyaan ini membahas hal yang tidak ada di dalam ulasan Anda, sehingga tidak dapat dijawab dari data ini. Sistem hanya menjawab pertanyaan seputar isi ulasan yang Anda unggah.'}
+const JAWAB = {
+  1:{a:'Dari <span class="n">120</span> ulasan, keluhan terbanyak ada pada <b>ukuran varian</b> — <span class="n">20</span> ulasan.',
+     e:[["Kecil banget seperti nya salah size","demo_009 · 3/5"]]},
+  2:{a:'Dari <span class="n">120</span> ulasan, <span class="n">62</span> membahas pengiriman. <span class="n">3</span> berisi keluhan (<span class="n">5%</span>), <span class="n">41</span> positif.',
+     e:[["packing aman. pengiriman on time. seller responsif.","demo_043 · 5/5"]]},
+  3:{tolak:"Pertanyaan ini membahas hal yang tidak ada di dalam ulasan Anda, sehingga tidak dapat dijawab dari data ini. Sistem hanya menjawab pertanyaan seputar isi ulasan yang Anda unggah."}
 };
-document.addEventListener('click', e=>{
-  const c=e.target.closest('[data-q]'); if(!c) return;
-  document.getElementById('qInput').value=c.textContent.trim();
-  const d=JAWAB[c.dataset.q], out=document.getElementById('qOut');
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-q]"); if(!c) return;
+  document.getElementById("qInput").value = c.textContent.trim();
+  const d = JAWAB[c.dataset.q], out = document.getElementById("qOut");
   out.innerHTML = d.tolak
     ? `<div class="note note--m"><b>Sistem tidak menjawab pertanyaan ini.</b><br />${d.tolak}</div>`
-    : `<p style="font-size:.98rem">${d.a}</p>` + d.e.map(([q,m],i)=>
-        `<div class="ev strip in" style="animation-delay:${i*90}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join('');
+    : `<p style="font-size:.97rem">${d.a}</p>` + d.e.map(([q,m],i) =>
+        `<div class="ev strip in" style="animation-delay:${i*90}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join("");
+});
+
+/* ====================== Cari bukti semantik ====================== */
+const CARI = {
+  warna:[["pesen warna putih di kirim warna hitam, padahal di desk paketnya tertera warna putih","f_012 · 1/5 · relevansi 0.81"],
+         ["akuu mesennyaa warnaa maroon, tapi dikirimnya warna coklat","f_044 · 3/5 · relevansi 0.78"],
+         ["Jelas2 HITAM nympenya MERAH","f_051 · 2/5 · relevansi 0.74"]],
+  ukuran:[["Kecil banget seperti nya salah size","f_009 · 3/5 · relevansi 0.79"],
+          ["Pesan UK L malah kecil bgt, buat di anak usia 7 tahun","f_021 · 1/5 · relevansi 0.77"],
+          ["paket lah di terima ...hanya size nya kebesaran.....","f_020 · 3/5 · relevansi 0.71"]],
+  kirim:[["packing lama, seller no respon bad bgt","f_033 · 1/5 · relevansi 0.72"],
+         ["Barang nya cepet banget sampe nya, pesen Senin Selasa udah sampe","f_048 · 5/5 · relevansi 0.69"]]
+};
+function cari(kunci){
+  const out = document.getElementById("sOut");
+  const hasil = CARI[kunci] || CARI.warna;
+  out.innerHTML = `<p style="font-size:.87rem;color:var(--ink-muted)"><span class="n">${hasil.length}</span> ulasan ditemukan, diurutkan menurut kedekatan makna.</p>` +
+    hasil.map(([q,m],i) => `<div class="ev strip in" style="animation-delay:${i*80}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join("");
+}
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-s]"); if(!c) return;
+  document.getElementById("sInput").value = c.textContent.trim();
+  cari(c.dataset.s);
 });
 
 /* ====================== Simulasi proses ====================== */
-document.getElementById('runBtn').onclick=()=>{
-  const p=document.getElementById('runPanel'); p.style.display='block';
-  p.scrollIntoView({behavior:'smooth',block:'nearest'});
-  const st=[...p.querySelectorAll('.stg')]; st.forEach(s=>s.classList.remove('ok'));
-  st.forEach((s,i)=>setTimeout(()=>{
-    s.classList.add('ok'); s.querySelector('.m').textContent='✓';
-    document.getElementById('progBar').style.width=((i+1)/st.length*100)+'%';
-    if(i===st.length-1) setTimeout(()=>{ p.style.display='none';
-      document.getElementById('progBar').style.width='0%'; showPage('app-result'); },520);
+document.getElementById("runBtn").onclick = () => {
+  const p = document.getElementById("runPanel"); p.style.display = "block";
+  const st = [...p.querySelectorAll(".stg")];
+  st.forEach(s => { s.classList.remove("ok"); s.querySelector(".m").textContent = ""; });
+  st.forEach((s,i) => setTimeout(() => {
+    s.classList.add("ok"); s.querySelector(".m").textContent = "✓";
+    document.getElementById("progBar").style.width = ((i+1)/st.length*100)+"%";
+    if(i === st.length-1) setTimeout(() => {
+      p.style.display = "none"; document.getElementById("progBar").style.width = "0%";
+      showPage("app-result");
+    }, 500);
   }, 420*(i+1)));
 };
 
-drawBars(); drawBench(); drawLine(); countUp();
+drawBars(); drawBench(); drawLine(); drawHeat(); cari("warna"); countUp();
 </script>
 </body>
 </html>
