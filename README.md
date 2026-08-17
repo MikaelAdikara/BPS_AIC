@@ -340,6 +340,8 @@ Bobot IndoBERT (499 MB) tidak masuk git. Unduh sekali:
 python scripts/download_checkpoint.py
 ```
 
+Sumbernya: <https://huggingface.co/MikaelAdi/insightulasan-nlp01>
+
 Tanpa berkas ini sistem **tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` — tetapi yang berjalan bukan sistem yang dijelaskan proposal.
 
 ### 9.0.2 Menjalankan tanpa Docker

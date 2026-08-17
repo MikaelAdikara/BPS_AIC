@@ -10,8 +10,8 @@ menuntut juri mengunduh dan menaruh berkas sendiri di tempat yang tepat.
 
 Jalankan:
     huggingface-cli login          # sekali saja
-    python scripts/publish_checkpoint.py --repo NAMA_ANDA/insightulasan-nlp01
-    python scripts/publish_checkpoint.py --repo NAMA_ANDA/insightulasan-nlp01 --dry-run
+    python scripts/publish_checkpoint.py
+    python scripts/publish_checkpoint.py --dry-run
 """
 
 from __future__ import annotations
@@ -70,7 +70,8 @@ snapshot_download(repo_id="{repo_id}", local_dir="models/indobert-nlp01")
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--repo", required=True, help="mis. namaanda/insightulasan-nlp01")
+    ap.add_argument("--repo", default="MikaelAdi/insightulasan-nlp01",
+                    help="repo tujuan di HF Hub (bawaan: MikaelAdi/insightulasan-nlp01)")
     ap.add_argument("--dry-run", action="store_true", help="periksa saja, jangan unggah")
     args = ap.parse_args()
 

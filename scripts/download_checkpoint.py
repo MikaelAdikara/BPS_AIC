@@ -17,7 +17,7 @@ REPO = Path(__file__).resolve().parents[1]
 DEST = REPO / "models" / "indobert-nlp01"
 
 # Diperbarui setelah publish_checkpoint.py dijalankan.
-CHECKPOINT_REPO = "patrick12354/insightulasan-nlp01"
+CHECKPOINT_REPO = "MikaelAdi/insightulasan-nlp01"
 
 
 def main() -> int:
