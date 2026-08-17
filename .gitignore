@@ -68,3 +68,8 @@ ml/evaluation/*.log
 node_modules/
 apps/web/dist/
 data/annotation/label.html
+
+# Konfigurasi alat pengembangan lokal — tidak relevan bagi siapa pun yang meng-clone.
+.claude/
+.vscode/
+.idea/

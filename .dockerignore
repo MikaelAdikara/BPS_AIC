@@ -32,7 +32,6 @@ scripts/
 !README.md
 
 # Berkas lokal
-.claude/
 .env
 .env.*
 *.log
