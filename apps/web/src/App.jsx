@@ -1,7 +1,14 @@
-/** InsightUlasan — alur linear empat layar (blueprint bagian 13.1, 14).
+/** InsightUlasan - alur linear empat layar (blueprint bagian 13.1, 14).
  *
  * Tidak ada router dan tidak ada nav global: seluruh interaksi berada dalam satu alur
  * Landing → Processing → Result → Evidence, sesuai batas MVP satu input → satu output AI.
+ *
+ * Halaman landing membawa lapisan pemasaran (hero, fitur, CTA) DI ATAS panel unggah yang
+ * sesungguhnya. Tautan "Mulai" hanya menggulir ke panel itu - bukan berpindah halaman -
+ * supaya alur satu-arah tersebut tetap utuh.
+ *
+ * Setiap layar aplikasi duduk di dalam `.page-frame`: bingkai membulat yang mengapung di
+ * atas kanvas, persis seperti layar S1–S4 pada desain referensi.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -19,23 +26,32 @@ import {
   QnABox,
   VisualFindings,
 } from "./components";
+import {
+  Brand,
+  Features,
+  FootCta,
+  Hero,
+  HowItWorks,
+  MarketplaceBand,
+  SiteNav,
+} from "./components/landing";
 import "./styles/app.css";
 
 const STAGES = [
-  "Memproses teks ulasan",
+  "Membaca teks ulasan",
   "Mengambil bukti pendukung",
-  "Menghitung prioritas",
+  "Mengelompokkan masalah",
   "Menyusun rekomendasi",
 ];
 
 const WARNING_TEXT = {
   data_kecil:
-    "Data Anda kurang dari 15 ulasan — anggap hasil ini sebagai indikasi awal, bukan kesimpulan pasti.",
+    "Data Anda kurang dari 15 ulasan. Anggap hasil ini sebagai indikasi awal, bukan kesimpulan pasti.",
   baris_dilewati: "Sebagian baris dilewati karena kosong atau terduplikasi.",
   pii_diredaksi:
     "Nomor telepon dan data pribadi yang ditemukan sudah disamarkan sebelum dianalisis.",
   mode_sederhana:
-    "Mode sederhana aktif — sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.",
+    "Mode sederhana aktif. Sebagian penjelasan memakai teks standar, tetapi seluruh angka dan bukti tetap lengkap.",
   data_kosong: "Tidak ada ulasan yang dapat dianalisis dari data ini.",
 };
 
@@ -61,19 +77,20 @@ export default function App() {
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
   const [ready, setReady] = useState(false);
-  const [theme, setTheme] = useState(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-  );
+  // Desain ini bermode terang; gelap adalah varian, bukan sebaliknya. Karena itu preferensi
+  // OS TIDAK dibaca saat muat - mesin yang kebetulan bertema gelap dulu membuka aplikasi
+  // dalam tampilan yang bukan tampilan rancangannya. Yang dihormati hanya pilihan eksplisit
+  // pengguna, dan pilihan itu diingat antar-kunjungan.
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    return window.localStorage?.getItem("insightulasan:theme") === "dark" ? "dark" : "light";
+  });
   const fileInput = useRef(null);
+  const startRef = useRef(null);
 
-  // Mode gelap dipilih pengguna, bukan diikutkan sistem: aplikasi ini dibuka malam hari
-  // setelah tutup toko, dan preferensi OS UMKM sasaran jarang disetel sengaja.
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    window.localStorage?.setItem("insightulasan:theme", theme);
   }, [theme]);
 
   useEffect(() => {
@@ -88,13 +105,15 @@ export default function App() {
     setError(null);
     setScreen("processing");
     setStage(0);
-    // Checklist maju bertahap agar pengguna tahu sistem benar-benar bekerja — ini satu-satunya
+    window.scrollTo({ top: 0 });
+    // Checklist maju bertahap agar pengguna tahu sistem benar-benar bekerja - ini satu-satunya
     // momen bergerak di seluruh aplikasi (BRAND_GUIDELINES §8).
     const ticker = setInterval(() => setStage((s) => Math.min(s + 1, STAGES.length - 1)), 900);
     try {
       const data = await api.analyze(reviews);
       setResult(data);
       setScreen("result");
+      window.scrollTo({ top: 0 });
     } catch (err) {
       setError({ message: err.message, action: err.suggestedAction });
       setScreen("landing");
@@ -140,6 +159,11 @@ export default function App() {
     setDecisions({});
     setOpenCard(null);
     setScreen("landing");
+    window.scrollTo({ top: 0 });
+  }
+
+  function goToStart() {
+    startRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   const themeToggle = (
@@ -152,239 +176,380 @@ export default function App() {
     </button>
   );
 
-  if (screen === "processing") {
-    return (
-      <main className="shell">
+  // Header ringkas untuk layar di dalam alur - tanpa tautan pemasaran yang mengganggu.
+  const appHeader = (
+    <nav className="nav">
+      <Brand onClick={reset} />
+      <div className="nav__right">
         {themeToggle}
-        <h1 className="display-m">Sedang menganalisis…</h1>
-        <div
-          className="progress"
-          role="progressbar"
-          aria-valuenow={Math.round(((stage + 1) / STAGES.length) * 100)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <div className="progress__bar" style={{ width: `${((stage + 1) / STAGES.length) * 100}%` }} />
-        </div>
-        {STAGES.map((s, i) => (
-          <div key={s} className={`stage ${i <= stage ? "stage--done" : ""}`} style={{ animationDelay: `${i * 0.12}s` }}>
-            <span className="stage__mark">{i <= stage ? "✓" : ""}</span>
-            {s}
+        <button className="btn btn--outline" onClick={reset}>
+          Mulai analisis baru
+        </button>
+      </div>
+    </nav>
+  );
+
+  const avatar = <div className="app-ava">OU</div>;
+
+  if (screen === "processing") {
+    const percent = Math.round(((stage + 1) / STAGES.length) * 100);
+    return (
+      <>
+        {appHeader}
+        <main>
+          <div className="tour-tag">
+            <b>02</b> · Memproses otomatis
           </div>
-        ))}
-        <p className="body-s" style={{ marginTop: "var(--space-6)" }}>
-          Biasanya kurang dari satu menit untuk 100 ulasan.
-        </p>
-      </main>
+          <div className="page-frame">
+            <div className="app-l">
+              <div className="app-top">
+                <div className="app-hello">
+                  Memproses ulasan Anda…<span>Mohon tunggu sebentar</span>
+                </div>
+                {avatar}
+              </div>
+
+              <div className="panel">
+                <div className="panel-title">
+                  Progres{" "}
+                  <em>
+                    <span className="stat">{percent}</span>%
+                  </em>
+                </div>
+                <div
+                  className="track"
+                  role="progressbar"
+                  aria-valuenow={percent}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="fill"
+                    style={{
+                      width: `${percent}%`,
+                      background: "linear-gradient(90deg, var(--blue), var(--blue-light))",
+                      transition: "width var(--motion-panel) var(--ease-out)",
+                    }}
+                  />
+                </div>
+                <p className="meta" style={{ marginTop: 9 }}>
+                  {STAGES[stage]}…
+                </p>
+              </div>
+
+              <div className="panel">
+                <div className="panel-title">Tahapan</div>
+                {STAGES.map((s, i) => {
+                  const state = i < stage ? "done" : i === stage ? "active" : "pending";
+                  return (
+                    <div
+                      key={s}
+                      className={`check-row ${state}`}
+                      style={{ animationDelay: `${i * 0.12}s` }}
+                    >
+                      <span className={`check-circle ${state}`}>
+                        {state === "done" && (
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+                            <path
+                              d="M5 12.5l4.5 4.5L19 7.5"
+                              stroke="#fff"
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        )}
+                      </span>
+                      <span className="lbl">{s}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <p className="meta">Biasanya kurang dari satu menit untuk 100 ulasan.</p>
+            </div>
+          </div>
+        </main>
+      </>
     );
   }
 
   if (screen === "result" && result) {
     return (
-      <main className="shell">
-        {themeToggle}
-        <span className="label">Hasil analisis</span>
-        <h1 className="display-m" style={{ marginTop: "var(--space-2)" }}>
-          Ringkasan
-        </h1>
-        <Narrative text={result.summary.executive_summary_text} />
-
-        {result.warnings?.map((w) => (
-          <div key={w} className={`banner ${w === "mode_sederhana" ? "banner--muted" : "banner--warn"}`}>
-            {WARNING_TEXT[w] ?? w}
+      <>
+        {appHeader}
+        <main>
+          <div className="tour-tag">
+            <b>03</b> · Hasil analisis
           </div>
-        ))}
+          <div className="page-frame">
+            <div className="app-l">
+              <div className="app-top">
+                {/* Subjudul di sini metadata, bukan fakta terhitung, jadi tanpa `.stat`,
+                    yang lagipula akan kalah spesifisitas dari `.app-hello span`. */}
+                <div className="app-hello">
+                  Hasil Analisis<span>Toko Anda · {result.summary.total_reviews} ulasan</span>
+                </div>
+                {avatar}
+              </div>
 
-        <DataQualityCard quality={result.data_quality} />
+              <div className="panel">
+                <div className="panel-title">Ringkasan</div>
+                <Narrative text={result.summary.executive_summary_text} className="body" />
+                {result.warnings?.map((w) => (
+                  <div key={w} className="banner-grey" style={{ margin: "10px 0 0" }}>
+                    {WARNING_TEXT[w] ?? w}
+                  </div>
+                ))}
+              </div>
 
-        {result.top_actions.length > 0 && (
-          <>
-            <h2 className="title" style={{ marginTop: "var(--space-8)" }}>
-              Yang perlu dikerjakan lebih dulu
-            </h2>
-            {result.top_actions.map((card, i) => (
-              <ActionCard
-                key={card.action_id}
-                index={i}
-                card={card}
-                decision={decisions[card.action_id]}
-                onDecide={(id, value) => setDecisions((d) => ({ ...d, [id]: value }))}
-                onOpenEvidence={setOpenCard}
-              />
-            ))}
-          </>
-        )}
+              <DataQualityCard quality={result.data_quality} />
 
-        <OpportunitySection opportunities={result.opportunities} />
-        <VisualFindings findings={result.visual_findings} />
-        <BenchmarkCard rows={result.benchmark} />
+              {result.top_actions.length > 0 && (
+                <>
+                  <div className="panel-title" style={{ margin: "20px 2px 9px" }}>
+                    Yang perlu dikerjakan lebih dulu
+                  </div>
+                  {result.top_actions.map((card, i) => (
+                    <ActionCard
+                      key={card.action_id}
+                      index={i}
+                      card={card}
+                      decision={decisions[card.action_id]}
+                      onDecide={(id, value) => setDecisions((d) => ({ ...d, [id]: value }))}
+                      onOpenEvidence={setOpenCard}
+                    />
+                  ))}
+                </>
+              )}
 
-        <AspectChart aggregates={result.aspect_aggregates} />
+              <OpportunitySection opportunities={result.opportunities} />
+              <VisualFindings findings={result.visual_findings} />
+              <BenchmarkCard rows={result.benchmark} />
+              <AspectChart aggregates={result.aspect_aggregates} />
 
-        <QnABox analysisId={result.analysis_id} onAsk={api.ask} />
+              <QnABox analysisId={result.analysis_id} onAsk={api.ask} />
 
-        <p className="body-s">
-          Model: {result.model_versions?.text} · mode {result.mode}
-        </p>
-        <button className="btn btn--outline" onClick={reset} style={{ marginTop: "var(--space-4)" }}>
-          Mulai analisis baru
-        </button>
+              <p className="meta" style={{ marginTop: 20 }}>
+                Model: {result.model_versions?.text} · mode {result.mode}
+              </p>
+              <button className="btn-cta" onClick={reset} style={{ marginTop: 12 }}>
+                Mulai analisis baru
+              </button>
+            </div>
+          </div>
 
-        <EvidenceDrawer card={openCard} onClose={() => setOpenCard(null)} />
-      </main>
+          <EvidenceDrawer card={openCard} onClose={() => setOpenCard(null)} />
+        </main>
+      </>
     );
   }
 
   const mappedReviews = file ? rowsToReviews(file.rows, mapping, category) : [];
 
   return (
-    <main className="shell">
-      {themeToggle}
-      <h1 className="display-l">InsightUlasan</h1>
-      <p className="lead">
-        Ubah ulasan pelanggan jadi langkah nyata — tiga masalah paling mendesak, bukti kutipan
-        aslinya, dan apa yang bisa dikerjakan minggu ini.
-      </p>
+    <>
+      <SiteNav onStart={goToStart} themeToggle={themeToggle} />
 
-      {!ready && (
-        <div className="banner banner--muted">
-          Sistem sedang menyiapkan model. Tombol analisis akan aktif setelah siap.
+      <Hero onStart={goToStart} />
+      <MarketplaceBand />
+      <HowItWorks />
+      <Features />
+
+      <main id="mulai" ref={startRef}>
+        <div className="tour-tag">
+          <b>01</b> · Unggah data ulasan
         </div>
-      )}
-      {error && (
-        <div className="banner banner--error">
-          <strong>{error.message}</strong>
-          {error.action && <div style={{ marginTop: "var(--space-1)" }}>{error.action}</div>}
-        </div>
-      )}
+        <div className="page-frame">
+          <div className="app-l">
+            <div className="app-top">
+              <div className="app-hello">
+                Halo, Owner UMKM!<span>Masukkan ulasan untuk mulai</span>
+              </div>
+              {avatar}
+            </div>
 
-      <div className="tabs" role="tablist">
-        {[
-          ["paste", "Tempel teks"],
-          ["file", "Unggah berkas"],
-        ].map(([id, label]) => (
-          <button
-            key={id}
-            role="tab"
-            aria-selected={tab === id}
-            className={`tab ${tab === id ? "tab--active" : ""}`}
-            onClick={() => setTab(id)}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+            {!ready && (
+              <div className="banner-grey">
+                Sistem sedang menyiapkan model. Tombol analisis akan aktif setelah siap.
+              </div>
+            )}
+            {error && (
+              <div className="banner-error">
+                <b>{error.message}</b>
+                {error.action && <div style={{ marginTop: 4 }}>{error.action}</div>}
+              </div>
+            )}
 
-      {tab === "paste" ? (
-        <>
-          <label className="label" htmlFor="paste">
-            Tempel ulasan Anda — satu ulasan per baris
-          </label>
-          <textarea
-            id="paste"
-            className="textarea"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={"ukurannya kekecilan padahal pesan L\npengiriman cepat, packing rapi\n…"}
-            style={{ marginTop: "var(--space-2)" }}
-          />
-          <div className="actions">
-            <button className="btn btn--primary" disabled={!ready} onClick={() => run(parsePastedText(text))}>
-              Analisis sekarang
-            </button>
-            <button className="btn btn--outline" disabled={!ready} onClick={runSample}>
-              Coba dengan data contoh
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <div
-            className="dropzone"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => {
-              e.preventDefault();
-              onPickFile(e.dataTransfer.files?.[0]);
-            }}
-          >
-            <p style={{ margin: 0 }}>Tarik berkas CSV atau JSON ke sini</p>
-            <button className="btn btn--outline" onClick={() => fileInput.current?.click()}>
-              Pilih berkas
-            </button>
-            <input
-              ref={fileInput}
-              type="file"
-              accept=".csv,.json,text/csv,application/json"
-              className="sr-only"
-              onChange={(e) => onPickFile(e.target.files?.[0])}
-            />
-            <p className="body-s" style={{ margin: 0 }}>
-              Maksimal 5 MB · 1.000 baris pertama yang dipakai
+            <div className="tabs" role="tablist" style={{ marginBottom: 14 }}>
+              {[
+                ["paste", "Tempel teks"],
+                ["file", "Unggah berkas"],
+              ].map(([id, label]) => (
+                <button
+                  key={id}
+                  role="tab"
+                  aria-selected={tab === id}
+                  className={`tab ${tab === id ? "tab--active" : ""}`}
+                  onClick={() => setTab(id)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            {tab === "paste" ? (
+              <>
+                <div className="panel">
+                  <div className="panel-title">Tempel ulasan Anda, satu ulasan per baris</div>
+                  <label className="sr-only" htmlFor="paste">
+                    Ulasan Anda
+                  </label>
+                  <textarea
+                    id="paste"
+                    className="textarea"
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    placeholder={
+                      "ukurannya kekecilan padahal pesan L\npengiriman cepat, packing rapi\n…"
+                    }
+                  />
+                </div>
+                <button
+                  className="btn-cta"
+                  disabled={!ready}
+                  onClick={() => run(parsePastedText(text))}
+                >
+                  Analisis {parsePastedText(text).length || ""} ulasan ›
+                </button>
+                <button
+                  className="btn btn--outline"
+                  disabled={!ready}
+                  onClick={runSample}
+                  style={{ width: "100%", marginTop: 10 }}
+                >
+                  Coba dengan data contoh
+                </button>
+              </>
+            ) : (
+              <>
+                <div
+                  className="dropzone"
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    onPickFile(e.dataTransfer.files?.[0]);
+                  }}
+                >
+                  <span className="dz-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M12 4v12m0-12l-4 4m4-4l4 4M5 18h14"
+                        stroke="#fff"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <p>
+                    <b>Tarik file CSV/JSON ke sini</b>
+                    <br />
+                    atau klik untuk memilih file
+                  </p>
+                  <button className="btn btn--outline" onClick={() => fileInput.current?.click()}>
+                    Pilih berkas
+                  </button>
+                  <input
+                    ref={fileInput}
+                    type="file"
+                    accept=".csv,.json,text/csv,application/json"
+                    className="sr-only"
+                    onChange={(e) => onPickFile(e.target.files?.[0])}
+                  />
+                  <p className="meta">Maksimal 5 MB · 1.000 baris pertama yang dipakai</p>
+                </div>
+
+                {file && (
+                  <>
+                    <div className="panel">
+                      <p className="body">
+                        <b>{file.name}</b> terbaca ·{" "}
+                        <span className="stat">{file.columns.length}</span> kolom
+                        {file.truncated && " · sisanya dipotong di 1.000 baris"}
+                      </p>
+                    </div>
+
+                    <div className="panel">
+                      <div className="panel-title">Pemetaan kolom</div>
+                      <ColumnMapper
+                        columns={file.columns}
+                        mapping={mapping}
+                        onChange={setMapping}
+                      />
+                      <div className="map-row">
+                        <label className="src" htmlFor="cat">
+                          Kategori produk
+                        </label>
+                        <span className="arrow" aria-hidden="true">
+                          →
+                        </span>
+                        <select
+                          id="cat"
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
+                        >
+                          {CATEGORIES.map(([v, l]) => (
+                            <option key={v} value={v}>
+                              {l}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <p className="meta" style={{ marginTop: 10 }}>
+                        Tebakan otomatis dapat Anda ubah. Hanya kolom teks ulasan yang wajib.
+                      </p>
+                    </div>
+
+                    <div className="panel">
+                      <div className="panel-title">Pratinjau data</div>
+                      <PreviewTable rows={file.rows} columns={file.columns} mapping={mapping} />
+                    </div>
+
+                    <button
+                      className="btn-cta"
+                      disabled={!ready || !mapping.text || !mappedReviews.length}
+                      onClick={() => run(mappedReviews)}
+                    >
+                      Analisis {mappedReviews.length || ""} ulasan ›
+                    </button>
+                    {!mapping.text && (
+                      <p className="meta" style={{ marginTop: 8 }}>
+                        Pilih kolom teks ulasan lebih dulu untuk mulai menganalisis.
+                      </p>
+                    )}
+                    <button
+                      className="btn btn--text"
+                      onClick={() => setFile(null)}
+                      style={{ width: "100%", marginTop: 6 }}
+                    >
+                      Ganti berkas
+                    </button>
+                  </>
+                )}
+              </>
+            )}
+
+            <p className="meta" style={{ marginTop: 20 }}>
+              Data Anda hanya diproses selama sesi ini dan tidak disimpan permanen. Nomor telepon
+              dan data pribadi yang terdeteksi disamarkan sebelum dianalisis. Foto ulasan belum
+              didukung pada versi ini.
             </p>
           </div>
+        </div>
+      </main>
 
-          {file && (
-            <>
-              <p className="body-s" style={{ marginTop: "var(--space-4)" }}>
-                <strong>{file.name}</strong> terbaca ·{" "}
-                <span className="stat">{file.columns.length}</span> kolom
-                {file.truncated && " · sisanya dipotong di 1.000 baris"}
-              </p>
-
-              <h2 className="title" style={{ marginTop: "var(--space-6)" }}>
-                Cocokkan kolom
-              </h2>
-              <p className="body-s">
-                Tebakan otomatis di bawah dapat Anda ubah. Hanya kolom teks ulasan yang wajib.
-              </p>
-              <ColumnMapper columns={file.columns} mapping={mapping} onChange={setMapping} />
-
-              <label className="label" htmlFor="cat" style={{ marginTop: "var(--space-4)", display: "block" }}>
-                Kategori produk (untuk pembanding)
-              </label>
-              <select
-                id="cat"
-                className="input"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {CATEGORIES.map(([v, l]) => (
-                  <option key={v} value={v}>
-                    {l}
-                  </option>
-                ))}
-              </select>
-
-              <h2 className="title" style={{ marginTop: "var(--space-6)" }}>
-                Pratinjau
-              </h2>
-              <PreviewTable rows={file.rows} columns={file.columns} mapping={mapping} />
-
-              <div className="actions">
-                <button
-                  className="btn btn--primary"
-                  disabled={!ready || !mapping.text || !mappedReviews.length}
-                  onClick={() => run(mappedReviews)}
-                >
-                  Analisis {mappedReviews.length || ""} ulasan
-                </button>
-                <button className="btn btn--text" onClick={() => setFile(null)}>
-                  Ganti berkas
-                </button>
-              </div>
-              {!mapping.text && (
-                <p className="body-s">Pilih kolom teks ulasan lebih dulu untuk mulai menganalisis.</p>
-              )}
-            </>
-          )}
-        </>
-      )}
-
-      <p className="body-s" style={{ marginTop: "var(--space-6)" }}>
-        Data Anda hanya diproses selama sesi ini dan tidak disimpan permanen. Nomor telepon dan
-        data pribadi yang terdeteksi disamarkan sebelum dianalisis. Foto ulasan belum didukung
-        pada versi ini.
-      </p>
-    </main>
+      <FootCta onStart={goToStart} />
+    </>
   );
 }

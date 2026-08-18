@@ -1,236 +1,277 @@
-/* InsightUlasan — design tokens
+/* InsightUlasan - design tokens
  *
- * Sumber kebenaran warna, tipografi, dan spasi. Dokumentasi naratifnya ada di
- * docs/BRAND_GUIDELINES.md; kalau keduanya berbeda, FILE INI yang benar.
+ * Nilai di berkas ini disalin langsung dari sistem desain Google Stitch
+ * (docs/design/DESIGN.md + halaman referensi). Kalau dokumen naratif dan berkas ini
+ * berbeda, FILE INI yang benar.
  *
- * Seluruh pasangan warna teks di bawah sudah diverifikasi >= 4.5:1 (WCAG AA).
- * Jangan mengubah nilai warna tanpa menjalankan ulang pemeriksaan kontras.
+ * Bahasa visual: kanvas krem bergradien radial, panel kaca (rgba putih .82) dengan
+ * backdrop-blur, satu aksen biru untuk semua yang dapat ditindaklanjuti, dan bentuk
+ * pill (999px) untuk seluruh elemen interaktif.
+ *
+ * DUA nilai sengaja digeser dari Stitch, keduanya karena kontras - lihat komentar
+ * di masing-masing. Selain dua itu, semuanya identik.
  */
 
 :root {
-  /* ---------- Permukaan & teks ---------- */
-  --paper: #f7f7f5;
-  --surface: #ffffff;
-  --surface-sunken: #efefec;
-  --ink: #1a1d26;
-  --ink-muted: #5a6070;
-  --rule: #dedfda;
+  /* ---------- Kanvas & permukaan ---------- */
+  --bg: #f1f0e9;
+  --bg-2: #e9e7dd;
+  --band: #e4e2d8;
+  --line: #dedcd1;
+  --white: #ffffff;
+  --cream: #fbfaf6; /* isian input - terlihat "cekung" di dalam panel kaca */
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-edge: rgba(255, 255, 255, 0.9);
+  --canvas: radial-gradient(
+    ellipse 1200px 760px at 50% 8%,
+    #ffffff 0%,
+    #f4f4f2 32%,
+    #eae9e5 62%,
+    #dcdbd6 100%
+  );
 
-  /* ---------- Merek: nila (rujukan tarum, indigo tekstil Indonesia) ---------- */
-  --nila-700: #2b3a8f;
-  --nila-500: #4356c7;
-  --nila-100: #e6e9f8;
+  /* ---------- Tinta ---------- */
+  --ink: #14150f; /* bukan hitam murni - menjaga kesan organik */
+  --ink-soft: #4a4c42;
+  /* Stitch memakai #8B8D82 (3,0:1 di atas krem). Digelapkan seperlunya ke 4,6:1 supaya
+   * metadata 10-12px tetap lolos WCAG AA; perbedaannya tidak kasat mata bersebelahan. */
+  --muted: #6b6e62;
 
-  /* ---------- Semantik ----------
-   * Urgensi selalu PILL TERISI di dalam kartu.
-   * Error selalu KOTAK BERGARIS di luar alur konten.
-   * Dibedakan bentuk, bukan hanya rona.
-   */
-  --urgency-high: #b3261e;
-  --urgency-high-surface: #fbe9e7;
-  --urgency-medium: #9c5d00;
-  --urgency-medium-surface: #fdf0dc;
-  --urgency-low: #5a6070;
-  --urgency-low-surface: #efefec;
+  /* ---------- Biru merek ---------- */
+  --blue: #2f7bf6;
+  --blue-light: #8cb8ff;
+  --blue-dark: #1e4fcb;
+  --blue-tint: #e5ecfd;
+  --blue-ink: #0b1e45; /* teks gelap di atas permukaan biru */
+  /* Gradien tombol utama. Warna dan arahnya persis nilai Stitch; hanya posisi stop
+   * tengahnya yang digeser 45% → 6%.
+   *
+   * Alasannya kontras. Pita glif label (tombol 44px, Inter 13.5px) menempati 38,8%-61,2%
+   * tinggi tombol. Kontras terburuk di pita itu, terhadap label #F7FAFF:
+   *     stop 45% (nilai Stitch) → 3,55:1   stop 22% → 4,26:1
+   *     stop 12%               → 4,48:1   stop  6% → 4,59:1  ✓ lolos AA
+   * Kilau tetap ada di puncak tombol, hanya lebih tipis. Kalau tombol diubah ukurannya,
+   * hitung ulang: pita glif bergeser dan angka di atas ikut berubah. */
+  --grad-blue: linear-gradient(180deg, #6fa8ff 0%, var(--blue) 6%, var(--blue-dark) 100%);
+  --grad-blue-card: linear-gradient(150deg, #7fb2ff 0%, var(--blue) 52%, var(--blue-dark) 100%);
 
-  --positive: #1f6b4a;
-  --positive-surface: #e3f1ea;
+  /* ---------- Status ----------
+   * Dipakai sebagai gradien lembut (base → light) untuk badge dan indikator. */
+  --red-base: #e0574b;
+  --red-light: #f19187;
+  --amber-base: #e8a33d;
+  --amber-light: #f5ce8c;
+  --green-base: #5fa92f;
+  --green-light: #9cd9b0;
 
-  /* Keyakinan rendah / abstain — ABU-ABU, TIDAK PERNAH MERAH.
-   * Abstain adalah keputusan jujur model, bukan kegagalan. Mewarnainya merah
-   * membuat pengguna mengira ada yang rusak lalu berhenti memercayai hasilnya. */
-  --abstain: #636774;
-  --abstain-surface: #f0f0ee;
+  /* Badge urgensi tinggi memakai teks putih. Gradien Stitch (#F19187→#E0574B) hanya
+   * 3,3:1 terhadap putih; skala ini digelapkan ke >= 4,9:1 pada kedua ujungnya. */
+  --grad-high: linear-gradient(150deg, #c4463a 0%, #a32c22 100%);
+  --grad-medium: linear-gradient(150deg, var(--amber-light) 0%, var(--amber-base) 100%);
+  --grad-positive: linear-gradient(150deg, var(--green-light) 0%, var(--green-base) 100%);
+  --on-medium: #5b3a00;
+  --on-positive: #123016;
 
-  --error: #b3261e;
-  --error-surface: #fbe9e7;
+  /* Teks status di atas krem (bukan di dalam badge) - langkah gelapnya. */
+  --red-ink: #a32c22;
+  --amber-ink: #8a5200;
+  --green-ink: #2e7d46;
+  --error: #ba1a1a;
+  --error-surface: #ffdad6;
+  --error-ink: #93000a;
 
-  --focus: var(--nila-500);
+  /* Abstain / keyakinan rendah - ABU-ABU, TIDAK PERNAH MERAH. Abstain adalah keputusan
+   * jujur model, bukan kegagalan; mewarnainya merah membuat pengguna mengira ada yang
+   * rusak lalu berhenti memercayai hasilnya. */
+  --grey-surface: rgba(139, 141, 130, 0.12);
+  --grey-border: rgba(139, 141, 130, 0.28);
 
-  /* ---------- Tipografi ----------
-   * Mono = fakta terhitung & kutipan verbatim. Sans = narasi manusia.
-   * Pemisahan ini menyampaikan janji inti produk tanpa satu kata pun penjelasan. */
-  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --focus: var(--blue-dark);
+
+  /* ---------- Bayangan & kedalaman ---------- */
+  --shadow-sm: 0 8px 22px rgba(20, 21, 15, 0.07), 0 1px 3px rgba(20, 21, 15, 0.05);
+  --shadow: 0 18px 44px rgba(20, 21, 15, 0.11), 0 2px 8px rgba(20, 21, 15, 0.05);
+  --shadow-lg: 0 34px 80px rgba(20, 21, 15, 0.17), 0 4px 14px rgba(20, 21, 15, 0.07);
+  --shadow-frame: 0 30px 70px rgba(20, 21, 15, 0.16), 0 6px 18px rgba(20, 21, 15, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-blue: 0 6px 16px rgba(47, 123, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  --blur-panel: blur(10px);
+  --blur-nav: blur(14px) saturate(160%);
+  --blur-float: blur(20px) saturate(170%);
+
+  /* ---------- Tipografi ---------- */
+  --font-sans: "Inter", "Helvetica Neue", system-ui, -apple-system, Arial, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --text-display-l: 1.875rem; /* 30px */
-  --text-display-m: 1.5rem;   /* 24px */
-  --text-title: 1.1875rem;    /* 19px */
-  --text-body: 1rem;          /* 16px — lantai untuk konten yang harus dibaca */
-  --text-body-s: 0.875rem;    /* 14px — metadata saja */
-  --text-label: 0.8125rem;    /* 13px — eyebrow/header saja, bukan kalimat */
-  --text-stat: 1rem;
-  --text-quote: 0.9375rem;    /* 15px */
+  --text-hero: clamp(28px, 4.25vw, 54px);
+  --text-h2: clamp(26px, 3.2vw, 38px);
+  --text-title: 20px;
+  --text-lg: 15px;
+  --text-std: 13px;
+  --text-sm: 10.5px;
+  --text-caps: 12px;
+  --text-badge: 8.5px;
 
-  --leading-display-l: 2.25rem;
-  --leading-display-m: 2rem;
-  --leading-title: 1.625rem;
-  --leading-body: 1.625rem;
-  --leading-quote: 1.625rem;
-
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
-
-  --tracking-label: 0.04em;
-  --tracking-display: -0.02em;
-
-  /* ---------- Spasi (basis 4px) ---------- */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-14: 3.5rem;
-  --space-18: 4.5rem;
+  --tracking-hero: -0.042em;
+  --tracking-h2: -0.038em;
+  --tracking-tight: -0.03em;
+  --tracking-caps: 0.08em;
 
   /* ---------- Bentuk ---------- */
-  --radius-card: 10px;
-  --radius-input: 8px;
-  --radius-pill: 999px;
-  --border-evidence: 3px; /* garis kiri evidence strip */
+  --r-sm: 8px;
+  --r: 13px;
+  --r-md: 16px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --r-frame: 28px;
+  --r-pill: 999px;
 
-  /* Tiga tingkat elevasi. Sebelumnya hanya satu, dan akibatnya panel bukti terlihat
-   * sedatar kartu di belakangnya — pengguna kehilangan petunjuk mana yang di atas. */
-  --shadow-card: 0 1px 2px rgba(26, 29, 38, 0.06);
-  --shadow-raised: 0 4px 16px -4px rgba(26, 29, 38, 0.12), 0 1px 3px rgba(26, 29, 38, 0.06);
-  --shadow-overlay: 0 20px 48px -12px rgba(26, 29, 38, 0.24);
+  /* ---------- Spasi ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 26px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-14: 56px;
+  --space-18: 74px;
 
-  /* ---------- Palet grafik ----------
-   * Lolos enam pemeriksaan scripts/validate_palette.js pada permukaan terang:
-   * pita lightness, lantai chroma, pemisahan CVD (deutan ΔE 14,7), lantai
-   * penglihatan normal (17,0), dan kontras >= 3:1. Slot pertama sengaja warna merek.
-   * Hijau TIDAK dipakai sebagai seri — ia dikunci untuk status positif. */
-  --chart-1: #4356c7;
-  --chart-2: #0891b2;
-  --chart-3: #c2740a;
-  --chart-4: #c0357a;
-
-  /* ---------- Tata letak ---------- */
-  --content-max: 35rem; /* 560px — panjang baris nyaman, kartu tetap objek tunggal */
-  --gutter: var(--space-4);
+  --page-max: 1320px;
+  --app-max: 560px;
+  --gutter: 20px;
   --tap-target-min: 44px;
 
   /* ---------- Gerak ---------- */
-  --motion-state: 160ms;
-  --motion-panel: 200ms;
-  --motion-reveal: 380ms; /* masuknya kartu hasil */
-  --motion-stagger: 60ms; /* jeda antar kartu saat muncul berurutan */
-  --motion-stage-gap: 120ms; /* jeda antar tahap checklist pemrosesan */
+  --motion-state: 180ms;
+  --motion-panel: 250ms;
+  --motion-reveal: 380ms;
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   :root {
-  --gutter: var(--space-6);
+    --gutter: 40px;
   }
 }
 
 /* ---------- Mode gelap ----------
- * SATU sumber kebenaran. Sebelumnya nilai gelap ada di dua tempat sekaligus
- * (media query preferensi OS dan blok data-theme), dan yang menang bergantung
- * urutan berkas — persis jenis kekeliruan yang tidak terlihat sampai warnanya
- * berbeda di satu mesin saja.
- *
- * Preferensi OS tetap dihormati: App.jsx membacanya sekali saat muat dan
- * menyetel data-theme. Pilihan eksplisit pengguna selalu menang setelah itu.
- *
- * Kontras seluruh pasangan di bawah sudah diverifikasi >= 4.5:1. Palet grafiknya
- * punya langkah sendiri yang lolos validate_palette.js pada permukaan gelap
- * (pita lightness 0,48-0,67) — bukan hasil pembalikan warna terang. */
+ * Stitch tidak menyediakan varian gelap; nilai di bawah adalah turunan yang menjaga
+ * hubungan yang sama (kanvas gelap, panel semi-transparan, biru sebagai satu-satunya
+ * aksen). Toggle tema di aplikasi memakainya. Seluruh pasangan teks >= 4,5:1. */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --paper: #14161c;
-  --surface: #1c1f27;
-  --surface-sunken: #23262f;
+  --bg: #101218;
+  --bg-2: #171a22;
+  --band: rgba(255, 255, 255, 0.04);
+  --line: rgba(255, 255, 255, 0.12);
+  --white: #1c1f27;
+  --cream: #191c23;
+  --glass: rgba(30, 34, 43, 0.82);
+  --glass-edge: rgba(255, 255, 255, 0.08);
+  --canvas: radial-gradient(
+    ellipse 1200px 760px at 50% 8%,
+    #242833 0%,
+    #191c24 38%,
+    #13151b 70%,
+    #0d0f14 100%
+  );
+
   --ink: #ecedf0;
-  --ink-muted: #a2a7b5;
-  --rule: #2e323c;
+  --ink-soft: #c3c6cf;
+  --muted: #a2a7b5;
 
-  --nila-700: #93a2f2;
-  --nila-500: #aab6f6;
-  --nila-100: #232841;
+  --blue: #5b8bf0;
+  --blue-light: #a8c1ff;
+  --blue-dark: #a8c1ff; /* teks biru harus TERANG di atas latar gelap */
+  --blue-tint: #202742;
+  --blue-ink: #f2f6ff;
+  --grad-blue: linear-gradient(180deg, #5b8bf0 0%, #3866d6 55%, #2a4fae 100%);
+  --grad-blue-card: linear-gradient(150deg, #4d7fe6 0%, #2f5fc9 52%, #22458f 100%);
 
-  --urgency-high: #f4867d;
-  --urgency-high-surface: #331d1b;
-  --urgency-medium: #e0a44e;
-  --urgency-medium-surface: #2f2517;
-  --urgency-low: #a2a7b5;
-  --urgency-low-surface: #23262f;
-
-  --positive: #62c795;
-  --positive-surface: #16291f;
-
-  --abstain: #9aa0ae;
-  --abstain-surface: #21242c;
-
+  --red-ink: #f4867d;
+  --amber-ink: #e0a44e;
+  --green-ink: #62c795;
   --error: #f4867d;
   --error-surface: #331d1b;
+  --error-ink: #ffb4ab;
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-raised: 0 4px 16px -4px rgba(0, 0, 0, 0.5);
-  --shadow-overlay: 0 20px 48px -12px rgba(0, 0, 0, 0.7);
+  --grey-surface: rgba(255, 255, 255, 0.07);
+  --grey-border: rgba(255, 255, 255, 0.14);
 
-  --chart-1: #6b78e8;
-  --chart-2: #0e93a8;
-  --chart-3: #b8790f;
-  --chart-4: #c04a80;
+  --focus: #a8c1ff;
+
+  --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 34px 80px rgba(0, 0, 0, 0.6);
+  --shadow-frame: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* ---------- Dasar ---------- */
+
+/* Klip horizontal dipasang di <html>, BUKAN di <body>. Pada <body> nilai overflow ikut
+ * merambat ke viewport dan browser dapat menjadikan body sendiri wadah gulir - begitu itu
+ * terjadi, `window.scrollTo` di App.jsx berhenti bekerja tanpa error apa pun. */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg) var(--canvas) fixed;
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: var(--text-body);
-  line-height: var(--leading-body);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Angka hasil hitungan dan kutipan verbatim — selalu mono, selalu tabular.
- * IBM Plex Mono ber-x-height lebih kecil dari Plus Jakarta Sans, jadi saat muncul
- * di tengah kalimat sans ukurannya dinaikkan agar terlihat sepadan. */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+/* Angka hasil hitungan - biru tebal, sesuai `.num` pada desain Stitch. `tabular-nums`
+ * ditambahkan agar angka di dalam tabel tetap sejajar antar-baris. */
 .stat,
-.quote {
-  font-family: var(--font-mono);
+.num {
+  font-weight: 800;
+  color: var(--blue-dark);
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
-}
-
-.stat {
-  font-size: calc(var(--text-stat) + 1px);
-  font-weight: var(--weight-semibold);
-}
-
-.quote {
-  font-size: var(--text-quote);
-  line-height: var(--leading-quote);
 }
 
 /* Cincin fokus selalu terlihat. Jangan pernah `outline: none` tanpa pengganti. */
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
-  border-radius: var(--radius-input);
-}
-
-button,
-[role="button"] {
-  min-height: var(--tap-target-min);
+  border-radius: var(--r-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

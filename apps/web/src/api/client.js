@@ -18,7 +18,7 @@ async function request(path, options = {}) {
     const payload = await response.json().catch(() => null);
     if (!response.ok) {
       // Backend mengembalikan ErrorResponse berbahasa Indonesia (bagian 25.13). Pakai pesan
-      // itu apa adanya — menggantinya dengan pesan generik justru menghilangkan saran
+      // itu apa adanya - menggantinya dengan pesan generik justru menghilangkan saran
       // perbaikan yang sudah disiapkan backend.
       throw Object.assign(new Error(payload?.message ?? "Terjadi masalah pada sistem."), {
         suggestedAction: payload?.suggested_action,
@@ -64,7 +64,7 @@ export function parsePastedText(text) {
 }
 
 // --------------------------------------------------------------------------------------
-// ING-02 / ING-07 — unggah berkas dan pemetaan kolom
+// ING-02 / ING-07 - unggah berkas dan pemetaan kolom
 // --------------------------------------------------------------------------------------
 
 /** Pecah satu baris CSV dengan menghormati tanda kutip.
@@ -169,7 +169,7 @@ const COLUMN_HINTS = {
   product_name: ["product", "produk", "nama_produk", "product_name", "item", "title"],
 };
 
-/** ING-07 — tebak pemetaan kolom; pengguna tetap dapat menimpanya di UI. */
+/** ING-07 - tebak pemetaan kolom; pengguna tetap dapat menimpanya di UI. */
 export function guessMapping(columns) {
   const mapping = { text: "", rating: "", timestamp: "", product_name: "" };
   const lower = columns.map((c) => String(c).toLowerCase().trim());
