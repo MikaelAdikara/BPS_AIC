@@ -1,7 +1,7 @@
-"""AnalyzeService — orkestrasi satu request analisis (blueprint bagian 27.2, sequence 7.5–7.9).
+"""AnalyzeService - orkestrasi satu request analisis (blueprint bagian 27.2, sequence 7.5–7.9).
 
 Satu titik orkestrasi per request. Ia memanggil tool sesuai urutan pada sequence diagram dan
-TIDAK menghitung apa pun sendiri — seluruh angka berasal dari tool (ADR-011).
+TIDAK menghitung apa pun sendiri - seluruh angka berasal dari tool (ADR-011).
 
 Dua sifat yang menentukan bentuk kode ini:
 
@@ -9,7 +9,7 @@ Dua sifat yang menentukan bentuk kode ini:
    satu AnalysisResult keluar.
 2. **Tidak boleh gagal total.** Kegagalan model visual menurunkan alur ke jalur teks-saja;
    kegagalan orchestrator memicu FALLBACK MODE. Yang menghentikan analisis hanyalah kegagalan
-   tool wajib di hulu — dan itupun dengan pesan yang dapat ditindaklanjuti (bagian 25.13).
+   tool wajib di hulu - dan itupun dengan pesan yang dapat ditindaklanjuti (bagian 25.13).
 """
 
 from __future__ import annotations
@@ -64,7 +64,7 @@ class AnalyzeService:
         self.qna_store = QnAStore()
 
     def answer(self, analysis_id: str, question: str) -> QnAResponse:
-        """QNA-01 — jawab hanya dari analisis yang bersangkutan, tidak dari batch lain."""
+        """QNA-01 - jawab hanya dari analisis yang bersangkutan, tidak dari batch lain."""
         context = self.qna_store.get(analysis_id)
         if context is None:
             return QnAResponse(
@@ -123,7 +123,7 @@ class AnalyzeService:
         base = (
             f"Dari {total} ulasan, {len([a for a in aggregates if a.negative_count])} aspek "
             f"memuat keluhan. Yang paling sering adalah {top.aspect.value.replace('_', ' ')} "
-            f"— {top.negative_count} ulasan ({pct:.0%})."
+            f"- {top.negative_count} ulasan ({pct:.0%})."
         )
         if self.orchestrator is not None and mode == AnalysisMode.FULL:
             try:
@@ -151,7 +151,7 @@ class AnalyzeService:
 
         predictions = self.text_adapter.classify(reviews)
 
-        # Jalur visual dilewati bila tidak ada foto — ini keadaan normal, bukan error.
+        # Jalur visual dilewati bila tidak ada foto - ini keadaan normal, bukan error.
         visual_predictions: list = []
         fused = fuse_all(predictions, visual_predictions)
         contradictions = [f for f in fused if f.contradiction_flag]
@@ -199,7 +199,7 @@ class AnalyzeService:
                 )
             )
 
-        # OPP-01 — aspek yang justru dipuji, disajikan sebagai sinyal untuk materi promosi.
+        # OPP-01 - aspek yang justru dipuji, disajikan sebagai sinyal untuk materi promosi.
         positive_evidence = {}
         if index is not None:
             for agg in aggregates:

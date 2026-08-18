@@ -1,4 +1,4 @@
-# Dependensi RUNTIME inference (apps/api) — sengaja terpisah dari ml/requirements.txt.
+# Dependensi RUNTIME inference (apps/api) - sengaja terpisah dari ml/requirements.txt.
 # Pipeline pelatihan tidak ikut masuk image: ia butuh paket yang tidak pernah dipanggil
 # saat melayani request, dan setiap paket tambahan memperbesar permukaan serangan image.
 
@@ -9,12 +9,12 @@ numpy>=1.26
 pyyaml>=6.0
 
 # scikit-learn dipakai jalur cadangan retrieval (TF-IDF) ketika model embedding tidak
-# tersedia — bukan hiasan, itu yang menjaga sistem tetap menghasilkan bukti saat offline.
+# tersedia - bukan hiasan, itu yang menjaga sistem tetap menghasilkan bukti saat offline.
 scikit-learn>=1.4
 
 # torch>=2.6 wajib, bukan preferensi versi: torch.load pada versi di bawahnya terkena
 # CVE-2025-32434, dan checkpoint IndoBERT memang dimuat lewat jalur itu.
-# Varian CPU dipasang eksplisit di Dockerfile — roda CUDA menambah ~2 GB tanpa manfaat
+# Varian CPU dipasang eksplisit di Dockerfile - roda CUDA menambah ~2 GB tanpa manfaat
 # pada mesin juri yang belum tentu punya GPU.
 torch>=2.6
 transformers>=5.0

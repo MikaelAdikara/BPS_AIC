@@ -1,10 +1,10 @@
-# Kelas visual dan prompt ensemble — transkripsi langsung blueprint bagian 19.1
+# Kelas visual dan prompt ensemble - transkripsi langsung blueprint bagian 19.1
 #
-# STATUS: FROZEN (Fase 0, dikonfirmasi) — 4 kelas.
+# STATUS: FROZEN (Fase 0, dikonfirmasi) - 4 kelas.
 #
 # Prinsip yang tidak dinegosiasikan:
 # - Maksimal 3-4 kelas (bagian 19.1, dossier 21B.2 Langkah 3).
-# - Model WAJIB abstain saat confidence rendah — tidak pernah memaksakan label.
+# - Model WAJIB abstain saat confidence rendah - tidak pernah memaksakan label.
 # - Skor per kelas = rata-rata skor kemiripan seluruh varian prompt kelas tersebut,
 #   bukan satu prompt tunggal (bagian 19.1).
 # - Campuran prompt Bahasa Indonesia + Inggris disengaja: CLIP dilatih dominan data Inggris.
@@ -46,13 +46,13 @@ classes:
     prompts_contrast: []
     note: "Kelas default jika tidak ada kelas lain yang menang dengan confidence cukup."
 
-# Abstention (bagian 19.2) — WAJIB, bukan opsional
+# Abstention (bagian 19.2) - WAJIB, bukan opsional
 abstention:
   message: "Tidak dapat menyimpulkan kondisi produk dari foto ini."
   # Threshold absolut dan margin top1-vs-top2 ditetapkan dari DISTRIBUSI SKOR pada
   # sampel validasi Fase 3, BUKAN angka default. Sengaja dikosongkan sampai saat itu.
   # Dikalibrasi Fase 3 pada 97 foto ulasan Shopee berlabel manusia. Nilainya DIPERTAHANKAN
-  # sebagai catatan, meski gerbang memutuskan NO-GO — bila kelak dijalankan ulang dengan
+  # sebagai catatan, meski gerbang memutuskan NO-GO - bila kelak dijalankan ulang dengan
   # encoder lain, angka ini menjadi pembanding.
   min_confidence: 0.60
   min_margin_top1_top2: 0.0
@@ -76,7 +76,7 @@ go_no_go_gate:
     alarm_palsu_pada_foto_normal: 0.61
   alasan: >
     Selective accuracy 79% tampak memadai, tetapi hanya dihasilkan dari 14 foto yang dijawab
-    dan sebelas di antaranya kelas normal — model berani menjawab justru pada kelas mayoritas
+    dan sebelas di antaranya kelas normal - model berani menjawab justru pada kelas mayoritas
     dan abstain pada hampir seluruh foto bermasalah. Pemeriksaan yang tidak dapat dikelabui
     ambang: akurasi argmax 45% BERADA DI BAWAH pembanding sepele "selalu tebak normal" (61%),
     dan 61% foto normal salah ditandai bermasalah. Model tidak mendeteksi kerusakan; ia
@@ -94,4 +94,4 @@ go_no_go_gate:
 # kelas dapat DIGABUNG jika evaluasi Fase 3 membuktikan keduanya tidak terpisahkan
 # (kandidat paling mungkin: "salah_kirim" vs "produk_rusak"). Menggabungkan lebih baik
 # daripada memaksakan granularitas yang tidak didukung data. Penambahan kelas baru TIDAK
-# terbuka — batas maksimal tetap 4 kelas.
+# terbuka - batas maksimal tetap 4 kelas.

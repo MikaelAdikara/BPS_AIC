@@ -1,20 +1,20 @@
-# Rancangan Produk SaaS — InsightUlasan
+# Rancangan Produk SaaS - InsightUlasan
 
 Dokumen ini adalah rancangan antarmuka **lengkap** untuk InsightUlasan sebagai produk SaaS utuh,
 beserta alasan di balik setiap keputusan bentuknya. Dua prototipe menyertainya:
 
 | Berkas | Isi |
 | --- | --- |
-| [`site.html`](site.html) | **Produk SaaS penuh** — situs publik (7 bagian), login, lalu dashboard 14 layar berkelompok. Ini acuan visual utama |
+| [`site.html`](site.html) | **Produk SaaS penuh** - situs publik (7 bagian), login, lalu dashboard 14 layar berkelompok. Ini acuan visual utama |
 | [`prototype.html`](prototype.html) | Kerangka 14 layar beranotasi tier, untuk membaca cakupan dan alasan per layar |
 
 Token warna dan tipografi di prototipe disalin dari
 [`apps/web/src/styles/tokens.css`](../../apps/web/src/styles/tokens.css). Kalau keduanya berbeda,
-**aplikasi yang benar** — prototipe mengikuti, bukan sebaliknya.
+**aplikasi yang benar** - prototipe mengikuti, bukan sebaliknya.
 
 ## 0. Peta layar `site.html`
 
-Empat belas layar aplikasi, dikelompokkan menurut pekerjaan — dan **setiap layar turun dari
+Empat belas layar aplikasi, dikelompokkan menurut pekerjaan - dan **setiap layar turun dari
 keluaran model yang memang ada**, bukan fitur yang ditambahkan agar terlihat ramai.
 
 | Kelompok | Layar | Keluaran model yang menjadi sumbernya |
@@ -25,7 +25,7 @@ keluaran model yang memang ada**, bukan fitur yang ditambahkan agar terlihat ram
 | Sistem | **Kesehatan model** · Tim · Langganan · Data &amp; privasi | MODEL_CARD, hasil gerbang VIS-01, status FALLBACK MODE |
 
 Ditambah **keadaan kosong** (layar pertama sebelum ada analisis) dan **palet perintah ⌘K**
-yang melompat ke layar mana pun — pola SaaS modern yang sekaligus menjadi jalur cepat saat
+yang melompat ke layar mana pun - pola SaaS modern yang sekaligus menjadi jalur cepat saat
 demo langsung ke juri.
 
 Empat layar bertanda tebal adalah penambahan yang paling menaikkan nilai produk:
@@ -34,7 +34,7 @@ Empat layar bertanda tebal adalah penambahan yang paling menaikkan nilai produk:
   mengubah RET-01 dari mesin di balik layar menjadi alat yang langsung dipakai pengguna.
 - **Perbandingan varian** menjawab pertanyaan yang tidak terjawab angka agregat: "keluhan
   ukuran 17%" tidak dapat ditindaklanjuti, tetapi "varian Mocca L menyumbang separuhnya" bisa.
-- **Pantauan** menjalankan ambang atas angka yang sudah dihitung sistem — bukan tebakan baru.
+- **Pantauan** menjalankan ambang atas angka yang sudah dihitung sistem - bukan tebakan baru.
 - **Kesehatan model** adalah elemen tanda tangan produk ini: satu-satunya layar yang
   menampilkan rapor AI-nya sendiri, termasuk fitur foto yang dinyatakan NO-GO dan dimatikan.
   Tidak ada pesaing yang menampilkan kegagalannya sendiri di dalam produk.
@@ -54,7 +54,7 @@ mengubah kartu dari laporan menjadi tugas yang dapat dieksekusi:
 | `expected_outcome` | Hasil yang diharapkan |
 
 Ditampilkan pada panel bukti sebagai blok "Rencana kerjanya", disertai catatan bahwa perkiraan
-usaha dan penanggung jawab disusun dari kategori tindakan — bukan dari pengetahuan tentang tim
+usaha dan penanggung jawab disusun dari kategori tindakan - bukan dari pengetahuan tentang tim
 pengguna. Tanpa catatan itu, angka tersebut mudah dibaca sebagai kepastian yang tidak dimiliki
 sistem.
 
@@ -68,7 +68,7 @@ Diaudit terhadap daftar larangan desain produksi:
 
 | Larangan | Penanganan |
 | --- | --- |
-| Side-stripe border sebagai aksen kartu | Dihapus dari Action Card; urgensi dibawa pill bertulisan + tint permukaan. Garis kiri hanya tersisa pada blockquote kutipan — konvensi tipografi, dan elemen tanda tangan merek |
+| Side-stripe border sebagai aksen kartu | Dihapus dari Action Card; urgensi dibawa pill bertulisan + tint permukaan. Garis kiri hanya tersisa pada blockquote kutipan - konvensi tipografi, dan elemen tanda tangan merek |
 | Grid kartu identik | Bagian masalah memakai tiga blok berbobot berbeda; bagian fitur memakai satu blok utama + daftar |
 | Template hero-metric (angka besar + label + gradien) | Ringkasan angka disajikan sebagai satu baris tipografis, bukan empat ubin seragam |
 | `z-index` sembarang | Skala semantik: sticky 20 → scrim 60 → drawer 61 → toast 80 |
@@ -82,7 +82,7 @@ Diaudit terhadap daftar larangan desain produksi:
 Rulebook AIC bagian 5.2 membatasi MVP penyisihan pada **alur interaksi inti: input tunggal →
 output AI**, dan menyebut secara eksplisit tiga hal yang *tidak perlu*: dashboard analitik
 tingkat lanjut, sistem otentikasi kompleks, dan halaman riwayat penggunaan. Melanggarnya tidak
-menghasilkan diskualifikasi, tetapi terpotong di kriteria **Kesiapan MVP (15%)** — panitia
+menghasilkan diskualifikasi, tetapi terpotong di kriteria **Kesiapan MVP (15%)** - panitia
 menyebut "overbuilt" dinilai negatif di sana.
 
 Artinya: **produk SaaS penuh tidak boleh menjadi yang dikumpulkan.** Maka rancangan ini dipisah
@@ -95,7 +95,7 @@ tegas menjadi tiga lapis, dan pemisahan itu ikut terlihat di prototipe lewat bad
 | **Tier 3** | Roadmap | Layar 10–14 | Potensi pasca-kompetisi |
 
 Ini bukan siasat menghindari aturan. Ini juga jawaban produk yang benar untuk permintaan
-"jangan meribetkan user" — dan bagian 2 menjelaskan kenapa.
+"jangan meribetkan user" - dan bagian 2 menjelaskan kenapa.
 
 ---
 
@@ -114,7 +114,7 @@ Empat konsekuensi yang mengikat seluruh rancangan:
 2. **Satu layar, satu keputusan.** Bukan konsol dengan sepuluh widget. Setiap Action Card adalah
    satu keputusan yang bisa diterima atau ditolak.
 3. **Teks minimum 16px, tidak ada istilah teknis.** Bukan "confidence 0,86" tetapi "cukup yakin".
-4. **Kedalaman disembunyikan satu ketukan.** Bukti lengkap ada, tetapi di balik panel — tidak
+4. **Kedalaman disembunyikan satu ketukan.** Bukti lengkap ada, tetapi di balik panel - tidak
    memenuhi layar pertama.
 
 ### 2.1 Jobs-to-be-done, dan tier mana yang menjawabnya
@@ -129,14 +129,14 @@ Empat konsekuensi yang mengikat seluruh rancangan:
 | Sesekali | "Bagaimana menunjukkan ini ke pemilik/staf?" | Laporan &amp; ekspor, tim &amp; peran | 2 / 3 |
 | Terus-menerus | "Bisa tidak saya berhenti unggah manual?" | Koneksi marketplace | 3 |
 
-**Tier 1 menjawab seluruh ritme mingguan — pekerjaan yang paling sering dilakukan.** Ritme
+**Tier 1 menjawab seluruh ritme mingguan - pekerjaan yang paling sering dilakukan.** Ritme
 bulanan butuh data lintas sesi, yang secara teknis maupun aturan berada di luar MVP. Jadi
 pemisahan tier bukan kompromi: ia mengikuti frekuensi pekerjaan nyata pengguna.
 
 ### 2.2 Kenapa "SaaS penuh" justru berbahaya bagi pengguna ini
 
 Kalau seluruh 14 layar dijadikan MVP, Bu Rina membuka aplikasi dan bertemu ruang kerja, pemilih
-toko, papan kanban, dan grafik tren — sebelum sempat bertanya "besok benahi apa?". Untuk
+toko, papan kanban, dan grafik tren - sebelum sempat bertanya "besok benahi apa?". Untuk
 pengguna berliterasi digital sedang di HP pada malam hari, itu menambah langkah tanpa menambah
 jawaban. Blueprint bagian 5.1 bahkan mencatat Bu Rina **tidak membutuhkan** dashboard tren
 kompleks dan multi-toko.
@@ -152,7 +152,7 @@ Bagian ini ditujukan untuk pengerjaan UI/UX lanjutan. Tampilannya boleh berubah 
 berikut tidak boleh ikut hilang, karena masing-masing menopang klaim produk.
 
 1. **Angka dan kutipan selalu monospace, narasi selalu sans.** Begitu pengguna melihat huruf
-   mesin ketik, ia tahu itu keluaran hitungan atau rekaman apa adanya — bukan karangan sistem.
+   mesin ketik, ia tahu itu keluaran hitungan atau rekaman apa adanya - bukan karangan sistem.
    Ini janji produk yang dinaikkan ke tingkat tipografi.
 2. **Warna tidak pernah jadi satu-satunya penanda.** Setiap pill urgensi memuat teksnya.
    Pengguna buta warna harus mendapat informasi yang sama.
@@ -161,7 +161,7 @@ berikut tidak boleh ikut hilang, karena masing-masing menopang klaim produk.
 4. **Sistem tidak pernah menandai keputusan sendiri.** Terima/Tolak/Simpan selalu kosong sampai
    manusia menekan. Tidak ada status yang berubah otomatis.
 5. **Tidak ada klaim tanpa kutipan.** Jika bukti tidak ditemukan, yang tampil adalah "data belum
-   cukup" — bukan kalimat yang terdengar meyakinkan tanpa dasar.
+   cukup" - bukan kalimat yang terdengar meyakinkan tanpa dasar.
 6. **Satu-satunya momen bergerak adalah checklist pemrosesan.** Animasi lain menambah beban
    kognitif tanpa menambah informasi.
 
@@ -169,7 +169,7 @@ berikut tidak boleh ikut hilang, karena masing-masing menopang klaim produk.
 
 ## 4. Arsitektur informasi
 
-### 4.1 Tier 1 — linear, tanpa navigasi global
+### 4.1 Tier 1 - linear, tanpa navigasi global
 
 ```
 Layar 1 Beranda & Input  →  Layar 2 Memproses  →  Layar 3 Hasil  ⇄  Layar 4 Panel Bukti
@@ -178,9 +178,9 @@ Layar 1 Beranda & Input  →  Layar 2 Memproses  →  Layar 3 Hasil  ⇄  Layar 
 ```
 
 Tidak ada menu, tidak ada halaman pengaturan, tidak ada riwayat. Panel bukti adalah *drawer* di
-atas layar hasil, bukan halaman terpisah — posisi gulir pengguna tidak hilang.
+atas layar hasil, bukan halaman terpisah - posisi gulir pengguna tidak hilang.
 
-### 4.2 Tier 2 — navigasi mulai muncul
+### 4.2 Tier 2 - navigasi mulai muncul
 
 ```
 Ruang Kerja ─┬─ Unggah & Analisis → Hasil ⇄ Panel Bukti
@@ -189,7 +189,7 @@ Ruang Kerja ─┬─ Unggah & Analisis → Hasil ⇄ Panel Bukti
              └─ Laporan & Ekspor
 ```
 
-### 4.3 Tier 3 — produk multi-pengguna
+### 4.3 Tier 3 - produk multi-pengguna
 
 ```
 Masuk → Pilih Toko → Ruang Kerja ─┬─ (seluruh Tier 2)
@@ -205,7 +205,7 @@ Masuk → Pilih Toko → Ruang Kerja ─┬─ (seluruh Tier 2)
 
 Nomor layar sama dengan penomoran di prototipe.
 
-### Tier 1 — sudah berfungsi
+### Tier 1 - sudah berfungsi
 
 | # | Layar | Isi | Fitur yang tampil |
 | --- | --- | --- | --- |
@@ -218,7 +218,7 @@ Nomor layar sama dengan penomoran di prototipe.
 teknis: apa ringkasnya → seberapa layak dipercaya → apa yang harus dikerjakan → apa yang sudah
 bagus → bagaimana dibanding yang lain → boleh saya tanya sendiri.
 
-### Tier 2 — dirancang, belum dibangun
+### Tier 2 - dirancang, belum dibangun
 
 | # | Layar | Kenapa belum di MVP |
 | --- | --- | --- |
@@ -228,12 +228,12 @@ bagus → bagaimana dibanding yang lain → boleh saya tanya sendiri.
 | 8 | **Laporan &amp; Ekspor** | Menjawab persona Admin Toko; di Tier 1 tangkapan layar sudah memadai |
 | 9 | **Unggah Foto Massal** | Menunggu model visual lolos go/no-go gate |
 
-### Tier 3 — roadmap
+### Tier 3 - roadmap
 
 | # | Layar | Catatan |
 | --- | --- | --- |
 | 10 | **Masuk &amp; Multi-toko** | Otentikasi kompleks disebut rulebook sebagai backend terlalu rumit. Masuk lewat nomor WhatsApp dipilih karena lebih akrab bagi UMKM daripada email |
-| 11 | **Koneksi Marketplace** | Bergantung ketersediaan API resmi Shopee/Tokopedia — ditulis sebagai rencana, tidak pernah diklaim berfungsi |
+| 11 | **Koneksi Marketplace** | Bergantung ketersediaan API resmi Shopee/Tokopedia - ditulis sebagai rencana, tidak pernah diklaim berfungsi |
 | 12 | **Tim &amp; Peran** | Batas peran mengunci satu prinsip: yang menerima rekomendasi tetap pemilik keputusan |
 | 13 | **Langganan** | Paket gratis sengaja cukup menjawab pertanyaan inti UMKM mikro, bukan demo lumpuh |
 | 14 | **Tata Kelola &amp; Audit** | Tombol hapus data dan larangan melatih model dari data pengguna sudah berlaku sejak Tier 1 |
@@ -256,11 +256,11 @@ sudah berjalan di repo hari ini.
 | ING-08 | Impor folder foto massal | 9 | 2 | Belum |
 | ING-09 | Pemrosesan sesi saja | 1 | 1 | Ya |
 | GOV-01 | Redaksi PII | 1 (senyap) | 1 | Ya |
-| GOV-02 | Model &amp; dataset card | — (repo) | 1 | Ya |
+| GOV-02 | Model &amp; dataset card | - (repo) | 1 | Ya |
 | GOV-03 | Jejak audit penuh | 14 | 3 | Belum |
 | GOV-04 | Akses berbasis peran | 12 | 3 | Belum |
 | NLP-01 | Klasifikasi aspek + sentimen | 3 | 1 | Ya |
-| NLP-02 | Normalisasi slang/typo | — (pipeline) | 1 | Ya |
+| NLP-02 | Normalisasi slang/typo | - (pipeline) | 1 | Ya |
 | NLP-03/04 | Clustering &amp; isu berulang | 7 | 2 | Belum |
 | VIS-01 | Klasifikasi visual + abstain | 3, 4 | 1 | Menunggu gate |
 | VIS-02 | Deteksi foto buram | 9 | 1–2 | Belum |
@@ -273,8 +273,8 @@ sudah berjalan di repo hari ini.
 | OPP-02 | Kutipan positif untuk marketing | 8 | 2 | Belum |
 | ATR-01 | Pelacakan tindakan | 5, 6 | 2 | Belum |
 | EXP-01 | Ekspor PDF/CSV | 8 | 2 | Belum |
-| MON-01 | Log terstruktur tanpa PII | — (ops) | 1 | Ya |
-| MON-02 | Pemantauan drift | — (ops) | 2 | Belum |
+| MON-01 | Log terstruktur tanpa PII | - (ops) | 1 | Ya |
+| MON-02 | Pemantauan drift | - (ops) | 2 | Belum |
 | UX-01 | Halaman hasil terpadu | 3 | 1 | Ya |
 | UX-02 | Dashboard tren historis | 7 | 2 | Belum |
 | UX-03 | Multi-toko / ruang kerja | 5, 10 | 2–3 | Belum |
@@ -287,7 +287,7 @@ Komponen bertanda ✅ sudah ada di [`apps/web/src/components/index.jsx`](../../a
 
 | Komponen | Fungsi | Aturan yang mengikat |
 | --- | --- | --- |
-| ✅ `ActionCard` | Objek utama produk — satu keputusan | Pill urgensi wajib bertulisan; tombol keputusan selalu kosong di awal |
+| ✅ `ActionCard` | Objek utama produk - satu keputusan | Pill urgensi wajib bertulisan; tombol keputusan selalu kosong di awal |
 | ✅ `EvidenceStrip` | Kutipan verbatim + rating + tanggal | Kutipan monospace, tidak pernah diparafrase |
 | ✅ `EvidenceDrawer` | Panel bukti lengkap | Fokus pindah ke judul saat dibuka; Esc menutup |
 | ✅ `Narrative` | Kalimat dengan angka disorot monospace | Angka tidak boleh sans |
@@ -298,9 +298,9 @@ Komponen bertanda ✅ sudah ada di [`apps/web/src/components/index.jsx`](../../a
 | ✅ `QnABox` | Tanya jawab + pertanyaan saran | Menampilkan penolakan apa adanya |
 | ✅ `ColumnMapper` / `PreviewTable` | Pemetaan kolom &amp; pratinjau | Hanya kolom teks yang wajib |
 | `WorkspaceCard` | Ringkas status toko | Tier 2 |
-| `ActionBoard` | Kanban tindakan | Tier 2 — wajib peringatan sebab-akibat |
-| `TrendChart` | Grafik antarperiode | Tier 2 — wajib menampilkan n per titik |
-| `ReportBuilder` | Pemilih isi laporan | Tier 2 — wajib peringatan UU PDP |
+| `ActionBoard` | Kanban tindakan | Tier 2 - wajib peringatan sebab-akibat |
+| `TrendChart` | Grafik antarperiode | Tier 2 - wajib menampilkan n per titik |
+| `ReportBuilder` | Pemilih isi laporan | Tier 2 - wajib peringatan UU PDP |
 | `ConnectorRow` | Sambungan marketplace | Tier 3 |
 | `RoleRow` / `PlanCard` / `AuditRow` | Peran, paket, jejak | Tier 3 |
 
@@ -308,17 +308,17 @@ Komponen bertanda ✅ sudah ada di [`apps/web/src/components/index.jsx`](../../a
 
 ## 8. Kesesuaian dengan tujuan lomba
 
-Tema: **AI for the Backbone of the Economy**. Subtema dipilih: **Smart Commerce** — AI di sisi
+Tema: **AI for the Backbone of the Economy**. Subtema dipilih: **Smart Commerce** - AI di sisi
 konsumen dan operasional penjualan, mencakup analisis perilaku konsumen.
 
 | Kriteria (bobot) | Bagaimana rancangan ini menjawab |
 | --- | --- |
-| **Implementasi Teknologi &amp; Kematangan Arsitektur (25%)** | Layar 3 menampilkan keluaran lima lapisan (teks, visual, fusi, retrieval, aksi) dalam satu halaman terpadu. Banner "mode sederhana" membuat *graceful degradation* terlihat pengguna, bukan tersembunyi di log. Rulebook menekankan **proporsional**, bukan canggih — pemisahan tier adalah bukti proporsionalitas itu |
-| **Orisinalitas &amp; Dampak Sosial (20%)** | Action Card adalah novelty inti: jembatan dari klasifikasi ke keputusan bisnis. Dampak sosialnya melekat di bentuk antarmuka — teks 16px, tanpa jargon, mobile-first, untuk pengguna berliterasi digital sedang. Ini penerapan langsung semangat *#EncloseTheGap* |
+| **Implementasi Teknologi &amp; Kematangan Arsitektur (25%)** | Layar 3 menampilkan keluaran lima lapisan (teks, visual, fusi, retrieval, aksi) dalam satu halaman terpadu. Banner "mode sederhana" membuat *graceful degradation* terlihat pengguna, bukan tersembunyi di log. Rulebook menekankan **proporsional**, bukan canggih - pemisahan tier adalah bukti proporsionalitas itu |
+| **Orisinalitas &amp; Dampak Sosial (20%)** | Action Card adalah novelty inti: jembatan dari klasifikasi ke keputusan bisnis. Dampak sosialnya melekat di bentuk antarmuka - teks 16px, tanpa jargon, mobile-first, untuk pengguna berliterasi digital sedang. Ini penerapan langsung semangat *#EncloseTheGap* |
 | **Kesiapan MVP (15%)** | Yang dikumpulkan tetap alur linear empat layar, satu input → satu output AI. Sembilan layar sisanya ditandai jelas sebagai rancangan/roadmap dan **tidak ada di repo produk** |
-| **Video Promosi (15%)** | Video hanya boleh menampilkan fitur yang benar-benar berjalan. Kolom "Berjalan?" pada bagian 6 adalah daftar sah isi video — badge hijau di prototipe menandai batas itu |
+| **Video Promosi (15%)** | Video hanya boleh menampilkan fitur yang benar-benar berjalan. Kolom "Berjalan?" pada bagian 6 adalah daftar sah isi video - badge hijau di prototipe menandai batas itu |
 | **Kualitas Proposal &amp; Proses (15%)** | Setiap layar disertai alasan desain di prototipe, dan setiap keputusan merujuk bagian blueprint atau rulebook yang bersangkutan |
-| **Relevansi Tema (10%)** | UMKM adalah punggung ekonomi; ulasan pelanggan adalah data perilaku konsumen. AI dipakai di tempat yang memang membutuhkannya (memahami bahasa informal), bukan dipaksakan — perhitungan prioritas justru sengaja deterministik |
+| **Relevansi Tema (10%)** | UMKM adalah punggung ekonomi; ulasan pelanggan adalah data perilaku konsumen. AI dipakai di tempat yang memang membutuhkannya (memahami bahasa informal), bukan dipaksakan - perhitungan prioritas justru sengaja deterministik |
 | **Business Value &amp; Governance (bonus 3,5%)** | Layar 13 memuat model freemium yang dirancang sejak riset; Layar 14 memuat tata kelola data. Keduanya ditandai roadmap, tidak diklaim berfungsi |
 
 ---
@@ -331,13 +331,13 @@ Ketiadaan berikut adalah keputusan, bukan kekurangan yang belum sempat dikerjaka
   pemiliknya yang menyusun promosi. Menulis iklan otomatis mengubah produk ini menjadi alat
   pemasaran yang klaimnya tidak dapat diverifikasi.
 - **Tidak ada skor kepuasan tunggal.** Satu angka "skor toko 78/100" mudah dipahami tetapi
-  menyembunyikan aspek mana yang bermasalah — persis informasi yang dibutuhkan untuk bertindak.
+  menyembunyikan aspek mana yang bermasalah - persis informasi yang dibutuhkan untuk bertindak.
 - **Tidak ada eksekusi otomatis.** Sistem tidak pernah mengubah halaman produk, membalas
   pelanggan, atau menandai tindakan selesai.
 - **Tidak ada perbandingan dengan toko tertentu.** Yang ditampilkan agregat kategori dari data
   publik, dan istilahnya "rata-rata kategori", bukan "pesaing".
 - **Tidak ada slot foto yang belum berfungsi.** Model visual belum lolos gate, jadi slotnya
-  ditandai nonaktif dengan alasannya — tombol mati lebih merusak kepercayaan daripada
+  ditandai nonaktif dengan alasannya - tombol mati lebih merusak kepercayaan daripada
   ketiadaan tombol.
 
 ---
@@ -352,5 +352,5 @@ bagian Layar 3 pada bagian 5. Ketiganya menopang klaim produk maupun posisi terh
 
 Ketika token warna atau tipografi berubah, ubah di
 [`apps/web/src/styles/tokens.css`](../../apps/web/src/styles/tokens.css) lebih dulu, lalu
-salin ke prototipe — bukan sebaliknya. Satu sumber kebenaran, supaya dokumen dan aplikasi tidak
+salin ke prototipe - bukan sebaliknya. Satu sumber kebenaran, supaya dokumen dan aplikasi tidak
 perlahan berbeda.

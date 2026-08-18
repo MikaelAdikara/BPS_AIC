@@ -1,7 +1,7 @@
 """Unit test RET-01 (blueprint bagian 21, 27.3).
 
 Memakai EmbeddingAdapter jalur fallback TF-IDF supaya test berjalan cepat dan tanpa mengunduh
-model — yang diuji di sini adalah LOGIKA retrieval, bukan kualitas model embedding.
+model - yang diuji di sini adalah LOGIKA retrieval, bukan kualitas model embedding.
 """
 
 import numpy as np

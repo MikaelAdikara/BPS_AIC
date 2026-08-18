@@ -1,11 +1,11 @@
-"""OPP-01 dan ING-05 — temuan positif dan skor kualitas data (blueprint bagian 8.2, 22.3).
+"""OPP-01 dan ING-05 - temuan positif dan skor kualitas data (blueprint bagian 8.2, 22.3).
 
 **OPP-01 menyajikan sinyal, bukan menulis materi promosi.** Blueprint bagian 3.1 menegaskan
 produk ini sengaja BUKAN generator konten marketing: ia menunjukkan aspek apa yang benar-benar
 dipuji pelanggan beserta kutipannya, lalu pemilik toko yang memutuskan cara memakainya.
 
 **ING-05 menampilkan seberapa layak hasil ini dipercaya.** Tanpanya pengguna menerima angka apa
-adanya tanpa tahu bahwa batch-nya kecil, tanpa rating, atau tanpa tanggal — padahal ketiga hal
+adanya tanpa tahu bahwa batch-nya kecil, tanpa rating, atau tanpa tanggal - padahal ketiga hal
 itu langsung membatasi apa yang dapat disimpulkan.
 """
 
@@ -87,7 +87,7 @@ def score_data_quality(
     if used < 15:
         score -= 35
         notes.append(
-            f"Hanya {used} ulasan yang dapat dianalisis — anggap hasil ini indikasi awal, "
+            f"Hanya {used} ulasan yang dapat dianalisis - anggap hasil ini indikasi awal, "
             "bukan kesimpulan."
         )
     elif used < 50:
@@ -120,7 +120,7 @@ def score_data_quality(
     score = max(0, min(100, score))
     level = "baik" if score >= 75 else "cukup" if score >= 45 else "terbatas"
     if not notes:
-        notes.append("Data Anda lengkap — hasil analisis dapat dibaca dengan percaya diri.")
+        notes.append("Data Anda lengkap - hasil analisis dapat dibaca dengan percaya diri.")
 
     return DataQuality(
         score=score,

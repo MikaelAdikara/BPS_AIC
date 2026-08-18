@@ -1,7 +1,7 @@
-# Brand & UI Guidelines — InsightUlasan
+# Brand & UI Guidelines - InsightUlasan
 
 Panduan ini cukup konkret untuk langsung dipakai mendesain di Figma **dan** sudah tersedia
-sebagai token CSS di [`apps/web/src/styles/tokens.css`](../apps/web/src/styles/tokens.css) —
+sebagai token CSS di [`apps/web/src/styles/tokens.css`](../apps/web/src/styles/tokens.css) -
 satu sumber kebenaran, bukan dua dokumen yang lambat laun berbeda.
 
 ---
@@ -31,19 +31,19 @@ punya kutipan aslinya.* Janji itu diangkat ke tingkat tipografi, bukan cuma ditu
 | Yang ditampilkan | Typeface | Alasan |
 | --- | --- | --- |
 | Angka hasil hitungan, persentase, skor | **IBM Plex Mono**, tabular | Ini keluaran tool deterministic. Rata kolomnya membuat angka bisa dibandingkan sekilas. |
-| Kutipan ulasan asli | **IBM Plex Mono** | Menandakan **rekaman apa adanya** — tidak diparafrase, tidak dirapikan. |
+| Kutipan ulasan asli | **IBM Plex Mono** | Menandakan **rekaman apa adanya** - tidak diparafrase, tidak dirapikan. |
 | Narasi, judul, label, tombol | **Plus Jakarta Sans** | Suara manusia yang menjelaskan. |
 
 Begitu pengguna melihat huruf monospace, ia tahu itu **bukan karangan sistem**. Pemisahan ini
-konsisten di semua layar — termasuk angka yang muncul di tengah kalimat.
+konsisten di semua layar - termasuk angka yang muncul di tengah kalimat.
 
 Plus Jakarta Sans dipilih bukan karena netral: ia dirancang sebagai identitas tipografi Jakarta,
 punya karakter yang pas untuk produk yang melayani pedagang Indonesia, dan sangat terbaca pada
 ukuran besar di layar HP.
 
-## 3. Palet — "Nila & Struk"
+## 3. Palet - "Nila & Struk"
 
-Warna dasarnya **nila**, rujukan pada tarum, pewarna indigo tradisional tekstil Indonesia —
+Warna dasarnya **nila**, rujukan pada tarum, pewarna indigo tradisional tekstil Indonesia -
 bukan biru SaaS generik. Tenang, dapat dipercaya, dan pas untuk kategori pertama produk ini
 (fesyen). Permukaannya kertas hangat-netral, bukan krem.
 
@@ -66,19 +66,19 @@ bukan biru SaaS generik. Tenang, dapat dipercaya, dan pas untuk kategori pertama
 | `--nila-500` | `#4356C7` | Hover, cincin fokus |
 | `--nila-100` | `#E6E9F8` | Latar bertint, badge netral |
 
-### 3.3 Warna semantik — **ini aturan, bukan selera**
+### 3.3 Warna semantik - **ini aturan, bukan selera**
 
 | Arti | Token | Hex | Catatan |
 | --- | --- | --- | --- |
 | Urgensi tinggi | `--urgency-high` | `#B3261E` | Pill terisi + label teks "Tinggi" |
 | Urgensi sedang | `--urgency-medium` | `#9C5D00` | Pill terisi + label "Sedang" |
-| Urgensi rendah | `--urgency-low` | `#5A6070` | Sengaja diam — abu-abu, bukan hijau |
+| Urgensi rendah | `--urgency-low` | `#5A6070` | Sengaja diam - abu-abu, bukan hijau |
 | Temuan positif / peluang | `--positive` | `#1F6B4A` | Aspek yang dipuji pelanggan |
 | **Keyakinan rendah / abstain** | `--abstain` | `#636774` | **ABU-ABU. TIDAK PERNAH MERAH.** |
 | Error teknis | `--error` | `#B3261E` | Selalu **kotak bergaris**, bukan pill |
 
 **Kenapa abstain harus abu-abu.** Saat model visual menjawab *"Tidak dapat menyimpulkan kondisi
-produk dari foto ini"*, itu bukan kegagalan — itu sistem yang jujur mengakui batasnya, dan justru
+produk dari foto ini"*, itu bukan kegagalan - itu sistem yang jujur mengakui batasnya, dan justru
 alasan ia layak dipercaya. Mewarnainya merah membuat pengguna mengira ada yang rusak, lalu berhenti
 memercayai seluruh hasil.
 
@@ -102,14 +102,14 @@ Skala dirancang mobile-first. Angka di kolom manapun memakai `font-variant-numer
 
 | Peran | Ukuran/tinggi baris | Berat | Typeface |
 | --- | --- | --- | --- |
-| Display L — judul layar | 30 / 36 | 700 | Plus Jakarta Sans |
-| Display M — ringkasan eksekutif | 24 / 32 | 700 | Plus Jakarta Sans |
-| Title — judul Action Card | 19 / 26 | 600 | Plus Jakarta Sans |
+| Display L - judul layar | 30 / 36 | 700 | Plus Jakarta Sans |
+| Display M - ringkasan eksekutif | 24 / 32 | 700 | Plus Jakarta Sans |
+| Title - judul Action Card | 19 / 26 | 600 | Plus Jakarta Sans |
 | Body | 16 / 26 | 400 | Plus Jakarta Sans |
-| Body S — metadata | 14 / 22 | 400 | Plus Jakarta Sans |
-| Label — eyebrow, header tabel | 13 / 16 | 600, `0.04em`, UPPERCASE | Plus Jakarta Sans |
-| **Stat** — angka hasil hitungan | 16 / 24 | 600, tabular | **IBM Plex Mono** |
-| **Quote** — kutipan verbatim | 15 / 26 | 400 | **IBM Plex Mono** |
+| Body S - metadata | 14 / 22 | 400 | Plus Jakarta Sans |
+| Label - eyebrow, header tabel | 13 / 16 | 600, `0.04em`, UPPERCASE | Plus Jakarta Sans |
+| **Stat** - angka hasil hitungan | 16 / 24 | 600, tabular | **IBM Plex Mono** |
+| **Quote** - kutipan verbatim | 15 / 26 | 400 | **IBM Plex Mono** |
 
 IBM Plex Mono punya x-height lebih kecil dari Plus Jakarta Sans. Saat angka mono muncul di dalam
 kalimat sans, naikkan ukurannya **1px** agar terlihat sepadan.
@@ -117,17 +117,17 @@ kalimat sans, naikkan ukurannya **1px** agar terlihat sepadan.
 ## 5. Tata letak
 
 - Satu kolom di semua ukuran layar. Tidak ada sidebar, tidak ada nav global.
-- Lebar konten maksimum **560px** — panjang baris nyaman dibaca, dan desktop tidak terasa kosong
+- Lebar konten maksimum **560px** - panjang baris nyaman dibaca, dan desktop tidak terasa kosong
   karena kartunya memang objek tunggal.
 - Padding tepi: 16px (mobile), 24px (≥600px).
 - Basis spasi **4px**: `4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 56 · 72`.
 - Radius: kartu **10px**, input 8px, pill 999px.
-- Elevasi: satu tingkat saja — `0 1px 2px rgba(26,29,38,.06)` plus garis `--rule`. Tidak ada
+- Elevasi: satu tingkat saja - `0 1px 2px rgba(26,29,38,.06)` plus garis `--rule`. Tidak ada
   bayangan tebal; kedalaman datang dari garis dan permukaan.
 
 ## 6. Anatomi komponen
 
-### 6.1 Action Card — objek utama produk
+### 6.1 Action Card - objek utama produk
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -151,12 +151,12 @@ kalimat sans, naikkan ukurannya **1px** agar terlihat sepadan.
 ```
 
 **Evidence strip adalah elemen tanda tangan produk ini.** Garis vertikal `--nila-700` selebar 3px,
-latar `--surface-sunken`, teks mono. Ia selalu menempel pada klaim yang didukungnya — tidak pernah
+latar `--surface-sunken`, teks mono. Ia selalu menempel pada klaim yang didukungnya - tidak pernah
 berdiri sendiri, tidak pernah diringkas. Kutipan **tidak boleh dipotong di tengah kata**; kalau
 terlalu panjang, potong di batas kalimat dan beri "…".
 
 Tombol: `Terima` (isi nila-700) · `Tolak` (garis) · `Simpan dulu` (teks saja). Ketiganya wajib ada
-— tidak pernah ada kartu tanpa jalan keluar bagi pengguna.
+- tidak pernah ada kartu tanpa jalan keluar bagi pengguna.
 
 ### 6.2 Kartu temuan visual
 
@@ -178,16 +178,16 @@ Kartu abstain **tidak** diberi ikon peringatan, tidak diberi warna merah, dan ti
 ### 6.3 Kartu perbandingan kategori
 
 Angka toko dan angka baseline diletakkan berdampingan dalam mono agar sebanding sekilas.
-Ukuran sampel **selalu** tampil — `n=8.939` — dan tingkat keyakinan ditulis sebagai kata.
+Ukuran sampel **selalu** tampil - `n=8.939` - dan tingkat keyakinan ditulis sebagai kata.
 Istilah yang dipakai: **"rata-rata kategori sejenis"**. Jangan pernah menulis "kompetitor" atau
-"rata-rata pasar" — datanya agregat publik, bukan data toko pesaing.
+"rata-rata pasar" - datanya agregat publik, bukan data toko pesaing.
 
 ### 6.4 Banner mode & peringatan
 
 | Situasi | Bentuk | Teks |
 | --- | --- | --- |
 | Data sedikit (<15 ulasan) | Banner `--urgency-medium` bertint | "Data Anda masih sedikit. Anggap hasil ini sebagai indikasi awal, bukan kesimpulan." |
-| FALLBACK MODE aktif | Banner `--ink-muted` bertint, kecil | "Mode sederhana aktif — sebagian penjelasan memakai teks standar." |
+| FALLBACK MODE aktif | Banner `--ink-muted` bertint, kecil | "Mode sederhana aktif - sebagian penjelasan memakai teks standar." |
 | Analisis visual tidak tersedia | Catatan sebaris di bagian visual | "Analisis foto tidak tersedia saat ini. Hasil dari teks tetap lengkap." |
 
 ## 7. Nada bahasa
@@ -213,9 +213,9 @@ dengan jeda 120ms dan tanda centang yang masuk dengan `translateY(4px) → 0`. I
 pengguna bahwa sistem benar-benar bekerja, bukan spinner yang berputar tanpa arti.
 
 Selebihnya seperlunya: transisi keadaan 160ms `ease-out`, evidence drawer masuk 200ms. Hormati
-`prefers-reduced-motion: reduce` — nonaktifkan seluruh transform, sisakan perubahan opasitas.
+`prefers-reduced-motion: reduce` - nonaktifkan seluruh transform, sisakan perubahan opasitas.
 
-## 9. Aksesibilitas — lantai, bukan tambahan
+## 9. Aksesibilitas - lantai, bukan tambahan
 
 - Target sentuh minimum **44 × 44px**.
 - Cincin fokus **selalu terlihat**: `2px solid var(--nila-500)` dengan `outline-offset: 2px`.
@@ -229,7 +229,7 @@ Selebihnya seperlunya: transisi keadaan 160ms `ease-out`, evidence drawer masuk 
 
 Tidak ada logo bermerek dagang, ilustrasi maskot, gradien dekoratif, grafik donat, ikon emoji
 sebagai penanda status, maupun mode gelap sebagai fitur pamer. Produk ini dinilai dari kejelasan
-keputusan yang dihasilkannya — setiap elemen yang tidak membantu pengguna memutuskan sesuatu
+keputusan yang dihasilkannya - setiap elemen yang tidak membantu pengguna memutuskan sesuatu
 adalah beban.
 
 Mode gelap **didukung** lewat token, tetapi bukan prioritas Tier 1.

@@ -1,8 +1,8 @@
-"""Fase 3 — gerbang go/no-go VIS-01 (blueprint bagian 19.3, 22, 26.2).
+"""Fase 3 - gerbang go/no-go VIS-01 (blueprint bagian 19.3, 22, 26.2).
 
 Menjalankan CLIP zero-shot pada foto ulasan berlabel manusia, mengalibrasi ambang abstention,
 lalu memutuskan **GO / CONDITIONAL GO / NO-GO**. Hasilnya menentukan seberapa kuat klaim visual
-boleh ditulis di proposal dan video — bukan sebaliknya.
+boleh ditulis di proposal dan video - bukan sebaliknya.
 
 Tiga hal yang menjaga angkanya tetap sah:
 
@@ -191,7 +191,7 @@ def main() -> int:
                 f"'selalu tebak normal' ({diag['akurasi_selalu_tebak_normal']:.0%}), dan "
                 f"{diag['alarm_palsu_pada_normal']:.0%} foto normal salah ditandai bermasalah. "
                 "Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada "
-                "hampir seluruh foto bermasalah — model menjawab terutama pada kelas mayoritas."
+                "hampir seluruh foto bermasalah - model menjawab terutama pada kelas mayoritas."
             )
         print(f"  ambang: conf {terpilih['min_confidence']} margin {terpilih['min_margin']}")
         print(f"  UJI: acc {pada_uji['selective_accuracy']} cov {pada_uji['coverage']}")

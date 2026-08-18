@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InsightUlasan — Situs &amp; Dashboard</title>
+<title>InsightUlasan - Situs &amp; Dashboard</title>
 <style>
 /* ==========================================================================
-   TOKEN — diwarisi dari apps/web/src/styles/tokens.css.
+   TOKEN - diwarisi dari apps/web/src/styles/tokens.css.
    Palet grafik lolos enam pemeriksaan validate_palette.js:
      terang  #4356c7 #0891b2 #c2740a #c0357a   (CVD deutan ΔE 14,7 · normal 17,0)
      gelap   #6b78e8 #0e93a8 #b8790f #c04a80   (pita lightness gelap 0,48–0,67)
-   Hijau TIDAK dipakai sebagai seri grafik — ia dikunci untuk status positif.
+   Hijau TIDAK dipakai sebagai seri grafik - ia dikunci untuk status positif.
    ========================================================================== */
 :root{
   --paper:#f7f7f5; --surface:#fff; --sunken:#efefec; --raised:#fff;
@@ -30,7 +30,7 @@
   --t-fast:140ms; --t:240ms; --t-slow:400ms;
   --out:cubic-bezier(.22,1,.36,1);            /* ease-out-quint */
   --inout:cubic-bezier(.65,0,.35,1);
-  /* Skala z semantik — bukan 999. */
+  /* Skala z semantik - bukan 999. */
   --z-sticky:20; --z-drawer-scrim:60; --z-drawer:61; --z-toast:80;
 }
 :root[data-theme="dark"]{
@@ -58,7 +58,7 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--nila-500);outline-offset:3px;border-radius:5px}
 ::placeholder{color:var(--ink-muted);opacity:1}
 
-/* Angka hasil hitungan & kutipan verbatim SELALU monospace — tesis produk. */
+/* Angka hasil hitungan & kutipan verbatim SELALU monospace - tesis produk. */
 .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
 
 /* ---------- Gerak: tiap reveal disesuaikan isinya, bukan satu fade seragam ---------- */
@@ -117,7 +117,7 @@ a{color:inherit}
 .kicker{display:inline-block;font-size:.82rem;font-weight:700;color:var(--nila-700);
   margin-bottom:16px}
 
-/* SIGNATURE — jejak bukti: angka membuka kalimat pelanggan yang menghasilkannya. */
+/* SIGNATURE - jejak bukti: angka membuka kalimat pelanggan yang menghasilkannya. */
 .trail{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-over);padding:22px}
 .trail__hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;
   font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);font-weight:700}
@@ -237,7 +237,7 @@ a{color:inherit}
 .summary .d{font-size:.78rem;font-weight:600}
 .up{color:var(--high)}.down{color:var(--pos)}.flat{color:var(--ink-muted)}
 
-/* Kartu aksi — TANPA side-stripe. Urgensi dibawa pill bertulisan + tint permukaan. */
+/* Kartu aksi - TANPA side-stripe. Urgensi dibawa pill bertulisan + tint permukaan. */
 .act{border-radius:var(--r);padding:19px;margin-bottom:13px;background:var(--surface);
   box-shadow:var(--sh-line)}
 .act--h{background:var(--high-bg)}
@@ -252,7 +252,7 @@ a{color:inherit}
 .act p{font-size:.93rem;color:var(--ink-2)}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
 
-/* Kutipan: garis kiri DIPERTAHANKAN — ini blockquote, konvensi tipografi kutipan,
+/* Kutipan: garis kiri DIPERTAHANKAN - ini blockquote, konvensi tipografi kutipan,
    dan elemen tanda tangan produk (BRAND_GUIDELINES). Bukan hiasan kartu. */
 .ev{background:var(--sunken);border-left:3px solid var(--nila-700);border-radius:0 9px 9px 0;
   padding:11px 14px;margin-top:10px}
@@ -287,7 +287,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
   animation:grow var(--t-slow) var(--out) both}
 .bar__v{font-family:var(--mono);font-size:.8rem;text-align:right;color:var(--ink-muted)}
 
-/* Peta aspek — heatmap aspek × periode */
+/* Peta aspek - heatmap aspek × periode */
 .heat{display:grid;gap:3px;font-size:.78rem;overflow-x:auto}
 .heat__row{display:grid;grid-template-columns:118px repeat(6,minmax(46px,1fr));gap:3px;align-items:center}
 .heat__c{height:34px;border-radius:5px;display:grid;place-items:center;font-family:var(--mono);
@@ -343,7 +343,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
   transform:translateX(100%);transition:transform var(--t) var(--out)}
 .drawer.on{transform:none}
 
-/* Rencana kerja pada panel bukti — empat field ACT-01 yang selama ini tidak tampil. */
+/* Rencana kerja pada panel bukti - empat field ACT-01 yang selama ini tidak tampil. */
 .plan4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;
   background:var(--rule);border-radius:10px;overflow:hidden;margin-top:11px}
 .plan4 div{background:var(--surface);padding:12px 13px}
@@ -351,7 +351,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
   font-weight:700;margin-bottom:4px}
 .plan4 dd{margin:0;font-size:.9rem;color:var(--ink-2)}
 
-/* Palet perintah — pola SaaS modern, sekaligus jalur cepat saat demo ke juri. */
+/* Palet perintah - pola SaaS modern, sekaligus jalur cepat saat demo ke juri. */
 .pal{position:fixed;inset:0;z-index:var(--z-toast);display:none;
   background:rgba(14,16,22,.44);padding:12vh 20px 20px}
 .pal.on{display:block;animation:fade var(--t-fast)}
@@ -366,14 +366,14 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 .pal li small{margin-left:auto;font-size:.72rem;color:var(--ink-muted)}
 .pal__none{padding:22px;text-align:center;color:var(--ink-muted);font-size:.9rem}
 
-/* Toast — umpan balik setelah keputusan diambil. */
+/* Toast - umpan balik setelah keputusan diambil. */
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:var(--z-toast);
   background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:11px;font-size:.9rem;
   box-shadow:var(--sh-over);opacity:0;pointer-events:none;
   transition:opacity var(--t) var(--out),transform var(--t) var(--out)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* Keadaan kosong — layar pertama sebelum ada analisis apa pun. */
+/* Keadaan kosong - layar pertama sebelum ada analisis apa pun. */
 .empty{text-align:center;padding:56px 24px;background:var(--surface);border-radius:var(--r);
   box-shadow:var(--sh-line)}
 .empty h3{font-size:1.15rem;margin-bottom:9px}
@@ -416,7 +416,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
     <div>
       <span class="kicker rise">Untuk pemilik toko online</span>
       <h1 class="rise" style="animation-delay:60ms">Ratusan ulasan.<br />Satu jawaban: besok benahi apa.</h1>
-      <p class="sub rise" style="animation-delay:120ms">InsightUlasan membaca ulasan pelanggan Anda, mengurutkan masalah yang paling mendesak, dan menunjukkan kutipan aslinya — supaya Anda memeriksa sendiri, bukan sekadar percaya.</p>
+      <p class="sub rise" style="animation-delay:120ms">InsightUlasan membaca ulasan pelanggan Anda, mengurutkan masalah yang paling mendesak, dan menunjukkan kutipan aslinya - supaya Anda memeriksa sendiri, bukan sekadar percaya.</p>
       <div class="cta rise" style="animation-delay:180ms">
         <button class="btn btn--pri" data-go="app-analyze">Coba dengan data contoh</button>
         <button class="btn btn--gh" data-go="login">Masuk ke dashboard</button>
@@ -425,20 +425,20 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
     </div>
     <div class="trail rise" style="animation-delay:300ms">
       <div class="trail__hd"><span>Hasil analisis</span><span class="pill pill--h">Prioritas tinggi</span></div>
-      <p class="trail__claim">Keluhan ukuran naik jadi <b id="heroNum" tabindex="0" role="button" aria-expanded="false">17%</b> bulan ini — <span class="n">14</span> poin di atas rata-rata kategori fesyen.</p>
+      <p class="trail__claim">Keluhan ukuran naik jadi <b id="heroNum" tabindex="0" role="button" aria-expanded="false">17%</b> bulan ini - <span class="n">14</span> poin di atas rata-rata kategori fesyen.</p>
       <div id="heroEv"></div>
-      <p class="trail__hint" id="heroHint">Ketuk angkanya — setiap angka dapat ditelusuri ke ulasan aslinya.</p>
+      <p class="trail__hint" id="heroHint">Ketuk angkanya - setiap angka dapat ditelusuri ke ulasan aslinya.</p>
     </div>
   </div></section>
 
   <section class="sect" id="masalah"><div class="wrap">
     <div class="sect__hd">
       <h2>Ulasan menumpuk lebih cepat daripada waktu membacanya</h2>
-      <p class="lead">Bu Rina menutup toko jam sembilan malam. Ada 120 ulasan baru sejak minggu lalu. Yang ia butuhkan bukan grafik sentimen — ia butuh tahu barang mana yang dibenahi besok pagi.</p>
+      <p class="lead">Bu Rina menutup toko jam sembilan malam. Ada 120 ulasan baru sejak minggu lalu. Yang ia butuhkan bukan grafik sentimen - ia butuh tahu barang mana yang dibenahi besok pagi.</p>
     </div>
     <div class="probs">
       <div class="prob prob--lead"><h3>Tahu masalahnya, tidak tahu urutannya</h3>
-        <p>Sepuluh keluhan muncul bersamaan. Mana yang dikerjakan lebih dulu — yang paling sering, atau yang paling merugikan? Inilah jarak antara "analisis sentimen" dan keputusan yang benar-benar bisa diambil.</p></div>
+        <p>Sepuluh keluhan muncul bersamaan. Mana yang dikerjakan lebih dulu - yang paling sering, atau yang paling merugikan? Inilah jarak antara "analisis sentimen" dan keputusan yang benar-benar bisa diambil.</p></div>
       <div class="prob"><h3>Bahasa ulasan tidak rapi</h3>
         <p>"kekecilan", "sampenya lama", singkatan, typo, campuran Inggris. Pencarian kata kunci gagal total di sini.</p></div>
       <div class="prob"><h3>Sulit percaya angka dari AI</h3>
@@ -452,7 +452,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
     <div class="steps">
       <div class="step"><h3>Masukkan ulasan</h3><p>Unggah CSV/JSON, tempel teks, atau pakai data contoh. Kolom dikenali otomatis dan bisa Anda perbaiki.</p></div>
       <div class="step"><h3>Sistem membaca</h3><p>Model bahasa Indonesia memilah tiap kalimat menjadi aspek dan sentimen. Nomor telepon disamarkan sebelum apa pun diproses.</p></div>
-      <div class="step"><h3>Masalah diurutkan</h3><p>Frekuensi, keparahan, tren, dan jarak dari rata-rata kategori dihitung dengan rumus tetap — bukan dikarang model.</p></div>
+      <div class="step"><h3>Masalah diurutkan</h3><p>Frekuensi, keparahan, tren, dan jarak dari rata-rata kategori dihitung dengan rumus tetap - bukan dikarang model.</p></div>
       <div class="step"><h3>Anda memutuskan</h3><p>Tiap rekomendasi membawa kutipan aslinya dan tombol terima atau tolak. Sistem tidak pernah menjalankan apa pun sendiri.</p></div>
     </div>
   </div></section>
@@ -463,15 +463,15 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
     <div class="feat">
       <div class="feat__main">
         <h3>Kartu tindakan berurutan</h3>
-        <p>Tiga sampai lima hal paling mendesak, lengkap dengan alasan kenapa ia diprioritaskan, apa yang terjadi kalau dibiarkan, dan risikonya kalau rekomendasi itu justru keliru. Tiap kartu adalah satu keputusan yang bisa Anda terima atau tolak — bukan laporan yang harus ditafsirkan sendiri.</p>
+        <p>Tiga sampai lima hal paling mendesak, lengkap dengan alasan kenapa ia diprioritaskan, apa yang terjadi kalau dibiarkan, dan risikonya kalau rekomendasi itu justru keliru. Tiap kartu adalah satu keputusan yang bisa Anda terima atau tolak - bukan laporan yang harus ditafsirkan sendiri.</p>
         <p style="margin-top:14px;font-size:.88rem"><b>Ini bagian yang membedakan InsightUlasan</b> dari alat analisis sentimen biasa: jembatan dari skor ke tindakan.</p>
       </div>
       <div class="flist">
         <div><h4>Kutipan asli, bukan parafrase</h4><p>Tiap klaim membawa kalimat pelanggan apa adanya beserta rating dan tanggalnya.</p></div>
-        <div><h4>Cari bukti semantik</h4><p>Ketik "keluhan soal warna" — sistem menemukan ulasan yang membahasnya meski tidak memakai kata itu.</p></div>
+        <div><h4>Cari bukti semantik</h4><p>Ketik "keluhan soal warna" - sistem menemukan ulasan yang membahasnya meski tidak memakai kata itu.</p></div>
         <div><h4>Peta aspek per periode</h4><p>Lihat aspek mana yang memburuk dari minggu ke minggu, bukan hanya potret sesaat.</p></div>
         <div><h4>Pembanding kategori</h4><p>Tahu apakah 17% keluhan ukuran itu wajar atau bermasalah dibanding rata-rata toko sejenis.</p></div>
-        <div><h4>Tanya data Anda sendiri</h4><p>Ajukan pertanyaan bebas. Kalau buktinya tidak ada, sistem menjawab tidak tahu — bukan mengarang.</p></div>
+        <div><h4>Tanya data Anda sendiri</h4><p>Ajukan pertanyaan bebas. Kalau buktinya tidak ada, sistem menjawab tidak tahu - bukan mengarang.</p></div>
         <div><h4>Temuan kekuatan</h4><p>Bukan cuma keluhan. Aspek yang justru dipuji ikut ditampilkan sebagai bahan promosi yang jujur.</p></div>
       </div>
     </div>
@@ -479,11 +479,11 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
   <section class="sect" id="buka"><div class="wrap">
     <div class="sect__hd"><h2>Kami tunjukkan juga bagian yang belum berhasil</h2>
-      <p class="lead">Hampir semua produk AI memamerkan angka terbaiknya. Kami menampilkan rapor lengkapnya di dalam aplikasi — termasuk satu fitur yang kami putuskan tidak layak ditampilkan.</p></div>
+      <p class="lead">Hampir semua produk AI memamerkan angka terbaiknya. Kami menampilkan rapor lengkapnya di dalam aplikasi - termasuk satu fitur yang kami putuskan tidak layak ditampilkan.</p></div>
     <div class="feat">
       <div class="flist">
         <div><h4>Analisis sentimen: tervalidasi</h4><p>Diuji pada label manusia independen (NusaX, PRDECT-ID). Macro F1 <span class="n">0,730</span> berbanding <span class="n">0,700</span> milik baseline leksikon.</p></div>
-        <div><h4>Analisis foto: dinyatakan tidak layak</h4><p>Diuji pada <span class="n">97</span> foto berlabel manusia. Akurasinya <span class="n">45%</span> — di bawah menebak "normal" untuk semuanya (<span class="n">61%</span>). Fiturnya kami matikan.</p></div>
+        <div><h4>Analisis foto: dinyatakan tidak layak</h4><p>Diuji pada <span class="n">97</span> foto berlabel manusia. Akurasinya <span class="n">45%</span> - di bawah menebak "normal" untuk semuanya (<span class="n">61%</span>). Fiturnya kami matikan.</p></div>
         <div><h4>Kelemahan yang kami ketahui</h4><p>Model kurang memanggil keluhan negatif: <span class="n">128</span> dari <span class="n">420</span> ulasan negatif tidak dikenali. Tertulis di halaman Kesehatan Model.</p></div>
       </div>
       <div class="feat__main" style="background:var(--sunken)">
@@ -496,7 +496,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
   <section class="sect" id="harga"><div class="wrap">
     <div class="sect__hd"><h2>Harga</h2>
-      <p class="lead">Paket gratis sengaja dibuat cukup menjawab pertanyaan inti UMKM mikro — bukan demo yang lumpuh.</p></div>
+      <p class="lead">Paket gratis sengaja dibuat cukup menjawab pertanyaan inti UMKM mikro - bukan demo yang lumpuh.</p></div>
     <div class="plans">
       <div class="plan plan--on"><b>Gratis</b><p class="amt">Rp 0</p>
         <p style="font-size:.85rem;color:var(--ink-muted)">selamanya</p>
@@ -513,9 +513,9 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
   <section class="sect"><div class="wrap">
     <div class="sect__hd"><h2>Pertanyaan yang sering muncul</h2></div>
     <div class="faq">
-      <div><h4>Data ulasan saya disimpan?</h4><p>Tidak. Ulasan diproses selama satu sesi analisis lalu hilang. Tidak ada volume basis data untuk data pengguna, dan itu bagian dari rancangannya — bukan kelalaian konfigurasi.</p></div>
+      <div><h4>Data ulasan saya disimpan?</h4><p>Tidak. Ulasan diproses selama satu sesi analisis lalu hilang. Tidak ada volume basis data untuk data pengguna, dan itu bagian dari rancangannya - bukan kelalaian konfigurasi.</p></div>
       <div><h4>Data saya dipakai melatih model?</h4><p>Tidak, dan pengaturannya dapat Anda lihat sendiri di halaman Data &amp; Privasi.</p></div>
-      <div><h4>Kalau sistemnya salah bagaimana?</h4><p>Tiap kartu tindakan menyebutkan risikonya kalau rekomendasi itu keliru, dan tidak ada yang berjalan otomatis — Anda yang menerima atau menolak.</p></div>
+      <div><h4>Kalau sistemnya salah bagaimana?</h4><p>Tiap kartu tindakan menyebutkan risikonya kalau rekomendasi itu keliru, dan tidak ada yang berjalan otomatis - Anda yang menerima atau menolak.</p></div>
       <div><h4>Perlu paham teknis untuk memakainya?</h4><p>Tidak. Tidak ada istilah teknis di antarmuka: bukan "confidence 0,86" tetapi "cukup yakin".</p></div>
     </div>
   </div></section>
@@ -675,8 +675,8 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
       <div class="page" id="p-app-result">
         <div class="panel rise">
           <div class="panel__h"><h3>Ringkasan</h3><span class="sp">batch 2 Agu · 120 ulasan</span></div>
-          <p style="font-size:1.02rem">Dari <span class="n">120</span> ulasan, <span class="n">6</span> aspek memuat keluhan. Yang paling sering adalah <b>ukuran varian</b> — <span class="n">20</span> ulasan (<span class="n">17%</span>).</p>
-          <div class="note note--m">Mode sederhana aktif — sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
+          <p style="font-size:1.02rem">Dari <span class="n">120</span> ulasan, <span class="n">6</span> aspek memuat keluhan. Yang paling sering adalah <b>ukuran varian</b> - <span class="n">20</span> ulasan (<span class="n">17%</span>).</p>
+          <div class="note note--m">Mode sederhana aktif - sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
         </div>
 
         <div class="panel rise" style="animation-delay:60ms">
@@ -710,7 +710,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
         <div class="panel rise" style="animation-delay:120ms">
           <div class="panel__h"><span class="pill pill--p">Kekuatan</span></div>
           <h4 style="font-size:1.02rem;margin-bottom:7px">Yang sudah Anda lakukan dengan baik</h4>
-          <p style="font-size:.89rem;color:var(--ink-muted)">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi — sistem tidak menuliskan materi iklannya untuk Anda.</p>
+          <p style="font-size:.89rem;color:var(--ink-muted)">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi - sistem tidak menuliskan materi iklannya untuk Anda.</p>
           <p style="margin-top:13px"><b>Produk Anda dinilai sesuai dengan deskripsinya</b></p>
           <p style="font-size:.87rem;color:var(--ink-muted)"><span class="n">45</span> sebutan positif · <span class="n">92%</span> dari yang membahas kesesuaian deskripsi</p>
           <div class="ev"><q>Barang sudah sampai sesuai dengan deskripsi, terima kasih</q>
@@ -719,7 +719,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
         <div class="panel rise" style="animation-delay:180ms">
           <div class="panel__h"><h3>Temuan dari foto</h3></div>
-          <div class="note note--w"><b>Tidak ditampilkan — gerbang Fase 3 memutuskan NO-GO.</b>
+          <div class="note note--w"><b>Tidak ditampilkan - gerbang Fase 3 memutuskan NO-GO.</b>
             Model visual diuji pada <span class="n">97</span> foto berlabel manusia. Akurasinya
             <span class="n">45%</span>, di bawah menebak "normal" untuk semuanya (<span class="n">61%</span>).
             Menampilkan hasilnya akan memberi keyakinan palsu tepat pada kasus yang paling perlu Anda periksa sendiri.</div>
@@ -762,7 +762,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- PETA ASPEK ---------- -->
       <div class="page" id="p-app-map">
-        <div class="note note--w">Rancangan Tier 2 — belum dibangun. Membutuhkan penyimpanan lintas sesi.</div>
+        <div class="note note--w">Rancangan Tier 2 - belum dibangun. Membutuhkan penyimpanan lintas sesi.</div>
         <div class="panel">
           <div class="panel__h"><h3>Peta aspek per minggu</h3><span class="sp">% ulasan yang mengeluh</span></div>
           <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:13px">Warna menunjukkan porsi keluhan; angkanya tetap tertulis supaya tidak bergantung warna saja.</p>
@@ -772,7 +772,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- PERBANDINGAN VARIAN ---------- -->
       <div class="page" id="p-app-variant">
-        <div class="note note--w">Rancangan Tier 2 — memerlukan kolom varian pada data unggahan.</div>
+        <div class="note note--w">Rancangan Tier 2 - memerlukan kolom varian pada data unggahan.</div>
         <div class="panel">
           <div class="panel__h"><h3>Varian mana yang paling bermasalah</h3></div>
           <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:12px">Keluhan dipecah per varian yang dibeli. Ini yang mengubah "keluhan ukuran 17%" menjadi tindakan konkret: varian mana yang size chart-nya perlu diperbaiki lebih dulu.</p>
@@ -790,7 +790,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- TREN ---------- -->
       <div class="page" id="p-app-trend">
-        <div class="note note--w">Rancangan Tier 2 — tren dari satu batch menyesatkan secara statistik.</div>
+        <div class="note note--w">Rancangan Tier 2 - tren dari satu batch menyesatkan secara statistik.</div>
         <div class="panel">
           <div class="panel__h"><h3>Keluhan ukuran per minggu</h3><span class="sp">6 batch terakhir</span></div>
           <div class="chart" id="lineWrap"></div><div class="tip" id="lineTip"></div>
@@ -810,7 +810,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- PAPAN TINDAKAN ---------- -->
       <div class="page" id="p-app-board">
-        <div class="note note--w">Rancangan Tier 2 — membutuhkan penyimpanan lintas sesi.</div>
+        <div class="note note--w">Rancangan Tier 2 - membutuhkan penyimpanan lintas sesi.</div>
         <div class="panel">
           <div class="panel__h"><h3>Tindakan Anda</h3><span class="sp">status hanya berubah kalau Anda yang mengubahnya</span></div>
           <div class="kb">
@@ -826,16 +826,16 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
           <div class="panel__h"><h3>Sebelum &amp; sesudah</h3></div>
           <div class="rowline"><span>Keluhan kemasan sebelum (1–28 Jul)</span><span class="n">9</span></div>
           <div class="rowline"><span>Sesudah (29 Jul–8 Agu)</span><span class="n" style="color:var(--pos)">2</span></div>
-          <div class="note note--m">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah — sistem menaruh angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
+          <div class="note note--m">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah - sistem menaruh angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
         </div>
       </div>
 
       <!-- ---------- PANTAUAN ---------- -->
       <div class="page" id="p-app-watch">
-        <div class="note note--w">Rancangan Tier 2 — membutuhkan analisis terjadwal.</div>
+        <div class="note note--w">Rancangan Tier 2 - membutuhkan analisis terjadwal.</div>
         <div class="panel">
           <div class="panel__h"><h3>Beri tahu saya kalau…</h3></div>
-          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:12px">Aturan dijalankan pada tiap analisis baru. Yang dipantau adalah angka yang sudah dihitung sistem — bukan tebakan tambahan.</p>
+          <p style="font-size:.87rem;color:var(--ink-muted);margin-bottom:12px">Aturan dijalankan pada tiap analisis baru. Yang dipantau adalah angka yang sudah dihitung sistem - bukan tebakan tambahan.</p>
           <div class="rowline"><span>Keluhan <b>ukuran</b> melewati <span class="n">15%</span></span><span class="sw"></span></div>
           <div class="rowline"><span>Aspek mana pun naik lebih dari <span class="n">5</span> poin dibanding batch sebelumnya</span><span class="sw"></span></div>
           <div class="rowline"><span>Muncul aspek bermasalah yang sebelumnya tidak pernah ada</span><span class="sw"></span></div>
@@ -851,14 +851,14 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- LAPORAN ---------- -->
       <div class="page" id="p-app-report">
-        <div class="note note--w">Rancangan Tier 2 — belum dibangun.</div>
+        <div class="note note--w">Rancangan Tier 2 - belum dibangun.</div>
         <div class="panel">
           <div class="panel__h"><h3>Isi laporan</h3></div>
           <div class="rowline"><span>Ringkasan &amp; kualitas data</span><span class="sw"></span></div>
           <div class="rowline"><span>Kartu tindakan + kutipan bukti</span><span class="sw"></span></div>
           <div class="rowline"><span>Temuan kekuatan</span><span class="sw"></span></div>
           <div class="rowline"><span>Perbandingan kategori</span><span class="sw off"></span></div>
-          <div class="note note--m">Kutipan pelanggan ikut tercetak. Pastikan laporan hanya dibagikan internal — data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
+          <div class="note note--m">Kutipan pelanggan ikut tercetak. Pastikan laporan hanya dibagikan internal - data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
           <div class="row"><button class="btn btn--pri btn--sm">Unduh PDF</button>
             <button class="btn btn--gh btn--sm">Unduh CSV</button></div>
         </div>
@@ -868,7 +868,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
       <div class="page" id="p-app-model">
         <div class="panel rise">
           <div class="panel__h"><h3>Kesehatan model</h3><span class="sp">diperbarui 11 Agu 2026</span></div>
-          <p style="font-size:.92rem;color:var(--ink-2)">Halaman ini menampilkan rapor sistem yang Anda pakai, termasuk bagian yang belum berhasil. Anda mengambil keputusan bisnis dari angka di aplikasi ini — menyembunyikan batasnya berarti membiarkan Anda salah memutuskan tanpa tahu sedang berisiko.</p>
+          <p style="font-size:.92rem;color:var(--ink-2)">Halaman ini menampilkan rapor sistem yang Anda pakai, termasuk bagian yang belum berhasil. Anda mengambil keputusan bisnis dari angka di aplikasi ini - menyembunyikan batasnya berarti membiarkan Anda salah memutuskan tanpa tahu sedang berisiko.</p>
         </div>
 
         <div class="panel rise" style="animation-delay:60ms">
@@ -878,9 +878,9 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
             <tbody>
               <tr><td>NusaX-senti (label ahli)</td><td class="num" style="color:var(--pos)">0,730</td><td class="num">0,700</td></tr>
               <tr><td>Kelas netral saja</td><td class="num" style="color:var(--pos)">0,645</td><td class="num">0,021</td></tr>
-              <tr><td>PRDECT-ID (label manusia)</td><td class="num" style="color:var(--pos)">0,838</td><td class="num">—</td></tr>
+              <tr><td>PRDECT-ID (label manusia)</td><td class="num" style="color:var(--pos)">0,838</td><td class="num">-</td></tr>
             </tbody></table>
-          <p style="font-size:.85rem;color:var(--ink-muted);margin-top:10px">Label uji dibuat manusia dan independen dari aturan yang kami tulis sendiri — itu syarat agar angkanya berarti.</p>
+          <p style="font-size:.85rem;color:var(--ink-muted);margin-top:10px">Label uji dibuat manusia dan independen dari aturan yang kami tulis sendiri - itu syarat agar angkanya berarti.</p>
         </div>
 
         <div class="panel rise" style="animation-delay:120ms">
@@ -892,7 +892,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
               <tr><td>Akurasi menebak "normal" untuk semuanya</td><td class="num">61%</td></tr>
               <tr><td>Foto normal yang salah ditandai bermasalah</td><td class="num" style="color:var(--high)">61%</td></tr>
             </tbody></table>
-          <div class="note note--h">Model bekerja lebih buruk daripada menebak. Ia tidak mendeteksi kerusakan — ia condong menebak "produk rusak" untuk lebih dari separuh foto apa pun isinya.</div>
+          <div class="note note--h">Model bekerja lebih buruk daripada menebak. Ia tidak mendeteksi kerusakan - ia condong menebak "produk rusak" untuk lebih dari separuh foto apa pun isinya.</div>
         </div>
 
         <div class="panel rise" style="animation-delay:180ms">
@@ -906,7 +906,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
 
       <!-- ---------- TIM ---------- -->
       <div class="page" id="p-app-team">
-        <div class="note note--w">Roadmap Tier 3 — rulebook menyebut otentikasi kompleks di luar batas MVP.</div>
+        <div class="note note--w">Roadmap Tier 3 - rulebook menyebut otentikasi kompleks di luar batas MVP.</div>
         <div class="panel">
           <div class="panel__h"><h3>Anggota</h3></div>
           <div class="rowline"><span><b>Bu Rina</b><br /><span style="font-size:.83rem;color:var(--ink-muted)">rina@rinafashion.id</span></span><span class="badge badge--d">Pemilik</span></div>
@@ -928,13 +928,13 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
           <div class="panel__h"><h3>Pemakaian bulan ini</h3></div>
           <div class="rowline"><span>Ulasan dianalisis</span><span><span class="n">120</span> dari <span class="n">200</span></span></div>
           <div class="prog"><i style="width:60%"></i></div>
-          <p style="font-size:.85rem;color:var(--ink-muted)">Paket gratis menyediakan 200 ulasan per bulan — cukup untuk toko yang menerima sekitar 50 ulasan per minggu.</p>
+          <p style="font-size:.85rem;color:var(--ink-muted)">Paket gratis menyediakan 200 ulasan per bulan - cukup untuk toko yang menerima sekitar 50 ulasan per minggu.</p>
         </div>
         <div class="panel">
           <div class="panel__h"><h3>Paket</h3></div>
-          <div class="rowline"><span><b>Gratis</b> — 1 toko, 200 ulasan</span><span class="badge badge--p">Aktif</span></div>
-          <div class="rowline"><span><b>Toko</b> — 3 toko, 5.000 ulasan, tren &amp; papan tindakan</span><span class="n">Rp 49rb</span></div>
-          <div class="rowline"><span><b>Tim</b> — tanpa batas, peran, koneksi marketplace</span><span class="n">Rp 149rb</span></div>
+          <div class="rowline"><span><b>Gratis</b> - 1 toko, 200 ulasan</span><span class="badge badge--p">Aktif</span></div>
+          <div class="rowline"><span><b>Toko</b> - 3 toko, 5.000 ulasan, tren &amp; papan tindakan</span><span class="n">Rp 49rb</span></div>
+          <div class="rowline"><span><b>Tim</b> - tanpa batas, peran, koneksi marketplace</span><span class="n">Rp 149rb</span></div>
         </div>
       </div>
 
@@ -975,7 +975,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
     <div><dt>Usulan penanggung jawab</dt><dd>Admin toko</dd></div>
     <div><dt>Hasil yang diharapkan</dt><dd>Keluhan ukuran turun pada batch berikutnya</dd></div>
   </dl>
-  <p style="font-size:.85rem;color:var(--ink-muted);margin-top:9px">Perkiraan usaha dan penanggung jawab disusun dari kategori tindakan, bukan dari pengetahuan tentang tim Anda — anggap keduanya titik awal yang bisa Anda ubah.</p>
+  <p style="font-size:.85rem;color:var(--ink-muted);margin-top:9px">Perkiraan usaha dan penanggung jawab disusun dari kategori tindakan, bukan dari pengetahuan tentang tim Anda - anggap keduanya titik awal yang bisa Anda ubah.</p>
 
   <h4 style="margin:22px 0 7px;font-size:.98rem">Kalau dibiarkan</h4>
   <p style="font-size:.9rem;color:var(--ink-2)">Keluhan ukuran sudah naik enam minggu berturut-turut. Membiarkannya berarti membiarkan laju itu berlanjut pada pembeli berikutnya.</p>
@@ -983,7 +983,7 @@ table.t td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-al
   <h4 style="margin:22px 0 7px;font-size:.98rem">Kenapa ini diprioritaskan</h4>
   <p style="font-size:.9rem;color:var(--ink-2)"><span class="n">20</span> dari <span class="n">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="n">14</span> poin di atas baseline kategori (n=<span class="n">8939</span>).</p>
   <h4 style="margin:20px 0 7px;font-size:.98rem">Kalau rekomendasi ini keliru</h4>
-  <p style="font-size:.9rem;color:var(--ink-muted)">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan — periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
+  <p style="font-size:.9rem;color:var(--ink-muted)">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan - periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
 </aside>
 
 <div class="pal" id="pal" role="dialog" aria-modal="true" aria-label="Palet perintah">
@@ -1064,7 +1064,7 @@ function toggleHero(){
         btn = document.getElementById("heroNum");
   heroOpen = !heroOpen;
   btn.setAttribute("aria-expanded", String(heroOpen));
-  if(!heroOpen){ box.innerHTML=""; hint.textContent="Ketuk angkanya — setiap angka dapat ditelusuri ke ulasan aslinya."; return; }
+  if(!heroOpen){ box.innerHTML=""; hint.textContent="Ketuk angkanya - setiap angka dapat ditelusuri ke ulasan aslinya."; return; }
   hint.textContent = "Tiga dari 20 ulasan yang menghasilkan angka itu.";
   box.innerHTML = HERO_EV.map(([q,m],i) =>
     `<div class="strip in" style="animation-delay:${i*90}ms"><q>${q}</q><div class="meta">${m}</div></div>`).join("");
@@ -1099,7 +1099,7 @@ function drawBench(){
     </span><span class="bar__v">${a>b?"+":""}${a-b}</span></div>`).join("");
   tip(h, document.getElementById("benchTip"));
 }
-/* Garis: tugas datanya PERUBAHAN SEIRING WAKTU — yang dibaca arah, bukan besaran. */
+/* Garis: tugas datanya PERUBAHAN SEIRING WAKTU - yang dibaca arah, bukan besaran. */
 const TREN = [["28 Jun",9],["5 Jul",11],["12 Jul",10],["19 Jul",15],["26 Jul",17],["2 Agu",20]];
 function drawLine(){
   const h = document.getElementById("lineWrap"); if(!h) return;
@@ -1169,7 +1169,7 @@ document.addEventListener("keydown", e => { if(e.key === "Escape") closeDrawer()
 
 /* ====================== Tanya jawab ====================== */
 const JAWAB = {
-  1:{a:'Dari <span class="n">120</span> ulasan, keluhan terbanyak ada pada <b>ukuran varian</b> — <span class="n">20</span> ulasan.',
+  1:{a:'Dari <span class="n">120</span> ulasan, keluhan terbanyak ada pada <b>ukuran varian</b> - <span class="n">20</span> ulasan.',
      e:[["Kecil banget seperti nya salah size","demo_009 · 3/5"]]},
   2:{a:'Dari <span class="n">120</span> ulasan, <span class="n">62</span> membahas pengiriman. <span class="n">3</span> berisi keluhan (<span class="n">5%</span>), <span class="n">41</span> positif.',
      e:[["packing aman. pengiriman on time. seller responsif.","demo_043 · 5/5"]]},
@@ -1231,7 +1231,7 @@ function toast(pesan){
   clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600);
 }
 
-/* Keputusan Action Card — status tersimpan untuk sesi ini, tidak pernah dijalankan sistem. */
+/* Keputusan Action Card - status tersimpan untuk sesi ini, tidak pernah dijalankan sistem. */
 document.addEventListener("click", e => {
   const b = e.target.closest(".act .row .btn"); if(!b) return;
   const label = b.textContent.trim();

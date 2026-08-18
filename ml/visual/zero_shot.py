@@ -1,4 +1,4 @@
-"""VIS-01 — klasifikasi visual zero-shot dengan abstention (blueprint bagian 19.1-19.2).
+"""VIS-01 - klasifikasi visual zero-shot dengan abstention (blueprint bagian 19.1-19.2).
 
 Encoder **beku**, tidak dilatih dari nol. Yang dikustomisasi adalah prompt ensemble dan ambang
 abstention-nya, sesuai keputusan bagian 19.1: dengan ~100 foto berlabel, melatih ulang encoder
@@ -8,8 +8,8 @@ hanya akan menghafal, bukan belajar.
 terpotong akan memberi pemilik toko keyakinan palsu tepat pada kasus yang paling perlu ia
 periksa sendiri. Dua ambang mengaturnya:
 
-- `min_confidence` — probabilitas kelas teratas harus melewati ini
-- `min_margin` — jarak ke kelas kedua harus melewati ini
+- `min_confidence` - probabilitas kelas teratas harus melewati ini
+- `min_margin` - jarak ke kelas kedua harus melewati ini
 
 Keduanya sengaja `null` di `configs/visual_classes.yaml` sejak Fase 0 dan baru diisi dari
 distribusi skor nyata (lihat `evaluate_gate.py`), bukan dari angka bawaan yang enak dilihat.
@@ -28,7 +28,7 @@ CONFIG = REPO / "configs" / "visual_classes.yaml"
 
 # CLIP dasar dipilih, bukan varian besar: seluruh sistem menargetkan CPU-only (bagian 30.3),
 # dan varian besar menambah waktu muat berkali lipat untuk keuntungan yang belum terbukti
-# pada foto ulasan Indonesia — persis hal yang sedang diuji gerbang ini.
+# pada foto ulasan Indonesia - persis hal yang sedang diuji gerbang ini.
 DEFAULT_MODEL = "openai/clip-vit-base-patch32"
 
 

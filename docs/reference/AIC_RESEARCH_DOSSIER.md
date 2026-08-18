@@ -3,7 +3,7 @@
 
 ## AIC SMART COMMERCE RESEARCH DOSSIER
 
-Tema: AI for the Backbone of the Economy — Subtema: Smart Commerce
+Tema: AI for the Backbone of the Economy - Subtema: Smart Commerce
 
 Disusun untuk: AI Innovation Challenge (AIC) COMPFEST 18
 
@@ -15,9 +15,9 @@ Tanggal penyusunan: 4 Agustus 2026
 
 ## 1. Executive Summary
 
-Dokumen ini adalah dossier riset tahap awal untuk subtema Smart Commerce pada AIC COMPFEST 18, disusun murni untuk kebutuhan eksplorasi masalah, validasi bukti, dan pemetaan ide — bukan proposal final maupun spesifikasi produk. Seluruh temuan didasarkan pada kombinasi data resmi Indonesia (BPS, Bank Indonesia, OJK, Kementerian Perdagangan, KPPU, BPKN), laporan industri (Google-Temasek-Bain e-Conomy SEA 2025), dan literatur akademik yang dapat diverifikasi melalui pencarian web pada Agustus 2026.
+Dokumen ini adalah dossier riset tahap awal untuk subtema Smart Commerce pada AIC COMPFEST 18, disusun murni untuk kebutuhan eksplorasi masalah, validasi bukti, dan pemetaan ide - bukan proposal final maupun spesifikasi produk. Seluruh temuan didasarkan pada kombinasi data resmi Indonesia (BPS, Bank Indonesia, OJK, Kementerian Perdagangan, KPPU, BPKN), laporan industri (Google-Temasek-Bain e-Conomy SEA 2025), dan literatur akademik yang dapat diverifikasi melalui pencarian web pada Agustus 2026.
 
-Setelah menelusuri 15 masalah potensial di ranah Smart Commerce, menyusun 9 kandidat ide, dan melakukan weighted decision matrix terhadap 15 kriteria, dossier ini merekomendasikan satu ide utama untuk didalami lebih lanjut: "InsightUlasan" — mesin AI aspect-based sentiment & insight bisnis yang mengubah ulasan/chat pelanggan berbahasa Indonesia informal (campuran bahasa daerah, slang, singkatan) milik UMKM menjadi rekomendasi keputusan komersial terprioritas (restock, perbaikan kualitas, penyesuaian harga, highlight promosi).
+Setelah menelusuri 15 masalah potensial di ranah Smart Commerce, menyusun 9 kandidat ide, dan melakukan weighted decision matrix terhadap 15 kriteria, dossier ini merekomendasikan satu ide utama untuk didalami lebih lanjut: "InsightUlasan" - mesin AI aspect-based sentiment & insight bisnis yang mengubah ulasan/chat pelanggan berbahasa Indonesia informal (campuran bahasa daerah, slang, singkatan) milik UMKM menjadi rekomendasi keputusan komersial terprioritas (restock, perbaikan kualitas, penyesuaian harga, highlight promosi).
 
 Pemilihan ini didasarkan pada kombinasi bukti yang relatif kuat: (a) 4,40 juta unit usaha e-commerce di Indonesia pada 2024 didominasi usaha mikro [FACT, BPS 2024]; (b) UMKM menghadapi keterbatasan literasi digital dan sumber daya untuk mengolah data pelanggan [RESEARCH FINDING]; (c) tersedia dataset Bahasa Indonesia yang dapat diakses publik (PRDECT-ID, IndoBERT sentiment corpus, ulasan Tokopedia) [FACT]; (d) riset akademik menunjukkan model berbasis IndoBERT mencapai akurasi hingga 97% untuk klasifikasi sentimen ulasan e-commerce Indonesia, jauh melampaui pendekatan rule-based [RESEARCH FINDING, perlu verifikasi metodologi lebih lanjut]; dan (e) belum ditemukan produk yang secara spesifik menggabungkan aspect-based sentiment Bahasa Indonesia informal dengan output keputusan bisnis siap-pakai untuk UMKM skala mikro [INFERENCE berdasarkan penelusuran kompetitor terbatas].
 
@@ -48,7 +48,7 @@ Tema AIC tahun ini menyoroti tiga tahap utama yang dilalui setiap produk sebelum
 
 ### 2.2 Batasan Subtema Smart Commerce
 
-Smart Commerce didefinisikan rulebook sebagai "penerapan AI di sisi konsumen, sales operasional, serta transaksi komersial" — mencakup pengalaman pelanggan, personalisasi layanan, analisis perilaku konsumen, dan optimasi penjualan/pemasaran (sesuai keterangan pada slide subthemes). Ini berbeda tegas dari Smart Manufacturing (proses produksi dan operasional pabrik: otomatisasi, predictive maintenance, quality control) dan Smart Logistics (pergudangan, distribusi, rantai pasok: visibilitas, akurasi perencanaan, efisiensi pergerakan barang).
+Smart Commerce didefinisikan rulebook sebagai "penerapan AI di sisi konsumen, sales operasional, serta transaksi komersial" - mencakup pengalaman pelanggan, personalisasi layanan, analisis perilaku konsumen, dan optimasi penjualan/pemasaran (sesuai keterangan pada slide subthemes). Ini berbeda tegas dari Smart Manufacturing (proses produksi dan operasional pabrik: otomatisasi, predictive maintenance, quality control) dan Smart Logistics (pergudangan, distribusi, rantai pasok: visibilitas, akurasi perencanaan, efisiensi pergerakan barang).
 
 
 ### 2.3 Masalah yang Relevan dengan Smart Commerce
@@ -58,7 +58,7 @@ Berdasarkan definisi di atas, masalah yang relevan adalah yang terjadi pada titi
 
 ### 2.4 Ketentuan Teknis MVP
 
-Rulebook menetapkan batasan ruang lingkup MVP secara eksplisit pada bagian "Teknis Penyisihan" agar penilaian dapat direproduksi secara lokal. MVP hanya wajib mencakup: (1) alur interaksi inti — menerima satu input tunggal dari pengguna dan menampilkan output dari AI, tanpa fitur pelengkap seperti dashboard analitik lanjutan, sistem otentikasi kompleks, atau riwayat penggunaan; (2) pemrosesan interaksi sinkron di backend, tanpa background jobs, pipeline logging otomatis, atau database terdistribusi — API/sistem lokal cukup dapat dijalankan sesuai README.md menggunakan docker compose; (3) fungsionalitas inferensi inti (core inference) dengan parameter statis saat demonstrasi, tanpa auto-tuning, bulk testing script, atau feedback loop otomatis pada repository tahap penyisihan.
+Rulebook menetapkan batasan ruang lingkup MVP secara eksplisit pada bagian "Teknis Penyisihan" agar penilaian dapat direproduksi secara lokal. MVP hanya wajib mencakup: (1) alur interaksi inti - menerima satu input tunggal dari pengguna dan menampilkan output dari AI, tanpa fitur pelengkap seperti dashboard analitik lanjutan, sistem otentikasi kompleks, atau riwayat penggunaan; (2) pemrosesan interaksi sinkron di backend, tanpa background jobs, pipeline logging otomatis, atau database terdistribusi - API/sistem lokal cukup dapat dijalankan sesuai README.md menggunakan docker compose; (3) fungsionalitas inferensi inti (core inference) dengan parameter statis saat demonstrasi, tanpa auto-tuning, bulk testing script, atau feedback loop otomatis pada repository tahap penyisihan.
 
 
 ### 2.5 Batasan Frontend, Backend, dan Model AI
@@ -77,7 +77,7 @@ Setiap tim wajib menyediakan repository GitHub berstatus publik dengan README.md
 
 ### 2.7 Ketentuan Dataset
 
-Dataset boleh berasal dari sumber publik yang telah tersedia sebelumnya maupun data sintetik yang dibuat bertanggung jawab. Penggunaan model (baik karya pihak luar maupun bukan), arsitektur sistem, dan fitur wajib dijelaskan bersamaan proses preprocessing-nya selama periode lomba. Implikasi riset: tahap studi kelayakan dataset (bagian 14) menjadi krusial — ide yang tidak memiliki dataset publik yang dapat diverifikasi atau tidak dapat disintesis secara wajar berisiko gugur pada kriteria "Kesiapan MVP" dan "Implementasi Teknologi".
+Dataset boleh berasal dari sumber publik yang telah tersedia sebelumnya maupun data sintetik yang dibuat bertanggung jawab. Penggunaan model (baik karya pihak luar maupun bukan), arsitektur sistem, dan fitur wajib dijelaskan bersamaan proses preprocessing-nya selama periode lomba. Implikasi riset: tahap studi kelayakan dataset (bagian 14) menjadi krusial - ide yang tidak memiliki dataset publik yang dapat diverifikasi atau tidak dapat disintesis secara wajar berisiko gugur pada kriteria "Kesiapan MVP" dan "Implementasi Teknologi".
 
 
 ### 2.8 Ketentuan Penggunaan API dan Pretrained Model
@@ -113,17 +113,17 @@ Implikasi bagi InsightUlasan (ide utama, bagian 20-21): klarifikasi ini membuka 
 | Relevansi dengan Tema | 10% | Kesesuaian inovasi dengan tema, penggunaan AI relevan (tidak dipaksakan) |
 | Business Value dan Governance (BONUS) | 3.5% | Model bisnis/analisis kelayakan adopsi industri realistis, pertimbangan regulasi AI/etika/sistem cerdas bertanggung jawab |
 | AIC Talks (BONUS) | 1.5% | Mengikuti dan mengisi presensi AIC Talks |
-| TOTAL | 105% | — |
+| TOTAL | 105% | - |
 
-Catatan: rulebook yang dilampirkan hanya memuat rubrik penilaian tahap penyisihan. Rubrik penilaian babak final (hackathon, live pitching) belum tercantum dan menurut rulebook akan diinformasikan pada Technical Meeting Babak Final [NOT FULLY ACCESSIBLE — perlu diklarifikasi lebih lanjut].
+Catatan: rulebook yang dilampirkan hanya memuat rubrik penilaian tahap penyisihan. Rubrik penilaian babak final (hackathon, live pitching) belum tercantum dan menurut rulebook akan diinformasikan pada Technical Meeting Babak Final [NOT FULLY ACCESSIBLE - perlu diklarifikasi lebih lanjut].
 
 
 ### 2.12 Implikasi Setiap Kriteria Penilaian terhadap Pemilihan Ide
 
-- Bobot terbesar (25%) pada Implementasi Teknologi & Kematangan Arsitektur mengarahkan pemilihan ide pada masalah yang punya jalur teknis AI yang jelas dan proporsional — bukan sekadar wrapper API, dan bukan pula arsitektur berlebihan.
+- Bobot terbesar (25%) pada Implementasi Teknologi & Kematangan Arsitektur mengarahkan pemilihan ide pada masalah yang punya jalur teknis AI yang jelas dan proporsional - bukan sekadar wrapper API, dan bukan pula arsitektur berlebihan.
 - Bobot 20% pada Orisinalitas & Dampak Sosial mendorong ide yang punya novelty dapat dipertanggungjawabkan dan menjawab kebutuhan riil pengguna spesifik, bukan tren umum.
 - Bobot 15% pada Kesiapan MVP menekankan pentingnya ide dengan satu alur input-output yang dapat didemonstrasikan penuh dalam waktu terbatas (17 Juni–25 Agustus 2026), bukan sistem multi-modul.
-- Bobot 15% pada Video Promosi dan 15% pada Kualitas Proposal menuntut narasi masalah-solusi yang kuat dan metodologi berbasis data — sehingga ide dengan bukti kuantitatif Indonesia yang jelas lebih unggul saat dikomunikasikan.
+- Bobot 15% pada Video Promosi dan 15% pada Kualitas Proposal menuntut narasi masalah-solusi yang kuat dan metodologi berbasis data - sehingga ide dengan bukti kuantitatif Indonesia yang jelas lebih unggul saat dikomunikasikan.
 - Bobot 10% Relevansi Tema menuntut kehati-hatian eksplisit membedakan Smart Commerce dari Smart Logistics/Manufacturing (lihat bagian 2.3).
 - Bonus Business Value & Governance (3.5%) mengarahkan ide untuk menyertakan pertimbangan model bisnis dan etika AI sejak awal riset, bukan sebagai tempelan di akhir.
 
@@ -131,7 +131,7 @@ Catatan: rulebook yang dilampirkan hanya memuat rubrik penilaian tahap penyisiha
 ### 2.13 Risiko Diskualifikasi atau Ketidaksesuaian Scope
 
 - Karya bukan orisinal tim, atau melanjutkan proyek yang sudah dikerjakan sebelum/luar periode penyisihan (17 Juni–25 Agustus 2026 pukul 23.55 WIB).
-- Tidak melengkapi link video proof of work dan source code — panitia berhak mendiskualifikasi tim yang belum melengkapi kedua poin ini secara eksplisit.
+- Tidak melengkapi link video proof of work dan source code - panitia berhak mendiskualifikasi tim yang belum melengkapi kedua poin ini secara eksplisit.
 - Repository tidak dapat diakses/dijalankan panitia (setup guide README.md tidak jelas, docker compose tidak berfungsi).
 - Video di-cut/diedit di luar percepatan yang diizinkan, atau fitur yang ditampilkan di video promosi tidak ada di video proof of work.
 - Menunjukkan latar belakang institusi pendidikan dalam bentuk apa pun selama perlombaan.
@@ -141,7 +141,7 @@ Catatan: rulebook yang dilampirkan hanya memuat rubrik penilaian tahap penyisiha
 
 ### 2.14 Karakteristik Ide yang Kemungkinan Besar Dinilai Overbuilt
 
-- Menyertakan dashboard analitik multi-halaman, sistem otentikasi/role management kompleks, atau riwayat penggunaan lengkap pada tahap penyisihan — padahal rulebook eksplisit membatasi frontend hanya pada input tunggal → output AI.
+- Menyertakan dashboard analitik multi-halaman, sistem otentikasi/role management kompleks, atau riwayat penggunaan lengkap pada tahap penyisihan - padahal rulebook eksplisit membatasi frontend hanya pada input tunggal → output AI.
 - Menyertakan background jobs, pipeline data logging otomatis, atau infrastruktur database terdistribusi yang tidak diperlukan untuk membuktikan inferensi inti.
 - Menambahkan sistem auto-tuning model, bulk testing scripts, atau feedback loop otomatis yang menurut rulebook eksplisit tidak diminta pada tahap penyisihan.
 - Mengintegrasikan banyak fitur AI sekaligus (multi-model orchestration kompleks) sehingga sulit dijelaskan dan direproduksi dalam waktu terbatas oleh juri.
@@ -150,14 +150,14 @@ Catatan: rulebook yang dilampirkan hanya memuat rubrik penilaian tahap penyisiha
 ### 2.15 Karakteristik Ide yang Kemungkinan Besar Dinilai Underbuilt
 
 - Hanya membungkus panggilan API model besar (mis. satu prompt ke LLM komersial) tanpa fine-tuning, RAG, tool calling, atau bentuk kustomisasi lain yang dapat ditunjukkan sebagai kontribusi teknis tim.
-- Masalah yang diangkat terlalu umum/generik ("AI membantu personalisasi") tanpa target pengguna, dataset, atau metrik evaluasi yang jelas — sehingga sulit menunjukkan kematangan arsitektur maupun orisinalitas.
+- Masalah yang diangkat terlalu umum/generik ("AI membantu personalisasi") tanpa target pengguna, dataset, atau metrik evaluasi yang jelas - sehingga sulit menunjukkan kematangan arsitektur maupun orisinalitas.
 - Tidak ada baseline atau ground truth yang bisa dibandingkan, sehingga klaim "AI meningkatkan X%" tidak dapat diuji juri secara lokal.
-- Fitur yang didemonstrasikan di video promosi tidak konsisten dengan yang ada di video proof of work / repository — video promosi under-delivers relatif terhadap klaimnya.
+- Fitur yang didemonstrasikan di video promosi tidak konsisten dengan yang ada di video proof of work / repository - video promosi under-delivers relatif terhadap klaimnya.
 
 
 ## 3. Definisi dan Batas Smart Commerce
 
-Smart Commerce, sebagaimana didefinisikan rulebook, adalah penerapan AI pada sisi konsumen, operasional penjualan (sales operation), dan transaksi komersial — mencakup personalisasi layanan, analisis perilaku konsumen, dan optimasi penjualan/pemasaran. Untuk kebutuhan riset, dossier ini memetakan Smart Commerce ke dalam 25 domain turunan yang diberikan sebagai kerangka acuan, dan secara aktif menghindari domain yang lebih dominan pada distribusi fisik (Smart Logistics) atau proses produksi (Smart Manufacturing).
+Smart Commerce, sebagaimana didefinisikan rulebook, adalah penerapan AI pada sisi konsumen, operasional penjualan (sales operation), dan transaksi komersial - mencakup personalisasi layanan, analisis perilaku konsumen, dan optimasi penjualan/pemasaran. Untuk kebutuhan riset, dossier ini memetakan Smart Commerce ke dalam 25 domain turunan yang diberikan sebagai kerangka acuan, dan secara aktif menghindari domain yang lebih dominan pada distribusi fisik (Smart Logistics) atau proses produksi (Smart Manufacturing).
 
 
 ### 3.1 Peta 25 Domain Smart Commerce
@@ -197,9 +197,9 @@ Smart Commerce, sebagaimana didefinisikan rulebook, adalah penerapan AI pada sis
 | --- | --- | --- |
 | Smart Manufacturing | Penerapan AI di proses pengolahan dan operasi pabrik (predictive maintenance, quality control, otomatisasi produksi) | Deteksi cacat produk di lini produksi, penjadwalan mesin pabrik, prediksi downtime peralatan |
 | Smart Logistics | Penerapan AI di pergudangan, distribusi, dan pergerakan barang (visibilitas, akurasi perencanaan, efisiensi penggerakan barang) | Optimasi rute pengiriman, peramalan stok gudang, robotika pergudangan, manajemen armada |
-| Smart Commerce (fokus riset ini) | Penerapan AI di sisi konsumen, sales operasional, dan transaksi komersial | — |
+| Smart Commerce (fokus riset ini) | Penerapan AI di sisi konsumen, sales operasional, dan transaksi komersial | - |
 
-Beberapa masalah berada di zona abu-abu (mis. "prediksi permintaan" bisa relevan untuk Smart Commerce — memandu keputusan promosi/pricing penjual — maupun Smart Logistics — memandu pengisian gudang). Dossier ini hanya memasukkan sudut pandang Smart Commerce: prediksi permintaan sebagai input keputusan komersial penjual (restock/promosi), bukan sebagai optimasi rute atau gudang fisik.
+Beberapa masalah berada di zona abu-abu (mis. "prediksi permintaan" bisa relevan untuk Smart Commerce - memandu keputusan promosi/pricing penjual - maupun Smart Logistics - memandu pengisian gudang). Dossier ini hanya memasukkan sudut pandang Smart Commerce: prediksi permintaan sebagai input keputusan komersial penjual (restock/promosi), bukan sebagai optimasi rute atau gudang fisik.
 
 
 ## 4. Research Methodology

@@ -1,15 +1,15 @@
-"""Evaluasi sentimen pada dataset berlabel MANUSIA yang sudah ada — tanpa anotasi tambahan.
+"""Evaluasi sentimen pada dataset berlabel MANUSIA yang sudah ada - tanpa anotasi tambahan.
 
 Menjawab pertanyaan "apakah kita bisa memakai data berlabel yang sudah ada saja?".
 
 Untuk SENTIMEN: bisa, dan dipakai di sini. Dua sumber, keduanya berlabel manusia dan sepenuhnya
 independen dari labeling function kita:
 
-  1. NusaX-senti (indonlp) — anotasi expert-generated, CC-BY-SA-4.0. Mencakup Bahasa Indonesia,
+  1. NusaX-senti (indonlp) - anotasi expert-generated, CC-BY-SA-4.0. Mencakup Bahasa Indonesia,
      Inggris, dan bahasa daerah (Jawa, Sunda, Minang). Inilah satu-satunya cara menguji dua klaim
      yang selama ini tidak pernah bisa kita uji: ketahanan terhadap campuran bahasa daerah
      (blueprint bagian 42.1) dan terhadap bahasa Inggris.
-  2. PRDECT-ID — kolom `Sentiment` berlabel manusia (biner), dari makalah Data in Brief.
+  2. PRDECT-ID - kolom `Sentiment` berlabel manusia (biner), dari makalah Data in Brief.
      Dievaluasi HANYA pada split test agar produknya terpisah dari data latih.
 
 Untuk ASPEK: tidak bisa. Penelusuran delapan variasi kueri di HuggingFace tidak menemukan dataset

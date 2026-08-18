@@ -2,7 +2,7 @@
 
 Inilah satu-satunya langkah manual yang dibutuhkan juri sebelum menjalankan sistem penuh.
 Tanpa berkas ini sistem TETAP berjalan memakai jalur leksikon dan menyatakan keterbatasannya
-di `/api/v1/readiness` — tetapi yang berjalan bukan sistem yang dijelaskan proposal.
+di `/api/v1/readiness` - tetapi yang berjalan bukan sistem yang dijelaskan proposal.
 
 Jalankan:
     python scripts/download_checkpoint.py
@@ -22,7 +22,7 @@ CHECKPOINT_REPO = "MikaelAdi/insightulasan-nlp01"
 
 def main() -> int:
     if (DEST / "model.pt").exists():
-        print(f"Checkpoint sudah ada di {DEST} — tidak ada yang perlu diunduh.")
+        print(f"Checkpoint sudah ada di {DEST} - tidak ada yang perlu diunduh.")
         return 0
 
     try:

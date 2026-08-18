@@ -124,10 +124,10 @@ Gold test set ini adalah **satu-satunya sumber angka NLP-01 yang boleh masuk pro
    jelas, isi `catatan_pelabel` dan tetap ambil keputusan terbaik.
 2. Satu klausa boleh punya **lebih dari satu aspek**, boleh juga **tidak punya aspek sama
    sekali** (mis. "terima kasih gan"). Klausa tanpa aspek adalah label yang sah, bukan
-   kesalahan — biarkan seluruh kolom aspek kosong.
+   kesalahan - biarkan seluruh kolom aspek kosong.
 3. Jangan melihat tebakan sistem sebelum melabeli. Berkas ini sengaja tidak memuatnya.
 
-## Kolom aspek — isi `1` jika klausa membicarakan aspek tersebut, biarkan kosong jika tidak
+## Kolom aspek - isi `1` jika klausa membicarakan aspek tersebut, biarkan kosong jika tidak
 
 {aspects}
 
@@ -135,7 +135,7 @@ Acuan definisi tiap aspek ada di `configs/taxonomy.yaml` (status FROZEN).
 Catatan khusus: untuk kategori F&B, `asp_ukuran_varian` dipakai untuk keluhan
 **porsi/takaran**; untuk kerajinan, untuk **dimensi produk**.
 
-## Kolom `sentimen` — wajib diisi salah satu
+## Kolom `sentimen` - wajib diisi salah satu
 
 | Nilai | Kapan dipakai |
 | --- | --- |
@@ -146,7 +146,7 @@ Catatan khusus: untuk kategori F&B, `asp_ukuran_varian` dipakai untuk keluhan
 Perhatikan **negasi** ("bukan jelek kok" = positif) dan **sarkasme** ("mantap banget nih
 ditipu" = negatif). Dua hal ini adalah titik paling sering salah.
 
-## Kolom `severity` — isi HANYA jika sentimen negatif
+## Kolom `severity` - isi HANYA jika sentimen negatif
 
 | Nilai | Kapan dipakai |
 | --- | --- |

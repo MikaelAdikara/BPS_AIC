@@ -1,10 +1,10 @@
-"""Evaluasi pada GOLD TEST SET — satu-satunya angka NLP-01 yang layak dikutip.
+"""Evaluasi pada GOLD TEST SET - satu-satunya angka NLP-01 yang layak dikutip.
 
 Membandingkan tiga pendekatan pada label gold yang sama (blueprint bagian 34 baseline #2 dan #3):
 
-    1. Labeling function leksikon  — pendekatan rule-based
-    2. TF-IDF + Logistic Regression — baseline statistik
-    3. IndoBERT fine-tuned          — model utama
+    1. Labeling function leksikon  - pendekatan rule-based
+    2. TF-IDF + Logistic Regression - baseline statistik
+    3. IndoBERT fine-tuned          - model utama
 
 ASAL-USUL LABEL GOLD, dibaca apa adanya (ADR-017):
 Label berasal dari pembacaan semantik LLM atas 500 klausa, lalu ditinjau dan disetujui tim.
@@ -12,7 +12,7 @@ Untuk 302 baris yang leksikon dan LLM berbeda, tim memutuskan kolom LLM yang ben
 sisanya sudah disepakati kedua sumber sejak awal.
 
 Konsekuensinya harus disebut terang-terangan: seluruh label gold berasal dari satu sumber
-pembacaan yang sama, disetujui manusia — BUKAN anotasi manusia independen dari nol. Angka di
+pembacaan yang sama, disetujui manusia - BUKAN anotasi manusia independen dari nol. Angka di
 bawah karena itu mengukur kesesuaian model terhadap pembacaan tersebut. Ia jauh lebih bermakna
 daripada metrik silver (yang sirkular terhadap leksikon), tetapi tidak setara dengan gold yang
 dianotasi manusia secara independen.
@@ -83,7 +83,7 @@ def build_gold() -> pd.DataFrame:
 
 
 def predict_lexicon(texts: list[str]) -> tuple[np.ndarray, list[str]]:
-    """Pendekatan rule-based murni — pembanding wajib bagian 34 baseline #2."""
+    """Pendekatan rule-based murni - pembanding wajib bagian 34 baseline #2."""
     aspect_pred = np.zeros((len(texts), len(ALL_ASPECTS)), dtype=int)
     sentiments = []
     for i, text in enumerate(texts):

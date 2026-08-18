@@ -39,7 +39,7 @@ def test_aspek_yang_banyak_dikeluhkan_bukan_peluang():
 
 
 def test_pujian_yang_terlalu_jarang_tidak_diangkat():
-    """Dua sebutan positif bukan bukti kekuatan — itu kebetulan."""
+    """Dua sebutan positif bukan bukti kekuatan - itu kebetulan."""
     assert find_opportunities([_agg(Aspect.KEMASAN, positive=2)], total_reviews=50) == []
 
 

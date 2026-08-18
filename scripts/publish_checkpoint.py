@@ -1,7 +1,7 @@
 """Unggah checkpoint IndoBERT ke HuggingFace Hub (Fase 9, distribusi model).
 
 Bobot berukuran 499 MB dan tidak masuk git. Tanpa jalur distribusi, juri yang meng-clone
-repositori hanya mendapat jalur leksikon — sistemnya berjalan, tetapi bukan sistem yang
+repositori hanya mendapat jalur leksikon - sistemnya berjalan, tetapi bukan sistem yang
 dijelaskan proposal.
 
 HF Hub dipilih daripada GitHub Release karena unduhannya dapat dijalankan program:
@@ -24,7 +24,7 @@ REPO = Path(__file__).resolve().parents[1]
 CKPT_DIR = REPO / "models" / "indobert-nlp01"
 
 # Kartu model yang ikut terbit di Hub. Ditulis di sini, bukan disalin manual, supaya batas
-# klaimnya tidak terpisah dari bobotnya — siapa pun yang mengunduh model ini langsung
+# klaimnya tidak terpisah dari bobotnya - siapa pun yang mengunduh model ini langsung
 # membaca apa yang boleh dan tidak boleh disimpulkan darinya.
 CARD = """---
 license: apache-2.0
@@ -40,18 +40,18 @@ Bahasa Indonesia informal. Dibangun untuk AIC COMPFEST 18.
 
 Dua kepala di atas satu encoder bersama: multi-label aspek (11 kelas) dan sentimen tiga kelas.
 
-## Batas klaim — baca sebelum memakai
+## Batas klaim - baca sebelum memakai
 
 **Sentimen: tervalidasi.** Pada label manusia independen (NusaX-senti, PRDECT-ID) macro F1
 0,730 berbanding 0,700 milik baseline leksikon. Kelas netral membaik dari 0,021 ke 0,645.
 
 **Aspek: BELUM tervalidasi.** Label aspek pada data latih berasal dari labeling function yang
-ditulis tim sendiri, sehingga metrik aspek mengukur kesepakatan dengan aturan itu — bukan
+ditulis tim sendiri, sehingga metrik aspek mengukur kesepakatan dengan aturan itu - bukan
 akurasi. Angka aspek tidak boleh dikutip sebagai capaian.
 
 **Kelemahan yang diketahui:** model kurang memanggil kelas negatif. Pada PRDECT-ID, 128 dari
 420 ulasan berlabel negatif tidak dikenali. Penyebabnya bukan aturan keputusan di batas
-ambang — 88% di antaranya diprediksi dengan probabilitas negatif di bawah 0,10, artinya model
+ambang - 88% di antaranya diprediksi dengan probabilitas negatif di bawah 0,10, artinya model
 yakin ketika ia salah.
 
 Rincian lengkap: <https://github.com/patrick12354/BPS_AIC> (docs/MODEL_CARD.md, LIMITATIONS.md)

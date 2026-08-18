@@ -10,7 +10,7 @@ Kebijakan sesuai blueprint bagian 31.1.
 | `samples/` | **YA** | Dataset demo kecil agar juri dapat mencoba tanpa data sendiri (ING-04) |
 | `schemas/` | **YA** | JSON schema kontrak data (bagian 25) |
 
-Dataset publik pihak ketiga **tidak** di-commit — alasan lisensi dan ukuran. Script unduh
+Dataset publik pihak ketiga **tidak** di-commit - alasan lisensi dan ukuran. Script unduh
 mengambil ulang dari sumber resmi.
 
 Data pengguna saat runtime bersifat **session-only** dan tidak pernah ditulis ke folder ini

@@ -1,4 +1,4 @@
-"""preprocess_reviews() — ING-01, tool contract bagian 27.3.
+"""preprocess_reviews() - ING-01, tool contract bagian 27.3.
 
 Titik masuk tunggal data ke sistem. Selalu berjalan pertama, dan selalu diikuti
 `redact_personal_data()` sebelum model manapun melihat teksnya.
@@ -39,7 +39,7 @@ def _normalize_text(raw_text: str | None) -> str:
 
     Entitas HTML wajib dipulihkan di sini. Ekspor marketplace kerap membawa `&#34;` atau `&amp;`
     apa adanya, dan karena kutipan bukti ditampilkan VERBATIM, entitas yang lolos akan muncul
-    sebagai sampah di layar — tepat pada elemen yang paling menentukan kepercayaan pengguna.
+    sebagai sampah di layar - tepat pada elemen yang paling menentukan kepercayaan pengguna.
     Memulihkannya di hulu juga membuat model melihat teks yang sama dengan yang dibaca manusia.
     """
     text = html.unescape(raw_text or "")

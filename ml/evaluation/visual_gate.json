@@ -69,7 +69,7 @@
         "alarm_palsu_pada_normal": 0.614
       },
       "keputusan": "NO-GO",
-      "alasan": "Akurasi argmax 45% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 61% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah — model menjawab terutama pada kelas mayoritas."
+      "alasan": "Akurasi argmax 45% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 61% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah - model menjawab terutama pada kelas mayoritas."
     },
     "en": {
       "ambang_dari_kalibrasi": {
@@ -140,7 +140,7 @@
         "alarm_palsu_pada_normal": 0.7193
       },
       "keputusan": "NO-GO",
-      "alasan": "Akurasi argmax 37% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 72% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah — model menjawab terutama pada kelas mayoritas."
+      "alasan": "Akurasi argmax 37% TIDAK melampaui pembanding sepele 'selalu tebak normal' (61%), dan 72% foto normal salah ditandai bermasalah. Selective accuracy yang tampak tinggi hanya dihasilkan oleh abstain pada hampir seluruh foto bermasalah - model menjawab terutama pada kelas mayoritas."
     }
   }
 }

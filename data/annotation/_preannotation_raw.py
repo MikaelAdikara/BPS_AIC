@@ -1,4 +1,4 @@
-"""Pra-anotasi LLM untuk gold test set — penilaian semantik per klausa.
+"""Pra-anotasi LLM untuk gold test set - penilaian semantik per klausa.
 
 BUKAN keluaran labeling function. Ditulis dengan membaca tiap klausa satu per satu, lalu
 dibandingkan terhadap label silver untuk menemukan titik-titik yang perlu diadjudikasi manusia.

@@ -57,7 +57,7 @@ def _ctx(index=_DEFAULT, aggregates=None, vocabulary=None) -> QnAContext:
 
 
 def test_jawaban_selalu_membawa_kutipan():
-    """Jawaban tanpa kutipan tidak dapat diperiksa pengguna — dan itu yang produk ini hindari."""
+    """Jawaban tanpa kutipan tidak dapat diperiksa pengguna - dan itu yang produk ini hindari."""
     res = answer_question(_ctx(), "kenapa pengiriman lama?")
     assert res.no_answer is False
     assert res.citations
@@ -142,7 +142,7 @@ REVIEW_WORDS = _vocab(
 
 def test_pertanyaan_di_luar_data_ditolak_meski_ada_kata_yang_cocok():
     """Retrieval selalu punya tetangga terdekat; tanpa penjaga ini pertanyaan harga saham
-    terjawab oleh statistik harga produk — lengkap dengan kutipan, sehingga tampak sah."""
+    terjawab oleh statistik harga produk - lengkap dengan kutipan, sehingga tampak sah."""
     assert is_out_of_domain("Berapa harga saham Telkom besok?", REVIEW_WORDS) is True
 
 
@@ -204,7 +204,7 @@ def test_stemmer_konsisten_antara_pertanyaan_dan_korpus():
 def test_tanpa_korpus_pertanyaan_topikal_ditolak():
     """Arah kegagalan yang disengaja: tanpa korpus, klaim topikal tidak dapat dibuktikan.
 
-    Pertanyaan analitis tetap lolos karena kosakatanya memang bukan berasal dari ulasan —
+    Pertanyaan analitis tetap lolos karena kosakatanya memang bukan berasal dari ulasan -
     pembeli menulis "paketnya telat", bukan "aspek pengiriman bersentimen negatif".
     """
     assert is_out_of_domain("kenapa pengiriman lama sekali?", set()) is True

@@ -1,7 +1,7 @@
 # docker/
 
 Deployment lokal InsightUlasan (blueprint bagian 30). Berkas `docker-compose.yml` ada di
-**root repository**, bukan di folder ini — juri menjalankan `docker compose up` dari root,
+**root repository**, bukan di folder ini - juri menjalankan `docker compose up` dari root,
 dan meminta mereka mengetik `-f docker/docker-compose.yml` hanya menambah satu cara gagal.
 Ini menutup pertanyaan terbuka yang sebelumnya dicatat di sini.
 
@@ -14,7 +14,7 @@ docker compose up --build
 Frontend di <http://localhost:3000>, API di <http://localhost:8000>.
 
 Container `web` menunggu `api` melewati healthcheck-nya, dan healthcheck itu menembak
-`/api/v1/readiness` — bukan `/health`. Bedanya penting: `/health` menjawab begitu proses
+`/api/v1/readiness` - bukan `/health`. Bedanya penting: `/health` menjawab begitu proses
 hidup, sedangkan halaman depan baru berguna setelah model selesai dimuat.
 
 ## Dua service, bukan tiga
@@ -34,7 +34,7 @@ memasangnya dari host sebagai volume **read-only**:
 
 **Sistem tetap berjalan kalau folder itu kosong.** Tanpa checkpoint, klasifikasi turun ke
 jalur leksikon dan `/api/v1/readiness` menyatakan keterbatasannya. Hasil analisisnya lebih
-lemah, tetapi seluruh alur — unggah, prioritas, bukti, tanya jawab — tetap dapat
+lemah, tetapi seluruh alur - unggah, prioritas, bukti, tanya jawab - tetap dapat
 didemonstrasikan. Ini keputusan sadar: `docker compose up` yang gagal total hanya karena
 satu berkas besar tidak ada akan membuat sistem tampak rapuh padahal tidak.
 
@@ -50,7 +50,7 @@ keputusan pemilik repo.
 | Jalur di dalam container | simulasi `parents[4]` → `/app` | cocok dengan titik pasang volume |
 | Endpoint healthcheck | dicocokkan ke rute `main.py` | ada |
 | `npm ci` punya lockfile | keberadaan `package-lock.json` | ada |
-| **Image benar-benar terbangun dan berjalan** | — | **BELUM** — Docker tidak terpasang di mesin pengembangan |
+| **Image benar-benar terbangun dan berjalan** | - | **BELUM** - Docker tidak terpasang di mesin pengembangan |
 
 Baris terakhir ditulis apa adanya: konfigurasi ini disusun dan diperiksa secara statis,
 tetapi `docker compose up` belum pernah dijalankan sampai selesai. Perbaikan yang sudah
@@ -61,8 +61,8 @@ ditemukan lewat pemeriksaan statis: `COPY data/baseline` menunjuk folder yang ti
 ## Target bagian 30.3 yang menjadi acuan
 
 - CPU-only default; torch varian CPU dipasang eksplisit supaya roda CUDA ~2 GB tidak ikut.
-- Offline penuh setelah build pertama — cache HuggingFace dipertahankan di volume `hf-cache`.
+- Offline penuh setelah build pertama - cache HuggingFace dipertahankan di volume `hf-cache`.
 - Startup sampai readiness: ~53 detik terukur di luar container; `start_period` healthcheck
   disetel 120 detik untuk mesin yang lebih lambat.
 - Tidak ada volume untuk data pengguna. Ulasan hidup selama satu request dan tidak pernah
-  menyentuh disk — ketiadaan volume itu bagian dari janjinya, bukan kelalaian konfigurasi.
+  menyentuh disk - ketiadaan volume itu bagian dari janjinya, bukan kelalaian konfigurasi.

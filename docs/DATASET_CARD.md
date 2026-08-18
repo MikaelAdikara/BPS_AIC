@@ -3,7 +3,7 @@
 Status: **Fase 1.** Verifikasi lisensi, profiling, harmonisasi, dan pelabelan silver selesai.
 Yang belum: anotasi gold test set oleh tim (§5a) dan akuisisi foto validasi visual (§8).
 
-## 1. Dataset yang dipakai — lisensi TERVERIFIKASI
+## 1. Dataset yang dipakai - lisensi TERVERIFIKASI
 
 Menjawab open question #1 blueprint bagian 48 dan prasyarat bagian 26.1 langkah 2. Ketiga dataset
 punya lisensi eksplisit di halaman sumbernya, diverifikasi lewat HuggingFace API pada 5 Agustus 2026.
@@ -18,7 +18,7 @@ punya lisensi eksplisit di halaman sumbernya, diverifikasi lewat HuggingFace API
 Sutoyo, R. dkk. _PRDECT-ID: Indonesian product reviews dataset for emotions classification tasks_,
 Data in Brief (2022), arXiv:2406.10118.
 
-Ketiganya permisif dan kompatibel dengan lisensi MIT repository ini. Dataset **tidak di-commit** —
+Ketiganya permisif dan kompatibel dengan lisensi MIT repository ini. Dataset **tidak di-commit** -
 diunduh ulang lewat `scripts/download_datasets.py` (bagian 31.1).
 
 Mirror yang sengaja **tidak** dipakai: `SEACrowd/prdect_id` dan `SEACrowd/casa`/`hoasa` memakai
@@ -31,7 +31,7 @@ serialized model"); `carant-ai/compiled-absa-indonesian` berstatus gated tanpa l
 | --- | --- | --- |
 | PRDECT-ID | Category, Product Name, Location, Price, Overall Rating, Number Sold, Total Review, Customer Rating, Customer Review, Sentiment, Emotion | Sentiment **biner** (Positive/Negative), Emotion 5 kelas (Happy/Sadness/Fear/Love/Anger) |
 | e-commerce-sentiment | comment, rating, sentiment (+ category pada `challange.json`) | Sentiment **3 kelas**; `category` = jenis fenomena linguistik, **bukan** aspek produk |
-| Tokopedia 2019 | text, rating, category, product_name, product_id, sold, shop_id, product_url | **tidak ada label sentimen** — hanya rating 1–5 |
+| Tokopedia 2019 | text, rating, category, product_name, product_id, sold, shop_id, product_url | **tidak ada label sentimen** - hanya rating 1–5 |
 
 ## 3. Profiling data nyata
 
@@ -44,7 +44,7 @@ serialized model"); `carant-ai/compiled-absa-indonesian` berstatus gated tanpa l
 | Distribusi rating | 5★ 40%, 1★ 34% | 5★ 75%, 4★ 19% |
 | Kategori produk | 29 kategori | 5 (elektronik, fashion, olahraga, handphone, pertukangan) |
 
-Keduanya mendukung **product-level split** (bagian 26.1 langkah 6) — jumlah produk unik memadai.
+Keduanya mendukung **product-level split** (bagian 26.1 langkah 6) - jumlah produk unik memadai.
 Tokopedia sangat condong positif (75% bintang 5), sesuai dugaan imbalance pada dossier 14.2;
 mitigasi memakai class weighting, bukan oversampling naif.
 
@@ -67,7 +67,7 @@ mitigasi memakai class weighting, bukan oversampling naif.
 | Rata-rata aspek/ulasan | 1,79 (54% punya ≥2) | 1,37 (42% punya ≥2) |
 
 Artinya taksonomi 11 aspek memang tercermin di data nyata, dan sifat **multi-label** pada bagian 18.1
-terkonfirmasi secara empiris — bukan asumsi.
+terkonfirmasi secara empiris - bukan asumsi.
 
 ## 4. Catatan kualitas: `e-commerce-sentiment-bahasa-indonesia`
 
@@ -75,14 +75,14 @@ Dataset ini **tidak layak dipakai sebagai data latih apa adanya**:
 
 - `simple.json` berisi 17.000 baris tetapi hanya **2.193 komentar unik (87% duplikasi)**. Frasa
   generik berulang 130–150 kali ("Fifty fifty", "Standar lah", "Biasa aja sih").
-- Distribusi kelas **persis seimbang** (5.667 / 5.667 / 5.666) — pola yang tidak terjadi pada
+- Distribusi kelas **persis seimbang** (5.667 / 5.667 / 5.666) - pola yang tidak terjadi pada
   ulasan marketplace nyata.
 - Dataset card tidak menyebut sumber, metode pengumpulan, maupun metodologi anotasi.
 
 Melatih di atasnya berisiko kebocoran duplikat lintas split dan mengajarkan distribusi buatan.
 
 `challange.json` (4.840 baris, **seluruhnya unik**) justru bernilai tinggi untuk keperluan lain:
-setiap baris ditandai jenis fenomena linguistik — `sarcasm`, `negation`, `typos_informal`,
+setiap baris ditandai jenis fenomena linguistik - `sarcasm`, `negation`, `typos_informal`,
 `colloquial_slang`, `mixed_sentiment`, `ambiguous`, dan lainnya. Ini persis yang dibutuhkan
 bagian 33.1 ("performa slang/typo diuji terpisah pada subset ulasan sangat informal").
 
@@ -111,13 +111,13 @@ diwajibkan schema bagian 25.4.
 | Label | Cara diperoleh | Sifat |
 | --- | --- | --- |
 | Aspek (11, multi-label) | Labeling function leksikon per klausa; istilah topik dipisah tegas dari istilah polaritas | SILVER |
-| Sentimen — PRDECT-ID | Label manusia `Sentiment` (biner) sebagai prior tingkat ulasan | manusia (biner) |
-| Sentimen — Tokopedia | Diturunkan dari rating: 4–5 positif, 3 netral, 1–2 negatif | weak label |
-| Sentimen — tingkat klausa | Leksikon polaritas + penanganan negasi; jika klausa tanpa sinyal, pakai prior ulasan | SILVER |
+| Sentimen - PRDECT-ID | Label manusia `Sentiment` (biner) sebagai prior tingkat ulasan | manusia (biner) |
+| Sentimen - Tokopedia | Diturunkan dari rating: 4–5 positif, 3 netral, 1–2 negatif | weak label |
+| Sentimen - tingkat klausa | Leksikon polaritas + penanganan negasi; jika klausa tanpa sinyal, pakai prior ulasan | SILVER |
 | Severity | Heuristik deterministic dari rating (negatif + rating ≤2 → tinggi, =3 → sedang, ≥4 → rendah) | heuristik |
 
 Sentimen klausa: 56% berasal dari sinyal polaritas di klausa itu sendiri, 44% dari prior tingkat
-ulasan. Porsi 44% inilah sumber derau utama pada label sentimen — terlihat dari kelas `netral`
+ulasan. Porsi 44% inilah sumber derau utama pada label sentimen - terlihat dari kelas `netral`
 yang runtuh pada evaluasi baseline (lihat MODEL_CARD §3.1).
 
 **Distribusi hasil:**
@@ -126,7 +126,7 @@ yang runtuh pada evaluasi baseline (lihat MODEL_CARD §3.1).
 | --- | --- |
 | Sentimen klausa | positif 81.343 (84%) · negatif 12.711 (13%) · netral 2.246 (2%) |
 | Kategori (ulasan) | electronics 19.348 · other 9.442 · fashion 8.939 · craft 2.061 · **food_beverage 196** |
-| Klausa tanpa aspek | 43.589 (45%) — label sah, dipakai sebagai negatif |
+| Klausa tanpa aspek | 43.589 (45%) - label sah, dipakai sebagai negatif |
 
 Aspek per klausa: pengiriman 13,1% · kualitas_produk 14,9% · kesesuaian_deskripsi 11,8% ·
 pelayanan_penjual 9,4% · kemasan 4,4% · harga_value 3,2% · ukuran_varian 2,2% · keaslian 1,3% ·
@@ -135,9 +135,9 @@ kemudahan_penggunaan 1,3% · rasa_kualitas_makanan 0,5% · kelengkapan 0,5%.
 **Keterbatasan cakupan yang harus dicatat:** kategori `food_beverage` hanya terwakili 196 ulasan,
 sehingga aspek `rasa_kualitas_makanan` praktis tidak terlatih memadai, dan baseline kategori F&B
 untuk BEN-01 tidak akan punya sampel yang layak. Ini memengaruhi klaim "taxonomy dapat disesuaikan
-per kategori" (bagian 18.2) — mekanismenya ada, tetapi buktinya untuk F&B lemah.
+per kategori" (bagian 18.2) - mekanismenya ada, tetapi buktinya untuk F&B lemah.
 
-## 5a. Gold test set (berlabel manusia) — belum selesai
+## 5a. Gold test set (berlabel manusia) - belum selesai
 
 Berkas tugas anotasi sudah dibuat: `data/annotation/gold_annotation_task.csv` (500 klausa) dengan
 panduan `data/annotation/PANDUAN_ANOTASI.md`. Sampel diambil **hanya dari split test** sehingga
@@ -160,17 +160,17 @@ LLM membaca seluruh 500 klausa secara semantik, lalu hasilnya dibandingkan terha
 
 Perselisihan itu sendiri sudah menyingkap tiga bug labeling function yang nyata:
 
-1. **"enak" memicu `rasa_kualitas_makanan`** pada konteks non-makanan — "enak dipakai",
+1. **"enak" memicu `rasa_kualitas_makanan`** pada konteks non-makanan - "enak dipakai",
    "enak dimainin" ikut terlabeli rasa (22 kasus over-label).
 2. **Aturan cadangan "barang" memicu `kualitas_produk`** pada kalimat yang sebenarnya soal
-   pengiriman — "barang sudah di terima" terlabeli kualitas produk dan positif, padahal
+   pengiriman - "barang sudah di terima" terlabeli kualitas produk dan positif, padahal
    `pengiriman` dan netral.
-3. **Variasi kata membuat leksikon meleset** — "lama banget sampenya" tidak terdeteksi karena
+3. **Variasi kata membuat leksikon meleset** - "lama banget sampenya" tidak terdeteksi karena
    leksikon hanya memuat "sampai".
 
 Terukur terhadap pembacaan LLM (**bukan** gold): presisi labeling function ~79%, recall ~65%.
 
-**Angka kesepakatan bukan ukuran kebenaran** — keduanya bisa sama-sama keliru, dan keduanya
+**Angka kesepakatan bukan ukuran kebenaran** - keduanya bisa sama-sama keliru, dan keduanya
 berangkat dari definisi taksonomi yang sama sehingga tidak independen penuh. Ia hanya menunjukkan
 berapa banyak baris yang perlu diputuskan manusia.
 
@@ -184,19 +184,19 @@ taksonomi 11 aspek (bagian 18.2) via mapping table manual"_.
 Setelah data diunduh dan diperiksa, pemetaan ini **tidak dapat dijalankan sebagaimana tertulis**:
 
 - `Emotion` PRDECT-ID (Happy/Sadness/Fear/Love/Anger) adalah dimensi **emosi**, bukan aspek. Tidak
-  ada fungsi yang memetakan "Sadness" ke "ukuran_varian" — satu ulasan sedih bisa soal aspek apa pun.
+  ada fungsi yang memetakan "Sadness" ke "ukuran_varian" - satu ulasan sedih bisa soal aspek apa pun.
 - `Category` PRDECT-ID dan Tokopedia adalah **kategori produk** (Women's Fashion, elektronik),
-  yaitu input untuk memilih aspek mana yang aktif — bukan label aspek itu sendiri.
+  yaitu input untuk memilih aspek mana yang aktif - bukan label aspek itu sendiri.
 - `category` pada `challange.json` adalah taksonomi **fenomena linguistik**, bukan aspek produk.
 
 Penelusuran dataset beraspek berbahasa Indonesia yang tersedia publik juga tidak menemukan
 pengganti yang cocok: CASA (ulasan mobil, 6 aspek) dan HoASA (hotel, 10 aspek) berada di domain
 yang berbeda dan aspeknya tidak sepadan dengan taksonomi e-commerce kita.
 
-**Keputusan:** label aspek dihasilkan lewat weak supervision + gold test set berlabel manusia —
+**Keputusan:** label aspek dihasilkan lewat weak supervision + gold test set berlabel manusia -
 lihat ADR-015 di `docs/ARCHITECTURE.md` dan pelaksanaannya di §5 / §5a di atas.
 
-## 7. Split — product-level, terverifikasi tanpa leakage
+## 7. Split - product-level, terverifikasi tanpa leakage
 
 Split 70/15/15 dilakukan di tingkat **produk**, bukan per baris (bagian 26.1 langkah 6), lalu
 diverifikasi eksplisit (langkah 7).
@@ -210,7 +210,7 @@ diverifikasi eksplisit (langkah 7).
 Verifikasi leakage: **0 produk** dan **0 review_id** yang muncul di lebih dari satu split.
 
 Yang tersisa dan dilaporkan terbuka: masih ada klausa dengan **teks identik** lintas split
-(train↔val 1.969, train↔test 1.600, val↔test 916) — frasa generik pendek seperti "barang bagus"
+(train↔val 1.969, train↔test 1.600, val↔test 916) - frasa generik pendek seperti "barang bagus"
 yang wajar berulang di produk berbeda. Ini bukan kebocoran produk, tetapi tetap dapat membuat
 metrik terlihat lebih baik lewat hafalan frasa. Karena itu `ml/text/baseline.py` selalu melaporkan
 metrik ganda: pada test penuh **dan** pada subset `unseen` (klausa yang teksnya tak pernah muncul
@@ -221,6 +221,6 @@ PII di-mask sebelum data dipakai. Untuk data Apify (Fase 3): nama akun, avatar, 
 tubuh dianonimkan sebelum diproses (dossier 21B.6.4).
 
 ## 9. Bias representasi yang diketahui
-Dataset publik cenderung berasal dari toko besar/aktif — bukan representasi sempurna UMKM mikro
+Dataset publik cenderung berasal dari toko besar/aktif - bukan representasi sempurna UMKM mikro
 (dossier bagian 14.2). Tokopedia 2019 juga berusia 6+ tahun sehingga tidak mencerminkan tren bahasa
 terbaru. Dicatat terbuka, tidak disembunyikan.

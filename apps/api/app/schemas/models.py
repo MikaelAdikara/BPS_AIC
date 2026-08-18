@@ -239,7 +239,7 @@ class ActionCard(_Base):
 # 25.11 - 25.13  Keluaran API
 # --------------------------------------------------------------------------------------
 class Opportunity(_Base):
-    """OPP-01 — aspek yang justru DIPUJI pelanggan (blueprint bagian 8.2, 22.3).
+    """OPP-01 - aspek yang justru DIPUJI pelanggan (blueprint bagian 8.2, 22.3).
 
     Disajikan sebagai sinyal untuk materi promosi, BUKAN sebagai teks iklan yang ditulis
     sistem (bagian 3.1: produk ini sengaja bukan generator konten marketing).
@@ -254,7 +254,7 @@ class Opportunity(_Base):
 
 
 class DataQuality(_Base):
-    """ING-05 — skor kualitas data batch yang diunggah.
+    """ING-05 - skor kualitas data batch yang diunggah.
 
     Ditampilkan supaya pengguna tahu seberapa jauh hasil ini layak dipercaya, alih-alih
     menerima angka apa adanya tanpa konteks.

@@ -12,30 +12,30 @@
 
 | Komponen | Model | Status |
 | --- | --- | --- |
-| Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | **terlatih** — lihat §4 untuk angka yang berlaku |
+| Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | **terlatih** - lihat §4 untuk angka yang berlaku |
 | Text fallback | TF-IDF + Logistic Regression | **terlatih (baseline Fase 1)** |
 | Visual Intelligence (VIS-01) | CLIP ViT-B/32 zero-shot, frozen | belum dievaluasi |
 | Embedding (RET-01) | BGE-M3 | **terintegrasi** (fallback E5 → TF-IDF) |
 | Orchestrator | SEA-LION quantized | belum diintegrasikan |
 
 ## 2. Data training
-_Diisi dari hasil Fase 1 — lihat [DATASET_CARD.md](DATASET_CARD.md)._
+_Diisi dari hasil Fase 1 - lihat [DATASET_CARD.md](DATASET_CARD.md)._
 
-## 3. Metrik evaluasi — model teks (bagian 33.1)
+## 3. Metrik evaluasi - model teks (bagian 33.1)
 
 ### 3.1 Baseline TF-IDF + Logistic Regression (Fase 1, sudah dijalankan)
 
 Script: `ml/text/baseline.py` · seed 42 · hasil mentah: `ml/evaluation/baseline_results.json`
 · log: `ml/evaluation/experiment_log.md` E02–E03.
 
-**Cara membaca angka di bawah — penting.** Label aspek dan sebagian label sentimen dihasilkan
+**Cara membaca angka di bawah - penting.** Label aspek dan sebagian label sentimen dihasilkan
 labeling function (ADR-015), bukan manusia. Karena itu:
 
 | Kolom | Artinya |
 | --- | --- |
 | `silver_test` | Kecocokan model terhadap **labeling function**, BUKAN akurasi sebenarnya |
 | `silver_test_unseen` | Sama, tetapi hanya pada klausa yang teksnya tak pernah muncul di train |
-| `stress_challange` | Sentimen pada `challange.json` — label **independen** dari LF kita |
+| `stress_challange` | Sentimen pada `challange.json` - label **independen** dari LF kita |
 
 | Task | silver_test | silver_test_unseen | stress_challange |
 | --- | --- | --- | --- |
@@ -43,7 +43,7 @@ labeling function (ADR-015), bukan manusia. Karena itu:
 | Aspek (macro F1, multi-label 11 kelas) | 0,938 | 0,923 | tidak berlaku (tanpa label aspek) |
 
 **Angka aspek 0,938 TIDAK boleh dibaca sebagai akurasi 94%.** Model TF-IDF hanya berhasil
-memulihkan aturan leksikon yang membuat labelnya — ini persis risiko sirkularitas yang dicatat
+memulihkan aturan leksikon yang membuat labelnya - ini persis risiko sirkularitas yang dicatat
 pada ADR-015. Angka aspek yang bermakna baru ada setelah gold test set selesai dilabeli.
 
 **Temuan sentimen:** kelas `netral` runtuh pada label silver (F1 0,113, support 256) namun jauh
@@ -53,7 +53,7 @@ netral terlalu jarang memicu, bukan modelnya yang gagal. Perlu diperbaiki sebelu
 **Kelemahan baseline per fenomena bahasa** (stress test, macro F1): mixed_sentiment 0,113 ·
 negation 0,163 · sarcasm 0,198 · ambiguous 0,237, berbanding typos_informal 0,736 ·
 short_vague 0,778 · colloquial_slang 0,789. Baseline menangani variasi permukaan dengan baik
-tetapi runtuh pada fenomena komposisional — inilah celah yang harus dibuktikan tertutup oleh
+tetapi runtuh pada fenomena komposisional - inilah celah yang harus dibuktikan tertutup oleh
 IndoBERT pada Fase 2 (bagian 34 baseline #3).
 
 Catatan kejujuran: `challange.json` labelnya independen dari labeling function kita, tetapi
@@ -73,24 +73,24 @@ sentimen 3 kelas), mean pooling atas token non-padding.
 
 | Metrik | Baseline TF-IDF | Fine-tuned IndoBERT | Selisih |
 | --- | --- | --- | --- |
-| Aspek — macro F1 (silver) | 0,938 | **0,985** | +0,047 |
-| Aspek — macro F1 (silver unseen) | 0,923 | **0,981** | +0,058 |
-| Sentimen — macro F1 (silver) | 0,563 | **0,628** | +0,065 |
-| Sentimen — macro F1 (stress) | 0,720 | **0,730** | +0,010 |
+| Aspek - macro F1 (silver) | 0,938 | **0,985** | +0,047 |
+| Aspek - macro F1 (silver unseen) | 0,923 | **0,981** | +0,058 |
+| Sentimen - macro F1 (silver) | 0,563 | **0,628** | +0,065 |
+| Sentimen - macro F1 (stress) | 0,720 | **0,730** | +0,010 |
 
 **Gate Fase 2 terlampaui** (kriteria: macro F1 > baseline). Tetapi angka-angka di atas tidak
-boleh dibaca begitu saja — tiga catatan berikut menentukan artinya.
+boleh dibaca begitu saja - tiga catatan berikut menentukan artinya.
 
-#### Catatan 1 — angka aspek tetap sirkular
+#### Catatan 1 - angka aspek tetap sirkular
 
 Kenaikan 0,938 → 0,985 **bukan bukti akurasi 98%**. Kedua model sedang memulihkan aturan
 leksikon yang membuat labelnya; IndoBERT hanya memulihkannya lebih baik. Ini persis risiko yang
 dicatat pada ADR-015. Angka aspek yang bermakna baru ada setelah gold test set selesai dilabeli.
 
-#### Catatan 2 — kenaikan pada label independen sangat tipis
+#### Catatan 2 - kenaikan pada label independen sangat tipis
 
 Pada stress set yang labelnya tidak berasal dari labeling function kita, kenaikannya hanya
-**+0,010** — di dalam rentang derau. Rata-rata itu menyembunyikan pergerakan besar ke dua arah:
+**+0,010** - di dalam rentang derau. Rata-rata itu menyembunyikan pergerakan besar ke dua arah:
 
 | Fenomena | Baseline | Fine-tuned | Selisih |
 | --- | --- | --- | --- |
@@ -107,7 +107,7 @@ Pada stress set yang labelnya tidak berasal dari labeling function kita, kenaika
 | ambiguous | 0,236 | 0,199 | **−0,037** |
 | question_conditional | 0,459 | 0,358 | **−0,101** |
 
-Pembacaan jujurnya: fine-tuning **benar-benar menutup celah negasi** — kenaikan +0,397 pada
+Pembacaan jujurnya: fine-tuning **benar-benar menutup celah negasi** - kenaikan +0,397 pada
 fenomena yang secara khusus diargumentasikan tidak dapat ditangani pendekatan permukaan.
 Sentimen campuran juga membaik besar meski levelnya masih rendah.
 
@@ -121,7 +121,7 @@ belajar dari label itu, jadi wajar ia mewarisi kelemahannya.
 negasi dan sentimen campuran. **Klaim yang TIDAK boleh dibuat:** bahwa sistem menangani sarkasme,
 atau bahwa fine-tuning unggul menyeluruh pada bahasa informal.
 
-#### Catatan 3 — bukti bahwa aturan label sentimen bermasalah
+#### Catatan 3 - bukti bahwa aturan label sentimen bermasalah
 
 Metrik sentimen distratifikasi menurut asal labelnya:
 
@@ -130,29 +130,29 @@ Metrik sentimen distratifikasi menurut asal labelnya:
 | `clause_polarity` (klausa punya sinyal polaritas) | **0,993** | Model memulihkan aturan LF nyaris sempurna |
 | `review_prior` (klausa tanpa sinyal, mewarisi sentimen ulasan) | **0,564** | Model tidak dapat mempelajarinya |
 
-Jurang 0,43 pada model, distribusi, dan arsitektur yang sama — dibedakan **hanya oleh asal
-label** — adalah bukti kuat bahwa aturan `review_prior` menghasilkan label yang tidak dapat
+Jurang 0,43 pada model, distribusi, dan arsitektur yang sama - dibedakan **hanya oleh asal
+label** - adalah bukti kuat bahwa aturan `review_prior` menghasilkan label yang tidak dapat
 dipelajari, karena memang tidak berkorespondensi dengan isi klausanya. Klausa tanpa muatan
 penilaian ("paket sudah diterima") diberi sentimen keseluruhan ulasan secara sewenang-wenang.
 
 Ini menguatkan dugaan Fase 1 yang saat itu belum punya bukti sah. Kelas `netral` tetap rusak
-(F1 0,136). **Revisi aturan sentimen ditunda sampai gold test set tersedia** — gold adalah
+(F1 0,136). **Revisi aturan sentimen ditunda sampai gold test set tersedia** - gold adalah
 penengah yang sah, dan retraining sebelum itu berarti menebak dua kali.
 
 #### Aspek per kelas (silver, terendah)
 
 `kelengkapan` 0,926 (support 46) · `ukuran_varian` 0,980 · `kemudahan_penggunaan` 0,983 ·
-`rasa_kualitas_makanan` 0,984. Aspek bersupport kecil tetap paling rapuh — konsisten dengan
+`rasa_kualitas_makanan` 0,984. Aspek bersupport kecil tetap paling rapuh - konsisten dengan
 keterbatasan cakupan kategori pada DATASET_CARD §5.
 
-### 3.3 Evaluasi pada gold test set — **angka yang berlaku**
+### 3.3 Evaluasi pada gold test set - **angka yang berlaku**
 
 Script: `ml/text/evaluate_gold.py` · gold: `data/annotation/gold_labels.csv` (500 klausa) ·
 hasil mentah: `ml/evaluation/gold_results.json`.
 
 **Asal-usul label gold, dibaca apa adanya (ADR-017).** Label berasal dari pembacaan semantik LLM
 atas 500 klausa, ditinjau dan disetujui tim; pada 302 baris yang leksikon dan LLM berbeda, tim
-memutuskan kolom LLM yang benar. Ini **bukan** anotasi manusia independen dari nol — seluruh label
+memutuskan kolom LLM yang benar. Ini **bukan** anotasi manusia independen dari nol - seluruh label
 berasal dari satu sumber pembacaan yang sama. Angka di bawah mengukur kesesuaian model terhadap
 pembacaan itu. Jauh lebih bermakna daripada metrik silver yang sirkular, tetapi tidak setara
 dengan gold beranotasi manusia independen, dan harus disebut demikian di proposal.
@@ -180,13 +180,13 @@ Bandingkan F1 per kelas antara leksikon dan IndoBERT:
 
 Tujuh dari sebelas kelas **identik sampai tiga desimal**. Model tidak memindahkan satu pun
 keputusan; ia mereproduksi aturan leksikon. Inilah risiko sirkularitas ADR-015 yang terwujud
-hampir sepenuhnya — dan hanya terlihat setelah diukur pada label yang dibuat proses berbeda.
+hampir sepenuhnya - dan hanya terlihat setelah diukur pada label yang dibuat proses berbeda.
 
 Selisih 0,011 antara TF-IDF dan IndoBERT pada aspek berada dalam rentang derau untuk n=500 dan
 **tidak boleh** dilaporkan sebagai "TF-IDF mengalahkan IndoBERT". Yang layak dilaporkan: ketiga
 pendekatan setara pada aspek, dan tidak satu pun mengungguli aturan leksikon secara berarti.
 
-#### Pada SENTIMEN, fine-tuning benar-benar bekerja — kecuali kelas netral
+#### Pada SENTIMEN, fine-tuning benar-benar bekerja - kecuali kelas netral
 
 | Kelas | Leksikon | TF-IDF | IndoBERT | n |
 | --- | --- | --- | --- | --- |
@@ -194,7 +194,7 @@ pendekatan setara pada aspek, dan tidak satu pun mengungguli aturan leksikon sec
 | positif | 0,810 | 0,891 | **0,917** | 322 |
 | netral | 0,433 | 0,403 | **0,282** | 70 |
 
-IndoBERT unggul telak pada dua kelas terbesar — negatif naik 0,25 poin di atas leksikon. Tetapi
+IndoBERT unggul telak pada dua kelas terbesar - negatif naik 0,25 poin di atas leksikon. Tetapi
 kelas `netral` runtuh ke 0,282, dan itu menyeret macro F1-nya ke bawah TF-IDF. Rata-rata makro
 menyembunyikan kenyataan bahwa model ini sebenarnya jauh lebih baik pada dua pertiga kasus.
 
@@ -202,26 +202,26 @@ Penyebabnya sudah diketahui dan tercatat sejak Fase 2: 44% label sentimen klausa
 sentimen tingkat ulasan (`review_prior`) alih-alih berasal dari isi klausanya. Model belajar
 bahwa `netral` nyaris tidak pernah benar, lalu berhenti memprediksinya.
 
-#### Gate Fase 2 — **DIREVISI**
+#### Gate Fase 2 - **DIREVISI**
 
 Gate Fase 2 semula dinyatakan **GO** berdasarkan metrik silver. Diukur pada gold, verdict itu
 tidak bertahan:
 
 | Task | Verdict |
 | --- | --- |
-| Aspek | **TIDAK LULUS** — setara aturan leksikon, fine-tuning tidak memberi nilai tambah |
-| Sentimen | **LULUS sebagian** — jauh lebih baik pada negatif dan positif, gagal pada netral |
+| Aspek | **TIDAK LULUS** - setara aturan leksikon, fine-tuning tidak memberi nilai tambah |
+| Sentimen | **LULUS sebagian** - jauh lebih baik pada negatif dan positif, gagal pada netral |
 
 Dua akar masalahnya sudah teridentifikasi tepat, dan keduanya ada di **label**, bukan di model:
 
 1. Label aspek 100% keluaran leksikon, sehingga model tidak mungkin melampaui leksikon.
 2. Aturan `review_prior` merusak kelas netral.
 
-Dua kelas terlemah — `kualitas_produk` 0,43 dan `kemudahan_penggunaan` 0,43 — persis dua tempat
+Dua kelas terlemah - `kualitas_produk` 0,43 dan `kemudahan_penggunaan` 0,43 - persis dua tempat
 bug leksikon ditemukan saat adjudikasi (aturan cadangan "barang", dan kata "enak"/"dipakai" yang
 memicu aspek keliru).
 
-## 4. Metrik evaluasi — model visual (bagian 33.2)
+## 4. Metrik evaluasi - model visual (bagian 33.2)
 _Accuracy pada kasus tidak abstain, macro F1, coverage, abstention rate, selective accuracy,
 performa per kualitas foto. Belum diukur. **Tidak ada target minimum yang diklaim di muka.**_
 
@@ -239,17 +239,17 @@ _Diisi setelah error analysis (bagian 26.1 langkah 15). Lihat juga [LIMITATIONS.
 _Seed, hyperparameter, versi model, dan perintah reproduksi dicatat di sini setelah training._
 
 
-### 3.4 Evaluasi pada dataset berlabel MANUSIA yang sudah ada — tanpa anotasi tambahan
+### 3.4 Evaluasi pada dataset berlabel MANUSIA yang sudah ada - tanpa anotasi tambahan
 
 Script: `ml/text/evaluate_external.py` · hasil: `ml/evaluation/external_results.json`.
 
 Menjawab pertanyaan "apakah cukup memakai data berlabel yang sudah ada?". Untuk **sentimen**:
-bisa, dan inilah hasilnya. Untuk **aspek**: tidak — penelusuran delapan variasi kueri di
+bisa, dan inilah hasilnya. Untuk **aspek**: tidak - penelusuran delapan variasi kueri di
 HuggingFace tidak menemukan dataset ABSA Bahasa Indonesia domain e-commerce berlisensi jelas
 (`carant-ai/compiled-absa-indonesian` gated tanpa lisensi; CASA = ulasan mobil, HoASA = hotel,
 skema aspeknya tidak sepadan). Validasi aspek tetap bergantung gold set kita.
 
-#### A. In-domain, label manusia — PRDECT-ID split test (n=804)
+#### A. In-domain, label manusia - PRDECT-ID split test (n=804)
 
 Label `Sentiment` berlabel manusia dari makalah Data in Brief, **biner** (tanpa kelas netral),
 dievaluasi hanya pada split test sehingga produknya terpisah dari data latih.
@@ -265,13 +265,13 @@ hukuman itu.
 
 **Ini benchmark paling relevan yang kita punya**: domain yang sama dengan produk (ulasan
 e-commerce Indonesia), label dibuat manusia, dan sepenuhnya independen dari labeling function
-maupun pra-anotasi kita. Di sini fine-tuning terbukti memberi nilai tambah nyata — IndoBERT
+maupun pra-anotasi kita. Di sini fine-tuning terbukti memberi nilai tambah nyata - IndoBERT
 unggul 0,034 di atas TF-IDF dan 0,137 di atas leksikon.
 
-#### B. Lintas bahasa — NusaX-senti (expert-generated, CC-BY-SA-4.0, n=400 per bahasa)
+#### B. Lintas bahasa - NusaX-senti (expert-generated, CC-BY-SA-4.0, n=400 per bahasa)
 
 Domain media sosial, bukan e-commerce. Mengukur **generalisasi lintas domain**, bukan performa
-in-domain — dua hal yang tidak boleh ditukar penyebutannya.
+in-domain - dua hal yang tidak boleh ditukar penyebutannya.
 
 | Bahasa | Leksikon | TF-IDF | IndoBERT |
 | --- | --- | --- | --- |
@@ -285,7 +285,7 @@ Tiga bacaan yang harus disampaikan apa adanya:
 
 1. **Di luar domain, leksikon justru menang.** Model terlatih menyerap gaya bahasa ulasan
    e-commerce dan generalisasinya lebih buruk pada teks media sosial. Ini bukan kegagalan
-   produk — domain kita memang e-commerce — tetapi membatalkan klaim apa pun soal keunggulan
+   produk - domain kita memang e-commerce - tetapi membatalkan klaim apa pun soal keunggulan
    umum model kami di luar domainnya.
 2. **Kelas netral runtuh di semua model terlatih** (0,02–0,13 berbanding leksikon 0,43–0,61).
    Akar masalah yang sama dengan §3.2 dan §3.3: aturan `review_prior`.
@@ -296,7 +296,7 @@ Tiga bacaan yang harus disampaikan apa adanya:
 
 Pada gold set §3.3 (label dari pra-anotasi LLM), IndoBERT tampak setara TF-IDF. Pada PRDECT
 berlabel manusia, IndoBERT unggul jelas. Selisih arah ini adalah **bukti bahwa gold set kami
-memang membawa keterbatasan independensi yang dicatat di ADR-017** — label gold berasal dari
+memang membawa keterbatasan independensi yang dicatat di ADR-017** - label gold berasal dari
 pembacaan yang sama dengan yang merancang leksikon, sehingga cenderung menguntungkan pendekatan
 bergaya leksikon.
 
@@ -313,7 +313,7 @@ Hasil: `ml/evaluation/gold_results.json`, `external_results.json`.
 
 ### 4.1 Perbaikan nyata pada data berlabel manusia
 
-**NusaX-senti — expert-generated, 3 kelas, inilah skema label yang sama dengan produk kami:**
+**NusaX-senti - expert-generated, 3 kelas, inilah skema label yang sama dengan produk kami:**
 
 | Bahasa | IndoBERT sebelum | IndoBERT sesudah | Selisih |
 | --- | --- | --- | --- |
@@ -329,7 +329,7 @@ dengan benar. Ini menutup masalah yang sudah teridentifikasi sejak Fase 1.
 
 Stress test (sarkasme/negasi/slang) naik 0,730 → **0,770**.
 
-### 4.2 Ongkosnya: PRDECT biner turun — sebagian besar artefak skema label
+### 4.2 Ongkosnya: PRDECT biner turun - sebagian besar artefak skema label
 
 | Pendekatan | macro-biner sebelum | sesudah |
 | --- | --- | --- |
@@ -337,7 +337,7 @@ Stress test (sarkasme/negasi/slang) naik 0,730 → **0,770**.
 | TF-IDF | 0,918 | 0,854 |
 | IndoBERT | **0,952** | **0,851** |
 
-Penurunan ini perlu dibaca hati-hati. PRDECT-ID hanya punya dua label — pelabelnya dipaksa
+Penurunan ini perlu dibaca hati-hati. PRDECT-ID hanya punya dua label - pelabelnya dipaksa
 memilih positif atau negatif, tidak ada netral. Model kami kini memprediksi netral pada 13,9%
 ulasan, dan pada dataset berskema biner setiap prediksi netral otomatis dihitung salah.
 
@@ -353,12 +353,12 @@ Jadi penurunan itu bukan model menjadi lebih keliru, melainkan model menjadi leb
 pada skema label yang tidak menyediakan pilihan itu.
 
 **Tetapi ada satu hal yang harus diakui sebagai kelemahan nyata, bukan artefak:** dari 112
-prediksi netral, **91 di antaranya sebenarnya keluhan** — berbanding hanya 21 pada ulasan
+prediksi netral, **91 di antaranya sebenarnya keluhan** - berbanding hanya 21 pada ulasan
 positif. Model kurang berani menyebut sesuatu negatif. Untuk produk ini itu penting, karena
 deteksi keluhanlah yang menggerakkan Action Card. Perbaikannya (menurunkan ambang kelas negatif
 atau menaikkan bobot kelasnya) belum dikerjakan dan tercatat sebagai pekerjaan Fase 8.
 
-### 4.3 Gate Fase 2 — verdict akhir
+### 4.3 Gate Fase 2 - verdict akhir
 
 | Task | Verdict | Dasar |
 | --- | --- | --- |
@@ -368,7 +368,7 @@ atau menaikkan bobot kelasnya) belum dikerjakan dan tercatat sebagai pekerjaan F
 Aspek tidak lulus bukan karena kurang usaha, melainkan karena **secara struktural tidak bisa**:
 label aspeknya 100% keluaran leksikon, sehingga model tidak punya sumber informasi untuk
 melampaui leksikon. Satu-satunya jalan keluar adalah label aspek berlabel manusia dalam volume
-latih — dan dataset semacam itu tidak tersedia untuk Bahasa Indonesia domain e-commerce
+latih - dan dataset semacam itu tidak tersedia untuk Bahasa Indonesia domain e-commerce
 (sudah ditelusuri, DATASET_CARD §6).
 
 **Konsekuensi jujur untuk proposal:** klaim kustomisasi model teks bertumpu pada **sentimen**,
@@ -378,7 +378,7 @@ layak diklaim adalah pipeline weak-supervision-nya, bukan keunggulan model atas 
 
 ---
 
-## VIS-01 — hasil gerbang Fase 3
+## VIS-01 - hasil gerbang Fase 3
 
 Dijalankan 11 Agustus 2026. **Keputusan: NO-GO.** Bukti lengkap:
 [`ml/evaluation/visual_gate.json`](../ml/evaluation/visual_gate.json).
@@ -400,11 +400,11 @@ Dijalankan 11 Agustus 2026. **Keputusan: NO-GO.** Bukti lengkap:
 | Abstain pada foto yang manusia tandai sulit | 2 / 2 |
 
 **Selective accuracy 0,786 tidak boleh dikutip.** Dari 14 foto yang dijawab, sebelas kelas
-`normal` — angka itu dihasilkan dengan menjawab pada kelas mayoritas dan abstain pada hampir
+`normal` - angka itu dihasilkan dengan menjawab pada kelas mayoritas dan abstain pada hampir
 seluruh foto bermasalah. Pemeriksaan yang menentukan adalah baris berikutnya: akurasi argmax
 0,45 **berada di bawah** pembanding sepele 0,61.
 
-Prompt campuran Indonesia+Inggris (0,45) mengungguli prompt Inggris saja (0,37) — berlawanan
+Prompt campuran Indonesia+Inggris (0,45) mengungguli prompt Inggris saja (0,37) - berlawanan
 dengan dugaan bahwa CLIP berbahasa Inggris lebih cocok dengan prompt Inggris. Keduanya tetap
 di bawah pembanding sepele.
 
@@ -418,4 +418,4 @@ dijalankan apa adanya.
 
 Batas kesimpulan: 97 foto dari dua produk fesyen satu penjual. NO-GO berlaku untuk kondisi
 itu, bukan pernyataan bahwa CLIP tidak dapat dipakai. Encoder lain, prompt lain, atau kategori
-produk lain dapat memberi hasil berbeda — dan mengujinya adalah pekerjaan Tier 2.
+produk lain dapat memberi hasil berbeda - dan mengujinya adalah pekerjaan Tier 2.

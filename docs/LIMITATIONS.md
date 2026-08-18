@@ -11,11 +11,11 @@
    Baru terjawab setelah go/no-go gate Fase 3 (blueprint bagian 19.3, 26.2).
 2. **Baseline kategori bersifat historis dan statis**, bukan pemantauan kompetitor real-time,
    dan tidak sinkron periode dengan data pengguna (bagian 24.1).
-3. **Dataset publik bias ke toko besar/aktif** — bukan representasi sempurna UMKM mikro
+3. **Dataset publik bias ke toko besar/aktif** - bukan representasi sempurna UMKM mikro
    (dossier bagian 14.2).
-4. **Tidak ada riwayat lintas sesi pada Tier 1** — setiap sesi dimulai dari awal (ADR-010).
+4. **Tidak ada riwayat lintas sesi pada Tier 1** - setiap sesi dimulai dari awal (ADR-010).
    Konsekuensinya, tren antar periode tidak dapat dihitung dari data historis pengguna.
-5. **Rekomendasi adalah saran berbasis pola data, bukan kebenaran mutlak** — tombol tolak ada
+5. **Rekomendasi adalah saran berbasis pola data, bukan kebenaran mutlak** - tombol tolak ada
    justru karena ini (bagian 43.3).
 6. **Status legal scraping Apify: PARTIALLY VERIFIED**, bukan klaim aman mutlak
    (dossier bagian 21B.6.3).
@@ -34,21 +34,21 @@ Ini terlihat langsung pada dataset demo: `ukuran_varian` adalah aspek dengan kel
 (25 dari 120 ulasan) dan 18 poin persentase di atas baseline kategori, namun severity tipikalnya
 hanya "sedang" karena banyak keluhan ukuran datang dari pembeli yang tetap memberi bintang 4–5.
 
-Sistem tidak menyembunyikan ini — skor prioritas tetap menempatkannya di urutan pertama karena
+Sistem tidak menyembunyikan ini - skor prioritas tetap menempatkannya di urutan pertama karena
 frekuensi dan gap benchmark, dan `priority_reasoning` menyebut angka-angka itu apa adanya.
 Tetapi severity **tidak boleh dibaca sebagai ukuran keparahan dampak bisnis**.
 
-Perbaikan yang tepat adalah memprediksi severity dari teks, bukan menurunkannya dari rating —
+Perbaikan yang tepat adalah memprediksi severity dari teks, bukan menurunkannya dari rating -
 tidak dikerjakan pada Tier 1 karena membutuhkan label severity dari manusia yang belum tersedia.
 
 ### Tren hanya tersedia bila data punya timestamp (Fase 4)
 
 Dataset publik yang dipakai melatih tidak memuat tanggal, sehingga `trend` pada data nyata
 selalu `tidak_cukup_data`. Tren hanya dapat dihitung bila data pengguna menyertakan timestamp.
-Sistem melaporkan `tidak_cukup_data` alih-alih menebak "stabil" — menebak akan menyiratkan
+Sistem melaporkan `tidak_cukup_data` alih-alih menebak "stabil" - menebak akan menyiratkan
 sistem sudah memeriksa dan tidak menemukan perubahan.
 
-### Bahasa daerah dan Inggris ditangani buruk — terukur (Fase 2)
+### Bahasa daerah dan Inggris ditangani buruk - terukur (Fase 2)
 
 Blueprint bagian 42.1 mengandaikan sistem tahan terhadap "campuran bahasa daerah". Diuji pada
 NusaX-senti (expert-generated), klaim itu **tidak bertahan**:
@@ -62,14 +62,14 @@ NusaX-senti (expert-generated), klaim itu **tidak bertahan**:
 | Minang | 0,434 | 0,355 | 0,382 |
 
 Tidak satu pun pendekatan menangani bahasa daerah dengan baik. Ulasan berbahasa Inggris juga
-lemah, padahal **11,2% klausa pada data kami memuat kata Inggris** dan 6,5% didominasi Inggris —
+lemah, padahal **11,2% klausa pada data kami memuat kata Inggris** dan 6,5% didominasi Inggris -
 "recommended seller", "packing bagus", "order 2 pcs barang working semua".
 
 Satu bug konkret yang sudah teridentifikasi: penanda negasi hanya memuat bentuk Indonesia
 (tidak/bukan/belum/jangan/tanpa/kurang), sehingga **"kualitas not oke" terbaca positif**.
 
 Konsekuensi untuk klaim: sistem boleh disebut menangani **Bahasa Indonesia informal termasuk
-slang dan typo** — itu terukur. Sistem **tidak boleh** disebut menangani bahasa daerah, dan
+slang dan typo** - itu terukur. Sistem **tidak boleh** disebut menangani bahasa daerah, dan
 dukungan bahasa Inggris harus disebut terbatas.
 
 ### Bukti ditampilkan utuh, sehingga kadang terbaca positif (Fase 5)
@@ -78,7 +78,7 @@ Klasifikasi berjalan di tingkat **klausa**, tetapi bukti diindeks dan ditampilka
 **ulasan utuh** (blueprint bagian 21.1: kutipan sepotong justru mengurangi kepercayaan).
 
 Konsekuensinya terlihat pada ulasan campuran. Sebuah ulasan yang memuji pelayanan tetapi
-mengeluh soal kualitas akan sah menjadi bukti untuk Action Card kualitas — namun kutipan yang
+mengeluh soal kualitas akan sah menjadi bukti untuk Action Card kualitas - namun kutipan yang
 tampil adalah keseluruhan ulasannya, yang bisa terbaca positif sekilas.
 
 Bukti sudah difilter agar hanya ulasan yang benar-benar memuat keluhan pada aspek itu yang
@@ -103,7 +103,7 @@ keliru yang disertai kutipan meyakinkan tidak.
 **Pemenggal imbuhan pada penjaga domain tidak menangani peluluhan bunyi.** "pengiriman" menjadi
 "irim", bukan "kirim", karena huruf yang luluh tidak dapat dipulihkan tanpa menebak. Yang
 dibutuhkan penjaga hanyalah konsistensi antara pertanyaan dan korpus, sehingga ini tidak
-merugikan — efeknya hanya membuat penjaga sedikit lebih ketat.
+merugikan - efeknya hanya membuat penjaga sedikit lebih ketat.
 
 **OPP-01 memakai ambang tetap, belum dikalibrasi.** Aspek disebut "dipuji" bila ≥70% sebutannya
 positif dan disebut minimal 5 kali. Kedua angka ini ditetapkan dari penalaran, bukan dari
@@ -119,14 +119,14 @@ dan panel temuan visual sudah terpasang, tetapi endpoint unggah gambar maupun mo
 terlatih belum ada (lihat butir 1 di atas). Layar pertama menyatakan hal ini apa adanya alih-alih
 menyediakan slot yang tidak berfungsi.
 
-## Fase 8 — penyetelan ambang negatif tidak menyelesaikan masalahnya
+## Fase 8 - penyetelan ambang negatif tidak menyelesaikan masalahnya
 
 Model kurang memanggil kelas negatif: **128 dari 420 ulasan PRDECT berlabel negatif** oleh
 manusia diprediksi bukan-negatif. Hipotesis awal adalah `argmax` yang berpihak ke kelas
 mayoritas, sehingga ambang khusus kelas negatif seharusnya menolongnya.
 
 **Hipotesis itu keliru, dan pengukurannya menunjukkan kenapa.** Dari 128 yang terlewat, hanya
-**satu** yang probabilitas negatif tertingginya berada di rentang 0,20–0,50 — satu-satunya
+**satu** yang probabilitas negatif tertingginya berada di rentang 0,20–0,50 - satu-satunya
 rentang yang dapat diselamatkan ambang. Sebanyak **113 (88,3%)** justru berada di bawah 0,10,
 dengan median 0,0006. Model bukan ragu lalu memilih salah; ia yakin dan salah.
 
@@ -136,7 +136,7 @@ hanya akan terlihat seperti perbaikan tanpa menjadi perbaikan.
 
 **Yang justru terlihat sebagai jalur nyata:** 11 dari 128 yang terlewat (8,6%) sudah memiliki
 klausa dengan P(negatif) ≥ 0,5, tetapi kalah pada agregasi suara terbanyak tingkat dokumen.
-Ulasan yang memuji tiga hal dan mengeluhkan satu hal tetap sebuah keluhan bagi produk ini —
+Ulasan yang memuji tiga hal dan mengeluhkan satu hal tetap sebuah keluhan bagi produk ini -
 dan aturan mayoritas justru menenggelamkannya. Menguji aturan "ada satu klausa negatif yang
 yakin → dokumen negatif" adalah langkah berikutnya, dengan evaluasinya sendiri. Sisa 88%
 membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusan.
@@ -146,7 +146,7 @@ membutuhkan data latih negatif yang lebih baik, bukan penyetelan aturan keputusa
 Dijalankan 11 Agustus 2026 atas 97 foto ulasan Shopee berlabel manusia, memakai
 `openai/clip-vit-base-patch32` beku dengan prompt ensemble sesuai `visual_classes.yaml`.
 
-Selective accuracy pada split uji **78,6%** — angka yang sekilas memadai. Ia menyesatkan.
+Selective accuracy pada split uji **78,6%** - angka yang sekilas memadai. Ia menyesatkan.
 Dari 14 foto yang dijawab, **sebelas di antaranya kelas `normal`**: model berani menjawab
 justru pada kelas mayoritas dan abstain pada hampir seluruh foto bermasalah.
 
@@ -161,7 +161,7 @@ Pemeriksaan yang tidak dapat dikelabui pengaturan ambang:
 
 **Model bekerja lebih buruk daripada menebak `normal` untuk semuanya.** Recall 86% pada kelas
 bermasalah tampak baik hanya karena model condong menebak `produk_rusak` untuk lebih dari
-separuh foto apa pun isinya — 26 dari 57 foto normal ikut tertandai. Ia tidak mendeteksi
+separuh foto apa pun isinya - 26 dari 57 foto normal ikut tertandai. Ia tidak mendeteksi
 kerusakan; ia bias ke satu kelas.
 
 Prompt Bahasa Indonesia + Inggris (45%) mengungguli prompt Inggris saja (37%), berlawanan
@@ -177,7 +177,7 @@ yang gracefully degrade dan sebagai bukti bahwa gerbangnya benar-benar dijalanka
 
 Batas pengujian ini yang perlu diketahui: 97 foto dari dua produk fesyen satu penjual. Hasil
 NO-GO berlaku untuk kondisi itu, bukan pernyataan bahwa CLIP tidak dapat dipakai selamanya.
-Encoder lain, prompt lain, atau kategori produk lain dapat memberi hasil berbeda — dan
+Encoder lain, prompt lain, atau kategori produk lain dapat memberi hasil berbeda - dan
 mengujinya adalah pekerjaan Tier 2, bukan klaim yang boleh dibuat sekarang.
 
 ## Temuan taksonomi: `salah_kirim` sulit dilabeli dari foto saja
@@ -204,7 +204,7 @@ dipenuhi.
 
 ## Kualitas pelabelan visual setelah peninjauan ulang
 
-Setelah peninjauan, **16 label berubah** — tiga belas di antaranya `salah_kirim` menjadi
+Setelah peninjauan, **16 label berubah** - tiga belas di antaranya `salah_kirim` menjadi
 `normal`. Perubahan itu tepat: pada sebagian besar foto, salah kirim memang tidak terlihat
 (lihat bagian di atas). Sebaran akhir: normal 57, produk_rusak 25, salah_kirim 7,
 kemasan_rusak 4, sulit dinilai 4.
@@ -227,17 +227,17 @@ Angka kelas itu tidak boleh dilaporkan sebagai capaian, berapa pun hasilnya nant
 
 Pemeriksaan silang atas lima foto contoh menemukan tiga label yang keliru, seluruhnya berpola
 sama: **foto yang MENAMPILKAN kemasan dilabeli `kemasan_rusak` meski kemasannya utuh.** Dua dari
-tiga label `kemasan_rusak` jatuh pada kasus ini — satu foto paket tersegel rapi, satu foto label
+tiga label `kemasan_rusak` jatuh pada kasus ini - satu foto paket tersegel rapi, satu foto label
 pengiriman yang justru membuktikan salah kirim.
 
 Dengan hanya tiga label `kemasan_rusak` dan dua di antaranya keliru, kelas itu **tidak dapat
 dievaluasi** pada batch ini terlepas dari perbaikan label.
 
 Satu kekeliruan lain ditemukan pada foto ulasan bintang lima yang memuji dan menampilkan tiga
-kaos utuh, tetapi dilabeli `produk_rusak` — kemungkinan besar salah tekan pada foto pertama.
+kaos utuh, tetapi dilabeli `produk_rusak` - kemungkinan besar salah tekan pada foto pertama.
 
 Angka-angka ini dicatat sebelum perbaikan dilakukan, supaya jejak koreksinya terlihat.
 
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
-_Diisi setelah Fase 3 dan Fase 8 — kosong sampai ada angka nyata._
+_Diisi setelah Fase 3 dan Fase 8 - kosong sampai ada angka nyata._

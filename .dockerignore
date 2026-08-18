@@ -1,5 +1,5 @@
 # Konteks build dikirim utuh ke daemon Docker sebelum satu baris Dockerfile dijalankan.
-# Tanpa berkas ini, .venv + node_modules + data/ mentah ikut terkirim — beberapa GB yang
+# Tanpa berkas ini, .venv + node_modules + data/ mentah ikut terkirim - beberapa GB yang
 # tidak satu pun dipakai image akhir, dan build terasa menggantung sebelum mulai.
 
 .git/

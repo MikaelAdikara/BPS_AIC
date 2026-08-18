@@ -1,6 +1,6 @@
 # Panduan Adjudikasi Gold Test Set
 
-Berkas: `gold_adjudication_task.csv` — **302 baris**, bukan 500.
+Berkas: `gold_adjudication_task.csv` - **302 baris**, bukan 500.
 
 Tiga sumber label sudah disiapkan. Tugas Anda memutuskan yang benar, bukan melabeli dari nol.
 
@@ -18,23 +18,23 @@ sama, hanya pemeriksaan acak yang bisa menangkapnya.
 
 Isi tiga kolom di setiap baris:
 
-- **`final_aspek`** — daftar aspek dipisah koma, atau `-` bila tidak ada aspek sama sekali.
+- **`final_aspek`** - daftar aspek dipisah koma, atau `-` bila tidak ada aspek sama sekali.
   Klausa tanpa aspek adalah jawaban yang sah ("terima kasih gan").
-- **`final_sentimen`** — `positif` / `negatif` / `netral`
-- **`final_severity`** — `rendah` / `sedang` / `tinggi`, **hanya** bila sentimennya negatif
+- **`final_sentimen`** - `positif` / `negatif` / `netral`
+- **`final_severity`** - `rendah` / `sedang` / `tinggi`, **hanya** bila sentimennya negatif
 
-Sering kali salah satu kolom `silver_` atau `llm_` sudah benar — cukup salin nilainya. Kolom
+Sering kali salah satu kolom `silver_` atau `llm_` sudah benar - cukup salin nilainya. Kolom
 `catatan` untuk kasus yang benar-benar meragukan.
 
 Acuan definisi aspek ada di `configs/taxonomy.yaml`.
 
-## Yang sudah diketahui salah — periksa ekstra pada kasus ini
+## Yang sudah diketahui salah - periksa ekstra pada kasus ini
 
 Perbandingan menemukan tiga pola kekeliruan berulang. Mengetahuinya lebih dulu mempercepat kerja:
 
 **1. Kata "enak" memicu aspek rasa, padahal bukan soal makanan.**
 Leksikon memasukkan "enak" sebagai penanda `rasa_kualitas_makanan`, sehingga "enak dipakai",
-"enak dimainin", dan "enak buat ngegame" ikut terlabeli rasa. Hampir selalu keliru — biasanya
+"enak dimainin", dan "enak buat ngegame" ikut terlabeli rasa. Hampir selalu keliru - biasanya
 yang dimaksud `kemudahan_penggunaan` atau `kualitas_produk`.
 
 **2. Kata "barang" memicu kualitas produk, padahal kalimatnya soal pengiriman.**
@@ -65,7 +65,7 @@ Setelah itu barulah tersedia angka NLP-01 yang layak masuk proposal.
 
 ## Catatan kejujuran
 
-Angka kesepakatan antara leksikon dan LLM — aspek 56,4%, sentimen 80,4% — **bukan ukuran
+Angka kesepakatan antara leksikon dan LLM - aspek 56,4%, sentimen 80,4% - **bukan ukuran
 kebenaran**. Keduanya bisa sama-sama keliru. Angka itu hanya menunjukkan berapa banyak baris
 yang memerlukan keputusan manusia, dan hasil akhirnya nanti dilaporkan sebagai
 **human-adjudicated**, bukan sebagai anotasi manusia dari nol.

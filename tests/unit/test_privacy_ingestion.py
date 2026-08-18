@@ -1,6 +1,6 @@
 """Unit test GOV-01 dan ING-01 (blueprint bagian 27.3, 32, 35).
 
-Redaksi PII masuk daftar test WAJIB pada bagian 32 — bukan karena rapi, tetapi karena kebocoran
+Redaksi PII masuk daftar test WAJIB pada bagian 32 - bukan karena rapi, tetapi karena kebocoran
 data pelanggan adalah risiko hukum bagi UMKM yang memakai sistem ini (UU PDP).
 """
 

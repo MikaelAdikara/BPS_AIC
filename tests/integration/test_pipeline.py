@@ -1,6 +1,6 @@
 """Integration test pipeline analisis (blueprint bagian 32, sequence 7.5–7.9).
 
-Memakai adapter tiruan agar test berjalan cepat tanpa memuat IndoBERT maupun BGE-M3 — yang
+Memakai adapter tiruan agar test berjalan cepat tanpa memuat IndoBERT maupun BGE-M3 - yang
 diuji di sini adalah ORKESTRASI antar komponen, bukan kualitas model. Kualitas model diuji
 terpisah pada gold set (`ml/text/evaluate_gold.py`).
 
@@ -35,7 +35,7 @@ NOW = datetime(2026, 8, 1)
 
 
 class StubTextAdapter:
-    """Melabeli berdasarkan kata kunci — deterministic dan tanpa unduhan."""
+    """Melabeli berdasarkan kata kunci - deterministic dan tanpa unduhan."""
 
     model_version = "stub-v1"
     mode = "stub"
@@ -96,7 +96,7 @@ def _raw(rid: str, text: str, days_ago: int = 5, **kw) -> RawReview:
 
 
 def _batch(n: int = 20) -> list[RawReview]:
-    """Teks tiap ulasan dibuat UNIK — ingestion membuang duplikat exact (dan itu memang benar),
+    """Teks tiap ulasan dibuat UNIK - ingestion membuang duplikat exact (dan itu memang benar),
     sehingga fixture berisi kalimat identik akan menyusut diam-diam dan membuat test menyesatkan."""
     reviews = [
         _raw(f"neg{i}", f"ukurannya kekecilan tidak sesuai panduan varian {i}", days_ago=3)
@@ -263,7 +263,7 @@ def test_pii_hilang_sebelum_masuk_hasil(service):
 def test_instruksi_di_dalam_ulasan_diperlakukan_sebagai_data(service):
     """Bagian 36.1: teks ulasan adalah DATA, bukan instruksi.
 
-    Ulasan yang menyisipkan perintah tidak boleh mengubah perilaku sistem — ia hanya menjadi
+    Ulasan yang menyisipkan perintah tidak boleh mengubah perilaku sistem - ia hanya menjadi
     teks biasa yang ikut diklasifikasi.
     """
     injection = _raw(

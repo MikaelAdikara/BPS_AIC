@@ -1,4 +1,4 @@
-"""redact_personal_data() — GOV-01, tool contract bagian 27.3.
+"""redact_personal_data() - GOV-01, tool contract bagian 27.3.
 
 Redaksi PII WAJIB berjalan sebelum data mencapai model manapun (bagian 27.3, 36.1). Ini bukan
 langkah kebersihan opsional: ulasan dan chat pelanggan memuat nomor telepon dan alamat, dan
@@ -6,7 +6,7 @@ pemiliknya secara hukum bertanggung jawab atas data itu (UU PDP, dossier bagian 
 
 Prinsip: **mengganti, bukan menghapus.** Teks yang diredaksi tetap terbaca sebagai kalimat
 sehingga tetap berguna sebagai kutipan bukti, dan penggantinya menunjukkan jenis data yang
-disembunyikan — pengguna dapat memverifikasi bahwa sistem benar-benar meredaksi.
+disembunyikan - pengguna dapat memverifikasi bahwa sistem benar-benar meredaksi.
 
 Batas yang harus disebut jujur: regex tidak akan pernah menangkap 100% PII. Ia menangkap pola
 terstruktur (nomor, email, alamat) dengan andal, tetapi tidak menangkap nama orang yang ditulis
@@ -86,5 +86,5 @@ def redact_personal_data(text: str) -> RedactionResult:
 
 
 def contains_pii(text: str) -> bool:
-    """Pemeriksaan cepat tanpa mengubah teks — dipakai test coverage (bagian 35 FMEA)."""
+    """Pemeriksaan cepat tanpa mengubah teks - dipakai test coverage (bagian 35 FMEA)."""
     return any(pattern.search(text or "") for _, pattern, _ in PII_PATTERNS)

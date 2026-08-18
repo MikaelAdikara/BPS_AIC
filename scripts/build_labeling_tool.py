@@ -2,7 +2,7 @@
 
 Mengedit CSV di spreadsheet memaksa pelabel berpindah-pindah antara berkas foto dan baris
 tabel, dan satu baris tergeser sudah cukup membuat seluruh sisanya salah pasang. Alat ini
-menampilkan foto bersama teks ulasannya dan menyimpan pilihan lewat satu ketukan — kekeliruan
+menampilkan foto bersama teks ulasannya dan menyimpan pilihan lewat satu ketukan - kekeliruan
 pasang-baris menjadi tidak mungkin.
 
 Halaman yang dihasilkan berjalan sepenuhnya lokal (dibuka dengan file://) dan tidak mengirim
@@ -27,7 +27,7 @@ OUT_HTML = REPO / "data" / "annotation" / "label.html"
 CLASSES = [
     ("produk_rusak", "Produk rusak", "Barangnya sendiri rusak: robek, bolong, sobek, noda, lecet, jahitan lepas"),
     ("salah_kirim", "Salah kirim", "Yang datang berbeda dari yang dipesan: warna lain, model lain, jumlah kurang"),
-    ("kemasan_rusak", "Kemasan rusak", "Bungkus/plastik/dus yang rusak — bukan barangnya"),
+    ("kemasan_rusak", "Kemasan rusak", "Bungkus/plastik/dus yang rusak - bukan barangnya"),
     ("normal", "Normal", "Tidak terlihat masalah pada foto ini"),
 ]
 
@@ -40,7 +40,7 @@ def perlu_ditinjau(rows: list[dict]) -> dict[str, str]:
 
     Tiga tanda ini lahir dari pemeriksaan silang nyata, bukan dugaan: satu foto ulasan bintang
     lima berisi tiga kaos utuh ternyata terlabeli `produk_rusak`, dan dua dari tiga
-    `kemasan_rusak` ternyata paket yang sepenuhnya utuh — foto yang MENAMPILKAN kemasan
+    `kemasan_rusak` ternyata paket yang sepenuhnya utuh - foto yang MENAMPILKAN kemasan
     disangka kemasan yang rusak.
     """
     tandai: dict[str, str] = {}
@@ -51,7 +51,7 @@ def perlu_ditinjau(rows: list[dict]) -> dict[str, str]:
         elif label == "kemasan_rusak":
             tandai[f] = "Pastikan BUNGKUSNYA yang rusak, bukan sekadar tampak di foto"
         elif bintang in ("1", "2", "3") and label == "normal":
-            tandai[f] = "Ulasan mengeluh — pastikan fotonya memang tidak menunjukkan apa pun"
+            tandai[f] = "Ulasan mengeluh - pastikan fotonya memang tidak menunjukkan apa pun"
     return tandai
 
 
@@ -73,14 +73,14 @@ def main() -> int:
     if tandai:
         print(f"{len(tandai)} foto ditandai perlu ditinjau ulang:")
         for f, alasan in tandai.items():
-            print(f"  {f}  — {alasan}")
+            print(f"  {f}  - {alasan}")
     print(f"Buka: {OUT_HTML}")
     return 0
 
 
 TEMPLATE = """<!doctype html>
 <html lang="id"><head><meta charset="utf-8" />
-<title>Pelabelan foto ulasan — InsightUlasan</title>
+<title>Pelabelan foto ulasan - InsightUlasan</title>
 <style>
 :root{--paper:#f7f7f5;--surface:#fff;--ink:#1a1d26;--muted:#5a6070;--rule:#e3e3de;
   --nila:#2b3a8f;--high:#b3261e;--med:#9c5d00;--pos:#1f6b4a;--abstain:#636774}
@@ -153,7 +153,7 @@ if (!saved) {
   localStorage.setItem(KEY, JSON.stringify(saved));
 }
 
-// Bila ada foto bertanda, mulailah dari situ — itu satu-satunya pekerjaan yang tersisa.
+// Bila ada foto bertanda, mulailah dari situ - itu satu-satunya pekerjaan yang tersisa.
 const ANTRE = ROWS.map((r, n) => [r.image_file, n]).filter(([f]) => FLAGS[f]).map(([, n]) => n);
 let i = ANTRE.length ? ANTRE[0] : ROWS.findIndex(r => !saved[r.image_file]);
 if (i < 0) i = ROWS.length;
@@ -175,7 +175,7 @@ function render(){
 
   if (i >= ROWS.length){
     const t = hitung();
-    main.innerHTML = `<div class="card done"><h2>Selesai — ${n} foto terlabeli</h2>
+    main.innerHTML = `<div class="card done"><h2>Selesai - ${n} foto terlabeli</h2>
       <div class="tally" style="justify-content:center">` +
       Object.entries(t).map(([k,v]) => `<span>${k}: ${v}</span>`).join("") +
       `</div><p style="color:var(--muted);font-size:.9rem;margin-top:16px">
@@ -188,7 +188,7 @@ function render(){
   const r = ROWS[i], sudah = saved[r.image_file], alasan = FLAGS[r.image_file];
   main.innerHTML =
     (ANTRE.length ? `<div class="queue"><b>${ANTRE.length} foto perlu ditinjau ulang</b>
-      — klik untuk melompat:<br />` +
+      - klik untuk melompat:<br />` +
       ANTRE.map(n => `<button class="jump ${n === i ? "on" : ""}" data-ke="${n}"
         >${ROWS[n].image_file.slice(0,8)}</button>`).join("") + `</div>` : "") +
     `<div class="card">
@@ -201,7 +201,7 @@ function render(){
       CLASSES.map(([id,nama,jelas],k) => `<button class="b${k+1}" data-pilih="${id}">
         <b>${nama}<kbd>${k+1}</kbd></b><small>${jelas}</small></button>`).join("") +
       `<button class="b5" data-sulit="1"><b>Sulit dinilai<kbd>S</kbd></b>
-        <small>Foto buram, terpotong, atau memang tidak jelas — ini jawaban yang sah</small></button>
+        <small>Foto buram, terpotong, atau memang tidak jelas - ini jawaban yang sah</small></button>
     </div>
     <div class="nav">
       <button id="prev" ${i===0?"disabled":""}>← Sebelumnya</button>

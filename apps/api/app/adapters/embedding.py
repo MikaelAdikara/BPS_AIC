@@ -1,4 +1,4 @@
-"""EmbeddingAdapter — pembungkus model embedding untuk RET-01 (blueprint bagian 17.4, 21).
+"""EmbeddingAdapter - pembungkus model embedding untuk RET-01 (blueprint bagian 17.4, 21).
 
 Model utama BGE-M3 (ADR-005), dipilih karena kuat pada bahasa low-resource. Fallback
 Multilingual E5-base bila BGE-M3 terlalu berat untuk lingkungan yang menjalankan.

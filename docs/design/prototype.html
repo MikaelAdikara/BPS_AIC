@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>InsightUlasan — Rancangan Antarmuka Lengkap</title>
+<title>InsightUlasan - Rancangan Antarmuka Lengkap</title>
 <style>
 /* ==========================================================================
-   Token — disalin dari apps/web/src/styles/tokens.css.
+   Token - disalin dari apps/web/src/styles/tokens.css.
    Nilai di sini WAJIB sama dengan aplikasi; kalau berbeda, aplikasi yang benar.
    ========================================================================== */
 :root {
@@ -30,7 +30,7 @@
 body{margin:0;background:#e8e8e4;color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:1.625}
 
 /* ==========================================================================
-   Rangka prototipe — INI BUKAN BAGIAN PRODUK.
+   Rangka prototipe - INI BUKAN BAGIAN PRODUK.
    Sidebar, badge tier, dan pengalih lebar hanya alat baca. Produk aslinya
    tidak punya navigasi global sama sekali (batas MVP rulebook 5.2).
    ========================================================================== */
@@ -63,7 +63,7 @@ body{margin:0;background:#e8e8e4;color:var(--ink);font-family:var(--font-sans);f
 .screen.on{display:block}
 
 /* ==========================================================================
-   Komponen produk — mengikuti apps/web/src/styles/app.css
+   Komponen produk - mengikuti apps/web/src/styles/app.css
    ========================================================================== */
 .display-l{font-size:1.875rem;line-height:2.25rem;font-weight:700;letter-spacing:-.02em;margin:0 0 var(--space-3)}
 .display-m{font-size:1.5rem;line-height:2rem;font-weight:700;letter-spacing:-.02em;margin:0 0 var(--space-3)}
@@ -117,7 +117,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 .photo{aspect-ratio:1;background:var(--surface-sunken);border:1px solid var(--rule);border-radius:8px;display:grid;place-items:center;color:var(--ink-muted);font-size:.75rem;text-align:center;padding:4px}
 .grid-photo{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:var(--space-2);margin-top:var(--space-3)}
 
-/* Tier 2/3 — komponen khusus rancangan */
+/* Tier 2/3 - komponen khusus rancangan */
 .kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
 .kanban__col{background:var(--surface-sunken);border-radius:8px;padding:var(--space-3);min-height:180px}
 .kanban__col h4{margin:0 0 var(--space-3);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-muted)}
@@ -140,7 +140,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 .ghost{border:1.5px dashed #b9bac0;border-radius:var(--radius-card);padding:var(--space-4);background:rgba(255,255,255,.5)}
 
 /* Pada lebar HP, kanban menumpuk. Tiga kolom di layar 5 inci menghasilkan kartu selebar
-   165px — terlalu sempit untuk dibaca, dan mockup yang menampilkannya akan menyesatkan
+   165px - terlalu sempit untuk dibaca, dan mockup yang menampilkannya akan menyesatkan
    perancang yang mengira itu memang bentuk yang dimaksud. */
 .frame:not(.wide) .kanban{grid-template-columns:1fr}
 .frame:not(.wide) .mapper{grid-template-columns:1fr}
@@ -158,10 +158,10 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 <!-- ====================== NAVIGASI PROTOTIPE (bukan produk) ====================== -->
 <nav class="nav">
   <h1>InsightUlasan</h1>
-  <p class="sub">Rancangan antarmuka lengkap.<br />Panel kiri ini <b>alat baca prototipe</b>, bukan bagian produk — aplikasi aslinya tidak punya navigasi global.</p>
+  <p class="sub">Rancangan antarmuka lengkap.<br />Panel kiri ini <b>alat baca prototipe</b>, bukan bagian produk - aplikasi aslinya tidak punya navigasi global.</p>
 
   <div class="nav-group">
-    <div class="nav-group__title"><span class="dot dot--built"></span> Tier 1 — sudah berfungsi</div>
+    <div class="nav-group__title"><span class="dot dot--built"></span> Tier 1 - sudah berfungsi</div>
     <a href="#" class="on" data-s="s1">1 · Beranda &amp; Input</a>
     <a href="#" data-s="s2">2 · Memproses</a>
     <a href="#" data-s="s3">3 · Hasil Analisis</a>
@@ -169,7 +169,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   </div>
 
   <div class="nav-group">
-    <div class="nav-group__title"><span class="dot dot--design"></span> Tier 2 — dirancang, belum dibangun</div>
+    <div class="nav-group__title"><span class="dot dot--design"></span> Tier 2 - dirancang, belum dibangun</div>
     <a href="#" data-s="s5">5 · Ruang Kerja</a>
     <a href="#" data-s="s6">6 · Papan Tindakan</a>
     <a href="#" data-s="s7">7 · Tren &amp; Perbandingan</a>
@@ -178,7 +178,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   </div>
 
   <div class="nav-group">
-    <div class="nav-group__title"><span class="dot dot--road"></span> Tier 3 — roadmap</div>
+    <div class="nav-group__title"><span class="dot dot--road"></span> Tier 3 - roadmap</div>
     <a href="#" data-s="s10">10 · Masuk &amp; Multi-toko</a>
     <a href="#" data-s="s11">11 · Koneksi Marketplace</a>
     <a href="#" data-s="s12">12 · Tim &amp; Peran</a>
@@ -190,7 +190,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 <!-- ====================== PANGGUNG ====================== -->
 <main class="stage">
   <div class="bar">
-    <span id="tierBadge" class="badge badge--built">● Tier 1 — sudah berfungsi di repo</span>
+    <span id="tierBadge" class="badge badge--built">● Tier 1 - sudah berfungsi di repo</span>
     <div class="toggle">
       <button class="on" data-w="mobile">HP (Bu Rina)</button>
       <button data-w="desktop">Layar lebar</button>
@@ -203,7 +203,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <!-- ============ S1 · BERANDA & INPUT ============ -->
   <section class="screen on" id="s1">
     <h1 class="display-l">InsightUlasan</h1>
-    <p class="lead">Ubah ulasan pelanggan jadi langkah nyata — masalah paling mendesak, bukti kutipan aslinya, dan apa yang bisa dikerjakan minggu ini.</p>
+    <p class="lead">Ubah ulasan pelanggan jadi langkah nyata - masalah paling mendesak, bukti kutipan aslinya, dan apa yang bisa dikerjakan minggu ini.</p>
 
     <div class="tabs">
       <button class="tab">Tempel teks</button>
@@ -243,7 +243,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
     <p class="body-s">Menampilkan 3 dari <span class="stat">120</span> baris terbaca</p>
 
     <div class="ghost" style="margin-top:var(--space-5)">
-      <span class="badge badge--design" style="margin-bottom:8px">● Rancangan — menunggu model visual</span>
+      <span class="badge badge--design" style="margin-bottom:8px">● Rancangan - menunggu model visual</span>
       <p class="body-s" style="margin-top:var(--space-2)"><b>Foto ulasan (opsional).</b> Slot ini sengaja belum aktif: model visual belum lolos go/no-go gate, dan tombol yang tidak berfungsi lebih merusak kepercayaan daripada tidak ada tombol.</p>
     </div>
 
@@ -271,9 +271,9 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <section class="screen" id="s3">
     <span class="label">Hasil analisis</span>
     <h1 class="display-m" style="margin-top:var(--space-2)">Ringkasan</h1>
-    <p>Dari <span class="stat">120</span> ulasan, <span class="stat">6</span> aspek memuat keluhan. Yang paling sering adalah ukuran varian — <span class="stat">20</span> ulasan (<span class="stat">17%</span>).</p>
+    <p>Dari <span class="stat">120</span> ulasan, <span class="stat">6</span> aspek memuat keluhan. Yang paling sering adalah ukuran varian - <span class="stat">20</span> ulasan (<span class="stat">17%</span>).</p>
 
-    <div class="banner banner--muted">Mode sederhana aktif — sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
+    <div class="banner banner--muted">Mode sederhana aktif - sebagian penjelasan memakai teks standar. Seluruh angka dan bukti tetap lengkap.</div>
 
     <div class="card">
       <div class="quality">
@@ -285,7 +285,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
           <p class="body-s"><span class="stat">120</span> dari <span class="stat">120</span> baris dianalisis · <span class="stat">120</span> punya rating · <span class="stat">120</span> punya tanggal</p>
         </div>
       </div>
-      <ul class="notes"><li>Data Anda lengkap — hasil analisis dapat dibaca dengan percaya diri.</li></ul>
+      <ul class="notes"><li>Data Anda lengkap - hasil analisis dapat dibaca dengan percaya diri.</li></ul>
     </div>
 
     <h2 class="title" style="margin-top:var(--space-8)">Yang perlu dikerjakan lebih dulu</h2>
@@ -321,7 +321,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
     <section class="card card--positive">
       <span class="pill pill--positive">Kekuatan</span>
       <h3 class="title">Yang sudah Anda lakukan dengan baik</h3>
-      <p class="body-s">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi — sistem tidak menuliskan materi iklannya untuk Anda.</p>
+      <p class="body-s">Aspek berikut paling sering dipuji pembeli. Anda dapat memakainya sebagai bahan promosi - sistem tidak menuliskan materi iklannya untuk Anda.</p>
       <p style="margin:var(--space-4) 0 0"><b>Produk Anda dinilai sesuai dengan deskripsinya</b></p>
       <p class="body-s"><span class="stat">45</span> sebutan positif · <span class="stat">92%</span> dari yang membahas kesesuaian deskripsi</p>
       <blockquote class="evidence">
@@ -333,7 +333,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
     <section class="card">
       <h3 class="title">Temuan dari foto</h3>
       <div class="banner banner--warn">
-        <b>Tidak ditampilkan — gerbang Fase 3 memutuskan NO-GO (11 Agustus 2026).</b>
+        <b>Tidak ditampilkan - gerbang Fase 3 memutuskan NO-GO (11 Agustus 2026).</b>
         <div style="margin-top:var(--space-2)">Model visual diuji pada <span class="stat">97</span> foto ulasan berlabel manusia. Akurasinya <span class="stat">45%</span>, di bawah pembanding sepele "selalu tebak normal" (<span class="stat">61%</span>), dan <span class="stat">61%</span> foto normal salah ditandai bermasalah.</div>
       </div>
       <p class="body-s">Menampilkan hasil ini akan memberi keyakinan palsu tepat pada kasus yang paling perlu diperiksa sendiri. Kode jalur visual tetap ada dan mundur rapi ke analisis teks-saja. Angka lengkapnya di <span class="stat">ml/evaluation/visual_gate.json</span>.</p>
@@ -396,7 +396,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
     <p><span class="stat">20</span> dari <span class="stat">120</span> ulasan menyebut masalah ini, trennya meningkat dalam 30 hari terakhir, dan <span class="stat">14%</span> poin di atas baseline kategori (n=<span class="stat">8939</span>).</p>
 
     <h3 class="title" style="margin-top:var(--space-6)">Kalau rekomendasi ini keliru</h3>
-    <p class="body-s">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan — periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
+    <p class="body-s">Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan keluhan - periksa dulu beberapa kutipan sebelum mengubah halaman produk.</p>
   </section>
 
   <!-- ============ S5 · RUANG KERJA (Tier 2) ============ -->
@@ -430,7 +430,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <section class="screen" id="s6">
     <span class="label">Papan tindakan</span>
     <h1 class="display-m" style="margin-top:var(--space-2)">Apa yang sudah dikerjakan</h1>
-    <p class="lead">Action Card yang Anda terima pindah ke sini. Statusnya Anda yang ubah — sistem tidak pernah menandai sendiri sesuatu sebagai selesai.</p>
+    <p class="lead">Action Card yang Anda terima pindah ke sini. Statusnya Anda yang ubah - sistem tidak pernah menandai sendiri sesuatu sebagai selesai.</p>
 
     <div class="kanban">
       <div class="kanban__col"><h4>Belum dikerjakan</h4>
@@ -449,7 +449,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
       <p class="body-s">Perbandingan keluhan kemasan sebelum dan sesudah tindakan ditandai selesai.</p>
       <div class="rowline"><span>Sebelum (1–28 Jul)</span><span class="stat">9 keluhan</span></div>
       <div class="rowline"><span>Sesudah (29 Jul–8 Agu)</span><span class="stat" style="color:var(--positive)">2 keluhan</span></div>
-      <div class="banner banner--muted" style="margin-top:var(--space-4)">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah — sistem hanya menunjukkan angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
+      <div class="banner banner--muted" style="margin-top:var(--space-4)">Penurunan ini <b>bukan bukti sebab-akibat</b>. Volume ulasan dan musim ikut berubah - sistem hanya menunjukkan angkanya berdampingan, tidak menyimpulkan tindakan Anda yang menyebabkannya.</div>
     </div>
   </section>
 
@@ -457,7 +457,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <section class="screen" id="s7">
     <span class="label">Tren</span>
     <h1 class="display-m" style="margin-top:var(--space-2)">Keluhan dari waktu ke waktu</h1>
-    <p class="lead">Hanya tersedia setelah ada beberapa kali analisis — grafik dari satu batch akan menyesatkan.</p>
+    <p class="lead">Hanya tersedia setelah ada beberapa kali analisis - grafik dari satu batch akan menyesatkan.</p>
 
     <div class="card">
       <h3 class="title">Keluhan ukuran per minggu</h3>
@@ -494,7 +494,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
       <div class="rowline"><span>Action Card + kutipan bukti</span><span class="switch"></span></div>
       <div class="rowline"><span>Temuan positif</span><span class="switch"></span></div>
       <div class="rowline"><span>Perbandingan kategori</span><span class="switch off"></span></div>
-      <div class="banner banner--muted" style="margin-top:var(--space-4)">Kutipan pelanggan ikut tercetak. Pastikan laporan ini hanya dibagikan internal — data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
+      <div class="banner banner--muted" style="margin-top:var(--space-4)">Kutipan pelanggan ikut tercetak. Pastikan laporan ini hanya dibagikan internal - data pelanggan tetap tanggung jawab Anda menurut UU PDP.</div>
       <div class="actions">
         <button class="btn btn--primary">Unduh PDF</button>
         <button class="btn btn--outline">Unduh CSV</button>
@@ -524,7 +524,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <section class="screen" id="s10">
     <span class="label">Roadmap</span>
     <h1 class="display-m" style="margin-top:var(--space-2)">Masuk ke akun</h1>
-    <p class="lead">Tidak ada di MVP — rulebook eksplisit melarang sistem otentikasi kompleks pada penyisihan. Dirancang untuk versi pasca-kompetisi.</p>
+    <p class="lead">Tidak ada di MVP - rulebook eksplisit melarang sistem otentikasi kompleks pada penyisihan. Dirancang untuk versi pasca-kompetisi.</p>
     <div class="card">
       <label class="label">Nomor WhatsApp atau email</label>
       <input class="input" value="rina@rinafashion.id" readonly />
@@ -544,7 +544,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
   <section class="screen" id="s11">
     <span class="label">Roadmap</span>
     <h1 class="display-m" style="margin-top:var(--space-2)">Koneksi marketplace</h1>
-    <p class="lead">Menghapus langkah unggah manual — ulasan baru masuk sendiri. Bergantung ketersediaan API resmi, jadi ditulis sebagai rencana, bukan janji.</p>
+    <p class="lead">Menghapus langkah unggah manual - ulasan baru masuk sendiri. Bergantung ketersediaan API resmi, jadi ditulis sebagai rencana, bukan janji.</p>
     <div class="conn"><div class="conn__logo" style="background:#ee4d2d">S</div><div style="flex:1"><b>Shopee</b><br /><span class="body-s">Tarik ulasan otomatis tiap minggu</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
     <div class="conn"><div class="conn__logo" style="background:#42b549">T</div><div style="flex:1"><b>Tokopedia</b><br /><span class="body-s">Tarik ulasan otomatis tiap minggu</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
     <div class="conn"><div class="conn__logo" style="background:#25d366">W</div><div style="flex:1"><b>WhatsApp Business</b><br /><span class="body-s">Analisis keluhan dari chat pelanggan</span></div><button class="btn btn--outline" style="min-height:36px;padding:6px 14px">Hubungkan</button></div>
@@ -589,7 +589,7 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
         <p class="body-s">Toko tanpa batas · anggota tim · koneksi marketplace</p>
       </div>
     </div>
-    <div class="banner banner--muted">Batas paket gratis dipilih agar UMKM mikro — sasaran utama produk ini — tidak pernah terpaksa membayar untuk menjawab pertanyaan intinya: "besok saya benahi apa?"</div>
+    <div class="banner banner--muted">Batas paket gratis dipilih agar UMKM mikro - sasaran utama produk ini - tidak pernah terpaksa membayar untuk menjawab pertanyaan intinya: "besok saya benahi apa?"</div>
   </section>
 
   <!-- ============ S14 · TATA KELOLA (Tier 3) ============ -->
@@ -617,15 +617,15 @@ table.bench td:not(:first-child){font-family:var(--font-mono);font-variant-numer
 </div>
 
 <script>
-// Alasan desain per layar — ditulis di sini supaya perancang UI tahu apa yang
+// Alasan desain per layar - ditulis di sini supaya perancang UI tahu apa yang
 // tidak boleh hilang saat tampilannya dipercantik.
 const WHY = {
-  s1:"<b>Kenapa begini:</b> tiga cara masuk (tempel / unggah / contoh) karena Bu Rina belum tentu punya ekspor CSV rapi, dan juri butuh jalur data contoh. Pemetaan kolom muncul otomatis tapi bisa ditimpa — ekspor marketplace jarang seragam. Slot foto sengaja dinonaktifkan, bukan dihilangkan.",
+  s1:"<b>Kenapa begini:</b> tiga cara masuk (tempel / unggah / contoh) karena Bu Rina belum tentu punya ekspor CSV rapi, dan juri butuh jalur data contoh. Pemetaan kolom muncul otomatis tapi bisa ditimpa - ekspor marketplace jarang seragam. Slot foto sengaja dinonaktifkan, bukan dihilangkan.",
   s2:"<b>Kenapa begini:</b> checklist bertahap, bukan spinner. Pengguna dengan literasi digital sedang perlu bukti sistem benar-benar bekerja. Ini satu-satunya animasi di seluruh produk.",
   s3:"<b>Kenapa begini:</b> satu halaman gulir, tanpa tab. Urutannya mengikuti pertanyaan Bu Rina: apa ringkasnya → seberapa layak dipercaya → apa yang harus dikerjakan → apa yang sudah bagus → bagaimana dibanding toko lain → boleh saya tanya sendiri. Angka dan kutipan selalu monospace supaya terbaca sebagai fakta terhitung, bukan karangan.",
-  s4:"<b>Kenapa begini:</b> panel geser, bukan halaman baru — konteks hasil tidak hilang. Setiap kutipan membawa rating dan tanggal supaya pengguna bisa menimbang bobotnya sendiri.",
+  s4:"<b>Kenapa begini:</b> panel geser, bukan halaman baru - konteks hasil tidak hilang. Setiap kutipan membawa rating dan tanggal supaya pengguna bisa menimbang bobotnya sendiri.",
   s5:"<b>Kenapa Tier 2:</b> layar ini baru masuk akal setelah ada lebih dari satu sesi analisis. Di MVP ia justru menambah langkah tanpa menambah jawaban.",
-  s6:"<b>Kenapa Tier 2:</b> butuh penyimpanan lintas sesi, yang eksplisit di luar batas MVP. Perhatikan peringatan sebab-akibat — tanpa itu, papan ini mengundang kesimpulan yang tidak didukung data.",
+  s6:"<b>Kenapa Tier 2:</b> butuh penyimpanan lintas sesi, yang eksplisit di luar batas MVP. Perhatikan peringatan sebab-akibat - tanpa itu, papan ini mengundang kesimpulan yang tidak didukung data.",
   s7:"<b>Kenapa Tier 2:</b> rulebook menyebut dashboard analitik lanjutan sebagai contoh over-scope. Grafik tren dari satu batch juga menyesatkan secara statistik.",
   s8:"<b>Kenapa Tier 2:</b> menjawab persona Admin Toko yang harus melapor ke pemilik. Di Tier 1, tangkapan layar sudah cukup.",
   s9:"<b>Kenapa Tier 2:</b> menunggu model visual lolos go/no-go gate. Pencocokan foto-ke-ulasan juga menambah kompleksitas UI yang tidak wajib MVP.",
@@ -641,9 +641,9 @@ const TIER = {
   s10:"road",s11:"road",s12:"road",s13:"road",s14:"road"
 };
 const TIER_TEXT = {
-  built:"● Tier 1 — sudah berfungsi di repo",
-  design:"● Tier 2 — rancangan, belum dibangun",
-  road:"● Tier 3 — roadmap pasca-kompetisi"
+  built:"● Tier 1 - sudah berfungsi di repo",
+  design:"● Tier 2 - rancangan, belum dibangun",
+  road:"● Tier 3 - roadmap pasca-kompetisi"
 };
 
 const badge = document.getElementById('tierBadge');

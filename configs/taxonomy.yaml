@@ -1,18 +1,18 @@
-# Taksonomi aspek — blueprint bagian 18.2
+# Taksonomi aspek - blueprint bagian 18.2
 #
 # STATUS: FROZEN (Fase 0, dikonfirmasi). Perubahan setelah titik ini wajib persetujuan
 # seluruh tim dan HARUS diedit di blueprint lebih dulu (blueprint bagian 39.1).
 #
 # Mekanisme adaptasi (bagian 18.2): aspek universal selalu aktif; aspek spesifik kategori
 # diaktifkan/dinonaktifkan dari field `category` pada data ingestion. Menambah kategori baru
-# TIDAK memerlukan retraining model — hanya pemetaan label output ke taksonomi ini.
+# TIDAK memerlukan retraining model - hanya pemetaan label output ke taksonomi ini.
 
 status: frozen
 frozen_at_phase: 0
 version: 1.0.0
 source: "INSIGHTULASAN_BLUEPRINT.md bagian 18.2"
 
-# Enum kategori produk — selaras schema Raw Review (bagian 25.1)
+# Enum kategori produk - selaras schema Raw Review (bagian 25.1)
 categories: [fashion, food_beverage, craft, electronics, other]
 
 aspects:
@@ -82,8 +82,8 @@ aspects:
 # blueprint memakai frasa "kurang relevan". Keputusan tim: perlakukan "kurang relevan"
 # sebagai NONAKTIF pada kategori tersebut, karena menampilkan aspek yang tidak relevan
 # (mis. "keaslian" untuk toko F&B) merusak kepercayaan pada relevansi sistem (persona 5.3).
-# Ini murni keputusan config — dapat dibalik tanpa retraining.
+# Ini murni keputusan config - dapat dibalik tanpa retraining.
 
-# Enum sentimen dan severity — schema Text Prediction (bagian 25.4)
+# Enum sentimen dan severity - schema Text Prediction (bagian 25.4)
 sentiments: [positif, negatif, netral]
 severities: [rendah, sedang, tinggi]

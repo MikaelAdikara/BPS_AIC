@@ -1,8 +1,8 @@
-"""QNA-01 — tanya jawab yang ter-ground pada ulasan pengguna (blueprint bagian 30.2).
+"""QNA-01 - tanya jawab yang ter-ground pada ulasan pengguna (blueprint bagian 30.2).
 
 Jawaban di sini **diekstraksi, bukan dikarang**. Setiap kalimat jawaban disusun dari angka yang
 sudah dihitung tool lain, dan setiap jawaban wajib membawa kutipan aslinya. Ketika bukti tidak
-ditemukan, sistem mengatakan tidak tahu — persis perilaku yang dijanjikan bagian 30.2.
+ditemukan, sistem mengatakan tidak tahu - persis perilaku yang dijanjikan bagian 30.2.
 
 Konsekuensinya jawaban terdengar seperti template. Itu pertukaran yang disengaja: pada produk
 yang seluruh nilainya bersandar pada kepercayaan terhadap angka, jawaban yang enak dibaca tetapi
@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 
 from ..schemas import Aspect, AspectAggregate, EvidenceCitation, QnAResponse
 
-# Kata kunci untuk MENGARAHKAN pertanyaan ke aspek — bukan untuk melabeli ulasan. Pelabelan
+# Kata kunci untuk MENGARAHKAN pertanyaan ke aspek - bukan untuk melabeli ulasan. Pelabelan
 # ditangani model; daftar ini hanya menebak topik yang sedang ditanyakan pengguna.
 QUESTION_KEYWORDS: dict[Aspect, list[str]] = {
     Aspect.PENGIRIMAN: ["kirim", "pengiriman", "ongkir", "kurir", "sampai", "telat", "lama"],
@@ -43,11 +43,11 @@ MAX_CITATIONS = 3
 # --------------------------------------------------------------------------------------
 # Retrieval SELALU mengembalikan tetangga terdekat, bahkan untuk pertanyaan yang datanya tidak
 # mungkin menjawab. "Berapa harga saham Telkom besok?" mengenai kata "harga", lalu terjawab
-# dengan statistik harga produk — lengkap dengan kutipan, sehingga tampak sah. Kegagalan seperti
+# dengan statistik harga produk - lengkap dengan kutipan, sehingga tampak sah. Kegagalan seperti
 # itu lebih berbahaya daripada menolak, karena pengguna tidak punya cara menyadarinya.
 #
 # Penjaganya: berapa banyak kata isi pertanyaan yang sama sekali asing bagi data pengguna.
-# Diukur pada korpus contoh (120 ulasan, 467 kata unik) atas 14 pertanyaan — pertanyaan yang
+# Diukur pada korpus contoh (120 ulasan, 467 kata unik) atas 14 pertanyaan - pertanyaan yang
 # wajar berhenti di 0.50, pertanyaan di luar domain mulai dari 0.75. Ambang 0.65 duduk di celah
 # itu dengan jarak ke kedua sisi.
 MAX_UNKNOWN_RATIO = 0.65
@@ -62,7 +62,7 @@ GRAMMAR_WORDS = {
 }
 
 # Kosakata untuk BERTANYA tentang analisis. Kata-kata ini jarang muncul di dalam ulasan itu
-# sendiri — pembeli menulis "paketnya telat", bukan "aspek pengiriman bersentimen negatif" —
+# sendiri - pembeli menulis "paketnya telat", bukan "aspek pengiriman bersentimen negatif" -
 # sehingga tanpa daftar ini pertanyaan analitis yang wajar akan ikut tertolak.
 ANALYSIS_WORDS = [
     "keluhan", "masalah", "aspek", "pembeli", "pelanggan", "ulasan", "review", "toko", "produk",
@@ -76,15 +76,15 @@ _SUFFIXES = ("kannya", "annya", "nya", "kan", "an", "i")
 
 
 def _stem(word: str) -> str:
-    """Pemenggal imbuhan seadanya — cukup untuk MENCOCOKKAN kosakata, bukan analisis morfologi.
+    """Pemenggal imbuhan seadanya - cukup untuk MENCOCOKKAN kosakata, bukan analisis morfologi.
 
     Tanpa ini "dikeluhkan" pada pertanyaan tidak akan bertemu "keluhan" pada daftar di atas,
     dan pertanyaan yang sepenuhnya wajar akan tertolak.
 
     Peluluhan bunyi tidak ditangani: "pengiriman" menjadi "irim", bukan "kirim", karena huruf
     yang luluh tidak dapat dipulihkan tanpa menebak ("mengambil" berasal dari "ambil", bukan
-    "kambil"). Yang dibutuhkan penjaga domain hanyalah KONSISTENSI — kata yang sama pada
-    pertanyaan dan pada ulasan menghasilkan bentuk yang sama — sehingga kekeliruan linguistik
+    "kambil"). Yang dibutuhkan penjaga domain hanyalah KONSISTENSI - kata yang sama pada
+    pertanyaan dan pada ulasan menghasilkan bentuk yang sama - sehingga kekeliruan linguistik
     ini tidak merugikan. Efeknya hanya sebagian bentuk berimbuhan tidak bertemu bentuk dasarnya,
     dan itu membuat penjaga sedikit lebih mudah menolak, arah kegagalan yang memang diinginkan.
     """
@@ -196,7 +196,7 @@ def _overall_sentence(aggregates: list[AspectAggregate], total: int) -> str:
     top = max(complained, key=lambda a: a.negative_count)
     return (
         f"Dari {total} ulasan, keluhan terbanyak ada pada "
-        f"{top.aspect.value.replace('_', ' ')} — {top.negative_count} ulasan."
+        f"{top.aspect.value.replace('_', ' ')} - {top.negative_count} ulasan."
     )
 
 
@@ -226,7 +226,7 @@ def answer_question(context: QnAContext, question: str) -> QnAResponse:
         query=question, aspect=aspect, top_k=MAX_CITATIONS
     )
 
-    # Tanpa kutipan, tidak ada yang dapat diperiksa pengguna — dan jawaban yang tidak dapat
+    # Tanpa kutipan, tidak ada yang dapat diperiksa pengguna - dan jawaban yang tidak dapat
     # diperiksa adalah persis yang produk ini hindari.
     if not citations:
         return QnAResponse(

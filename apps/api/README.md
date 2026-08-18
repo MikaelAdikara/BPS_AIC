@@ -1,4 +1,4 @@
-# apps/api — Backend FastAPI
+# apps/api - Backend FastAPI
 
 Satu service tunggal, service layer modular **secara kode** (bukan dipecah jadi container terpisah).
 Referensi: blueprint bagian 27 (arsitektur backend), 28 (API contracts), ADR-008.
@@ -8,8 +8,8 @@ Referensi: blueprint bagian 27 (arsitektur backend), 28 (API contracts), ADR-008
 | Folder | Isi | Referensi |
 | --- | --- | --- |
 | `app/routers/` | Endpoint handlers | bagian 28.1 |
-| `app/services/` | `AnalyzeService`, `QnaService` — orkestrasi per request | bagian 27.2 |
-| `app/tools/` | 10 tool contracts — **satu-satunya sumber angka di sistem** | bagian 27.3 |
+| `app/services/` | `AnalyzeService`, `QnaService` - orkestrasi per request | bagian 27.2 |
+| `app/tools/` | 10 tool contracts - **satu-satunya sumber angka di sistem** | bagian 27.3 |
 | `app/adapters/` | `TextModelAdapter`, `VisionModelAdapter`, `EmbeddingAdapter`, `OrchestratorAdapter` | bagian 27.2 |
 | `app/schemas/` | Pydantic models sesuai schema JSON | bagian 25 |
 | `app/config.py` | Pembacaan `.env` + `configs/config.yaml` | bagian 27.2 |
@@ -27,7 +27,7 @@ Referensi: blueprint bagian 27 (arsitektur backend), 28 (API contracts), ADR-008
 
 ## Aturan yang mengikat
 
-- **Sinkron**, tanpa background job — batas MVP rulebook (bagian 2.4 rulebook, ADR-008).
+- **Sinkron**, tanpa background job - batas MVP rulebook (bagian 2.4 rulebook, ADR-008).
 - `redact_personal_data()` berjalan **sebelum** data mencapai model manapun (bagian 27.3).
 - Error pada `classify_review_image()` **tidak** menghentikan analisis (graceful degradation).
 - Error pada `generate_action_recommendations()` / `answer_review_question()` memicu **FALLBACK MODE**,

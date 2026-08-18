@@ -176,7 +176,7 @@ NEGATIVE_TERMS: list[str] = [
     "tidak bertanggung jawab", "tidak berfungsi", "tidak bisa dipakai", "kurang memuaskan",
 ]
 
-# Penanda negasi — membalik polaritas kata sesudahnya dalam jendela terbatas.
+# Penanda negasi - membalik polaritas kata sesudahnya dalam jendela terbatas.
 # Bentuk Inggris WAJIB ada: tanpa "not", klausa campuran seperti "kualitas not oke" terbaca
 # POSITIF karena hanya kata "oke" yang terdeteksi. Bug nyata, ditemukan saat mengukur porsi
 # bahasa Inggris pada data (11,2% klausa memuat kata Inggris).
@@ -187,7 +187,7 @@ NEGATION_MARKERS: list[str] = [
 ]
 NEGATION_WINDOW = 3  # jumlah kata sesudah penanda yang terkena pembalikan
 
-# Konjungsi kontras — pemisah klausa. "bagus tapi lama" harus jadi dua klausa,
+# Konjungsi kontras - pemisah klausa. "bagus tapi lama" harus jadi dua klausa,
 # kalau tidak sentimennya saling menghapus.
 CONTRAST_MARKERS: list[str] = [
     "tapi", "namun", "sayangnya", "sayang", "cuma", "hanya saja", "meskipun", "walaupun",

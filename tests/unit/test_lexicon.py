@@ -1,4 +1,4 @@
-"""Test regresi labeling function — mengunci bug yang ditemukan lewat error analysis pada gold.
+"""Test regresi labeling function - mengunci bug yang ditemukan lewat error analysis pada gold.
 
 Setiap test di berkas ini mewakili kekeliruan NYATA yang pernah terjadi dan sempat merusak
 label silver. Test-nya ada supaya perbaikan itu tidak diam-diam kembali saat leksikon disunting.
@@ -36,7 +36,7 @@ def sentiment_of(text: str) -> str:
 
 @pytest.mark.parametrize("text", ["enak dipakai", "enak dimainin", "enak d pake ngegame"])
 def test_enak_tidak_memicu_aspek_rasa_di_konteks_non_makanan(text):
-    """Kata "enak" dulu memicu rasa_kualitas_makanan — 22 kasus over-label pada gold."""
+    """Kata "enak" dulu memicu rasa_kualitas_makanan - 22 kasus over-label pada gold."""
     assert "rasa_kualitas_makanan" not in aspects_of(text)
 
 
@@ -78,7 +78,7 @@ def test_aturan_cadangan_hanya_berlaku_saat_tidak_ada_aspek_lain():
 
 
 def test_negasi_bahasa_inggris_membalik_polaritas():
-    """Tanpa "not" sebagai penanda negasi, klausa ini terbaca POSITIF — bug nyata."""
+    """Tanpa "not" sebagai penanda negasi, klausa ini terbaca POSITIF - bug nyata."""
     assert sentiment_of("kualitas not oke") == "negatif"
     assert sentiment_of("not good at all") == "negatif"
 

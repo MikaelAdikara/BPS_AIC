@@ -1,6 +1,6 @@
 # Dataset demo bawaan (ING-04)
 
-`demo_reviews.csv` — 120 ulasan fesyen, mengikuti schema Raw Review (blueprint bagian 25.1).
+`demo_reviews.csv` - 120 ulasan fesyen, mengikuti schema Raw Review (blueprint bagian 25.1).
 Disertakan di repositori supaya siapa pun dapat mencoba sistem tanpa menyiapkan data sendiri.
 
 Dihasilkan ulang lewat:
@@ -12,11 +12,11 @@ python scripts/build_sample_dataset.py
 ## Asal data dan lisensi
 
 Teks ulasan diambil **apa adanya** dari Tokopedia Product Reviews 2019
-(`farhamu/tokopedia-product-reviews-2019`, **Apache-2.0**) — tanpa normalisasi, sehingga typo,
+(`farhamu/tokopedia-product-reviews-2019`, **Apache-2.0**) - tanpa normalisasi, sehingga typo,
 singkatan, dan gaya bahasa aslinya tetap utuh. Ini disengaja: demo yang memakai kalimat
 "rapi" tidak akan menunjukkan tantangan sebenarnya.
 
-## Yang DISINTESIS — wajib dibaca sebelum mengutip angka demo
+## Yang DISINTESIS - wajib dibaca sebelum mengutip angka demo
 
 | Field | Status | Keterangan |
 | --- | --- | --- |
@@ -35,21 +35,21 @@ ini tidak boleh dikutip di proposal maupun video sebagai temuan.
 
 ## Komposisi
 
-Dikurasi, bukan diambil acak — satu batch harus mampu memicu seluruh kapabilitas sistem
+Dikurasi, bukan diambil acak - satu batch harus mampu memicu seluruh kapabilitas sistem
 (blueprint bagian 42.1). Statistik lengkap ada di `composition.json`.
 
 | Elemen | Target bagian 42.1 | Tercapai |
 | --- | --- | --- |
-| Total ulasan | — | 120 |
+| Total ulasan | - | 120 |
 | Bahasa informal | ≥30% | 31% |
-| Keluhan berulang satu aspek | ada | `ukuran_varian` — 31 penyebutan, mayoritas negatif |
-| Pujian jelas aspek lain | ada | `pengiriman` — 53 penyebutan, mayoritas positif |
+| Keluhan berulang satu aspek | ada | `ukuran_varian` - 31 penyebutan, mayoritas negatif |
+| Pujian jelas aspek lain | ada | `pengiriman` - 53 penyebutan, mayoritas positif |
 | Aspek berbeda terwakili | ada | 9 dari 11 aspek muncul |
 | Kategori punya baseline benchmark | ada | seluruhnya `fashion` |
-| Foto jelas / foto blur / kontradiksi | ada | **belum** — menunggu Fase 3 |
+| Foto jelas / foto blur / kontradiksi | ada | **belum** - menunggu Fase 3 |
 
 Dua aspek yang tidak muncul (`rasa_kualitas_makanan`, `kelengkapan`) memang tidak relevan atau
-sangat jarang pada kategori fesyen — ini perilaku taksonomi yang benar, bukan kekurangan data.
+sangat jarang pada kategori fesyen - ini perilaku taksonomi yang benar, bukan kekurangan data.
 
 ## Privasi
 

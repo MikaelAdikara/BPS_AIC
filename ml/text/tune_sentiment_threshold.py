@@ -1,8 +1,8 @@
-"""Fase 8 — penyetelan ambang kelas negatif (blueprint bagian 33).
+"""Fase 8 - penyetelan ambang kelas negatif (blueprint bagian 33).
 
 **Masalah yang diselesaikan.** Kepala sentimen memakai `argmax` murni. Ketika model ragu
 antara netral dan negatif, argmax selalu jatuh ke kelas yang probabilitasnya sedikit lebih
-tinggi — dan karena netral adalah kelas terbanyak pada data latih, keraguan itu sistematis
+tinggi - dan karena netral adalah kelas terbanyak pada data latih, keraguan itu sistematis
 berpihak ke netral. Akibatnya terukur pada evaluasi eksternal: **91 keluhan asli PRDECT
 diprediksi netral.** Untuk produk yang seluruh gunanya adalah menemukan keluhan, kesalahan
 ke arah ini jauh lebih merugikan daripada kebalikannya.
@@ -48,7 +48,7 @@ NEG = SENTIMENTS.index("negatif")
 TAU_GRID = np.round(np.arange(0.20, 0.56, 0.025), 3)
 
 
-# Parquet ditarik langsung lewat URL, sama seperti evaluate_external.py — tanpa paket
+# Parquet ditarik langsung lewat URL, sama seperti evaluate_external.py - tanpa paket
 # `datasets` yang menarik dependensi besar hanya untuk membaca satu berkas.
 NUSAX_BASE = (
     "https://huggingface.co/datasets/indonlp/NusaX-senti/resolve/"
@@ -68,7 +68,7 @@ def load_nusax(split: str, lang: str = "ind") -> pd.DataFrame:
 
 
 def load_prdect() -> pd.DataFrame:
-    """Split test PRDECT — dipilih PER PRODUK, sama persis dengan evaluate_external.py.
+    """Split test PRDECT - dipilih PER PRODUK, sama persis dengan evaluate_external.py.
 
     Memakai potongan indeks sederhana akan menaruh ulasan produk yang sama di kedua sisi,
     dan angka yang dihasilkan tidak lagi sebanding dengan evaluasi yang sudah dilaporkan.
@@ -84,7 +84,7 @@ def load_prdect() -> pd.DataFrame:
 
 
 def clause_probs(texts: list[str]) -> list[np.ndarray]:
-    """Probabilitas sentimen per klausa untuk tiap dokumen — dihitung SEKALI.
+    """Probabilitas sentimen per klausa untuk tiap dokumen - dihitung SEKALI.
 
     Sapuan ambang tidak boleh memuat ulang model setiap langkah: itu mengubah pekerjaan
     beberapa menit menjadi beberapa jam tanpa menambah informasi apa pun.
@@ -118,8 +118,8 @@ def clause_probs(texts: list[str]) -> list[np.ndarray]:
 def decide(probs: np.ndarray, tau: float) -> str:
     """Agregasi dokumen dari klausa, dengan ambang khusus kelas negatif.
 
-    Aturan mayoritasnya sama dengan evaluate_external.py — klausa non-netral menang atas
-    netral — supaya yang berubah hanya ambangnya, bukan cara agregasinya sekaligus.
+    Aturan mayoritasnya sama dengan evaluate_external.py - klausa non-netral menang atas
+    netral - supaya yang berubah hanya ambangnya, bukan cara agregasinya sekaligus.
     """
     votes = []
     for row in probs:
@@ -154,7 +154,7 @@ def main() -> int:
     tune = load_nusax("train")
     tests = {"nusax_ind_test": load_nusax("test"), "prdect_test": load_prdect()}
 
-    print(f"Menghitung probabilitas — tuning ({len(tune)} dokumen)…", flush=True)
+    print(f"Menghitung probabilitas - tuning ({len(tune)} dokumen)…", flush=True)
     tune_probs = clause_probs(tune["text"].tolist())
 
     print("Menyapu ambang…", flush=True)

@@ -66,12 +66,12 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut hal ini."
         ),
         "outcome": "Keluhan {label} berkurang dan pembeli lebih jarang salah pilih",
-        "effort": "rendah — mengubah teks dan gambar di halaman produk",
+        "effort": "rendah - mengubah teks dan gambar di halaman produk",
         "owner": "pemilik toko atau admin listing",
         "risk_undone": "Keluhan berulang, dan potensi retur ikut naik",
         "risk_wrong": (
             "Jika keterangannya sebenarnya sudah tepat, perubahan ini tidak akan menurunkan "
-            "keluhan — periksa dulu beberapa kutipan sebelum mengubah"
+            "keluhan - periksa dulu beberapa kutipan sebelum mengubah"
         ),
     },
     ActionCategory.PRODUCT_QUALITY: {
@@ -81,12 +81,12 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut masalah ini."
         ),
         "outcome": "Keluhan kualitas menurun dan rating produk membaik",
-        "effort": "sedang — perlu memeriksa stok atau menghubungi pemasok",
+        "effort": "sedang - perlu memeriksa stok atau menghubungi pemasok",
         "owner": "pemilik toko",
         "risk_undone": "Masalah yang sama terus berulang pada pembeli berikutnya",
         "risk_wrong": (
             "Jika masalahnya hanya pada sebagian kecil kiriman, pemeriksaan menyeluruh bisa "
-            "memakan waktu tanpa hasil sepadan — mulai dari varian yang paling sering disebut"
+            "memakan waktu tanpa hasil sepadan - mulai dari varian yang paling sering disebut"
         ),
     },
     ActionCategory.PACKAGING: {
@@ -96,12 +96,12 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut masalah {label}."
         ),
         "outcome": "Barang sampai dalam kondisi lebih baik dan keluhan menurun",
-        "effort": "rendah — mengganti bahan pengemas atau jasa kirim",
+        "effort": "rendah - mengganti bahan pengemas atau jasa kirim",
         "owner": "pemilik toko atau staf pengemasan",
         "risk_undone": "Barang rusak di jalan, biaya retur ditanggung toko",
         "risk_wrong": (
             "Jika penyebabnya ada di jasa kirim dan bukan pengemasan, mengganti bahan pengemas "
-            "tidak akan menyelesaikannya — periksa apakah keluhannya terpusat pada satu tujuan"
+            "tidak akan menyelesaikannya - periksa apakah keluhannya terpusat pada satu tujuan"
         ),
     },
     ActionCategory.SERVICE: {
@@ -111,12 +111,12 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut {label}."
         ),
         "outcome": "Pembeli merasa lebih dilayani dan keluhan pelayanan menurun",
-        "effort": "rendah — menyiapkan balasan siap pakai untuk pertanyaan berulang",
+        "effort": "rendah - menyiapkan balasan siap pakai untuk pertanyaan berulang",
         "owner": "pemilik toko atau staf customer service",
         "risk_undone": "Pembeli beralih ke toko lain yang lebih responsif",
         "risk_wrong": (
             "Jika keluhannya soal isi jawaban dan bukan kecepatannya, mempercepat balasan tidak "
-            "akan membantu — baca dulu kutipannya"
+            "akan membantu - baca dulu kutipannya"
         ),
     },
     ActionCategory.PRICING_REVIEW: {
@@ -126,12 +126,12 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut {label}."
         ),
         "outcome": "Pembeli merasa harganya sepadan dengan yang diterima",
-        "effort": "sedang — perlu menghitung ulang margin",
+        "effort": "sedang - perlu menghitung ulang margin",
         "owner": "pemilik toko",
         "risk_undone": "Pembeli membandingkan dengan toko lain lalu tidak jadi membeli",
         "risk_wrong": (
             "Menurunkan harga menggerus margin. Keluhan harga sering sebenarnya keluhan "
-            "kualitas — pastikan dulu mana yang benar-benar dikeluhkan"
+            "kualitas - pastikan dulu mana yang benar-benar dikeluhkan"
         ),
     },
     ActionCategory.CUSTOMER_COMMUNICATION: {
@@ -141,7 +141,7 @@ CATEGORY_TEMPLATE = {
             "{frequency} dari {total} ulasan ({pct}) menyebut {label}."
         ),
         "outcome": "Pertanyaan berulang berkurang dan pembeli lebih puas",
-        "effort": "rendah — menambah beberapa kalimat atau gambar",
+        "effort": "rendah - menambah beberapa kalimat atau gambar",
         "owner": "pemilik toko atau admin listing",
         "risk_undone": "Pertanyaan yang sama terus masuk dan memakan waktu",
         "risk_wrong": "Jika produknya memang rumit, penjelasan saja mungkin belum cukup",
@@ -150,10 +150,10 @@ CATEGORY_TEMPLATE = {
         "title": "Tinjau manual ulasan yang teks dan fotonya bertentangan",
         "action": (
             "Ada {frequency} ulasan yang teksnya menyebut puas namun fotonya menunjukkan "
-            "indikasi masalah. Sistem tidak menyimpulkan mana yang benar — perlu Anda lihat."
+            "indikasi masalah. Sistem tidak menyimpulkan mana yang benar - perlu Anda lihat."
         ),
         "outcome": "Ketidaksesuaian terjelaskan, dan pola masalah yang tersembunyi ikut terlihat",
-        "effort": "rendah — membuka beberapa ulasan yang ditandai",
+        "effort": "rendah - membuka beberapa ulasan yang ditandai",
         "owner": "pemilik toko",
         "risk_undone": "Masalah nyata tertutup oleh ulasan yang terlihat positif",
         "risk_wrong": "Sebagian mungkin hanya salah unggah foto oleh pembeli",

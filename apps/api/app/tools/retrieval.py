@@ -1,4 +1,4 @@
-"""retrieve_evidence() — RET-01, tool contract bagian 27.3 (desain bagian 21).
+"""retrieve_evidence() - RET-01, tool contract bagian 27.3 (desain bagian 21).
 
 Mengambil kutipan ulasan ASLI sebagai bukti setiap klaim. Ini fondasi kepercayaan produk:
 pemilik UMKM yang skeptis pada AI ingin melihat kalimat pelanggannya sendiri, bukan ringkasan

@@ -1,4 +1,4 @@
-"""Backend InsightUlasan — FastAPI, satu service (blueprint bagian 27, 28, ADR-008).
+"""Backend InsightUlasan - FastAPI, satu service (blueprint bagian 27, 28, ADR-008).
 
 Enam endpoint Tier 1. Seluruhnya **sinkron**: satu input masuk, satu output AI keluar, tanpa
 background job (batas MVP rulebook bagian 2.4).
@@ -39,7 +39,7 @@ SAMPLE_PATH = REPO_ROOT / "data" / "samples" / "demo_reviews.csv"
 
 MAX_REVIEWS_PER_REQUEST = 1000
 
-# Log terstruktur tanpa PII — hanya review_id dan metadata agregat (bagian 37.1).
+# Log terstruktur tanpa PII - hanya review_id dan metadata agregat (bagian 37.1).
 logging.basicConfig(level=logging.INFO, format='{"level":"%(levelname)s","msg":"%(message)s"}')
 log = logging.getLogger("insightulasan")
 
@@ -97,7 +97,7 @@ app.add_middleware(
 
 
 def _error(code: ErrorCode, message: str, recoverable: bool, action: str | None = None):
-    """Bentuk error konsisten (bagian 25.13) — pesan Bahasa Indonesia sederhana, bukan trace."""
+    """Bentuk error konsisten (bagian 25.13) - pesan Bahasa Indonesia sederhana, bukan trace."""
     return JSONResponse(
         status_code=400 if recoverable else 500,
         content=ErrorResponse(
@@ -117,7 +117,7 @@ class QuestionRequest(BaseModel):
 
 @app.get("/api/v1/health")
 def health() -> dict:
-    """Proses backend hidup. Tidak menjamin model sudah siap — itu tugas /readiness."""
+    """Proses backend hidup. Tidak menjamin model sudah siap - itu tugas /readiness."""
     return {"status": "ok"}
 
 
@@ -133,7 +133,7 @@ def readiness():
 
 @app.get("/api/v1/models")
 def models() -> dict:
-    """Versi model aktif — dipakai juri untuk memverifikasi reproducibility (bagian 28.1)."""
+    """Versi model aktif - dipakai juri untuk memverifikasi reproducibility (bagian 28.1)."""
     service = state["service"]
     if service is None:
         return {"status": "belum siap"}
@@ -199,7 +199,7 @@ def analyze(payload: AnalyzeRequest, request: Request):
 def questions(payload: QuestionRequest):
     """Q&A ter-ground: jawaban disusun dari angka analisis dan selalu membawa kutipannya.
 
-    Tanpa orchestrator, jawaban memakai kalimat template — sama seperti ringkasan eksekutif pada
+    Tanpa orchestrator, jawaban memakai kalimat template - sama seperti ringkasan eksekutif pada
     FALLBACK MODE (ADR-014). Yang tidak pernah berubah adalah syaratnya: tanpa bukti yang dapat
     dikutip, sistem menolak menjawab alih-alih mengarang (bagian 30.2).
     """

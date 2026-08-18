@@ -1,4 +1,4 @@
-# Scope Freeze — Fase 0
+# Scope Freeze - Fase 0
 
 Deliverable Fase 0 sesuai blueprint bagian 38.1. Dokumen ini mengunci apa yang dibangun untuk
 Tier 1 (penyisihan) sebelum satu baris kode fitur ditulis. Perubahan setelah titik ini wajib
@@ -8,7 +8,7 @@ diedit di [blueprint](reference/INSIGHTULASAN_BLUEPRINT.md) lebih dulu, baru dii
 
 ---
 
-## 1. Taksonomi aspek — FROZEN
+## 1. Taksonomi aspek - FROZEN
 
 Sebelas aspek, persis blueprint bagian 18.2. Config: [`configs/taxonomy.yaml`](../configs/taxonomy.yaml).
 
@@ -36,11 +36,11 @@ Sebelas aspek, persis blueprint bagian 18.2. Config: [`configs/taxonomy.yaml`](.
    eksplisit menyebut penonaktifan otomatis untuk `rasa_kualitas_makanan`; untuk tiga aspek
    lainnya dipakai frasa "kurang relevan". Menampilkan aspek tak relevan (mis. "keaslian" untuk
    toko F&B) merusak kepercayaan pada relevansi sistem (persona 5.3). Ini keputusan config murni
-   — dapat dibalik tanpa retraining.
+   - dapat dibalik tanpa retraining.
 
 Sentimen: `positif | negatif | netral`. Severity: `rendah | sedang | tinggi`.
 
-## 2. Kelas visual — FROZEN
+## 2. Kelas visual - FROZEN
 
 Empat kelas, persis blueprint bagian 19.1. Config: [`configs/visual_classes.yaml`](../configs/visual_classes.yaml).
 
@@ -55,36 +55,36 @@ Setiap kelas memakai prompt ensemble 2–3 varian (campuran Bahasa Indonesia + I
 per kelas adalah rata-rata seluruh varian, bukan satu prompt tunggal.
 
 **Abstention wajib.** Pesan tetap: _"Tidak dapat menyimpulkan kondisi produk dari foto ini."_
-Threshold absolut dan margin top1-vs-top2 **belum ditetapkan** — dikalibrasi dari distribusi skor
+Threshold absolut dan margin top1-vs-top2 **belum ditetapkan** - dikalibrasi dari distribusi skor
 sampel validasi pada Fase 3, bukan angka default.
 
 **Satu-satunya perubahan yang masih terbuka:** penggabungan kelas jika evaluasi Fase 3 membuktikan
-dua kelas tidak terpisahkan (kandidat: `salah_kirim` vs `produk_rusak`) — bagian 26.2 langkah 10.
+dua kelas tidak terpisahkan (kandidat: `salah_kirim` vs `produk_rusak`) - bagian 26.2 langkah 10.
 Penambahan kelas baru tidak terbuka; batas tetap maksimal 4.
 
-## 3. Fitur Tier 1 — FROZEN
+## 3. Fitur Tier 1 - FROZEN
 
-**Must Build (P0)** — blueprint bagian 9.1, 10, 47:
+**Must Build (P0)** - blueprint bagian 9.1, 10, 47:
 `ING-01`, `ING-03`, `ING-04`, `ING-09`, `GOV-01`, `GOV-02`, `NLP-01`, `VIS-01`, `FUS-01`,
 `RET-01`, `ACT-01`, `QNA-01`, `BEN-01`, `UX-01`, `MON-01`.
 
 **Should Build (P1, hanya setelah seluruh P0 stabil)**:
 `ING-05`, `ING-06`, `ING-07`, `NLP-02`, `VIS-02`, `OPP-01`.
 
-**Tidak dibangun untuk penyisihan** — blueprint bagian 4.5, mengikat: dashboard tren multi-halaman,
+**Tidak dibangun untuk penyisihan** - blueprint bagian 4.5, mengikat: dashboard tren multi-halaman,
 autentikasi/role management, background job, distributed DB, auto-tuning, feedback loop otomatis,
 action tracking penuh, multi-toko, billing, marketplace connector otomatis, continuous learning,
 generator konten marketing.
 
-**Feature freeze date: H-7 sebelum deadline.** Setelah tanggal itu tidak ada fitur P1 baru —
+**Feature freeze date: H-7 sebelum deadline.** Setelah tanggal itu tidak ada fitur P1 baru -
 hanya stabilisasi P0 (bagian 47).
 
-## 4. Format Action Card — FROZEN
+## 4. Format Action Card - FROZEN
 
 Schema persis blueprint bagian 22.1 (21 field, termasuk `priority_reasoning`,
 `risk_if_recommendation_wrong`, dan `user_action`).
 
-**Formula priority score** (bagian 22.2, versi final hasil kajian — bukan perkalian mentah):
+**Formula priority score** (bagian 22.2, versi final hasil kajian - bukan perkalian mentah):
 
 ```
 score = frequency_norm × severity_norm × confidence_norm
@@ -93,13 +93,13 @@ score = frequency_norm × severity_norm × confidence_norm
 
 Seluruh faktor dinormalisasi ke 0–1 sebelum dikalikan, hasil di-scale ke 0–100.
 `Business Relevance` **dihapus** sebagai faktor kuantitatif terpisah (risiko double-counting
-dengan Severity). Bobot 0.3 / 0.2 berstatus `[REQUIRES VALIDATION]` — wajib diuji sensitivity
+dengan Severity). Bobot 0.3 / 0.2 berstatus `[REQUIRES VALIDATION]` - wajib diuji sensitivity
 ±50% pada Fase 8 sebelum dianggap final.
 
-Jika total ulasan sesi < 15: badge "confidence rendah — data terbatas" pada seluruh Action Card,
+Jika total ulasan sesi < 15: badge "confidence rendah - data terbatas" pada seluruh Action Card,
 dan urgensi dibatasi maksimal "Sedang".
 
-## 5. Kontrak data dan API — FROZEN
+## 5. Kontrak data dan API - FROZEN
 
 Schema JSON bagian 25 (13 schema) dan endpoint bagian 28.1 dikunci sekarang agar frontend dapat
 mulai dengan mock data sebelum backend selesai (mitigasi risiko bagian 39.1). Perubahan schema

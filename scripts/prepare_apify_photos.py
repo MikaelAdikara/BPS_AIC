@@ -33,7 +33,7 @@ from app.tools.privacy import redact_personal_data  # noqa: E402
 PHOTO_DIR = REPO / "data" / "raw" / "review_photos"
 TASK_CSV = REPO / "data" / "annotation" / "visual_labeling_task.csv"
 
-# Kelas dari configs/visual_classes.yaml — status FROZEN, jangan ditambah di sini.
+# Kelas dari configs/visual_classes.yaml - status FROZEN, jangan ditambah di sini.
 CLASSES = ["produk_rusak", "salah_kirim", "kemasan_rusak", "normal"]
 
 # Kunci yang mungkin dipakai actor untuk hal yang sama. Ekspor scraper kerap berganti nama
@@ -73,7 +73,7 @@ def audit_batch(rows: list[dict]) -> list[str]:
     Batch pertama yang kami ambil lolos syarat jumlah (40 foto, di atas minimum 20-30) tetapi
     **tidak berguna sama sekali**: 20 ulasan, satu produk, seluruhnya bintang lima. Dari
     ulasan bintang lima hampir mustahil muncul foto produk rusak, salah kirim, atau kemasan
-    rusak — sehingga tiga dari empat kelas tidak punya satu pun contoh, dan pertanyaan yang
+    rusak - sehingga tiga dari empat kelas tidak punya satu pun contoh, dan pertanyaan yang
     ingin dijawab ("apakah model mengenali masalah?") tidak dapat dijawab.
 
     Pemeriksaan ini menyala di depan, bukan setelah berjam-jam pelabelan terbuang.
@@ -138,7 +138,7 @@ def main() -> int:
 
     # Batch digabung LEBIH DULU, lalu diaudit sebagai satu kesatuan. Mengaudit per berkas
     # akan menolak batch bintang-satu (satu produk) padahal justru itu yang melengkapi
-    # batch bintang-lima sebelumnya — yang dinilai adalah cakupan gabungannya.
+    # batch bintang-lima sebelumnya - yang dinilai adalah cakupan gabungannya.
     rows: list[dict] = []
     for path in args.export:
         bagian = load_rows(path)
@@ -157,7 +157,7 @@ def main() -> int:
                 "jalankan ulang dengan --paksa bila Anda memang hanya ingin melihat isinya."
             )
             return 2
-        print("\n--paksa dipakai — lanjut meski batch ini tidak layak untuk validasi.\n")
+        print("\n--paksa dipakai - lanjut meski batch ini tidak layak untuk validasi.\n")
 
     PHOTO_DIR.mkdir(parents=True, exist_ok=True)
     TASK_CSV.parent.mkdir(parents=True, exist_ok=True)
@@ -203,7 +203,7 @@ def main() -> int:
                 "rating": pick(row, KEYS["rating"]) or "",
                 "product_name": pick(row, KEYS["product"]) or "",
                 "pii_redacted": "ya" if redaction.redacted else "tidak",
-                # Kolom yang diisi manusia. Dikosongkan sengaja — mengisinya otomatis akan
+                # Kolom yang diisi manusia. Dikosongkan sengaja - mengisinya otomatis akan
                 # membuat label ini tidak sah sebagai penengah performa model visual.
                 "label_manusia": "",
                 "sulit_dinilai": "",
@@ -233,7 +233,7 @@ def main() -> int:
     if gagal:
         print(f"Gagal diunduh: {gagal}")
     print(f"\nIsi kolom 'label_manusia' dengan salah satu: {', '.join(CLASSES)}")
-    print("Kosongkan label dan isi 'sulit_dinilai' dengan 'ya' bila foto memang ambigu — "
+    print("Kosongkan label dan isi 'sulit_dinilai' dengan 'ya' bila foto memang ambigu - "
           "foto ambigu adalah data yang sah untuk mengukur abstention, bukan baris rusak.")
     return 0
 
