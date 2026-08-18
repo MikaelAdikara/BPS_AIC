@@ -344,7 +344,17 @@ Sumbernya: <https://huggingface.co/MikaelAdi/insightulasan-nlp01>
 
 Tanpa berkas ini sistem **tetap berjalan** memakai jalur leksikon dan menyatakan keterbatasannya di `/api/v1/readiness` - tetapi yang berjalan bukan sistem yang dijelaskan proposal.
 
-### 9.0.2 Menjalankan tanpa Docker
+### 9.0.2 Memeriksa apakah modelnya bekerja benar
+
+```bash
+python scripts/cek_model.py
+```
+
+Empat lapis dalam satu perintah: kesiapan berkas, perilaku pada ulasan yang jawabannya jelas bagi manusia, ketahanan terhadap masukan aneh, lalu metrik yang sudah diukur pada label manusia.
+
+Lapis kedua sengaja memuat kasus yang **modelnya memang salah**. Pemeriksaan yang hanya berisi contoh berhasil tidak memeriksa apa pun — ia hanya membuktikan kita pandai memilih contoh.
+
+### 9.0.3 Menjalankan tanpa Docker
 
 ```bash
 python -m uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000
