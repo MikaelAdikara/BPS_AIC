@@ -90,7 +90,10 @@ CATEGORY_TEMPLATE = {
         ),
     },
     ActionCategory.PACKAGING: {
-        "title": "Tinjau cara pengemasan dan pengiriman",
+        # Judul memuat {label} karena kategori ini mencakup DUA aspek (kemasan dan
+        # pengiriman). Judul tetap akan menghasilkan dua kartu berjudul sama pada satu
+        # layar hasil, dan itu terbaca sebagai sistem yang rusak.
+        "title": "Tinjau proses {label} pesanan",
         "action": (
             "Tinjau cara Anda mengemas dan mengirim pesanan. "
             "{frequency} dari {total} ulasan ({pct}) menyebut masalah {label}."

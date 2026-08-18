@@ -181,3 +181,21 @@ def test_kartu_berbeda_aspek_menghasilkan_rekomendasi_berbeda():
     """Kartu yang seragam adalah gejala template generik (bagian 22.3)."""
     texts = {_card(aspect=a).recommended_action for a in Aspect}
     assert len(texts) >= 5, "terlalu banyak aspek menghasilkan kalimat rekomendasi identik"
+
+
+def test_tidak_ada_dua_kartu_berjudul_sama():
+    """Judul kembar pada satu layar hasil terbaca sebagai sistem yang rusak.
+
+    Sebuah kategori dapat mencakup beberapa aspek (PACKAGING mencakup kemasan DAN
+    pengiriman), sehingga judul yang tidak memuat {label} akan menghasilkan dua kartu
+    yang tampak identik padahal membahas hal berbeda.
+    """
+    from app.tools.actions import ASPECT_LABEL, ASPECT_TO_CATEGORY, CATEGORY_TEMPLATE
+
+    judul = {}
+    for aspek, kategori in ASPECT_TO_CATEGORY.items():
+        t = CATEGORY_TEMPLATE[kategori]["title"].format(label=ASPECT_LABEL[aspek])
+        assert t not in judul, (
+            f"aspek {aspek.value} dan {judul[t].value} menghasilkan judul sama: {t!r}"
+        )
+        judul[t] = aspek
