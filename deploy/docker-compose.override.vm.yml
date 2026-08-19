@@ -1,0 +1,33 @@
+# Khusus VM demo (tidak masuk repositori).
+#
+# Perbedaan dari compose utama:
+#
+#   1. web dilayani di port 80 saja. VM ini bertag `http-server` sehingga port 80 sudah
+#      terbuka oleh aturan bawaan; port 3000 dari compose utama dibuang karena tertutup
+#      firewall dan tidak ada gunanya dipublikasikan.
+#
+#   2. api hanya diikat ke 127.0.0.1. Container web menghubunginya lewat jaringan Docker
+#      (`http://api:8000`), bukan lewat port host, jadi mengikatnya ke loopback tidak
+#      menghilangkan apa pun. Sebelumnya ia dipublikasikan di 0.0.0.0 dan hanya selamat karena
+#      kebetulan firewall menutup 8000 - berarti satu perubahan tag jaringan sudah cukup
+#      membuka API mentah ke internet tanpa ada yang menyadarinya.
+#
+#      `!override` dipakai karena Compose MENGGABUNGKAN daftar ports antar-berkas; tanpa itu
+#      pemetaan lama dari compose utama tetap ikut, bukan tergantikan.
+#
+#   3. restart: unless-stopped - demo lomba tidak boleh mati hanya karena VM di-reboot.
+#
+#   4. MAX_REVIEWS_PER_REQUEST=400 - plafon nyata mesin 2 vCPU ini, terukur, bukan ditebak
+#      (lihat docs/DEPLOYMENT.md). Bawaan kode 1.000 dibiarkan utuh untuk mesin lain.
+services:
+  api:
+    restart: unless-stopped
+    ports: !override
+      - "127.0.0.1:8000:8000"
+    environment:
+      - TZ=Asia/Jakarta
+      - MAX_REVIEWS_PER_REQUEST=400
+  web:
+    restart: unless-stopped
+    ports: !override
+      - "80:80"

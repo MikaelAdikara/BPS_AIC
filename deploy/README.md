@@ -20,6 +20,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now insightulasan-deploy.timer
 ```
 
+## `docker-compose.override.vm.yml`
+
+Salinan override yang aktif di VM demo. Ia TIDAK otomatis terpakai - Compose hanya membaca
+berkas bernama `docker-compose.override.yml` di root, dan berkas itu sengaja tidak dilacak git
+supaya pengaturan khas satu mesin (port 80, batas 400 ulasan) tidak ikut ke mesin siapa pun
+yang meng-clone repositori. Salinan di sini ada agar isinya dapat dibaca dan dipasang ulang:
+
+```bash
+cp deploy/docker-compose.override.vm.yml docker-compose.override.yml
+```
+
 ## Memeriksa
 
 ```bash
