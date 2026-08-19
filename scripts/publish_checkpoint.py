@@ -54,7 +54,7 @@ akurasi. Angka aspek tidak boleh dikutip sebagai capaian.
 ambang - 88% di antaranya diprediksi dengan probabilitas negatif di bawah 0,10, artinya model
 yakin ketika ia salah.
 
-Rincian lengkap: <https://github.com/patrick12354/BPS_AIC> (docs/MODEL_CARD.md, LIMITATIONS.md)
+Rincian lengkap: <https://github.com/MikaelAdikara/BPS_AIC> (docs/MODEL_CARD.md, LIMITATIONS.md)
 
 ## Pemakaian
 

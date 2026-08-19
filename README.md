@@ -375,7 +375,7 @@ Jalur ini **sudah terverifikasi berjalan**: API siap dalam ~53 detik pada CPU, d
 ### 9.2 Instalasi
 
 ```bash
-git clone https://github.com/patrick12354/BPS_AIC.git
+git clone https://github.com/MikaelAdikara/BPS_AIC.git
 cd BPS_AIC
 python -m venv .venv
 source .venv/Scripts/activate      # Linux/macOS: source .venv/bin/activate
