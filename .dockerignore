@@ -19,10 +19,15 @@ apps/web/dist/
 models/
 
 # Dataset pelatihan dan artefak evaluasi tidak pernah dibaca saat melayani request.
-# Dua berkas yang memang dibutuhkan disalin eksplisit di api.Dockerfile.
+#
+# Daftar pengecualian di bawah WAJIB mencerminkan baris COPY data/... di api.Dockerfile.
+# Keduanya terpisah dan tidak saling memaksa: menambah COPY tanpa menambahnya di sini membuat
+# build gagal dengan pesan "not found" yang menyesatkan - berkasnya ada di repositori, hanya
+# tidak pernah ikut ke konteks build.
 data/
 !data/processed/category_baseline.json
 !data/samples/demo_reviews.csv
+!data/samples/demo_shopee_asli.csv
 
 # Dokumen, prototipe desain, dan rujukan
 docs/
