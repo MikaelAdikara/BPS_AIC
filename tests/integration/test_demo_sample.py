@@ -70,3 +70,34 @@ def test_jumlah_yang_dilaporkan_cocok_dengan_isi_csv():
     for nama, (berkas, _) in SAMPLES.items():
         with (SAMPLE_DIR / berkas).open(encoding="utf-8") as fh:
             assert demo_sample(nama)["total"] == len(list(csv.DictReader(fh))), nama
+
+
+# ------------------------------------------------------------------ batas jumlah ulasan
+
+
+def test_batas_ulasan_dapat_diatur_lewat_lingkungan(monkeypatch):
+    """Batasnya terikat perangkat keras, bukan produk.
+
+    Pada 2 vCPU plafon nyatanya sekitar 400 ulasan sementara bawaan kode 1.000; tanpa dapat
+    diatur per-deployment, pengguna menunggu beberapa menit hanya untuk berakhir pada pesan
+    kehabisan waktu, padahal penolakan yang jujur bisa diberikan seketika.
+    """
+    import importlib
+
+    import app.main as main
+
+    monkeypatch.setenv("MAX_REVIEWS_PER_REQUEST", "400")
+    importlib.reload(main)
+    try:
+        assert main.MAX_REVIEWS_PER_REQUEST == 400
+    finally:
+        monkeypatch.delenv("MAX_REVIEWS_PER_REQUEST")
+        importlib.reload(main)
+
+
+def test_bawaannya_tetap_seribu_bila_lingkungan_tidak_diatur():
+    """Juri yang menjalankan `docker compose up` tanpa konfigurasi tambahan tidak boleh
+    mendapat batas yang lebih ketat diam-diam."""
+    import app.main as main
+
+    assert main.MAX_REVIEWS_PER_REQUEST == 1000

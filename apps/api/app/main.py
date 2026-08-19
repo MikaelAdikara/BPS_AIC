@@ -10,6 +10,7 @@ mengembalikan 200 setelah pemuatan selesai, sehingga frontend tidak menembak API
 from __future__ import annotations
 
 import logging
+import os
 import sys
 import time
 from contextlib import asynccontextmanager
@@ -59,7 +60,14 @@ SAMPLE_ALIASES = {
     "variant": ("variant", "varian"),
 }
 
-MAX_REVIEWS_PER_REQUEST = 1000
+# Batas ini terikat perangkat keras, bukan produk, sehingga dapat diatur lewat lingkungan
+# alih-alih dipaku di kode. Pada 2 vCPU terukur ~0,62 detik per ulasan ditambah ~47 detik biaya
+# tetap, sedangkan batas waktu klien dan nginx sama-sama 300 detik - artinya plafon nyatanya
+# sekitar 400 ulasan. Membiarkan 1.000 lolos di mesin sekecil itu berarti pengguna menunggu
+# beberapa menit hanya untuk berakhir pada pesan kehabisan waktu yang tidak menjelaskan apa
+# pun, padahal penolakan yang jujur bisa diberikan seketika. Mesin yang lebih besar tinggal
+# menaikkan angkanya tanpa menyentuh kode.
+MAX_REVIEWS_PER_REQUEST = int(os.getenv("MAX_REVIEWS_PER_REQUEST", "1000"))
 
 # Log terstruktur tanpa PII - hanya review_id dan metadata agregat (bagian 37.1).
 logging.basicConfig(level=logging.INFO, format='{"level":"%(levelname)s","msg":"%(message)s"}')

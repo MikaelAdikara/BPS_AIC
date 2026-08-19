@@ -89,8 +89,13 @@ Kedua titik itu memberi sekitar **0,62 detik per ulasan** ditambah **~47 detik b
 (pemuatan model dan penyiapan indeks bukti).
 
 Batas waktu klien dan `proxy_read_timeout` nginx sama-sama 300 detik, sehingga plafon
-praktisnya **sekitar 400 ulasan**, bukan 1.000 seperti yang diizinkan
-`MAX_REVIEWS_PER_REQUEST`. Unggahan yang jauh lebih besar dari itu akan kehabisan waktu.
+praktisnya **sekitar 400 ulasan**.
+
+Karena itu server ini menyetel `MAX_REVIEWS_PER_REQUEST=400` lewat variabel lingkungan di
+`docker-compose.override.yml`. Bawaan di kode tetap 1.000 supaya juri yang menjalankan
+`docker compose up` di mesinnya sendiri tidak diam-diam dibatasi. Unggahan di atas batas
+ditolak seketika dengan pesan yang menjelaskan sebabnya, alih-alih membuat pengguna menunggu
+beberapa menit untuk berakhir pada kehabisan waktu yang tidak menerangkan apa pun.
 
 Jalan keluarnya menaikkan ukuran mesin - beban ini terikat CPU, jadi `e2-standard-8` (8 vCPU)
 memangkas komponen per-ulasan kira-kira empat kali lipat. Itu memerlukan izin yang belum ada.
