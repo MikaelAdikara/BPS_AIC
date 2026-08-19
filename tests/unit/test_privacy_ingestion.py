@@ -6,8 +6,10 @@ data pelanggan adalah risiko hukum bagi UMKM yang memakai sistem ini (UU PDP).
 
 from datetime import datetime
 
+import pytest
+
 from app.schemas import Category, RawReview, ReviewSource
-from app.tools.ingestion import MIN_REVIEWS_FOR_CONFIDENCE, preprocess_reviews
+from app.tools.ingestion import MIN_REVIEWS_FOR_CONFIDENCE, _normalize_text, preprocess_reviews
 from app.tools.privacy import contains_pii, redact_personal_data
 
 
@@ -172,3 +174,40 @@ def test_duplikat_terdeteksi_setelah_normalisasi():
     ])
     assert len(result.reviews) == 1
     assert result.skipped == 1
+
+
+# ------------------------------------------------------------------ teks rusak encoding
+
+
+def test_surrogate_lepas_dibuang_bukan_menjatuhkan_analisis():
+    """Emoji yang melewati konversi encoding salah menyisakan setengah pasangan surrogate.
+
+    Tokenizer HuggingFace (Rust) menolak str semacam itu dengan TypeError, dan karena satu
+    batch ditokenisasi sekaligus, SATU ulasan rusak menggagalkan analisis seluruh batch -
+    muncul ke pengguna sebagai INTERNAL_ERROR tanpa petunjuk apa pun.
+    """
+    rusak = "real pict sukaa " + chr(0xDC8F) + " terimakasih seller"
+    with pytest.raises(UnicodeEncodeError):
+        rusak.encode("utf-8")
+
+    bersih = _normalize_text(rusak)
+    bersih.encode("utf-8")  # tidak boleh melempar
+    assert "terimakasih seller" in bersih
+
+
+def test_emoji_yang_sah_tidak_ikut_terbuang():
+    """Pembersihannya harus menyasar teks rusak saja - emoji adalah isi ulasan yang wajar."""
+    assert chr(0x1F60A) in _normalize_text("bagus " + chr(0x1F60A) + " sekali")
+
+
+def test_satu_ulasan_rusak_tidak_menggagalkan_yang_lain():
+    """Arah degradasi yang dituju: 999 ulasan sehat tetap dianalisis."""
+    hasil = preprocess_reviews([
+        RawReview(review_id="baik", text="pengiriman cepat sekali", source=ReviewSource.MANUAL_UPLOAD,
+                  category=Category.OTHER),
+        RawReview(review_id="rusak", text="bahannya bagus " + chr(0xDC8F), source=ReviewSource.MANUAL_UPLOAD,
+                  category=Category.OTHER),
+    ])
+    assert len(hasil.reviews) == 2
+    for r in hasil.reviews:
+        r.clean_text.encode("utf-8")  # tidak boleh melempar

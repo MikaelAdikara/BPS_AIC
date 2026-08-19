@@ -43,6 +43,14 @@ def _normalize_text(raw_text: str | None) -> str:
     Memulihkannya di hulu juga membuat model melihat teks yang sama dengan yang dibaca manusia.
     """
     text = html.unescape(raw_text or "")
+    # Surrogate lepas dibuang. Ini bukan kehati-hatian teoretis: emoji yang melewati konversi
+    # encoding yang salah - hal biasa pada ekspor marketplace dan pada berkas yang pernah
+    # dibuka di spreadsheet Windows - meninggalkan setengah pasangan surrogate. Tokenizer
+    # HuggingFace ditulis dalam Rust dan menolak str semacam itu dengan TypeError, yang naik
+    # sampai ke pengguna sebagai INTERNAL_ERROR tanpa satu pun petunjuk. Satu ulasan rusak
+    # menggagalkan seluruh batch, jadi karakternya dibuang di sini alih-alih menjatuhkan
+    # analisis atas 999 ulasan lain yang sehat.
+    text = text.encode("utf-8", "ignore").decode("utf-8")
     # Ekspor CSV kerap menyisakan baris baru dan spasi ganda di tengah kalimat.
     return re.sub(r"\s+", " ", text).strip()
 

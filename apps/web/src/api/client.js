@@ -4,11 +4,18 @@
  * (di belakang reverse proxy) tanpa alamat backend yang di-hardcode.
  */
 
+// Dua batas, bukan satu. Panggilan ringan (readiness, models, dataset contoh) yang menggantung
+// satu menit hampir pasti benar-benar bermasalah, jadi menyerah cepat adalah perilaku yang
+// membantu. Analisis lain ceritanya: pada CPU dua inti, 66 ulasan terukur 88 detik - satu
+// batas 60 detik memutus analisis yang sebenarnya berjalan normal dan menampilkannya sebagai
+// kegagalan. Batas analisis disamakan dengan proxy_read_timeout nginx (300s) supaya tidak ada
+// sisi yang menyerah lebih dulu dari sisi lain.
 const TIMEOUT_MS = 60_000;
+const TIMEOUT_ANALISIS_MS = 300_000;
 
-async function request(path, options = {}) {
+async function request(path, options = {}, timeoutMs = TIMEOUT_MS) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(path, {
       headers: { "Content-Type": "application/json" },
@@ -41,12 +48,17 @@ export const api = {
   models: () => request("/api/v1/models"),
   sample: () => request("/api/v1/demo/sample"),
   analyze: (reviews) =>
-    request("/api/v1/analyze", { method: "POST", body: JSON.stringify({ reviews }) }),
+    request(
+      "/api/v1/analyze",
+      { method: "POST", body: JSON.stringify({ reviews }) },
+      TIMEOUT_ANALISIS_MS
+    ),
   ask: (analysisId, question) =>
-    request("/api/v1/questions", {
-      method: "POST",
-      body: JSON.stringify({ analysis_id: analysisId, question }),
-    }),
+    request(
+      "/api/v1/questions",
+      { method: "POST", body: JSON.stringify({ analysis_id: analysisId, question }) },
+      TIMEOUT_ANALISIS_MS
+    ),
 };
 
 /** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan. */
