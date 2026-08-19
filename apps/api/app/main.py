@@ -72,6 +72,11 @@ def _build_service() -> AnalyzeService:
     from app.adapters.text_model import TextModelAdapter  # noqa: PLC0415
 
     text_adapter = TextModelAdapter()
+    if text_adapter.fallback_reason:
+        # Bukan sekadar catatan: tanpa checkpoint, yang berjalan bukan sistem yang dijelaskan
+        # proposal, dan itu wajib terbaca di /readiness alih-alih hanya di log.
+        state["errors"].append(f"model teks memakai leksikon - {text_adapter.fallback_reason}")
+        log.warning(f"model teks jatuh ke leksikon: {text_adapter.fallback_reason}")
 
     # Embedding opsional: tanpanya Action Card tetap terbit, hanya tanpa kutipan bukti.
     embedding_adapter = None

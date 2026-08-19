@@ -92,7 +92,7 @@ def clause_probs(texts: list[str]) -> list[np.ndarray]:
     import torch
     from transformers import AutoTokenizer
 
-    from finetune import DualHeadClassifier
+    from model import DualHeadClassifier
 
     bundle = torch.load(CHECKPOINT, map_location="cpu", weights_only=False)
     model = DualHeadClassifier(bundle["base_model"])

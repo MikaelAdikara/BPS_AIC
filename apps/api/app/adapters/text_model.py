@@ -65,11 +65,21 @@ class TextModelAdapter:
         self.threshold = 0.5
         self.model_version = "lexicon-fallback"
         self.mode = "fallback"
+        # Alasan turun ke leksikon, atau None bila model neural memang aktif. Ini dibaca
+        # /readiness dan ditampilkan sebagai peringatan. Sebelumnya kegagalan hanya dicetak
+        # ke stdout: sistem menjawab "siap" tanpa peringatan apa pun sementara model yang
+        # menjadi inti produk tidak pernah dimuat - persis yang terjadi pada image Docker,
+        # dan tidak ketahuan sampai keluaran `/models` diperiksa manual.
+        self.fallback_reason: str | None = None
         self._device = device
         self._load()
 
     def _load(self) -> None:
         if not self.checkpoint_path.exists():
+            self.fallback_reason = (
+                f"checkpoint tidak ditemukan di {self.checkpoint_path} - "
+                "jalankan scripts/download_checkpoint.py"
+            )
             return
         try:
             import torch  # noqa: PLC0415
@@ -77,7 +87,7 @@ class TextModelAdapter:
 
             if str(ML_TEXT) not in sys.path:
                 sys.path.insert(0, str(ML_TEXT))
-            from finetune import DualHeadClassifier  # noqa: PLC0415
+            from model import DualHeadClassifier  # noqa: PLC0415
 
             bundle = torch.load(self.checkpoint_path, map_location="cpu", weights_only=False)
             model = DualHeadClassifier(bundle["base_model"])
@@ -98,6 +108,7 @@ class TextModelAdapter:
             print(f"[TextModelAdapter] checkpoint gagal dimuat, memakai leksikon: {exc}")
             self.model = None
             self.mode = "fallback"
+            self.fallback_reason = f"{type(exc).__name__}: {exc}"
 
     def _predict_neural(self, clauses: list[str]) -> list[tuple[list[Aspect], Sentiment]]:
         torch = self._torch

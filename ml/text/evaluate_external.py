@@ -106,7 +106,7 @@ def predict_indobert(texts: list[str]) -> list[str] | None:
     import torch  # noqa: PLC0415
     from transformers import AutoTokenizer  # noqa: PLC0415
 
-    from finetune import DualHeadClassifier  # noqa: PLC0415
+    from model import DualHeadClassifier  # noqa: PLC0415
 
     bundle = torch.load(CHECKPOINT, map_location="cpu", weights_only=False)
     model = DualHeadClassifier(bundle["base_model"])

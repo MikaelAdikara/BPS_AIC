@@ -37,6 +37,7 @@ from transformers import AutoModel, AutoTokenizer
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lexicon import ALL_ASPECTS  # noqa: E402
+from model import MODEL_NAME, SENTIMENTS, DualHeadClassifier  # noqa: E402
 from preprocess import normalize  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -45,10 +46,8 @@ RAW = REPO_ROOT / "data" / "raw"
 EVAL_OUT = REPO_ROOT / "ml" / "evaluation"
 MODEL_OUT = REPO_ROOT / "models" / "indobert-nlp01"
 
-MODEL_NAME = "indobenchmark/indobert-base-p1"
 SEED = 42
 ASPECT_COLS = [f"asp_{a}" for a in ALL_ASPECTS]
-SENTIMENTS = ["negatif", "netral", "positif"]
 
 
 def set_seed(seed: int = SEED) -> None:
@@ -102,26 +101,6 @@ class Collator:
             "aspect_labels": torch.tensor(np.array(aspects), dtype=torch.float32),
             "sentiment_label": torch.tensor(sentiments, dtype=torch.long),
         }
-
-
-class DualHeadClassifier(nn.Module):
-    """Encoder IndoBERT bersama + dua head klasifikasi terpisah (bagian 18.1)."""
-
-    def __init__(self, model_name: str = MODEL_NAME, n_aspects: int = len(ALL_ASPECTS)):
-        super().__init__()
-        self.encoder = AutoModel.from_pretrained(model_name)
-        hidden = self.encoder.config.hidden_size
-        self.dropout = nn.Dropout(0.1)
-        self.aspect_head = nn.Linear(hidden, n_aspects)
-        self.sentiment_head = nn.Linear(hidden, len(SENTIMENTS))
-
-    def forward(self, input_ids, attention_mask):
-        out = self.encoder(input_ids=input_ids, attention_mask=attention_mask)
-        # Mean pooling atas token non-padding - lebih stabil dari [CLS] untuk teks pendek.
-        mask = attention_mask.unsqueeze(-1).float()
-        pooled = (out.last_hidden_state * mask).sum(1) / mask.sum(1).clamp(min=1e-9)
-        pooled = self.dropout(pooled)
-        return self.aspect_head(pooled), self.sentiment_head(pooled)
 
 
 def _pos_weight(train: pd.DataFrame) -> torch.Tensor:
