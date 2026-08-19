@@ -1,0 +1,10 @@
+[Unit]
+Description=Deploy otomatis InsightUlasan saat ada commit baru di origin/main
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=mikael_adikara_gmail_com
+ExecStart=/home/mikael_adikara_gmail_com/autodeploy.sh
+TimeoutStartSec=1800
