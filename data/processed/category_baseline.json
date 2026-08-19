@@ -1,0 +1,373 @@
+{
+  "generated_at": "2026-08-05T16:30:00+00:00",
+  "unit": "proporsi ULASAN yang memuat keluhan pada aspek tersebut",
+  "label_source": "SILVER - labeling function (ADR-015), bukan label manusia",
+  "limitations": [
+    "Baseline bersifat historis dan statis, bukan pemantauan pasar real-time.",
+    "Dataset publik cenderung berasal dari toko besar/aktif sehingga belum tentu mewakili UMKM mikro (dossier bagian 14.2).",
+    "Kualitas baseline terikat pada kualitas labeling function yang membuatnya."
+  ],
+  "min_reviews_to_report": 30,
+  "categories": {
+    "craft": {
+      "sample_size": 2061,
+      "sufficient": true,
+      "aspects": {
+        "kualitas_produk": {
+          "pct_negative": 0.049,
+          "pct_mentioned": 0.3076,
+          "reviews_with_complaint": 101,
+          "sample_size": 2061
+        },
+        "kesesuaian_deskripsi": {
+          "pct_negative": 0.0126,
+          "pct_mentioned": 0.2921,
+          "reviews_with_complaint": 26,
+          "sample_size": 2061
+        },
+        "harga_value": {
+          "pct_negative": 0.0068,
+          "pct_mentioned": 0.0568,
+          "reviews_with_complaint": 14,
+          "sample_size": 2061
+        },
+        "ukuran_varian": {
+          "pct_negative": 0.0087,
+          "pct_mentioned": 0.0155,
+          "reviews_with_complaint": 18,
+          "sample_size": 2061
+        },
+        "rasa_kualitas_makanan": {
+          "pct_negative": 0.0024,
+          "pct_mentioned": 0.0039,
+          "reviews_with_complaint": 5,
+          "sample_size": 2061
+        },
+        "kemasan": {
+          "pct_negative": 0.0146,
+          "pct_mentioned": 0.0859,
+          "reviews_with_complaint": 30,
+          "sample_size": 2061
+        },
+        "pengiriman": {
+          "pct_negative": 0.0422,
+          "pct_mentioned": 0.2921,
+          "reviews_with_complaint": 87,
+          "sample_size": 2061
+        },
+        "pelayanan_penjual": {
+          "pct_negative": 0.018,
+          "pct_mentioned": 0.2009,
+          "reviews_with_complaint": 37,
+          "sample_size": 2061
+        },
+        "kelengkapan": {
+          "pct_negative": 0.0053,
+          "pct_mentioned": 0.0247,
+          "reviews_with_complaint": 11,
+          "sample_size": 2061
+        },
+        "keaslian": {
+          "pct_negative": 0.0005,
+          "pct_mentioned": 0.0131,
+          "reviews_with_complaint": 1,
+          "sample_size": 2061
+        },
+        "kemudahan_penggunaan": {
+          "pct_negative": 0.0068,
+          "pct_mentioned": 0.0209,
+          "reviews_with_complaint": 14,
+          "sample_size": 2061
+        }
+      }
+    },
+    "electronics": {
+      "sample_size": 19348,
+      "sufficient": true,
+      "aspects": {
+        "kualitas_produk": {
+          "pct_negative": 0.0334,
+          "pct_mentioned": 0.3134,
+          "reviews_with_complaint": 647,
+          "sample_size": 19348
+        },
+        "kesesuaian_deskripsi": {
+          "pct_negative": 0.0126,
+          "pct_mentioned": 0.2703,
+          "reviews_with_complaint": 244,
+          "sample_size": 19348
+        },
+        "harga_value": {
+          "pct_negative": 0.0033,
+          "pct_mentioned": 0.0624,
+          "reviews_with_complaint": 64,
+          "sample_size": 19348
+        },
+        "ukuran_varian": {
+          "pct_negative": 0.006,
+          "pct_mentioned": 0.0224,
+          "reviews_with_complaint": 116,
+          "sample_size": 19348
+        },
+        "rasa_kualitas_makanan": {
+          "pct_negative": 0.0012,
+          "pct_mentioned": 0.0058,
+          "reviews_with_complaint": 23,
+          "sample_size": 19348
+        },
+        "kemasan": {
+          "pct_negative": 0.0076,
+          "pct_mentioned": 0.0986,
+          "reviews_with_complaint": 148,
+          "sample_size": 19348
+        },
+        "pengiriman": {
+          "pct_negative": 0.0295,
+          "pct_mentioned": 0.2999,
+          "reviews_with_complaint": 570,
+          "sample_size": 19348
+        },
+        "pelayanan_penjual": {
+          "pct_negative": 0.0105,
+          "pct_mentioned": 0.2247,
+          "reviews_with_complaint": 204,
+          "sample_size": 19348
+        },
+        "kelengkapan": {
+          "pct_negative": 0.0016,
+          "pct_mentioned": 0.0078,
+          "reviews_with_complaint": 31,
+          "sample_size": 19348
+        },
+        "keaslian": {
+          "pct_negative": 0.0026,
+          "pct_mentioned": 0.0321,
+          "reviews_with_complaint": 51,
+          "sample_size": 19348
+        },
+        "kemudahan_penggunaan": {
+          "pct_negative": 0.0056,
+          "pct_mentioned": 0.0273,
+          "reviews_with_complaint": 109,
+          "sample_size": 19348
+        }
+      }
+    },
+    "fashion": {
+      "sample_size": 8939,
+      "sufficient": true,
+      "aspects": {
+        "kualitas_produk": {
+          "pct_negative": 0.0289,
+          "pct_mentioned": 0.3245,
+          "reviews_with_complaint": 258,
+          "sample_size": 8939
+        },
+        "kesesuaian_deskripsi": {
+          "pct_negative": 0.0186,
+          "pct_mentioned": 0.3072,
+          "reviews_with_complaint": 166,
+          "sample_size": 8939
+        },
+        "harga_value": {
+          "pct_negative": 0.006,
+          "pct_mentioned": 0.0931,
+          "reviews_with_complaint": 54,
+          "sample_size": 8939
+        },
+        "ukuran_varian": {
+          "pct_negative": 0.0277,
+          "pct_mentioned": 0.0949,
+          "reviews_with_complaint": 248,
+          "sample_size": 8939
+        },
+        "rasa_kualitas_makanan": {
+          "pct_negative": 0.0006,
+          "pct_mentioned": 0.014,
+          "reviews_with_complaint": 5,
+          "sample_size": 8939
+        },
+        "kemasan": {
+          "pct_negative": 0.005,
+          "pct_mentioned": 0.1005,
+          "reviews_with_complaint": 45,
+          "sample_size": 8939
+        },
+        "pengiriman": {
+          "pct_negative": 0.0308,
+          "pct_mentioned": 0.2652,
+          "reviews_with_complaint": 275,
+          "sample_size": 8939
+        },
+        "pelayanan_penjual": {
+          "pct_negative": 0.0121,
+          "pct_mentioned": 0.1745,
+          "reviews_with_complaint": 108,
+          "sample_size": 8939
+        },
+        "kelengkapan": {
+          "pct_negative": 0.0012,
+          "pct_mentioned": 0.0084,
+          "reviews_with_complaint": 11,
+          "sample_size": 8939
+        },
+        "keaslian": {
+          "pct_negative": 0.0013,
+          "pct_mentioned": 0.0371,
+          "reviews_with_complaint": 12,
+          "sample_size": 8939
+        },
+        "kemudahan_penggunaan": {
+          "pct_negative": 0.0043,
+          "pct_mentioned": 0.0332,
+          "reviews_with_complaint": 38,
+          "sample_size": 8939
+        }
+      }
+    },
+    "food_beverage": {
+      "sample_size": 196,
+      "sufficient": true,
+      "aspects": {
+        "kualitas_produk": {
+          "pct_negative": 0.0918,
+          "pct_mentioned": 0.1633,
+          "reviews_with_complaint": 18,
+          "sample_size": 196
+        },
+        "kesesuaian_deskripsi": {
+          "pct_negative": 0.0459,
+          "pct_mentioned": 0.0867,
+          "reviews_with_complaint": 9,
+          "sample_size": 196
+        },
+        "harga_value": {
+          "pct_negative": 0.0357,
+          "pct_mentioned": 0.1071,
+          "reviews_with_complaint": 7,
+          "sample_size": 196
+        },
+        "ukuran_varian": {
+          "pct_negative": 0.0102,
+          "pct_mentioned": 0.0204,
+          "reviews_with_complaint": 2,
+          "sample_size": 196
+        },
+        "rasa_kualitas_makanan": {
+          "pct_negative": 0.2143,
+          "pct_mentioned": 0.398,
+          "reviews_with_complaint": 42,
+          "sample_size": 196
+        },
+        "kemasan": {
+          "pct_negative": 0.0765,
+          "pct_mentioned": 0.1786,
+          "reviews_with_complaint": 15,
+          "sample_size": 196
+        },
+        "pengiriman": {
+          "pct_negative": 0.1939,
+          "pct_mentioned": 0.352,
+          "reviews_with_complaint": 38,
+          "sample_size": 196
+        },
+        "pelayanan_penjual": {
+          "pct_negative": 0.0867,
+          "pct_mentioned": 0.2398,
+          "reviews_with_complaint": 17,
+          "sample_size": 196
+        },
+        "kelengkapan": {
+          "pct_negative": 0.0255,
+          "pct_mentioned": 0.0408,
+          "reviews_with_complaint": 5,
+          "sample_size": 196
+        },
+        "keaslian": {
+          "pct_negative": 0.0051,
+          "pct_mentioned": 0.0306,
+          "reviews_with_complaint": 1,
+          "sample_size": 196
+        },
+        "kemudahan_penggunaan": {
+          "pct_negative": 0.0051,
+          "pct_mentioned": 0.0204,
+          "reviews_with_complaint": 1,
+          "sample_size": 196
+        }
+      }
+    },
+    "other": {
+      "sample_size": 9442,
+      "sufficient": true,
+      "aspects": {
+        "kualitas_produk": {
+          "pct_negative": 0.0657,
+          "pct_mentioned": 0.3498,
+          "reviews_with_complaint": 620,
+          "sample_size": 9442
+        },
+        "kesesuaian_deskripsi": {
+          "pct_negative": 0.021,
+          "pct_mentioned": 0.2619,
+          "reviews_with_complaint": 198,
+          "sample_size": 9442
+        },
+        "harga_value": {
+          "pct_negative": 0.0093,
+          "pct_mentioned": 0.075,
+          "reviews_with_complaint": 88,
+          "sample_size": 9442
+        },
+        "ukuran_varian": {
+          "pct_negative": 0.0168,
+          "pct_mentioned": 0.0454,
+          "reviews_with_complaint": 159,
+          "sample_size": 9442
+        },
+        "rasa_kualitas_makanan": {
+          "pct_negative": 0.0038,
+          "pct_mentioned": 0.0153,
+          "reviews_with_complaint": 36,
+          "sample_size": 9442
+        },
+        "kemasan": {
+          "pct_negative": 0.0241,
+          "pct_mentioned": 0.0984,
+          "reviews_with_complaint": 228,
+          "sample_size": 9442
+        },
+        "pengiriman": {
+          "pct_negative": 0.0687,
+          "pct_mentioned": 0.2843,
+          "reviews_with_complaint": 649,
+          "sample_size": 9442
+        },
+        "pelayanan_penjual": {
+          "pct_negative": 0.0301,
+          "pct_mentioned": 0.1919,
+          "reviews_with_complaint": 284,
+          "sample_size": 9442
+        },
+        "kelengkapan": {
+          "pct_negative": 0.0064,
+          "pct_mentioned": 0.0153,
+          "reviews_with_complaint": 60,
+          "sample_size": 9442
+        },
+        "keaslian": {
+          "pct_negative": 0.0034,
+          "pct_mentioned": 0.0205,
+          "reviews_with_complaint": 32,
+          "sample_size": 9442
+        },
+        "kemudahan_penggunaan": {
+          "pct_negative": 0.0068,
+          "pct_mentioned": 0.0318,
+          "reviews_with_complaint": 64,
+          "sample_size": 9442
+        }
+      }
+    }
+  }
+}

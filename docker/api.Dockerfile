@@ -31,6 +31,7 @@ COPY configs /app/configs
 #   - demo_reviews.csv       : dataset contoh untuk juri yang tidak punya data sendiri
 COPY data/processed/category_baseline.json /app/data/processed/category_baseline.json
 COPY data/samples/demo_reviews.csv /app/data/samples/demo_reviews.csv
+COPY data/samples/demo_shopee_asli.csv /app/data/samples/demo_shopee_asli.csv
 
 # Berjalan sebagai pengguna non-root: proses ini memproses berkas yang diunggah pengguna,
 # dan tidak ada alasan ia perlu hak root untuk itu.

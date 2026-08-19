@@ -5,6 +5,11 @@ data/processed/*
 !data/raw/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep
+# Pengecualian: baseline kategori dibaca saat MELAYANI request, bukan artefak pipeline antara.
+# Ia juga tidak dapat dibuat ulang oleh orang luar karena data mentahnya memang tidak
+# didistribusikan - tanpa berkas ini, `docker compose up` gagal build dan fitur BEN-01 hilang
+# diam-diam. Isinya agregat proporsi per kategori, tidak memuat teks ulasan mana pun.
+!data/processed/category_baseline.json
 
 # --- Model artifacts (bagian 31.1: tidak di-commit, diunduh via script) ---
 models/

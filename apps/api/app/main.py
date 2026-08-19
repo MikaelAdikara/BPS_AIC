@@ -35,7 +35,29 @@ from app.schemas import (  # noqa: E402
 from app.services.analyze import AnalyzeService  # noqa: E402
 
 REPO_ROOT = APP_ROOT.parents[2]
-SAMPLE_PATH = REPO_ROOT / "data" / "samples" / "demo_reviews.csv"
+SAMPLE_DIR = REPO_ROOT / "data" / "samples"
+
+# Dua dataset contoh, dan bawaannya yang ASLI. Dataset kurasi enak dipakai menguji tampilan
+# karena tiap aspek pasti muncul, tetapi justru karena itu ia tidak membuktikan apa pun soal
+# kegunaan nyata: yang dilihat orang adalah hasil pada ulasan yang sudah dipilih. Yang asli
+# apa adanya - ada ulasan satu kata, ada yang tidak menyinggung aspek mana pun.
+SAMPLES = {
+    "asli": ("demo_shopee_asli.csv", "66 ulasan Shopee asli (dianonimkan)"),
+    "kurasi": ("demo_reviews.csv", "120 ulasan kurasi - tiap aspek terwakili"),
+}
+DEFAULT_SAMPLE = "asli"
+
+# Nama kolom berbeda antara berkas hasil scraping dan berkas kurasi. Penyeragaman terjadi di
+# sini supaya frontend memakai satu bentuk saja, dan menambah dataset ketiga kelak tidak
+# menuntut perubahan di sisi klien.
+SAMPLE_ALIASES = {
+    "text": ("text", "ulasan", "review", "comment"),
+    "rating": ("rating", "bintang", "star"),
+    "timestamp": ("timestamp", "tanggal", "date"),
+    "category": ("category", "kategori"),
+    "product_name": ("product_name", "produk", "product"),
+    "variant": ("variant", "varian"),
+}
 
 MAX_REVIEWS_PER_REQUEST = 1000
 
@@ -146,15 +168,30 @@ def models() -> dict:
 
 
 @app.get("/api/v1/demo/sample")
-def demo_sample() -> dict:
+def demo_sample(dataset: str = DEFAULT_SAMPLE) -> dict:
     """Dataset contoh bawaan agar siapa pun dapat mencoba tanpa menyiapkan data (ING-04)."""
-    if not SAMPLE_PATH.exists():
+    if dataset not in SAMPLES:
+        raise HTTPException(
+            status_code=400,
+            detail="dataset contoh tidak dikenal; pilihan: %s" % ", ".join(SAMPLES),
+        )
+    nama_berkas, label = SAMPLES[dataset]
+    path = SAMPLE_DIR / nama_berkas
+    if not path.exists():
         raise HTTPException(status_code=404, detail="dataset contoh belum tersedia")
     import csv  # noqa: PLC0415
 
-    with SAMPLE_PATH.open(encoding="utf-8") as fh:
-        rows = list(csv.DictReader(fh))
-    return {"total": len(rows), "reviews": rows}
+    with path.open(encoding="utf-8") as fh:
+        mentah = list(csv.DictReader(fh))
+
+    reviews = []
+    for i, row in enumerate(mentah):
+        baris = {"review_id": row.get("review_id") or f"{dataset}_{i:04d}"}
+        for kanonik, kandidat in SAMPLE_ALIASES.items():
+            baris[kanonik] = next((row[k] for k in kandidat if row.get(k)), "")
+        reviews.append(baris)
+
+    return {"total": len(reviews), "dataset": dataset, "label": label, "reviews": reviews}
 
 
 @app.post("/api/v1/analyze", response_model=AnalysisResult)
