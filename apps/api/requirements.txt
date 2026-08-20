@@ -18,3 +18,11 @@ scikit-learn>=1.4
 # pada mesin juri yang belum tentu punya GPU.
 torch>=2.6
 transformers>=5.0
+
+# ING-10 - pembacaan teks dari tangkapan layar. pytesseract hanyalah pembungkus tipis; biner
+# `tesseract` beserta paket bahasa Indonesia dipasang di Dockerfile, bukan lewat pip.
+# python-multipart wajib ada agar FastAPI dapat mengurai unggahan berkas; tanpanya endpoint
+# /ocr gagal saat impor, bukan saat dipanggil.
+pillow>=10.3
+pytesseract>=0.3.10
+python-multipart>=0.0.9

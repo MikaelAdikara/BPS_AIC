@@ -1,0 +1,982 @@
+/* Dashboard - satu kolom, satu keputusan pada satu waktu.
+ *
+ * Kolomnya sengaja tidak melebar di layar besar. Isi layar ini adalah kalimat yang harus
+ * dibaca sampai habis, bukan tabel yang dipindai, dan baris sepanjang 1200px membuat mata
+ * kehilangan barisnya saat kembali ke kiri.
+ */
+
+.dash {
+  --dash-max: 640px;
+  min-height: 100vh;
+}
+
+.dash__bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 14px var(--gutter);
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: var(--blur-nav);
+  -webkit-backdrop-filter: var(--blur-nav);
+}
+:root[data-theme="dark"] .dash__bar {
+  background: rgba(16, 18, 24, 0.78);
+}
+
+.dash__main {
+  max-width: var(--dash-max);
+  margin: 0 auto;
+  padding: var(--space-10) var(--gutter) var(--space-18);
+}
+
+.dash__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.dash__head h1 {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.dash__head p {
+  margin-top: 5px;
+  font-size: var(--text-std);
+  color: var(--muted);
+}
+.dash__head .app-ava {
+  width: 38px;
+  height: 38px;
+  font-size: 12.5px;
+  box-shadow: 0 6px 14px rgba(47, 123, 246, 0.3);
+}
+
+/* Isi berganti tanpa memindahkan apa pun di sekitarnya, jadi pergantian tab cukup ditandai
+ * pudaran singkat - cukup untuk terbaca sebagai "isinya berganti", tidak sampai membuat
+ * pengguna menunggu. */
+.dash__body {
+  animation: body-in 200ms var(--ease-out) both;
+}
+@keyframes body-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.sec-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: var(--space-6) 2px var(--space-3);
+}
+.dash__body > .sec-title:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Panel di dashboard lebih lapang daripada panel di mockup ponsel ---------- */
+.dash .panel {
+  padding: 18px 20px 17px;
+  border-radius: var(--r-lg);
+  margin-bottom: var(--space-4);
+}
+.dash .panel-title {
+  font-size: var(--text-std);
+}
+.dash .body {
+  font-size: var(--text-std);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.dash .meta {
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.note-list {
+  text-align: left;
+  margin: 12px 0 0;
+  padding-left: 18px;
+  line-height: 1.7;
+}
+
+/* ================================================================================
+ * NAVIGASI TAB HASIL
+ * ============================================================================= */
+
+.segmented {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: var(--space-6);
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.segmented::-webkit-scrollbar {
+  display: none;
+}
+:root[data-theme="dark"] .segmented {
+  background: var(--glass);
+}
+.segmented__item {
+  flex: 1 0 auto;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 9px 14px;
+  min-height: var(--tap-target-min);
+  border: none;
+  border-radius: var(--r-pill);
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--motion-state) var(--ease-out),
+    background var(--motion-state) var(--ease-out);
+}
+.segmented__item:hover:not(.segmented__item--on) {
+  color: var(--ink);
+}
+.segmented__item--on {
+  background: linear-gradient(180deg, #6fa8ff, var(--blue));
+  color: #f5f9ff;
+}
+
+/* ---------- Tab pemilih cara memasukkan ulasan ---------- */
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--glass-edge);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-6);
+}
+:root[data-theme="dark"] .tabs {
+  background: var(--glass);
+}
+.tab {
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 16px;
+  min-height: 38px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color var(--motion-state) var(--ease-out);
+}
+.tab--active {
+  background: linear-gradient(180deg, #6fa8ff, var(--blue));
+  color: #f5f9ff;
+}
+/* Melebar penuh: tiga pilihan setara, bukan menu yang salah satunya "utama". */
+.tabs--block {
+  display: flex;
+  width: 100%;
+  margin-bottom: var(--space-4);
+}
+.tabs--block .tab {
+  flex: 1;
+  min-height: var(--tap-target-min);
+}
+
+/* ---------- Pertanyaan yang disarankan ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 8px 14px;
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--cream);
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--motion-state) var(--ease-out),
+    border-color var(--motion-state) var(--ease-out);
+}
+.chip:hover:not(:disabled) {
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+.chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================================================================
+ * PEMILIH KATEGORI
+ * ============================================================================= */
+
+.picker {
+  border: 1px solid var(--glass-edge);
+  margin-bottom: var(--space-4);
+}
+.picker legend {
+  padding: 0;
+}
+.picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+/* Radio sungguhan di baliknya, bukan tombol ber-`aria-checked`: navigasi panah antar-pilihan,
+ * pengumuman "1 dari 5" oleh pembaca layar, dan pengiriman form semuanya sudah benar. */
+.pick {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  min-height: var(--tap-target-min);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--cream);
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--motion-state) var(--ease-out),
+    border-color var(--motion-state) var(--ease-out),
+    background var(--motion-state) var(--ease-out);
+}
+.pick:hover {
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+.pick--on {
+  background: var(--blue-tint);
+  border-color: var(--blue-dark);
+  color: var(--blue-dark);
+}
+.pick:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ================================================================================
+ * DROPZONE
+ * ============================================================================= */
+
+.dropzone {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 100%;
+  font-family: inherit;
+  text-align: center;
+  border: 1.5px dashed rgba(47, 123, 246, 0.38);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: var(--blur-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+  padding: 34px 20px;
+  margin-bottom: 11px;
+  cursor: pointer;
+  transition: border-color var(--motion-state) var(--ease-out),
+    background var(--motion-state) var(--ease-out);
+}
+:root[data-theme="dark"] .dropzone {
+  background: var(--glass);
+}
+.dropzone:hover:not(:disabled),
+.dropzone--over {
+  border-color: var(--blue);
+  background: rgba(255, 255, 255, 0.78);
+}
+:root[data-theme="dark"] .dropzone:hover:not(:disabled),
+:root[data-theme="dark"] .dropzone--over {
+  background: rgba(47, 123, 246, 0.1);
+}
+.dropzone:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+.dz-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--blue), var(--blue-light));
+  box-shadow: 0 6px 14px rgba(47, 123, 246, 0.32);
+}
+.dz-title {
+  font-size: var(--text-std);
+  font-weight: 700;
+  color: var(--ink);
+}
+.dz-hint {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ================================================================================
+ * PEMETAAN KOLOM & TABEL
+ * ============================================================================= */
+
+.map-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12.5px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+.map-row:last-child {
+  border-bottom: none;
+}
+.map-row .src {
+  color: var(--ink-soft);
+}
+.map-row .arrow {
+  color: var(--muted);
+  font-size: 9px;
+}
+.map-row select {
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  padding: 7px 12px;
+  min-height: 38px;
+  max-width: 58%;
+  cursor: pointer;
+}
+
+.mtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.mtable th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+.mtable td {
+  padding: 6px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+.mtable tr:last-child td {
+  border-bottom: none;
+}
+.mtable-scroll {
+  overflow-x: auto;
+}
+.cell-clip {
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ================================================================================
+ * DRAF HASIL OCR
+ * ============================================================================= */
+
+.draft {
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-lg);
+  padding: 14px 16px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 6px 16px rgba(20, 21, 15, 0.06);
+}
+.draft__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+.draft__no {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.draft__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.draft__rating {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  font-variant-numeric: tabular-nums;
+}
+/* Keyakinan OCR ditulis sebagai kata, bukan angka: "0,62" tidak berarti apa-apa bagi pemilik
+ * toko, sedangkan "perlu diperiksa" langsung menyebut apa yang harus ia lakukan. */
+.draft__conf {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  background: var(--grey-surface);
+  border: 1px solid var(--grey-border);
+  color: var(--ink-soft);
+}
+.draft__conf--tinggi {
+  background: var(--blue-tint);
+  border-color: transparent;
+  color: var(--blue-dark);
+}
+.draft__x {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex: none;
+  border: none;
+  background: var(--grey-surface);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+.draft__x:hover {
+  color: var(--error-ink);
+  background: var(--error-surface);
+}
+.draft__text {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 11px 13px;
+  resize: vertical;
+}
+
+/* ================================================================================
+ * PEMROSESAN
+ * ============================================================================= */
+
+.track--lg {
+  height: 9px;
+}
+.fill--blue {
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  transition: width var(--motion-panel) var(--ease-out);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  animation: stage-in var(--motion-panel) var(--ease-out) both;
+}
+.check-row:last-child {
+  border-bottom: none;
+}
+.check-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-circle.done {
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+}
+.check-circle.active {
+  background: rgba(47, 123, 246, 0.15);
+  border: 2px solid var(--blue);
+}
+.check-circle.pending {
+  background: #e7e9de;
+}
+:root[data-theme="dark"] .check-circle.pending {
+  background: var(--grey-surface);
+}
+.check-row .lbl {
+  font-size: var(--text-std);
+  color: var(--ink-soft);
+}
+.check-row.done .lbl {
+  color: var(--ink);
+  font-weight: 600;
+}
+.check-row.pending .lbl {
+  color: var(--muted);
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* ================================================================================
+ * KARTU AKSI, BADGE, KUTIPAN
+ * ============================================================================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+}
+.badge--tinggi {
+  background: var(--grad-high);
+  color: #fff;
+}
+.badge--sedang {
+  background: var(--grad-medium);
+  color: var(--on-medium);
+}
+.badge--rendah {
+  background: var(--grey-surface);
+  border: 1px solid var(--grey-border);
+  color: var(--ink-soft);
+}
+.badge--positive {
+  background: var(--grad-positive);
+  color: var(--on-positive);
+}
+
+.acard {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  margin-bottom: var(--space-4);
+  box-shadow: 0 6px 16px rgba(20, 21, 15, 0.06);
+  backdrop-filter: var(--blur-panel);
+  -webkit-backdrop-filter: var(--blur-panel);
+}
+:root[data-theme="dark"] .acard {
+  background: var(--glass);
+}
+.acard h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 11px 0 7px;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.acard p {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* Kutipan bukti: elemen tanda tangan produk. Garis vertikal nila menandai bahwa isinya
+ * rekaman apa adanya - tidak diparafrase, tidak dirapikan. Satu-satunya tempat di seluruh
+ * antarmuka yang memakai garis tepi berwarna. */
+.equote {
+  background: var(--white);
+  border-left: 3px solid var(--blue);
+  border-radius: 0 12px 12px 0;
+  padding: 13px 16px;
+  margin-top: 9px;
+  box-shadow: 0 4px 10px rgba(20, 21, 15, 0.05);
+}
+.equote .qm {
+  font-size: 15px;
+  font-weight: 800;
+  color: #c7cfdf;
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 4px;
+}
+.equote p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.equote .meta {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 7px;
+}
+.equote .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 7px;
+  font-size: 8px;
+  font-weight: 700;
+  color: #8a3b33;
+  background: #fbe7e4;
+  padding: 2px 7px;
+  border-radius: var(--r-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ================================================================================
+ * SKOR KUALITAS DATA
+ * ============================================================================= */
+
+.quality__score {
+  margin-bottom: 10px;
+}
+.num-hero {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--blue-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================================================================================
+ * GRAFIK BATANG ASPEK
+ * ============================================================================= */
+
+.legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 6px;
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bar {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 2.25rem;
+  gap: 10px;
+  align-items: center;
+  font-size: 11.5px;
+}
+.bar__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink-soft);
+}
+.bar__track {
+  height: 18px;
+  background: #e7e9de;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+:root[data-theme="dark"] .bar__track {
+  background: var(--grey-surface);
+}
+.bar__fill {
+  height: 100%;
+  border-radius: 5px;
+  transform-origin: left;
+  animation: bar-grow var(--motion-reveal) var(--ease-emphasis) both;
+}
+.bar__val {
+  text-align: right;
+  font-weight: 700;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (max-width: 30rem) {
+  .bar {
+    grid-template-columns: 6rem 1fr 2rem;
+  }
+}
+
+/* ================================================================================
+ * TANYA JAWAB
+ * ============================================================================= */
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: var(--space-4) 0;
+}
+.bubble {
+  max-width: 88%;
+  border-radius: var(--r-lg);
+  padding: 14px 17px;
+  font-size: var(--text-std);
+  line-height: 1.6;
+  animation: card-rise var(--motion-panel) var(--ease-emphasis) both;
+}
+.bubble--you {
+  align-self: flex-end;
+  background: var(--blue-tint);
+  color: var(--blue-ink);
+  border-bottom-right-radius: var(--r-sm);
+}
+:root[data-theme="dark"] .bubble--you {
+  color: var(--ink);
+}
+.bubble--sys {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--glass-edge);
+  color: var(--ink-soft);
+  border-bottom-left-radius: var(--r-sm);
+  box-shadow: 0 6px 16px rgba(20, 21, 15, 0.06);
+}
+:root[data-theme="dark"] .bubble--sys {
+  background: var(--glass);
+}
+.bubble--wait {
+  color: var(--muted);
+  font-style: italic;
+}
+/* Kotak tanya menempel di bawah viewport supaya pertanyaan berikutnya selalu terjangkau,
+ * bahkan setelah percakapan menjadi panjang. */
+.qabox--sticky {
+  position: sticky;
+  bottom: var(--space-4);
+  z-index: 20;
+}
+
+/* ================================================================================
+ * ROADMAP
+ * ============================================================================= */
+
+.future {
+  border: 1px dashed var(--grey-border);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 20px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.35);
+}
+:root[data-theme="dark"] .future {
+  background: rgba(255, 255, 255, 0.03);
+}
+.future__tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: var(--grey-surface);
+  border-radius: var(--r-pill);
+  padding: 4px 11px;
+  margin-bottom: 11px;
+}
+.future h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 7px;
+  text-wrap: balance;
+}
+.future p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* ================================================================================
+ * PANEL BUKTI
+ * Lembar yang naik dari bawah pada layar sempit; dialog di tengah pada layar lebar.
+ * ============================================================================= */
+
+.sheet {
+  padding: 0;
+  border: none;
+  background: none;
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.sheet::backdrop {
+  background: rgba(20, 21, 15, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.sheet__inner {
+  width: min(680px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(247, 247, 244, 0.98);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -14px 30px rgba(20, 21, 15, 0.2);
+  padding: 16px 22px 24px;
+  animation: sheet-up var(--motion-panel) var(--ease-emphasis) both;
+}
+:root[data-theme="dark"] .sheet__inner {
+  background: rgba(24, 27, 34, 0.98);
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+}
+.sheet__handle {
+  width: 36px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+  margin: 0 auto 14px;
+}
+.sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.sheet__head h3 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.sheet__x {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex: none;
+  border: none;
+  background: rgba(20, 21, 15, 0.08);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+:root[data-theme="dark"] .sheet__x {
+  background: var(--grey-surface);
+}
+.sheet__quotes .equote:first-child {
+  margin-top: 0;
+}
+.sheet__foot {
+  position: sticky;
+  bottom: -24px;
+  margin: 16px -22px -24px;
+  padding: 12px 22px 20px;
+  background: linear-gradient(180deg, rgba(247, 247, 244, 0) 0%, rgba(247, 247, 244, 0.97) 34%);
+}
+:root[data-theme="dark"] .sheet__foot {
+  background: linear-gradient(180deg, rgba(24, 27, 34, 0) 0%, rgba(24, 27, 34, 0.97) 34%);
+}
+
+.reason-box {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--r);
+  padding: 16px 18px;
+  margin-top: 12px;
+}
+:root[data-theme="dark"] .reason-box {
+  background: var(--glass);
+}
+.reason-box h5 {
+  font-size: var(--text-std);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Di layar lebar lembar ini menjadi dialog di tengah: pada monitor besar, panel yang menempel
+ * di tepi bawah memaksa mata turun jauh dari kartu yang sedang dibaca. */
+@media (min-width: 700px) {
+  .sheet {
+    align-items: center;
+  }
+  .sheet__inner {
+    border-radius: var(--r-frame);
+    max-height: 84vh;
+    box-shadow: var(--shadow-lg);
+  }
+  .sheet__handle {
+    display: none;
+  }
+}
+
+/* ================================================================================
+ * RESPONSIF
+ * ============================================================================= */
+
+@media (max-width: 600px) {
+  .dash__main {
+    padding: var(--space-6) var(--gutter) var(--space-14);
+  }
+  .dash__head h1 {
+    font-size: 23px;
+  }
+  .tabs--block .tab {
+    padding: 7px 8px;
+    font-size: 12px;
+  }
+  .bubble {
+    max-width: 95%;
+  }
+}

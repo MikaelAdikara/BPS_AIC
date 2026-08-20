@@ -16,7 +16,7 @@ import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
@@ -27,8 +27,11 @@ if str(APP_ROOT.parent) not in sys.path:
 
 from app.schemas import (  # noqa: E402
     AnalysisResult,
+    ConfidenceLevel,
     ErrorCode,
     ErrorResponse,
+    OcrDraftReview,
+    OcrResponse,
     QnAResponse,
     RawReview,
     verify_taxonomy_matches_config,
@@ -68,6 +71,11 @@ SAMPLE_ALIASES = {
 # pun, padahal penolakan yang jujur bisa diberikan seketika. Mesin yang lebih besar tinggal
 # menaikkan angkanya tanpa menyentuh kode.
 MAX_REVIEWS_PER_REQUEST = int(os.getenv("MAX_REVIEWS_PER_REQUEST", "1000"))
+
+# Batas jumlah gambar per permintaan OCR. Tesseract berjalan sinkron di dalam proses yang sama
+# dengan endpoint lain; sepuluh tangkapan layar HP sudah menghabiskan beberapa detik CPU, dan
+# batch yang jauh lebih besar akan menahan permintaan analisis milik pengguna lain.
+MAX_IMAGES_PER_REQUEST = int(os.getenv("MAX_IMAGES_PER_REQUEST", "10"))
 
 # Log terstruktur tanpa PII - hanya review_id dan metadata agregat (bagian 37.1).
 logging.basicConfig(level=logging.INFO, format='{"level":"%(levelname)s","msg":"%(message)s"}')
@@ -243,6 +251,66 @@ def analyze(payload: AnalyzeRequest, request: Request):
         f"{time.time() - started:.2f}s"
     )
     return result
+
+
+@app.post("/api/v1/ocr", response_model=OcrResponse)
+async def ocr(images: list[UploadFile] = File(...)):
+    """ING-10 - baca teks ulasan dari tangkapan layar.
+
+    Endpoint ini TIDAK menganalisis apa pun. Ia mengembalikan draf teks untuk diperiksa
+    pengguna; analisis baru berjalan setelah pengguna menekan tombolnya sendiri di
+    `/analyze`. Pemisahan itu disengaja - pembacaan gambar tidak pernah sempurna, dan
+    menganalisis hasil bacaan yang belum dikonfirmasi berarti menumpuk kesalahan.
+
+    Gambarnya sendiri tidak pernah disimpan: byte-nya dibaca dari memori, dipakai, lalu
+    dilepas bersama request (ADR-010, kebijakan session-only).
+    """
+    from app.tools.ocr import OcrRejected, OcrUnavailable, read_screenshot  # noqa: PLC0415
+
+    if len(images) > MAX_IMAGES_PER_REQUEST:
+        return _error(
+            ErrorCode.INVALID_FILE,
+            f"Maksimal {MAX_IMAGES_PER_REQUEST} gambar sekali unggah.",
+            recoverable=True,
+            action="Unggah sebagian dulu, lalu tambahkan sisanya.",
+        )
+
+    terbaca: list[str] = []
+    drafts: list[OcrDraftReview] = []
+    notes: list[str] = []
+
+    for berkas in images:
+        nama = berkas.filename or "gambar"
+        try:
+            hasil = read_screenshot(await berkas.read(), nama)
+        except OcrUnavailable as exc:
+            log.error(f"OCR tidak tersedia: {exc}")
+            return _error(
+                ErrorCode.MODEL_LOAD_FAILED,
+                "Pembacaan teks dari gambar sedang tidak tersedia di server ini.",
+                recoverable=False,
+                action="Sementara ini, tempel teks ulasannya langsung atau unggah berkas CSV.",
+            )
+        except OcrRejected as exc:
+            notes.append(f"{nama}: {exc}")
+            continue
+
+        terbaca.append(nama)
+        if not hasil.drafts:
+            notes.append(f"{nama}: tidak ada teks ulasan yang terbaca.")
+        for d in hasil.drafts:
+            drafts.append(
+                OcrDraftReview(
+                    text=d.text,
+                    rating=d.rating,
+                    confidence_level=ConfidenceLevel(d.confidence_level),
+                    source_image=nama,
+                )
+            )
+
+    # Tanpa PII dan tanpa isi teks - hanya jumlah, sesuai bagian 37.1.
+    log.info(f"ocr selesai: {len(terbaca)} gambar, {len(drafts)} draf ulasan")
+    return OcrResponse(images=terbaca, reviews=drafts, notes=notes)
 
 
 @app.post("/api/v1/questions", response_model=QnAResponse)

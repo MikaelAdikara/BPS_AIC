@@ -320,6 +320,33 @@ class QnAResponse(_Base):
         return self
 
 
+# --------------------------------------------------------------------------------------
+# ING-10  Pembacaan teks dari tangkapan layar
+# --------------------------------------------------------------------------------------
+class OcrDraftReview(_Base):
+    """Satu calon ulasan hasil pembacaan gambar.
+
+    Namanya menyebut DRAF dengan sengaja. Bentuk ini tidak dapat dikirim langsung ke
+    `/analyze`; frontend menampilkannya untuk disunting lebih dulu, lalu menyusun `RawReview`
+    dari teks yang sudah dikonfirmasi pengguna.
+    """
+
+    text: str
+    rating: int | None = Field(default=None, ge=1, le=5)
+    # Kata, bukan angka: "0,62" tidak berarti apa pun bagi pemilik toko, sedangkan
+    # "perlu diperiksa" menyebut langsung apa yang harus ia lakukan.
+    confidence_level: ConfidenceLevel
+    source_image: str
+
+
+class OcrResponse(_Base):
+    """Bagian 25.14 - hasil pembacaan satu batch tangkapan layar."""
+
+    images: list[str]
+    reviews: list[OcrDraftReview]
+    notes: list[str] = Field(default_factory=list)
+
+
 class ErrorResponse(_Base):
     """Bagian 25.13 - pesan dalam Bahasa Indonesia sederhana."""
 

@@ -241,3 +241,32 @@ Angka-angka ini dicatat sebelum perbaikan dilakukan, supaya jejak koreksinya ter
 ## Keterbatasan yang baru dapat diisi setelah pengujian
 
 _Diisi setelah Fase 3 dan Fase 8 - kosong sampai ada angka nyata._
+
+### Pembacaan teks dari tangkapan layar tidak pernah sempurna (ING-10)
+
+Jalur unggah tangkapan layar memakai Tesseract dengan paket bahasa Indonesia. Pada tangkapan
+layar HP yang tajam, teksnya terbaca hampir apa adanya; pada tangkapan layar yang dikompresi
+ulang berkali-kali - dikirim lewat WhatsApp, difoto ulang dari layar lain - hurufnya mulai
+salah baca, dan kesalahan itu merambat ke seluruh hasil analisis karena aspek dikenali dari
+teks yang sama.
+
+Tiga konsekuensi yang ditangani apa adanya, bukan disembunyikan:
+
+1. **Hasilnya berstatus draf.** Sistem tidak pernah langsung menganalisis teks hasil pembacaan
+   gambar. Pengguna memeriksa dan menyunting lebih dulu, lalu menekan tombol analisisnya
+   sendiri. Blok yang dibaca dengan keyakinan rendah ditandai "perlu diperiksa".
+2. **Pemisahan antar-ulasan memakai jarak vertikal, bukan pemahaman tata letak.** Halaman
+   ulasan yang tidak memberi ruang jelas antar-entri - atau tangkapan layar yang memotong satu
+   ulasan menjadi dua gambar - akan tergabung atau terpotong keliru.
+3. **Rating hampir selalu kosong.** Marketplace menggambar bintang sebagai ikon, dan ikon tidak
+   punya huruf untuk dibaca. Sistem mengembalikan kosong alih-alih menebak; menebak akan
+   mengarang angka yang lalu ikut menentukan severity.
+
+Penyaring perabot antarmuka (tombol "Balas", tanggal, nama akun tersamar, chip penyaring
+"5 Bintang") disusun dari pola tata letak Shopee dan Tokopedia. Marketplace lain dengan susunan
+berbeda akan menyisakan lebih banyak teks antarmuka di dalam draf - terlihat langsung oleh
+pengguna dan dapat dihapusnya, tetapi tetap sebuah keterbatasan.
+
+Kemampuan ini **tidak** menyimpulkan apa pun dari isi gambar. Ia hanya mengubah piksel huruf
+menjadi huruf. Menilai kondisi barang dari foto adalah kemampuan terpisah yang statusnya masih
+NO-GO (butir berikutnya).

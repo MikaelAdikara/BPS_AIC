@@ -1,4 +1,40 @@
-# apps/api - Backend FastAPI
+# apps/api
+
+## OCR tangkapan layar (ING-10)
+
+`POST /api/v1/ocr` memakai Tesseract. Di dalam container, `docker/api.Dockerfile` sudah memasang
+`tesseract-ocr` beserta `tesseract-ocr-ind`, jadi tidak ada langkah tambahan.
+
+Untuk menjalankannya di luar container:
+
+```bash
+# Debian/Ubuntu
+sudo apt-get install tesseract-ocr tesseract-ocr-ind
+```
+
+```powershell
+winget install --id UB-Mannheim.TesseractOCR
+```
+
+Pemasang Windows di atas hanya membawa bahasa Inggris. Paket Indonesia diambil terpisah dari
+[tessdata resmi](https://github.com/tesseract-ocr/tessdata) dan diletakkan di folder `tessdata`
+yang dapat ditulis, lalu ditunjuk lewat `TESSDATA_PREFIX` - menulis langsung ke
+`C:\Program Files\Tesseract-OCR\tessdata` membutuhkan hak administrator.
+
+```powershell
+$dir = "$env:LOCALAPPDATA\tessdata"
+New-Item -ItemType Directory -Force $dir
+Copy-Item "C:\Program Files\Tesseract-OCR\tessdata\eng.traineddata" $dir
+Invoke-WebRequest "https://github.com/tesseract-ocr/tessdata/raw/main/ind.traineddata" -OutFile "$dir\ind.traineddata"
+$env:TESSDATA_PREFIX = $dir
+$env:TESSERACT_CMD = "C:\Program Files\Tesseract-OCR\tesseract.exe"
+```
+
+Tanpa paket Indonesia sistem **tetap berjalan** memakai bahasa yang ada dan mencatat
+peringatannya - kata Indonesia lebih sering salah baca, tetapi endpoint-nya tidak mati.
+Tanpa Tesseract sama sekali, `/api/v1/ocr` menjawab dengan pesan yang menyarankan menempel teks
+atau mengunggah CSV; endpoint lain tidak terpengaruh.
+ - Backend FastAPI
 
 Satu service tunggal, service layer modular **secara kode** (bukan dipecah jadi container terpisah).
 Referensi: blueprint bagian 27 (arsitektur backend), 28 (API contracts), ADR-008.

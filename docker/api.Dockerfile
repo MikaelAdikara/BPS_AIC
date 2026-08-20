@@ -14,6 +14,17 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
+# Biner Tesseract beserta paket bahasa Indonesia - dipakai ING-10 untuk membaca teks dari
+# tangkapan layar. pytesseract di requirements.txt hanya pembungkusnya; tanpa dua paket ini
+# endpoint /ocr menjawab "tidak tersedia" alih-alih bekerja.
+#
+# `tesseract-ocr-ind` bukan tambahan opsional: model bahasa Inggris salah membaca kata
+# Indonesia yang sering muncul di ulasan ("nggak" menjadi "ngqak", "banget" menjadi "bangat"),
+# dan kesalahan seperti itu langsung merambat ke pengenalan aspek.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-ind \
+ && rm -rf /var/lib/apt/lists/*
+
 # Torch varian CPU dipasang dari indeks terpisah SEBELUM requirements lain. Tanpa ini pip
 # menarik roda CUDA (~2 GB) yang tidak terpakai di mesin tanpa GPU.
 COPY apps/api/requirements.txt /tmp/requirements.txt

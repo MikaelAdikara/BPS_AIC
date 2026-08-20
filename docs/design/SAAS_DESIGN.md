@@ -169,16 +169,32 @@ berikut tidak boleh ikut hilang, karena masing-masing menopang klaim produk.
 
 ## 4. Arsitektur informasi
 
-### 4.1 Tier 1 - linear, tanpa navigasi global
+### 4.1 Tier 1 - dua permukaan, alur linear di dalam dashboard
 
 ```
-Layar 1 Beranda & Input  →  Layar 2 Memproses  →  Layar 3 Hasil  ⇄  Layar 4 Panel Bukti
-                                                        ↓
-                                              "Mulai analisis baru"
+Halaman pemasaran (#/)  ──"Mulai Analisis"──►  Dashboard (#/analisis)
+
+Dashboard:  Unggah  →  Memproses  →  Hasil ─┬─ Hasil        ⇄ Panel Bukti
+                                            ├─ Detail
+                                            ├─ Tanya Jawab
+                                            └─ Roadmap
+                                                    ↓
+                                            "Analisis baru"
 ```
 
-Tidak ada menu, tidak ada halaman pengaturan, tidak ada riwayat. Panel bukti adalah *drawer* di
-atas layar hasil, bukan halaman terpisah - posisi gulir pengguna tidak hilang.
+Halaman pemasaran dan fitur analisis **dipisahkan menjadi dua alamat**. Sebelumnya keduanya satu
+halaman dan tombol "Mulai" hanya menggulir ke panel unggah di bawah hero. Pemisahan ini bukan
+soal kerapian: halaman pemasaran perlu panjang dan bersuara, sementara layar kerja perlu pendek
+dan diam, dan menyatukannya memaksa kompromi yang merugikan keduanya. Pengguna yang kembali juga
+tidak lagi harus melewati materi promosi setiap kali ingin bekerja.
+
+Tab hasil baru muncul **setelah** ada hasil - sebelum itu tidak ada apa pun untuk dijelajahi.
+Pemecahan menjadi empat tab menjaga tab Hasil tetap pendek: peluang dan sebaran aspek berguna
+saat pemilik toko sedang menyusun promosi, bukan saat ia memutuskan apa yang harus dibenahi
+besok pagi.
+
+Tetap tidak ada halaman pengaturan, akun, maupun riwayat. Panel bukti adalah *lembar* di atas
+layar hasil, bukan halaman terpisah - posisi gulir pengguna tidak hilang.
 
 ### 4.2 Tier 2 - navigasi mulai muncul
 
@@ -209,14 +225,22 @@ Nomor layar sama dengan penomoran di prototipe.
 
 | # | Layar | Isi | Fitur yang tampil |
 | --- | --- | --- | --- |
-| 1 | **Beranda &amp; Input** | Tiga cara masuk data (tempel / unggah berkas / data contoh), pemetaan kolom, tabel pratinjau, slot foto nonaktif, catatan privasi | ING-01, ING-03, ING-04, ING-07, ING-09 |
+| 0 | **Halaman pemasaran** | Hero, pita marketplace, cara kerja, tiga fitur inti, CTA penutup. Tidak memuat satu pun kontrol analisis | - |
+| 1 | **Unggah** | Kategori produk, lalu empat cara masuk data (tempel / berkas / **tangkapan layar** / data contoh), pemetaan kolom, tabel pratinjau, catatan privasi | ING-01, ING-03, ING-04, ING-07, ING-09, **ING-10** |
 | 2 | **Memproses** | Bilah progres + checklist bertahap empat tahap | Indikator NLP-01, RET-01, ACT-01 |
-| 3 | **Hasil Analisis** | Ringkasan → skor kualitas data → Action Card → temuan positif → temuan foto → pembanding kategori → rincian aspek → tanya jawab | ACT-01, ING-05, OPP-01, VIS-01, FUS-01, BEN-01, QNA-01, UX-01 |
-| 4 | **Panel Bukti** | Kutipan lengkap dengan rating &amp; tanggal, bukti visual, alasan prioritas, risiko jika keliru | RET-01, VIS-01 |
+| 3a | **Hasil** | Ringkasan → skor kualitas data → Action Card → pembanding kategori → kotak tanya | ACT-01, ING-05, FUS-01, BEN-01, UX-01 |
+| 3b | **Detail** | Peluang → temuan foto (bila ada) → sebaran aspek | OPP-01, VIS-01 |
+| 3c | **Tanya Jawab** | Percakapan ber-sitasi, pertanyaan yang disarankan, kotak tulis menempel di bawah | QNA-01 |
+| 3d | **Roadmap** | Kemampuan yang belum ada beserta ALASAN teknisnya | - |
+| 4 | **Panel Bukti** | Kutipan lengkap dengan rating &amp; tanggal, bukti visual, alasan prioritas, risiko jika keliru, tombol keputusan | RET-01, VIS-01 |
 
-**Urutan bagian pada Layar 3 mengikuti urutan pertanyaan pengguna**, bukan urutan pipeline
-teknis: apa ringkasnya → seberapa layak dipercaya → apa yang harus dikerjakan → apa yang sudah
-bagus → bagaimana dibanding yang lain → boleh saya tanya sendiri.
+**Urutan bagian pada tab Hasil mengikuti urutan pertanyaan pengguna**, bukan urutan pipeline
+teknis: apa ringkasnya → seberapa layak dipercaya → apa yang harus dikerjakan → bagaimana
+dibanding yang lain → boleh saya tanya sendiri.
+
+Layar Roadmap adalah bagian dari produk, bukan dokumentasi yang tercecer ke antarmuka. Ia ada
+supaya batas versi ini terbaca sebagai keputusan yang disengaja - lengkap dengan angka
+pengujiannya - bukan sebagai kekurangan yang kebetulan tidak sempat dibahas.
 
 ### Tier 2 - dirancang, belum dibangun
 

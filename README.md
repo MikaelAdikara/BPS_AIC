@@ -49,10 +49,10 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | 0 | Scope freeze - taksonomi aspek, kelas visual, kontrak data | ✅ selesai | **GO** - taksonomi & kelas visual dikunci |
 | 1 | Data & baseline - unduh, harmonisasi, split, baseline TF-IDF | ✅ selesai | **GO** - split product-level terverifikasi bersih, baseline tercatat |
 | 2 | Model teks - fine-tuning IndoBERT | ✅ selesai | **Sentimen LULUS** (0,730 vs leksikon 0,700 pada label expert); **aspek TIDAK LULUS** - setara leksikon, lihat MODEL_CARD §4.3 |
-| 3 | Model visual - zero-shot CLIP, threshold, kalibrasi | ⏸ menunggu data foto | **gate kritis** - go/no-go berbasis selective accuracy aktual |
+| 3 | Model visual - zero-shot CLIP, threshold, kalibrasi | ❌ **NO-GO** | argmax 45% kalah dari tebakan sepele 61%; jalur linear probe sudah ditulis dan siap dijalankan, menunggu foto tersedia kembali |
 | 4 | Retrieval & action engine (RET-01, ACT-01) | ✅ selesai | Action Card lolos spot-check anti-generik; RET-01 menolak menjawab saat bukti tak memadai |
-| 5 | Backend FastAPI - 6 endpoint, 10 tool contract | 🔄 berjalan | 6 endpoint jalan; orchestrator belum, sistem berjalan di FALLBACK MODE |
-| 6 | Frontend React - 4 screen | 🔄 berjalan | 4 layar terbangun; alur penuh terverifikasi lewat API, transisi layar belum diuji di browser |
+| 5 | Backend FastAPI - 7 endpoint, 10 tool contract | 🔄 berjalan | 7 endpoint jalan (termasuk OCR tangkapan layar); orchestrator belum, sistem berjalan di FALLBACK MODE |
+| 6 | Frontend React - landing + dashboard | 🔄 berjalan | Dua permukaan terpisah; alur unggah → proses → hasil (4 tab) terverifikasi di browser pada data contoh |
 | 7 | Integrasi - termasuk jalur kegagalan & fallback | ✅ selesai | 16 integration test hijau, mencakup enam jalur wajib bagian 32 |
 | 8 | Evaluasi penuh + error analysis | ⬜ belum | metrik tercatat apa adanya |
 | 9 | Docker & reproducibility | ⬜ belum | **gate kritis** - fresh clone tanpa cache berhasil |
@@ -251,10 +251,13 @@ Seluruh pertukaran antar komponen memakai JSON dengan field wajib/opsional/enum 
 | --- | --- | --- | --- |
 | `/api/v1/analyze` | POST | Analisis penuh dari batch ulasan | 30s |
 | `/api/v1/questions` | POST | Q&A ter-ground pada hasil analisis | 8s |
+| `/api/v1/ocr` | POST | Baca teks ulasan dari tangkapan layar → **draf** untuk disunting | 60s |
 | `/api/v1/health` | GET | Proses backend hidup | 1s |
 | `/api/v1/readiness` | GET | Seluruh model selesai dimuat | 1s |
 | `/api/v1/models` | GET | Versi model aktif (reproducibility) | 1s |
 | `/api/v1/demo/sample` | GET | Dataset contoh untuk demo | 1s |
+
+`/api/v1/ocr` sengaja tidak menganalisis apa pun. Ia mengembalikan teks yang terbaca sebagai draf; analisis baru berjalan setelah pengguna memeriksanya dan menekan tombolnya sendiri. Pembacaan teks dari gambar tidak pernah sempurna, dan satu huruf yang salah baca merambat ke seluruh hasil - pemilik toko adalah satu-satunya yang tahu bunyi ulasan aslinya. Endpoint ini juga **tidak** menyimpulkan apa pun dari isi gambar; menilai kondisi barang dari foto masih NO-GO (bagian keterbatasan).
 
 Tidak ada autentikasi pada Tier 1 - sesi tunggal, data tidak disimpan permanen.
 
@@ -280,15 +283,20 @@ Field `risk_if_recommendation_wrong` dan `user_action: null` bukan hiasan - kedu
 
 ## 7. Antarmuka pengguna
 
-Empat layar, alur linear, tanpa menu navigasi global - sesuai batas MVP satu input → satu output AI.
+Dua permukaan yang terpisah: halaman pemasaran di `#/` dan dashboard analisis di `#/analisis`. Halaman pemasaran perlu panjang dan bersuara, layar kerja perlu pendek dan diam - menyatukannya memaksa kompromi yang merugikan keduanya, dan membuat pengguna yang kembali harus menggulir melewati materi promosi setiap kali ingin bekerja.
+
+Di dalam dashboard alurnya tetap linear. Navigasi tab baru muncul setelah ada hasil; sebelum itu tidak ada apa pun untuk dijelajahi.
 
 ```mermaid
 flowchart LR
-    S1[1 · Landing & Input<br/>unggah, pratinjau,<br/>catatan privasi] --> S2[2 · Processing<br/>checklist bertahap]
-    S2 --> S3[3 · Analysis Result<br/>ringkasan, Action Card,<br/>temuan visual, benchmark, Q&A]
-    S3 --> S4[4 · Evidence Detail<br/>kutipan asli + metadata]
-    S4 --> S3
-    S3 --> S1
+    L[Halaman pemasaran<br/>hero, cara kerja, fitur] -->|Mulai Analisis| S1
+    S1[Unggah<br/>tempel · berkas · tangkapan layar] --> S2[Memproses<br/>checklist bertahap]
+    S2 --> S3[Hasil<br/>ringkasan, Action Card,<br/>skor data, benchmark]
+    S3 --> D[Detail<br/>peluang, temuan foto,<br/>sebaran aspek]
+    S3 --> Q[Tanya Jawab<br/>percakapan ber-sitasi]
+    S3 --> R[Roadmap<br/>yang belum ada + alasannya]
+    S3 <--> E[Panel Bukti<br/>kutipan asli + metadata]
+    S3 -->|Analisis baru| S1
 ```
 
 Aturan antarmuka yang mengikat: setiap Action Card wajib tombol **Terima / Tolak / Simpan Nanti** · warna urgensi selalu didampingi label teks (aksesibilitas buta warna) · confidence rendah dan abstain memakai **abu-abu, bukan merah** - abstain adalah keputusan jujur model, bukan error.

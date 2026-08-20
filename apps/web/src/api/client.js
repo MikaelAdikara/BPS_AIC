@@ -16,9 +16,12 @@ const TIMEOUT_ANALISIS_MS = 300_000;
 async function request(path, options = {}, timeoutMs = TIMEOUT_MS) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
+  // Unggahan multipart TIDAK boleh diberi Content-Type sendiri: browser yang menyusunnya,
+  // lengkap dengan boundary, dan menimpanya membuat backend gagal mengurai berkasnya.
+  const isForm = options.body instanceof FormData;
   try {
     const response = await fetch(path, {
-      headers: { "Content-Type": "application/json" },
+      headers: isForm ? undefined : { "Content-Type": "application/json" },
       signal: controller.signal,
       ...options,
     });
@@ -59,10 +62,21 @@ export const api = {
       { method: "POST", body: JSON.stringify({ analysis_id: analysisId, question }) },
       TIMEOUT_ANALISIS_MS
     ),
+  /** ING-10 - baca teks ulasan dari tangkapan layar. Batas waktunya mengikuti analisis
+   *  karena OCR pada CPU untuk beberapa gambar sekaligus juga dapat berjalan lama. */
+  readScreenshots: (files) => {
+    const form = new FormData();
+    for (const f of files) form.append("images", f);
+    return request(
+      "/api/v1/ocr",
+      { method: "POST", body: form },
+      TIMEOUT_ANALISIS_MS
+    );
+  },
 };
 
 /** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan. */
-export function parsePastedText(text) {
+export function parsePastedText(text, category = "other") {
   return text
     .split("\n")
     .map((line) => line.trim())
@@ -70,7 +84,7 @@ export function parsePastedText(text) {
     .map((line, index) => ({
       review_id: `paste_${index + 1}`,
       text: line,
-      category: "other",
+      category,
       source: "manual_upload",
     }));
 }
