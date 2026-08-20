@@ -1,6 +1,6 @@
 # docker/
 
-Deployment lokal InsightUlasan (blueprint bagian 30). Berkas `docker-compose.yml` ada di
+Deployment lokal Ulasin (blueprint bagian 30). Berkas `docker-compose.yml` ada di
 **root repository**, bukan di folder ini - juri menjalankan `docker compose up` dari root,
 dan meminta mereka mengetik `-f docker/docker-compose.yml` hanya menambah satu cara gagal.
 Ini menutup pertanyaan terbuka yang sebelumnya dicatat di sini.

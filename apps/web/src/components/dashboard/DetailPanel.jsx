@@ -11,7 +11,7 @@ export function DetailPanel({ result }) {
   const opportunities = result.opportunities ?? [];
 
   return (
-    <>
+    <div className="reading-col">
       <h3 className="sec-title">Peluang yang ditemukan</h3>
       {opportunities.length > 0 ? (
         opportunities.map((o) => <OpportunityCard key={o.aspect} opportunity={o} />)
@@ -25,6 +25,6 @@ export function DetailPanel({ result }) {
       <VisualFindings findings={result.visual_findings} />
 
       <AspectChart aggregates={result.aspect_aggregates} />
-    </>
+    </div>
   );
 }

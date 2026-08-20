@@ -1,30 +1,40 @@
-/** Identitas yang dipakai kedua cangkang: halaman pemasaran dan dashboard. */
+/** Identitas yang dipakai kedua cangkang: halaman pemasaran dan dashboard.
+ *
+ * Lockupnya bertumpuk - lambang di atas, kata "Ulasin" di bawahnya. Bentuk itu dipilih supaya
+ * nama produk terbaca sebagai nama, bukan sebagai label yang menempel di samping ikon.
+ *
+ * Lambangnya tiga batang menaik: berapa banyak ulasan menyebut satu hal, disusun dari yang
+ * paling jarang ke yang paling sering. Batang terpendek sengaja lebih pudar - itu bagian
+ * yang belum jadi masalah. Sekali lihat, lambangnya menyebut isi produknya: menghitung
+ * seberapa sering sesuatu disebut, lalu menaruhnya berurutan.
+ */
 
-const Logo = ({ size = 17 }) => (
-  <svg width={size} height={size} viewBox="0 0 34 34" fill="none" aria-hidden="true">
-    <path
-      d="M4 6C4 4.34 5.34 3 7 3H27C28.66 3 30 4.34 30 6V20C30 21.66 28.66 23 27 23H16L10 28V23H7C5.34 23 4 21.66 4 20V6Z"
-      fill="#fff"
-    />
-    <path
-      d="M11 13L15 17L23 9"
-      stroke="#1E4FCB"
-      strokeWidth="2.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+const Logo = ({ size = 19 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3.4" y="13.6" width="4" height="6.6" rx="2" fill="#fff" fillOpacity="0.5" />
+    <rect x="10" y="9" width="4" height="11.2" rx="2" fill="#fff" fillOpacity="0.78" />
+    <rect x="16.6" y="3.8" width="4" height="16.4" rx="2" fill="#fff" />
   </svg>
 );
 
-export function Brand({ onClick }) {
+/** Lambang yang berdiri sendiri - dipakai di tempat yang sudah menyebut nama produknya. */
+export function BrandMark({ size = 30 }) {
   return (
-    <button className="brand" onClick={onClick} aria-label="InsightUlasan, kembali ke beranda">
-      <span className="brand__mark">
-        <Logo />
-      </span>
-      <span className="brand__name">
-        Insight<span>Ulasan</span>
-      </span>
+    <span className="brand__mark" style={{ width: size, height: size }}>
+      <Logo size={Math.round(size * 0.63)} />
+    </span>
+  );
+}
+
+export function Brand({ onClick, layout = "stack" }) {
+  return (
+    <button
+      className={`brand brand--${layout}`}
+      onClick={onClick}
+      aria-label="Ulasin, kembali ke beranda"
+    >
+      <BrandMark size={layout === "stack" ? 30 : 28} />
+      <span className="brand__name">Ulasin</span>
     </button>
   );
 }

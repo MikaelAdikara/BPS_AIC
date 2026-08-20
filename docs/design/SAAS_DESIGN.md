@@ -1,6 +1,6 @@
-# Rancangan Produk SaaS - InsightUlasan
+# Rancangan Produk SaaS - Ulasin
 
-Dokumen ini adalah rancangan antarmuka **lengkap** untuk InsightUlasan sebagai produk SaaS utuh,
+Dokumen ini adalah rancangan antarmuka **lengkap** untuk Ulasin sebagai produk SaaS utuh,
 beserta alasan di balik setiap keputusan bentuknya. Dua prototipe menyertainya:
 
 | Berkas | Isi |

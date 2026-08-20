@@ -11,6 +11,27 @@
   box-sizing: border-box;
 }
 
+/* Transisi dimatikan selama satu frame saat tema berganti - dipasang oleh `useTheme`.
+ *
+ * Ini menutup jebakan yang tidak kasat mata: properti yang DITRANSISIKAN sambil membaca
+ * custom property akan membeku di nilai lamanya begitu custom property itu berubah. Pada
+ * frame yang sama, gaya sebelum dan sesudah perubahan sama-sama menyelesaikan `var()` ke
+ * nilai lama, sehingga transisinya tidak pernah punya tujuan.
+ *
+ * Gejalanya khas dan menyesatkan: mengganti ke mode gelap membuat latar kartu ikut gelap
+ * (`background` tidak ditransisikan) sementara garis tepinya bertahan pada warna mode terang
+ * (`border-color` ditransisikan). Hasilnya kartu bergaris krem di atas latar gelap, dan tidak
+ * ada satu pun aturan CSS yang terlihat salah kalau diperiksa satu per satu.
+ *
+ * Mematikan transisi selama pergantian juga benar dari sisi rasa: mode gelap adalah
+ * perpindahan tempat, bukan perubahan keadaan satu tombol - menganimasikan puluhan warna
+ * sekaligus terbaca sebagai halaman yang tersendat, bukan sebagai transisi yang halus. */
+:root[data-theme-switching] *,
+:root[data-theme-switching] *::before,
+:root[data-theme-switching] *::after {
+  transition: none !important;
+}
+
 /* Nav lengket, jadi target jangkar perlu ruang di atasnya agar judulnya tidak tertutup. */
 [id] {
   scroll-margin-top: 90px;
@@ -39,7 +60,13 @@
  * menjalankannya ulang dengan melepas lalu memasang kembali kelas itu - tanpa perlu memasang
  * ulang komponennya, yang akan menghapus hasil analisis yang sedang dibuka. */
 .route--in {
-  animation: route-in 280ms var(--ease-out) both;
+  /* `forwards`, bukan `both`. Animasi ini tidak punya `animation-delay`, jadi isian mundur
+   * (bagian `backwards` dari `both`) tidak pernah terpakai - yang dilakukannya cuma memasang
+   * keadaan awal pada elemen di luar masa animasi. Keadaan awal itu menggeser SELURUH isi
+   * aplikasi 22px ke kanan, jadi lebih baik ia tidak berlaku sedetik pun lebih lama dari
+   * yang diperlukan. Yang butuh `both` hanyalah animasi bertahap yang memang berjeda -
+   * `.reveal`, `.check-row`, `.bar__fill` - dan ketiganya tetap memakainya. */
+  animation: route-in 280ms var(--ease-out) forwards;
 }
 .route--in[data-dir="back"] {
   animation-name: route-in-back;
@@ -77,35 +104,58 @@
   justify-content: space-between;
   gap: var(--space-4);
 }
+/* Lockup merek. Bentuk bawaannya BERTUMPUK - lambang di atas, nama di bawahnya - sehingga
+ * "Ulasin" berdiri sebagai nama, bukan sebagai keterangan di samping ikon. Varian `--row`
+ * disediakan untuk tempat yang tingginya benar-benar sempit. */
 .brand {
   display: flex;
   align-items: center;
-  gap: 9px;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   font-family: inherit;
 }
+.brand--stack {
+  flex-direction: column;
+  gap: 6px;
+}
+.brand--row {
+  flex-direction: row;
+  gap: 9px;
+}
 .brand__mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
+  border-radius: 32%;
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
-  box-shadow: 0 4px 12px rgba(47, 123, 246, 0.35);
+  background: var(--grad-blue-card);
+  box-shadow: 0 4px 12px rgba(47, 123, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform var(--motion-state) var(--ease-out),
+    box-shadow var(--motion-state) var(--ease-out);
+}
+.brand:hover .brand__mark {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(47, 123, 246, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .brand__name {
-  font-size: 16.5px;
   font-weight: 700;
-  letter-spacing: -0.03em;
   color: var(--ink);
+  line-height: 1;
 }
-.brand__name span {
-  color: var(--muted);
+.brand--stack .brand__name {
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+.brand--row .brand__name {
+  font-size: 16.5px;
+  letter-spacing: -0.03em;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand:hover .brand__mark {
+    transform: none;
+  }
 }
 .nav__links {
   display: none;
@@ -323,7 +373,14 @@
   backdrop-filter: var(--blur-panel);
   -webkit-backdrop-filter: var(--blur-panel);
 }
+/* Flex, bukan `float: right`, untuk keterangan di kanan judul. Yang mengambang keluar dari
+ * alur: begitu judulnya cukup panjang untuk membungkus, keterangannya menumpang di baris
+ * pertama dan menabrak tepi panel. Di sini keduanya sekadar dua ujung satu baris. */
 .panel-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -331,7 +388,7 @@
 }
 .panel-title em {
   font-style: normal;
-  float: right;
+  flex: none;
   font-size: 9.5px;
   font-weight: 600;
   color: var(--muted);

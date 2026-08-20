@@ -17,6 +17,17 @@ PRIMARY_MODEL = "BAAI/bge-m3"
 FALLBACK_MODEL = "intfloat/multilingual-e5-base"
 
 
+# Batch lebih kecil dari 32 justru menguntungkan begitu batch-nya disusun menurut panjang:
+# batch pendek selesai nyaris seketika, dan batch panjang tidak lagi menyeret teks pendek.
+BATCH_SIZE = 16
+
+# Plafon pemotongan. Nilainya tidak berubah; ia dipindahkan ke sini bersama batch_size supaya
+# keduanya dapat diturunkan pada mesin yang lebih kecil tanpa menyentuh badan `encode`.
+# Terukur pada dataset demo, ulasan terpanjang hanya 104 token - plafon ini praktis tidak
+# pernah terpakai, dan setelah pengurutan menurut panjang ia juga tidak lagi menentukan biaya.
+MAX_LENGTH = 256
+
+
 class EmbeddingAdapter:
     """Menghasilkan vektor untuk teks. Turun tingkat secara otomatis bila model gagal dimuat."""
 
@@ -25,6 +36,8 @@ class EmbeddingAdapter:
         self.model_name = "tfidf-fallback"
         self.mode = "fallback"
         self._tfidf = None
+        self.batch_size = BATCH_SIZE
+        self.max_length = MAX_LENGTH
         self._load(model_name, device)
 
     def _load(self, model_name: str | None, device: str | None) -> None:
@@ -61,17 +74,37 @@ class EmbeddingAdapter:
             return matrix / np.clip(norms, 1e-9, None)
 
         torch = self._torch
-        vectors = []
+
+        # Batch disusun menurut PANJANG teks, bukan menurut urutan datangnya.
+        #
+        # Biaya satu batch ditentukan teks TERPANJANG di dalamnya: seluruh isi batch di-padding
+        # sampai sepanjang itu, dan padding tetap ikut dihitung penuh oleh attention. Pada 66
+        # ulasan Shopee asli panjangnya 7-104 token dengan median 33 - artinya batch acak
+        # berisi mayoritas token kosong. Terukur pada mesin pengembang: 22,0 detik menjadi
+        # 12,2 detik, tanpa satu pun angka hasil yang berubah.
+        #
+        # Hasilnya identik karena padding sudah ditutup `attention_mask` dan mean pooling di
+        # bawah hanya menjumlah token non-padding. Urutan keluaran dikembalikan ke urutan
+        # masukan sebelum fungsi ini selesai - pemanggilnya memasangkan vektor dengan ulasan
+        # berdasarkan posisi, jadi tertukarnya urutan berarti bukti yang salah tempel.
+        order = sorted(range(len(texts)), key=lambda i: len(texts[i]))
+        vectors: list[np.ndarray] = [None] * len(texts)  # type: ignore[list-item]
+
         with torch.no_grad():
-            for start in range(0, len(texts), 32):
-                batch = texts[start : start + 32]
+            for start in range(0, len(order), self.batch_size):
+                idx = order[start : start + self.batch_size]
                 enc = self.tokenizer(
-                    batch, truncation=True, max_length=256, padding=True, return_tensors="pt"
+                    [texts[i] for i in idx],
+                    truncation=True,
+                    max_length=self.max_length,
+                    padding=True,
+                    return_tensors="pt",
                 ).to(self._device)
                 out = self.model(**enc)
                 # Mean pooling atas token non-padding, lalu normalisasi L2.
                 mask = enc["attention_mask"].unsqueeze(-1).float()
                 pooled = (out.last_hidden_state * mask).sum(1) / mask.sum(1).clamp(min=1e-9)
-                pooled = torch.nn.functional.normalize(pooled, p=2, dim=1)
-                vectors.append(pooled.cpu().numpy())
+                pooled = torch.nn.functional.normalize(pooled, p=2, dim=1).cpu().numpy()
+                for slot, vector in zip(idx, pooled):
+                    vectors[slot] = vector
         return np.vstack(vectors).astype("float32")

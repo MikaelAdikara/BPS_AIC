@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # ------------------------------------------------------------------------------------
-# InsightUlasan - API inference (blueprint bagian 30)
+# Ulasin - API inference (blueprint bagian 30)
 # CPU-only sebagai default. GPU dipakai otomatis kalau terdeteksi, tetapi tidak pernah
 # menjadi syarat menjalankan sistem ini.
 # ------------------------------------------------------------------------------------

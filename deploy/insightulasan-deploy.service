@@ -1,5 +1,5 @@
 [Unit]
-Description=Deploy otomatis InsightUlasan saat ada commit baru di origin/main
+Description=Deploy otomatis Ulasin saat ada commit baru di origin/main
 After=network-online.target docker.service
 Wants=network-online.target
 

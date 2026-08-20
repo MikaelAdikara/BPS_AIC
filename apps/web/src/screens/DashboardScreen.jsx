@@ -18,7 +18,7 @@ import {
 import { Brand, ThemeToggle } from "../components/Brand.jsx";
 import { EvidenceDialog } from "../components/insight.jsx";
 import { DetailPanel } from "../components/dashboard/DetailPanel.jsx";
-import { ProcessingStep, STAGES } from "../components/dashboard/ProcessingStep.jsx";
+import { ProcessingStep, estimateSeconds } from "../components/dashboard/ProcessingStep.jsx";
 import { QnaPanel } from "../components/dashboard/QnaPanel.jsx";
 import { ResultPanel } from "../components/dashboard/ResultPanel.jsx";
 import { RoadmapPanel } from "../components/dashboard/RoadmapPanel.jsx";
@@ -60,7 +60,11 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   const [ocrBusy, setOcrBusy] = useState(false);
 
   // --- hasil
-  const [stage, setStage] = useState(0);
+  // Jam analisis. `elapsed` diperbarui empat kali sedetik selama fase processing; `estimate`
+  // dikunci saat analisis dimulai supaya angkanya tidak bergeser di tengah penantian.
+  const [elapsed, setElapsed] = useState(0);
+  const [estimate, setEstimate] = useState(20);
+  const [batch, setBatch] = useState(0);
   const [result, setResult] = useState(null);
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
@@ -91,13 +95,17 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     }
     setError(null);
     setPhase("processing");
-    setStage(0);
+    setBatch(reviews.length);
+    setEstimate(estimateSeconds(reviews.length));
+    setElapsed(0);
     scrollUp();
 
-    const ticker = setInterval(
-      () => setStage((s) => Math.min(s + 1, STAGES.length - 1)),
-      900
-    );
+    // Waktu diukur dari jam dinding, bukan dari jumlah tick yang sudah lewat. `setInterval`
+    // tidak dijamin tepat waktu - tab latar belakang di-throttle sampai sekali per detik - dan
+    // menghitung tick akan membuat jamnya tertinggal jauh persis pada pengguna yang berpindah
+    // tab justru karena analisisnya lama.
+    const mulai = Date.now();
+    const ticker = setInterval(() => setElapsed((Date.now() - mulai) / 1000), 250);
     try {
       const data = await api.analyze(reviews);
       setResult(data);
@@ -242,7 +250,7 @@ export function DashboardScreen({ theme, onToggleTheme }) {
         </div>
       </header>
 
-      <main className="dash__main" ref={top}>
+      <main className={`dash__main ${phase === "result" ? "dash__main--wide" : ""}`} ref={top}>
         <div className="dash__head">
           <div>
             <h1>{title}</h1>
@@ -312,7 +320,9 @@ export function DashboardScreen({ theme, onToggleTheme }) {
             />
           )}
 
-          {phase === "processing" && <ProcessingStep stage={stage} />}
+          {phase === "processing" && (
+            <ProcessingStep elapsed={elapsed} estimate={estimate} count={batch} />
+          )}
 
           {phase === "result" && result && (
             <>

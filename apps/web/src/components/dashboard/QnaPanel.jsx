@@ -31,7 +31,7 @@ export function QnaPanel({ messages, busy, error, onAsk }) {
   }
 
   return (
-    <>
+    <div className="reading-col">
       {messages.length === 0 && (
         <>
           <h3 className="sec-title">Pertanyaan yang disarankan</h3>
@@ -107,6 +107,6 @@ export function QnaPanel({ messages, busy, error, onAsk }) {
         Jawaban hanya disusun dari ulasan yang Anda masukkan dan selalu menyertakan kutipannya.
         Jika buktinya tidak ada, sistem akan mengatakan tidak tahu.
       </p>
-    </>
+    </div>
   );
 }

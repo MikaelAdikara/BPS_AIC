@@ -1,4 +1,4 @@
-/** Cangkang InsightUlasan.
+/** Cangkang Ulasin.
  *
  * Dua permukaan yang benar-benar terpisah: halaman pemasaran di "#/" dan dashboard analisis
  * di "#/analisis". Berkas ini hanya memilih salah satunya, memegang tema, dan mengurus

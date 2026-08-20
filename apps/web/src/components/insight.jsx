@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef } from "react";
+import { useOverflowX } from "../lib/hooks.js";
 import { QUALITY_LABEL, URGENCY_LABEL, VISUAL_LABEL, aspectLabel, pct } from "../lib/format.js";
 
 /** Menyisipkan angka dalam kalimat dengan gaya angka terhitung. */
@@ -72,9 +73,21 @@ export function DecisionRow({ actionId, decision, onDecide }) {
   );
 }
 
+/** Kartu aksi.
+ *
+ * Tingkat urgensi ditandai TIGA kali, sengaja: rona latar kartu (terbaca saat memindai), badge
+ * bertulisan (terbaca saat berhenti), dan nomor urut (terbaca bahkan tanpa warna sama sekali).
+ * Tidak ada satu pun penanda yang berdiri sendiri.
+ */
 export function ActionCard({ card, decision, onDecide, onOpenEvidence, index = 0 }) {
   return (
-    <article className="acard reveal" style={{ animationDelay: `${index * 60}ms` }}>
+    <article
+      className={`acard acard--${card.urgency} reveal`}
+      style={{ animationDelay: `${index * 60}ms` }}
+    >
+      <span className="acard__rank" aria-hidden="true">
+        {index + 1}
+      </span>
       <span className={`badge badge--${card.urgency}`}>
         {URGENCY_LABEL[card.urgency] ?? card.urgency}
       </span>
@@ -129,6 +142,7 @@ export function DataQualityCard({ quality }) {
 }
 
 export function BenchmarkCard({ rows }) {
+  const [scroll, fits] = useOverflowX();
   if (!rows?.length) return null;
   return (
     <section className="panel">
@@ -137,7 +151,7 @@ export function BenchmarkCard({ rows }) {
         Dibandingkan terhadap rata-rata kategori dari data publik. Bukan data toko pesaing, dan
         bersifat historis, bukan pemantauan langsung.
       </p>
-      <div className="mtable-scroll">
+      <div className={`mtable-scroll ${fits ? "mtable-scroll--fit" : ""}`} ref={scroll}>
         <table className="mtable">
           <thead>
             <tr>

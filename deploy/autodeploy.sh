@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy otomatis InsightUlasan - dijalankan systemd timer tiap 2 menit.
+# Deploy otomatis Ulasin - dijalankan systemd timer tiap 2 menit.
 #
 # Berbasis polling, bukan GitHub Actions atau webhook. Alasannya: repositori ini publik, dan
 # dua alternatif itu menuntut kunci SSH atau kredensial deploy disimpan sebagai secret di

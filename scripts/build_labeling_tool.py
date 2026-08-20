@@ -80,7 +80,7 @@ def main() -> int:
 
 TEMPLATE = """<!doctype html>
 <html lang="id"><head><meta charset="utf-8" />
-<title>Pelabelan foto ulasan - InsightUlasan</title>
+<title>Pelabelan foto ulasan - Ulasin</title>
 <style>
 :root{--paper:#f7f7f5;--surface:#fff;--ink:#1a1d26;--muted:#5a6070;--rule:#e3e3de;
   --nila:#2b3a8f;--high:#b3261e;--med:#9c5d00;--pos:#1f6b4a;--abstain:#636774}

@@ -6,7 +6,7 @@
 
 // Dua batas, bukan satu. Panggilan ringan (readiness, models, dataset contoh) yang menggantung
 // satu menit hampir pasti benar-benar bermasalah, jadi menyerah cepat adalah perilaku yang
-// membantu. Analisis lain ceritanya: pada CPU dua inti, 66 ulasan terukur 88 detik - satu
+// membantu. Analisis lain ceritanya: pada CPU dua inti, 66 ulasan pernah terukur 88 detik - satu
 // batas 60 detik memutus analisis yang sebenarnya berjalan normal dan menampilkannya sebagai
 // kegagalan. Batas analisis disamakan dengan proxy_read_timeout nginx (300s) supaya tidak ada
 // sisi yang menyerah lebih dulu dari sisi lain.

@@ -4,11 +4,24 @@
  * kekurangan yang disembunyikan. Karena itu tiap butir menyebut ALASAN teknisnya, bukan
  * sekadar "coming soon". Sumbernya docs/LIMITATIONS.md dan docs/SCOPE_FREEZE.md - kalau
  * salah satu berubah, berkas ini ikut diperbarui.
+ *
+ * `stage` menentukan letaknya pada rel: butir bertahap dari yang paling pasti ke yang paling
+ * belum tentu. Urutan larik ini ADALAH urutan tampilnya - jangan disortir ulang di komponen,
+ * karena urutan itu memuat informasi (butir kedua menunggu butir pertama).
  */
+
+/** Perhentian pada rel, berurutan dari yang paling dekat. */
+export const ROADMAP_STAGES = [
+  ["aktif", "Sedang dikerjakan"],
+  ["menunggu", "Menunggu prasyarat"],
+  ["antre", "Dalam antrean"],
+  ["kandidat", "Masih dipertimbangkan"],
+];
 
 export const ROADMAP = [
   {
     id: "visual",
+    stage: "aktif",
     title: "Kesimpulan otomatis dari foto ulasan",
     status: "Diuji, belum lolos",
     body:
@@ -16,13 +29,16 @@ export const ROADMAP = [
   },
   {
     id: "kontradiksi",
+    stage: "menunggu",
     title: "Deteksi otomatis saat foto membantah teksnya",
-    status: "Menunggu butir di atas",
+    status: "Belum bisa dimulai",
+    blockedBy: "Kesimpulan otomatis dari foto ulasan",
     body:
-      "Menandai ulasan yang menulis \u201cbarangnya bagus\u201d tetapi melampirkan foto barang rusak. Mesin pembandingnya sudah ada di backend; yang belum ada adalah sisi foto yang cukup dapat dipercaya untuk dijadikan pembanding.",
+      "Menandai ulasan yang menulis “barangnya bagus” tetapi melampirkan foto barang rusak. Mesin pembandingnya sudah ada di backend; yang belum ada adalah sisi foto yang cukup dapat dipercaya untuk dijadikan pembanding.",
   },
   {
     id: "riwayat",
+    stage: "antre",
     title: "Riwayat antar-sesi dan tren antar-periode",
     status: "Belum dibangun",
     body:
@@ -30,15 +46,17 @@ export const ROADMAP = [
   },
   {
     id: "multitoko",
+    stage: "kandidat",
     title: "Multi-toko dan pembagian akses tim",
-    status: "Kandidat, belum komitmen",
+    status: "Belum komitmen",
     body:
       "Satu akun untuk beberapa toko sekaligus, dengan hak akses berbeda per anggota tim. Butuh akun dan penyimpanan permanen, dua hal yang sengaja tidak ada pada versi ini.",
   },
   {
     id: "koneksi",
+    stage: "kandidat",
     title: "Tarik ulasan langsung dari marketplace",
-    status: "Kandidat, belum komitmen",
+    status: "Belum komitmen",
     body:
       "Menghapus langkah ekspor-lalu-unggah. Status legal pengambilan data otomatis masih setengah terverifikasi, jadi versi ini hanya bekerja dari berkas yang Anda ekspor sendiri.",
   },

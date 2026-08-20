@@ -1,4 +1,4 @@
-# Brand & UI Guidelines - InsightUlasan
+# Brand & UI Guidelines - Ulasin
 
 Panduan ini cukup konkret untuk langsung dipakai mendesain di Figma **dan** sudah tersedia
 sebagai token CSS di [`apps/web/src/styles/tokens.css`](../apps/web/src/styles/tokens.css) -
@@ -40,6 +40,26 @@ konsisten di semua layar - termasuk angka yang muncul di tengah kalimat.
 Plus Jakarta Sans dipilih bukan karena netral: ia dirancang sebagai identitas tipografi Jakarta,
 punya karakter yang pas untuk produk yang melayani pedagang Indonesia, dan sangat terbaca pada
 ukuran besar di layar HP.
+
+## 2b. Nama dan lambang
+
+**Nama produknya Ulasin.** Satu kata, kata kerja perintah dalam bahasa sehari-hari - "ulasin
+dong", "coba ulasin". Bukan gabungan dua kata benda yang menjelaskan dirinya sendiri; nama yang
+menjelaskan dirinya adalah keterangan, dan keterangan tidak menempel di ingatan. Selalu ditulis
+`Ulasin`, tidak pernah `ULASIN`, `ulas.in`, atau dipenggal.
+
+**Lambangnya tiga batang menaik**, batang terpendek paling pudar (putih 50%), yang tengah 78%,
+yang tertinggi putih penuh - di atas ubin biru bersudut membulat. Bacanya: berapa banyak ulasan
+menyebut satu hal, disusun dari yang paling jarang ke yang paling sering, dan yang belum jadi
+masalah dibiarkan meredup. Itu persis isi produknya, tanpa perlu ikon balon percakapan yang
+dipakai setiap alat ulasan.
+
+**Lockup-nya bertumpuk**: lambang di atas, kata "Ulasin" di bawahnya, rata tengah, jarak 6px.
+Bentuk ini yang dipakai di navigasi kedua permukaan. Varian sebaris (`layout="row"`) tersedia
+untuk tempat yang tingginya benar-benar sempit, dan hanya untuk itu.
+
+Sumber tunggalnya [`apps/web/src/components/Brand.jsx`](../apps/web/src/components/Brand.jsx);
+favicon di `index.html` adalah SVG yang sama, disematkan sebagai data URI.
 
 ## 3. Palet - "Nila & Struk"
 

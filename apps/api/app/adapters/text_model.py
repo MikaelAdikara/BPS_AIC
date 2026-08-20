@@ -28,6 +28,10 @@ ML_TEXT = REPO_ROOT / "ml" / "text"
 
 SENTIMENTS = ["negatif", "netral", "positif"]
 
+# Klausa dipotong di 32 token, jadi batch besar pun tetap ringan; 64 cukup untuk menelan
+# seluruh batch ulasan biasa dalam beberapa lintasan saja.
+NEURAL_BATCH_SIZE = 64
+
 
 def _segment(text: str) -> list[str]:
     """Segmentasi klausa memakai modul yang sama dengan pipeline training.
@@ -111,20 +115,42 @@ class TextModelAdapter:
             self.fallback_reason = f"{type(exc).__name__}: {exc}"
 
     def _predict_neural(self, clauses: list[str]) -> list[tuple[list[Aspect], Sentiment]]:
-        torch = self._torch
-        enc = self.tokenizer(
-            clauses, truncation=True, max_length=32, padding=True, return_tensors="pt"
-        ).to(self._device)
-        with torch.no_grad():
-            aspect_logits, sentiment_logits = self.model(enc["input_ids"], enc["attention_mask"])
-            aspect_probs = torch.sigmoid(aspect_logits).cpu().numpy()
-            sentiment_idx = sentiment_logits.argmax(-1).cpu().numpy()
+        """Inferensi atas klausa dari SELURUH batch sekaligus, bukan per ulasan.
 
-        results = []
-        for probs, sent_i in zip(aspect_probs, sentiment_idx):
-            aspects = [a for a, p in zip(self.aspects, probs) if p >= self.threshold]
-            results.append((aspects, Sentiment(SENTIMENTS[int(sent_i)])))
-        return results
+        Sebelumnya `classify()` memanggil fungsi ini sekali per ulasan, sehingga 66 ulasan
+        berarti 66 forward pass terpisah - masing-masing berisi 2-4 klausa. Ongkos tetap satu
+        panggilan (tokenisasi, penyusunan tensor, penjadwalan thread) karenanya dibayar 66
+        kali untuk pekerjaan yang muat dalam beberapa batch.
+
+        Padding tidak menjadi masalah di sini seperti pada embedding: klausa dipotong di 32
+        token dan panjangnya seragam. Hasilnya identik dengan versi per-ulasan - `attention_mask`
+        menutup padding dan mean pooling di DualHeadClassifier hanya menjumlah token non-padding.
+        """
+        torch = self._torch
+        aspects_out: list[list[Aspect]] = []
+        sentiments_out: list[Sentiment] = []
+
+        with torch.no_grad():
+            for start in range(0, len(clauses), NEURAL_BATCH_SIZE):
+                enc = self.tokenizer(
+                    clauses[start : start + NEURAL_BATCH_SIZE],
+                    truncation=True,
+                    max_length=32,
+                    padding=True,
+                    return_tensors="pt",
+                ).to(self._device)
+                aspect_logits, sentiment_logits = self.model(
+                    enc["input_ids"], enc["attention_mask"]
+                )
+                aspect_probs = torch.sigmoid(aspect_logits).cpu().numpy()
+                sentiment_idx = sentiment_logits.argmax(-1).cpu().numpy()
+                for probs, sent_i in zip(aspect_probs, sentiment_idx):
+                    aspects_out.append(
+                        [a for a, p in zip(self.aspects, probs) if p >= self.threshold]
+                    )
+                    sentiments_out.append(Sentiment(SENTIMENTS[int(sent_i)]))
+
+        return list(zip(aspects_out, sentiments_out))
 
     def _predict_lexicon(self, clauses: list[str]) -> list[tuple[list[Aspect], Sentiment]]:
         """Jalur fallback deterministic (bagian 17.1) - akurasi lebih rendah, tetap berjalan."""
@@ -146,25 +172,32 @@ class TextModelAdapter:
         return results
 
     def classify(self, reviews: list[ProcessedReview]) -> list[TextPrediction]:
-        """classify_text_aspects() - tool contract bagian 27.3."""
-        predictions: list[TextPrediction] = []
+        """classify_text_aspects() - tool contract bagian 27.3.
 
-        for review in reviews:
-            clauses = _segment(review.clean_text)
-            if not clauses:
-                predictions.append(
-                    TextPrediction(review_id=review.review_id, predictions=[],
-                                   model_version=self.model_version)
-                )
-                continue
+        Seluruh ulasan disegmentasi lebih dulu, klausanya digabung menjadi satu daftar datar,
+        lalu SATU kali inferensi dijalankan atas daftar itu. Pemetaan balik ke ulasan asalnya
+        memakai rentang indeks yang dicatat saat penggabungan.
+        """
+        segments = [_segment(r.clean_text) for r in reviews]
 
+        flat: list[str] = []
+        spans: list[tuple[int, int]] = []
+        for clauses in segments:
+            spans.append((len(flat), len(flat) + len(clauses)))
+            flat.extend(clauses)
+
+        if flat:
             per_clause = (
-                self._predict_neural(clauses) if self.model is not None
-                else self._predict_lexicon(clauses)
+                self._predict_neural(flat) if self.model is not None
+                else self._predict_lexicon(flat)
             )
+        else:
+            per_clause = []
 
+        predictions: list[TextPrediction] = []
+        for review, clauses, (start, end) in zip(reviews, segments, spans):
             items: list[AspectPrediction] = []
-            for clause, (aspects, sentiment) in zip(clauses, per_clause):
+            for clause, (aspects, sentiment) in zip(clauses, per_clause[start:end]):
                 for aspect in aspects:
                     items.append(
                         AspectPrediction(

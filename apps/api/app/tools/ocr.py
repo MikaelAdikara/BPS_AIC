@@ -33,7 +33,7 @@ from statistics import median
 
 from app.tools.privacy import redact_personal_data
 
-log = logging.getLogger("insightulasan.ocr")
+log = logging.getLogger("ulasin.ocr")
 
 # Bahasa yang diminta ke Tesseract. Indonesia lebih dulu, Inggris sebagai pendamping karena
 # ulasan Indonesia rutin menyelipkan kata Inggris ("packing", "seller", "fast respon").

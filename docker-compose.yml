@@ -1,4 +1,4 @@
-# InsightUlasan - deployment lokal (blueprint bagian 30).
+# Ulasin - deployment lokal (blueprint bagian 30).
 #
 # Diletakkan di ROOT, bukan di docker/, karena juri menjalankan `docker compose up` dari
 # root repository. Ini menutup pertanyaan terbuka yang dicatat docker/README.md.

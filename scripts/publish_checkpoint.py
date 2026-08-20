@@ -33,7 +33,7 @@ base_model: indobenchmark/indobert-base-p1
 tags: [aspect-based-sentiment-analysis, indonesian, e-commerce, umkm]
 ---
 
-# InsightUlasan NLP-01
+# Ulasin NLP-01
 
 IndoBERT yang di-fine-tune untuk klasifikasi aspek dan sentimen pada ulasan e-commerce
 Bahasa Indonesia informal. Dibangun untuk AIC COMPFEST 18.

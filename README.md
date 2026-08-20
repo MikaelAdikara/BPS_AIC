@@ -1,4 +1,4 @@
-# InsightUlasan
+# Ulasin
 
 **Mengubah tumpukan ulasan dan foto pelanggan UMKM berbahasa Indonesia informal menjadi tiga masalah paling mendesak, bukti kutipan aslinya, dan langkah konkret yang bisa langsung dikerjakan - dalam satu kali unggah.**
 
@@ -29,7 +29,7 @@ Subtema: Smart Commerce · Seluruh model berjalan lokal, CPU-friendly, tanpa API
 
 ## 1. Ringkasan
 
-InsightUlasan menjembatani lima tahap berurutan yang selama ini terputus pada perkakas yang tersedia bagi UMKM:
+Ulasin menjembatani lima tahap berurutan yang selama ini terputus pada perkakas yang tersedia bagi UMKM:
 
 > ulasan mentah → pemahaman aspek & sentimen → penggabungan bukti teks + visual → penentuan prioritas → rekomendasi aksi bisnis dengan bukti yang dapat diverifikasi
 

@@ -1,4 +1,4 @@
-/* InsightUlasan - design tokens
+/* Ulasin - design tokens
  *
  * Nilai di berkas ini disalin langsung dari sistem desain Google Stitch
  * (docs/design/DESIGN.md + halaman referensi). Kalau dokumen naratif dan berkas ini
@@ -79,6 +79,28 @@
   --error: #ba1a1a;
   --error-surface: #ffdad6;
   --error-ink: #93000a;
+
+  /* ---------- Permukaan kartu aksi menurut urgensi ----------
+   * Kartu aksi diberi rona latarnya sendiri, bukan hanya badge di pojok. Alasannya
+   * memindai: pada layar berisi lima kartu, badge 10px menuntut dibaca satu per satu,
+   * sedangkan rona latarnya terbaca sebelum mata sempat berhenti.
+   *
+   * Ronanya sengaja tipis (chroma rendah, mendekati putih). Teks kartu adalah kalimat utuh
+   * yang harus dibaca sampai habis, dan latar merah pekat menurunkan kontrasnya di bawah
+   * ambang. Terukur di atas kedua rona: --ink-soft 8,0:1 dan 8,2:1, --muted 4,8:1 dan 4,9:1 -
+   * ketiganya masih lolos AA, dan itulah batas seberapa pekat rona ini boleh dibuat.
+   *
+   * Warna TIDAK PERNAH menjadi satu-satunya penanda - badge bertulisan tetap ada di setiap
+   * kartu, dan urutannya sudah menyatakan prioritas. */
+  --card-high-bg: #fdf3f1;
+  --card-high-edge: #f0cfc9;
+  --card-med-bg: #fdf7ec;
+  --card-med-edge: #efdcbc;
+  --card-low-bg: rgba(255, 255, 255, 0.88);
+  /* Tepi netral yang benar-benar terlihat, bukan putih transparan. Ketiga tingkat kartu harus
+   * terbaca sebagai satu keluarga dengan rona berbeda; kalau yang paling rendah kehilangan
+   * garis tepinya, ia berhenti terbaca sebagai kartu dan mulai terbaca sebagai latar. */
+  --card-low-edge: #e3e2d8;
 
   /* Abstain / keyakinan rendah - ABU-ABU, TIDAK PERNAH MERAH. Abstain adalah keputusan
    * jujur model, bukan kegagalan; mewarnainya merah membuat pengguna mengira ada yang
@@ -199,6 +221,13 @@
   --error: #f4867d;
   --error-surface: #331d1b;
   --error-ink: #ffb4ab;
+
+  --card-high-bg: #2a1e1e;
+  --card-high-edge: rgba(244, 134, 125, 0.28);
+  --card-med-bg: #2a2418;
+  --card-med-edge: rgba(224, 164, 78, 0.26);
+  --card-low-bg: var(--glass);
+  --card-low-edge: var(--glass-edge);
 
   --grey-surface: rgba(255, 255, 255, 0.07);
   --grey-border: rgba(255, 255, 255, 0.14);

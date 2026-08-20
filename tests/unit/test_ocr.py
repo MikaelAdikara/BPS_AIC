@@ -6,7 +6,7 @@ murni yang tidak menyentuh Tesseract, sehingga test ini berjalan di mesin mana p
 yang tidak memasang biner OCR.
 
 Akurasi Tesseract itu sendiri tidak diuji di sini - itu properti mesin OCR pihak ketiga, bukan
-properti kode ini, dan menguji ulang akan berarti menguji Tesseract, bukan InsightUlasan.
+properti kode ini, dan menguji ulang akan berarti menguji Tesseract, bukan Ulasin.
 """
 
 import pytest

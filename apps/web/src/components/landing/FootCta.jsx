@@ -20,7 +20,7 @@ export function FootCta({ onStart }) {
         </div>
       </div>
       <div className="foot-note">
-        © 2026 InsightUlasan · Dibuat untuk pelaku usaha yang peduli setiap ulasan
+        © 2026 Ulasin · Dibuat untuk pelaku usaha yang peduli setiap ulasan
       </div>
     </div>
   );

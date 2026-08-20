@@ -1,4 +1,4 @@
-"""Backend InsightUlasan - FastAPI, satu service (blueprint bagian 27, 28, ADR-008).
+"""Backend Ulasin - FastAPI, satu service (blueprint bagian 27, 28, ADR-008).
 
 Enam endpoint Tier 1. Seluruhnya **sinkron**: satu input masuk, satu output AI keluar, tanpa
 background job (batas MVP rulebook bagian 2.4).
@@ -65,7 +65,10 @@ SAMPLE_ALIASES = {
 
 # Batas ini terikat perangkat keras, bukan produk, sehingga dapat diatur lewat lingkungan
 # alih-alih dipaku di kode. Pada 2 vCPU terukur ~0,62 detik per ulasan ditambah ~47 detik biaya
-# tetap, sedangkan batas waktu klien dan nginx sama-sama 300 detik - artinya plafon nyatanya
+# tetap - pengukuran itu MENDAHULUI pengelompokan batch menurut panjang teks di
+# EmbeddingAdapter, jadi angka sebenarnya kini lebih baik; batas di bawah tetap memakai angka
+# lama sampai ada pengukuran ulang di VM. Batas waktu klien dan nginx sama-sama 300 detik -
+# artinya plafon nyatanya
 # sekitar 400 ulasan. Membiarkan 1.000 lolos di mesin sekecil itu berarti pengguna menunggu
 # beberapa menit hanya untuk berakhir pada pesan kehabisan waktu yang tidak menjelaskan apa
 # pun, padahal penolakan yang jujur bisa diberikan seketika. Mesin yang lebih besar tinggal
@@ -79,7 +82,7 @@ MAX_IMAGES_PER_REQUEST = int(os.getenv("MAX_IMAGES_PER_REQUEST", "10"))
 
 # Log terstruktur tanpa PII - hanya review_id dan metadata agregat (bagian 37.1).
 logging.basicConfig(level=logging.INFO, format='{"level":"%(levelname)s","msg":"%(message)s"}')
-log = logging.getLogger("insightulasan")
+log = logging.getLogger("ulasin")
 
 state: dict = {"ready": False, "service": None, "errors": []}
 
@@ -126,7 +129,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="InsightUlasan API",
+    title="Ulasin API",
     version="0.1.0",
     description="Mengubah ulasan pelanggan UMKM menjadi rekomendasi aksi dengan bukti kutipan.",
     lifespan=lifespan,

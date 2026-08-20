@@ -1,6 +1,6 @@
 # Deployment
 
-Dokumen ini mencatat bagaimana InsightUlasan berjalan di server demo, apa yang otomatis, dan
+Dokumen ini mencatat bagaimana Ulasin berjalan di server demo, apa yang otomatis, dan
 batas-batas yang sudah TERUKUR - bukan yang diperkirakan.
 
 ## Alamat
@@ -88,6 +88,13 @@ Diukur di `e2-standard-2` (2 vCPU) lewat endpoint `/api/v1/analyze`:
 Kedua titik itu memberi sekitar **0,62 detik per ulasan** ditambah **~47 detik biaya tetap**
 (pemuatan model dan penyiapan indeks bukti).
 
+> **Angka di atas mendahului pengelompokan batch menurut panjang teks** (`EmbeddingAdapter`)
+> dan penyatuan inferensi klausa antar-ulasan (`TextModelAdapter`). Pada mesin pengembang
+> 12 vCPU, perubahan yang sama memangkas 66 ulasan dari 24 detik menjadi 10 detik. Tabel ini
+> baru diperbarui setelah pengukuran ulang di VM 2 vCPU - menurunkan angkanya sekarang berarti
+> menaruh tebakan di tempat yang seharusnya berisi hasil ukur, dan `MAX_REVIEWS_PER_REQUEST`
+> di bawah dihitung dari tabel ini.
+
 Batas waktu klien dan `proxy_read_timeout` nginx sama-sama 300 detik, sehingga plafon
 praktisnya **sekitar 400 ulasan**.
 
@@ -114,7 +121,7 @@ alamat demo, urutannya penting - kunci IP-nya LEBIH DULU, karena mematikan VM me
 efemeral:
 
 ```bash
-gcloud compute addresses create insightulasan-demo-ip \
+gcloud compute addresses create ulasin-demo-ip \
   --addresses=34.41.49.44 --region=us-central1 --project=kemenkop-comfest-18
 gcloud compute instances stop normal-1 --zone=us-central1-a --project=kemenkop-comfest-18
 gcloud compute instances set-machine-type normal-1 --machine-type=e2-standard-8 \

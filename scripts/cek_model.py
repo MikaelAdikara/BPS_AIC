@@ -183,7 +183,7 @@ def main() -> int:
     ap.add_argument("--cepat", action="store_true", help="lewati lapis 3 dan 4")
     args = ap.parse_args()
 
-    print("PEMERIKSAAN KESEHATAN MODEL — InsightUlasan")
+    print("PEMERIKSAAN KESEHATAN MODEL — Ulasin")
     hasil = [lapis1_kesiapan(), lapis2_perilaku()]
     if not args.cepat:
         hasil += [lapis3_ketahanan(), lapis4_angka()]

@@ -1,6 +1,6 @@
-/** Dua hook yang mengatur cangkang aplikasi: rute dan tema. */
+/** Hook cangkang aplikasi: rute, tema, dan pengukuran luber horizontal. */
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // --------------------------------------------------------------------------------------
 // Rute
@@ -58,7 +58,7 @@ export function useRoute() {
  *  OS TIDAK dibaca saat muat - mesin yang kebetulan bertema gelap dulu membuka aplikasi dalam
  *  tampilan yang bukan tampilan rancangannya. Yang dihormati hanya pilihan eksplisit
  *  pengguna, dan pilihan itu diingat antar-kunjungan. */
-const THEME_KEY = "insightulasan:theme";
+const THEME_KEY = "ulasin:theme";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() =>
@@ -66,9 +66,67 @@ export function useTheme() {
   );
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    const akar = document.documentElement;
+
+    // Penanda ini mematikan seluruh transisi selama pergantian berlangsung. Alasan lengkapnya
+    // ada di base.css; singkatnya, properti yang ditransisikan sambil membaca custom property
+    // akan membeku di nilai tema lama begitu tokennya berganti.
+    akar.setAttribute("data-theme-switching", "");
+    akar.dataset.theme = theme;
     window.localStorage?.setItem(THEME_KEY, theme);
+
+    // Dua frame, bukan satu. Frame pertama adalah frame tempat gaya barunya dihitung; melepas
+    // penanda di situ mengembalikan transisi tepat sebelum perhitungan itu selesai, dan
+    // pembekuan yang sama terjadi lagi.
+    let frame2 = 0;
+    const frame1 = requestAnimationFrame(() => {
+      frame2 = requestAnimationFrame(() => akar.removeAttribute("data-theme-switching"));
+    });
+    return () => {
+      cancelAnimationFrame(frame1);
+      cancelAnimationFrame(frame2);
+      akar.removeAttribute("data-theme-switching");
+    };
   }, [theme]);
 
   return [theme, () => setTheme((t) => (t === "dark" ? "light" : "dark"))];
+}
+
+// --------------------------------------------------------------------------------------
+// Pengukuran luber
+// --------------------------------------------------------------------------------------
+
+/** Memberi tahu apakah isi sebuah wadah MUAT secara horizontal.
+ *
+ * Dipakai tabel yang boleh digulir menyamping. Wadahnya memakai topeng gradien di tepi kanan
+ * sebagai tanda "masih ada kolom di sebelah sana", dan tanda itu hanya benar selama isinya
+ * memang terpotong - kalau tabelnya muat, topeng yang tetap terpasang memudarkan kolom
+ * terakhir tanpa alasan. CSS tidak bisa menanyakan hal ini sendiri, jadi diukur di sini.
+ *
+ * `ResizeObserver` mengamati wadah DAN tabel di dalamnya: lebar wadah berubah saat jendela
+ * diubah ukurannya, sedangkan lebar tabel berubah saat datanya berganti - dan keduanya dapat
+ * terjadi tanpa render ulang React.
+ *
+ * Mengembalikan `[ref, fits]`.
+ */
+export function useOverflowX() {
+  const [fits, setFits] = useState(true);
+  const node = useRef(null);
+
+  const ref = useCallback((el) => {
+    node.current = el;
+    if (!el) return;
+    const ukur = () => setFits(el.scrollWidth <= el.clientWidth + 1);
+    ukur();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(ukur);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    el._ro?.disconnect();
+    el._ro = ro;
+  }, []);
+
+  useEffect(() => () => node.current?._ro?.disconnect(), []);
+
+  return [ref, fits];
 }

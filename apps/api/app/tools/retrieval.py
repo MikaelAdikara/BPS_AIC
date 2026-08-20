@@ -71,6 +71,14 @@ class EvidenceIndex:
         self.adapter = adapter
         self.min_similarity = min_similarity
         self.items: list[IndexedReview] = []
+        # Vektor kueri disimpan per teks kueri.
+        #
+        # Satu analisis memanggil retrieve() sekali per Action Card dan sekali lagi per aspek
+        # yang dipuji - dan kueri untuk aspek yang sama SELALU teks yang sama ("kualitas
+        # produk", "ukuran varian", ...). Tanpa singgahan ini, aspek yang muncul di kartu
+        # keluhan sekaligus di daftar peluang di-encode dua kali untuk hasil yang identik.
+        # Isinya hilang bersama indeksnya, jadi cakupannya tetap satu sesi (bagian 23.3).
+        self._query_vectors: dict[str, np.ndarray] = {}
 
     def build(self, reviews: list[dict]) -> None:
         """Bangun indeks dari ulasan sesi. `reviews` memuat review_id, text, aspects, dst."""
@@ -79,6 +87,7 @@ class EvidenceIndex:
             self.items = []
             return
         vectors = self.adapter.encode(texts, corpus=texts)
+        self._query_vectors.clear()  # indeks baru, korpus baru - vektor lama tidak lagi berlaku
         self.items = [
             IndexedReview(
                 review_id=r["review_id"],
@@ -123,9 +132,12 @@ class EvidenceIndex:
         if not candidates:
             return []
 
-        query_vector = self.adapter.encode(
-            [query], corpus=[i.text for i in self.items]
-        )[0]
+        query_vector = self._query_vectors.get(query)
+        if query_vector is None:
+            query_vector = self.adapter.encode(
+                [query], corpus=[i.text for i in self.items]
+            )[0]
+            self._query_vectors[query] = query_vector
         scores = np.array([float(query_vector @ i.vector) for i in candidates])
 
         eligible = [(s, c) for s, c in zip(scores, candidates) if s >= self.min_similarity]

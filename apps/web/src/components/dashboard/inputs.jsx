@@ -6,6 +6,7 @@
 
 import { useRef, useState } from "react";
 import { MAX_FILE_BYTES, MAX_ROWS } from "../../api/client.js";
+import { useOverflowX } from "../../lib/hooks.js";
 
 const UploadIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -132,13 +133,24 @@ function ColumnMapper({ columns, mapping, onChange }) {
   );
 }
 
-/** Pratinjau lima baris pertama supaya pengguna tahu yang terbaca benar sebelum menganalisis. */
+/** Pratinjau lima baris pertama supaya pengguna tahu yang terbaca benar sebelum menganalisis.
+ *
+ * Kolom yang sudah dipetakan ditarik ke depan, bukan diambil apa adanya dari urutan berkas.
+ * Ekspor marketplace membuka diri dengan kolom teknis - review_id, order_id, shop_id - dan
+ * mengambil empat kolom pertama begitu saja menghasilkan pratinjau yang tidak memuat satu pun
+ * kolom yang barusan dipetakan pengguna. Yang ingin ia pastikan justru itu.
+ */
 function PreviewTable({ rows, columns, mapping }) {
+  const [scroll, fits] = useOverflowX();
   if (!rows?.length) return null;
-  const shown = columns.slice(0, 4);
+
+  const dipetakan = [mapping.text, mapping.rating, mapping.timestamp, mapping.product_name]
+    .filter((c) => c && columns.includes(c));
+  const shown = [...new Set([...dipetakan, ...columns])].slice(0, 4);
+
   return (
     <>
-      <div className="mtable-scroll">
+      <div className={`mtable-scroll ${fits ? "mtable-scroll--fit" : ""}`} ref={scroll}>
         <table className="mtable">
           <thead>
             <tr>
@@ -155,7 +167,7 @@ function PreviewTable({ rows, columns, mapping }) {
             {rows.slice(0, 5).map((row, i) => (
               <tr key={i}>
                 {shown.map((c) => (
-                  <td key={c} className="cell-clip">
+                  <td key={c} className="cell-clip" title={String(row[c] ?? "")}>
                     {String(row[c] ?? "")}
                   </td>
                 ))}

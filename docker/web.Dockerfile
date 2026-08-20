@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # ------------------------------------------------------------------------------------
-# InsightUlasan - frontend statis
+# Ulasin - frontend statis
 # Build React lalu disajikan nginx. Node tidak ikut ke image akhir: yang dibutuhkan saat
 # melayani hanyalah berkas statis hasil build.
 # ------------------------------------------------------------------------------------

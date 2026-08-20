@@ -1,4 +1,4 @@
-"""Kontrak data InsightUlasan (blueprint bagian 25, 22.1)."""
+"""Kontrak data Ulasin (blueprint bagian 25, 22.1)."""
 
 from .enums import (
     ActionCategory,
