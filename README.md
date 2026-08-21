@@ -52,32 +52,77 @@ Dikerjakan bertahap mengikuti Fase 0–10. Setiap fase punya *acceptance criteri
 | 3 | Model visual - zero-shot CLIP, threshold, kalibrasi | ❌ **NO-GO** | argmax 45% kalah dari tebakan sepele 61%; jalur linear probe sudah ditulis dan siap dijalankan, menunggu foto tersedia kembali |
 | 4 | Retrieval & action engine (RET-01, ACT-01) | ✅ selesai | Action Card lolos spot-check anti-generik; RET-01 menolak menjawab saat bukti tak memadai |
 | 5 | Backend FastAPI - 7 endpoint, 10 tool contract | 🔄 berjalan | 7 endpoint jalan (termasuk OCR tangkapan layar); orchestrator belum, sistem berjalan di FALLBACK MODE |
-| 6 | Frontend React - landing + dashboard | 🔄 berjalan | Dua permukaan terpisah; alur unggah → proses → hasil (4 tab) terverifikasi di browser pada data contoh |
+| 6 | Frontend React - landing + dashboard | 🔄 berjalan | Dua permukaan terpisah; alur unggah → proses → hasil (4 tab) terverifikasi di browser pada data contoh. Kotak FAQ non-AI di halaman pemasaran, 6 uji hijau ([bagian 7.1](#71-kotak-faq-di-halaman-pemasaran)) |
 | 7 | Integrasi - termasuk jalur kegagalan & fallback | ✅ selesai | 16 integration test hijau, mencakup enam jalur wajib bagian 32 |
 | 8 | Evaluasi penuh + error analysis | ⬜ belum | metrik tercatat apa adanya |
-| 9 | Docker & reproducibility | ⬜ belum | **gate kritis** - fresh clone tanpa cache berhasil |
-| 10 | Dokumentasi akhir | ⬜ belum | - |
+| 9 | Docker & reproducibility | ✅ selesai | **gate kritis LULUS** - `docker compose up --build` berjalan dari fresh clone, dan susunan yang sama melayani demo publik di [34.41.49.44](http://34.41.49.44) lewat pipeline auto-deploy build-dulu-baru-tukar ([DEPLOYMENT.md](docs/DEPLOYMENT.md)) |
+| 10 | Dokumentasi akhir | 🔄 berjalan | MODEL_CARD, DATASET_CARD, ARCHITECTURE, LIMITATIONS, RESPONSIBLE_AI, BUSINESS_VALUE sudah terisi; proposal PDF belum |
 
 > ### Yang perlu diketahui pembaca sekarang
 >
-> **Aplikasi sudah dapat dijalankan.** API, antarmuka web, dan pipeline `ml/` berjalan penuh - lihat [bagian 9](#9-menjalankan-yang-sudah-ada).
+> **Aplikasi sudah dapat dijalankan, dan sedang berjalan.** API, antarmuka web, dan pipeline `ml/` berfungsi penuh - lihat [bagian 9](#9-menjalankan-yang-sudah-ada). `docker compose up --build` sudah terverifikasi dari fresh clone, dan susunan container yang sama melayani demo publik di **<http://34.41.49.44>**.
 >
-> **`docker compose` sudah dikonfigurasi, tetapi belum pernah dijalankan sampai selesai.** Docker tidak terpasang di mesin pengembangan, sehingga konfigurasinya baru diperiksa secara statis (sintaks compose, keberadaan seluruh sumber `COPY`, kecocokan jalur di dalam container, endpoint healthcheck). Rinciannya beserta apa yang sudah dan belum diverifikasi ada di [docker/README.md](docker/README.md). Perintahnya ditulis apa adanya dengan catatan itu, bukan disajikan seolah sudah terbukti.
+> **Lapisan orchestrator (LLM) belum dibangun, jadi sistem berjalan permanen di FALLBACK MODE.** Ini disebut di muka karena konsekuensinya nyata: narasinya disusun template, bukan model bahasa. Yang TIDAK berubah adalah seluruh angka, prioritas, dan kutipan bukti - semuanya dihasilkan tool deterministic. Lihat [bagian 5.5](#55-mode-full-vs-fallback).
 >
-> **Tidak ada angka performa yang dikutip sebagai capaian di README ini.** Metrik yang sudah terukur beserta batas penafsirannya ada di [docs/MODEL_CARD.md](docs/MODEL_CARD.md).
+> **Tidak ada angka performa yang dikutip sebagai capaian di README ini.** Metrik yang sudah terukur beserta batas penafsirannya ada di [docs/MODEL_CARD.md](docs/MODEL_CARD.md) - termasuk dua gate yang **tidak lulus**.
 
 ## 3. Masalah dan mengapa AI diperlukan
 
 Pemilik UMKM mikro-kecil menerima ulasan dalam volume yang tidak sebanding dengan waktu dan literasi digital yang mereka punya. Pola masalah nyata - ukuran salah, kemasan rusak, respons lambat - terkubur di antara ratusan baris teks yang tidak pernah dibaca sistematis. Foto bukti yang dilampirkan pembeli nyaris tidak pernah ditinjau secara agregat sama sekali.
 
-**Mengapa bukan sekadar keyword search atau baca manual:**
+### 3.1 Besarannya
 
-| Alternatif | Mengapa tidak memadai |
-| --- | --- |
-| Baca manual | Tidak proporsional di atas 50–100 ulasan/bulan - waktu pemilik UMKM adalah kendala utamanya |
-| Keyword / rule-based | Bahasa ulasan informal penuh slang, typo, singkatan, dan campuran bahasa daerah; aturan permukaan tidak konsisten menangkapnya |
-| Dashboard rating marketplace | Hanya skor rata-rata; tidak mengekstrak aspek, tidak memberi rekomendasi |
-| Zero-shot LLM API murni | Gagal syarat kustomisasi, sulit direproduksi tanpa API key, mahal di skala UMKM mikro, tidak konsisten antar run |
+| Angka | Nilai | Sumber |
+| --- | --- | --- |
+| Unit usaha e-commerce di Indonesia (2024) | **4,40 juta**, naik 15,3% setahun dan 86% dalam empat tahun, **mayoritas usaha mikro** | BPS, Statistik E-Commerce 2024 |
+| Populasi UMKM (2025) | ~66 juta unit · >60% PDB · ~97% penyerapan tenaga kerja | Kementerian Koperasi dan UKM |
+| Biaya platform yang sudah ditanggung penjual | **15-20% dari harga jual** (komisi 2,5-10% · gratis ongkir 4-4,5% · promosi 1-2% · iklan 3-5%) | Laporan industri, 2026 |
+| Pengaduan konsumen BPKN (2024) | 1.733, **naik 200%** dari 926 pada 2023; e-commerce sektor teratas setelah jasa keuangan | BPKN |
+
+Dua baris terakhir yang membuat masalah ini mendesak, bukan sekadar besar: margin penjual sudah
+tergerus 15-20% sebelum satu rupiah masuk kantong, **dan** keluhan konsumen sedang naik tajam.
+Setiap keluhan berulang yang tak terdeteksi adalah dua kerugian sekaligus - penjualan yang
+hilang, dan biaya iklan yang dibakar untuk mendatangkan pembeli ke masalah yang belum
+diperbaiki.
+
+Sisi ongkos waktunya disajikan sebagai aritmetika terbuka, bukan sebagai temuan:
+
+| | Nilai | Status |
+| --- | --- | --- |
+| Analisis 300 ulasan oleh sistem | **6,7 menit** (dari 66 ulasan / 88 detik pada CPU dua inti) | **terukur** |
+| Membaca dan merekap 300 ulasan secara manual | ~2,7 jam (20 detik/ulasan + 1 jam rekap) | **asumsi, belum divalidasi** |
+
+Sisi mesinnya terukur; sisi manusianya belum. Perbandingan itu ditulis begini - bukan sebagai
+klaim "hemat 2,7 jam" - karena validasi waktu baca manual memang belum dikerjakan, dan itu
+tercatat sebagai riset terbuka di [BUSINESS_VALUE.md](docs/BUSINESS_VALUE.md) §9.
+
+### 3.2 Solusi yang sudah ada, dan di mana persisnya mereka berhenti
+
+| Solusi existing | Yang dilakukannya | Di mana ia berhenti | Harga masuk |
+| --- | --- | --- | --- |
+| **Shopee Seller Centre** · **Tokopedia Seller Dashboard** · **TikTok Shop Seller Center** | Rating rata-rata, daftar ulasan, saring per bintang, statistik performa produk | Tidak mengelompokkan keluhan per aspek, tidak mengurutkan mana yang mendesak, tidak memberi rekomendasi tindakan. Dan tiap dashboard hanya melihat kanalnya sendiri | Gratis |
+| **Yotpo** | Mengumpulkan dan menampilkan ulasan, widget rating | Alat pengumpulan ulasan, bukan alat analisis keluhan; tidak ada prioritisasi tindakan; dioptimalkan untuk Bahasa Inggris | dari **USD 79/bln** |
+| **Birdeye** | Manajemen reputasi multi-lokasi, ringkasan ulasan | Berharga per lokasi dengan kontrak 12 bulan dan onboarding terpisah; dirancang untuk bisnis multi-cabang berbahasa Inggris, bukan penjual marketplace Indonesia | **USD 299-449/bln** per lokasi + onboarding USD 500-1.500 |
+| **Thematic** | Analitik umpan balik bertema, benar-benar melakukan ekstraksi tema | Kelas perusahaan - harga masuknya saja ~Rp32 juta/bulan; model temanya tidak dilatih untuk ragam informal Bahasa Indonesia | dari **USD 2.000/bln** untuk 3 pengguna |
+| **Jubelio** · **Ginee** (multichannel Indonesia) | Sinkronisasi stok dan pesanan lintas marketplace | Fokus operasional, bukan insight ulasan; tidak mengekstrak aspek maupun memprioritaskan perbaikan | Berlangganan |
+| Baca manual | Akurat dan penuh konteks | Tidak proporsional di atas 50-100 ulasan/bulan - waktu pemilik UMKM adalah kendala utamanya | Waktu |
+| Keyword / rule-based sendiri | Murah, dapat diaudit | Bahasa ulasan informal penuh slang, typo, singkatan, campuran bahasa daerah; runtuh pada negasi, sarkasme, dan sentimen campuran | Gratis |
+| Zero-shot LLM API murni | Cepat dibangun | Gagal syarat kustomisasi rulebook, sulit direproduksi tanpa API key, ongkos naik bersama volume, tidak konsisten antar run | Per token |
+
+**Celahnya, dinyatakan tegas:**
+
+```
+Yang gratis  → berhenti di rating rata-rata, tanpa aspek dan tanpa prioritas
+Yang mampu   → Rp1,26-32 juta/bulan, dan dirancang untuk ulasan berbahasa Inggris
+
+Di antara keduanya, untuk "bahannya oke sih cuma kekecilan bgt, sizechartnya ngaco",
+pada anggaran penjual mikro - tidak ada apa pun.
+```
+
+Ke situlah Ulasin masuk. Ongkos marginal melayani satu penjual terukur **~Rp1.330/bulan**,
+diturunkan dari benchmark 66 ulasan/88 detik - hitungannya terbuka di
+[BUSINESS_VALUE.md](docs/BUSINESS_VALUE.md) §6, dan angka itu konsekuensi langsung dari
+ADR-001 (local-first, bukan API komersial).
 
 Bukti empiris dari data kami sendiri mendukung ini: pada 96.300 klausa ulasan nyata, **baseline berbasis kecocokan permukaan runtuh pada fenomena komposisional** - sentimen campuran, negasi, dan sarkasme - meski menangani typo dan slang dengan baik. Rinciannya di [docs/MODEL_CARD.md](docs/MODEL_CARD.md) §3.1. Inilah celah yang harus ditutup model kontekstual, dan menjadi pembanding yang bermakna, bukan klaim kosong.
 
@@ -191,9 +236,27 @@ flowchart TB
 | 2 | Visual Intelligence | CLIP ViT-B/32 zero-shot (frozen) | SigLIP | CPU, ~600MB, <1s/foto |
 | 3 | Retrieval & Evidence | BGE-M3 + Chroma | Multilingual E5-base | CPU, ~1,1GB, <500ms/query |
 | 4 | Action Engine | deterministic, **non-AI** | - | <2s |
-| 5 | Foundation Orchestrator | SEA-LION (quantized) | Sailor2 / FALLBACK MODE | CPU, ~4–6GB, <5s |
+| 5 | Foundation Orchestrator | SEA-LION (quantized) | Sailor2 / FALLBACK MODE | **belum dibangun** |
 
-Bentuk kustomisasi yang dipakai mencakup tiga jalur sekaligus: **fine-tuning model pendukung** (teks), **RAG** (evidence grounding), dan **tool calling** (orchestrator memanggil 10 tool).
+> ### Lapisan 5 belum ada, dan itu disebut di muka
+>
+> Adapter orchestrator belum ditulis; `ml/orchestrator/` masih kosong. Sistem karena itu berjalan **permanen di FALLBACK MODE**, dan seluruh demo yang Anda lihat adalah demo tanpa model bahasa sama sekali.
+>
+> **Yang hilang:** narasi Action Card disusun template, bukan LLM. Bahasanya lebih kaku.
+>
+> **Yang tidak hilang:** seluruh angka, urutan prioritas, kutipan bukti, benchmark kategori, dan jawaban tanya jawab. Semuanya dihasilkan tool deterministic yang tidak pernah membutuhkan LLM.
+>
+> Itu bukan kebetulan yang beruntung - itu ADR-011 dan ADR-014 bekerja persis seperti rancangannya. Sistem dirancang supaya LLM-nya **opsional**, dan versi yang dikumpulkan ini membuktikannya dengan cara yang paling meyakinkan: dengan menjalankannya tanpa LLM sama sekali.
+
+**Bentuk kustomisasi yang benar-benar berjalan hari ini - dua dari tiga jalur:**
+
+| Jalur | Status | Buktinya |
+| --- | --- | --- |
+| **Fine-tuning model pendukung** | ✅ berjalan | IndoBERT dua head, dilatih sendiri. Sentimen 0,730 vs leksikon 0,700 dan TF-IDF 0,627 pada label manusia ([MODEL_CARD](docs/MODEL_CARD.md) §4.3) |
+| **RAG / evidence grounding** | ✅ berjalan | RET-01 mengambil kutipan asli sebagai bukti tiap rekomendasi, dan menolak menjawab saat buktinya tidak memadai |
+| **Tool calling** | ❌ belum | Sepuluh tool contract-nya sudah terdefinisi dan berjalan, tetapi dipanggil service layer secara langsung - **bukan** oleh LLM yang memilih tool |
+
+Klaim kustomisasi proyek ini karena itu bertumpu pada **fine-tuning dan RAG**, bukan pada tool calling. Sepuluh tool di bagian 5.3 nyata dan berjalan; yang belum ada adalah pemanggilnya yang berupa model bahasa.
 
 Model teks dilatih dengan **satu encoder IndoBERT dan dua head terpisah** - head aspek multi-label dan head sentimen 3 kelas. Encoder dibagi karena dua model IndoBERT terpisah akan menghabiskan hampir dua kali anggaran RAM lapisan teks.
 
@@ -231,9 +294,9 @@ Jika total ulasan sesi < 15, seluruh Action Card diberi badge "confidence rendah
 
 ### 5.5 Mode FULL vs FALLBACK
 
-| | FULL | FALLBACK |
+| | FULL | FALLBACK **← yang berjalan hari ini** |
 | --- | --- | --- |
-| Kapan aktif | Orchestrator berhasil dimuat | Otomatis saat LLM gagal / timeout / output tidak valid |
+| Kapan aktif | Orchestrator berhasil dimuat - **belum pernah, adapternya belum dibangun** | Otomatis saat orchestrator tidak ada, gagal, timeout, atau outputnya tidak valid |
 | Narasi Action Card | Disusun LLM | Template deterministic dari **data yang sama** |
 | Q&A | Aktif | Nonaktif sementara dengan pesan jelas |
 | Skor, statistik, evidence | - | **identik**, tidak ada yang hilang |
@@ -300,6 +363,26 @@ flowchart LR
 ```
 
 Aturan antarmuka yang mengikat: setiap Action Card wajib tombol **Terima / Tolak / Simpan Nanti** · warna urgensi selalu didampingi label teks (aksesibilitas buta warna) · confidence rendah dan abstain memakai **abu-abu, bukan merah** - abstain adalah keputusan jujur model, bukan error.
+
+### 7.1 Kotak FAQ di halaman pemasaran
+
+Halaman pemasaran memuat kotak tanya-jawab mengambang yang menjelaskan **produknya** - ini aplikasi apa, cara pakainya bagaimana, data saya disimpan atau tidak. Ia menjawab kebingungan yang muncul sebelum orang mau menekan "Mulai Analisis", dan tidak ada hubungannya dengan analisis ulasan.
+
+**Ia bukan lapisan AI keenam, dan tidak menyamar jadi satu.** Pencocokannya leksikal murni di sisi browser: pencocokan kata berbobot IDF atas basis pengetahuan tertulis di [`src/content/faq.js`](apps/web/src/content/faq.js), tanpa satu pun panggilan model. Kotaknya menyebut dirinya "Kotak FAQ · jawaban dari daftar tertulis, bukan model AI" di kepala panel, sejak sebelum pertanyaan pertama diketik.
+
+Tiga alasan pilihan itu:
+
+| Alasan | Konsekuensinya |
+| --- | --- |
+| **Kejujuran** | Bagian 3 menyatakan produk ini sengaja BUKAN chatbot generik. Memasang chatbot LLM di halaman depan akan membantah kalimat itu sendiri |
+| **Ketersediaan** | Halaman pemasaran tetap menjawab meski backend mati - justru saat itulah orang paling butuh tahu ini aplikasi apa |
+| **Proporsi** | Anggaran RAM lapisan AI sudah dialokasikan penuh untuk membaca ulasan pengguna, bukan untuk menjawab "ini gratis?" |
+
+Perilaku saat tidak tahu mengikuti aturan yang sama dengan RET-01 di backend: pertanyaan di luar cakupan dijawab **"belum ada jawaban tertulis untuk itu"** beserta tiga topik terdekat - tidak pernah ditebak. Ambang lolosnya diukur, bukan dikira-kira; [`faq-search.test.js`](apps/web/src/lib/faq-search.test.js) menahan 27 pertanyaan yang harus terjawab (semuanya >= 0,46) dan 6 yang harus ditolak (semuanya <= 0,25).
+
+```bash
+npm test --prefix apps/web
+```
 
 ## 8. Alur kerja pengembangan
 
@@ -473,7 +556,7 @@ Rencana evaluasi penuh mencakup delapan baseline pembanding, ablation per lapisa
 
 ## 12. Keputusan arsitektur
 
-Enam belas ADR terdokumentasi di [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Yang paling menentukan:
+Delapan belas ADR terdokumentasi di [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Yang paling menentukan:
 
 | ADR | Keputusan | Alasan singkat |
 | --- | --- | --- |
@@ -484,8 +567,10 @@ Enam belas ADR terdokumentasi di [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Y
 | 014 | FALLBACK MODE wajib | Kegagalan satu komponen tidak boleh menjatuhkan seluruh sistem |
 | **015** | **Label aspek lewat weak supervision + gold test set** | Dibuat saat implementasi: rencana awal memetakan label emosi ke aspek, ternyata tidak dapat dijalankan |
 | **016** | **Dataset ketiga jadi stress test, bukan data latih** | Duplikasi 87% dan label turunan rating |
+| **017** | **Gold test set lewat pra-anotasi LLM + adjudikasi manusia** | Melabeli 500 klausa dari nol menghambat seluruh angka NLP-01; beban manusia turun ke 302 baris tanpa memindahkan keputusan akhir dari manusia |
+| **018** | **Q&A dijawab dari statistik terhitung + retrieval, bukan LLM** | Stub yang selalu menolak melanggar ADR-014 - saat fallback, yang boleh berbeda hanya narasi, bukan datanya |
 
-ADR 015 dan 016 lahir setelah data benar-benar dibuka dan asumsi awal terbukti salah - dicatat lengkap dengan konteks, alternatif yang ditolak, konsekuensi, dan syarat peninjauan ulang.
+ADR 015-018 lahir **setelah** data dan kode benar-benar dibuka dan asumsi awal terbukti salah - dicatat lengkap dengan konteks, alternatif yang ditolak, konsekuensi, dan syarat peninjauan ulang. Empat ADR itu adalah jejak proses yang paling sulit dikarang belakangan.
 
 ## 13. Keterbatasan yang diketahui
 
@@ -502,6 +587,9 @@ Ditulis apa adanya, bukan diperhalus. Daftar lengkap di [docs/LIMITATIONS.md](do
 ```
 apps/
   web/                 React + Vite - 4 screen                      [Fase 6]
+    public/brand/      aset logo hasil build - PNG bertransparansi
+    src/content/       basis pengetahuan kotak FAQ + isi roadmap
+    src/lib/           rute, tema, pencocokan FAQ (+ ujinya)
   api/                 FastAPI                                      [Fase 5]
     app/routers/       endpoint handlers
     app/services/      AnalyzeService, QnaService
@@ -530,7 +618,7 @@ configs/               taksonomi aspek, kelas visual, threshold      FROZEN seja
 docs/                  MODEL_CARD, DATASET_CARD, ARCHITECTURE, LIMITATIONS, RESPONSIBLE_AI
 docs/design/           rancangan SaaS penuh + prototipe antarmuka 14 layar
 docs/reference/        blueprint sistem, dossier riset, ringkasan aturan
-scripts/               unduh dataset, precompute baseline
+scripts/               unduh dataset, precompute baseline, bangun aset logo
 tests/                 unit / integration / e2e                      [Fase 5+]
 docker/                Dockerfile api & web, nginx.conf, catatan verifikasi
 docker-compose.yml     deployment lokal dua service (di root, bukan docker/)
@@ -556,7 +644,9 @@ docker-compose.yml     deployment lokal dua service (di root, bukan docker/)
 | [docs/MODEL_CARD.md](docs/MODEL_CARD.md) | Metrik terukur beserta batas penafsirannya, rencana evaluasi |
 | [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Sumber, lisensi, pemrosesan, sumber label, bias yang diketahui |
 | [docs/LIMITATIONS.md](docs/LIMITATIONS.md) | Keterbatasan yang diketahui |
-| [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md) | Privasi, governance, threat model, batas klaim |
+| [docs/RESPONSIBLE_AI.md](docs/RESPONSIBLE_AI.md) | Privasi, governance, threat model, pengawasan manusia, kepatuhan UU PDP, batas klaim |
+| [docs/BUSINESS_VALUE.md](docs/BUSINESS_VALUE.md) | Target pengguna, lanskap pesaing berikut harganya, model bisnis, struktur biaya, kelayakan adopsi, dan daftar yang belum divalidasi |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | Susunan demo publik, pipeline auto-deploy, batas kinerja terukur |
 | [ml/evaluation/experiment_log.md](ml/evaluation/experiment_log.md) | Catatan setiap eksperimen yang benar-benar dijalankan |
 | [docs/reference/](docs/reference/) | Blueprint sistem, dossier riset, ringkasan aturan - sumber kebenaran desain |
 
