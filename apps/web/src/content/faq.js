@@ -1,12 +1,19 @@
-/** Basis pengetahuan asisten FAQ di halaman pemasaran.
+/** Basis pengetahuan kotak FAQ di halaman pemasaran.
  *
  * SATU ATURAN yang mengikat seluruh berkas ini: tiap kalimat di sini harus benar tentang versi
  * yang BENAR-BENAR berjalan, bukan tentang versi yang direncanakan. Halaman pemasaran boleh
  * bersemangat, tetapi jawaban yang menjanjikan fitur yang belum ada akan ditagih pengguna pada
- * percobaan pertama - dan itu jenis kekecewaan yang paling mahal.
+ * percobaan pertama - dan itu jenis kekecewaan yang paling mahal. Yang masih rencana ditulis
+ * sebagai rencana, dengan katanya sendiri.
  *
- * Sumber kebenarannya README bagian 2 (status fase), docs/LIMITATIONS.md, dan
- * src/content/roadmap.js. Kalau salah satu berubah, berkas ini ikut diperiksa.
+ * Cakupannya sengaja LEBAR - 36 entri menutupi produk, cara pakai, isi hasil, model yang
+ * dipakai, data dan privasi, batas yang diketahui, sampai soal repositori. Basis yang tipis
+ * memaksa kotak ini terlalu sering berkata tidak tahu, dan kotak FAQ yang sering angkat tangan
+ * lebih buruk daripada tidak ada kotak FAQ sama sekali.
+ *
+ * Sumber kebenarannya README bagian 2 (status fase), docs/LIMITATIONS.md, docs/MODEL_CARD.md,
+ * docs/BUSINESS_VALUE.md, dan src/content/roadmap.js. Kalau salah satu berubah, berkas ini
+ * ikut diperiksa.
  *
  * Bentuk tiap entri:
  *   id     stabil, dipakai React sebagai key dan tidak pernah ditampilkan
@@ -20,185 +27,419 @@
  */
 
 export const FAQ = [
+  // ------------------------------------------------------------------ produk
   {
     id: "apa-itu",
     q: "Sebenarnya Ulasin itu untuk apa?",
-    kata: "fungsi guna kegunaan gunanya ngapain produk aplikasi apaan definisi maksudnya sebenarnya gimana",
+    kata: "fungsi guna kegunaan gunanya ngapain produk aplikasi apaan definisi maksudnya sebenarnya adalah tentang",
     a: [
       "Ulasin membaca ulasan pelanggan toko Anda, lalu mengubahnya jadi daftar pendek berisi masalah yang paling perlu Anda kerjakan lebih dulu - bukan sekadar angka rata-rata bintang.",
       "Bedanya dengan dashboard marketplace: dashboard berhenti di “rating Anda 4,3”. Ulasin melanjutkan ke “82% keluhan bulan ini soal ukuran, ini enam kutipan aslinya, dan ini yang sebaiknya diperbaiki minggu ini”.",
     ],
-    usul: ["cara-pakai", "beda-marketplace"],
+    aksi: { label: "Coba sekarang", ke: "dashboard" },
+    usul: ["cara-pakai", "hasil-apa", "beda-marketplace"],
   },
+  {
+    id: "untuk-siapa",
+    q: "Ini cocok untuk siapa?",
+    kata: "target pengguna user cocok pemilik penjual seller toko olshop umkm ukm mikro kecil pedagang",
+    a: [
+      "Penjual mikro dan kecil yang berjualan di satu sampai tiga marketplace, mengurus tokonya sendiri atau dengan satu-dua orang, dan menerima ulasan lebih banyak daripada yang sempat dibaca.",
+      "Ambang praktisnya: kalau ulasan Anda di bawah 15 sebulan, membaca sendiri masih lebih cepat dan hasil di sini pun akan ditandai berkeyakinan rendah. Di atas 50-100 sebulan, membaca manual mulai tidak sepadan.",
+      "Yang belum kami layani: merek dengan banyak toko sekaligus dan tim yang butuh pembagian akses. Keduanya butuh akun dan penyimpanan permanen yang sengaja belum ada.",
+    ],
+    usul: ["berapa-ulasan", "belum-bisa"],
+  },
+  {
+    id: "masalah-apa",
+    q: "Masalah apa yang sebenarnya diselesaikan?",
+    kata: "masalah problem kenapa perlu butuh urgensi penting latar belakang alasan dibuat",
+    a: [
+      "Keluhan yang sama berulang di ulasan tanpa pernah terdeteksi. Konsekuensinya dua kali: penjualan yang hilang, dan biaya iklan yang dibakar untuk mendatangkan pembeli ke masalah yang belum diperbaiki.",
+      "Di Indonesia ada 4,40 juta unit usaha e-commerce menurut BPS 2024, mayoritas mikro, dan margin mereka sudah tergerus 15-20% biaya platform sebelum satu rupiah masuk kantong. Di margin setipis itu, salah menebak prioritas perbaikan mahal sekali.",
+    ],
+    usul: ["apa-itu", "beda-tools"],
+  },
+  {
+    id: "beda-marketplace",
+    q: "Apa bedanya dengan laporan bawaan Shopee atau Tokopedia?",
+    kata: "beda bedanya banding dibanding shopee tokopedia lazada bukalapak tiktok seller centre dashboard bawaan laporan statistik",
+    a: [
+      "Seller Centre menampilkan rating rata-rata, daftar ulasan, dan penyaringan per bintang. Semuanya berguna, tetapi berhenti di “berapa”, tidak sampai “apa yang salah dan mana yang dikerjakan duluan”.",
+      "Ulasin mengelompokkan keluhan per aspek - ukuran, kemasan, pengiriman, pelayanan - mengurutkannya berdasarkan dampak, dan menempelkan kutipan aslinya sebagai bukti.",
+      "Satu lagi: tiap dashboard hanya melihat kanalnya sendiri. Kalau Anda jualan di tiga tempat, tidak ada satu pun yang memberi gambaran utuh. Ulasin bekerja dari berkas ekspor kanal mana pun sekaligus.",
+    ],
+    usul: ["beda-tools", "format-data"],
+  },
+  {
+    id: "beda-tools",
+    q: "Sudah ada tool analisis ulasan lain, kenapa pakai ini?",
+    kata: "kompetitor pesaing alternatif lain saingan yotpo birdeye thematic brand24 tools saas luar negeri asing mahal",
+    a: [
+      "Perkakas yang benar-benar mengekstrak aspek memang sudah ada. Masalahnya harga dan bahasa: Yotpo mulai USD 79/bulan, Birdeye USD 299-449/bulan per lokasi dengan kontrak setahun, Thematic mulai USD 2.000/bulan.",
+      "Tier termurah Birdeye saja sekitar Rp4,8 juta sebulan. Untuk penjual yang marginnya sudah dipotong 15-20% biaya platform, itu bukan “mahal” - itu kategori yang berbeda sama sekali.",
+      "Dan ketiganya dirancang untuk ulasan berbahasa Inggris. Tidak ada yang dibangun untuk membaca “bahannya oke sih cuma kekecilan bgt, sizechartnya ngaco”. Celah itu yang kami isi.",
+    ],
+    aksi: { label: "Lihat perbandingannya", ke: "#nilai" },
+    usul: ["biaya", "bahasa"],
+  },
+
+  // ------------------------------------------------------------------ cara pakai
   {
     id: "cara-pakai",
     q: "Cara pakainya bagaimana?",
-    kata: "cara caranya langkah mulai memulai pertama tutorial penggunaan step panduan",
+    kata: "cara caranya langkah mulai memulai pertama tutorial penggunaan step panduan pakai gunakan",
     a: [
       "Tiga langkah, tanpa pemasangan dan tanpa akun:",
       "1. Masukkan ulasan Anda - tempel teksnya satu ulasan per baris, unggah berkas CSV/JSON hasil ekspor marketplace, atau lampirkan tangkapan layar halaman ulasan.",
       "2. Tekan Mulai Analisis, lalu tunggu. Lamanya mengikuti banyaknya ulasan.",
-      "3. Anda dapat daftar prioritas beserta kutipan asli yang mendasarinya, dan bisa bertanya lanjutan soal hasilnya.",
+      "3. Baca hasilnya: masalah teratas berurutan, tiap satunya dengan kutipan asli pelanggan sebagai bukti.",
     ],
-    aksi: { label: "Coba sekarang", ke: "dashboard" },
-    usul: ["format-data", "berapa-lama", "berapa-ulasan"],
+    aksi: { label: "Mulai Analisis", ke: "dashboard" },
+    usul: ["format-data", "berapa-lama", "dataset-contoh"],
   },
   {
     id: "format-data",
     q: "Ulasan saya harus dalam bentuk apa?",
-    kata: "format berkas file csv json excel xlsx unggah upload tempel paste tangkapan layar screenshot foto data masukan input kolom",
+    kata: "format file berkas csv json excel xlsx tempel paste copy salin unggah upload bentuk data masukan input",
     a: [
-      "Ada tiga jalur masuk, dan Anda boleh pakai yang mana saja:",
-      "Tempel teks - satu ulasan per baris. Paling cepat kalau ulasannya sedikit.",
-      "Berkas CSV atau JSON - hasil ekspor dari marketplace atau catatan Anda sendiri. Batasnya 5 MB dan 1.000 baris sekali unggah. Kolom mana yang berisi teks ulasan, rating, dan tanggal ditebak otomatis, dan tebakan itu masih bisa Anda betulkan sebelum analisis jalan.",
-      "Tangkapan layar halaman ulasan - teksnya dibaca otomatis, lalu ditampilkan sebagai draf yang masih bisa Anda sunting kalau ada yang salah baca.",
-      "Berkas Excel (.xlsx) belum didukung. Simpan dulu sebagai CSV lewat Excel atau Google Sheets.",
+      "Tiga jalur, pilih yang paling gampang buat Anda: tempel teks langsung (satu ulasan per baris), unggah CSV atau JSON hasil ekspor marketplace, atau lampirkan tangkapan layar halaman ulasan.",
+      "Batasnya 5 MB dan 1.000 baris sekali unggah. Kalau berkas Anda lebih besar, potong dulu sebagian.",
+      "Excel (.xlsx) belum didukung langsung - simpan dulu sebagai CSV dari Excel atau Google Sheets.",
     ],
-    usul: ["marketplace", "berapa-ulasan"],
+    usul: ["kolom-csv", "screenshot", "berapa-ulasan"],
   },
   {
-    id: "marketplace",
-    q: "Bisa langsung tarik ulasan dari Tokopedia atau Shopee?",
-    kata: "tokopedia shopee lazada bukalapak tiktok google maps integrasi hubungkan koneksi konek sambung otomatis tarik ambil scrape akun toko api",
+    id: "kolom-csv",
+    q: "Kolom mana yang dipakai dari file CSV saya?",
+    kata: "kolom column header mapping pemetaan tebak cocokkan nama field struktur",
     a: [
-      "Belum, dan ini disengaja. Versi sekarang bekerja dari berkas yang Anda ekspor sendiri atau tangkapan layar yang Anda ambil sendiri - jadi Ulasin tidak pernah minta akses ke akun toko Anda.",
-      "Menarik ulasan langsung sudah ada di roadmap, tetapi status legal pengambilan data otomatis dari marketplace masih setengah terverifikasi. Kami memilih menunggu kejelasan itu daripada menyalakannya sekarang.",
+      "Sistem menebaknya sendiri dari nama kolom - “review”, “ulasan”, “komentar”, “rating”, “bintang”, “tanggal”, dan ragam lain yang lazim dipakai ekspor marketplace maupun dataset publik.",
+      "Tebakan itu ditampilkan sebelum analisis jalan, dan Anda bisa menimpanya. Yang wajib cuma kolom teks ulasan; rating, tanggal, dan nama produk sifatnya opsional.",
+      "Kalau kolom tanggal ada, perhitungan tren antar-periode ikut aktif. Kalau tidak ada, sisanya tetap jalan.",
+    ],
+    usul: ["format-data", "hasil-apa"],
+  },
+  {
+    id: "screenshot",
+    q: "Bisa dari tangkapan layar?",
+    kata: "screenshot ss sc foto gambar tangkapan layar jpg png ocr baca scan potret pakai boleh dukung unggah upload",
+    a: [
+      "Bisa. Lampirkan tangkapan layar halaman ulasan, teksnya akan dibaca otomatis, lalu hasil bacaannya ditampilkan supaya Anda bisa memperbaikinya sebelum dianalisis.",
+      "Langkah koreksi itu tidak dilewati dengan sengaja: pembacaan teks dari gambar tidak pernah sempurna, terutama pada tangkapan layar yang kecil atau buram. Lebih baik Anda memperbaiki satu-dua baris daripada sistem menganalisis kata yang salah baca.",
+      "Yang belum bisa: menyimpulkan kondisi barang dari isi fotonya. Itu urusan lain, dan alasannya ada di pertanyaan soal analisis foto.",
+    ],
+    usul: ["foto-barang", "format-data"],
+  },
+  {
+    id: "berapa-ulasan",
+    q: "Minimal berapa ulasan supaya hasilnya berguna?",
+    kata: "minimal minimum berapa banyak jumlah sedikit banyak batas maksimal maksimum kuota limit",
+    a: [
+      "Secara teknis satu ulasan pun jalan, tetapi di bawah 15 ulasan seluruh rekomendasi diberi tanda “keyakinan rendah - data terbatas” dan tingkat urgensinya dibatasi maksimal Sedang.",
+      "Itu batas yang sengaja dipasang. Pola dari sepuluh ulasan belum tentu pola, dan sistem yang terdengar yakin pada data sesedikit itu justru menyesatkan.",
+      "Batas atasnya 1.000 baris sekali unggah.",
+    ],
+    usul: ["akurat", "prioritas"],
+  },
+  {
+    id: "berapa-lama",
+    q: "Prosesnya berapa lama?",
+    kata: "lama durasi waktu cepat lambat menunggu tunggu detik menit kecepatan performa",
+    a: [
+      "Terukur 88 detik untuk 66 ulasan pada mesin CPU dua inti tanpa kartu grafis. Kira-kira 1,3 detik per ulasan, jadi 300 ulasan sekitar tujuh menit.",
+      "Angkanya bisa lebih cepat di mesin yang lebih besar. Selama proses berjalan, layar menampilkan perkiraan waktu dan jam berjalan supaya Anda tidak menebak-nebak.",
+    ],
+    usul: ["berapa-ulasan", "kenapa-gratis"],
+  },
+  {
+    id: "dataset-contoh",
+    q: "Bisa coba dulu tanpa data saya sendiri?",
+    kata: "coba demo contoh sample sampel dummy tes test percobaan tanpa data lihat dulu",
+    a: [
+      "Bisa. Di layar awal ada tombol untuk memakai dataset contoh - sekali klik, langsung jalan sampai hasil, tanpa Anda perlu menyiapkan apa pun.",
+      "Itu cara tercepat melihat bentuk hasilnya sebelum memutuskan mengunggah data toko sendiri.",
+    ],
+    aksi: { label: "Coba dataset contoh", ke: "dashboard" },
+    usul: ["hasil-apa", "cara-pakai"],
+  },
+  {
+    id: "kategori",
+    q: "Kenapa harus pilih kategori produk?",
+    kata: "kategori jenis produk fesyen fashion baju makanan minuman fnb f&b elektronik pilihan dropdown",
+    a: [
+      "Kategori menentukan dua hal: aspek mana yang relevan (rasa penting untuk makanan, tidak untuk tas) dan pembanding kategori mana yang dipakai untuk menilai apakah angka Anda wajar.",
+      "Jujur soal cakupannya: data latih kami paling tebal di fesyen. Kategori makanan dan minuman hanya terwakili 196 dari sekitar 40.000 ulasan, jadi aspek rasa dan pembandingnya lemah buktinya di sana.",
+    ],
+    usul: ["benchmark", "akurat"],
+  },
+
+  // ------------------------------------------------------------------ hasil
+  {
+    id: "hasil-apa",
+    q: "Hasilnya berbentuk apa?",
+    kata: "hasil hasilnya output laporan report keluaran dapat dapet isi bentuk bentuknya berbentuk tampilan layar halaman",
+    a: [
+      "Satu halaman berisi empat bagian: Hasil (masalah teratas berurutan beserta rekomendasi tindakan), Detail (peluang, sebaran aspek), Tanya Jawab (bertanya bebas soal ulasan Anda), dan Roadmap (apa yang belum ada dan kenapa).",
+      "Inti yang paling dipakai ada di bagian pertama: kartu-kartu tindakan berurutan dari yang paling mendesak, masing-masing dengan kutipan asli pelanggan dan tombol Terima atau Tolak.",
+    ],
+    usul: ["prioritas", "kutipan", "terima-tolak"],
+  },
+  {
+    id: "prioritas",
+    q: "Urutan prioritasnya dihitung dari apa?",
+    kata: "prioritas urutan ranking peringkat skor score mendesak urgensi penting hitung rumus formula",
+    a: [
+      "Tiga faktor inti dikalikan: seberapa sering keluhan itu muncul, seberapa parah, dan seberapa yakin sistem pada klasifikasinya. Hasilnya lalu dinaikkan sedikit oleh dua pengali - seberapa baru kejadiannya, dan seberapa jauh angka Anda dari pembanding kategori.",
+      "Seluruh perhitungan itu dilakukan kode biasa yang bisa diaudit baris per baris, bukan oleh model bahasa. Angka di produk ini tidak pernah dikarang.",
+      "Yang perlu Anda tahu: bobot kedua pengali itu belum tervalidasi lewat pemakaian nyata. Kami menuliskannya terbuka di dokumentasi alih-alih menyajikannya sebagai angka final.",
+    ],
+    usul: ["angka-darimana", "akurat"],
+  },
+  {
+    id: "kutipan",
+    q: "Kenapa tiap rekomendasi ada kutipannya?",
+    kata: "kutipan bukti evidence sumber quote asli verifikasi cek percaya alasan dasar",
+    a: [
+      "Supaya Anda bisa memeriksa sendiri, bukan sekadar percaya. Tiap rekomendasi membawa ulasan asli yang mendasarinya, jadi Anda bisa menerimanya dengan yakin atau menolaknya dengan alasan yang jelas.",
+      "Aturannya keras di sisi sistem: rekomendasi yang tidak punya kutipan pendukung tidak diterbitkan sama sekali. Dan kalau ditanya sesuatu yang buktinya tidak ada di data Anda, sistem menjawab tidak tahu alih-alih menyusun kalimat yang terdengar meyakinkan.",
+    ],
+    usul: ["terima-tolak", "tanya-jawab"],
+  },
+  {
+    id: "terima-tolak",
+    q: "Tombol Terima dan Tolak itu buat apa?",
+    kata: "terima tolak reject accept simpan nanti tombol keputusan setuju tidak setuju",
+    a: [
+      "Untuk menandai rekomendasi mana yang Anda ambil dan mana yang tidak relevan buat toko Anda. Tombol Tolak sengaja dibuat sama menonjolnya dengan Terima.",
+      "Alasannya prinsip: sistem ini menyarankan, tidak memutuskan. Rekomendasinya saran berbasis pola data, bukan kebenaran mutlak - dan produk yang menyembunyikan tombol tolak sedang meminta kepatuhan, bukan keputusan.",
+      "Catatan jujur: pada versi sekarang keputusan itu belum direkam untuk perbaikan model, karena tidak ada penyimpanan permanen sama sekali.",
+    ],
+    usul: ["kutipan", "simpan-riwayat"],
+  },
+  {
+    id: "tanya-jawab",
+    q: "Bisa tanya bebas soal ulasan saya?",
+    kata: "tanya jawab bertanya pertanyaan qna q&a chat diskusi bebas eksplorasi gali",
+    a: [
+      "Bisa, di tab Tanya Jawab setelah analisis selesai. Misalnya “keluhan apa yang paling sering muncul?” atau “bagaimana pendapat pembeli soal pengiriman?”.",
+      "Jawabannya disusun dari statistik yang sudah dihitung dan kutipan yang diambil dari ulasan Anda sendiri - selalu dengan sumbernya. Kalau buktinya tidak memadai, sistem bilang tidak tahu.",
+      "Perlu dibedakan dari kotak yang sedang Anda pakai sekarang: yang ini menjawab soal produk Ulasin, yang di dashboard menjawab soal isi ulasan Anda.",
+    ],
+    usul: ["kutipan", "kotak-ini"],
+  },
+  {
+    id: "benchmark",
+    q: "Angka saya dibandingkan dengan apa?",
+    kata: "benchmark banding pembanding rata-rata industri kategori normal wajar standar kompetitor toko lain",
+    a: [
+      "Dengan baseline kategori yang dihitung sebelumnya dari data publik - jadi Anda tahu apakah “12% keluhan soal pengiriman” itu wajar atau di atas kebiasaan kategori Anda.",
+      "Batasnya perlu disebut: pembanding itu historis dan statis. Ia bukan pemantauan kompetitor real-time, dan tidak melihat toko tetangga Anda hari ini.",
+    ],
+    usul: ["kategori", "belum-bisa"],
+  },
+  {
+    id: "ekspor",
+    q: "Hasilnya bisa diunduh atau diekspor?",
+    kata: "ekspor export unduh download simpan pdf excel csv cetak print bagikan share kirim",
+    a: [
+      "Belum bisa pada versi ini. Hasil hanya tampil di layar selama sesi berlangsung.",
+      "Untuk sekarang, cara paling praktis menyimpannya adalah tangkapan layar. Ekspor PDF dan CSV termasuk yang direncanakan untuk tingkat berlangganan nanti.",
+    ],
+    usul: ["simpan-riwayat", "langganan"],
+  },
+
+  // ------------------------------------------------------------------ AI & model
+  {
+    id: "ai-apa",
+    q: "AI apa yang dipakai di belakangnya?",
+    kata: "ai model teknologi machine learning ml nlp indobert bert llm gpt openai algoritma mesin pakai dipakai belakang balik dalamnya",
+    a: [
+      "Lapisan teksnya IndoBERT yang kami latih ulang sendiri, dengan dua kepala sekaligus - satu mengenali aspek, satu menilai sentimen. Pengambilan kutipan buktinya memakai model pencarian semantik dan penyimpan vektor.",
+      "Semuanya berjalan lokal di mesin yang menjalankan aplikasi ini. Tidak ada panggilan ke API AI pihak ketiga, jadi data ulasan Anda tidak pernah dikirim ke layanan luar.",
+      "Yang belum jalan: lapisan model bahasa besar yang tugasnya menyusun narasi. Karena itu kalimat rekomendasinya sekarang memakai templat - lebih kaku, tetapi angka dan buktinya persis sama.",
+    ],
+    usul: ["angka-darimana", "privasi"],
+  },
+  {
+    id: "angka-darimana",
+    q: "Angka-angkanya dari mana? Bukan dikarang AI?",
+    kata: "angka persentase persen statistik hitung dikarang halusinasi hallucination bohong ngarang akurat sumber",
+    a: [
+      "Bukan. Seluruh frekuensi, persentase, dan skor prioritas dihitung fungsi deterministik yang bisa diaudit baris per baris. Menjalankan ulang analisis yang sama menghasilkan angka yang sama persis.",
+      "Model bahasa - kalau nanti diaktifkan - hanya menyusun kalimat dari angka yang sudah jadi, dan tidak pernah menghitung sendiri. Itu keputusan arsitektur yang dicatat sejak awal, khusus untuk mencegah angka halusinasi.",
+    ],
+    usul: ["prioritas", "ai-apa"],
+  },
+  {
+    id: "bahasa",
+    q: "Bahasa gaul dan singkatan kebaca tidak?",
+    kata: "bahasa gaul slang singkatan typo salah ketik alay informal daerah campur inggris jawa sunda ejaan",
+    a: [
+      "Kebaca. Model dilatih pada ulasan e-commerce Indonesia yang memang ditulis apa adanya - singkatan, ejaan bebas, campuran bahasa daerah. Pada pengujian per jenis bahasa, typo dan slang termasuk yang paling kuat ditangani.",
+      "Yang masih lemah dan tidak kami sembunyikan: kalimat sarkastis, kalimat bernegasi bertingkat, dan ulasan yang memuji sekaligus mengeluh dalam satu napas. Ketiganya memang jenis kalimat tersulit.",
+    ],
+    usul: ["akurat", "kategori"],
+  },
+  {
+    id: "akurat",
+    q: "Seberapa akurat sih hasilnya?",
+    kata: "akurat akurasi tepat benar salah keliru presisi kualitas percaya andal reliabel skor metrik",
+    a: [
+      "Diuji pada label yang dibuat manusia, bukan pada label buatan mesin sendiri. Untuk sentimen, model hasil latihan kami mencetak 0,730 - di atas pendekatan kamus kata 0,700 dan TF-IDF 0,627.",
+      "Untuk pengenalan aspek, hasilnya setara dengan pendekatan kamus kata dan tidak lebih baik. Gate internal kami untuk bagian itu dinyatakan TIDAK LULUS, dan angkanya tetap kami publikasikan apa adanya.",
+      "Kesimpulan jujurnya: berguna sebagai penunjuk arah dan pengurut prioritas, bukan sebagai vonis. Tombol Tolak ada justru karena itu.",
+    ],
+    usul: ["bahasa", "terima-tolak", "belum-bisa"],
+  },
+  {
+    id: "foto-barang",
+    q: "Bisa menilai kondisi barang dari foto ulasan?",
+    kata: "foto gambar visual barang rusak penyok kondisi cek periksa citra image vision clip",
+    a: [
+      "Belum, dan ini sengaja dimatikan. Teks pada foto sudah bisa dibaca, tetapi menyimpulkan kondisi barang dari isi gambarnya belum lolos pengujian.",
+      "Angkanya: pada 97 foto ulasan asli, model hanya benar 45% - kalah dari tebakan sepele “semuanya normal” yang benar 61%. Dan 61% foto yang sebenarnya baik-baik saja justru ditandai bermasalah.",
+      "Menyalakannya sekarang berarti mengirim Anda memeriksa barang yang tidak apa-apa. Jadi lebih baik mati sampai betul.",
+    ],
+    usul: ["screenshot", "belum-bisa"],
+  },
+  {
+    id: "kotak-ini",
+    q: "Kotak tanya ini AI juga?",
+    kata: "kotak ini chatbot bot chat widget kamu kamu siapa asisten robot llm gpt",
+    a: [
+      "Bukan. Kotak ini mencocokkan pertanyaan Anda ke daftar jawaban yang sudah ditulis, jadi ia cepat, gratis, dan tetap menjawab meski server analisisnya sedang mati.",
+      "Yang benar-benar memakai model adalah bagian analisis ulasan - itulah tempat kemampuan AI produk ini dipakai, dan bukan untuk menjawab “ini gratis?”.",
+    ],
+    usul: ["tanya-jawab", "ai-apa"],
+  },
+
+  // ------------------------------------------------------------------ data & privasi
+  {
+    id: "privasi",
+    q: "Data ulasan saya disimpan atau tidak?",
+    kata: "privasi privacy aman keamanan simpan disimpan bocor rahasia data pribadi jual dijual server",
+    a: [
+      "Tidak disimpan. Data Anda hidup di memori selama sesi analisis dan hilang begitu Anda menutup halaman. Tidak ada basis data pengguna sama sekali.",
+      "Itu ditegakkan arsitektur, bukan janji kebijakan: tidak ada tempat penyimpanan yang bisa dibocorkan, dan tidak ada aset data yang bisa dijual sekalipun ada yang menawar.",
+      "Semua model juga berjalan lokal, jadi ulasan Anda tidak pernah dikirim ke layanan AI pihak ketiga.",
+    ],
+    usul: ["pii", "simpan-riwayat", "pasang-sendiri"],
+  },
+  {
+    id: "pii",
+    q: "Kalau di ulasan ada nomor HP atau alamat pelanggan?",
+    kata: "pii nomor hp telepon alamat email data pribadi pelanggan sensitif redaksi sensor mask uu pdp",
+    a: [
+      "Disamarkan otomatis sebelum data itu dilihat model mana pun. Enam pola ditangani: email, nomor telepon Indonesia, nomor panjang seperti resi dan rekening, alamat, nama akun, dan tautan.",
+      "Cara kerjanya mengganti, bukan menghapus - “hubungi 0812-3456-7890” jadi “hubungi [nomor telepon]”. Kalimatnya tetap terbaca sebagai kutipan bukti, dan Anda bisa melihat sendiri bahwa penyamarannya berjalan.",
+      "Batas jujurnya: penyamaran berbasis pola tidak akan pernah menangkap 100%. Ia andal pada pola terstruktur, tetapi tidak menangkap nama orang yang ditulis biasa. Karena itu ia dipasangkan dengan kebijakan tanpa penyimpanan, bukan diandalkan sendirian.",
+    ],
+    usul: ["privasi", "simpan-riwayat"],
+  },
+  {
+    id: "simpan-riwayat",
+    q: "Kenapa hasil kemarin hilang waktu saya buka lagi?",
+    kata: "riwayat history simpan hilang lagi kemarin sebelumnya tersimpan sesi session bandingkan bulan tren",
+    a: [
+      "Karena memang tidak ada yang disimpan. Tiap sesi mulai dari nol - itu konsekuensi langsung dari keputusan tidak menyimpan data pengguna.",
+      "Akibatnya perbandingan antar-bulan hanya bisa dihitung kalau berkas yang Anda unggah sendiri memuat kolom tanggal.",
+      "Riwayat antar-sesi ada di rencana pengembangan, tetapi butuh akun dan penyimpanan permanen - dua hal yang sengaja belum ada di versi ini.",
+    ],
+    usul: ["privasi", "akun", "langganan"],
+  },
+  {
+    id: "akun",
+    q: "Perlu daftar akun dulu?",
+    kata: "akun daftar login masuk registrasi signup sign up email password kata sandi",
+    a: [
+      "Tidak perlu sama sekali. Buka halaman, masukkan ulasan, dapat hasil. Tidak ada pendaftaran, tidak ada kartu kredit, tidak ada verifikasi email.",
+      "Konsekuensinya disebut jujur: karena tidak ada akun, tidak ada tempat menyimpan riwayat Anda.",
+    ],
+    aksi: { label: "Langsung coba", ke: "dashboard" },
+    usul: ["biaya", "simpan-riwayat"],
+  },
+  {
+    id: "pasang-sendiri",
+    q: "Bisa dipasang di server saya sendiri?",
+    kata: "pasang install self host hosting server sendiri lokal offline docker compose deploy internal",
+    a: [
+      "Bisa. Seluruh sistem berjalan dari satu perintah docker compose, dan susunan yang sama itulah yang melayani demo publik.",
+      "Karena semua model berjalan lokal tanpa API pihak ketiga, pemasangan sendiri berarti data binaan atau pelanggan Anda tidak pernah keluar dari mesin Anda. Itu relevan untuk pendamping UMKM dan organisasi yang datanya memang tidak boleh keluar.",
+      "Kodenya terbuka dan panduan pemasangannya ada di README repositori.",
+    ],
+    usul: ["privasi", "repo"],
+  },
+
+  // ------------------------------------------------------------------ harga
+  {
+    id: "biaya",
+    q: "Ini berbayar?",
+    kata: "harga biaya bayar gratis langganan berlangganan free trial mahal murah tarif ongkos",
+    a: [
+      "Versi ini gratis, tanpa akun, tanpa batas percobaan.",
+      "Gratisnya bukan subsidi sementara. Seluruh model berjalan di mesin yang menjalankan aplikasi ini, bukan lewat API berbayar per ulasan, jadi ongkos melayani satu penjual tinggal sekitar Rp1.330 sebulan.",
+    ],
+    usul: ["kenapa-gratis", "langganan", "akun"],
+  },
+  {
+    id: "kenapa-gratis",
+    q: "Kenapa gratis? Apa tangkapannya?",
+    kata: "kenapa gratis tangkapan catch modal untung monetisasi bisnis model investor iklan jual data",
+    a: [
+      "Tidak ada tangkapannya, dan tidak ada iklan. Ongkos melayani satu penjual sekitar Rp1.330 per bulan - hitungannya diturunkan dari benchmark yang kami ukur sendiri, dan angkanya terbuka di dokumentasi.",
+      "Yang membuatnya semurah itu: model berjalan lokal, jadi ongkos tidak naik bersama jumlah pemakaian seperti kalau memanggil API berbayar per ulasan.",
+      "Dua hal yang sengaja tidak kami lakukan: menjual data pengguna - mustahil, tidak ada yang disimpan - dan memasang iklan, karena perkakas yang menyarankan prioritas kerja kehilangan kredibilitasnya begitu urutannya bisa dibeli.",
+    ],
+    aksi: { label: "Lihat hitungannya", ke: "#nilai" },
+    usul: ["biaya", "langganan", "privasi"],
+  },
+  {
+    id: "langganan",
+    q: "Nanti bakal jadi berbayar?",
+    kata: "langganan berlangganan premium pro upgrade nanti masa depan rencana berbayar tingkat paket",
+    a: [
+      "Rencananya ada tingkat berlangganan sekitar Rp39.000 sebulan untuk riwayat antar-periode, multi-toko, dan ekspor. Angka itu masih hipotesis - belum ada satu pun wawancara kesediaan membayar, dan kami menuliskannya begitu di dokumentasi.",
+      "Yang penting: fitur berbayarnya persis daftar rencana pengembangan, yaitu hal-hal yang memang butuh akun dan penyimpanan. Yang gratis tetap utuh sebagai produk, bukan versi lumpuh yang memaksa naik tingkat.",
+    ],
+    usul: ["kenapa-gratis", "belum-bisa"],
+  },
+
+  // ------------------------------------------------------------------ batas & meta
+  {
+    id: "belum-bisa",
+    q: "Apa yang belum bisa dilakukan?",
+    kata: "belum bisa batas batasan limitasi kekurangan kelemahan lemah rencana roadmap nanti akan datang",
+    a: [
+      "Empat hal utama: menilai kondisi barang dari foto (diuji, belum lolos), riwayat antar-sesi, multi-toko dengan pembagian akses tim, dan menarik ulasan langsung dari marketplace tanpa ekspor manual.",
+      "Masing-masing ada alasan teknisnya, bukan sekadar “segera hadir”. Daftar lengkapnya beserta alasannya ada di tab Roadmap setelah analisis selesai.",
+      "Kami menulis batas ini terbuka karena perkakas yang menyembunyikan kelemahannya akan ketahuan pada percobaan pertama.",
+    ],
+    usul: ["foto-barang", "simpan-riwayat", "tarik-otomatis"],
+  },
+  {
+    id: "tarik-otomatis",
+    q: "Bisa tarik ulasan langsung dari marketplace saya?",
+    kata: "tarik otomatis integrasi api koneksi hubungkan connect sinkron sambung scraping langsung shopee tokopedia lazada tiktok bukalapak marketplace",
+    a: [
+      "Belum. Versi ini bekerja dari berkas yang Anda ekspor sendiri atau tangkapan layar.",
+      "Alasannya bukan teknis semata: status legal pengambilan data otomatis dari marketplace masih setengah terverifikasi, dan kami memilih tidak membangun fitur yang dasarnya belum jelas.",
     ],
     usul: ["format-data", "belum-bisa"],
   },
   {
-    id: "berapa-ulasan",
-    q: "Berapa banyak ulasan yang dibutuhkan?",
-    kata: "jumlah minimal minimum sedikit banyak batas maksimal kuota berapa baris limit",
+    id: "repo",
+    q: "Kodenya terbuka? Di mana dokumentasinya?",
+    kata: "kode source code github repo repositori open source dokumentasi dokumen readme lisensi teknis",
     a: [
-      "Tidak ada batas minimum yang mengunci, tetapi di bawah 15 ulasan seluruh rekomendasi diberi tanda “data terbatas” dan tingkat urgensinya dibatasi maksimal Sedang. Alasannya sederhana: pola dari sepuluh ulasan belum tentu pola, dan sistem tidak boleh terdengar yakin pada data sesedikit itu.",
-      "Batas atasnya 1.000 baris sekali unggah berkas. Hasil paling berguna biasanya di kisaran 50-300 ulasan dari satu rentang waktu yang sama.",
+      "Terbuka. Repositorinya memuat seluruh kode, panduan pemasangan, catatan keputusan arsitektur, kartu model beserta metriknya, kartu dataset, daftar keterbatasan, dan dokumen nilai bisnis lengkap dengan hitungan ongkosnya.",
+      "Termasuk yang biasanya tidak dipublikasikan: gate pengujian yang tidak lulus, beserta angkanya.",
     ],
-    usul: ["berapa-lama", "akurat"],
-  },
-  {
-    id: "berapa-lama",
-    q: "Analisisnya berapa lama?",
-    kata: "lama waktu durasi cepat lambat menunggu tunggu detik menit loading proses prosesnya",
-    a: [
-      "Tergantung banyaknya ulasan dan kekuatan mesin yang menjalankannya. Sebagai gambaran nyata: 66 ulasan pernah terukur sekitar 88 detik pada CPU dua inti, tanpa kartu grafis.",
-      "Layar prosesnya menampilkan perkiraan waktu yang dihitung dari jumlah ulasan Anda, jadi Anda tahu harus menunggu berapa lama sejak awal.",
-    ],
-    usul: ["berapa-ulasan", "biaya"],
-  },
-  {
-    id: "biaya",
-    q: "Ini berbayar? Perlu daftar akun?",
-    kata: "harga biaya bayar gratis langganan berlangganan free trial akun daftar login masuk registrasi kartu kredit tangkapan subsidi",
-    a: [
-      "Versi ini gratis dan tidak ada pendaftaran akun sama sekali. Buka halaman, masukkan ulasan, dapat hasil.",
-      "Gratisnya bukan karena disubsidi sementara. Seluruh model berjalan di mesin yang menjalankan aplikasi ini, bukan lewat API berbayar per ulasan, jadi ongkos melayani satu penjual tinggal sekitar Rp1.330 sebulan - hitungannya terbuka di berkas BUSINESS_VALUE di repositori.",
-      "Ke depan direncanakan tingkat berlangganan sekitar Rp39.000/bulan untuk riwayat antar-periode, multi-toko, dan ekspor. Angka itu masih hipotesis dan belum diuji ke calon pengguna. Yang gratis tetap utuh, bukan versi lumpuh yang memaksa naik tingkat.",
-    ],
-    usul: ["privasi", "belum-bisa"],
-  },
-  {
-    id: "privasi",
-    q: "Data ulasan saya disimpan atau tidak?",
-    kata: "privasi aman keamanan simpan disimpan hapus dihapus rahasia bocor data pribadi nama nomor telepon alamat pii dijual server",
-    a: [
-      "Tidak disimpan permanen. Data Anda hanya hidup selama sesi berjalan dan hilang begitu sesi berakhir - tidak ada basis data pengguna, tidak ada riwayat antar-kunjungan.",
-      "Sebelum model apa pun melihat teksnya, data pribadi yang menempel di ulasan - nama orang, nomor telepon, alamat, nomor resi - diredaksi lebih dulu. Langkah itu wajib dan tidak bisa dimatikan.",
-      "Model-modelnya berjalan di mesin yang menjalankan aplikasi ini, bukan dikirim ke layanan AI pihak ketiga.",
-    ],
-    usul: ["ai-apa", "biaya"],
-  },
-  {
-    id: "ai-apa",
-    q: "AI apa yang dipakai di balik layar?",
-    kata: "model teknologi machine learning llm chatgpt gpt openai indobert bert nlp algoritma mesin teknis dalamnya",
-    a: [
-      "Ada beberapa lapisan, masing-masing untuk pekerjaan yang berbeda. Untuk membaca teks ulasan bahasa Indonesia dipakai IndoBERT yang kami latih ulang dengan dua keluaran sekaligus: aspek apa yang sedang dibicarakan, dan sentimennya. Untuk mencari kutipan pendukung dipakai model embedding dengan pencarian semantik.",
-      "Yang penting Anda ketahui: seluruh angka - frekuensi, persentase, skor prioritas - dihitung rumus deterministik, bukan dikarang model bahasa. Model bahasa hanya menyusun kalimatnya dari angka yang sudah jadi. Itu sebabnya hasil yang sama tetap sama kalau dijalankan ulang.",
-    ],
-    usul: ["akurat", "beda-marketplace"],
-  },
-  {
-    id: "bahasa",
-    q: "Ulasan bahasa gaul dan typo bisa terbaca?",
-    kata: "bahasa gaul slang singkatan alay typo salah ketik ejaan daerah jawa sunda inggris campur informal singkat",
-    a: [
-      "Bisa, dan memang untuk itu model bahasanya dilatih ulang - ulasan asli pelanggan Indonesia penuh singkatan, ejaan bebas, dan campuran bahasa daerah. Kata seperti “bgt”, “gak”, “kekecilan”, “fast respon” dinormalkan lebih dulu sebelum dibaca.",
-      "Yang masih sering meleset dan kami akui terbuka: kalimat sarkastik, dan ulasan yang memuji sekaligus mengeluh dalam satu napas. Keduanya sedang jadi fokus perbaikan.",
-    ],
-    usul: ["akurat", "ai-apa"],
-  },
-  {
-    id: "akurat",
-    q: "Seberapa akurat hasilnya? Boleh langsung dipercaya?",
-    kata: "akurat akurasi tepat benar salah keliru percaya andal keandalan performa evaluasi metrik kualitas meleset halusinasi ngarang",
-    a: [
-      "Perlakukan hasilnya sebagai saran berbasis pola, bukan kebenaran mutlak. Karena itu tiap rekomendasi datang bersama kutipan asli yang mendasarinya - supaya Anda bisa memeriksa sendiri apakah kesimpulannya masuk akal, dan menolaknya kalau tidak. Tombol Tolak ada justru untuk itu.",
-      "Kalau bukti pendukungnya tidak memadai, sistem memilih mengatakan tidak tahu daripada menyusun jawaban yang terdengar meyakinkan.",
-      "Angka evaluasi yang sudah terukur beserta batas penafsirannya ada di berkas MODEL_CARD di repositori - termasuk bagian yang belum lolos target kami sendiri.",
-    ],
-    usul: ["belum-bisa", "ai-apa"],
-  },
-  {
-    id: "belum-bisa",
-    q: "Apa yang belum bisa dilakukan Ulasin?",
-    kata: "belum keterbatasan batasan limitasi kekurangan roadmap rencana nanti coming soon kelemahan bug rusak error",
-    a: [
-      "Daftar ini kami tampilkan terbuka, bukan disembunyikan:",
-      "Menyimpulkan kondisi barang dari foto ulasan belum menyala. Teks di dalam foto sudah bisa dibaca, tetapi menilai “barangnya rusak atau tidak” dari gambarnya masih kalah dari tebakan sepele saat diuji, jadi belum kami nyalakan.",
-      "Tidak ada riwayat antar-sesi. Perbandingan antar-bulan hanya terhitung kalau berkas Anda sendiri memuat kolom tanggal.",
-      "Belum ada multi-toko dan pembagian akses tim, dan belum bisa menarik ulasan langsung dari marketplace.",
-      "Alasan teknis tiap butir ada di tab Roadmap di dalam dashboard.",
-    ],
-    aksi: { label: "Lihat roadmap di dashboard", ke: "dashboard" },
-    usul: ["marketplace", "akurat"],
-  },
-  {
-    id: "hasil-apa",
-    q: "Hasilnya berbentuk apa?",
-    kata: "hasil keluaran output laporan dapat isi tampilan dashboard grafik ekspor unduh download pdf cetak",
-    a: [
-      "Satu halaman hasil berisi empat bagian: daftar masalah terurut beserta kartu rekomendasi yang bisa Anda terima atau tolak, detail tambahan berupa peluang dan sebaran aspek, ruang tanya jawab tentang ulasan Anda sendiri, dan roadmap yang menyebut apa yang belum ada.",
-      "Tiap kartu rekomendasi bisa dibuka untuk melihat kutipan asli yang mendasarinya.",
-      "Mengunduh hasil sebagai PDF atau CSV belum tersedia di versi ini.",
-    ],
-    usul: ["cara-pakai", "belum-bisa"],
-  },
-  {
-    id: "beda-marketplace",
-    q: "Bedanya dengan analitik bawaan marketplace apa?",
-    kata: "beda perbedaan bandingkan pesaing kompetitor keunggulan kenapa harus alternatif dibanding unik kelebihan",
-    a: [
-      "Analitik bawaan marketplace berhenti di skor rata-rata dan grafik tren rating. Ia tidak memberi tahu aspek apa yang sedang bermasalah, tidak mengurutkan mana yang paling mendesak, dan tidak menunjukkan kutipan yang mendasarinya.",
-      "Perkakas sentiment analysis biasa berhenti selangkah lebih jauh - ia bisa bilang “60% negatif” - tetapi tetap tidak menjawab pertanyaan yang sebenarnya Anda punya: minggu ini saya harus mengerjakan apa lebih dulu, dan apa buktinya.",
-      "Bagian yang menjembatani dua pertanyaan itu yang jadi inti Ulasin.",
-      "Perkakas yang benar-benar mengekstrak aspek memang ada - Thematic, Birdeye, Yotpo - tetapi harga masuknya USD 79 sampai USD 2.000 per bulan dan semuanya dirancang untuk ulasan berbahasa Inggris. Celah itu yang kami isi.",
-    ],
-    usul: ["apa-itu", "untuk-siapa"],
-  },
-  {
-    id: "untuk-siapa",
-    q: "Ini cocok untuk usaha seperti apa?",
-    kata: "siapa target pengguna umkm toko usaha bisnis kategori fashion fesyen makanan minuman kuliner elektronik kosmetik jenis cocok",
-    a: [
-      "Dirancang untuk pemilik usaha mikro dan kecil yang jualan online dan menerima ulasan lebih banyak daripada waktu yang mereka punya untuk membacanya.",
-      "Cakupan datanya paling kuat di kategori fesyen, karena di situ data latihnya paling tebal. Kategori makanan dan minuman masih tipis - hanya 196 dari sekitar 40.000 ulasan latih - jadi aspek rasa dan pembanding kategorinya lebih lemah buktinya. Kami sebut ini di muka supaya Anda tidak menemukannya sendiri setelah kecewa.",
-    ],
-    usul: ["apa-itu", "akurat"],
-  },
-  {
-    id: "chatbot-ini",
-    q: "Kamu ini AI-nya Ulasin?",
-    kata: "kamu siapa bot robot asisten chatbot beneran manusia cs customer service admin hidup",
-    a: [
-      "Bukan. Saya kotak FAQ: jawaban saya dicocokkan dari daftar pertanyaan yang sudah ditulis manusia sebelumnya, dan saya tidak mengarang kalimat baru. Kalau pertanyaan Anda tidak ada padanannya di daftar itu, saya akan bilang begitu apa adanya.",
-      "AI sungguhannya ada di dalam dashboard, dan ia bekerja pada ulasan yang Anda masukkan - bukan pada percakapan ini.",
-    ],
-    aksi: { label: "Buka dashboard", ke: "dashboard" },
-    usul: ["ai-apa", "apa-itu"],
+    usul: ["pasang-sendiri", "akurat"],
   },
 ];
 
-/** Pintu masuk saat percakapan masih kosong. Empat, bukan semuanya: daftar panjang berhenti
- *  terbaca sebagai contoh dan mulai terbaca sebagai menu. */
-export const PEMBUKA = ["apa-itu", "cara-pakai", "format-data", "privasi"];
+/** Pertanyaan yang ditawarkan lebih dulu sebelum pengguna mengetik apa pun. Empat ini dipilih
+ *  karena mewakili empat kekhawatiran pertama yang berbeda - apa ini, bagaimana memakainya,
+ *  data saya bagaimana, dan berapa bayarnya - bukan empat entri yang kebetulan paling atas. */
+export const PEMBUKA = ["apa-itu", "cara-pakai", "privasi", "biaya"];

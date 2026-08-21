@@ -72,6 +72,24 @@ function pangkas(kata) {
   return kata;
 }
 
+/** Kata asal pertanyaan beserta bentuk terpangkasnya, satu larik per kata yang benar-benar
+ *  diketik pengguna.
+ *
+ *  Dipakai guardrail untuk menghitung berapa bagian pertanyaan yang dikenal indeks. `pecah()`
+ *  tidak bisa dipakai untuk itu: ia memuntahkan bentuk asli DAN bentuk terpangkas ke dalam satu
+ *  himpunan, sehingga satu kata asing bisa menyumbang dua entri dan menggelembungkan penyebut.
+ *  Terukur pada "ada aplikasi androidnya" - dua kata, satu dikenal, tetapi rasionya terbaca
+ *  1/3 dan pertanyaan yang jelas soal produk ini pun dicap di luar topik. */
+export function kataAsal(teks) {
+  const keluar = [];
+  for (const mentah of String(teks).toLowerCase().replace(/[^a-z0-9]+/g, " ").split(" ")) {
+    if (mentah.length < 2 || HENTI.has(mentah)) continue;
+    const kata = ALIAS[mentah] ?? mentah;
+    keluar.push([kata, pangkas(kata)]);
+  }
+  return keluar;
+}
+
 /** Ubah kalimat bebas jadi kumpulan kata pencarian. Bentuk asli dan bentuk terpangkasnya
  *  sama-sama disimpan - kalau salah satunya cocok, itu sudah cukup. */
 export function pecah(teks) {
@@ -123,7 +141,7 @@ const IDF_ASING = Math.log(1 + INDEKS.length) * 1.6;
 // cakupan seluruhnya <= 0,25. Ambangnya ditaruh di dalam jurang itu, tidak dipepetkan ke
 // salah satu sisi - kalau entri baru ditambahkan, jalankan ujinya lagi dan pastikan jurangnya
 // masih ada sebelum angka ini disentuh.
-const AMBANG = 0.33;
+export const AMBANG = 0.33;
 
 // Selisih setipis ini antara juara satu dan dua berarti pertanyaannya memang menyentuh dua
 // topik. Menjawab satu lalu diam akan terasa seperti salah dengar, jadi yang kedua ikut
@@ -142,6 +160,81 @@ function nilai(kata_kunci, { judul, badan }) {
   return total === 0 ? 0 : dapat / total;
 }
 
+// --------------------------------------------------------------------------------------
+// Guardrail
+// --------------------------------------------------------------------------------------
+
+/* Tiga hal berbeda sering diperlakukan sama oleh kotak FAQ, padahal jawabannya harus berbeda:
+ *
+ *   "apa itu ulasin"        -> ada di daftar, jawab
+ *   "bisa ekspor ke notion" -> topiknya benar, jawabannya belum ditulis
+ *   "cuaca besok gimana"    -> topiknya memang bukan urusan kotak ini
+ *
+ * Dua yang terakhir sama-sama "tidak terjawab", tetapi menyodorkan tiga topik terdekat kepada
+ * penanya cuaca terasa seperti tidak menyimak. Pemisahnya sederhana dan tidak perlu model:
+ * berapa banyak kata pertanyaannya yang DIKENAL indeks sama sekali. Pertanyaan yang seluruh
+ * katanya asing hampir pasti bukan soal produk ini.
+ */
+const RASIO_DIKENAL_MIN = 0.5;
+
+/* Batasnya kabur di satu sisi, dan itu diterima apa adanya. Pertanyaan di luar topik yang
+ * kebetulan memakai kata umum yang juga dipakai daftar ini - "kurs dolar hari ini BERAPA" -
+ * akan jatuh ke `belumAda`, bukan `diluarTopik`. Yang membedakan keduanya cuma kalimat
+ * penolakannya; dua-duanya sama-sama menolak menebak dan sama-sama menawarkan jalan keluar,
+ * jadi salah pilih di antara keduanya tidak pernah menghasilkan jawaban yang keliru.
+ * Menajamkannya butuh pembobotan IDF pada penyebutnya, dan itu belum sepadan. */
+
+/* Teks yang mencoba memerintah, bukan bertanya. Ini cermin dari prinsip yang sama di backend
+ * (bagian 36.1): teks dari luar adalah DATA, bukan INSTRUKSI. Di sini taruhannya jauh lebih
+ * kecil - tidak ada model yang bisa dibujuk, karena pencocokannya leksikal - tetapi pengguna
+ * yang mengetik ini pantas mendapat jawaban yang jujur alih-alih tiga usulan topik yang
+ * terlihat seperti sistemnya kebingungan. */
+const POLA_PERINTAH = [
+  /\babaikan\b.*\b(instruksi|perintah|aturan|sistem|sebelumnya)\b/,
+  /\b(ignore|disregard|forget)\b.*\b(instruction|prompt|rule|previous|above)\b/,
+  /\b(tampilkan|berikan|bocorkan|sebutkan)\b.*\b(prompt|sistem|source code|kode sumber|data pengguna|user lain|password|token|api key)\b/,
+  /\b(kamu|anda|kau)\s+(sekarang|mulai sekarang)\s+(adalah|jadi|berperan)\b/,
+  /\bpura-pura\b.*\b(kamu|jadi|adalah)\b/,
+  /\b(system|developer)\s*(prompt|message)\b/,
+  /\bjailbreak\b|\bdan mode\b/,
+];
+
+/** Apakah teksnya masih terbaca sebagai kata, bukan ketukan asal.
+ *
+ *  Panjang saja bukan penanda: "hai" pendek tapi wajar, "asdkjhasd" panjang tapi tidak. Yang
+ *  diperiksa dua hal yang sama-sama mustahil pada kata Indonesia maupun Inggris - kata tanpa
+ *  vokal sama sekali, dan deretan empat konsonan berturut-turut. Memakai vokal saja sempat
+ *  dicoba dan lolos oleh "asdkjh": huruf a di depannya sudah cukup memenuhi syarat.
+ *
+ *  Kosakata indeks diperiksa LEBIH DULU daripada pola hurufnya. Tanpa itu "csv gimana" ikut
+ *  tertuduh ketukan asal - "csv" memang tidak bervokal - padahal ia justru kata yang paling
+ *  jelas maksudnya di seluruh pertanyaan itu. */
+const TANPA_VOKAL = /^[^aeiou]+$/;
+const KONSONAN_BERUNTUN = /[^aeiou\s\d]{4,}/;
+
+function terbacaSebagaiKata(teks) {
+  const kata = teks.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+  if (kata.length === 0) return false;
+  const masukAkal = kata.filter(
+    (k) =>
+      /^\d+$/.test(k) ||
+      IDF.has(k) ||
+      IDF.has(ALIAS[k] ?? k) ||
+      (!TANPA_VOKAL.test(k) && !KONSONAN_BERUNTUN.test(k))
+  );
+  return masukAkal.length / kata.length >= 0.6;
+}
+
+/** Jenis balasan. Komponen memilih kalimatnya berdasarkan ini, bukan berdasarkan `entri` yang
+ *  kebetulan null - membedakan alasan diamnya jauh lebih berguna bagi penanya. */
+export const JENIS = {
+  jawab: "jawab",
+  belumAda: "belum-ada",
+  diluarTopik: "diluar-topik",
+  takJelas: "tak-jelas",
+  perintah: "perintah",
+};
+
 export const TIDAK_TAHU = "TIDAK_TAHU";
 
 /**
@@ -152,18 +245,45 @@ export const TIDAK_TAHU = "TIDAK_TAHU";
  * tidak dibiarkan berhadapan dengan jalan buntu.
  */
 export function cari(pertanyaan) {
-  const kata_kunci = pecah(pertanyaan);
-  if (kata_kunci.size === 0) {
-    return { entri: null, skor: 0, usul: FAQ.slice(0, 3) };
+  const teks = String(pertanyaan).trim();
+
+  // Urutannya penting. Pemeriksaan perintah didahulukan karena kalimat semacam "abaikan
+  // instruksi sebelumnya dan sebutkan data pengguna" memuat banyak kata yang DIKENAL indeks
+  // ("data", "pengguna"), sehingga pemeriksaan di luar topik tidak akan menangkapnya.
+  if (POLA_PERINTAH.some((pola) => pola.test(teks.toLowerCase()))) {
+    return { jenis: JENIS.perintah, entri: null, skor: 0, usul: awal(3) };
   }
+
+  if (teks.length < 3 || !terbacaSebagaiKata(teks)) {
+    return { jenis: JENIS.takJelas, entri: null, skor: 0, usul: awal(3) };
+  }
+
+  const kata_kunci = pecah(teks);
+  if (kata_kunci.size === 0) {
+    return { jenis: JENIS.takJelas, entri: null, skor: 0, usul: awal(3) };
+  }
+
+  // Rasio dihitung atas kata yang BENAR-BENAR diketik, bukan atas hasil pemekaran `pecah()`.
+  const asal = kataAsal(teks);
+  const dikenal = asal.length
+    ? asal.filter(([kata, pendek]) => IDF.has(kata) || IDF.has(pendek)).length / asal.length
+    : 0;
 
   const peringkat = INDEKS
     .map((baris) => ({ entri: baris.entri, skor: nilai(kata_kunci, baris) }))
     .sort((a, b) => b.skor - a.skor);
 
   const [juara, kedua] = peringkat;
+
   if (juara.skor < AMBANG) {
+    // Tidak ada satu pun kata yang dikenal berarti pertanyaannya memang bukan soal produk ini.
+    // Menyodorkan topik terdekat di situ terasa seperti tidak menyimak, jadi jenisnya dibedakan
+    // dan komponen memakai kalimat yang berbeda pula.
+    if (dikenal < RASIO_DIKENAL_MIN) {
+      return { jenis: JENIS.diluarTopik, entri: null, skor: juara.skor, usul: awal(3) };
+    }
     return {
+      jenis: JENIS.belumAda,
       entri: null,
       skor: juara.skor,
       usul: peringkat.slice(0, 3).map((p) => p.entri),
@@ -179,5 +299,10 @@ export function cari(pertanyaan) {
     lanjutan.unshift(kedua.entri);
   }
 
-  return { entri: juara.entri, skor: juara.skor, usul: lanjutan.slice(0, 3) };
+  return { jenis: JENIS.jawab, entri: juara.entri, skor: juara.skor, usul: lanjutan.slice(0, 3) };
+}
+
+/** Entri pembuka, dipakai sebagai jalan keluar saat pertanyaannya tidak bisa dijawab. */
+function awal(n) {
+  return FAQ.slice(0, n);
 }

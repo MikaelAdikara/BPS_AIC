@@ -4,14 +4,14 @@
  * saya disimpan atau tidak. Bukan pertanyaan tentang ulasan pengguna; itu pekerjaan tab Tanya
  * Jawab di dalam dashboard, yang memang menjalankan model dan menyertakan kutipan.
  *
- * Dua hal yang membedakannya dari kebanyakan widget chat, keduanya disengaja:
+ * Ia TIDAK menebak. Basis pengetahuannya 36 entri di content/faq.js, dan pertanyaan yang tak
+ * ada padanannya dijawab apa adanya - lengkap dengan topik terdekat sebagai jalan keluar.
+ * Menebak jawaban yang terdengar masuk akal justru pola yang paling merusak kepercayaan.
  *
- * 1. Ia menyebut dirinya kotak FAQ sejak sapaan pertama, bukan "asisten AI". Jawabannya
- *    dicocokkan dari daftar tertulis - tidak ada kalimat yang dikarang - dan pengguna berhak
- *    tahu itu sebelum bertanya, bukan setelah kecewa. Rinciannya di lib/faq-search.js.
- * 2. Pertanyaan yang tak ada padanannya dijawab "belum ada jawaban tertulis untuk itu",
- *    lengkap dengan tiga topik terdekat sebagai jalan keluar. Menebak jawaban yang terdengar
- *    masuk akal justru pola yang paling merusak kepercayaan.
+ * Empat alasan diam dibedakan, masing-masing dengan kalimatnya sendiri (lihat `BALASAN`):
+ * pertanyaannya di luar topik, topiknya benar tetapi jawabannya belum ditulis, yang diketik
+ * bukan pertanyaan, atau yang diketik berupa perintah alih-alih pertanyaan. Menyodorkan tiga
+ * topik terdekat kepada penanya cuaca terasa seperti tidak menyimak.
  *
  * Kotak ini TIDAK dipasang di dashboard. Dua kolom percakapan di satu produk, yang satu
  * menjawab dari daftar dan yang lain dari model, adalah cara tercepat membuat pengguna salah
@@ -21,7 +21,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 
 import { FAQ, PEMBUKA } from "../../content/faq.js";
-import { cari } from "../../lib/faq-search.js";
+import { cari, JENIS } from "../../lib/faq-search.js";
 import { goTo } from "../../lib/hooks.js";
 import { BrandMark } from "../Brand.jsx";
 
@@ -35,10 +35,32 @@ const sapaan = {
   id: "salam",
   peran: "bot",
   teks: [
-    "Halo! Saya kotak FAQ Ulasin.",
-    "Jawaban saya diambil dari daftar pertanyaan yang sudah ditulis sebelumnya - saya tidak mengarang kalimat baru. Kalau pertanyaan Anda belum ada di daftar itu, saya akan bilang apa adanya.",
+    "Halo! Ada yang ingin ditanyakan soal Ulasin?",
+    "Ketik pertanyaan Anda, atau pilih salah satu di bawah ini.",
   ],
   usul: PEMBUKA.map((id) => FAQ.find((e) => e.id === id)).filter(Boolean),
+};
+
+/* Balasan saat pertanyaannya tidak dijawab, satu per alasan. Dibedakan dengan sengaja:
+ * menyodorkan tiga topik terdekat kepada penanya cuaca terasa seperti tidak menyimak, dan
+ * membalas ketukan asal dengan "belum ada jawaban tertulis" terdengar seolah pertanyaannya
+ * wajar padahal tidak ada pertanyaan sama sekali. */
+const BALASAN = {
+  [JENIS.belumAda]: [
+    "Belum ada jawaban tertulis untuk pertanyaan itu, jadi saya tidak akan menebak.",
+    "Yang paling dekat ada di bawah ini. Kalau tidak ada yang cocok, jawabannya mungkin ada di README repositori proyek.",
+  ],
+  [JENIS.diluarTopik]: [
+    "Sepertinya itu di luar urusan saya - saya hanya bisa menjawab soal Ulasin: cara pakainya, hasilnya, datanya, dan biayanya.",
+    "Beberapa yang sering ditanyakan:",
+  ],
+  [JENIS.takJelas]: [
+    "Maaf, saya belum menangkap maksudnya. Coba tulis ulang dengan kalimat biasa, misalnya “cara pakainya gimana” atau “data saya disimpan tidak”.",
+  ],
+  [JENIS.perintah]: [
+    "Saya membaca yang Anda ketik sebagai pertanyaan, bukan sebagai perintah - dan saya memang tidak punya apa pun untuk dibocorkan: kotak ini hanya mencocokkan pertanyaan ke daftar jawaban yang sudah ditulis.",
+    "Kalau ada yang ingin ditanyakan soal produknya, silakan:",
+  ],
 };
 
 /** Ikon obrolan untuk tombol pemicu. Sengaja BUKAN lambang merek: lambangnya sudah dipakai di
@@ -101,7 +123,7 @@ function Gelembung({ pesan, onPilih, onTutup }) {
         {pesan.usul?.length > 0 && (
           <div className="faqbot__usul">
             <span className="faqbot__usul-label">
-              {pesan.entri ? "Lanjut ke" : "Mungkin maksud Anda"}
+              {pesan.entri ? "Lanjut ke" : "Yang bisa saya jawab"}
             </span>
             {pesan.usul.map((entri) => (
               <button
@@ -201,7 +223,11 @@ export function FaqBot() {
 
     // Chip yang diklik sudah membawa entrinya; hanya ketikan bebas yang perlu dicocokkan.
     const hasil = entriLangsung
-      ? { entri: entriLangsung, usul: (entriLangsung.usul ?? []).map((id) => FAQ.find((e) => e.id === id)).filter(Boolean) }
+      ? {
+          jenis: JENIS.jawab,
+          entri: entriLangsung,
+          usul: (entriLangsung.usul ?? []).map((id) => FAQ.find((e) => e.id === id)).filter(Boolean),
+        }
       : cari(tanya);
 
     setTimeout(() => {
@@ -212,12 +238,7 @@ export function FaqBot() {
           id: `a${nomor.current}`,
           peran: "bot",
           entri: hasil.entri,
-          teks: hasil.entri
-            ? null
-            : [
-                "Belum ada jawaban tertulis untuk pertanyaan itu, jadi saya tidak akan menebak.",
-                "Yang paling dekat dari daftar saya ada di bawah ini - kalau tidak ada yang cocok, jawabannya mungkin ada di README repositori proyek.",
-              ],
+          teks: hasil.entri ? null : BALASAN[hasil.jenis] ?? BALASAN[JENIS.belumAda],
           usul: hasil.usul,
         },
       ]);
@@ -239,7 +260,7 @@ export function FaqBot() {
               <h2 id={judulId}>Tanya soal Ulasin</h2>
               {/* Label ini bukan basa-basi hukum - ia yang membedakan kotak ini dari asisten
                   AI, dan karena itu ia berdiri di kepala panel, bukan di catatan kaki. */}
-              <p>Kotak FAQ · jawaban dari daftar tertulis, bukan model AI</p>
+              <p>Pertanyaan umum seputar produk</p>
             </div>
             <button
               type="button"
