@@ -124,20 +124,24 @@
   flex-direction: row;
   gap: 9px;
 }
+/* Lambangnya render kaca dengan bayangan, kilau, dan tepi iridesen yang sudah menyatu di
+ * dalam berkasnya. Karena itu ia TIDAK diberi kotak biru maupun box-shadow tambahan -
+ * keduanya akan menumpuk bayangan di atas bayangan. Yang tersisa hanya angkatnya saat
+ * disentuh, dan drop-shadow tipis yang mengikuti siluet aslinya, bukan kotak pembatasnya. */
 .brand__mark {
-  border-radius: 32%;
   flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--grad-blue-card);
-  box-shadow: 0 4px 12px rgba(47, 123, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  object-fit: contain;
+  filter: drop-shadow(0 3px 7px rgba(30, 79, 203, 0.22));
   transition: transform var(--motion-state) var(--ease-out),
-    box-shadow var(--motion-state) var(--ease-out);
+    filter var(--motion-state) var(--ease-out);
 }
 .brand:hover .brand__mark {
-  transform: translateY(-1px);
-  box-shadow: 0 7px 18px rgba(47, 123, 246, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px) scale(1.03);
+  filter: drop-shadow(0 6px 13px rgba(30, 79, 203, 0.3));
+}
+.brand__lockup {
+  width: auto;
+  object-fit: contain;
 }
 .brand__name {
   font-weight: 700;

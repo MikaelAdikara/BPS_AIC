@@ -1,28 +1,56 @@
 /** Identitas yang dipakai kedua cangkang: halaman pemasaran dan dashboard.
  *
+ * Lambangnya gelembung percakapan yang bagian dalamnya sekaligus kaca pembesar - ulasan yang
+ * dibaca, bukan sekadar dikumpulkan. Berkas sumbernya dua render JPEG di akar repositori;
+ * `scripts/build_brand_assets.py` yang mengubahnya menjadi PNG bertransparansi di
+ * `public/brand/`, lengkap dengan alasan tiap langkahnya.
+ *
  * Lockupnya bertumpuk - lambang di atas, kata "Ulasin" di bawahnya. Bentuk itu dipilih supaya
  * nama produk terbaca sebagai nama, bukan sebagai label yang menempel di samping ikon.
  *
- * Lambangnya tiga batang menaik: berapa banyak ulasan menyebut satu hal, disusun dari yang
- * paling jarang ke yang paling sering. Batang terpendek sengaja lebih pudar - itu bagian
- * yang belum jadi masalah. Sekali lihat, lambangnya menyebut isi produknya: menghitung
- * seberapa sering sesuatu disebut, lalu menaruhnya berurutan.
+ * Kata "Ulasin" pada lockup nav sengaja tetap TEKS, bukan bagian dari gambar: warnanya harus
+ * ikut berganti bersama tema, dan biru tua pada berkas lockup hanya 2,6:1 di atas kanvas
+ * gelap. Berkas lockup dipakai di tempat yang latarnya sudah pasti - lihat `BrandLockup`.
  */
 
-const Logo = ({ size = 19 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <rect x="3.4" y="13.6" width="4" height="6.6" rx="2" fill="#fff" fillOpacity="0.5" />
-    <rect x="10" y="9" width="4" height="11.2" rx="2" fill="#fff" fillOpacity="0.78" />
-    <rect x="16.6" y="3.8" width="4" height="16.4" rx="2" fill="#fff" />
-  </svg>
-);
-
-/** Lambang yang berdiri sendiri - dipakai di tempat yang sudah menyebut nama produknya. */
-export function BrandMark({ size = 30 }) {
+/** Lambang yang berdiri sendiri - dipakai di tempat yang sudah menyebut nama produknya.
+ *
+ * `mark.png` berukuran 256px dan melayani seluruh pemakaian di bawah 128px; `mark-512.png`
+ * hanya diminta oleh layar rapat-piksel lewat `srcSet`, jadi kunjungan biasa tidak menanggung
+ * 300 KB hanya untuk ikon 30px. */
+export function BrandMark({ size = 30, className = "" }) {
   return (
-    <span className="brand__mark" style={{ width: size, height: size }}>
-      <Logo size={Math.round(size * 0.63)} />
-    </span>
+    <img
+      className={`brand__mark ${className}`}
+      src="/brand/mark.png"
+      srcSet="/brand/mark.png 256w, /brand/mark-512.png 512w"
+      sizes={`${size}px`}
+      width={size}
+      height={size}
+      alt=""
+      aria-hidden="true"
+      decoding="async"
+    />
+  );
+}
+
+/** Lambang + kata sebagai satu gambar utuh.
+ *
+ * Dipakai HANYA di permukaan yang warnanya tidak ikut berganti bersama tema - kartu penutup
+ * halaman pemasaran selalu gelap di kedua tema, jadi varian terangnya yang selalu benar di
+ * sana. `variant` ada supaya pemanggil menyatakan latar tempat ia dipasang, bukan menebaknya.
+ */
+export function BrandLockup({ variant = "onLight", height = 30 }) {
+  const src = variant === "onDark" ? "/brand/lockup-dark.png" : "/brand/lockup.png";
+  return (
+    <img
+      className="brand__lockup"
+      src={src}
+      height={height}
+      style={{ height }}
+      alt="Ulasin"
+      decoding="async"
+    />
   );
 }
 
@@ -33,7 +61,7 @@ export function Brand({ onClick, layout = "stack" }) {
       onClick={onClick}
       aria-label="Ulasin, kembali ke beranda"
     >
-      <BrandMark size={layout === "stack" ? 30 : 28} />
+      <BrandMark size={layout === "stack" ? 32 : 30} />
       <span className="brand__name">Ulasin</span>
     </button>
   );

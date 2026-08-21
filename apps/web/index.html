@@ -9,12 +9,21 @@
       content="Ubah ulasan pelanggan menjadi tiga masalah paling mendesak, lengkap dengan kutipan aslinya."
     />
     <meta name="theme-color" content="#2f7bf6" />
-    <!-- Favicon-nya lambang yang sama dengan lockup merek, disematkan langsung supaya tidak ada
-         permintaan berkas tambahan hanya untuk satu ikon 32px. -->
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='7' fill='%232f7bf6'/%3E%3Crect x='3.4' y='13.6' width='4' height='6.6' rx='2' fill='%23fff' fill-opacity='.5'/%3E%3Crect x='10' y='9' width='4' height='11.2' rx='2' fill='%23fff' fill-opacity='.78'/%3E%3Crect x='16.6' y='3.8' width='4' height='16.4' rx='2' fill='%23fff'/%3E%3C/svg%3E"
+    <!-- Ikon tab dan ikon layar utama. Keduanya dihasilkan scripts/build_brand_assets.py dari
+         berkas logo yang sama, jadi tidak ada versi lambang kedua yang bisa ikut basi. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/favicon-180.png" />
+
+    <!-- Kartu pratinjau tautan. Tautan demo dibagikan lewat WhatsApp dan Telegram; tanpa
+         blok ini yang muncul di sana hanya URL mentah. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ulasin - sulap ulasan jadi keputusan" />
+    <meta
+      property="og:description"
+      content="Ubah ulasan pelanggan menjadi tiga masalah paling mendesak, lengkap dengan kutipan aslinya."
     />
+    <meta property="og:image" content="/brand/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Inter untuk narasi, IBM Plex Mono untuk angka terhitung dan kutipan verbatim. -->

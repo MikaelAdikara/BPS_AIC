@@ -48,18 +48,48 @@ dong", "coba ulasin". Bukan gabungan dua kata benda yang menjelaskan dirinya sen
 menjelaskan dirinya adalah keterangan, dan keterangan tidak menempel di ingatan. Selalu ditulis
 `Ulasin`, tidak pernah `ULASIN`, `ulas.in`, atau dipenggal.
 
-**Lambangnya tiga batang menaik**, batang terpendek paling pudar (putih 50%), yang tengah 78%,
-yang tertinggi putih penuh - di atas ubin biru bersudut membulat. Bacanya: berapa banyak ulasan
-menyebut satu hal, disusun dari yang paling jarang ke yang paling sering, dan yang belum jadi
-masalah dibiarkan meredup. Itu persis isi produknya, tanpa perlu ikon balon percakapan yang
-dipakai setiap alat ulasan.
+**Lambangnya balon percakapan yang bagian dalamnya kaca pembesar**, dirender sebagai kaca
+biru dengan tepi iridesen. Bacanya satu kalimat: ulasan yang dibaca, bukan sekadar
+dikumpulkan. Balonnya menyebut sumber datanya - suara pelanggan - dan lensanya menyebut apa
+yang produk ini lakukan terhadap suara itu.
 
-**Lockup-nya bertumpuk**: lambang di atas, kata "Ulasin" di bawahnya, rata tengah, jarak 6px.
-Bentuk ini yang dipakai di navigasi kedua permukaan. Varian sebaris (`layout="row"`) tersedia
-untuk tempat yang tingginya benar-benar sempit, dan hanya untuk itu.
+> **Ini penggantian, dan alasannya dicatat.** Versi sebelumnya memakai tiga batang menaik di
+> atas ubin biru, dengan argumen bahwa balon percakapan terlalu umum dipakai perkakas ulasan.
+> Argumen itu benar tentang balon polos, tetapi tidak berlaku begitu balonnya digabung dengan
+> lensa: yang membedakan bukan bentuk dasarnya, melainkan apa yang ditaruh di dalamnya. Batang
+> menaik juga punya masalahnya sendiri - ia lambang analitik generik, dan tidak menyebut ulasan
+> sama sekali. Nama filenya, `Logo only.jpeg` dan `Logo with Name.jpeg` di akar repositori,
+> adalah sumber aslinya.
 
-Sumber tunggalnya [`apps/web/src/components/Brand.jsx`](../apps/web/src/components/Brand.jsx);
-favicon di `index.html` adalah SVG yang sama, disematkan sebagai data URI.
+**Lockup-nya bertumpuk**: lambang di atas, kata "Ulasin" di bawahnya, rata tengah. Bentuk ini
+yang dipakai di navigasi kedua permukaan. Varian sebaris (`layout="row"`) tersedia untuk tempat
+yang tingginya benar-benar sempit, dan hanya untuk itu.
+
+### Aset dan mengapa ada tahap pembangunan
+
+Logonya diterima sebagai dua render JPEG 2048x2048 di atas latar putih bergradien - bentuk yang
+tidak bisa dipakai apa adanya. Latar putihnya menjadi kotak terang begitu tema gelap menyala,
+dan 1,4 MB terlalu berat untuk ikon 30px di bilah navigasi.
+
+[`scripts/build_brand_assets.py`](../scripts/build_brand_assets.py) mengubahnya menjadi PNG
+bertransparansi di `apps/web/public/brand/`. Cara memisahkan logo dari latarnya dijelaskan
+lengkap di kepala berkas itu; ringkasnya, pemisahannya memakai **rona, bukan kecerahan** -
+bayangan jatuh sama gelapnya dengan bagian logo yang paling pucat, jadi tidak ada ambang
+kecerahan yang memisahkan keduanya, sementara rona memisahkannya telak.
+
+| Berkas | Dipakai di |
+| --- | --- |
+| `mark.png` (256px), `mark-512.png` | Lambang di nav, dashboard, dan avatar kotak FAQ |
+| `lockup.png` | Lockup utuh di atas permukaan terang |
+| `lockup-dark.png` | Sama, dengan kata "Ulasin" dicerahkan ke `#A8C1FF` - biru tua aslinya hanya 2,6:1 di atas kanvas gelap |
+| `favicon-32.png`, `favicon-180.png` | Ikon tab dan ikon layar utama |
+| `og.png` | Kartu pratinjau tautan 1200x630 |
+
+Kata "Ulasin" di navigasi sengaja tetap **teks**, bukan bagian dari gambar: warnanya harus ikut
+berganti bersama tema. Berkas lockup hanya dipakai di tempat yang latarnya sudah pasti - kartu
+penutup halaman pemasaran, yang gelap di kedua tema.
+
+Sumber tunggal pemakaiannya [`apps/web/src/components/Brand.jsx`](../apps/web/src/components/Brand.jsx).
 
 ## 3. Palet - "Nila & Struk"
 
