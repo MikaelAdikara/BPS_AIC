@@ -26,20 +26,50 @@ import { PeriodChart } from "../report/Periods.jsx";
 import { ProductTable } from "../report/Products.jsx";
 import { RatingBands } from "../report/Ratings.jsx";
 
-/** Satu bagian laporan. `id` dipakai rel sebagai sasaran lompatan. */
-function Bagian({ id, judul, ket, children }) {
+/** Satu bagian laporan. `id` dipakai rel sebagai sasaran lompatan.
+ *
+ * `wadah` menentukan apakah ISI bagian dibungkus `.panel` - primitif kontainer yang sudah
+ * dipakai di seluruh dashboard (kaca `--glass`, tepi `--glass-edge`, `--r-lg`). Tidak semua
+ * bagian boleh mendapatkannya, dan itu justru yang membuat halamannya konsisten:
+ *
+ *   wadah       untuk isi yang polos - deretan angka, daftar aspek, tabel, grafik. Tanpa ini
+ *               mereka melayang langsung di atas kanvas sementara tetangganya berada di dalam
+ *               panel, dan halaman terbaca setengah jadi.
+ *   tanpa wadah untuk isi yang SUDAH berupa kartu (kartu aksi, kartu peluang) atau yang sudah
+ *               membawa panelnya sendiri (benchmark, kualitas data). Membungkusnya lagi
+ *               menghasilkan kartu di dalam kartu, yang selalu keliru: dua tepi bersarang
+ *               membuat keduanya berhenti menandai batas apa pun.
+ *
+ * `tabIndex={-1}` supaya rel dapat memindahkan fokus ke sini setelah menggulir. Tanpa itu
+ * fokus tertinggal di tombol rel, dan Tab berikutnya membawa pengguna papan ketik ke butir rel
+ * sebelah alih-alih ke isi bagian yang baru saja dituju.
+ */
+function Bagian({ id, judul, ket, wadah = false, children }) {
   return (
-    <section className="lap__bagian" id={id} aria-labelledby={`${id}-judul`}>
+    <section className="lap__bagian" id={id} aria-labelledby={`${id}-judul`} tabIndex={-1}>
       <div className="lap__kepala">
         <h3 id={`${id}-judul`}>{judul}</h3>
         {ket && <p className="meta">{ket}</p>}
       </div>
-      {children}
+      {wadah ? <div className="panel lap__wadah">{children}</div> : children}
     </section>
   );
 }
 
 /** Rel bagian yang menempel.
+ *
+ * Butirnya `<button>`, BUKAN `<a href="#lap-aspek">`, dan itu bukan pilihan gaya melainkan
+ * keharusan: aplikasi ini memakai rute berbasis hash (`#/` untuk halaman pemasaran, `#/analisis`
+ * untuk dashboard - lihat `lib/hooks.js`). Tautan jangkar menulis ulang hash menjadi
+ * `#lap-aspek`, dan `routeFromHash()` membaca apa pun yang tidak diawali `#/analisis` sebagai
+ * halaman pemasaran. Jadi menekan butir rel tidak menggulir ke bagiannya melainkan MELEMPAR
+ * pengguna keluar dari laporan yang baru saja ia tunggu satu menit untuk dihitung - dan hasil
+ * itu tidak disimpan di mana pun untuk dipulihkan.
+ *
+ * Hash tidak disentuh sama sekali di sini. Menggulirnya dikerjakan sendiri, dan fokus dipindah
+ * ke bagian tujuan supaya pengguna papan ketik ikut berpindah - tanpa itu, tombol rel tetap
+ * memegang fokus dan Tab berikutnya kembali ke butir rel di sebelahnya, bukan ke isi bagian
+ * yang baru saja dituju.
  *
  * Menyorot bagian yang sedang terbaca dengan IntersectionObserver, bukan dengan menghitung
  * `scrollY` pada setiap peristiwa gulir - penghitungan itu berjalan di utas utama pada tiap
@@ -90,14 +120,28 @@ function Rel({ bagian }) {
     ol.scrollTo({ left: Math.max(0, tengah), behavior: "smooth" });
   }, [aktif]);
 
+  function lompat(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ block: "start", behavior: "smooth" });
+    // `preventScroll` supaya pemindahan fokus tidak melompati animasi gulir yang baru saja
+    // dimulai; gulirnya sudah diurus baris di atas.
+    target.focus({ preventScroll: true });
+    setAktif(id);
+  }
+
   return (
     <nav className="lap__rel" aria-label="Bagian laporan">
       <ol ref={daftar}>
         {bagian.map(({ id, judul }) => (
           <li key={id}>
-            <a href={`#${id}`} aria-current={aktif === id ? "true" : undefined}>
+            <button
+              type="button"
+              onClick={() => lompat(id)}
+              aria-current={aktif === id ? "true" : undefined}
+            >
               {judul}
-            </a>
+            </button>
           </li>
         ))}
       </ol>
@@ -105,14 +149,7 @@ function Rel({ bagian }) {
   );
 }
 
-export function ReportPanel({
-  result,
-  category,
-  onCategory,
-  decisions,
-  onDecide,
-  onOpenEvidence,
-}) {
+export function ReportPanel({ result, category, decisions, onDecide, onOpenEvidence }) {
   const punyaProduk = (result.products ?? []).length > 0;
   const punyaRiwayat = Boolean(result.period_history);
   const punyaBintang = Boolean(result.ratings);
@@ -147,8 +184,8 @@ export function ReportPanel({
       <Rel bagian={bagian} />
 
       <div className="lap__isi">
-        <Bagian id="lap-ringkas" judul="Ringkasan">
-          <SummaryHead result={result} category={category} onCategory={onCategory} />
+        <Bagian id="lap-ringkas" judul="Ringkasan" wadah>
+          <SummaryHead result={result} category={category} />
           {result.warnings?.map((w) => (
             <div key={w} className="banner-grey">
               {WARNING_TEXT[w] ?? w}
@@ -184,6 +221,7 @@ export function ReportPanel({
         <Bagian
           id="lap-aspek"
           judul="Per aspek"
+          wadah
           ket="Seluruh aspek yang dikenali sistem, termasuk yang tidak disebut satu ulasan pun. Tekan satu baris untuk melihat dasar angkanya."
         >
           <AspectSections result={result} category={category} />
@@ -193,6 +231,7 @@ export function ReportPanel({
           <Bagian
             id="lap-produk"
             judul="Per produk"
+            wadah
             ket="Dibaca dari kolom produk pada berkas yang Anda unggah. Tekan judul kolom untuk mengurutkan."
           >
             <ProductTable products={result.products} />
@@ -203,6 +242,7 @@ export function ReportPanel({
           <Bagian
             id="lap-bintang"
             judul="Sebaran bintang"
+            wadah
             ket="Bukan sekadar berapa banyak per bintang - juga keluhan apa yang ada di dalam tiap pita."
           >
             <RatingBands ratings={result.ratings} />
@@ -213,6 +253,7 @@ export function ReportPanel({
           <Bagian
             id="lap-riwayat"
             judul="Riwayat antar periode"
+            wadah
             ket="Dihitung dari kolom tanggal pada berkas Anda sendiri."
           >
             <PeriodChart history={result.period_history} />
@@ -245,9 +286,19 @@ export function ReportPanel({
           >
             <DataQualityCard quality={result.data_quality} />
             <VisualFindings findings={result.visual_findings} />
-            <p className="meta">
-              Model: {result.model_versions?.text} · mode {result.mode}
-            </p>
+
+            {/* Versi model dan mode dulu satu baris `.meta` telanjang di bawah panel, satu-
+                satunya isi di seluruh laporan yang mengambang langsung di atas kanvas. Ia
+                dapat panelnya sendiri, bukan dijejalkan ke dalam panel kualitas data: yang
+                satu menilai data yang MASUK, yang satu menyebut perkakas yang mengolahnya. */}
+            <section className="panel">
+              <div className="panel-title">Model yang dipakai</div>
+              <p className="meta">
+                Teks: <b>{result.model_versions?.text ?? "tidak diketahui"}</b> · penelusuran
+                bukti: <b>{result.model_versions?.embedding ?? "tidak aktif"}</b> · mode{" "}
+                <b>{result.mode}</b>
+              </p>
+            </section>
           </Bagian>
         )}
       </div>

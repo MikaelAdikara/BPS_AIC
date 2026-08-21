@@ -76,10 +76,13 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
 
-  // Kategori pembanding yang sedang ditampilkan. Dimulai dari tebakan backend dan dapat
-  // diganti pengguna di kepala laporan - tanpa analisis ulang, karena backend mengirimkan
-  // baseline SELURUH kategori sekaligus (lihat `_benchmarks_for_every_category`).
-  const [category, setCategory] = useState("other");
+  // Kategori pembanding, dipilih pengguna di layar unggah sebelum analisis berjalan.
+  //
+  // Ia sempat pindah ke kepala laporan sebagai tebakan yang bisa diganti, dan itu dikembalikan:
+  // kategori adalah keterangan PENYIAPAN - ia memilih baseline sebelum apa pun dihitung - jadi
+  // kontrolnya tidak boleh muncul di tengah angka yang sedang dibaca. Deteksi di backend tetap
+  // ada dan tetap berguna sebagai jaring pengaman saat batch masuk tanpa kategori sama sekali.
+  const [category, setCategory] = useState("fashion");
 
   // --- tanya jawab
   const [messages, setMessages] = useState([]);
@@ -121,7 +124,6 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     try {
       const data = await api.analyze(reviews);
       setResult(data);
-      setCategory(data.category_guess?.category ?? "other");
       setMessages([]);
       setDecisions({});
       setTab("laporan");
@@ -149,7 +151,7 @@ export function DashboardScreen({ theme, onToggleTheme }) {
           // produk tidak akan pernah muncul pada jalur "coba data contoh" - persis jalur yang
           // dipakai orang untuk menilai apakah produk ini berguna.
           product_name: r.product_name || null,
-          category: "other",
+          category,
           source: "sample_dataset",
         }))
       );
@@ -199,8 +201,8 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     }
   }
 
-  const mappedReviews = file ? rowsToReviews(file.rows, mapping) : [];
-  const pastedReviews = parsePastedText(paste);
+  const mappedReviews = file ? rowsToReviews(file.rows, mapping, category) : [];
+  const pastedReviews = parsePastedText(paste, category);
   const draftReviews = drafts
     .filter((d) => d.text.trim().length >= 3)
     .map((d) => ({
@@ -208,7 +210,7 @@ export function DashboardScreen({ theme, onToggleTheme }) {
       text: d.text.trim(),
       rating: d.rating ?? null,
       timestamp: null,
-      category: "other",
+      category,
       source: "manual_upload",
     }));
 
@@ -318,6 +320,8 @@ export function DashboardScreen({ theme, onToggleTheme }) {
               error={error}
               tab={input}
               onTab={setInput}
+              category={category}
+              onCategory={setCategory}
               paste={paste}
               onPaste={setPaste}
               file={file}
@@ -354,7 +358,6 @@ export function DashboardScreen({ theme, onToggleTheme }) {
                 <ReportPanel
                   result={result}
                   category={category}
-                  onCategory={setCategory}
                   decisions={decisions}
                   onDecide={(id, value) => setDecisions((d) => ({ ...d, [id]: value }))}
                   onOpenEvidence={setOpenCard}

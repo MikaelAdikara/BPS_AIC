@@ -1,19 +1,76 @@
-/** Langkah pertama dashboard: memasukkan ulasan, lalu menganalisis. Itu saja.
+/** Langkah pertama dashboard: pilih kategori, masukkan ulasan, lalu analisis.
  *
- * Layar ini pernah dibuka oleh sebuah formulir profil - nama toko, produk yang dianalisis,
- * kategori, dan tiga aspek "yang paling ingin Anda tahu". Keempatnya dicabut, dan alasan
- * masing-masing tercatat di kepala `lib/aspects.js`. Yang berlaku untuk keempatnya sekaligus:
- * pertanyaan itu diajukan tepat pada saat pengguna paling sedikit tahu - sebelum ia melihat
- * satu pun hasil - dan tiga dari empat jawabannya sudah ada di dalam berkas yang sedang ia
- * unggah pada detik yang sama.
+ * Layar ini pernah dibuka oleh formulir profil berisi empat isian - nama toko, produk yang
+ * dianalisis, kategori, dan tiga aspek "yang paling ingin Anda tahu". Tiga di antaranya
+ * dicabut dan tidak kembali; alasan masing-masing tercatat di kepala `lib/aspects.js`.
  *
- * Yang tersisa adalah satu pertanyaan: dari mana ulasannya datang. Jalan tercepat dari membuka
- * halaman ke melihat hasil sekarang benar-benar dua langkah - tempel, lalu tekan.
+ * Kategori kembali, dan itu koreksi atas percobaan sebelumnya. Ia sempat dipindah ke kepala
+ * laporan sebagai tebakan yang bisa diganti - masalahnya, di sana ia jadi kontrol yang MENGUBAH
+ * angka di layar yang sedang dibaca, duduk di antara angka-angka yang justru tidak boleh
+ * berubah sendiri. Pembaca laporan tidak sedang menyiapkan analisis, ia sedang membacanya, dan
+ * kendali penyiapan yang muncul di tengah bacaan terbaca sebagai rancu.
+ *
+ * Kategori memang keterangan penyiapan: ia memilih baseline pembanding sebelum apa pun
+ * dihitung. Jadi tempatnya di sini, sebelum tombol analisis - satu pertanyaan yang jawabannya
+ * benar-benar cuma diketahui pemilik toko, dan tidak ada di dalam berkas mana pun.
  */
 
 import { useId } from "react";
 
+import { CATEGORIES } from "../../lib/format.js";
 import { FileInput, PasteInput, ScreenshotInput } from "./inputs.jsx";
+
+/* Apa yang sebenarnya dilakukan kategori. Copy lama pernah berjanji ia "menyembunyikan aspek
+ * yang tidak relevan bagi toko seperti milik Anda", dan itu tidak terjadi: pipeline analisisnya
+ * memakai kategori HANYA untuk memilih baseline pembanding. Janji yang tidak ditepati di layar
+ * pertama membuat seluruh angka sesudahnya ikut dicurigai. */
+const GUNA_KATEGORI =
+  "Menentukan rata-rata kategori yang dipakai membandingkan hasil Anda. Seluruh aspek tetap " +
+  "dianalisis apa pun pilihannya.";
+
+/* Peringatan cakupan data, per kategori. Hanya satu kategori yang punya, dan justru karena itu
+ * ia bermakna: catatan yang muncul di semua pilihan terbaca sebagai penafian rutin, bukan
+ * sebagai keterangan yang perlu dibaca. */
+const CATATAN = {
+  food_beverage:
+    "Data latih kami paling tipis di sini - 196 dari sekitar 40.000 ulasan. Aspek rasa dan " +
+    "pembandingnya lemah buktinya.",
+};
+
+/** Pemilih kategori.
+ *
+ * Radio sungguhan di balik pilnya, bukan tombol ber-`aria-checked`: navigasi panah antar
+ * pilihan dan pengumuman "1 dari 5" oleh pembaca layar sudah benar tanpa kode tambahan.
+ * `fieldset` dipakai karena `<legend>` adalah satu-satunya cara memberi nama pada sekumpulan
+ * radio yang dibacakan pembaca layar sebagai nama grupnya - gaya bawaannya dinetralkan di
+ * `.grup` supaya tidak muncul kotak di dalam kotak.
+ */
+function CategoryPicker({ value, onChange }) {
+  return (
+    <section className="panel">
+      <fieldset className="grup">
+        <legend className="grup__label">Kategori produk Anda</legend>
+        <div className="picker__row">
+          {CATEGORIES.map(([id, label]) => (
+            <label key={id} className={`pick ${value === id ? "pick--on" : ""}`}>
+              <input
+                type="radio"
+                name="category"
+                value={id}
+                checked={value === id}
+                onChange={() => onChange(id)}
+                className="sr-only"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+        <p className="meta grup__hint">{GUNA_KATEGORI}</p>
+        {CATATAN[value] && <p className="grup__catatan">{CATATAN[value]}</p>}
+      </fieldset>
+    </section>
+  );
+}
 
 const TABS = [
   ["paste", "Tempel teks"],
@@ -26,6 +83,8 @@ export function UploadStep({
   error,
   tab,
   onTab,
+  category,
+  onCategory,
   paste,
   onPaste,
   file,
@@ -60,6 +119,8 @@ export function UploadStep({
           {error.action && <div style={{ marginTop: 4 }}>{error.action}</div>}
         </div>
       )}
+
+      <CategoryPicker value={category} onChange={onCategory} />
 
       <h2 className="sec-title sec-title--rapat">Ulasan yang mau dianalisis</h2>
 
@@ -129,13 +190,12 @@ export function UploadStep({
         Coba dengan data contoh
       </button>
 
-      {/* Menjelaskan apa yang dibaca sistem dari berkasnya menggantikan pertanyaan yang dulu
-          diajukan di sini. Bedanya: yang ini keterangan, bukan pekerjaan - pengguna boleh
+      {/* Menjelaskan apa yang dibaca sistem dari berkasnya menggantikan tiga pertanyaan yang
+          dulu diajukan di sini. Bedanya: yang ini keterangan, bukan pekerjaan - pengguna boleh
           melewatinya begitu saja dan tetap sampai ke hasil yang sama. */}
       <p className="meta" style={{ marginTop: 20 }}>
-        Kolom produk, rating, dan tanggal terbaca otomatis kalau ada di berkas Anda - masing-masing
-        membuka bagiannya sendiri di laporan. Kategori toko ditebak dari isi ulasan, dan tebakannya
-        bisa Anda ganti di kepala laporan.
+        Kolom produk, rating, dan tanggal terbaca otomatis kalau ada di berkas Anda -
+        masing-masing membuka bagiannya sendiri di laporan. Anda tidak perlu mengetiknya ulang.
       </p>
 
       <p className="meta" style={{ marginTop: 10 }}>

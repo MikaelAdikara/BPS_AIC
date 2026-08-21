@@ -42,9 +42,35 @@
 
 .lap__bagian {
   min-width: 0;
-  /* Sasaran lompatan rel berhenti di bawah bilah tab yang menempel, bukan persis di tepi
-   * atas viewport tempat judulnya tertutup. */
-  scroll-margin-top: 92px;
+  /* Sasaran lompatan rel berhenti di bawah SEMUA yang menempel di atasnya, bukan persis di
+   * tepi viewport.
+   *
+   * Angkanya berbeda per lebar layar karena yang menempel juga berbeda. Di layar sempit ada
+   * dua lapis - bilah aplikasi (tepi bawah 80px) DAN rel bagian yang jadi pita mendatar
+   * (tepi bawah 108px) - sehingga 92px menaruh judul bagian satu piksel di balik relnya
+   * sendiri: menekan "Riwayat" membawa pengguna ke tempat yang benar dengan judulnya
+   * tertutup, yang terbaca seperti lompatannya meleset. Di layar lebar relnya pindah ke
+   * kolom kiri dan tidak lagi menutupi apa pun, jadi cukup membersihkan bilah aplikasi. */
+  scroll-margin-top: 124px;
+}
+@media (min-width: 1000px) {
+  .lap__bagian {
+    scroll-margin-top: 96px;
+  }
+}
+
+/* Bagian menerima fokus dari rel, tetapi ia bukan kontrol - cincin fokusnya justru menyesatkan
+ * kalau digambar, seolah bagiannya bisa ditekan. Fokusnya tetap dipindah supaya Tab berikutnya
+ * masuk ke ISI bagian; yang dihilangkan hanya gambarnya. */
+.lap__bagian:focus {
+  outline: none;
+}
+
+/* Wadah isi bagian - `.panel` yang sama dengan seluruh dashboard, hanya dengan jarak dalam
+ * yang lebih lega karena isinya daftar panjang, bukan ringkasan beberapa baris. */
+.lap__wadah {
+  margin-bottom: 0;
+  padding: var(--space-5) var(--space-5) var(--space-4);
 }
 
 .lap__kepala {
@@ -97,23 +123,30 @@
 .lap__rel ol::-webkit-scrollbar {
   display: none;
 }
-.lap__rel a {
+/* Butirnya `<button>`, bukan `<a href="#...">` - hash dipegang perute aplikasi, dan tautan
+ * jangkar akan menulis ulang rutenya. Alasan lengkapnya di kepala `Rel` pada ReportPanel.jsx. */
+.lap__rel button {
   display: block;
+  width: 100%;
+  text-align: left;
   white-space: nowrap;
   padding: 7px 12px;
+  border: 0;
+  background: none;
+  font-family: inherit;
   border-radius: var(--r-pill);
   font-size: 12.5px;
   font-weight: 600;
   color: var(--muted);
-  text-decoration: none;
+  cursor: pointer;
   transition: color var(--motion-state) var(--ease-out),
     background var(--motion-state) var(--ease-out);
 }
-.lap__rel a:hover {
+.lap__rel button:hover {
   color: var(--ink);
   background: var(--band);
 }
-.lap__rel a[aria-current="true"] {
+.lap__rel button[aria-current="true"] {
   color: var(--blue-dark);
   background: var(--blue-tint);
 }
@@ -138,12 +171,12 @@
     gap: 1px;
     overflow: visible;
   }
-  .lap__rel a {
+  .lap__rel button {
     border-radius: 0 var(--r-sm) var(--r-sm) 0;
     margin-left: -1px;
     border-left: 1px solid transparent;
   }
-  .lap__rel a[aria-current="true"] {
+  .lap__rel button[aria-current="true"] {
     background: none;
     border-left-color: var(--blue-dark);
   }
@@ -201,53 +234,6 @@
 .ringkas__narasi {
   max-width: 70ch;
   color: var(--ink-soft);
-}
-
-/* Chip kategori - tebakan yang bisa dikoreksi. */
-.kchip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 10px;
-  padding: var(--space-3) var(--space-4);
-  background: var(--band);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-}
-.kchip--ragu {
-  background: var(--grey-surface);
-  border-color: var(--grey-border);
-}
-.kchip__label {
-  font-size: 12.5px;
-  color: var(--ink-soft);
-  font-weight: 600;
-}
-.kchip__pilih {
-  font-family: inherit;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--blue-dark);
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  padding: 6px 8px;
-  min-height: 34px;
-  cursor: pointer;
-}
-.kchip__pilih:hover {
-  border-color: var(--blue);
-}
-/* `--ink-soft`, bukan `--muted`. `--muted` disetel tepat 4,6:1 di atas kanvas krem, dan pita
- * chip ini memakai `--band` yang lebih gelap dari kanvas - cukup untuk menjatuhkannya ke 4,01:1
- * pada 11,5px, di bawah ambang AA. Baris ini justru yang menyebutkan DASAR tebakan kategori,
- * yaitu keterangan yang menentukan apakah pengguna perlu mengoreksinya; ia tidak boleh jadi
- * teks paling sulit dibaca di kotaknya sendiri. */
-.kchip__dasar {
-  flex: 1 1 100%;
-  font-size: 11.5px;
-  color: var(--ink-soft);
-  line-height: 1.45;
 }
 
 /* ================================================================================
@@ -698,25 +684,32 @@
 }
 
 /* Lima batang mini, selalu lima. Batang yang jumlah keranjangnya berubah antar baris tidak
- * bisa dibandingkan sekilas - dan perbandingan sekilas adalah satu-satunya gunanya di sini. */
-.mini {
+ * bisa dibandingkan sekilas - dan perbandingan sekilas adalah satu-satunya gunanya di sini.
+ *
+ * Namanya berawalan `ptabel__` bukan sekadar `mini`, dan itu memperbaiki tabrakan yang nyata:
+ * `landing.css` sudah memakai `.mini` untuk kartu kecil di halaman pemasaran - lengkap dengan
+ * latar, tepi, sudut, `padding` 10px, `margin-bottom`, dan bayangan. Karena berkas ini dimuat
+ * terakhir, properti yang SAMA menang, tetapi yang tidak saya setel tetap bocor: setiap
+ * histogram bintang di tabel produk terbungkus kartu putih bertepi yang tidak pernah
+ * dimaksudkan, sekaligus menggeser perataan barisnya. */
+.ptabel__mini {
   display: inline-flex;
   align-items: flex-end;
   gap: 2px;
   height: 20px;
   width: 46px;
 }
-.mini__bar {
+.ptabel__mini-bar {
   flex: 1;
   min-height: 1px;
   border-radius: 1px;
   background: var(--blue-light);
 }
-.mini__bar--1,
-.mini__bar--2 {
+.ptabel__mini-bar--1,
+.ptabel__mini-bar--2 {
   background: var(--red-base);
 }
-.mini__bar--3 {
+.ptabel__mini-bar--3 {
   background: var(--amber-base);
 }
 

@@ -5,14 +5,21 @@
  * pun dan justru karena itu ia berhenti memberi tahu apa pun tentang laporan ini. Ia juga
  * memakan tinggi yang sama besarnya dengan bagian yang benar-benar perlu dibaca.
  *
- * Empat angka di sini dipilih karena masing-masing dipakai untuk menimbang angka SESUDAHNYA:
+ * Lima angka di sini dipilih karena masing-masing dipakai untuk menimbang angka SESUDAHNYA:
  * berapa ulasannya (seberapa jauh hasil ini layak dipercaya), rata-rata bintang (titik acuan
  * yang sudah dikenal pemilik toko dari dashboard marketplace), berapa yang memuat keluhan
- * (penyebut untuk seluruh persentase di bawah), dan rentang tanggalnya (apakah ini foto
- * minggu lalu atau setahun terakhir).
+ * (penyebut untuk seluruh persentase di bawah), rentang tanggalnya (apakah ini foto minggu
+ * lalu atau setahun terakhir), dan kategori pembandingnya.
+ *
+ * Kategori ditampilkan sebagai ANGKA yang dibaca, bukan sebagai kontrol yang bisa diubah.
+ * Versi sebelumnya menaruh `<select>` di sini supaya tebakan sistem dapat dikoreksi tanpa
+ * analisis ulang. Secara teknis itu berjalan, tetapi salah tempat: pembaca laporan sedang
+ * membaca, bukan menyiapkan, dan satu-satunya kontrol di tengah deretan angka - yang justru
+ * MENGUBAH angka di bawahnya - terbaca sebagai rancu. Kategori adalah keterangan penyiapan,
+ * jadi ia dipilih di layar unggah dan di sini cuma dilaporkan kembali.
  */
 
-import { CATEGORIES, desimal, pct, rentangTanggal } from "../../lib/format.js";
+import { CATEGORY_LABEL, desimal, pct, rentangTanggal } from "../../lib/format.js";
 import { Narrative } from "../insight.jsx";
 
 /** Satu angka beserta namanya. `sub` untuk keterangan yang menimbang angkanya. */
@@ -26,53 +33,7 @@ function Angka({ nilai, nama, sub }) {
   );
 }
 
-/** Chip kategori - tebakan sistem yang bisa diganti pengguna.
- *
- * `<select>` bawaan, bukan menu buatan sendiri. Ini persis tugas yang sudah diselesaikan
- * elemen bawaan (papan ketik, pembaca layar, pemilih ala ponsel), dan laporan analitik bukan
- * tempat menciptakan afordans baru untuk pekerjaan yang sudah baku.
- *
- * Kenapa tebakannya ditampilkan alih-alih dipakai diam-diam: kategori memilih baseline
- * pembanding, dan baseline itu muncul beberapa baris di bawah sebagai selisih persen yang
- * terbaca seperti fakta. Tebakan yang keliru akan menaruh angka keliru di tempat yang paling
- * dipercaya, jadi ia diletakkan di sini - terlihat, dan bisa dikoreksi dalam satu klik tanpa
- * mengulang analisis.
- */
-function KategoriChip({ guess, category, onChange }) {
-  const ragu = !guess || guess.confidence === "rendah" || guess.basis === "bawaan";
-  const diubah = guess && category !== guess.category;
-
-  const dasar = !guess
-    ? null
-    : diubah
-      ? `Anda ganti dari tebakan sistem (${guess.category})`
-      : guess.basis === "bawaan"
-        ? "Sistem tidak menemukan petunjuk kategori - pilih sendiri agar pembandingnya tepat"
-        : `Ditebak dari ${guess.basis} · cocok pada ${guess.matched_reviews} dari ${guess.total_reviews} ulasan`;
-
-  return (
-    <div className={`kchip ${ragu && !diubah ? "kchip--ragu" : ""}`}>
-      <label className="kchip__label" htmlFor="kategori-banding">
-        Dibandingkan terhadap
-      </label>
-      <select
-        id="kategori-banding"
-        className="kchip__pilih"
-        value={category}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {CATEGORIES.map(([id, label]) => (
-          <option key={id} value={id}>
-            {label}
-          </option>
-        ))}
-      </select>
-      {dasar && <p className="kchip__dasar">{dasar}</p>}
-    </div>
-  );
-}
-
-export function SummaryHead({ result, category, onCategory }) {
+export function SummaryHead({ result, category }) {
   const { summary, ratings } = result;
   const rentang = rentangTanggal(summary.period_start, summary.period_end);
   const porsiKeluhan = summary.total_reviews
@@ -100,9 +61,12 @@ export function SummaryHead({ result, category, onCategory }) {
           sub={`${summary.reviews_with_complaint} dari ${summary.total_reviews}`}
         />
         <Angka nilai={rentang ?? "—"} nama="rentang tanggal" sub={rentang ? null : "tanpa tanggal"} />
+        <Angka
+          nilai={CATEGORY_LABEL[category] ?? category}
+          nama="kategori pembanding"
+          sub="dipilih di layar unggah"
+        />
       </div>
-
-      <KategoriChip guess={result.category_guess} category={category} onChange={onCategory} />
 
       <Narrative text={summary.executive_summary_text} className="ringkas__narasi" />
     </div>

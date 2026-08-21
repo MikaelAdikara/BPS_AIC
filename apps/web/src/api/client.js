@@ -83,11 +83,10 @@ export const api = {
  * bagian per produk melaporkan satu produk berisi seluruh ulasan, yang bukan informasi apa pun.
  * Lebih baik bagiannya tidak muncul sama sekali.
  *
- * `category` juga tidak lagi dikirim. Backend menebaknya dari isi ulasan lewat
- * `detect_category()` lalu menampilkan tebakannya di kepala laporan untuk dikoreksi -
- * lihat catatan di `lib/aspects.js` soal kenapa keempat isian profil dicabut.
+ * `category` datang dari pilihan pengguna di layar unggah. Ia satu-satunya keterangan yang
+ * benar-benar hanya diketahui pemilik toko dan tidak ada di dalam berkas mana pun.
  */
-export function parsePastedText(text) {
+export function parsePastedText(text, category = "other") {
   return text
     .split("\n")
     .map((line) => line.trim())
@@ -95,7 +94,7 @@ export function parsePastedText(text) {
     .map((line, index) => ({
       review_id: `paste_${index + 1}`,
       text: line,
-      category: "other",
+      category,
       source: "manual_upload",
     }));
 }
@@ -236,7 +235,7 @@ function toIsoOrNull(value) {
  * yang tidak dipetakan berarti `null`, bukan string kosong: `RawReview.product_name` menerima
  * `""` tanpa mengeluh, dan nilai itu lalu terbawa ke hilir sebagai nama produk yang "ada
  * tetapi kosong" - satu baris hantu di tabel per produk yang tidak bisa dijelaskan asalnya. */
-export function rowsToReviews(rows, mapping) {
+export function rowsToReviews(rows, mapping, category = "other") {
   const out = [];
   rows.forEach((row, index) => {
     const text = String(row[mapping.text] ?? "").trim();
@@ -255,7 +254,7 @@ export function rowsToReviews(rows, mapping) {
       product_name: mapping.product_name
         ? String(row[mapping.product_name] ?? "").trim() || null
         : null,
-      category: "other",
+      category,
       source: "manual_upload",
     });
   });

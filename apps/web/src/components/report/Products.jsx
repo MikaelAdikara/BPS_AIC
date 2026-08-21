@@ -44,11 +44,11 @@ function MiniSebaran({ ratings, total }) {
   if (!ratings?.length || !total) return <span className="meta">—</span>;
   const max = Math.max(...ratings, 1);
   return (
-    <span className="mini" aria-hidden="true">
+    <span className="ptabel__mini" aria-hidden="true">
       {ratings.map((n, i) => (
         <i
           key={i}
-          className={`mini__bar mini__bar--${i + 1}`}
+          className={`ptabel__mini-bar ptabel__mini-bar--${i + 1}`}
           style={{ height: `${Math.max((n / max) * 100, n ? 12 : 0)}%` }}
           title={`${i + 1} bintang: ${n} ulasan`}
         />

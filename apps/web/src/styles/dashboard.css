@@ -265,6 +265,88 @@
 }
 
 /* ================================================================================
+ * PEMILIH KATEGORI
+ *
+ * `fieldset` dipakai karena `<legend>` adalah satu-satunya cara memberi nama pada sekumpulan
+ * radio yang dibacakan pembaca layar sebagai nama grupnya. Dua gaya bawaan browser dinetralkan
+ * di sini: `margin-inline: 2px`, yang membuat fieldset 4px lebih sempit daripada setiap blok
+ * lain di kolom yang sama dan terbaca sebagai sesuatu yang tertempel belakangan, dan
+ * `min-inline-size: min-content`, yang menolak menyusut di bawah lebar pil terpanjangnya
+ * sehingga di layar sempit ia meluber keluar kolomnya alih-alih membungkus.
+ *
+ * `.grup` sengaja TIDAK digayakan sebagai kotak - pembungkusnya sudah `.panel`, dan kotak di
+ * dalam kotak membuat kedua tepinya berhenti menandai batas apa pun.
+ * ============================================================================= */
+
+.grup {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-inline-size: 0;
+}
+.grup__label {
+  display: block;
+  padding: 0;
+  font-size: var(--text-std);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-3);
+}
+.grup__hint {
+  margin-top: var(--space-3);
+  max-width: 62ch;
+}
+.grup__catatan {
+  margin-top: var(--space-2);
+  padding: 9px 12px;
+  border-radius: var(--r-sm);
+  background: var(--grey-surface);
+  border: 1px solid var(--grey-border);
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+
+.picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Radio sungguhan di baliknya, bukan tombol ber-`aria-checked`: navigasi panah antar pilihan,
+ * pengumuman "1 dari 5" oleh pembaca layar, dan pengiriman form semuanya sudah benar. */
+.pick {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  min-height: var(--tap-target-min);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--cream);
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--motion-state) var(--ease-out),
+    border-color var(--motion-state) var(--ease-out),
+    background var(--motion-state) var(--ease-out);
+}
+.pick:hover {
+  border-color: var(--blue);
+  color: var(--blue-dark);
+}
+.pick--on {
+  background: var(--blue-tint);
+  border-color: var(--blue-dark);
+  color: var(--blue-dark);
+}
+.pick:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ================================================================================
  * DROPZONE
  * ============================================================================= */
 
