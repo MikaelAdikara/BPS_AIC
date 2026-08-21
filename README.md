@@ -587,7 +587,7 @@ Ditulis apa adanya, bukan diperhalus. Daftar lengkap di [docs/LIMITATIONS.md](do
 ```
 apps/
   web/                 React + Vite - 4 screen                      [Fase 6]
-    public/brand/      aset logo hasil build - PNG bertransparansi
+    public/brand/      aset logo hasil build dari Logo.png di akar repositori
     src/content/       basis pengetahuan kotak FAQ + isi roadmap
     src/lib/           rute, tema, pencocokan FAQ (+ ujinya)
   api/                 FastAPI                                      [Fase 5]

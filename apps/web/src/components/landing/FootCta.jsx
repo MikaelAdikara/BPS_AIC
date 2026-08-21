@@ -5,9 +5,7 @@ export function FootCta({ onStart }) {
     <div className="foot">
       <div className="foot-card">
         <div className="glow" />
-        {/* Kartu ini gelap di kedua tema - gradiennya nilai tetap, bukan token - jadi varian
-            lockup yang dipakai juga tetap, bukan yang mengikuti tema. */}
-        <BrandLockup variant="onDark" height={42} />
+        <BrandLockup height={42} />
         <h2>
           Berhenti Menggulir Ulasan. <span className="accent">Mulai Perbaiki Bisnis Anda.</span>
         </h2>

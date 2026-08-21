@@ -1,30 +1,28 @@
 /** Identitas yang dipakai kedua cangkang: halaman pemasaran dan dashboard.
  *
  * Lambangnya gelembung percakapan yang bagian dalamnya sekaligus kaca pembesar - ulasan yang
- * dibaca, bukan sekadar dikumpulkan. Berkas sumbernya dua render JPEG di akar repositori;
- * `scripts/build_brand_assets.py` yang mengubahnya menjadi PNG bertransparansi di
- * `public/brand/`, lengkap dengan alasan tiap langkahnya.
+ * dibaca, bukan sekadar dikumpulkan. Berkas sumbernya `Logo.png` di akar repositori;
+ * `scripts/build_brand_assets.py` yang memotongnya menjadi lambang, lockup, dan favicon di
+ * `public/brand/`.
  *
  * Lockupnya bertumpuk - lambang di atas, kata "Ulasin" di bawahnya. Bentuk itu dipilih supaya
  * nama produk terbaca sebagai nama, bukan sebagai label yang menempel di samping ikon.
  *
  * Kata "Ulasin" pada lockup nav sengaja tetap TEKS, bukan bagian dari gambar: warnanya harus
- * ikut berganti bersama tema, dan biru tua pada berkas lockup hanya 2,6:1 di atas kanvas
- * gelap. Berkas lockup dipakai di tempat yang latarnya sudah pasti - lihat `BrandLockup`.
+ * ikut berganti bersama tema, dan `--ink` bergerak jauh lebih lebar antar tema daripada biru
+ * pada berkas lockup.
  */
 
 /** Lambang yang berdiri sendiri - dipakai di tempat yang sudah menyebut nama produknya.
  *
- * `mark.png` berukuran 256px dan melayani seluruh pemakaian di bawah 128px; `mark-512.png`
- * hanya diminta oleh layar rapat-piksel lewat `srcSet`, jadi kunjungan biasa tidak menanggung
- * 300 KB hanya untuk ikon 30px. */
+ * Satu berkas 160px melayani seluruh pemakaian: ukuran terbesarnya di layar 32px, jadi 160px
+ * masih tajam sampai kerapatan piksel 5x. Versi sebelumnya menyertakan `mark-512.png` lewat
+ * `srcSet` dan itu 300 KB untuk ikon 30px. */
 export function BrandMark({ size = 30, className = "" }) {
   return (
     <img
       className={`brand__mark ${className}`}
       src="/brand/mark.png"
-      srcSet="/brand/mark.png 256w, /brand/mark-512.png 512w"
-      sizes={`${size}px`}
       width={size}
       height={size}
       alt=""
@@ -36,16 +34,14 @@ export function BrandMark({ size = 30, className = "" }) {
 
 /** Lambang + kata sebagai satu gambar utuh.
  *
- * Dipakai HANYA di permukaan yang warnanya tidak ikut berganti bersama tema - kartu penutup
- * halaman pemasaran selalu gelap di kedua tema, jadi varian terangnya yang selalu benar di
- * sana. `variant` ada supaya pemanggil menyatakan latar tempat ia dipasang, bukan menebaknya.
- */
-export function BrandLockup({ variant = "onLight", height = 30 }) {
-  const src = variant === "onDark" ? "/brand/lockup-dark.png" : "/brand/lockup.png";
+ * Satu berkas untuk kedua tema. Kata "Ulasin" pada logo bergradien biru terang - piksel
+ * paling gelapnya 3,1:1 di atas kanvas gelap, rata-ratanya 5,5:1 - jadi tidak ada lagi
+ * varian gelap yang mewarnai ulang hurufnya seperti pada logo lama. */
+export function BrandLockup({ height = 30 }) {
   return (
     <img
       className="brand__lockup"
-      src={src}
+      src="/brand/lockup.png"
       height={height}
       style={{ height }}
       alt="Ulasin"

@@ -58,8 +58,7 @@ yang produk ini lakukan terhadap suara itu.
 > Argumen itu benar tentang balon polos, tetapi tidak berlaku begitu balonnya digabung dengan
 > lensa: yang membedakan bukan bentuk dasarnya, melainkan apa yang ditaruh di dalamnya. Batang
 > menaik juga punya masalahnya sendiri - ia lambang analitik generik, dan tidak menyebut ulasan
-> sama sekali. Nama filenya, `Logo only.jpeg` dan `Logo with Name.jpeg` di akar repositori,
-> adalah sumber aslinya.
+> sama sekali. Berkas sumbernya `Logo.png` di akar repositori.
 
 **Lockup-nya bertumpuk**: lambang di atas, kata "Ulasin" di bawahnya, rata tengah. Bentuk ini
 yang dipakai di navigasi kedua permukaan. Varian sebaris (`layout="row"`) tersedia untuk tempat
@@ -67,27 +66,40 @@ yang tingginya benar-benar sempit, dan hanya untuk itu.
 
 ### Aset dan mengapa ada tahap pembangunan
 
-Logonya diterima sebagai dua render JPEG 2048x2048 di atas latar putih bergradien - bentuk yang
-tidak bisa dipakai apa adanya. Latar putihnya menjadi kotak terang begitu tema gelap menyala,
-dan 1,4 MB terlalu berat untuk ikon 30px di bilah navigasi.
+Sumbernya satu berkas: `Logo.png` 1000x478 di akar repositori, sudah bertransparansi, lambang
+di kiri dan kata "Ulasin" di kanan. [`scripts/build_brand_assets.py`](../scripts/build_brand_assets.py)
+memotongnya menjadi aset di `apps/web/public/brand/`.
 
-[`scripts/build_brand_assets.py`](../scripts/build_brand_assets.py) mengubahnya menjadi PNG
-bertransparansi di `apps/web/public/brand/`. Cara memisahkan logo dari latarnya dijelaskan
-lengkap di kepala berkas itu; ringkasnya, pemisahannya memakai **rona, bukan kecerahan** -
-bayangan jatuh sama gelapnya dengan bagian logo yang paling pucat, jadi tidak ada ambang
-kecerahan yang memisahkan keduanya, sementara rona memisahkannya telak.
+Tiga keputusan di skrip itu yang perlu diketahui sebelum menggantinya:
+
+- **Bayangan jatuhnya dibuang.** Bayangannya asli - gelap dan semi-transparan di kanal alpha,
+  jadi sebenarnya ia menumpuk benar di atas latar apa pun. Tetap dibuang karena pada ikon 30px
+  halo selebar 30px memakan sepertiga bitmapnya, dan karena `.brand__mark` memasang
+  `drop-shadow` sendiri yang ikut terangkat saat disentuh - bayangan panggang tidak bisa.
+- **Pemotongan lambang dari kata memakai komponen terhubung**, bukan koordinat x. Lambang
+  selalu pulau terbesar; huruf-hurufnya pulau kecil di sebelahnya. Koordinat akan salah begitu
+  jarak lambang ke kata digeser di berkas sumbernya.
+- **Tidak ada varian gelap.** Kata "Ulasin" pada logo ini bergradien biru terang; piksel
+  paling gelapnya 3,1:1 di atas kanvas `#101218` - di atas ambang 3:1 untuk elemen grafis -
+  dan rata-ratanya 5,5:1. Satu berkas lockup melayani kedua tema.
 
 | Berkas | Dipakai di |
 | --- | --- |
-| `mark.png` (256px), `mark-512.png` | Lambang di nav, dashboard, dan avatar kotak FAQ |
-| `lockup.png` | Lockup utuh di atas permukaan terang |
-| `lockup-dark.png` | Sama, dengan kata "Ulasin" dicerahkan ke `#A8C1FF` - biru tua aslinya hanya 2,6:1 di atas kanvas gelap |
+| `mark.png` (160px) | Lambang di nav, dashboard, dan avatar kotak FAQ |
+| `lockup.png` | Lockup utuh, kedua tema |
 | `favicon-32.png`, `favicon-180.png` | Ikon tab dan ikon layar utama |
 | `og.png` | Kartu pratinjau tautan 1200x630 |
 
+> **Yang hilang dari versi sebelumnya, dan kenapa.** Logo lama datang sebagai dua render JPEG
+> 2048x2048 di atas latar putih bergradien, dan skripnya menghabiskan seratus baris untuk
+> mengupas latar itu lewat rona - kecerahan tidak bisa dipakai karena bayangan jatuh sama
+> gelapnya dengan bagian logo yang paling pucat. Seluruh tahap itu hilang bersama sumbernya.
+> Ikut hilang: `mark-512.png` (300 KB untuk ikon 30px; ukuran terbesar yang benar-benar
+> dipakai di layar cuma 32px) dan `lockup-dark.png` (lihat butir ketiga di atas).
+
 Kata "Ulasin" di navigasi sengaja tetap **teks**, bukan bagian dari gambar: warnanya harus ikut
-berganti bersama tema. Berkas lockup hanya dipakai di tempat yang latarnya sudah pasti - kartu
-penutup halaman pemasaran, yang gelap di kedua tema.
+berganti bersama tema, dan `--ink` bergerak jauh lebih lebar antar tema daripada biru pada
+berkas lockup.
 
 Sumber tunggal pemakaiannya [`apps/web/src/components/Brand.jsx`](../apps/web/src/components/Brand.jsx).
 
