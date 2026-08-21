@@ -829,6 +829,11 @@
   right: -80px;
   pointer-events: none;
 }
+.foot-card .brand__lockup {
+  position: relative;
+  display: block;
+  margin: 0 auto var(--space-5);
+}
 .foot-card h2 {
   position: relative;
   font-size: clamp(24px, 3vw, 34px);
@@ -903,5 +908,649 @@
     transform: scale(0.92);
     transform-origin: top center;
     margin-bottom: -40px;
+  }
+}
+
+/* ================================================================================
+ * KOTAK FAQ MENGAMBANG
+ *
+ * Hidup di atas seluruh halaman dengan `position: fixed`, jadi seluruh ukurannya dipatok
+ * relatif terhadap viewport, bukan terhadap induknya. Di layar sempit ia menjadi lembar
+ * yang hampir memenuhi layar - panel 380px yang mengambang di ponsel menyisakan tepi
+ * selebar ibu jari yang mustahil dipakai apa pun.
+ * ============================================================================= */
+
+.faqbot {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* ---------- Tombol pemicu ---------- */
+
+.faqbot__pemicu {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: var(--tap-target-min);
+  padding: 11px 20px 11px 17px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--grad-blue);
+  color: #f7faff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-blue), var(--shadow);
+  transition: transform var(--motion-state) var(--ease-out),
+    filter var(--motion-state) var(--ease-out);
+}
+.faqbot__pemicu:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+}
+.faqbot__pemicu--buka .faqbot__pemicu-teks {
+  display: none;
+}
+.faqbot__pemicu--buka {
+  padding: 11px 15px;
+}
+
+/* ---------- Panel ---------- */
+
+.faqbot__panel {
+  width: min(384px, calc(100vw - var(--gutter) * 2));
+  /* Tinggi mengikuti isi sampai batas viewport, jadi percakapan pendek tidak menyisakan
+     kolom kosong menjulang dan percakapan panjang tetap punya ujung. */
+  max-height: min(560px, calc(100vh - 130px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--r-frame);
+  border: 1px solid var(--glass-edge);
+  background: var(--glass);
+  backdrop-filter: var(--blur-float);
+  -webkit-backdrop-filter: var(--blur-float);
+  box-shadow: var(--shadow-lg);
+  animation: faqbot-masuk var(--motion-panel) var(--ease-emphasis) both;
+}
+@keyframes faqbot-masuk {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+.faqbot__head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex: none;
+  padding: 15px 15px 13px 17px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
+}
+:root[data-theme="dark"] .faqbot__head {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent);
+}
+.faqbot__head-teks {
+  flex: 1;
+  min-width: 0;
+}
+.faqbot__head h2 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.faqbot__head p {
+  font-size: var(--text-sm);
+  color: var(--muted);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+.faqbot__tutup {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background var(--motion-state) var(--ease-out),
+    color var(--motion-state) var(--ease-out);
+}
+.faqbot__tutup:hover {
+  background: var(--grey-surface);
+  color: var(--ink);
+}
+
+/* ---------- Percakapan ---------- */
+
+.faqbot__thread {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+/* Gelembung masuk dengan naik tipis. Inilah satu-satunya gerak di kolom percakapan: guliran
+ * ke pesan baru sengaja dibuat seketika (lihat FaqBot.jsx), jadi tanpa animasi ini pesan baru
+ * muncul tanpa satu pun tanda bahwa ada yang bertambah. Delapan piksel sudah cukup - lebih
+ * jauh dari itu, mata mengikuti gerakannya alih-alih membaca kalimatnya. */
+@keyframes faqbot-pesan-masuk {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.faqbot__baris,
+.faqbot__bubble--user {
+  animation: faqbot-pesan-masuk 220ms var(--ease-out) both;
+}
+.faqbot__baris {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.faqbot__ava {
+  flex: none;
+  margin-top: 3px;
+  filter: none; /* drop-shadow lambang merek terlalu berat pada ukuran sekecil ini */
+}
+.faqbot__bubble {
+  font-size: 13px;
+  line-height: 1.6;
+  border-radius: var(--r-md);
+  padding: 10px 13px;
+  max-width: 87%;
+}
+.faqbot__bubble p + p {
+  margin-top: 8px;
+}
+.faqbot__bubble--user {
+  align-self: flex-end;
+  background: var(--grad-blue);
+  color: #f7faff;
+  border-bottom-right-radius: var(--r-sm);
+}
+.faqbot__bubble--bot {
+  background: var(--white);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-bottom-left-radius: var(--r-sm);
+}
+.faqbot__judul {
+  display: block;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: 6px;
+}
+.faqbot__aksi {
+  margin-top: 11px;
+  font-size: 12.5px;
+  min-height: 38px;
+  padding: 7px 15px;
+}
+
+/* ---------- Usulan lanjutan ---------- */
+
+.faqbot__usul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.faqbot__usul-label {
+  width: 100%;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.faqbot__chip {
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: left;
+  padding: 7px 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--blue-tint);
+  background: var(--blue-tint);
+  color: var(--blue-dark);
+  cursor: pointer;
+  transition: background var(--motion-state) var(--ease-out),
+    border-color var(--motion-state) var(--ease-out);
+}
+.faqbot__chip:hover {
+  background: var(--white);
+  border-color: var(--blue);
+}
+
+/* ---------- Indikator mencari ---------- */
+
+.faqbot__ketik {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 14px 15px;
+}
+.faqbot__ketik i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: faqbot-denyut 1s var(--ease-out) infinite;
+}
+.faqbot__ketik i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.faqbot__ketik i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes faqbot-denyut {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* ---------- Kolom ketik ---------- */
+
+.faqbot__form {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  border-top: 1px solid var(--line);
+  background: var(--glass);
+}
+.faqbot__form input {
+  flex: 1;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  padding: 10px 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: var(--cream);
+}
+.faqbot__form input::placeholder {
+  color: var(--muted);
+}
+.faqbot__form .btn {
+  flex: none;
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+}
+
+@media (max-width: 560px) {
+  .faqbot {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    align-items: stretch;
+  }
+  .faqbot__panel {
+    width: auto;
+    max-height: calc(100vh - 110px);
+  }
+  /* Label tombol dilepas di layar sempit. Berlabel, tombolnya 182px - hampir separuh lebar
+     ponsel - dan ia menutupi isi halaman sepanjang waktu kunjungan. Ikonnya sendiri sudah
+     dikenali, dan `aria-label` di JSX menjaga namanya tetap terbaca pembaca layar. */
+  .faqbot__pemicu {
+    align-self: flex-end;
+    padding: 11px 15px;
+  }
+  .faqbot__pemicu-teks {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqbot__pemicu:hover {
+    transform: none;
+  }
+  .faqbot__ketik i {
+    animation: none;
+    opacity: 0.55;
+  }
+}
+
+/* ================================================================================
+ * NILAI BISNIS - besaran masalah, celah harga, dan ongkos
+ *
+ * Bagian tengahnya satu penggaris harga logaritmik. Di layar lebar ia mendatar; di layar
+ * sempit ia MENEGAK, karena tiga label harga berdampingan pada lebar 375px pasti bertabrakan.
+ * Keduanya memakai markup yang sama: komponennya hanya menuliskan `--pos`, dan CSS di sini
+ * yang memutuskan apakah angka itu menjadi `left` atau `top`.
+ * ============================================================================= */
+
+.value {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--space-18) var(--gutter) 88px;
+}
+.value__intro {
+  max-width: 660px;
+}
+.value__intro h2 {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: var(--tracking-h2);
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.value__intro p {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.value__intro b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---------- Penggaris ---------- */
+
+.rail {
+  margin: 56px 0 0;
+}
+.rail__cap {
+  font-size: var(--text-std);
+  color: var(--ink-soft);
+  margin-bottom: 30px;
+}
+.rail__cap span {
+  color: var(--muted);
+}
+.rail__plot {
+  position: relative;
+}
+.rail__line {
+  position: relative;
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--line);
+}
+
+/* Garis dekade. Tanpanya skala logaritmik tidak dapat dibaca - pembaca tidak punya cara tahu
+   bahwa jarak yang sama di sebelah kiri dan kanan berarti kelipatan yang sama, bukan selisih
+   yang sama. */
+.rail__tick {
+  position: absolute;
+  left: var(--pos);
+  top: 0;
+}
+.rail__tick i {
+  position: absolute;
+  left: 0;
+  top: -5px;
+  width: 1px;
+  height: 13px;
+  background: var(--line);
+}
+.rail__tick em {
+  position: absolute;
+  left: 0;
+  top: 13px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-style: normal;
+  color: var(--muted);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.rail__zone {
+  position: absolute;
+  left: var(--pos);
+  width: var(--span);
+  top: 0;
+  height: 3px;
+  border-radius: var(--r-pill);
+}
+.rail__zone--kami {
+  background: var(--grad-blue);
+}
+/* Celahnya digambar sebagai garis putus-putus, bukan blok berwarna: yang harus terbaca adalah
+   ketiadaan, dan blok pekat justru terbaca sebagai sesuatu yang menempati ruang itu. */
+.rail__zone--celah {
+  height: 0;
+  top: 1px;
+  border-top: 2px dashed var(--muted);
+  opacity: 0.55;
+  border-radius: 0;
+}
+
+.rail__label {
+  position: absolute;
+  left: var(--pos);
+  top: calc(44px + var(--tier, 0) * 126px);
+  width: 172px;
+  padding-top: 12px;
+  border-top: 2px solid var(--line);
+}
+/* Garis penghubung untuk label yang diturunkan satu tingkat: tanpanya label itu melayang dan
+   pembaca harus menebak titik mana di penggaris yang dimaksudnya. */
+.rail__label[data-tier="1"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -126px;
+  width: 2px;
+  height: 126px;
+  background: var(--line);
+}
+.rail__label b {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: var(--tracking-tight);
+}
+.rail__label span {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.rail__label small {
+  display: block;
+  margin-top: 7px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.rail__label--kami {
+  border-top-color: var(--blue);
+}
+.rail__label--kami b {
+  color: var(--blue-dark);
+}
+.rail__label--kami span {
+  color: var(--blue-dark);
+  font-weight: 600;
+}
+.rail__label--celah {
+  width: 236px;
+  border-top-style: dashed;
+  border-top-color: var(--muted);
+}
+.rail__label--celah b {
+  color: var(--ink);
+}
+.rail__label--celah span {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin-top: 5px;
+}
+/* Label paling kanan menyentuh 100%, jadi ia ditarik masuk supaya tidak keluar dari halaman. */
+.rail__label--lawan:last-child {
+  transform: translateX(-100%);
+  text-align: right;
+}
+
+/* Tinggi kolom penggaris dipesan lewat padding pada wadahnya, karena seluruh labelnya
+   absolut dan tidak menyumbang tinggi apa pun. */
+.rail__plot {
+  padding-bottom: 302px;
+}
+
+/* ---------- Ongkos ---------- */
+
+.value__biaya {
+  /* Label terbawah penggaris berhenti 11px di atas blok ini tanpa jarak tambahan - cukup untuk
+     tidak bertabrakan, tidak cukup untuk terbaca sebagai bagian yang berbeda. */
+  margin-top: 64px;
+  max-width: 660px;
+}
+.value__biaya h3 {
+  font-size: var(--text-title);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: 12px;
+}
+.value__biaya > p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.value__hitung {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 22px 0 14px;
+  padding: 20px 22px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+.value__hitung span {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.value__hitung i {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1;
+}
+.value__hitung b {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  letter-spacing: var(--tracking-tight);
+}
+/* Ditulis dengan dua kelas, bukan satu: `.value__biaya > p` di atas berbobot lebih tinggi
+   daripada `.value__nota` sendirian, dan catatan kakinya diam-diam tampil sebesar teks isi. */
+.value__biaya .value__nota {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- Penggaris menegak ---------- */
+
+@media (max-width: 860px) {
+  /* Label terakhir duduk di ujung bawah penggaris dan menjulur ke bawahnya, jadi ruang di
+     bawah penggaris tetap harus dipesan - terukur menabrak blok ongkos sejauh 94px tanpa ini. */
+  .rail__plot {
+    padding-bottom: 120px;
+    padding-left: 22px;
+  }
+  .rail__line {
+    width: 3px;
+    height: 660px;
+  }
+  .rail__tick {
+    left: 0;
+    top: var(--pos);
+  }
+  .rail__tick i {
+    left: -5px;
+    top: 0;
+    width: 13px;
+    height: 1px;
+  }
+  .rail__tick em {
+    left: 15px;
+    top: 0;
+    transform: translateY(-50%);
+  }
+  .rail__zone {
+    left: 0;
+    top: var(--pos);
+    width: 3px;
+    height: var(--span);
+  }
+  .rail__zone--celah {
+    width: 0;
+    left: 1px;
+    height: var(--span);
+    border-top: none;
+    border-left: 2px dashed var(--muted);
+  }
+  /* Penggaris menegak sudah memisahkan label secara vertikal, jadi tingkat kedua dimatikan -
+     memakainya di sini justru akan menggeser label menjauh dari titiknya. */
+  .rail__label[data-tier="1"]::before {
+    display: none;
+  }
+  .rail__label,
+  .rail__label--celah {
+    left: 64px;
+    top: var(--pos);
+    width: min(300px, calc(100vw - var(--gutter) * 2 - 86px));
+    padding-top: 0;
+    padding-left: 13px;
+    border-top: none;
+    border-left: 2px solid var(--line);
+  }
+  .rail__label--kami {
+    border-left-color: var(--blue);
+  }
+  .rail__label--celah {
+    border-left-style: dashed;
+    border-left-color: var(--muted);
+  }
+  .rail__label--lawan:last-child {
+    transform: none;
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .rail__line {
+    height: 760px;
   }
 }

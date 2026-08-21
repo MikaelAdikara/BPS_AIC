@@ -6,6 +6,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { FaqBot } from "./components/landing/FaqBot.jsx";
 import { DashboardScreen } from "./screens/DashboardScreen.jsx";
 import { LandingScreen } from "./screens/LandingScreen.jsx";
 import { useRoute, useTheme } from "./lib/hooks.js";
@@ -46,15 +47,31 @@ export default function App() {
   }, [route, direction]);
 
   return (
-    <div className="route route--in" ref={frame} data-dir={direction}>
-      <div hidden={route !== "landing"}>
-        <LandingScreen theme={theme} onToggleTheme={toggleTheme} />
-      </div>
-      {dashboardPernahDibuka && (
-        <div hidden={route !== "dashboard"}>
-          <DashboardScreen theme={theme} onToggleTheme={toggleTheme} />
+    <>
+      <div className="route route--in" ref={frame} data-dir={direction}>
+        <div hidden={route !== "landing"}>
+          <LandingScreen theme={theme} onToggleTheme={toggleTheme} />
         </div>
-      )}
-    </div>
+        {dashboardPernahDibuka && (
+          <div hidden={route !== "dashboard"}>
+            <DashboardScreen theme={theme} onToggleTheme={toggleTheme} />
+          </div>
+        )}
+      </div>
+
+      {/* Kotak FAQ berada DI LUAR `.route`, bukan di dalam LandingScreen tempat isinya
+        * sebenarnya berasal.
+        *
+        * Alasannya aturan containing block: elemen yang sedang menganimasikan `transform`
+        * atau `opacity` menjadi acuan posisi bagi keturunannya yang `position: fixed`.
+        * `.route--in` menganimasikan keduanya selama 280ms tiap kali permukaan berganti -
+        * dan selama jendela itu, tombol yang seharusnya menempel di sudut viewport justru
+        * menempel di ujung bawah halaman, lalu melompat ke tempatnya begitu animasinya
+        * usai. Dipasang di sini, ia tidak pernah punya leluhur yang beranimasi.
+        *
+        * Ia dipasang-lepas mengikuti rute, bukan disembunyikan seperti dashboard: yang
+        * hilang saat dilepas cuma percakapan FAQ yang memang tidak sayang ditinggalkan. */}
+      {route === "landing" && <FaqBot />}
+    </>
   );
 }

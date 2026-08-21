@@ -2,7 +2,15 @@
  *  ke satu tempat: dashboard. Pemisahan itu yang membuat halaman ini boleh panjang dan
  *  bersuara, sementara dashboard tetap pendek dan diam. */
 
-import { Features, FootCta, Hero, HowItWorks, MarketplaceBand, SiteNav } from "../components/landing/index.js";
+import {
+  Features,
+  FootCta,
+  Hero,
+  HowItWorks,
+  MarketplaceBand,
+  SiteNav,
+  Value,
+} from "../components/landing/index.js";
 import { goTo } from "../lib/hooks.js";
 
 export function LandingScreen({ theme, onToggleTheme }) {
@@ -15,6 +23,7 @@ export function LandingScreen({ theme, onToggleTheme }) {
       <MarketplaceBand />
       <HowItWorks />
       <Features />
+      <Value />
       <FootCta onStart={start} />
     </>
   );
