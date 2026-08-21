@@ -55,6 +55,19 @@ def _normalize_text(raw_text: str | None) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def _normalize_product(raw_name: str | None) -> str | None:
+    """Rapikan nama produk dengan perlakuan yang sama seperti teks ulasan.
+
+    Entitas HTML bukan kasus teoretis di sini - ekspor Shopee pada data contoh membawa nama
+    seperti `WAKAI SM01618 TEIKYU Navy Men &#40;WAK0002406.C4913&#41;`. Tanpa dipulihkan,
+    nama itu muncul apa adanya sebagai judul baris di tabel per produk, dan yang lebih buruk:
+    dua ekspor dari toko yang sama dengan tingkat pelolosan entitas berbeda akan terhitung
+    sebagai dua produk berbeda, memecah angkanya tanpa sebab yang terlihat.
+    """
+    name = html.unescape(raw_name or "").encode("utf-8", "ignore").decode("utf-8")
+    return re.sub(r"\s+", " ", name).strip() or None
+
+
 def preprocess_reviews(raw: list[RawReview], now: datetime | None = None) -> PreprocessResult:
     """Validasi, redaksi PII, dan normalisasi batch ulasan mentah.
 
@@ -104,6 +117,8 @@ def preprocess_reviews(raw: list[RawReview], now: datetime | None = None) -> Pre
                 has_image=bool(item.image_paths),
                 image_refs=list(item.image_paths),
                 timestamp=item.timestamp,
+                product_id=(item.product_id or None),
+                product_name=_normalize_product(item.product_name),
             )
         )
 

@@ -54,6 +54,44 @@ export const CATEGORIES = [
   ["other", "Lainnya"],
 ];
 
+export const CATEGORY_LABEL = Object.fromEntries(CATEGORIES);
+
+export const TREND_LABEL = {
+  meningkat: "keluhan naik",
+  menurun: "keluhan turun",
+  stabil: "stabil",
+  tidak_cukup_data: "data belum cukup",
+};
+
+export const SEVERITY_LABEL = { tinggi: "berat", sedang: "sedang", rendah: "ringan" };
+
+export const CONFIDENCE_LABEL = { tinggi: "tinggi", sedang: "sedang", rendah: "rendah" };
+
 export const aspectLabel = (id) => ASPECT_LABEL[id] ?? id;
 
 export const pct = (value) => `${Math.round(value * 100)}%`;
+
+/** Aspek dengan huruf pertama kapital - untuk judul baris, bukan untuk di tengah kalimat. */
+export const aspectTitle = (id) => {
+  const label = aspectLabel(id);
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
+
+/** Angka desimal gaya Indonesia: koma, bukan titik. */
+export const desimal = (value, digits = 1) =>
+  value == null ? "—" : value.toLocaleString("id-ID", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+const BULAN_PENDEK = [
+  "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+  "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
+];
+
+/** "Okt 2025 – Agu 2026", atau "Agu 2026" kalau keduanya jatuh di bulan yang sama. */
+export function rentangTanggal(mulai, selesai) {
+  if (!mulai || !selesai) return null;
+  const a = new Date(mulai);
+  const b = new Date(selesai);
+  if (Number.isNaN(a.getTime()) || Number.isNaN(b.getTime())) return null;
+  const tulis = (d) => `${BULAN_PENDEK[d.getMonth()]} ${d.getFullYear()}`;
+  return tulis(a) === tulis(b) ? tulis(a) : `${tulis(a)} – ${tulis(b)}`;
+}

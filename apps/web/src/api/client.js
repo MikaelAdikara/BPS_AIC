@@ -75,21 +75,19 @@ export const api = {
   },
 };
 
-/** Nama produk dari profil toko, dirapikan menjadi nilai `product_name` yang sah.
+/** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan.
  *
- * `RawReview.product_name` bertipe `str | None` dan menerima `""` tanpa mengeluh - justru itu
- * masalahnya. String kosong lolos validasi lalu terbawa ke hilir sebagai nama produk yang
- * "ada tetapi kosong", dan tempat ia muncul kembali adalah kutipan bukti. Kolom yang dibiarkan
- * kosong pengguna berarti TIDAK ADA nama produk, dan satu-satunya cara mengatakan itu di
- * kontrak datanya adalah `null`. */
-function namaProduk(product) {
-  const bersih = String(product ?? "").trim();
-  return bersih || null;
-}
-
-/** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan. */
-export function parsePastedText(text, category = "other", product = "") {
-  const nama = namaProduk(product);
+ * Tidak ada `product_name` di sini, dan itu keadaan yang benar: teks yang ditempel tidak
+ * membawa keterangan produk apa pun. Sebelumnya nilainya diambil dari isian "Produk yang
+ * dianalisis" di layar unggah - satu nama yang sama ditempelkan ke SETIAP baris - dan hasilnya
+ * bagian per produk melaporkan satu produk berisi seluruh ulasan, yang bukan informasi apa pun.
+ * Lebih baik bagiannya tidak muncul sama sekali.
+ *
+ * `category` juga tidak lagi dikirim. Backend menebaknya dari isi ulasan lewat
+ * `detect_category()` lalu menampilkan tebakannya di kepala laporan untuk dikoreksi -
+ * lihat catatan di `lib/aspects.js` soal kenapa keempat isian profil dicabut.
+ */
+export function parsePastedText(text) {
   return text
     .split("\n")
     .map((line) => line.trim())
@@ -97,8 +95,7 @@ export function parsePastedText(text, category = "other", product = "") {
     .map((line, index) => ({
       review_id: `paste_${index + 1}`,
       text: line,
-      product_name: nama,
-      category,
+      category: "other",
       source: "manual_upload",
     }));
 }
@@ -235,12 +232,11 @@ function toIsoOrNull(value) {
 
 /** Ubah baris berkas menjadi RawReview memakai pemetaan kolom yang dipilih pengguna.
  *
- * `product` dari profil toko cuma menjadi CADANGAN: kalau berkasnya sendiri punya kolom nama
- * produk, kolom itu yang menang. Ekspor marketplace lazimnya memuat banyak produk sekaligus,
- * dan menimpanya dengan satu nama yang diketik di layar unggah membuat setiap kutipan bukti
- * menyebut produk yang salah. */
-export function rowsToReviews(rows, mapping, category = "other", product = "") {
-  const cadangan = namaProduk(product);
+ * Nama produk datang dari BERKAS, satu-satunya tempat yang benar-benar mengetahuinya. Kolom
+ * yang tidak dipetakan berarti `null`, bukan string kosong: `RawReview.product_name` menerima
+ * `""` tanpa mengeluh, dan nilai itu lalu terbawa ke hilir sebagai nama produk yang "ada
+ * tetapi kosong" - satu baris hantu di tabel per produk yang tidak bisa dijelaskan asalnya. */
+export function rowsToReviews(rows, mapping) {
   const out = [];
   rows.forEach((row, index) => {
     const text = String(row[mapping.text] ?? "").trim();
@@ -256,10 +252,10 @@ export function rowsToReviews(rows, mapping, category = "other", product = "") {
       text,
       rating,
       timestamp: mapping.timestamp ? toIsoOrNull(row[mapping.timestamp]) : null,
-      product_name:
-        (mapping.product_name ? String(row[mapping.product_name] ?? "").trim() || null : null) ??
-        cadangan,
-      category,
+      product_name: mapping.product_name
+        ? String(row[mapping.product_name] ?? "").trim() || null
+        : null,
+      category: "other",
       source: "manual_upload",
     });
   });

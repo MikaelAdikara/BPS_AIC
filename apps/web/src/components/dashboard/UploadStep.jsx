@@ -1,15 +1,19 @@
-/** Langkah pertama dashboard: menyebutkan konteks toko, memasukkan ulasan, lalu menganalisis.
+/** Langkah pertama dashboard: memasukkan ulasan, lalu menganalisis. Itu saja.
  *
- * Dua blok, dalam urutan yang orang pikirkan: siapa saya dan apa yang saya cari (ProfileStep),
- * lalu dari mana ulasannya datang (bilah tab dan panelnya). Sebelumnya kategori duduk di
- * antara bilah tab dan panel milik tab itu; catatan lengkap soal kenapa itu dipindah ada di
- * kepala `ProfileStep.jsx`.
+ * Layar ini pernah dibuka oleh sebuah formulir profil - nama toko, produk yang dianalisis,
+ * kategori, dan tiga aspek "yang paling ingin Anda tahu". Keempatnya dicabut, dan alasan
+ * masing-masing tercatat di kepala `lib/aspects.js`. Yang berlaku untuk keempatnya sekaligus:
+ * pertanyaan itu diajukan tepat pada saat pengguna paling sedikit tahu - sebelum ia melihat
+ * satu pun hasil - dan tiga dari empat jawabannya sudah ada di dalam berkas yang sedang ia
+ * unggah pada detik yang sama.
+ *
+ * Yang tersisa adalah satu pertanyaan: dari mana ulasannya datang. Jalan tercepat dari membuka
+ * halaman ke melihat hasil sekarang benar-benar dua langkah - tempel, lalu tekan.
  */
 
 import { useId } from "react";
 
 import { FileInput, PasteInput, ScreenshotInput } from "./inputs.jsx";
-import { ProfileStep } from "./ProfileStep.jsx";
 
 const TABS = [
   ["paste", "Tempel teks"],
@@ -22,8 +26,6 @@ export function UploadStep({
   error,
   tab,
   onTab,
-  profile,
-  onProfile,
   paste,
   onPaste,
   file,
@@ -58,8 +60,6 @@ export function UploadStep({
           {error.action && <div style={{ marginTop: 4 }}>{error.action}</div>}
         </div>
       )}
-
-      <ProfileStep profile={profile} onChange={onProfile} />
 
       <h2 className="sec-title sec-title--rapat">Ulasan yang mau dianalisis</h2>
 
@@ -129,7 +129,16 @@ export function UploadStep({
         Coba dengan data contoh
       </button>
 
+      {/* Menjelaskan apa yang dibaca sistem dari berkasnya menggantikan pertanyaan yang dulu
+          diajukan di sini. Bedanya: yang ini keterangan, bukan pekerjaan - pengguna boleh
+          melewatinya begitu saja dan tetap sampai ke hasil yang sama. */}
       <p className="meta" style={{ marginTop: 20 }}>
+        Kolom produk, rating, dan tanggal terbaca otomatis kalau ada di berkas Anda - masing-masing
+        membuka bagiannya sendiri di laporan. Kategori toko ditebak dari isi ulasan, dan tebakannya
+        bisa Anda ganti di kepala laporan.
+      </p>
+
+      <p className="meta" style={{ marginTop: 10 }}>
         Data Anda hanya diproses selama sesi ini dan tidak disimpan permanen. Nomor telepon dan data
         pribadi yang terdeteksi disamarkan sebelum dianalisis. Gambar yang Anda unggah dibaca
         teksnya lalu dibuang; menyimpulkan kondisi barang dari foto belum didukung.

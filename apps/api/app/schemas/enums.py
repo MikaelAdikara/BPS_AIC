@@ -129,6 +129,23 @@ class AnalysisMode(str, Enum):
     FALLBACK = "fallback"
 
 
+class Granularity(str, Enum):
+    """Lebar satu ember pada riwayat waktu.
+
+    Dipilih dari rentang tanggal data, bukan ditetapkan: berkas sepuluh bulan dibaca per bulan,
+    berkas tiga minggu dibaca per minggu. Satu granularitas tetap akan salah pada salah satu
+    dari keduanya - ember bulanan atas data tiga minggu menghasilkan satu batang, yang bukan
+    riwayat sama sekali.
+
+    `TIDAK_CUKUP` berarti rentangnya terlalu pendek untuk dibelah menjadi periode yang dapat
+    dibandingkan. Itu keadaan yang dilaporkan apa adanya, bukan dipaksakan jadi grafik.
+    """
+
+    BULANAN = "bulanan"
+    MINGGUAN = "mingguan"
+    TIDAK_CUKUP = "tidak_cukup"
+
+
 class ErrorCode(str, Enum):
     INVALID_FILE = "INVALID_FILE"
     SCHEMA_MISMATCH = "SCHEMA_MISMATCH"

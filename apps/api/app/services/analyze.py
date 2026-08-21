@@ -23,6 +23,7 @@ from ..schemas import (
     AnalysisResult,
     AnalysisSummary,
     Category,
+    CategoryGuess,
     RawReview,
 )
 from ..tools import (
@@ -31,14 +32,18 @@ from ..tools import (
     QnAStore,
     answer_question,
     build_action_card,
+    build_period_history,
+    build_rating_breakdown,
     calculate_aspect_statistics,
     calculate_priority_score,
     compare_category_baseline,
+    detect_category,
     find_opportunities,
     fuse_all,
     load_baseline,
     preprocess_reviews,
     score_data_quality,
+    summarize_products,
 )
 
 MAX_ACTION_CARDS = 5
@@ -83,6 +88,38 @@ class AnalyzeService:
         for r in reviews:
             counts[r.category] = counts.get(r.category, 0) + 1
         return max(counts, key=counts.get)
+
+    def _resolve_category(self, reviews) -> tuple[Category, CategoryGuess]:
+        """Tentukan kategori sesi ini, dan bawa serta dasarnya.
+
+        Kategori yang datang bersama ulasan tetap menang bila pengguna benar-benar menyebutkan
+        satu - itu keterangan langsung, dan tebakan tidak boleh menimpanya. Deteksi baru
+        berjalan saat seluruh batch masuk sebagai `other`, yang sejak layar unggah tidak lagi
+        menanyakan kategori adalah keadaan yang biasa, bukan kekecualian.
+        """
+        dominant = self._dominant_category(reviews)
+        guess = detect_category(reviews)
+        if dominant is not Category.OTHER:
+            # Pengguna (atau berkasnya) sudah menyatakan kategori; tebakan tetap dilaporkan
+            # supaya layar hasil dapat menyebut keduanya kalau berbeda.
+            return dominant, guess
+        return guess.category, guess
+
+    def _benchmarks_for_every_category(self, aggregates, total_reviews) -> dict:
+        """Baseline untuk KELIMA kategori, bukan hanya yang terpilih.
+
+        `compare_category_baseline()` cuma aritmetika atas tabel JSON yang sudah dimuat ke
+        memori saat startup - kelimanya bersama-sama masih di bawah satu milidetik. Yang dibeli
+        dengan biaya itu adalah koreksi kategori yang seketika di layar hasil: pengguna yang
+        melihat tebakan kami salah tidak perlu menunggu analisis ulang berpuluh detik hanya
+        untuk menukar tabel pembanding.
+        """
+        return {
+            category.value: compare_category_baseline(
+                aggregates, category, total_reviews, baseline=self.baseline
+            )
+            for category in Category
+        }
 
     def _build_evidence_index(self, reviews, predictions) -> EvidenceIndex | None:
         if self.embedding_adapter is None:
@@ -161,10 +198,9 @@ class AnalyzeService:
         )
         aggregates = calculate_aspect_statistics(predictions, reviews, now=reference)
 
-        category = self._dominant_category(reviews)
-        benchmarks = compare_category_baseline(
-            aggregates, category, len(reviews), baseline=self.baseline
-        )
+        category, category_guess = self._resolve_category(reviews)
+        benchmark_by_category = self._benchmarks_for_every_category(aggregates, len(reviews))
+        benchmarks = benchmark_by_category[category.value]
         benchmark_by_aspect = {b.aspect: b for b in benchmarks}
 
         index = self._build_evidence_index(reviews, predictions)
@@ -209,6 +245,15 @@ class AnalyzeService:
                     )
         opportunities = find_opportunities(aggregates, len(reviews), positive_evidence)
 
+        # Segmentasi. Ketiganya membelah `predictions` yang sudah jadi menurut kolom yang
+        # dibawa ulasannya sendiri - tidak ada inferensi model tambahan, jadi biayanya
+        # aritmetika saja dan tidak menyentuh waktu tunggu pengguna.
+        ratings = build_rating_breakdown(reviews, predictions)
+        products = summarize_products(reviews, predictions)
+        period_history = build_period_history(reviews, predictions)
+
+        dates = [r.timestamp for r in reviews if r.timestamp is not None]
+
         data_quality = score_data_quality(
             total_uploaded=len(raw_reviews),
             used=len(reviews),
@@ -232,6 +277,14 @@ class AnalyzeService:
             summary=AnalysisSummary(
                 total_reviews=len(reviews),
                 reviews_with_image=sum(1 for r in reviews if r.has_image),
+                # Dihitung per ulasan, bukan per sebutan - lihat catatan di AnalysisSummary.
+                reviews_with_complaint=sum(
+                    1
+                    for p in predictions
+                    if any(i.sentiment.value == "negatif" for i in p.predictions)
+                ),
+                period_start=min(dates, default=None),
+                period_end=max(dates, default=None),
                 executive_summary_text=self._executive_summary(aggregates, len(reviews), mode),
             ),
             top_actions=cards,
@@ -240,6 +293,11 @@ class AnalyzeService:
             benchmark=benchmarks,
             opportunities=opportunities,
             data_quality=data_quality,
+            ratings=ratings,
+            products=products,
+            period_history=period_history,
+            category_guess=category_guess,
+            benchmark_by_category=benchmark_by_category,
             warnings=warnings,
             mode=mode,
             model_versions={

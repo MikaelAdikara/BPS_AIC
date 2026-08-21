@@ -1,10 +1,20 @@
 /** Dashboard - seluruh fitur analisis hidup di sini.
  *
  * Tiga fase berurutan: `upload` → `processing` → `result`. Baru pada fase terakhir muncul
- * navigasi tab, karena sebelum ada hasil tidak ada apa pun untuk dijelajahi. Fase disimpan
- * sebagai state, bukan rute tersendiri: menyegarkan halaman di tengah analisis tidak dapat
- * melanjutkan pekerjaan yang sudah berjalan, jadi alamat yang menjanjikan sebaliknya justru
- * menyesatkan.
+ * navigasi, karena sebelum ada hasil tidak ada apa pun untuk dijelajahi. Fase disimpan sebagai
+ * state, bukan rute tersendiri: menyegarkan halaman di tengah analisis tidak dapat melanjutkan
+ * pekerjaan yang sudah berjalan, jadi alamat yang menjanjikan sebaliknya justru menyesatkan.
+ *
+ * Navigasi hasil menyusut dari empat tab menjadi TIGA, dan ketiganya kini mode, bukan bagian:
+ * membaca laporan, bertanya kepadanya, dan melihat apa yang belum dibangun. Seluruh isi
+ * laporan - yang dulu terbagi antara tab Hasil dan tab Detail, ditambah lima bagian baru -
+ * pindah ke satu gulungan bersama rel bagian; alasannya di kepala `ReportPanel.jsx`.
+ *
+ * Yang juga hilang dari berkas ini: sapaan bernama toko dan avatar berinisial. Keduanya
+ * bergantung pada isian "Nama toko" yang tidak pernah bisa dideteksi dari berkas ekspor
+ * marketplace mana pun - ekspor ulasan tidak menyebutkan nama toko Anda, karena Anda sudah
+ * tahu. Menanyakannya demi sebuah sapaan berarti menagih pekerjaan untuk hiasan, dan laporan
+ * analitik tidak menyapa pembacanya dengan nama; ia menunjukkan angkanya.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -17,27 +27,24 @@ import {
 } from "../api/client.js";
 import { Brand, ThemeToggle } from "../components/Brand.jsx";
 import { EvidenceDialog } from "../components/insight.jsx";
-import { DetailPanel } from "../components/dashboard/DetailPanel.jsx";
 import { ProcessingStep, estimateSeconds } from "../components/dashboard/ProcessingStep.jsx";
 import { QnaPanel } from "../components/dashboard/QnaPanel.jsx";
-import { ResultPanel } from "../components/dashboard/ResultPanel.jsx";
+import { ReportPanel } from "../components/dashboard/ReportPanel.jsx";
 import { RoadmapPanel } from "../components/dashboard/RoadmapPanel.jsx";
 import { UploadStep } from "../components/dashboard/UploadStep.jsx";
 import { goTo } from "../lib/hooks.js";
-import { PROFIL_AWAL, inisial, sapaan } from "../lib/profile.js";
+import { rentangTanggal } from "../lib/format.js";
 
 const TABS = [
-  ["hasil", "Hasil"],
-  ["detail", "Detail"],
+  ["laporan", "Laporan"],
   ["tanya", "Tanya Jawab"],
   ["roadmap", "Roadmap"],
 ];
 
 const HEADINGS = {
-  upload: [null, "Masukkan ulasan untuk mulai"],
+  upload: ["Masukkan ulasan untuk mulai", "Tempel, unggah berkas, atau kirim tangkapan layar"],
   processing: ["Memproses ulasan Anda…", "Mohon tunggu sebentar"],
-  hasil: ["Hasil Analisis", null],
-  detail: ["Detail Tambahan", "Peluang · temuan foto · sebaran aspek"],
+  laporan: ["Laporan analisis", null],
   tanya: ["Tanya Jawab Ulasan", "Jawaban selalu disertai kutipan aslinya"],
   roadmap: ["Roadmap Selanjutnya", "Transparan soal apa yang belum ada"],
 };
@@ -46,16 +53,12 @@ let draftSeq = 0;
 
 export function DashboardScreen({ theme, onToggleTheme }) {
   const [phase, setPhase] = useState("upload");
-  const [tab, setTab] = useState("hasil");
+  const [tab, setTab] = useState("laporan");
   const [ready, setReady] = useState(false);
   const [error, setError] = useState(null);
 
   // --- masukan
   const [input, setInput] = useState("paste");
-  // Profil toko - lihat `lib/profile.js` untuk apa yang diubah tiap isiannya, dan apa yang
-  // sengaja tidak. Disimpan di sini, bukan di UploadStep, karena tiga di antara isinya masih
-  // dipakai setelah fase unggah berakhir: sapaan, avatar, dan pertanyaan yang disarankan.
-  const [profile, setProfile] = useState(PROFIL_AWAL);
   const [paste, setPaste] = useState("");
   const [file, setFile] = useState(null); // { name, columns, rows, truncated }
   const [mapping, setMapping] = useState({});
@@ -72,6 +75,11 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   const [result, setResult] = useState(null);
   const [decisions, setDecisions] = useState({});
   const [openCard, setOpenCard] = useState(null);
+
+  // Kategori pembanding yang sedang ditampilkan. Dimulai dari tebakan backend dan dapat
+  // diganti pengguna di kepala laporan - tanpa analisis ulang, karena backend mengirimkan
+  // baseline SELURUH kategori sekaligus (lihat `_benchmarks_for_every_category`).
+  const [category, setCategory] = useState("other");
 
   // --- tanya jawab
   const [messages, setMessages] = useState([]);
@@ -113,9 +121,10 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     try {
       const data = await api.analyze(reviews);
       setResult(data);
+      setCategory(data.category_guess?.category ?? "other");
       setMessages([]);
       setDecisions({});
-      setTab("hasil");
+      setTab("laporan");
       setPhase("result");
       scrollUp();
     } catch (err) {
@@ -136,7 +145,11 @@ export function DashboardScreen({ theme, onToggleTheme }) {
           text: r.text,
           rating: Number(r.rating) || null,
           timestamp: r.timestamp || null,
-          category: r.category || "other",
+          // Data contoh membawa kolom produknya sendiri, dan tanpa meneruskannya bagian per
+          // produk tidak akan pernah muncul pada jalur "coba data contoh" - persis jalur yang
+          // dipakai orang untuk menilai apakah produk ini berguna.
+          product_name: r.product_name || null,
+          category: "other",
           source: "sample_dataset",
         }))
       );
@@ -186,9 +199,8 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     }
   }
 
-  const { category, product } = profile;
-  const mappedReviews = file ? rowsToReviews(file.rows, mapping, category, product) : [];
-  const pastedReviews = parsePastedText(paste, category, product);
+  const mappedReviews = file ? rowsToReviews(file.rows, mapping) : [];
+  const pastedReviews = parsePastedText(paste);
   const draftReviews = drafts
     .filter((d) => d.text.trim().length >= 3)
     .map((d) => ({
@@ -196,8 +208,7 @@ export function DashboardScreen({ theme, onToggleTheme }) {
       text: d.text.trim(),
       rating: d.rating ?? null,
       timestamp: null,
-      product_name: product.trim() || null,
-      category,
+      category: "other",
       source: "manual_upload",
     }));
 
@@ -240,9 +251,12 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   }
 
   const key = phase === "result" ? tab : phase;
-  // Judul fase unggah menyapa dengan nama toko kalau ada; sisanya tetap dari tabel di atas.
-  const [judul, subtitle] = HEADINGS[key];
-  const title = judul ?? sapaan(profile.store);
+  const [title, subtitle] = HEADINGS[key];
+
+  // Sub-judul laporan menyebut cakupan datanya, bukan menyapa pembacanya. Inilah keterangan
+  // yang benar-benar dibutuhkan sebelum membaca angka apa pun di bawahnya: berapa banyak, dan
+  // dari rentang waktu kapan.
+  const rentang = result && rentangTanggal(result.summary.period_start, result.summary.period_end);
 
   return (
     <div className="dash">
@@ -267,17 +281,17 @@ export function DashboardScreen({ theme, onToggleTheme }) {
             ) : (
               result && (
                 <p>
-                  {profile.store.trim() || "Toko Anda"} ·{" "}
                   <span className="stat">{result.summary.total_reviews}</span> ulasan
+                  {rentang && <> · {rentang}</>}
+                  {result.products?.length > 1 && (
+                    <>
+                      {" "}
+                      · <span className="stat">{result.products.length}</span> produk
+                    </>
+                  )}
                 </p>
               )
             )}
-          </div>
-          {/* Inisial nama toko, "OU" (Owner UMKM) kalau namanya belum diisi. `title` bukan
-              `aria-label`: elemennya disembunyikan dari pembaca layar, dan dua huruf tanpa
-              konteks memang tidak berguna dibacakan - tetapi berguna kalau ditunjuk kursor. */}
-          <div className="app-ava" aria-hidden="true" title={profile.store.trim() || undefined}>
-            {inisial(profile.store)}
           </div>
         </div>
 
@@ -304,8 +318,6 @@ export function DashboardScreen({ theme, onToggleTheme }) {
               error={error}
               tab={input}
               onTab={setInput}
-              profile={profile}
-              onProfile={setProfile}
               paste={paste}
               onPaste={setPaste}
               file={file}
@@ -338,22 +350,22 @@ export function DashboardScreen({ theme, onToggleTheme }) {
 
           {phase === "result" && result && (
             <>
-              {tab === "hasil" && (
-                <ResultPanel
+              {tab === "laporan" && (
+                <ReportPanel
                   result={result}
+                  category={category}
+                  onCategory={setCategory}
                   decisions={decisions}
                   onDecide={(id, value) => setDecisions((d) => ({ ...d, [id]: value }))}
                   onOpenEvidence={setOpenCard}
-                  onAsk={ask}
                 />
               )}
-              {tab === "detail" && <DetailPanel result={result} focus={profile.focus} />}
               {tab === "tanya" && (
                 <QnaPanel
                   messages={messages}
                   busy={asking}
                   error={askError}
-                  focus={profile.focus}
+                  aggregates={result.aspect_aggregates}
                   onAsk={ask}
                 />
               )}

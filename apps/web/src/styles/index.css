@@ -5,3 +5,6 @@
 @import "./base.css";
 @import "./landing.css";
 @import "./dashboard.css";
+/* Terakhir: laporan memakai primitif dari `dashboard.css` (.panel, .mtable, .equote) dan
+   sesekali menimpanya untuk konteksnya sendiri. */
+@import "./report.css";

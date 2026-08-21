@@ -1,0 +1,897 @@
+/* Ulasin - laporan analisis
+ *
+ * Gaya untuk satu permukaan yang digulir beserta rel bagiannya, dan untuk lima potongan baru
+ * di dalamnya: deretan angka kepala, baris aspek, tabel produk, pita bintang, dan grafik
+ * riwayat. Seluruhnya memakai token yang sudah ada di `tokens.css` - tidak ada warna baru,
+ * tidak ada bayangan baru, tidak ada dependensi grafik.
+ *
+ * Satu penyimpangan sadar dari konvensi `.stat` (angka terhitung selalu biru tebal): angka
+ * besar di deretan kepala memakai warna tinta biasa. Aturan itu ada untuk memisahkan fakta
+ * terhitung dari narasi yang disusun sistem - dan di deretan kepala tidak ada narasi sama
+ * sekali, semuanya terhitung, jadi pemisahnya tidak punya pekerjaan. Yang tersisa hanyalah
+ * empat angka 26px berwarna biru bersebelahan, yang membuat aksen biru berhenti berarti
+ * "dapat ditindaklanjuti" di sisa halaman. Di dalam kalimat, `.stat` tetap biru seperti biasa.
+ */
+
+/* ================================================================================
+ * KERANGKA LAPORAN + REL BAGIAN
+ * ============================================================================= */
+
+.lap {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* `min-width: 0` pada KEDUA anak, bukan hanya pada isinya.
+ *
+ * Butir grid berukuran `auto` menolak menyusut di bawah lebar isinya, dan rel bagian di layar
+ * sempit adalah satu baris berisi sembilan pil yang totalnya ~750px. Tanpa baris ini, rel itu
+ * memaksa kolomnya selebar 750px di dalam viewport 375px - `overflow-x: auto` pada `ol`-nya
+ * sendiri tidak menolong, karena yang tidak bisa menyusut adalah pembungkusnya, sehingga tidak
+ * pernah ada keadaan "isi lebih lebar dari wadah" yang membuat gulirnya aktif. Akibatnya bukan
+ * rel yang bergulir melainkan seluruh laporan yang meluber keluar layar. */
+.lap > * {
+  min-width: 0;
+}
+
+.lap__isi {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.lap__bagian {
+  min-width: 0;
+  /* Sasaran lompatan rel berhenti di bawah bilah tab yang menempel, bukan persis di tepi
+   * atas viewport tempat judulnya tertutup. */
+  scroll-margin-top: 92px;
+}
+
+.lap__kepala {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+.lap__kepala h3 {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+}
+.lap__kepala .meta {
+  margin-top: 5px;
+  max-width: 68ch;
+}
+
+.lap__bagian > .acard + .acard,
+.lap__bagian > .panel + .panel {
+  margin-top: var(--space-4);
+}
+.lap__bagian > .banner-grey:last-child {
+  margin-bottom: 0;
+}
+
+/* Rel bagian.
+ *
+ * Di layar sempit ia jadi pita mendatar yang menempel di bawah bilah mode - bukan
+ * disembunyikan. Laporan ini panjang, dan di ponsel justru di situlah alat lompat paling
+ * dibutuhkan. */
+.lap__rel {
+  position: sticky;
+  top: 56px;
+  z-index: 3;
+  margin: calc(var(--space-2) * -1) calc(var(--gutter) * -1) 0;
+  padding: var(--space-2) var(--gutter);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: var(--blur-nav);
+  border-bottom: 1px solid var(--line);
+}
+.lap__rel ol {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.lap__rel ol::-webkit-scrollbar {
+  display: none;
+}
+.lap__rel a {
+  display: block;
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: var(--r-pill);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--motion-state) var(--ease-out),
+    background var(--motion-state) var(--ease-out);
+}
+.lap__rel a:hover {
+  color: var(--ink);
+  background: var(--band);
+}
+.lap__rel a[aria-current="true"] {
+  color: var(--blue-dark);
+  background: var(--blue-tint);
+}
+
+@media (min-width: 1000px) {
+  .lap {
+    grid-template-columns: 172px minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+  .lap__rel {
+    position: sticky;
+    top: 104px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    border-bottom: 0;
+    border-left: 1px solid var(--line);
+  }
+  .lap__rel ol {
+    flex-direction: column;
+    gap: 1px;
+    overflow: visible;
+  }
+  .lap__rel a {
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    margin-left: -1px;
+    border-left: 1px solid transparent;
+  }
+  .lap__rel a[aria-current="true"] {
+    background: none;
+    border-left-color: var(--blue-dark);
+  }
+}
+
+/* ================================================================================
+ * DERETAN ANGKA KEPALA
+ * ============================================================================= */
+
+.ringkas {
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* Dipisah garis tipis, bukan dikotak-kotak. Empat kartu statistik berjajar adalah bentuk baku
+ * dashboard mana pun - dan justru karena baku, ia berhenti memberi tahu apa pun tentang
+ * laporan ini, sambil memakan tinggi sebesar bagian yang benar-benar perlu dibaca. */
+.ringkas__angka {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) 0;
+}
+.angka {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 0 var(--space-5);
+  flex: 1 1 148px;
+  min-width: 0;
+  border-left: 1px solid var(--line);
+}
+.angka:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+.angka__nilai {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.angka__nama {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+.angka__sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.ringkas__narasi {
+  max-width: 70ch;
+  color: var(--ink-soft);
+}
+
+/* Chip kategori - tebakan yang bisa dikoreksi. */
+.kchip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--band);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+.kchip--ragu {
+  background: var(--grey-surface);
+  border-color: var(--grey-border);
+}
+.kchip__label {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.kchip__pilih {
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 6px 8px;
+  min-height: 34px;
+  cursor: pointer;
+}
+.kchip__pilih:hover {
+  border-color: var(--blue);
+}
+/* `--ink-soft`, bukan `--muted`. `--muted` disetel tepat 4,6:1 di atas kanvas krem, dan pita
+ * chip ini memakai `--band` yang lebih gelap dari kanvas - cukup untuk menjatuhkannya ke 4,01:1
+ * pada 11,5px, di bawah ambang AA. Baris ini justru yang menyebutkan DASAR tebakan kategori,
+ * yaitu keterangan yang menentukan apakah pengguna perlu mengoreksinya; ia tidak boleh jadi
+ * teks paling sulit dibaca di kotaknya sendiri. */
+.kchip__dasar {
+  flex: 1 1 100%;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* ================================================================================
+ * BARIS ASPEK
+ * ============================================================================= */
+
+.aspeks {
+  display: grid;
+}
+.aspeks__legend {
+  margin-bottom: var(--space-3);
+}
+.aspeks__baca {
+  color: var(--muted);
+  font-style: italic;
+}
+.aspeks__grup {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: var(--space-5) 0 var(--space-2);
+}
+.aspeks__grup:first-child {
+  margin-top: 0;
+}
+
+.aspek {
+  border-bottom: 1px solid var(--line);
+}
+.aspek__kepala {
+  display: grid;
+  grid-template-columns: minmax(90px, 150px) minmax(48px, 1fr) 58px auto auto 12px;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 11px 4px;
+  min-height: var(--tap-target-min);
+  border: 0;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background var(--motion-state) var(--ease-out);
+}
+.aspek__kepala:hover {
+  background: var(--band);
+}
+.aspek__nama {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* Dua lapis pada satu batang: seluruh sebutan, lalu bagian yang berkeluhan di atasnya. Dua
+ * batang terpisah akan menuntut pembacanya menjumlahkan sendiri. */
+.aspek__track {
+  position: relative;
+  display: block;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--band);
+  overflow: hidden;
+}
+.aspek__isi {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: var(--r-pill);
+  transition: width var(--motion-panel) var(--ease-emphasis);
+}
+.aspek__isi--semua {
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+}
+.aspek__isi--neg {
+  background: linear-gradient(90deg, var(--red-base), var(--red-light));
+}
+
+.aspek__jml {
+  font-size: 12.5px;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.aspek__jml em {
+  font-style: normal;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.aspek__panah {
+  color: var(--muted);
+  font-size: 15px;
+  transition: transform var(--motion-state) var(--ease-out);
+}
+.aspek--buka .aspek__panah {
+  transform: rotate(90deg);
+}
+
+/* Panah tren membawa TEKS-nya, bukan warna saja. */
+.tren {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.tren i {
+  font-style: normal;
+  font-size: 13px;
+}
+.tren--meningkat {
+  color: var(--red-ink);
+}
+.tren--menurun {
+  color: var(--green-ink);
+}
+
+/* Laci: grid 0fr → 1fr. `height: auto` tidak dapat ditransisikan, dan `max-height` yang
+ * ditebak selalu salah untuk salah satu isi - terlalu kecil memotong, terlalu besar membuat
+ * animasi menutupnya tersendat di bagian kosong. */
+.aspek__laci,
+.bpita__laci {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--motion-panel) var(--ease-emphasis);
+}
+.aspek__laci[data-buka="ya"],
+.bpita__laci[data-buka="ya"] {
+  grid-template-rows: 1fr;
+}
+/* `visibility: hidden` saat tertutup, bukan cuma tinggi nol.
+ *
+ * Grid 0fr membuat isinya setinggi nol dan terpotong `overflow: hidden`, tetapi ia TETAP ada di
+ * pohon aksesibilitas - jadi pembaca layar membacakan seluruh rincian kedelapan aspek sekaligus,
+ * persis membantah `aria-expanded="false"` pada tombol tepat di atasnya. Yang dijanjikan tombol
+ * itu adalah isi yang tersembunyi sampai dibuka.
+ *
+ * `visibility` dipilih karena ia satu-satunya yang mengeluarkan elemen dari pohon aksesibilitas
+ * DAN masih bisa ditunda - jedanya disetel selama animasi menutup, supaya isinya tidak lenyap
+ * di frame pertama sementara lacinya masih bergerak. `display: none` tidak bisa dianimasikan
+ * sama sekali. */
+.aspek__laci-isi,
+.bpita__laci-isi {
+  overflow: hidden;
+  min-height: 0;
+  visibility: hidden;
+  transition: visibility 0s linear var(--motion-panel);
+}
+.aspek__laci[data-buka="ya"] .aspek__laci-isi,
+.bpita__laci[data-buka="ya"] .bpita__laci-isi {
+  visibility: visible;
+  transition-delay: 0s;
+}
+.aspek__laci-isi {
+  padding: 0 4px;
+}
+.aspek__laci[data-buka="ya"] .aspek__laci-isi {
+  padding: var(--space-2) 4px var(--space-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aspek__laci,
+  .bpita__laci {
+    transition: none;
+  }
+  /* Jedanya ikut dinolkan. Tanpa ini, laci yang tidak lagi beranimasi tetap menunggu 250ms
+     sebelum isinya tersembunyi - jeda yang tidak dijelaskan oleh gerakan apa pun. */
+  .aspek__laci-isi,
+  .bpita__laci-isi {
+    transition-delay: 0s;
+  }
+}
+
+.aspek__fakta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: 0 0 var(--space-4);
+}
+.aspek__fakta dt {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 1px;
+}
+.aspek__fakta dd {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.gap {
+  font-style: normal;
+  font-weight: 700;
+}
+.gap--buruk {
+  color: var(--red-ink);
+}
+.gap--baik {
+  color: var(--green-ink);
+}
+
+.aspek__bukti .equote {
+  margin-top: var(--space-2);
+}
+
+/* Aspek yang tidak disebut satu ulasan pun. Sengaja diberi bentuknya sendiri: ini bukan
+ * daftar yang perlu dipindai, melainkan satu pernyataan tentang cakupan data. */
+.aspeks__sepi {
+  padding: var(--space-4);
+  background: var(--grey-surface);
+  border: 1px solid var(--grey-border);
+  border-radius: var(--r);
+}
+.aspeks__sepi ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+.aspeks__sepi li {
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* Sparkline - arah saja, tanpa sumbu. Pada 64px semua label berubah jadi bercak. */
+.spark {
+  color: var(--muted);
+  overflow: visible;
+}
+.spark__naik {
+  fill: var(--red-base);
+}
+.spark__turun {
+  fill: var(--green-base);
+}
+
+/* ================================================================================
+ * PITA BINTANG
+ * ============================================================================= */
+
+.bpitas {
+  display: grid;
+}
+.bpita {
+  border-bottom: 1px solid var(--line);
+}
+.bpita__kepala {
+  display: grid;
+  grid-template-columns: 76px minmax(48px, 1fr) 40px 44px 12px;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 10px 4px;
+  min-height: var(--tap-target-min);
+  border: 0;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background var(--motion-state) var(--ease-out);
+}
+.bpita__kepala:hover:not(:disabled) {
+  background: var(--band);
+}
+.bpita__kepala:disabled {
+  cursor: default;
+}
+.bpita--nol {
+  opacity: 0.55;
+}
+
+.bpita__bintang {
+  display: inline-flex;
+  gap: 1px;
+}
+.bpita__bintang svg {
+  fill: var(--line);
+}
+.bpita__bintang svg.on {
+  fill: var(--amber-base);
+}
+
+.bpita__track {
+  display: block;
+  height: 9px;
+  border-radius: var(--r-pill);
+  background: var(--band);
+  overflow: hidden;
+}
+.bpita__isi {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  transition: width var(--motion-panel) var(--ease-emphasis);
+}
+.bpita__jml {
+  text-align: right;
+  font-size: 13px;
+}
+.bpita__pct {
+  text-align: right;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.bpita__panah {
+  color: var(--muted);
+  font-size: 15px;
+  transition: transform var(--motion-state) var(--ease-out);
+}
+.bpita--buka .bpita__panah {
+  transform: rotate(90deg);
+}
+.bpita__laci[data-buka="ya"] .bpita__laci-isi {
+  padding: var(--space-2) 4px var(--space-4) 84px;
+}
+.bpita__keluhan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.bpita__keluhan li {
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--card-high-bg);
+  border: 1px solid var(--card-high-edge);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.bpitas__kaki {
+  margin-top: var(--space-3);
+}
+
+/* ================================================================================
+ * TABEL PRODUK
+ * ============================================================================= */
+
+.ptabel__tabel {
+  width: 100%;
+}
+.ptabel__kepala--kanan {
+  text-align: right;
+}
+.ptabel__urut {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.ptabel__urut:hover {
+  color: var(--blue-dark);
+}
+.ptabel__urut--on {
+  color: var(--blue-dark);
+}
+.ptabel__tanda {
+  font-size: 10px;
+}
+
+.ptabel__tabel td {
+  vertical-align: middle;
+}
+.ptabel__tabel td:nth-child(2),
+.ptabel__tabel td:nth-child(3),
+.ptabel__tabel td:nth-child(4) {
+  text-align: right;
+  white-space: nowrap;
+}
+.ptabel__nama {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 5px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  padding: 2px 0;
+  min-width: 0;
+}
+.ptabel__nama:hover {
+  color: var(--blue-dark);
+}
+.ptabel__panah {
+  color: var(--muted);
+  transition: transform var(--motion-state) var(--ease-out);
+  flex: none;
+  line-height: 1.4;
+}
+.ptabel__baris--buka .ptabel__panah {
+  transform: rotate(90deg);
+}
+.ptabel__baris--buka {
+  background: var(--band);
+}
+.ptabel__baris--tipis .ptabel__nama {
+  color: var(--muted);
+  font-weight: 500;
+}
+.ptabel__dari {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted);
+}
+.ptabel__laci td {
+  background: var(--band);
+  padding-top: 0;
+  padding-bottom: var(--space-4);
+}
+.ptabel__keluhan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ptabel__keluhan li {
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--white);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+/* Lima batang mini, selalu lima. Batang yang jumlah keranjangnya berubah antar baris tidak
+ * bisa dibandingkan sekilas - dan perbandingan sekilas adalah satu-satunya gunanya di sini. */
+.mini {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+  width: 46px;
+}
+.mini__bar {
+  flex: 1;
+  min-height: 1px;
+  border-radius: 1px;
+  background: var(--blue-light);
+}
+.mini__bar--1,
+.mini__bar--2 {
+  background: var(--red-base);
+}
+.mini__bar--3 {
+  background: var(--amber-base);
+}
+
+/* ================================================================================
+ * RIWAYAT ANTAR PERIODE
+ * ============================================================================= */
+
+.riwayat {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.rbars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.rbar {
+  flex: 1 1 0;
+  min-width: 34px;
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+}
+.rbar__kolom {
+  display: block;
+  width: 100%;
+  height: 132px;
+}
+.rbar__track {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+  border-radius: var(--r-sm);
+  background: var(--band);
+  overflow: hidden;
+}
+.rbar__isi {
+  display: block;
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  background: linear-gradient(180deg, var(--blue-light), var(--blue));
+  transition: height var(--motion-panel) var(--ease-emphasis);
+}
+/* Bagian berkeluhan duduk di PUNCAK batang, bukan di dasarnya: yang dibandingkan antar
+ * periode adalah tingginya, dan tinggi paling mudah dibaca dari satu garis dasar bersama. */
+.rbar__neg {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto 0;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  background: linear-gradient(180deg, var(--red-light), var(--red-base));
+}
+.rbar__jml {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.rbar__label {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* Periode tanpa satu pun ulasan: bingkai putus-putus yang tetap memakan lebarnya sendiri.
+ * Menghilangkannya akan merapatkan sumbu waktu, dan kenaikan yang sebenarnya terpisah satu
+ * kuartal akan tampak seperti kenaikan bulan-ke-bulan. */
+.rbar--kosong .rbar__track {
+  background: none;
+  border: 1px dashed var(--grey-border);
+}
+.rbar--kosong .rbar__jml {
+  color: var(--muted);
+}
+
+/* Periode berisi kurang dari tiga ulasan: bergaris miring. Satu ulasan negatif adalah "100%
+ * negatif" secara aritmetika, dan batang penuh tanpa tanda adalah cara tercepat membuat
+ * pemilik toko panik atas satu orang. */
+.rbar--tipis .rbar__isi {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.55) 0 3px,
+    transparent 3px 7px
+  );
+}
+
+.riwayat__banding {
+  font-size: var(--text-std);
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 68ch;
+}
+
+.riwayat__seri ul {
+  display: grid;
+  gap: 2px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.riwayat__seri li {
+  display: grid;
+  grid-template-columns: minmax(88px, 150px) 110px 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--line);
+}
+.riwayat__seri-nama {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+.riwayat__seri-angka {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.riwayat__nota,
+.riwayat__batas {
+  max-width: 68ch;
+}
+
+/* ================================================================================
+ * RESPONSIF
+ * ============================================================================= */
+
+@media (max-width: 720px) {
+  /* Sparkline dan tren dilepas dari baris aspek sebelum barisnya membungkus. Keduanya
+   * keterangan tambahan; nama, batang, dan angkanya yang wajib tetap muat. */
+  .aspek__kepala {
+    grid-template-columns: minmax(78px, 1fr) minmax(40px, 1.1fr) 52px 12px;
+  }
+  .aspek__kepala > .spark,
+  .aspek__kepala > .tren {
+    display: none;
+  }
+  .aspek__fakta {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .bpita__kepala {
+    grid-template-columns: 68px minmax(36px, 1fr) 34px 40px 12px;
+    gap: var(--space-2);
+  }
+  .bpita__laci[data-buka="ya"] .bpita__laci-isi {
+    padding-left: 4px;
+  }
+
+  .angka {
+    flex: 1 1 128px;
+    padding: 0 var(--space-3);
+  }
+  .angka__nilai {
+    font-size: 21px;
+  }
+
+  .rbar {
+    min-width: 30px;
+  }
+  .rbar__kolom {
+    height: 104px;
+  }
+  .riwayat__seri li {
+    grid-template-columns: minmax(70px, 1fr) 84px auto;
+    gap: var(--space-2);
+  }
+}

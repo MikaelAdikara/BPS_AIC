@@ -50,15 +50,35 @@ const KOLOM = [
 // Nilai tiap sel berurutan mengikuti KOLOM. Sumbernya README §3.2 untuk sisi platform dan
 // LIMITATIONS.md untuk sisi Ulasin - termasuk kelompok ketiga, yang isinya persis daftar
 // batasan yang sudah tercatat di sana.
+// Tiga baris di kelompok ketiga sempat menyatakan ketiadaan yang sebenarnya cuma belum
+// disurfacekan: statistik per produk dan sebaran bintang sudah dapat dihitung dari kolom yang
+// memang diunggah pengguna, dan perbandingan antar bulan sudah ada di dalam berkas ekspor yang
+// lazimnya membentang berbulan-bulan. Ketiganya kini dibangun, jadi barisnya pindah - tetapi
+// pindah ke kelompok PERTAMA, bukan kedua: Shopee dan Tokopedia sama-sama punya keduanya, dan
+// menaruhnya di "cuma ada di Ulasin" akan menukar satu klaim keliru dengan klaim keliru lain.
+//
+// Yang benar-benar cuma ada di sini adalah lapisan di atasnya - keluhan apa yang menghuni tiap
+// pita bintang, dan aspek mana yang bergerak antar bulan - jadi itulah yang jadi baris baru di
+// kelompok kedua.
+//
+// Kelompok ketiga sengaja tetap berisi. Tabel yang seluruh kolomnya menang terbaca sebagai
+// brosur, dan pembaca berhenti mempercayainya; mengosongkannya untuk merayakan dua fitur baru
+// akan merusak justru bagian yang membuat tabel ini layak dipercaya.
 const KEMAMPUAN = [
   {
     judul: "Yang ketiganya sudah punya",
-    baris: [{ apa: "Rating rata-rata dan daftar ulasan yang masuk", nilai: ["ada", "ada", "ada"] }],
+    baris: [
+      { apa: "Rating rata-rata dan daftar ulasan yang masuk", nilai: ["ada", "ada", "ada"] },
+      { apa: "Statistik per produk dan sebaran bintang", nilai: ["ada", "ada", "ada"] },
+      { apa: "Perbandingan antar bulan", nilai: ["ada", "ada", "ada"] },
+    ],
   },
   {
     judul: "Yang cuma ada di Ulasin",
     baris: [
       { apa: "Keluhan dikelompokkan per aspek, bukan per bintang", nilai: ["ada", "tidak", "tidak"] },
+      { apa: "Keluhan apa yang ada di balik tiap bintang", nilai: ["ada", "tidak", "tidak"] },
+      { apa: "Aspek mana yang bergerak antar bulan, bukan cuma ratingnya", nilai: ["ada", "tidak", "tidak"] },
       { apa: "Urutan mana yang paling mendesak diperbaiki", nilai: ["ada", "tidak", "tidak"] },
       { apa: "Tiap rekomendasi membawa kutipan ulasan aslinya", nilai: ["ada", "tidak", "tidak"] },
       { apa: "Shopee dan Tokopedia terbaca dalam satu layar", nilai: ["ada", "tidak", "tidak"] },
@@ -68,9 +88,9 @@ const KEMAMPUAN = [
   {
     judul: "Yang belum ada di Ulasin",
     baris: [
-      { apa: "Statistik performa produk dan saring per bintang", nilai: ["tidak", "ada", "ada"] },
+      { apa: "Riwayat tersimpan sendiri, tanpa unggah ulang tiap kali", nilai: ["tidak", "ada", "ada"] },
       { apa: "Membalas ulasan langsung ke pembelinya", nilai: ["tidak", "ada", "ada"] },
-      { apa: "Riwayat lintas periode dan perbandingan antar-bulan", nilai: ["rencana", "ada", "ada"] },
+      { apa: "Menarik ulasan otomatis tanpa ekspor manual", nilai: ["tidak", "ada", "ada"] },
     ],
   },
 ];
