@@ -64,10 +64,36 @@ yang produk ini lakukan terhadap suara itu.
 yang dipakai di navigasi kedua permukaan. Varian sebaris (`layout="row"`) tersedia untuk tempat
 yang tingginya benar-benar sempit, dan hanya untuk itu.
 
+### Maskot kotak FAQ - dan kenapa ia bukan lambang merek
+
+Kotak FAQ mengambang di halaman pemasaran punya wajahnya sendiri: **robot kecil berbadan pin
+peta**, biru senada palet tetapi jelas bukan lambang Ulasin. Sumbernya `Logo Chatbot.png` di akar
+repositori, dipangkas menjadi `bot.png` oleh skrip yang sama.
+
+Pemisahan itu bukan selera. Kotak FAQ menjawab dari 39 jawaban yang **ditulis tangan**, bukan
+dari model - ia tidak membaca ulasan siapa pun dan tidak menjalankan apa pun. Memberinya lambang
+produk berarti pengguna membaca lambang yang sama di bilah navigasi dan di gelembung jawaban,
+lalu menyimpulkan yang sedang menjawab adalah "aplikasinya" dengan seluruh kemampuannya. Maskot
+yang jelas-jelas robot kecil menyebut dirinya apa adanya. Alasan kedua lebih sepele tetapi sama
+nyatanya: dua lambang identik di satu layar membuat tombol pemicu kotak FAQ terbaca sebagai
+tautan ke beranda.
+
+Dua aturan pemakaiannya:
+
+- **Ukurannya diberikan sebagai tinggi, bukan sisi.** Maskotnya tegak (120x176 setelah
+  dipangkas); `width == height` seperti pada lambang akan memipihkannya. `BotMark` menghitung
+  lebar dari tinggi, dan menuliskan keduanya sebagai atribut supaya browser memesan kotak yang
+  benar sebelum gambarnya tiba - avatar yang melebar di tengah percakapan menggeser seluruh
+  gelembung.
+- **Di atas permukaan biru, ia berdiri di atas cakram putih.** Badannya biru juga, dan biru di
+  atas biru menyisakan siluet yang harus ditebak. Cakramnya sekaligus membuat tombol pemicu
+  terbaca sebagai avatar - "ada yang bisa diajak bicara" - alih-alih sebagai ikon aksi.
+
 ### Aset dan mengapa ada tahap pembangunan
 
-Sumbernya satu berkas: `Logo.png` 1000x478 di akar repositori, sudah bertransparansi, lambang
-di kiri dan kata "Ulasin" di kanan. [`scripts/build_brand_assets.py`](../scripts/build_brand_assets.py)
+Sumbernya dua berkas di akar repositori: `Logo.png` 1000x478 (lambang di kiri, kata "Ulasin" di
+kanan) untuk identitas produk, dan `Logo Chatbot.png` 488x566 untuk maskot kotak FAQ. Keduanya
+sudah bertransparansi. [`scripts/build_brand_assets.py`](../scripts/build_brand_assets.py)
 memotongnya menjadi aset di `apps/web/public/brand/`.
 
 Tiga keputusan di skrip itu yang perlu diketahui sebelum menggantinya:
@@ -85,7 +111,8 @@ Tiga keputusan di skrip itu yang perlu diketahui sebelum menggantinya:
 
 | Berkas | Dipakai di |
 | --- | --- |
-| `mark.png` (160px) | Lambang di nav, dashboard, dan avatar kotak FAQ |
+| `mark.png` (160px) | Lambang di nav dan dashboard |
+| `bot.png` (120x176) | Maskot kotak FAQ: tombol pemicu, kepala panel, avatar gelembung |
 | `lockup.png` | Lockup utuh, kedua tema |
 | `favicon-32.png`, `favicon-180.png` | Ikon tab dan ikon layar utama |
 | `og.png` | Kartu pratinjau tautan 1200x630 |

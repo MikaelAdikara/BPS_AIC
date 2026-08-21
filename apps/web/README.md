@@ -58,6 +58,7 @@ src/
   App.jsx                  cangkang: pilih rute, pegang tema, transisi geser
   lib/hooks.js             useRoute (hash) + useTheme
   lib/format.js            label aspek/urgensi, kategori, pemformat angka
+  lib/profile.js           profil toko: aspek per kategori, inisial, sapaan, saran pertanyaan
   content/roadmap.js       isi tab Roadmap - data, bukan markup
   api/client.js            klien HTTP + pengurai CSV/JSON + pemetaan kolom
   screens/                 LandingScreen, DashboardScreen (pemegang state)
@@ -69,6 +70,22 @@ src/
 
 Gaya dipecah mengikuti pembagian yang sama. Aturannya: sesuatu masuk `base.css` hanya kalau
 benar-benar dipakai kedua permukaan; kalau hanya satu sisi, ia tinggal di berkasnya sendiri.
+
+## Profil toko
+
+Layar unggah dibuka dengan satu panel keterangan: kategori produk (wajib), lalu nama toko, nama
+produk, dan sampai tiga aspek yang paling ingin diketahui - ketiganya opsional dan terlipat di
+balik `<details>`.
+
+Aturan yang mengikat panel itu: **tiap isian harus punya akibat yang bisa ditunjuk, dan panel
+tidak boleh menjanjikan akibat yang tidak terjadi.** Isian yang tidak mengubah apa pun membuat
+orang berhenti mengisi formulir; janji yang tidak ditepati membuat mereka meragukan angka yang
+muncul sesudahnya. Daftar akibatnya - termasuk apa yang sengaja TIDAK diubah, yaitu urutan
+prioritas kartu tindakan - ada di kepala `lib/profile.js`.
+
+Daftar aspek per kategori disalin dari `configs/taxonomy.yaml` karena dibutuhkan sebelum backend
+pernah dihubungi. `lib/profile.test.js` membaca config aslinya lalu membandingkannya kategori per
+kategori, sehingga salinan itu tidak bisa menyimpang diam-diam.
 
 ## Aturan UI yang mengikat
 

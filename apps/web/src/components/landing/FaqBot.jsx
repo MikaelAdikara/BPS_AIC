@@ -4,7 +4,7 @@
  * saya disimpan atau tidak. Bukan pertanyaan tentang ulasan pengguna; itu pekerjaan tab Tanya
  * Jawab di dalam dashboard, yang memang menjalankan model dan menyertakan kutipan.
  *
- * Ia TIDAK menebak. Basis pengetahuannya 36 entri di content/faq.js, dan pertanyaan yang tak
+ * Ia TIDAK menebak. Basis pengetahuannya 39 entri di content/faq.js, dan pertanyaan yang tak
  * ada padanannya dijawab apa adanya - lengkap dengan topik terdekat sebagai jalan keluar.
  * Menebak jawaban yang terdengar masuk akal justru pola yang paling merusak kepercayaan.
  *
@@ -23,7 +23,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { FAQ, PEMBUKA } from "../../content/faq.js";
 import { cari, JENIS } from "../../lib/faq-search.js";
 import { goTo } from "../../lib/hooks.js";
-import { BrandMark } from "../Brand.jsx";
+import { BotMark } from "../Brand.jsx";
 
 // Jeda sebelum jawaban muncul. Pencocokannya sendiri selesai di bawah satu milidetik, jadi ini
 // murni soal keterbacaan: gelembung yang muncul di frame yang sama dengan pertanyaannya terbaca
@@ -63,27 +63,6 @@ const BALASAN = {
   ],
 };
 
-/** Ikon obrolan untuk tombol pemicu. Sengaja BUKAN lambang merek: lambangnya sudah dipakai di
- *  bilah navigasi, dan dua lambang identik di satu layar membuat tombol ini terbaca sebagai
- *  tautan ke beranda. */
-const IkonTanya = () => (
-  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path
-      d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.4-5.2A8.5 8.5 0 1 1 21 11.5Z"
-      stroke="currentColor"
-      strokeWidth="1.9"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2-2.4 3.3"
-      stroke="currentColor"
-      strokeWidth="1.9"
-      strokeLinecap="round"
-    />
-    <circle cx="12" cy="16.4" r="1" fill="currentColor" />
-  </svg>
-);
-
 function Aksi({ aksi, onTutup }) {
   if (aksi.ke === "dashboard") {
     return (
@@ -113,7 +92,7 @@ function Gelembung({ pesan, onPilih, onTutup }) {
 
   return (
     <div className="faqbot__baris">
-      <BrandMark size={22} className="faqbot__ava" />
+      <BotMark size={24} className="faqbot__ava" />
       <div className="faqbot__bubble faqbot__bubble--bot">
         {pesan.entri && <b className="faqbot__judul">{pesan.entri.q}</b>}
         {(pesan.entri?.a ?? pesan.teks).map((paragraf, i) => (
@@ -255,7 +234,7 @@ export function FaqBot() {
           aria-labelledby={judulId}
         >
           <header className="faqbot__head">
-            <BrandMark size={30} />
+            <BotMark size={34} />
             <div className="faqbot__head-teks">
               <h2 id={judulId}>Tanya soal Ulasin</h2>
               {/* Label ini bukan basa-basi hukum - ia yang membedakan kotak ini dari asisten
@@ -283,7 +262,7 @@ export function FaqBot() {
             ))}
             {menunggu && (
               <div className="faqbot__baris">
-                <BrandMark size={22} className="faqbot__ava" />
+                <BotMark size={24} className="faqbot__ava" />
                 <p className="faqbot__bubble faqbot__bubble--bot faqbot__ketik">
                   <i />
                   <i />
@@ -333,7 +312,13 @@ export function FaqBot() {
         aria-expanded={buka}
         aria-label={buka ? "Tutup kotak FAQ" : "Buka kotak FAQ tentang Ulasin"}
       >
-        <IkonTanya />
+        {/* Maskotnya duduk di atas cakram putih, bukan langsung di atas pil biru: badannya
+            biru juga, dan biru di atas biru meninggalkan siluet yang harus ditebak. Cakramnya
+            sekaligus membuat tombol ini terbaca sebagai avatar - "ada yang bisa diajak
+            bicara" - alih-alih sebagai ikon aksi. */}
+        <span className="faqbot__pemicu-ava">
+          <BotMark size={24} />
+        </span>
         <span className="faqbot__pemicu-teks">Tanya soal Ulasin</span>
       </button>
     </div>

@@ -1,7 +1,15 @@
-/** Langkah pertama dashboard: memilih kategori, memasukkan ulasan, lalu menganalisis. */
+/** Langkah pertama dashboard: menyebutkan konteks toko, memasukkan ulasan, lalu menganalisis.
+ *
+ * Dua blok, dalam urutan yang orang pikirkan: siapa saya dan apa yang saya cari (ProfileStep),
+ * lalu dari mana ulasannya datang (bilah tab dan panelnya). Sebelumnya kategori duduk di
+ * antara bilah tab dan panel milik tab itu; catatan lengkap soal kenapa itu dipindah ada di
+ * kepala `ProfileStep.jsx`.
+ */
 
-import { CATEGORIES } from "../../lib/format.js";
+import { useId } from "react";
+
 import { FileInput, PasteInput, ScreenshotInput } from "./inputs.jsx";
+import { ProfileStep } from "./ProfileStep.jsx";
 
 const TABS = [
   ["paste", "Tempel teks"],
@@ -9,40 +17,13 @@ const TABS = [
   ["shot", "Tangkapan layar"],
 ];
 
-function CategoryPicker({ value, onChange }) {
-  return (
-    <fieldset className="panel picker">
-      <legend className="panel-title">Kategori produk</legend>
-      <div className="picker__row">
-        {CATEGORIES.map(([id, label]) => (
-          <label key={id} className={`pick ${value === id ? "pick--on" : ""}`}>
-            <input
-              type="radio"
-              name="category"
-              value={id}
-              checked={value === id}
-              onChange={() => onChange(id)}
-              className="sr-only"
-            />
-            {label}
-          </label>
-        ))}
-      </div>
-      <p className="meta" style={{ marginTop: 12 }}>
-        Dipakai untuk membandingkan hasil Anda dengan rata-rata kategori sejenis, dan untuk
-        menyembunyikan aspek yang tidak relevan bagi toko seperti milik Anda.
-      </p>
-    </fieldset>
-  );
-}
-
 export function UploadStep({
   ready,
   error,
   tab,
   onTab,
-  category,
-  onCategory,
+  profile,
+  onProfile,
   paste,
   onPaste,
   file,
@@ -62,6 +43,8 @@ export function UploadStep({
   onAnalyze,
   onSample,
 }) {
+  const tabId = useId();
+
   return (
     <>
       {!ready && (
@@ -76,12 +59,22 @@ export function UploadStep({
         </div>
       )}
 
+      <ProfileStep profile={profile} onChange={onProfile} />
+
+      <h2 className="sec-title sec-title--rapat">Ulasan yang mau dianalisis</h2>
+
+      {/* Bilah tab dan panelnya dirangkai betulan: tiap tab menunjuk panel lewat
+          `aria-controls`, dan panelnya menyebut tab yang sedang aktif lewat `aria-labelledby`.
+          Sebelumnya ada `role="tablist"` tanpa satu pun `tabpanel` - pembaca layar mengumumkan
+          "tab 1 dari 3" lalu tidak punya apa pun untuk ditunjuk sebagai isinya. */}
       <div className="tabs tabs--block" role="tablist" aria-label="Cara memasukkan ulasan">
         {TABS.map(([id, label]) => (
           <button
             key={id}
+            id={`${tabId}-${id}`}
             role="tab"
             aria-selected={tab === id}
+            aria-controls={`${tabId}-panel`}
             className={`tab ${tab === id ? "tab--active" : ""}`}
             onClick={() => onTab(id)}
           >
@@ -90,29 +83,29 @@ export function UploadStep({
         ))}
       </div>
 
-      <CategoryPicker value={category} onChange={onCategory} />
-
-      {tab === "paste" && <PasteInput value={paste} onChange={onPaste} />}
-      {tab === "file" && (
-        <FileInput
-          file={file}
-          mapping={mapping}
-          onPick={onPickFile}
-          onMap={onMap}
-          onClear={onClearFile}
-        />
-      )}
-      {tab === "shot" && (
-        <ScreenshotInput
-          shots={shots}
-          drafts={drafts}
-          busy={ocrBusy}
-          onPick={onPickShots}
-          onEdit={onEditDraft}
-          onRemove={onRemoveDraft}
-          onClear={onClearShots}
-        />
-      )}
+      <div role="tabpanel" id={`${tabId}-panel`} aria-labelledby={`${tabId}-${tab}`}>
+        {tab === "paste" && <PasteInput value={paste} onChange={onPaste} />}
+        {tab === "file" && (
+          <FileInput
+            file={file}
+            mapping={mapping}
+            onPick={onPickFile}
+            onMap={onMap}
+            onClear={onClearFile}
+          />
+        )}
+        {tab === "shot" && (
+          <ScreenshotInput
+            shots={shots}
+            drafts={drafts}
+            busy={ocrBusy}
+            onPick={onPickShots}
+            onEdit={onEditDraft}
+            onRemove={onRemoveDraft}
+            onClear={onClearShots}
+          />
+        )}
+      </div>
 
       {/* Jumlahnya masuk ke label supaya tombolnya menyebut persis apa yang akan terjadi.
           Sebelum ada satu pun ulasan, angkanya dihilangkan seluruhnya - bukan dikosongkan,

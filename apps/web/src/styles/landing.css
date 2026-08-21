@@ -936,9 +936,9 @@
 .faqbot__pemicu {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   min-height: var(--tap-target-min);
-  padding: 11px 20px 11px 17px;
+  padding: 8px 20px 8px 8px;
   border: 1px solid transparent;
   border-radius: var(--r-pill);
   background: var(--grad-blue);
@@ -959,7 +959,22 @@
   display: none;
 }
 .faqbot__pemicu--buka {
-  padding: 11px 15px;
+  padding: 8px;
+}
+
+/* Cakram putih di balik maskot. Solid, bukan transparansi putih: pil di belakangnya
+   bergradien, dan lapisan tembus pandang mewarisi gradien itu sehingga cakramnya lebih gelap
+   di bawah daripada di atas - persis di tempat mata membaca wajah maskotnya. */
+.faqbot__pemicu-ava {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(11, 30, 69, 0.08);
 }
 
 /* ---------- Panel ---------- */
@@ -1065,8 +1080,7 @@
 }
 .faqbot__ava {
   flex: none;
-  margin-top: 3px;
-  filter: none; /* drop-shadow lambang merek terlalu berat pada ukuran sekecil ini */
+  margin-top: 2px;
 }
 .faqbot__bubble {
   font-size: 13px;
@@ -1224,7 +1238,7 @@
      dikenali, dan `aria-label` di JSX menjaga namanya tetap terbaca pembaca layar. */
   .faqbot__pemicu {
     align-self: flex-end;
-    padding: 11px 15px;
+    padding: 8px;
   }
   .faqbot__pemicu-teks {
     display: none;

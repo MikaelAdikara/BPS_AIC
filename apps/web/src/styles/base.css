@@ -143,6 +143,12 @@
   width: auto;
   object-fit: contain;
 }
+/* Maskot kotak FAQ. Tanpa `drop-shadow` seperti `.brand__mark`: badannya tegak dan sempit,
+   dan bayangan di bawah siluet setipis itu terbaca sebagai noda, bukan sebagai ketinggian. */
+.botmark {
+  flex: none;
+  object-fit: contain;
+}
 .brand__name {
   font-weight: 700;
   color: var(--ink);

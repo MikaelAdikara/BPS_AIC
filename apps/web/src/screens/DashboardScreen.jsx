@@ -24,6 +24,7 @@ import { ResultPanel } from "../components/dashboard/ResultPanel.jsx";
 import { RoadmapPanel } from "../components/dashboard/RoadmapPanel.jsx";
 import { UploadStep } from "../components/dashboard/UploadStep.jsx";
 import { goTo } from "../lib/hooks.js";
+import { PROFIL_AWAL, inisial, sapaan } from "../lib/profile.js";
 
 const TABS = [
   ["hasil", "Hasil"],
@@ -33,7 +34,7 @@ const TABS = [
 ];
 
 const HEADINGS = {
-  upload: ["Halo, Owner UMKM!", "Masukkan ulasan untuk mulai"],
+  upload: [null, "Masukkan ulasan untuk mulai"],
   processing: ["Memproses ulasan Anda…", "Mohon tunggu sebentar"],
   hasil: ["Hasil Analisis", null],
   detail: ["Detail Tambahan", "Peluang · temuan foto · sebaran aspek"],
@@ -51,7 +52,10 @@ export function DashboardScreen({ theme, onToggleTheme }) {
 
   // --- masukan
   const [input, setInput] = useState("paste");
-  const [category, setCategory] = useState("fashion");
+  // Profil toko - lihat `lib/profile.js` untuk apa yang diubah tiap isiannya, dan apa yang
+  // sengaja tidak. Disimpan di sini, bukan di UploadStep, karena tiga di antara isinya masih
+  // dipakai setelah fase unggah berakhir: sapaan, avatar, dan pertanyaan yang disarankan.
+  const [profile, setProfile] = useState(PROFIL_AWAL);
   const [paste, setPaste] = useState("");
   const [file, setFile] = useState(null); // { name, columns, rows, truncated }
   const [mapping, setMapping] = useState({});
@@ -182,8 +186,9 @@ export function DashboardScreen({ theme, onToggleTheme }) {
     }
   }
 
-  const mappedReviews = file ? rowsToReviews(file.rows, mapping, category) : [];
-  const pastedReviews = parsePastedText(paste, category);
+  const { category, product } = profile;
+  const mappedReviews = file ? rowsToReviews(file.rows, mapping, category, product) : [];
+  const pastedReviews = parsePastedText(paste, category, product);
   const draftReviews = drafts
     .filter((d) => d.text.trim().length >= 3)
     .map((d) => ({
@@ -191,6 +196,7 @@ export function DashboardScreen({ theme, onToggleTheme }) {
       text: d.text.trim(),
       rating: d.rating ?? null,
       timestamp: null,
+      product_name: product.trim() || null,
       category,
       source: "manual_upload",
     }));
@@ -234,7 +240,9 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   }
 
   const key = phase === "result" ? tab : phase;
-  const [title, subtitle] = HEADINGS[key];
+  // Judul fase unggah menyapa dengan nama toko kalau ada; sisanya tetap dari tabel di atas.
+  const [judul, subtitle] = HEADINGS[key];
+  const title = judul ?? sapaan(profile.store);
 
   return (
     <div className="dash">
@@ -259,13 +267,17 @@ export function DashboardScreen({ theme, onToggleTheme }) {
             ) : (
               result && (
                 <p>
-                  Toko Anda · <span className="stat">{result.summary.total_reviews}</span> ulasan
+                  {profile.store.trim() || "Toko Anda"} ·{" "}
+                  <span className="stat">{result.summary.total_reviews}</span> ulasan
                 </p>
               )
             )}
           </div>
-          <div className="app-ava" aria-hidden="true">
-            OU
+          {/* Inisial nama toko, "OU" (Owner UMKM) kalau namanya belum diisi. `title` bukan
+              `aria-label`: elemennya disembunyikan dari pembaca layar, dan dua huruf tanpa
+              konteks memang tidak berguna dibacakan - tetapi berguna kalau ditunjuk kursor. */}
+          <div className="app-ava" aria-hidden="true" title={profile.store.trim() || undefined}>
+            {inisial(profile.store)}
           </div>
         </div>
 
@@ -292,8 +304,8 @@ export function DashboardScreen({ theme, onToggleTheme }) {
               error={error}
               tab={input}
               onTab={setInput}
-              category={category}
-              onCategory={setCategory}
+              profile={profile}
+              onProfile={setProfile}
               paste={paste}
               onPaste={setPaste}
               file={file}
@@ -335,9 +347,15 @@ export function DashboardScreen({ theme, onToggleTheme }) {
                   onAsk={ask}
                 />
               )}
-              {tab === "detail" && <DetailPanel result={result} />}
+              {tab === "detail" && <DetailPanel result={result} focus={profile.focus} />}
               {tab === "tanya" && (
-                <QnaPanel messages={messages} busy={asking} error={askError} onAsk={ask} />
+                <QnaPanel
+                  messages={messages}
+                  busy={asking}
+                  error={askError}
+                  focus={profile.focus}
+                  onAsk={ask}
+                />
               )}
               {tab === "roadmap" && <RoadmapPanel />}
             </>

@@ -11,6 +11,9 @@
  * Kata "Ulasin" pada lockup nav sengaja tetap TEKS, bukan bagian dari gambar: warnanya harus
  * ikut berganti bersama tema, dan `--ink` bergerak jauh lebih lebar antar tema daripada biru
  * pada berkas lockup.
+ *
+ * Maskot kotak FAQ (`BotMark`) juga tinggal di berkas ini, tetapi ia BUKAN bagian dari merek -
+ * lihat catatan di komponennya.
  */
 
 /** Lambang yang berdiri sendiri - dipakai di tempat yang sudah menyebut nama produknya.
@@ -45,6 +48,38 @@ export function BrandLockup({ height = 30 }) {
       height={height}
       style={{ height }}
       alt="Ulasin"
+      decoding="async"
+    />
+  );
+}
+
+/** Maskot kotak FAQ - sengaja BUKAN lambang merek.
+ *
+ * Kotak FAQ menjawab dari 39 jawaban yang sudah ditulis tangan, bukan dari model. Memberinya
+ * wajah produknya sendiri akan mengaburkan itu: pengguna membaca lambang yang sama di bilah
+ * navigasi dan di gelembung jawaban, lalu menyimpulkan yang menjawabnya adalah "aplikasinya"
+ * dengan seluruh kemampuannya. Maskot yang jelas-jelas robot kecil menyebut dirinya apa adanya.
+ * Alasan kedua lebih sepele tetapi sama nyatanya: dua lambang identik di satu layar membuat
+ * tombol pemicu kotak FAQ terbaca sebagai tautan ke beranda.
+ *
+ * Berkas sumbernya `Logo Chatbot.png` di akar repositori; `scripts/build_brand_assets.py`
+ * memangkasnya menjadi `bot.png`.
+ *
+ * Ukurannya diberikan sebagai TINGGI, dan lebarnya dihitung dari situ. Maskotnya tegak
+ * (120x176 setelah dipangkas), jadi `width == height` seperti pada `BrandMark` akan
+ * memipihkannya. Kedua atribut tetap ditulis supaya browser memesan kotak yang benar sebelum
+ * gambarnya tiba - avatar yang melebar di tengah percakapan menggeser seluruh gelembung. */
+const BOT_RATIO = 120 / 176;
+
+export function BotMark({ size = 24, className = "" }) {
+  return (
+    <img
+      className={`botmark ${className}`}
+      src="/brand/bot.png"
+      width={Math.round(size * BOT_RATIO)}
+      height={size}
+      alt=""
+      aria-hidden="true"
       decoding="async"
     />
   );

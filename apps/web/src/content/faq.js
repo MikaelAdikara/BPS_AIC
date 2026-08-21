@@ -6,7 +6,7 @@
  * percobaan pertama - dan itu jenis kekecewaan yang paling mahal. Yang masih rencana ditulis
  * sebagai rencana, dengan katanya sendiri.
  *
- * Cakupannya sengaja LEBAR - 36 entri menutupi produk, cara pakai, isi hasil, model yang
+ * Cakupannya sengaja LEBAR - 39 entri menutupi produk, cara pakai, isi hasil, model yang
  * dipakai, data dan privasi, batas yang diketahui, sampai soal repositori. Basis yang tipis
  * memaksa kotak ini terlalu sering berkata tidak tahu, dan kotak FAQ yang sering angkat tangan
  * lebih buruk daripada tidak ada kotak FAQ sama sekali.
@@ -166,12 +166,34 @@ export const FAQ = [
   {
     id: "kategori",
     q: "Kenapa harus pilih kategori produk?",
-    kata: "kategori jenis produk fesyen fashion baju makanan minuman fnb f&b elektronik pilihan dropdown",
+    kata: "kategori jenis produk fesyen fashion baju makanan minuman fnb f&b elektronik kerajinan pilihan dropdown wajib",
     a: [
-      "Kategori menentukan dua hal: aspek mana yang relevan (rasa penting untuk makanan, tidak untuk tas) dan pembanding kategori mana yang dipakai untuk menilai apakah angka Anda wajar.",
+      "Kategori menentukan pembanding yang dipakai: angka toko Anda diadu dengan rata-rata kategori itu dari data publik, jadi Anda tahu apakah “12% keluhan soal pengiriman” wajar atau di atas kebiasaan. Ia juga menentukan daftar aspek yang ditawarkan sebagai fokus - rasa cuma muncul untuk makanan dan minuman.",
+      "Yang TIDAK dilakukannya, supaya tidak salah harap: kategori tidak menyaring aspek mana yang dianalisis. Seluruh aspek tetap dihitung; yang menyesuaikan diri adalah pembanding dan pilihan fokusnya.",
       "Jujur soal cakupannya: data latih kami paling tebal di fesyen. Kategori makanan dan minuman hanya terwakili 196 dari sekitar 40.000 ulasan, jadi aspek rasa dan pembandingnya lemah buktinya di sana.",
     ],
-    usul: ["benchmark", "akurat"],
+    usul: ["profil-toko", "benchmark", "akurat"],
+  },
+  {
+    id: "profil-toko",
+    q: "Isian nama toko dan nama produk itu untuk apa?",
+    kata: "nama toko produk isian opsional profil identitas sapaan avatar kolom tambahan beri tahu lebih banyak",
+    a: [
+      "Keduanya opsional dan boleh dilewati. Nama toko dipakai untuk menyapa Anda di layar hasil dan mengisi inisial di avatar - itu saja, dan ia tidak pernah ikut dikirim ke server.",
+      "Nama produk beda: ia menempel pada tiap ulasan yang belum menyebut produknya sendiri, sehingga kutipan bukti di hasil ikut menyebut produk mana yang sedang dibicarakan. Kalau berkas yang Anda unggah sudah punya kolom nama produk, isi kolom itu yang dipakai.",
+    ],
+    usul: ["fokus", "privasi", "kutipan"],
+  },
+  {
+    id: "fokus",
+    q: "Apa gunanya menandai “yang paling ingin Anda tahu”?",
+    kata: "fokus tandai aspek pilihan minat perhatian tiga maksimal personalisasi sesuaikan yang mau dianalisa",
+    a: [
+      "Dua hal, dan hanya dua. Pertama, pertanyaan yang disiapkan di tab Tanya Jawab disusun dari aspek yang Anda tandai. Kedua, aspek itu dijaga tetap tampil di grafik sebaran meski jarang disebut - aspek yang paling ingin diperiksa sering justru aspek yang angkanya kecil.",
+      "Yang sengaja TIDAK berubah: urutan prioritas kartu tindakan. Urutan itu dihitung dari frekuensi, keparahan, dan keyakinan. Menaikkan sesuatu ke atas hanya karena Anda menandainya berarti sistem ini cuma mengembalikan dugaan Anda sendiri, dan itu membalik arah produknya.",
+      "Batasnya tiga. Fokus yang mencakup segalanya bukan fokus.",
+    ],
+    usul: ["prioritas", "profil-toko"],
   },
 
   // ------------------------------------------------------------------ hasil

@@ -7,7 +7,7 @@
 
 import { AspectChart, OpportunityCard, VisualFindings } from "../insight.jsx";
 
-export function DetailPanel({ result }) {
+export function DetailPanel({ result, focus = [] }) {
   const opportunities = result.opportunities ?? [];
 
   return (
@@ -24,7 +24,7 @@ export function DetailPanel({ result }) {
 
       <VisualFindings findings={result.visual_findings} />
 
-      <AspectChart aggregates={result.aspect_aggregates} />
+      <AspectChart aggregates={result.aspect_aggregates} focus={focus} />
     </div>
   );
 }

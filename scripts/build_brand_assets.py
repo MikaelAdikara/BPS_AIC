@@ -1,4 +1,10 @@
-"""Potong `Logo.png` menjadi aset web: lambang, lockup, favicon, kartu pratinjau.
+"""Potong berkas logo di akar repositori menjadi aset web siap pakai.
+
+Dua sumber, dua peran yang sengaja tidak dicampur. `Logo.png` adalah identitas produk -
+lambang, lockup, favicon, kartu pratinjau. `Logo Chatbot.png` adalah maskot kotak FAQ, dan ia
+BUKAN lambang merek: kotak FAQ menjawab dari daftar jawaban tertulis, bukan dari model, jadi
+wajahnya harus berbeda dari wajah produknya. Dua lambang identik di satu layar juga membuat
+tombol pemicu kotak FAQ terbaca sebagai tautan ke beranda.
 
 Berkas sumbernya sudah PNG bertransparansi 1000x478 - lambang di kiri, kata "Ulasin" di
 kanan - jadi tidak ada lagi latar yang perlu dikupas. Versi sebelumnya berangkat dari dua
@@ -22,6 +28,12 @@ Yang tersisa tinggal tiga keputusan:
        pekat dan hanya 2,6:1 di sana, karena itu dulu ada `lockup-dark.png` yang mewarnai
        ulang hurufnya. Sumber baru tidak membutuhkannya.
 
+Maskotnya melewati pemotongan yang sama persis dengan lambang, dengan satu bedanya: ia TIDAK
+dikotakkan. Badannya tegak (256x375), dan memaksanya ke kanvas persegi menyisakan sepertiga
+lebar kosong di kiri-kanan - pada avatar 24px, maskotnya menyusut jadi 16px di dalam kotaknya
+sendiri. Karena itu `bot.png` disimpan seukuran badannya, dan komponen yang memakainya
+menghitung lebar dari tingginya (lihat `BotMark` di `components/Brand.jsx`).
+
 Pemakaian:
     python scripts/build_brand_assets.py
 """
@@ -37,6 +49,7 @@ from scipy import ndimage
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "apps" / "web" / "public" / "brand"
 SUMBER = ROOT / "Logo.png"
+SUMBER_BOT = ROOT / "Logo Chatbot.png"
 
 # Piksel dengan alpha di atas ini dianggap badan logo, bukan bayangan maupun tepi lembut.
 # Bayangannya tidak pernah melewati 60; badan logonya 255 hampir di mana-mana.
@@ -109,6 +122,13 @@ def main() -> None:
     isi = _skala_tinggi(lockup, 190)
     kartu.alpha_composite(isi, ((1200 - isi.width) // 2, (630 - isi.height) // 2))
     kartu.convert("RGB").save(OUT / "og.png", optimize=True)
+
+    # Maskot kotak FAQ. Halo lembut di sekelilingnya dibuang oleh `_tanpa_bayangan` dengan
+    # alasan yang sama seperti bayangan lambang: pada avatar 24px, halo selebar 20px memakan
+    # separuh bitmapnya. Ukuran terbesarnya di layar 34px (kepala panel), jadi 176px masih
+    # tajam sampai kerapatan piksel 5x.
+    maskot = np.asarray(Image.open(SUMBER_BOT).convert("RGBA"), dtype=float)
+    _skala_tinggi(_potong(_tanpa_bayangan(maskot)), 176).save(OUT / "bot.png", optimize=True)
 
     for berkas in sorted(OUT.iterdir()):
         print(f"{berkas.relative_to(ROOT)}  {berkas.stat().st_size / 1024:.0f} KB")

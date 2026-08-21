@@ -194,16 +194,32 @@ export function BenchmarkCard({ rows }) {
  * labelnya panjang ("kesesuaian deskripsi"); batang vertikal memaksa label dimiringkan dan
  * tidak terbaca di layar HP. Nilainya dilabeli langsung di ujung kanan, sehingga identitas
  * tidak pernah bergantung pada warna saja.
+ *
+ * `focus` adalah aspek yang ditandai pengguna di layar unggah. Perlakuannya SATU hal saja:
+ * aspek yang ditandai tidak boleh terpotong oleh batas enam baris. Aspek yang jarang disebut
+ * justru sering aspek yang paling ingin diperiksa - "adakah yang meragukan keaslian barang
+ * saya" dijawab paling jujur oleh angka kecil, dan angka itulah yang hilang saat daftarnya
+ * dipotong menurut jumlah sebutan. Urutannya sendiri TIDAK diubah: batang yang melompat ke
+ * atas karena ditandai berhenti bisa dibaca sebagai perbandingan besaran.
  */
-export function AspectChart({ aggregates }) {
+export function AspectChart({ aggregates, focus = [] }) {
   if (!aggregates?.length) return null;
 
-  const rows = [...aggregates].sort((a, b) => b.total_mentions - a.total_mentions).slice(0, 6);
+  const ditandai = new Set(focus);
+  const urut = [...aggregates].sort((a, b) => b.total_mentions - a.total_mentions);
+  const rows = [
+    ...urut.slice(0, 6),
+    ...urut.slice(6).filter((r) => ditandai.has(r.aspect)),
+  ].sort((a, b) => b.total_mentions - a.total_mentions);
   const max = Math.max(...rows.map((r) => r.total_mentions), 1);
+  const adaTanda = rows.some((r) => ditandai.has(r.aspect));
 
   return (
     <section className="panel">
-      <div className="panel-title">Sebaran per aspek</div>
+      <div className="panel-title">
+        Sebaran per aspek
+        {adaTanda && <em>◆ ditandai sebagai fokus Anda</em>}
+      </div>
       <div className="legend">
         <span>
           <i style={{ background: "var(--blue)" }} />
@@ -218,13 +234,28 @@ export function AspectChart({ aggregates }) {
       <div className="bars">
         {rows.map((r, i) => {
           const netral = r.total_mentions - r.negative_count;
+          const fokus = ditandai.has(r.aspect);
           return (
             <div
-              className="bar"
+              className={`bar ${fokus ? "bar--fokus" : ""}`}
               key={r.aspect}
               title={`${aspectLabel(r.aspect)}: ${r.total_mentions} sebutan, ${r.negative_count} berisi keluhan`}
             >
-              <span className="bar__name">{aspectLabel(r.aspect)}</span>
+              <span className="bar__name">
+                {/* Belah ketupat, bukan warna. Batangnya sudah memakai biru dan merah untuk
+                    arti lain; menandai fokus dengan warna ketiga membuat legenda di atas
+                    berbohong. Bentuk juga tetap terbaca oleh mata yang tidak membedakan
+                    warna. */}
+                {/* `role="img"` supaya `aria-label`-nya benar-benar dibacakan: pada elemen
+                    tanpa peran, atribut itu diabaikan sebagian pembaca layar dan yang
+                    terdengar tinggal nama aspeknya - tak terbedakan dari aspek lain. */}
+                {fokus && (
+                  <b className="bar__tanda" role="img" aria-label="Fokus Anda:">
+                    ◆
+                  </b>
+                )}
+                {aspectLabel(r.aspect)}
+              </span>
               <span className="bar__track">
                 <i
                   className="bar__fill"

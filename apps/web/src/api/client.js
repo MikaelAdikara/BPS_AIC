@@ -75,8 +75,21 @@ export const api = {
   },
 };
 
+/** Nama produk dari profil toko, dirapikan menjadi nilai `product_name` yang sah.
+ *
+ * `RawReview.product_name` bertipe `str | None` dan menerima `""` tanpa mengeluh - justru itu
+ * masalahnya. String kosong lolos validasi lalu terbawa ke hilir sebagai nama produk yang
+ * "ada tetapi kosong", dan tempat ia muncul kembali adalah kutipan bukti. Kolom yang dibiarkan
+ * kosong pengguna berarti TIDAK ADA nama produk, dan satu-satunya cara mengatakan itu di
+ * kontrak datanya adalah `null`. */
+function namaProduk(product) {
+  const bersih = String(product ?? "").trim();
+  return bersih || null;
+}
+
 /** Ubah teks tempelan menjadi RawReview. Satu baris = satu ulasan. */
-export function parsePastedText(text, category = "other") {
+export function parsePastedText(text, category = "other", product = "") {
+  const nama = namaProduk(product);
   return text
     .split("\n")
     .map((line) => line.trim())
@@ -84,6 +97,7 @@ export function parsePastedText(text, category = "other") {
     .map((line, index) => ({
       review_id: `paste_${index + 1}`,
       text: line,
+      product_name: nama,
       category,
       source: "manual_upload",
     }));
@@ -219,8 +233,14 @@ function toIsoOrNull(value) {
   return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString().slice(0, 19);
 }
 
-/** Ubah baris berkas menjadi RawReview memakai pemetaan kolom yang dipilih pengguna. */
-export function rowsToReviews(rows, mapping, category = "other") {
+/** Ubah baris berkas menjadi RawReview memakai pemetaan kolom yang dipilih pengguna.
+ *
+ * `product` dari profil toko cuma menjadi CADANGAN: kalau berkasnya sendiri punya kolom nama
+ * produk, kolom itu yang menang. Ekspor marketplace lazimnya memuat banyak produk sekaligus,
+ * dan menimpanya dengan satu nama yang diketik di layar unggah membuat setiap kutipan bukti
+ * menyebut produk yang salah. */
+export function rowsToReviews(rows, mapping, category = "other", product = "") {
+  const cadangan = namaProduk(product);
   const out = [];
   rows.forEach((row, index) => {
     const text = String(row[mapping.text] ?? "").trim();
@@ -236,7 +256,9 @@ export function rowsToReviews(rows, mapping, category = "other") {
       text,
       rating,
       timestamp: mapping.timestamp ? toIsoOrNull(row[mapping.timestamp]) : null,
-      product_name: mapping.product_name ? String(row[mapping.product_name] ?? "") || null : null,
+      product_name:
+        (mapping.product_name ? String(row[mapping.product_name] ?? "").trim() || null : null) ??
+        cadangan,
       category,
       source: "manual_upload",
     });

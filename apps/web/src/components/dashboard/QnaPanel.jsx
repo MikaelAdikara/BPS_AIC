@@ -3,19 +3,19 @@
  * Riwayat disimpan di layar induk agar tidak hilang saat pengguna berpindah tab; komponen ini
  * hanya menampilkannya. Setiap jawaban membawa kutipan aslinya, dan bila buktinya tidak ada
  * sistem mengatakan tidak tahu alih-alih menyusun kalimat yang terdengar meyakinkan.
+ *
+ * Pertanyaan yang disarankan mengikuti aspek yang ditandai pengguna di layar unggah. Daftar
+ * tetap yang dulu ada di sini menawarkan pertanyaan soal ukuran/varian kepada pemilik warung
+ * kopi, dan menawarkan pengiriman kepada orang yang baru saja menyebut kemasan sebagai
+ * kekhawatiran utamanya. Susunannya di `lib/profile.js`.
  */
 
 import { useEffect, useRef, useState } from "react";
+import { pertanyaanUntuk } from "../../lib/profile.js";
 import { EvidenceStrip, Narrative } from "../insight.jsx";
 
-const SUGGESTED = [
-  "Apa keluhan yang paling sering muncul?",
-  "Bagaimana pendapat pembeli tentang pengiriman?",
-  "Apakah ada masalah dengan ukuran atau varian?",
-  "Bagaimana dibanding rata-rata kategori sejenis?",
-];
-
-export function QnaPanel({ messages, busy, error, onAsk }) {
+export function QnaPanel({ messages, busy, error, focus = [], onAsk }) {
+  const disarankan = pertanyaanUntuk(focus);
   const [question, setQuestion] = useState("");
   const tail = useRef(null);
 
@@ -34,9 +34,11 @@ export function QnaPanel({ messages, busy, error, onAsk }) {
     <div className="reading-col">
       {messages.length === 0 && (
         <>
-          <h3 className="sec-title">Pertanyaan yang disarankan</h3>
+          <h3 className="sec-title">
+            {focus.length ? "Berdasarkan fokus yang Anda pilih" : "Pertanyaan yang disarankan"}
+          </h3>
           <div className="chips">
-            {SUGGESTED.map((q) => (
+            {disarankan.map((q) => (
               <button key={q} type="button" className="chip" onClick={() => submit(q)} disabled={busy}>
                 {q}
               </button>
