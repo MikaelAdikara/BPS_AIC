@@ -6,7 +6,7 @@
  * percobaan pertama - dan itu jenis kekecewaan yang paling mahal. Yang masih rencana ditulis
  * sebagai rencana, dengan katanya sendiri.
  *
- * Cakupannya sengaja LEBAR - 39 entri menutupi produk, cara pakai, isi hasil, model yang
+ * Cakupannya sengaja LEBAR - 40 entri menutupi produk, cara pakai, isi hasil, model yang
  * dipakai, data dan privasi, batas yang diketahui, sampai soal repositori. Basis yang tipis
  * memaksa kotak ini terlalu sering berkata tidak tahu, dan kotak FAQ yang sering angkat tangan
  * lebih buruk daripada tidak ada kotak FAQ sama sekali.
@@ -96,7 +96,19 @@ export const FAQ = [
       "3. Baca hasilnya: masalah teratas berurutan, tiap satunya dengan kutipan asli pelanggan sebagai bukti.",
     ],
     aksi: { label: "Mulai Analisis", ke: "dashboard" },
-    usul: ["format-data", "berapa-lama", "dataset-contoh"],
+    usul: ["dari-mana-ulasan", "format-data", "berapa-lama", "dataset-contoh"],
+  },
+  {
+    id: "dari-mana-ulasan",
+    q: "Dari mana saya mengambil ulasannya?",
+    kata: "ambil dapat dapet dapatkan sumber asal shopee tokopedia tiktok lazada bukalapak google maps whatsapp wa seller center centre penilaian toko ekspor export screenshot ss tangkap layar foto menu letak di mana dimana",
+    a: [
+      "Dari tempat ulasan toko Anda biasanya muncul: halaman Penilaian Toko / Ulasan di aplikasi Shopee, Tokopedia, TikTok Shop, Lazada, Bukalapak, tab Ulasan di Google Maps, atau chat WhatsApp pelanggan.",
+      "Cara paling mudah dari HP: buka halaman ulasannya, tangkap layar beberapa kali sambil menggulir, lalu kirim semua tangkapan itu ke tab Tangkapan layar - teksnya dibaca otomatis dan bisa Anda perbaiki sebelum dianalisis. Tidak perlu mengunduh atau mengekspor apa pun.",
+      "Halaman Panduan menunjukkan letak menunya per aplikasi dengan gambar, langkah demi langkah, dan langsung mengantar ke tab yang tepat.",
+    ],
+    aksi: { label: "Buka panduan per aplikasi", ke: "#/panduan" },
+    usul: ["screenshot", "format-data", "tarik-otomatis"],
   },
   {
     id: "format-data",
