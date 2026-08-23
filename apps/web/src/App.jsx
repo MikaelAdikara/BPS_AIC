@@ -8,6 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaqBot } from "./components/landing/FaqBot.jsx";
 import { DashboardScreen } from "./screens/DashboardScreen.jsx";
+import { GuideScreen } from "./screens/GuideScreen.jsx";
 import { LandingScreen } from "./screens/LandingScreen.jsx";
 import { useRoute, useTheme } from "./lib/hooks.js";
 
@@ -72,6 +73,9 @@ export default function App() {
             <DashboardScreen theme={theme} onToggleTheme={toggleTheme} />
           </div>
         )}
+        {/* Halaman panduan dipasang-lepas mengikuti rute: tidak ada state yang sayang hilang,
+          * dan pemasangan ulang justru mengembalikan pemilih platform ke keadaan awal. */}
+        {route === "guide" && <GuideScreen theme={theme} onToggleTheme={toggleTheme} />}
       </div>
 
       {/* Kotak FAQ berada DI LUAR `.route`, bukan di dalam LandingScreen tempat isinya

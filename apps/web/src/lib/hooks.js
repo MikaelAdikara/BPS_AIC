@@ -16,10 +16,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * Hash yang diawali "#/" adalah rute; "#fitur" dan sejenisnya tetap tautan jangkar biasa
  * di dalam halaman landing.
  */
-export const ROUTE = { landing: "#/", dashboard: "#/analisis" };
+export const ROUTE = { landing: "#/", dashboard: "#/analisis", guide: "#/panduan" };
 
 function routeFromHash(hash) {
-  return hash.startsWith(ROUTE.dashboard) ? "dashboard" : "landing";
+  if (hash.startsWith(ROUTE.dashboard)) return "dashboard";
+  if (hash.startsWith(ROUTE.guide)) return "guide";
+  return "landing";
+}
+
+/** Parameter di belakang hash rute, mis. "#/analisis?masukan=shot" → "shot".
+ *  Dipakai tautan dalam (halaman panduan → tab masukan yang tepat). */
+export function hashParam(name) {
+  const q = window.location.hash.split("?")[1];
+  return q ? new URLSearchParams(q).get(name) : null;
 }
 
 export function goTo(route) {
@@ -40,7 +49,8 @@ export function useRoute() {
       setState((prev) => {
         const next = routeFromHash(window.location.hash);
         if (next === prev.route) return prev;
-        return { route: next, direction: next === "dashboard" ? "forward" : "back" };
+        // Kembali ke landing = mundur; ke mana pun selain itu = maju.
+        return { route: next, direction: next === "landing" ? "back" : "forward" };
       });
     }
     window.addEventListener("hashchange", onChange);

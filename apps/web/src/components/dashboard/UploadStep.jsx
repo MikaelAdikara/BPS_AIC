@@ -126,6 +126,9 @@ export function UploadStep({
       <CategoryPicker value={category} onChange={onCategory} />
 
       <h2 className="sec-title sec-title--rapat">Ulasan yang mau dianalisis</h2>
+      <a href="#/panduan" className="dari-mana">
+        <span aria-hidden="true">?</span> Dari mana saya mengambil ulasan? Panduan per aplikasi ›
+      </a>
 
       {/* Bilah tab dan panelnya dirangkai betulan: tiap tab menunjuk panel lewat
           `aria-controls`, dan panelnya menyebut tab yang sedang aktif lewat `aria-labelledby`.

@@ -667,6 +667,18 @@
   text-align: center;
   font-size: 13.5px;
   color: var(--muted);
+  line-height: 1.7;
+}
+.tutor__tautan {
+  color: var(--blue-dark);
+  font-weight: 650;
+  text-decoration: none;
+}
+.tutor__tautan:hover {
+  text-decoration: underline;
+}
+:root[data-theme="dark"] .tutor__tautan {
+  color: var(--blue-light);
 }
 
 /* ================= Pemandu langkah pertama (layar kerja) ================= */

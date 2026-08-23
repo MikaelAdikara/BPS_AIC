@@ -239,7 +239,7 @@ export async function parseFile(file) {
 
 // Nama kolom yang lazim dipakai ekspor marketplace Indonesia maupun dataset publik.
 const COLUMN_HINTS = {
-  text: ["review", "ulasan", "text", "content", "comment", "komentar", "isi", "review_text", "customer_review"],
+  text: ["review", "ulasan", "teks", "text", "content", "comment", "komentar", "isi", "review_text", "customer_review"],
   rating: ["rating", "star", "bintang", "score", "nilai", "skor"],
   timestamp: ["date", "tanggal", "timestamp", "created_at", "waktu", "time"],
   product_name: ["product", "produk", "nama_produk", "product_name", "item", "title"],

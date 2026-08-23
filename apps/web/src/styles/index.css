@@ -6,6 +6,7 @@
 @import "./landing.css";
 @import "./urgency.css";
 @import "./landing-wow.css";
+@import "./guide.css";
 @import "./dashboard.css";
 /* Terakhir: laporan memakai primitif dari `dashboard.css` (.panel, .mtable, .equote) dan
    sesekali menimpanya untuk konteksnya sendiri. */

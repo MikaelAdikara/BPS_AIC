@@ -1,28 +1,30 @@
 /** Bagian tengah halaman pemasaran: pita marketplace, cara kerja, dan tiga fitur inti. */
 
+import { LOGO_ORDER, LOGOS, MarketLogo } from "./MarketLogos.jsx";
+
 /** Teks referensi Stitch berbunyi "Terhubung dengan ulasan dari semua marketplace besar" -
  *  itu menjanjikan integrasi langsung yang TIDAK dimiliki versi ini, jadi kalimatnya diganti
- *  menjadi jalur yang benar-benar didukung: berkas ekspor dan tangkapan layar. */
-const MARKETPLACES = ["Tokopedia", "Shopee", "TikTok Shop", "Lazada", "Bukalapak", "Google Reviews"];
-
+ *  menjadi jalur yang benar-benar didukung: berkas ekspor dan tangkapan layar.
+ *
+ *  Logonya logo asli (lihat MarketLogos.jsx), bukan nama yang ditebalkan: pita ini dibaca dalam
+ *  satu lirikan, dan merek dikenali dari bentuknya jauh sebelum dari hurufnya. */
 export function MarketplaceBand() {
   // Daftar dirender dua kali supaya pita bisa bergulir tanpa celah: salinan kedua masuk saat
   // yang pertama keluar. Salinan itu disembunyikan dari pembaca layar - isinya sama persis.
+  const label = LOGO_ORDER.map((id) => LOGOS[id].nama).join(", ");
   return (
     <div className="band">
       <div className="band-inner">
         <span className="lbl">
           Bekerja dari berkas ekspor maupun tangkapan layar ulasan marketplace besar
         </span>
-        <div className="band-rail" aria-label="Tokopedia, Shopee, TikTok Shop, Lazada, Bukalapak, Google Reviews">
+        <div className="band-rail" aria-label={label}>
           <div className="band-logos">
-            {MARKETPLACES.map((m) => (
-              <b key={m}>{m}</b>
+            {LOGO_ORDER.map((id) => (
+              <MarketLogo key={id} id={id} height={22} />
             ))}
-            {MARKETPLACES.map((m) => (
-              <b key={`${m}-2`} aria-hidden="true">
-                {m}
-              </b>
+            {LOGO_ORDER.map((id) => (
+              <MarketLogo key={`${id}-2`} id={id} height={22} hidden />
             ))}
           </div>
         </div>

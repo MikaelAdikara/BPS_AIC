@@ -57,9 +57,13 @@ export function Tutorial() {
         ))}
       </ol>
       <p className="tutor__nota">
-        Bingung di tengah jalan? Di dalam aplikasi ada tombol <b>Panduan</b> yang menunjukkan tiga
-        langkah ini lagi - dan kotak tanya-jawab di pojok halaman ini menjawab pertanyaan umum tanpa
-        perlu membaca apa pun.
+        Belum tahu di mana ulasan toko Anda berada di Shopee, Tokopedia, atau Google Maps?{" "}
+        <a href="#/panduan" className="tutor__tautan">
+          Lihat panduan bergambar per aplikasi ›
+        </a>
+        <br />
+        Bingung di tengah jalan? Di dalam aplikasi ada tombol <b>Panduan</b>, dan kotak tanya-jawab
+        di pojok halaman ini menjawab pertanyaan umum.
       </p>
     </section>
   );

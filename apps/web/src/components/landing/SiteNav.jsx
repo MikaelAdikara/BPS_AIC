@@ -10,6 +10,7 @@ export function SiteNav({ onStart, theme, onToggleTheme }) {
         <a href="#cara-kerja">Cara kerja</a>
         <a href="#studi-kasus">Studi kasus</a>
         <a href="#nilai">Nilai</a>
+        <a href="#/panduan">Panduan</a>
       </div>
 
       <div className="nav__right">

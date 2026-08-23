@@ -32,7 +32,7 @@ import { QnaPanel } from "../components/dashboard/QnaPanel.jsx";
 import { ReportPanel } from "../components/dashboard/ReportPanel.jsx";
 import { RoadmapPanel } from "../components/dashboard/RoadmapPanel.jsx";
 import { UploadStep } from "../components/dashboard/UploadStep.jsx";
-import { goTo } from "../lib/hooks.js";
+import { goTo, hashParam } from "../lib/hooks.js";
 import { rentangTanggal } from "../lib/format.js";
 
 const TABS = [
@@ -58,7 +58,23 @@ export function DashboardScreen({ theme, onToggleTheme }) {
   const [error, setError] = useState(null);
 
   // --- masukan
-  const [input, setInput] = useState("paste");
+  // Tab awal boleh dipilih lewat tautan dalam (#/analisis?masukan=shot) - halaman panduan
+  // mengantar pengguna langsung ke tab yang baru saja dijelaskannya. Tautan yang sama saat
+  // dashboard sudah terpasang juga dihormati (lihat efek hashchange di bawah).
+  const MASUKAN = ["paste", "file", "shot"];
+  const [input, setInput] = useState(() => {
+    const m = hashParam("masukan");
+    return MASUKAN.includes(m) ? m : "paste";
+  });
+  useEffect(() => {
+    const onHash = () => {
+      const m = hashParam("masukan");
+      if (MASUKAN.includes(m)) setInput(m);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [paste, setPaste] = useState("");
   const [file, setFile] = useState(null); // { name, columns, rows, truncated }
   const [mapping, setMapping] = useState({});

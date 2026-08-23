@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { hashParam } from "../../lib/hooks.js";
 
 const KEY = "ulasin.panduan.v1";
 
@@ -33,6 +34,10 @@ export function FirstRunGuide() {
   const [i, setI] = useState(0);
 
   useEffect(() => {
+    // Pengguna yang datang dari halaman panduan (#/analisis?masukan=...) baru saja membaca
+    // langkah-langkahnya; membuka pemandu lagi di atas tab yang ia tuju hanya menghalangi.
+    // Tidak ditandai "sudah dilihat" - kunjungan biasa berikutnya tetap mendapatkannya.
+    if (hashParam("masukan")) return;
     try {
       if (!window.localStorage?.getItem(KEY)) setBuka(true);
     } catch {
@@ -68,6 +73,11 @@ export function FirstRunGuide() {
           <h3 id="panduan-judul">{LANGKAH[i].judul}</h3>
           <p>{LANGKAH[i].isi}</p>
           <p className="panduan__tip">{LANGKAH[i].tip}</p>
+          {i === 0 && (
+            <a href="#/panduan" className="dari-mana">
+              Bingung di mana ulasan toko Anda berada? Lihat panduan per aplikasi ›
+            </a>
+          )}
           <div className="panduan__kaki">
             <div className="panduan__titik" aria-hidden="true">
               {LANGKAH.map((_, j) => (

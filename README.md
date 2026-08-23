@@ -404,7 +404,9 @@ Field `risk_if_recommendation_wrong` dan `user_action: null` bukan hiasan - kedu
 
 ## 7. Antarmuka pengguna
 
-Dua permukaan yang terpisah: halaman pemasaran di `#/` dan layar kerja analisis di `#/analisis`. Halaman pemasaran perlu panjang dan bersuara, layar kerja perlu pendek dan diam - menyatukannya memaksa kompromi yang merugikan keduanya, dan membuat pengguna yang kembali harus menggulir melewati materi promosi setiap kali ingin bekerja.
+Tiga permukaan yang terpisah: halaman pemasaran di `#/`, layar kerja analisis di `#/analisis`, dan **halaman panduan** di `#/panduan`. Halaman pemasaran perlu panjang dan bersuara, layar kerja perlu pendek dan diam - menyatukannya memaksa kompromi yang merugikan keduanya, dan membuat pengguna yang kembali harus menggulir melewati materi promosi setiap kali ingin bekerja.
+
+Halaman panduan menjawab pertanyaan yang tidak dijawab fitur mana pun: **"dari mana saya mengambil ulasan?"** Pengguna memilih tempat ulasannya biasanya muncul (Shopee, Tokopedia, TikTok Shop, Lazada, Bukalapak, Google Maps, WhatsApp/catatan sendiri), lalu mendapat letak menunya dalam gambar ponsel dan 3-4 langkah sehari-hari - jalur yang ditonjolkan adalah tangkap layar, karena tidak butuh berkas maupun laptop. Setiap jalur berakhir di tombol yang membuka layar kerja langsung pada tab yang tepat (`#/analisis?masukan=shot|paste|file`), dan ada contoh berkas CSV untuk diunduh (`/templates/ulasan-contoh.csv`). Logo marketplace yang dipakai di pita, bagian urgensi, dan panduan adalah logo asli berlisensi bebas (atribusi di `apps/web/public/brand/logos/README.md`) - menandai sumber ulasan yang didukung, bukan kemitraan.
 
 Di dalam layar kerja alurnya tetap linear - satu unggahan masuk, satu hasil keluar. Navigasi tab baru muncul setelah ada hasil; sebelum itu tidak ada apa pun untuk dijelajahi.
 

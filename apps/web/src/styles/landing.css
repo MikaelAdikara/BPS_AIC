@@ -469,12 +469,53 @@
   display: flex;
   gap: 32px;
   flex-wrap: wrap;
+  align-items: center;
 }
-.band-logos b {
-  font-size: 14px;
+
+/* Logo marketplace asli (MarketLogos.jsx). Tingginya seragam lewat atribut `height`; lebar
+ * mengikuti rasio aslinya. Di pita, warnanya sedikit diredam supaya enam merek tidak
+ * berebut perhatian dengan judul di atasnya - dan kembali penuh saat disentuh kursor. */
+.mlogo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  line-height: 1;
+  transition:
+    opacity var(--motion-state) var(--ease-out),
+    filter var(--motion-state) var(--ease-out),
+    transform var(--motion-state) var(--ease-out);
+}
+.mlogo--img {
+  width: auto;
+  object-fit: contain;
+}
+.mlogo--glif {
+  gap: 0.34em;
+  color: var(--ink);
+  font-size: calc(var(--mlogo-h, 22px) * 0.7);
   font-weight: 700;
-  color: var(--muted);
   letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.mlogo--glif svg {
+  flex: none;
+}
+.band-logos .mlogo {
+  opacity: 0.82;
+  filter: saturate(0.85);
+}
+.band-logos .mlogo:hover {
+  opacity: 1;
+  filter: none;
+  transform: translateY(-1px);
+}
+/* Di tema gelap, wordmark berwarna merek (navy Lazada, hijau Tokopedia) duduk di atas
+ * keping putih kecil - satu-satunya cara semua merek tetap terbaca tanpa mengubah warnanya. */
+:root[data-theme="dark"] .band-logos .mlogo--img {
+  background: rgba(255, 255, 255, 0.94);
+  padding: 5px 9px;
+  border-radius: 8px;
+  box-sizing: content-box;
 }
 
 /* ================================================================================
