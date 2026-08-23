@@ -342,9 +342,9 @@ Jika total ulasan sesi < 15, seluruh Action Card diberi badge "confidence rendah
 | --- | --- | --- |
 | Kapan aktif | Orchestrator berhasil dimuat - **belum pernah, adapternya belum dibangun** | Otomatis saat orchestrator tidak ada, gagal, timeout, atau outputnya tidak valid |
 | Narasi Action Card | Disusun LLM | Template deterministic dari **data yang sama** |
-| Q&A | Aktif | Nonaktif sementara dengan pesan jelas |
+| Q&A | Narasi jawaban oleh LLM (rencana) | **Berjalan** - dijawab dari statistik + retrieval bukti, tanpa LLM (ADR-018) |
 | Skor, statistik, evidence | - | **identik**, tidak ada yang hilang |
-| Indikasi ke pengguna | - | Banner "Mode sederhana aktif" |
+| Indikasi ke pengguna | - | Tidak ada peringatan di layar (dicabut 22 Agu 2026 - hasilnya setara); `mode` tetap dilaporkan di payload dan `/api/v1/readiness` |
 
 ## 6. Kontrak data dan API
 

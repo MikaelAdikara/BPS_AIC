@@ -14,9 +14,9 @@
 | --- | --- | --- |
 | Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | **terlatih** - lihat §4 untuk angka yang berlaku |
 | Text fallback | TF-IDF + Logistic Regression | **terlatih (baseline Fase 1)** |
-| Visual Intelligence (VIS-01) | CLIP ViT-B/32 zero-shot, frozen | belum dievaluasi |
+| Visual Intelligence (VIS-01) | CLIP ViT-B/32 zero-shot, frozen | **dievaluasi - NO-GO** (11 Agu 2026; lihat "VIS-01 - hasil gerbang Fase 3") |
 | Embedding (RET-01) | BGE-M3 | **terintegrasi** (fallback E5 → TF-IDF) |
-| Orchestrator | SEA-LION quantized | belum diintegrasikan |
+| Orchestrator | SEA-LION quantized | belum diintegrasikan - sistem berjalan FALLBACK (ADR-014) |
 
 ## 2. Data training
 _Diisi dari hasil Fase 1 - lihat [DATASET_CARD.md](DATASET_CARD.md)._
@@ -222,15 +222,18 @@ bug leksikon ditemukan saat adjudikasi (aturan cadangan "barang", dan kata "enak
 memicu aspek keliru).
 
 ## 4. Metrik evaluasi - model visual (bagian 33.2)
-_Accuracy pada kasus tidak abstain, macro F1, coverage, abstention rate, selective accuracy,
-performa per kualitas foto. Belum diukur. **Tidak ada target minimum yang diklaim di muka.**_
+Sudah diukur pada 97 foto berlabel manusia - lihat bagian **"VIS-01 - hasil gerbang Fase 3"** di
+bawah. Tidak ada target minimum yang diklaim di muka; hasilnya di bawah pembanding sepele.
 
 ## 5. Perbandingan baseline (bagian 34)
-_Delapan baseline. Belum dijalankan._
+Dari delapan baseline blueprint, yang dijalankan: leksikon (INSET), TF-IDF + LogReg, dan
+IndoBERT fine-tuned (§3.3-3.4, §4); ditambah pembacaan LLM zero-shot untuk sub-tugas aspek
+(§3.3b). Baseline text+visual, text+retrieval, dan zero-shot API head-to-head untuk seluruh
+pipeline **belum dijalankan**.
 
 ## 6. Go/No-Go gate model visual (bagian 19.3, 26.2)
-_Keputusan GO / CONDITIONAL GO / NO-GO diambil di akhir Fase 3 berbasis selective accuracy dan
-coverage aktual. **Belum diambil.**_
+**NO-GO, diambil 11 Agustus 2026** berbasis akurasi argmax 0,45 < pembanding sepele 0,61 -
+lihat "VIS-01 - hasil gerbang Fase 3". Kode tetap ada, tidak dipanggil di jalur produksi.
 
 ## 7. Batas kemampuan dan bias yang diketahui
 _Diisi setelah error analysis (bagian 26.1 langkah 15). Lihat juga [LIMITATIONS.md](LIMITATIONS.md)._

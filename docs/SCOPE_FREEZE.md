@@ -177,10 +177,12 @@ menyimpan apa pun - arsip pembandingnya datang di badan permintaan.
 
 **Yang berubah pada perilaku model:** `AspectPrediction.confidence` berhenti menjadi konstanta
 dan menjadi probabilitas sentimen (terkalibrasi bila bundle-nya membawa suhu). Karena kalibrasi
-tidak menggeser argmax, akurasi dan urutan Action Card tidak berubah - tetapi skor prioritas
-bergerak, karena `confidence_norm` adalah salah satu pengali intinya. Itu perubahan yang
-disengaja: skor yang sebelumnya dikalikan angka tetap kini dikalikan angka yang benar-benar
-berbeda antar-aspek.
+tidak menggeser argmax, akurasi dan urutan Action Card tidak berubah. Saat paragraf ini pertama
+ditulis, skor prioritas ikut bergerak karena `confidence_norm` masih salah satu pengali inti;
+**sejak amendemen 22 Agustus (§4 di atas) ia dikeluarkan dari rumus** justru karena angka softmax
+yang belum terkalibrasi dan bervariasi antar-aspek itu diam-diam mengatur urutan kartu. Ia kini
+dilaporkan di jejak perhitungan sebagai "dilaporkan, tidak dikalikan", dan baru kembali masuk
+rumus bila `confidence_calibrated` bernilai benar.
 
 **Satu batas yang TIDAK dilanggar:** tidak ada endpoint unggah foto produk yang dibangun.
 Membangunnya menuntut penyimpanan sesi untuk gambar beserta kendali privasinya sendiri, untuk
