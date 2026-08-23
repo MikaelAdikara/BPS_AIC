@@ -6,8 +6,9 @@ export function SiteNav({ onStart, theme, onToggleTheme }) {
       <Brand onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
 
       <div className="nav__links">
+        <a href="#bukti">Bukti</a>
         <a href="#cara-kerja">Cara kerja</a>
-        <a href="#fitur">Fitur</a>
+        <a href="#studi-kasus">Studi kasus</a>
         <a href="#nilai">Nilai</a>
       </div>
 

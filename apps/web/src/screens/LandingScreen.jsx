@@ -3,14 +3,19 @@
  *  bersuara, sementara dashboard tetap pendek dan diam. */
 
 import {
+  CaseStudy,
   Features,
   FootCta,
   Hero,
   HowItWorks,
   MarketplaceBand,
+  Personas,
+  Proof,
   SiteNav,
+  Tutorial,
   Urgency,
   Value,
+  WhyNot,
 } from "../components/landing/index.js";
 import { goTo } from "../lib/hooks.js";
 
@@ -22,9 +27,14 @@ export function LandingScreen({ theme, onToggleTheme }) {
       <SiteNav onStart={start} theme={theme} onToggleTheme={onToggleTheme} />
       <Hero onStart={start} />
       <MarketplaceBand />
+      <Proof onStart={start} />
       <Urgency />
       <HowItWorks />
+      <Tutorial />
       <Features />
+      <CaseStudy onStart={start} />
+      <Personas />
+      <WhyNot />
       <Value />
       <FootCta onStart={start} />
     </>

@@ -4,6 +4,8 @@
  * berserak dan miring 2-5 derajat itulah yang membuat halaman terasa hidup.
  */
 
+import { useEffect, useRef } from "react";
+
 /** Kartu ulasan mengambang. Isinya contoh ulasan berbahasa sehari-hari - persis jenis
  *  kalimat yang harus dibaca sistem, lengkap dengan singkatan dan ejaan bebas. */
 const REVIEWS = [
@@ -157,12 +159,45 @@ function PhoneMockup() {
 }
 
 export function Hero({ onStart }) {
+  // Tilt 3D yang mengikuti kursor. Hanya di perangkat berkursor halus dan bila pengguna tidak
+  // meminta gerak dikurangi; selain itu variabel --tx/--ty tetap 0 dan semuanya statis.
+  const stage = useRef(null);
+  useEffect(() => {
+    const el = stage.current;
+    if (!el || typeof window.matchMedia !== "function") return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    if (!window.matchMedia("(pointer: fine)").matches) return undefined;
+    let raf = 0;
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        el.style.setProperty("--tx", x.toFixed(3));
+        el.style.setProperty("--ty", y.toFixed(3));
+      });
+    };
+    const onLeave = () => {
+      cancelAnimationFrame(raf);
+      el.style.setProperty("--tx", "0");
+      el.style.setProperty("--ty", "0");
+    };
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
   return (
     <section className="hero-section">
       <div className="hero">
         <div className="eyebrow">
           <span className="pulse" />
-          Asisten ulasan cerdas untuk pelaku usaha
+          Tanpa akun · berjalan lokal · data tidak disimpan
         </div>
         <h1>
           <span className="line">
@@ -170,20 +205,20 @@ export function Hero({ onStart }) {
           </span>
         </h1>
         <p className="sub">
-          Ubah kumpulan ulasan dari pelanggan Anda menjadi <b>rekomendasi bisnis konkret</b> kurang
-          dari 1 menit.
+          Ratusan ulasan pelanggan menjadi <b>tiga hal yang harus dikerjakan minggu ini</b> - setiap
+          angka membawa kutipan aslinya, dan bisa Anda hitung ulang sendiri.
         </p>
         <div className="cta-row">
           <button className="btn btn--primary btn--lg" onClick={onStart}>
             Mulai Analisis ›
           </button>
-          <a className="btn btn--outline btn--lg" href="#cara-kerja">
-            Lihat Cara Kerjanya
+          <a className="btn btn--outline btn--lg" href="#bukti">
+            Lihat Cara Menghitungnya
           </a>
         </div>
       </div>
 
-      <div className="stage">
+      <div className="stage" ref={stage}>
         <span className="spill spill--blue">✦ Insight baru</span>
         <span className="spill spill--dark">Prioritas #1 · Ukuran</span>
         <span className="spill spill--glass">Diperbarui tiap hari</span>

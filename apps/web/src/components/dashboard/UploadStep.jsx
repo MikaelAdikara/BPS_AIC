@@ -16,6 +16,7 @@
  */
 
 import { useId } from "react";
+import { FirstRunGuide } from "./FirstRunGuide.jsx";
 
 import { CATEGORIES } from "../../lib/format.js";
 import { FileInput, PasteInput, ScreenshotInput } from "./inputs.jsx";
@@ -119,6 +120,8 @@ export function UploadStep({
           {error.action && <div style={{ marginTop: 4 }}>{error.action}</div>}
         </div>
       )}
+
+      <FirstRunGuide />
 
       <CategoryPicker value={category} onChange={onCategory} />
 

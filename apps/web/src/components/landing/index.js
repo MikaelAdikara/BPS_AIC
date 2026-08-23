@@ -4,3 +4,8 @@ export { MarketplaceBand, HowItWorks, Features } from "./Sections.jsx";
 export { Value } from "./Value.jsx";
 export { Urgency } from "./Urgency.jsx";
 export { FootCta } from "./FootCta.jsx";
+export { Proof } from "./Proof.jsx";
+export { WhyNot } from "./WhyNot.jsx";
+export { CaseStudy } from "./CaseStudy.jsx";
+export { Personas } from "./Personas.jsx";
+export { Tutorial } from "./Tutorial.jsx";
