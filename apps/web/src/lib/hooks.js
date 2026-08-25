@@ -47,7 +47,13 @@ export function useRoute() {
   useEffect(() => {
     function onChange() {
       setState((prev) => {
-        const next = routeFromHash(window.location.hash);
+        const hash = window.location.hash;
+        // Hash tanpa awalan "#/" adalah JANGKAR di dalam halaman yang sedang terbuka
+        // ("#gtempat" di panduan, "#bukti" di landing) - bukan perpindahan rute. Tanpa
+        // pengecualian ini, mengeklik "Tempat ulasan" di nav panduan melempar pengguna
+        // kembali ke landing: routeFromHash menjawab "landing" untuk semua hash asing.
+        if (hash && !hash.startsWith("#/")) return prev;
+        const next = routeFromHash(hash);
         if (next === prev.route) return prev;
         // Kembali ke landing = mundur; ke mana pun selain itu = maju.
         return { route: next, direction: next === "landing" ? "back" : "forward" };
