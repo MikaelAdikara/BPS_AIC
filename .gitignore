@@ -31,6 +31,9 @@ models/
 docs/reference/*.pdf
 docs/reference/*.docx
 
+# Proposal adalah deliverable terpisah dari repositori source code.
+paper/
+
 # --- Python ---
 __pycache__/
 *.py[cod]
@@ -70,13 +73,8 @@ desktop.ini
 ml/evaluation/*.log
 
 # Dependensi & build frontend
-node_modules/
 apps/web/dist/
 data/annotation/label.html
-
-# Konfigurasi alat pengembangan lokal - tidak relevan bagi siapa pun yang meng-clone.
-.vscode/
-.idea/
 
 # Pengecualian: kepala aspek v2 (L0') adalah artefak KECIL (~36 KB) yang sengaja dilacak git,
 # berbeda dari checkpoint 499 MB. Ia dibaca saat melayani request dan dibakar ke image lewat
