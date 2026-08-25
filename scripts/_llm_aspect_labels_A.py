@@ -1,4 +1,4 @@
-"""Label pelabel A (LLM - Claude) untuk paket validasi aspek, ditulis 22 Agustus 2026.
+"""Label pelabel A (LLM) untuk paket validasi aspek, ditulis 22 Agustus 2026.
 
 Berkas ini adalah ARTEFAK ANOTASI, bukan kode produk. Ia menghasilkan
 `data/annotation/aspect_human_A_done.csv` dari keputusan yang tercatat di sini - supaya siapa pun

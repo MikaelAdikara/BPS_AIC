@@ -8,7 +8,6 @@ ini **lebih dulu**, baru diikuti kodenya, agar dokumen tetap satu sumber kebenar
 | --- | --- | --- |
 | `INSIGHTULASAN_BLUEPRINT.md` | Blueprint sistem dan produk lengkap, 50 bagian - sumber kebenaran utama untuk semua keputusan implementasi | ya |
 | `AIC_RESEARCH_DOSSIER.md` | Dasar riset v6: masalah, evidence, dataset, kompetitor, keputusan arsitektur v1–v6 - rujukan untuk alasan "kenapa" | ya |
-| `PROMPT_CLAUDE_CODE.md` | Instruksi eksekusi fase 0–10 dan batasan non-negotiable | ya |
 | `InsightUlasan_Full_System_Product_Blueprint.docx` | Versi Word dari blueprint (isi identik) | tidak (gitignore) |
 | `AIC_Smart_Commerce_Research_Dossier.pdf` | Versi PDF dari dossier (isi identik) | tidak (gitignore) |
 | `[AIC] AI Innovation Challenge_compressed (1).pdf` | Rulebook resmi panitia | tidak (gitignore) |

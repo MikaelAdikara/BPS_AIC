@@ -297,7 +297,7 @@ formalitas.
 | TF-IDF + LR | 0,585 | 0,598 | 0,571 / 0,609 |
 | **IndoBERT fine-tuned** | **0,579** | **0,614** | 0,581 / 0,627 |
 | Label gold-LLM ADR-017 | - | - | **0,704 / 0,734** |
-| LLM anotator (Claude, zero-shot, pelabel A) | 0,660 | 0,716 | 0,675 / 0,729 |
+| LLM anotator (zero-shot, pelabel A) | 0,660 | 0,716 | 0,675 / 0,729 |
 
 **Tafsirnya, apa adanya - dan ia menutup pertanyaan §3.3:**
 
