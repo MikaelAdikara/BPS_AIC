@@ -298,6 +298,25 @@ def migrate(path: Path | str | None = None) -> None:
         conn = connect(target)
         try:
             conn.execute("PRAGMA journal_mode = WAL")
+            conn.execute("BEGIN IMMEDIATE")
+            # Tabel berbasis store_id/issue_id memakai identitas yang berbeda. Simpan utuh
+            # sebagai arsip agar tidak memberi baris tersebut kepemilikan akun secara tebakan.
+            archive_markers = {
+                "products": "store_id", "reviews": "store_id",
+                "facts": "issue_id", "alert_events": "store_id",
+            }
+            for table, marker in archive_markers.items():
+                column_names = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})")}
+                if marker not in column_names:
+                    continue
+                archive = f"deciqo_archive_{table}"
+                conn.execute(f"ALTER TABLE {table} RENAME TO {archive}")
+                for index in conn.execute(
+                    "SELECT name FROM sqlite_master WHERE type = 'index' AND tbl_name = ? AND sql IS NOT NULL",
+                    (archive,),
+                ).fetchall():
+                    quoted = index["name"].replace('"', '""')
+                    conn.execute(f'DROP INDEX "{quoted}"')
             for table, columns in SCHEMA.items():
                 parts = [f"{name} {ddl}" for name, ddl in columns]
                 if table in TABLE_CONSTRAINTS:
@@ -314,6 +333,11 @@ def migrate(path: Path | str | None = None) -> None:
                     conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {safe}")
             for statement in INDEXES:
                 conn.execute(statement)
+            conn.execute("COMMIT")
+        except BaseException:
+            if conn.in_transaction:
+                conn.execute("ROLLBACK")
+            raise
         finally:
             conn.close()
         _migrated_paths.add(str(target))
