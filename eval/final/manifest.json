@@ -47,7 +47,17 @@
     "c19": "development",
     "c20": "development",
     "c21": "development",
-    "c22": "development"
+    "c22": "development",
+    "h01": "holdout",
+    "h02": "holdout",
+    "h03": "holdout",
+    "h04": "holdout",
+    "h05": "holdout",
+    "h06": "holdout",
+    "h07": "holdout",
+    "h08": "holdout",
+    "h09": "holdout",
+    "h10": "holdout"
   },
   "runs": [
     {

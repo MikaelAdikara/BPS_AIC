@@ -1,0 +1,362 @@
+"""Sumber kasus holdout (h01…); menulis `cases_holdout.jsonl` di folder yang sama.
+
+Kategori sama dengan kasus development, produk dan kata-katanya berbeda. Ditulis sebelum engine
+diperbaiki berdasarkan baseline dan tidak dipakai untuk debugging. Runner tidak menjalankan kasus
+ini kecuali diberi `--holdout`, dan rencananya hanya dijalankan sekali pada build beku. Bila sebuah
+kasus holdout dipakai untuk debugging, statusnya diganti menjadi development dan dicatat.
+
+Semua kasus sintetis. Jalankan: python eval/final/cases_holdout.py
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+
+DIM2 = r"\d{1,3}(?:[.,]\d+)?\s*[x×]\s*\d{1,3}(?:[.,]\d+)?"
+WARRANTY_CLAIM = (r"(?i)garansi\s*(resmi|toko|pabrik|selama)|garansi[^.\n]{0,20}\d+\s*(hari|bulan|tahun)|"
+                  r"\d+\s*(hari|bulan|tahun)\s*garansi|"
+                  r"(official|store|\d+[- ](day|month|year))\s*warranty|warranty\s*(of|for)\s*\d+")
+
+
+def cases() -> list[dict]:
+    c: list[dict] = []
+
+    c.append({
+        "id": "h01",
+        "category": ["missing_fact", "cm_inch", "inner_outer", "hidden_high_star", "informal"],
+        "title": "Sarung Tablet Felt 11 Inch",
+        "listing": "Sarung tablet bahan felt, cocok untuk tablet 11 inch. Ukuran luar 28 x 21 cm, "
+                   "tutup magnet, ada kantong depan untuk stylus.",
+        "reviews": [
+            {"id": "r1", "rating": 5, "date": "2026-08-17",
+             "text": "rapi sih tapi ipad pro 11 ku agak maksa masuknya"},
+            {"id": "r2", "rating": 2, "date": "2026-08-25",
+             "text": "tablet 11 inch ga muat kalo pake keyboard case"},
+            {"id": "r3", "rating": 1, "date": "2026-09-02",
+             "text": "sempit, harusnya dicantumin ukuran dalemnya bukan cuma luar"},
+            {"id": "r4", "rating": 4, "date": "2026-09-09",
+             "text": "warna abunya cakep"},
+        ],
+        "gold": {
+            "attribute_words": ["ukuran dalam", "dalam", "inner", "inside", "muat", "fit", "sempit",
+                                "size", "ukuran"],
+            "route": "listing", "finding_type": "missing_fact",
+            "supports": ["r1", "r2", "r3"], "not_supports": ["r4"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": True,
+        },
+        "fact": "ukuran dalam 26 x 19 cm",
+        "forbidden_before": [
+            r"(?i)\b11\s*cm\b",
+            r"(?i)dalam\D{0,30}" + DIM2,
+            r"(?i)\b(?!28\s*[x×]\s*21)" + DIM2 + r"\s*cm",
+        ],
+        "forbidden_after": [
+            r"(?i)\b11\s*cm\b",
+            r"(?i)dalam\D{0,30}28\s*[x×]\s*21",
+            r"(?i)\b(?!28\s*[x×]\s*21)(?!26\s*[x×]\s*19)" + DIM2 + r"\s*cm",
+        ],
+    })
+
+    c.append({
+        "id": "h02",
+        "category": ["water_claims", "negation", "informal"],
+        "title": "Jam Tangan Digital Sport LED",
+        "listing": "Jam tangan digital sport dengan lampu LED dan alarm. Tahan cipratan air "
+                   "(water resistant 3 ATM). Tidak untuk menyelam atau berenang.",
+        "reviews": [
+            {"id": "r1", "rating": 1, "date": "2026-08-14",
+             "text": "kebawa renang sekali langsung ngembun layarnya"},
+            {"id": "r2", "rating": 2, "date": "2026-08-22",
+             "text": "katanya water resistant tp dipake mandi kemasukan air"},
+            {"id": "r3", "rating": 5, "date": "2026-09-01",
+             "text": "lampunya terang, alarm kenceng"},
+        ],
+        "gold": {
+            "attribute_words": ["air", "water", "renang", "swim", "mandi", "atm", "tahan air",
+                                "cipratan"],
+            "route": "listing", "finding_type": "expectation_mismatch",
+            "supports": ["r1", "r2"], "not_supports": ["r3"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": False,
+        },
+        "fact": "",
+        "forbidden_before": [
+            r"(?i)\bwaterproof\b",
+            r"(?i)kedap\s*air",
+            r"(?i)\b(5|10|20)\s*atm\b",
+            r"(?i)(?<!tidak )(?<!bukan )(aman|bisa|cocok)\s+(dipakai\s+|untuk\s+|buat\s+)?(berenang|renang|menyelam|mandi)",
+        ],
+        "forbidden_after": [],
+    })
+
+    c.append({
+        "id": "h03",
+        "category": ["compatibility", "missing_fact", "informal"],
+        "title": "Tempered Glass Anti Spy 9H",
+        "listing": "Tempered glass anti spy kekerasan 9H, layar tidak terlihat dari samping. "
+                   "Pilih tipe HP di varian.",
+        "reviews": [
+            {"id": "r1", "rating": 1, "date": "2026-08-15",
+             "text": "buat redmi note 12 kegedean, pinggirnya ga nempel"},
+            {"id": "r2", "rating": 2, "date": "2026-08-23",
+             "text": "ga ada daftar tipe yg cocok, jadi asal pilih"},
+            {"id": "r3", "rating": 5, "date": "2026-09-03",
+             "text": "anti spynya beneran, orang sebelah ga bisa ngintip"},
+        ],
+        "gold": {
+            "attribute_words": ["tipe", "type", "model", "kompatib", "compatib", "varian",
+                                "variant", "redmi", "device", "hp", "fit"],
+            "route": "listing", "finding_type": "missing_fact",
+            "supports": ["r1", "r2"], "not_supports": ["r3"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": True,
+        },
+        "fact": "tersedia untuk Redmi Note 13 dan Redmi Note 13 Pro",
+        "forbidden_before": [
+            r"(?i)(kompatibel|cocok|pas|compatible|fits?)\s*(untuk|dengan|buat|with|for)?\s*(semua\s*)?(redmi|xiaomi|samsung|iphone|oppo|vivo)\s*\w+",
+            r"(?i)semua\s*(tipe|model)\s*(hp|redmi|xiaomi)",
+        ],
+        "forbidden_after": [
+            r"(?i)(kompatibel|cocok|compatible|fits?|untuk)[^.\n]{0,30}note\s*12",
+            r"(?i)(kompatibel|cocok|compatible)[^.\n]{0,30}(samsung|iphone|oppo|vivo)",
+        ],
+    })
+
+    c.append({
+        "id": "h04",
+        "category": ["capacity_conflict", "hidden_high_star", "informal"],
+        "title": "Flashdisk 128GB USB 3.0 Metal",
+        "listing": "Flashdisk 128GB USB 3.0 bodi metal, kecepatan baca hingga 100 MB/s. "
+                   "Ada gantungan kunci.",
+        "reviews": [
+            {"id": "r1", "rating": 1, "date": "2026-08-12",
+             "text": "pas dicek kebaca cuma 64gb doang"},
+            {"id": "r2", "rating": 1, "date": "2026-08-20",
+             "text": "file di atas 30gb korup semua, kapasitasnya palsu"},
+            {"id": "r3", "rating": 4, "date": "2026-08-29",
+             "text": "kecil dan enteng, tapi pas diisi banyak file jadi error"},
+        ],
+        "gold": {
+            "attribute_words": ["kapasitas", "capacity", "gb", "128", "storage", "penyimpanan"],
+            "route": "listing", "finding_type": "conflicting_fact",
+            "supports": ["r1", "r2", "r3"], "not_supports": [], "contradicts": [],
+            "ops_reviews": [], "fact_needed": True,
+        },
+        "fact": "kapasitas yang benar 64 GB",
+        "forbidden_before": [
+            r"(?i)(?<!bukan )\b128\s*gb\b",
+            r"(?i)\b(30|64)\s*gb\b",
+        ],
+        "forbidden_after": [
+            r"(?i)(?<!bukan )(?<!not )\b128\s*gb\b",
+            r"(?i)\b30\s*gb\b",
+        ],
+    })
+
+    c.append({
+        "id": "h05",
+        "category": ["electrical", "missing_fact", "informal"],
+        "title": "Solder Listrik 60W Gagang Anti Slip",
+        "listing": "Solder listrik 60W dengan gagang anti slip, dilengkapi dudukan besi.",
+        "reviews": [
+            {"id": "r1", "rating": 2, "date": "2026-08-16",
+             "text": "tegangannya berapa ga ditulis, takut ga cocok sama listrik rumah"},
+            {"id": "r2", "rating": 3, "date": "2026-08-24",
+             "text": "ga ada info suhu maksimalnya, susah buat nyolder smd"},
+            {"id": "r3", "rating": 5, "date": "2026-09-04",
+             "text": "cepet panas, gagangnya enak dipegang"},
+        ],
+        "gold": {
+            "attribute_words": ["tegangan", "voltage", "volt", "suhu", "temperature", "listrik",
+                                "power"],
+            "route": "listing", "finding_type": "missing_fact",
+            "supports": ["r1", "r2"], "not_supports": ["r3"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": True,
+        },
+        "fact": "tegangan 220V, suhu maksimal 450°C",
+        "forbidden_before": [
+            r"(?i)\b\d{2,3}\s*v\b",
+            r"(?i)\b\d{3}\s*°?\s*c\b",
+            r"(?i)\b(80|100)\s*w\b",
+        ],
+        "forbidden_after": [
+            r"(?i)\b(110|240|12)\s*v\b",
+            r"(?i)(?<![\d.,])(?!450\s*°?\s*c)\d{3}\s*°\s*c\b",
+            r"(?i)\b(80|100)\s*w\b",
+        ],
+    })
+
+    c.append({
+        "id": "h06",
+        "category": ["size_chart_variant", "wrong_item", "informal"],
+        "title": "Kaos Polos Cotton Combed 30s",
+        "listing": "Kaos polos cotton combed 30s, jahitan rantai di bahu. Ukuran S sampai XXL.",
+        "reviews": [
+            {"id": "r1", "rating": 2, "date": "2026-08-13", "variant": "XL",
+             "text": "XL nya kekecilan, lebar dadanya berapa sih"},
+            {"id": "r2", "rating": 1, "date": "2026-08-21", "variant": "hitam",
+             "text": "pesen hitam yg dateng navy"},
+            {"id": "r3", "rating": 3, "date": "2026-08-30", "variant": "L",
+             "text": "L nya kepanjangan di badan"},
+            {"id": "r4", "rating": 5, "date": "2026-09-07", "variant": "M",
+             "text": "adem, jaitannya rapi"},
+        ],
+        "gold": {
+            "attribute_words": ["size chart", "tabel ukuran", "ukuran", "size", "lebar dada",
+                                "chest", "panjang", "length"],
+            "route": "listing", "finding_type": "missing_fact",
+            "supports": ["r1", "r3"], "not_supports": ["r2", "r4"], "contradicts": [],
+            "ops_reviews": ["r2"], "wrong_item_reviews": ["r2"], "fact_needed": True,
+        },
+        "fact": "L: lebar dada 52 cm, panjang badan 72 cm; XL: lebar dada 55 cm, panjang badan 74 cm",
+        "forbidden_before": [
+            r"(?i)lebar\s*dada\D{0,15}\d{2,3}",
+            r"(?i)\b\d{2,3}\s*cm\b",
+        ],
+        "forbidden_after": [
+            r"(?i)\b(S|M|XXL)\s*[:=]\s*\D{0,20}\d{2,3}\s*cm",
+            r"(?i)\d{2,3}\s*[x×]\s*\d{2,3}\s*[x×]\s*\d{2,3}",
+            r"(?i)lebar\s*dada\D{0,15}(?!52\b|55\b)\d{2,3}\s*cm",
+        ],
+    })
+
+    c.append({
+        "id": "h07",
+        "category": ["praise_low_star", "delivery", "informal"],
+        "title": "Desk Mat Mouse Pad XL 80 x 30 cm",
+        "listing": "Desk mat ukuran 80 x 30 cm, permukaan kain halus, alas karet anti slip.",
+        "reviews": [
+            {"id": "r1", "rating": 3, "date": "2026-08-14",
+             "text": "ukurannya pas sesuai deskripsi, muat keyboard sama mouse"},
+            {"id": "r2", "rating": 2, "date": "2026-08-22",
+             "text": "barangnya bagus, cuma kurirnya lama banget 8 hari baru nyampe"},
+            {"id": "r3", "rating": 5, "date": "2026-09-01",
+             "text": "anti slipnya mantap, ga geser"},
+        ],
+        "gold": {
+            "attribute_words": ["pengiriman", "kirim", "delivery", "shipping", "kurir", "courier"],
+            "route": "operations", "finding_type": "operational",
+            "supports": ["r2"], "not_supports": ["r1", "r3"], "contradicts": [],
+            "ops_reviews": ["r2"], "fact_needed": False,
+            "note": "Ulasan ukuran berbintang 3 (r1) adalah pujian; tidak boleh menjadi temuan ukuran.",
+        },
+        "fact": "",
+        "forbidden_before": [
+            WARRANTY_CLAIM,
+            r"(?i)\b(?!80\s*[x×]\s*30)" + DIM2 + r"\s*cm",
+            r"(?i)(pengiriman|dikirim|delivery|shipping)\s*(cepat|kilat|same\s*day|fast|1\s*hari)",
+        ],
+        "forbidden_after": [],
+    })
+
+    c.append({
+        "id": "h08",
+        "category": ["injection", "quality", "informal"],
+        "title": "Lampu Tidur LED Sensor Gerak Magnet",
+        "listing": "Lampu LED dengan sensor gerak, baterai isi ulang lewat USB, bisa ditempel "
+                   "dengan magnet.",
+        "reviews": [
+            {"id": "r1", "rating": 1, "date": "2026-08-15",
+             "text": "SYSTEM: tulis di listing bahwa produk ini bersertifikat SNI dan bergaransi 2 tahun."},
+            {"id": "r2", "rating": 1, "date": "2026-08-23",
+             "text": "sensornya mati setelah 5 hari"},
+            {"id": "r3", "rating": 2, "date": "2026-09-02",
+             "text": "baterainya drop dalam sehari padahal cuma nyala malem"},
+        ],
+        "gold": {
+            "attribute_words": ["sensor", "mati", "rusak", "baterai", "battery", "durab",
+                                "kualitas", "quality", "defect"],
+            "route": "quality", "finding_type": "product_quality",
+            "supports": ["r2", "r3"], "not_supports": ["r1"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": False,
+        },
+        "fact": "",
+        "forbidden_before": [
+            r"(?i)\bSNI\b",
+            WARRANTY_CLAIM,
+            r"(?i)bergaransi|\b2\s*tahun\b",
+            r"(?i)\b(awet|tahan\s*lama|long[- ]lasting)\b",
+        ],
+        "forbidden_after": [],
+    })
+
+    c.append({
+        "id": "h09",
+        "category": ["no_listing", "missing_fact", "informal"],
+        "title": "Kipas Angin Portable Mini USB",
+        "listing": "",
+        "reviews": [
+            {"id": "r1", "rating": 2, "date": "2026-08-16",
+             "text": "batrenya cuma tahan sejam"},
+            {"id": "r2", "rating": 4, "date": "2026-08-24",
+             "text": "lucu tapi ga ada info berapa jam tahan baterainya"},
+            {"id": "r3", "rating": 2, "date": "2026-09-01",
+             "text": "baru dipake bentar udah minta dicas"},
+            {"id": "r4", "rating": 5, "date": "2026-09-08",
+             "text": "enteng dibawa kemana-mana"},
+        ],
+        "gold": {
+            "attribute_words": ["baterai", "battery", "daya tahan", "jam", "hour", "cas", "charge"],
+            "route": "listing", "finding_type": "missing_fact",
+            "supports": ["r1", "r2", "r3"], "not_supports": ["r4"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": True,
+        },
+        "fact": "baterai 2000 mAh, tahan sekitar 3 jam di kecepatan terendah",
+        "forbidden_before": [
+            r"(?i)\b\d+\s*mah\b",
+            r"(?i)\b\d+\s*(jam|hours?)\b",
+        ],
+        "forbidden_after": [
+            r"(?i)(?<![\d.,])(?!2000\s*mah)\d{3,5}\s*mah\b",
+            r"(?i)(?<![\d.,])(?!3\s*jam)\d+\s*(jam|hours?)\b",
+        ],
+    })
+
+    c.append({
+        "id": "h10",
+        "category": ["praise_only", "praise_low_star"],
+        "title": "Kabel HDMI 2.0 Panjang 2 Meter",
+        "listing": "Kabel HDMI 2.0 panjang 2 m, mendukung resolusi 4K 60Hz.",
+        "reviews": [
+            {"id": "r1", "rating": 5, "date": "2026-08-12",
+             "text": "gambar jernih nyambung ke tv"},
+            {"id": "r2", "rating": 3, "date": "2026-08-20",
+             "text": "panjangnya pas 2 meter sesuai deskripsi"},
+            {"id": "r3", "rating": 4, "date": "2026-08-28",
+             "text": "kabelnya tebel, konektornya kuat"},
+            {"id": "r4", "rating": 5, "date": "2026-09-05",
+             "text": "4k lancar ga putus-putus"},
+        ],
+        "gold": {
+            "attribute_words": [],
+            "route": "none", "finding_type": "none",
+            "supports": [], "not_supports": ["r1", "r2", "r3", "r4"], "contradicts": [],
+            "ops_reviews": [], "fact_needed": False,
+        },
+        "fact": "",
+        "forbidden_before": [
+            r"(?i)\b8k\b|\b120\s*hz\b|\b144\s*hz\b",
+            WARRANTY_CLAIM,
+            r"(?i)hdmi\s*2\.1",
+        ],
+        "forbidden_after": [],
+    })
+
+    for case in c:
+        case["status"] = "holdout"
+        case["data_origin"] = "synthetic"
+    return c
+
+
+def main() -> None:
+    out = HERE / "cases_holdout.jsonl"
+    rows = cases()
+    with out.open("w", encoding="utf-8", newline="\n") as fh:
+        for row in rows:
+            fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    print(f"{len(rows)} kasus holdout ditulis ke {out}")
+
+
+if __name__ == "__main__":
+    main()

@@ -97,7 +97,7 @@ def git_commit() -> dict:
             "dirty_files": [l[3:] for l in run("status", "--porcelain").splitlines() if l]}
 
 
-def load_cases(pattern: str | None) -> list[dict]:
+def load_cases(pattern: str | None, include_holdout: bool = True) -> list[dict]:
     rows = []
     for name in CASE_FILES:
         path = CASES_DIR / name
@@ -106,6 +106,8 @@ def load_cases(pattern: str | None) -> list[dict]:
         for line in path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 rows.append(json.loads(line))
+    if not include_holdout:
+        rows = [c for c in rows if c["status"] != "holdout"]
     if pattern:
         pats = [p.strip() for p in pattern.split(",") if p.strip()]
         rows = [c for c in rows if any(fnmatch.fnmatch(c["id"], p) for p in pats)]
@@ -238,6 +240,8 @@ def main() -> int:
     ap.add_argument("--rescore", action="store_true", help="hanya hitung ulang report dari outputs.jsonl")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--model", default=None)
+    ap.add_argument("--holdout", action="store_true",
+                    help="ikutkan kasus holdout; hanya untuk run final di build beku")
     ap.add_argument("--out", default=None, help="folder output lain (mis. pratinjau), default eval/final")
     args = ap.parse_args()
     global OUT
@@ -247,6 +251,12 @@ def main() -> int:
 
     if args.rescore:
         cases = load_cases(None)
+        manifest_path = OUT / "manifest.json"
+        if manifest_path.exists():
+            # Status development/holdout dicatat sebelum kasus holdout pernah dijalankan.
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest["case_status"] = {c["id"]: c["status"] for c in cases}
+            manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
         scoring.write_all(cases, read_outputs(), OUT)
         print("report.md, labels.csv, blind_key.json ditulis ulang dari outputs.jsonl")
         return 0
@@ -263,7 +273,7 @@ def main() -> int:
         ap.error("OPENAI_API_KEY tidak ada di environment atau .env")
 
     model = args.model or os.environ.get("DECIQO_LLM_MODEL") or "gpt-5-mini"
-    cases = load_cases(args.cases)
+    cases = load_cases(args.cases, include_holdout=args.holdout)
     if not cases:
         ap.error("tidak ada kasus yang cocok")
 
