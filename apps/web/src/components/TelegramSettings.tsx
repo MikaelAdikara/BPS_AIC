@@ -19,7 +19,7 @@ export function TelegramSettings() {
   const [result, setResult] = useState<string | null>(null);
   const [expired, setExpired] = useState(false);
   useEffect(() => {
-    if (!link) return;
+    if (!link || expired) return;
     const expiry = Date.parse(link.expires_at);
     const check = () => {
       if (Date.now() >= expiry) {
@@ -34,7 +34,7 @@ export function TelegramSettings() {
       clearInterval(interval);
       window.removeEventListener("focus", check);
     };
-  }, [link, refresh]);
+  }, [link, refresh, expired]);
   useEffect(() => {
     if (user?.telegram_linked) setLink(null);
   }, [user?.telegram_linked]);

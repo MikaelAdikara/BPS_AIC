@@ -561,7 +561,7 @@ function FindingCard({
               : t("product.coverage", { count: metrics.denominator })}
           </p>
           <p className="muted">
-            {t("product.share", {
+            {t(metrics.support_is_minimum ? "product.shareCandidates" : "product.share", {
               share: new Intl.NumberFormat(
                 language === "id" ? "id-ID" : "en-GB",
                 { style: "percent", maximumFractionDigits: 1 },

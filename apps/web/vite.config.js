@@ -8,7 +8,7 @@ export default defineConfig({
       enforce: "pre",
       handleHotUpdate({ file, server }) {
         if (
-          /\/src\/(api\/(auth|workspace)|lib\/(i18n|theme))\.tsx$/.test(
+          /\/src\/(?:api\/(?:auth|workspace)\.tsx|lib\/(?:i18n|theme)\.tsx|lib\/messages[^/]*\.js)$/.test(
             normalizePath(file),
           )
         ) {

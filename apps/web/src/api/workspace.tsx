@@ -61,7 +61,7 @@ interface Status {
   jobs: Job[];
   engine_ready: boolean;
   llm: { configured: boolean; key_rejected: boolean; budget_usd: number; spent_usd: number; model: string };
-  fetch: { configured: boolean; budget_usd: number; spent_usd: number };
+  fetch: { configured: boolean; budget_usd: number; spent_usd: number; max_urls: number; max_charge_per_run_usd: number; reviews_per_product: number };
   estimate: { products: number; changed: number; analyse_all_usd: number };
 }
 interface Data {

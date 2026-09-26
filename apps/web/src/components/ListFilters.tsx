@@ -22,7 +22,12 @@ export function useListFilters(key: string) {
   const [filters, setFilters] = useState<Filters>(() => {
     try {
       const saved = JSON.parse(sessionStorage.getItem(key) ?? "null");
-      return { ...empty, ...saved };
+      const restored = { ...empty };
+      for (const field of Object.keys(empty) as (keyof Filters)[]) {
+        if (typeof saved?.[field] === "string") restored[field] = saved[field];
+      }
+      if (!["priority", "reviews", "share", "recent", "product"].includes(restored.order)) restored.order = "priority";
+      return restored;
     } catch {
       return { ...empty };
     }

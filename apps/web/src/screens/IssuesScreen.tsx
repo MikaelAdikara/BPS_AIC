@@ -153,7 +153,7 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
               action={
                 <button
                   className="btn btn--outline"
-                  onClick={() => select("all")}
+                    onClick={() => { clear(); select("all"); }}
                 >
                   {t("workspace.viewAll")}
                 </button>

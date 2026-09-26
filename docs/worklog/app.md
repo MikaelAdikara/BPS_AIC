@@ -61,3 +61,11 @@
 - Produk menampilkan alasan already_in_listing, cakupan model_chars, pembanding chatbot umum dengan kalimat terblokir tetap terlihat, serta anggaran dan perkiraan investigasi dari server.
 - Verifikasi: 29 tes web, typecheck, build, dan 90 tes backend terarah lulus. Korpus PII mencakup nomor bertitik, email tersamar, nama kontekstual, alamat gedung, dan ukuran pribadi. Tes startup memastikan pemeriksaan ulang di thread latar memegang ANALYSIS_LOCK.
 - Pemeriksaan browser untuk fitur tambahan belum selesai. Pengiriman Telegram nyata dan pembandingan provider nyata belum diuji.
+
+## Integrasi dan pengujian workspace
+
+- Seluruh 584 tes unit backend lulus. Setelah penambahan metadata batas fetch dan perbaikan URL publik, 26 tes sumber/platform/URL lulus; web tetap 29 tes, typecheck, dan build lulus.
+- Browser Overview menampilkan keputusan dari engine dan rentang 7 hari. Overview dan Alerts gelap/ID pada 375px memiliki lebar dokumen 360px. Loading dan pesan error tampil saat container belum siap atau query ditolak; rentang query sudah diperbaiki dengan tes HTTP.
+- Sources menyediakan URL Lazada, status belum dikonfigurasi, batas URL/ulasan/biaya dari API, serta formulir ulasan toko demo sintetis. Hasil pencarian produk kosong menyediakan tombol hapus filter.
+- Kamus bahasa memicu reload penuh saat pengembangan supaya provider tidak terduplikasi di Windows. Label persentase kandidat dibedakan dari seluruh ulasan. URL publik membuang fragmen router agar tautan alert baru tidak memiliki dua fragmen.
+- Form Lazada dan ulasan demo belum diuji sampai selesai melalui browser. Telegram nyata belum dikirim.

@@ -3,6 +3,8 @@ import { useAuth } from "@/api/auth";
 import { useWorkspace } from "@/api/workspace";
 import { request, ApiError } from "@/api/http.js";
 import { useI18n } from "@/lib/i18n";
+import { LazadaFetch } from "@/components/LazadaFetch";
+import { DemoReview } from "@/components/DemoReview";
 import {
   Button,
   Card,
@@ -522,12 +524,14 @@ export function SourcesScreen() {
                     </div>
                   )}
                 </Card>
-                {user.is_demo && tab === "woocommerce" && (
+                {tab === "lazada" && <LazadaFetch />}
+                {source?.synthetic && tab === "woocommerce" && (
                   <Card title={t("sources.demoTools")}>
                     <details>
                       <summary>{t("sources.demoTools")}</summary>
                       <p>{t("sources.liveHint")}</p>
                       <p className="muted">{t("sources.operational")}</p>
+                      <DemoReview />
                       <Button
                         busy={busy}
                         onClick={() =>

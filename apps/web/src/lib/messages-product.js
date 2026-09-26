@@ -1,5 +1,6 @@
 export const product = {
   en: {
+    shareCandidates: "{share} of investigated candidate reviews",
     reasonAlreadyListing: "This fact is already in your listing. Review its wording and placement before using the draft.",
     modelCoverage: "The model read {count} of {total} listing characters.",
     genericTitle: "Compare with a general chatbot",
@@ -147,6 +148,7 @@ export const product = {
     reload: "Reload product",
   },
   id: {
+    shareCandidates: "{share} dari ulasan kandidat yang diinvestigasi",
     reasonAlreadyListing: "Fakta ini sudah ada di listing. Periksa redaksi dan penempatannya sebelum memakai draf.",
     modelCoverage: "Model membaca {count} dari {total} karakter listing.",
     genericTitle: "Bandingkan dengan chatbot umum",

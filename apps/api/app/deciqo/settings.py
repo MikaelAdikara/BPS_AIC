@@ -54,7 +54,7 @@ def cookie_secure() -> bool:
 
 
 def public_url() -> str:
-    return env("DECIQO_PUBLIC_URL", "http://localhost:3000").rstrip("/")
+    return env("DECIQO_PUBLIC_URL", "http://localhost:3000").split("#", 1)[0].rstrip("/")
 
 
 def woo_base_url() -> str:

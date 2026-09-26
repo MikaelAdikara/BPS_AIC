@@ -21,6 +21,7 @@ test("provider edits reload the page while screen edits keep hot updates", async
     [],
   );
   assert.deepEqual(sent, [{ type: "full-reload" }]);
+  assert.deepEqual(plugin.handleHotUpdate({file: "C:/web/src/lib/messages-product.js", server}), []);
   assert.equal(
     plugin.handleHotUpdate({
       file: "C:/web/src/screens/SettingsScreen.tsx",
@@ -28,7 +29,7 @@ test("provider edits reload the page while screen edits keep hot updates", async
     }),
     undefined,
   );
-  assert.equal(sent.length, 1);
+  assert.equal(sent.length, 2);
 });
 
 test("all namespaces have matching EN/ID keys and interpolation values", () => {

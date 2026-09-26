@@ -1,5 +1,13 @@
 export const sources = {
   en: {
+    demoRating: "Review rating",
+    demoText: "Review for the synthetic demo store",
+    demoAdd: "Add review and sync",
+    demoEmpty: "Sync the connected demo store to choose a product.",
+    fetchUrls: "Lazada product URLs, one per line",
+    fetchLimits: "Up to {urls} URLs · {reviews} reviews per product · maximum ${charge} per provider run.",
+    fetchUnavailable: "Live fetch is unavailable. Import reviews or load an available snapshot below.",
+    fetchRun: "Fetch and investigate",
     title: "Data sources",
     lead: "Connect a store or import reviews. Deciqo never changes your catalogue.",
     picker: "Where do you sell?",
@@ -77,6 +85,14 @@ export const sources = {
       "Demo tools require the synthetic WooCommerce store to be connected.",
   },
   id: {
+    demoRating: "Rating ulasan",
+    demoText: "Ulasan untuk toko demo sintetis",
+    demoAdd: "Tambah ulasan dan sinkron",
+    demoEmpty: "Sinkron toko demo yang terhubung untuk memilih produk.",
+    fetchUrls: "URL produk Lazada, satu per baris",
+    fetchLimits: "Maksimal {urls} URL · {reviews} ulasan per produk · maksimal ${charge} per proses penyedia.",
+    fetchUnavailable: "Fetch langsung belum tersedia. Impor ulasan atau muat snapshot yang tersedia di bawah.",
+    fetchRun: "Fetch dan investigasi",
     title: "Sumber data",
     lead: "Hubungkan toko atau impor ulasan. Deciqo tidak pernah mengubah katalog Anda.",
     picker: "Di mana Anda berjualan?",

@@ -107,10 +107,10 @@ export function ProductsScreen() {
         <Card>
           {products.length === 0 ? (
             <EmptyState
-              title={t("catalog.empty")}
-              description={t("catalog.emptyHint")}
+              title={t(filters.q || filters.channel || filters.status ? "filters.noMatches" : "catalog.empty")}
+              description={t(filters.q || filters.channel || filters.status ? "filters.hint" : "catalog.emptyHint")}
               action={
-                <a className="btn btn--primary" href="#/app/sources">
+                filters.q || filters.channel || filters.status ? <Button onClick={clear}>{t("filters.clear")}</Button> : <a className="btn btn--primary" href="#/app/sources">
                   {t("catalog.add")}
                 </a>
               }
