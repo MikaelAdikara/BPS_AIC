@@ -45,11 +45,13 @@ class FakeClient:
     def __init__(self, behaviour="ok"):
         self.behaviour = behaviour
         self.calls = []
+        self.kwargs = []
         self.responses = self
 
     def create(self, **kw):
         name = kw["text"]["format"]["name"]
         self.calls.append(name)
+        self.kwargs.append(kw)
         if self.behaviour == "auth":
             raise type("AuthenticationError", (Exception,), {})("bad key")
         if self.behaviour == "incomplete":
@@ -186,3 +188,18 @@ def test_startup_tidak_mengganti_engine_bila_key_tidak_ada(db, monkeypatch):
         conn.execute("UPDATE analyses SET verifier_version = 'verify-lama'")
     monkeypatch.delenv("OPENAI_API_KEY")
     assert pipeline.recheck_stale(db_path=path) == {"rechecked": 0, "skipped": 1}
+
+
+def test_panggilan_openai_tidak_disimpan_dan_tanpa_pii(db, monkeypatch):
+    path, pid = db
+    with store.database(path) as conn:
+        ingest.upsert_catalog(1, "manual", [{"source_item_id": "tas", "title": "Tas laptop kanvas",
+                                             "reviews": REVIEWS + [{"id": "r9", "rating": 4,
+                                                                    "text": "Kanvas tebal tapi laptop 14 inch tidak muat. WA 0812 3456 7890"}]}],
+                              conn=conn)
+    client = FakeClient()
+    llm.set_client(client)
+    pipeline.analyse(pid, db_path=path)
+    assert client.kwargs and all(kw["store"] is False for kw in client.kwargs)
+    sent = json.dumps([kw["input"] for kw in client.kwargs])
+    assert "id=r9" in sent and "[nomor telepon]" in sent and "0812" not in sent

@@ -1,0 +1,10 @@
+snapshots/
+.hyperframes/
+node_modules/
+
+# rendered/large media
+output/
+**/output/
+*.mp4
+*.mov
+.thumbnails/

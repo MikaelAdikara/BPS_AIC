@@ -187,6 +187,8 @@ def call_json(*, purpose: str, system: str, user: str, schema: dict, schema_name
             text={"format": {"type": "json_schema", "name": schema_name, "schema": schema, "strict": True}},
             reasoning={"effort": effort},
             max_output_tokens=max_output_tokens,
+            # Teks ulasan (sudah diredaksi) tidak disimpan di sisi OpenAI; kita tidak memakai previous_response_id.
+            store=False,
         )
     except Exception as exc:  # noqa: BLE001 - setiap kegagalan dicatat lalu diteruskan dengan jenisnya
         latency = int((time.perf_counter() - started) * 1000)
