@@ -191,6 +191,10 @@ def call_deciqo(system: str, case: dict, phase: str, db_dir: Path, budget: Budge
         row["text"] = "\n\n".join(f["draft_text"] for f in result["findings"] if f["draft_text"])
         row["status"] = "ok"
         row["engine"] = result.get("engine") or engine
+        if engine == "ai" and row["engine"] != "ai":
+            # D yang diam-diam jatuh ke mode aturan tidak boleh terbaca sebagai hasil AI.
+            row["status"] = "fallback_rules"
+            row["error"] = f"engine fell back to {row['engine']}: {result.get('engine_note') or 'no reason given'}"
         row["pipeline_version"] = result.get("pipeline_version")
         row["verifier_version"] = result.get("verifier_version")
         row["usage"] = result.get("usage") or {}

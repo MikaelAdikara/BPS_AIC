@@ -310,6 +310,9 @@ def cases() -> list[dict]:
             r"(?i)\b(XL|S)\s*[:=]\s*\D{0,20}\d{2,3}\s*cm",
             r"(?i)lingkar\s*dada\D{0,15}(?!100\b|106\b)\d{2,3}\s*cm",
             r"(?i)lengan\D{0,15}(?!60\b|62\b)\d{2,3}\s*cm",
+            # Nilai tabel ukuran dari varian dan sumbu berbeda dirangkai jadi satu "dimensi".
+            # Pola ini ditambahkan setelah melihat output D-rules (lihat ITERATIONS.md).
+            r"(?i)\d{2,3}\s*[x×]\s*\d{2,3}\s*[x×]\s*\d{2,3}",
         ],
     })
 

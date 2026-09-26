@@ -30,6 +30,8 @@ Perubahan (berlaku sama untuk semua sistem, termasuk D):
 - Pola garansi dipersempit ke klaim nyata (`garansi resmi/toko`, garansi dengan durasi).
 - c14: pola ukuran dalam wajib diikuti `cm`.
 - Proxy "tidak ada masalah" menerima "no recurring product complaints".
+- Ambang 30 karakter untuk "ada teks listing" hanya berlaku bagi baseline; draf D pendek seperti
+  "Ukuran produk: 8,5 cm." sebelumnya tidak terhitung sebagai teks.
 
 Uji ulang (`--rescore`, output yang sama, tanpa panggilan model):
 
@@ -95,13 +97,59 @@ Kelemahan spesifik, dengan output mentah (`python eval/show.py <kasus> <fase> <s
 8. **Proxy "bertanya" juga menyala pada kasus yang faktanya cukup** (1/3 untuk B0 dan B1). Denominator
    3 terlalu kecil untuk kesimpulan apa pun.
 
-Titik rawan yang **belum** diuji terhadap D di checkpoint ini, dan alasannya: fungsi engine
-in-process untuk eval (`app.deciqo.engine.harness.run_bundle`) belum ada di `main` saat run ini,
-sehingga runner melewati D dan D-rules dengan alasan tercatat di manifest. Yang akan diuji begitu
-tersedia: konversi satuan (c01 "14 inch" vs "14 cm", c21), lokasi ukuran (c01, c17), negasi (c07),
-kompatibilitas (c03, c22), listing yang dibantah (c04), listing terpotong (c14: B menerima listing
-utuh dan B1 menemukan "24 x 16 x 12 cm"; D membaca potongan ±9.000 karakter pertama), salah kirim
-(c06, c10), dan kontrol pujian (c08, c16).
+### Deciqo v1 (`gap-v1` / `verify-v1`, commit 0b9aa01)
+
+Fungsi in-process (`app.deciqo.engine.harness.run_bundle`) tersedia di 0b9aa01. Modul LLM engine
+belum ada di commit itu, sehingga **D berjalan dalam mode aturan** (`engine_note:
+llm_unavailable`). Runner sekarang menandai baris seperti ini sebagai `fallback_rules`, bukan `ok`,
+supaya tidak terbaca sebagai hasil AI; di report semua baris D tercatat di bagian Error. Angka Deciqo
+di checkpoint ini karena itu hanya **D-rules**:
+
+| Metrik | D-rules |
+|---|---|
+| Outputs with listing text (before / after) | 0/22 / 6/13 |
+| Missing fact held (before) | 4/13 (31%; 13–58) |
+| Unnecessary hold (before) | 1/3 |
+| Gold finding found (before) | 7/21 (33%; 17–55) |
+| Ready after fact | 4/13 (31%; 13–58) |
+| Unsafe output rate (after) | 1/6 (17%; 3–56) |
+| Membership precision / recall (before, pooled) | 15/15 / 15/53 (28%; 18–42) |
+| Wrong-item routing (before) | 1/3 |
+| Temuan pada kontrol pujian (c08) | 0 |
+
+Penahanan 0/22 teks sebelum fakta bukan hasil kecerdasan: analyser aturan hanya mengenal keluhan
+ukuran pada tas, pakaian, dan barang lipat, plus topik pengiriman/kemasan/kualitas. Untuk 14 dari 21
+kasus bertemuan, D-rules tidak menemukan temuan emas sama sekali (recall membership 28%).
+
+Kelemahan spesifik D-rules (untuk v2 engine; `python eval/show.py <kasus> <fase> D-rules`):
+
+1. **Tabel ukuran dirangkai jadi satu dimensi dan tetap `ready`.** c06 after-fact, fakta
+   "M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm"
+   → draf "Ukuran detail per size: 100 x 60 x 106 x 62 cm." Gerbang angka lolos karena semua angka
+   ada di fakta; varian dan sumbu hilang. Pola terlarang c06 tidak menangkapnya, jadi pola
+   `\d x \d x \d` ditambahkan **setelah** melihat output ini (c06 tetap development).
+2. **Fakta kompatibilitas dirender dengan template ukuran dan `ready`.** c03: "Ukuran produk:
+   kompatibel dengan iPhone 11, iPhone 12, dan iPhone 13 Pro." c22 sama. Temuan yang dibuat aturan
+   untuk casing/kabel adalah "product size", bukan kompatibilitas.
+3. **Fakta dipotong jadi angka tanpa atribut.** c21: fakta "lebar HP maksimal 8,5 cm termasuk case"
+   → "Ukuran produk: 8,5 cm." dan `ready`. Pembeli tidak tahu 8,5 cm itu ukuran apa.
+4. **Listing terpotong dianggap tidak menyebut.** c14: ukuran dalam ada setelah karakter ke-9.000;
+   D-rules menahan draf `needs_merchant_fact` dengan `listing_status=verification_failed`, bukan
+   `incomplete_source`. Ini satu-satunya hit "unnecessary hold". B menerima listing utuh dan B1
+   menemukan "24 x 16 x 12 cm".
+5. **Keluhan kualitas masuk temuan ukuran lipat.** c16 (stand HP lipat): "engselnya longgar abis 3
+   hari" dihitung sebagai support temuan "folded size", karena kata "lipat" di judul membuat produk
+   dianggap furnitur lipat.
+6. **Salah kirim hanya sebagian terdeteksi.** c10: "pesan putih dikasih hitam" masuk temuan
+   operasional, tetapi "pesen yang 2 meter yang dateng 1 meter" tidak; "kabelnya kependekan" (r4)
+   menjadi temuan "product size" yang menahan draf.
+7. **Topik di luar ukuran tidak terlihat sama sekali** di mode aturan: klaim air (c02, c07),
+   kapasitas yang dibantah (c04), kelistrikan (c05, c19), fungsi tombol (c09), panas (c15),
+   kecerahan (c20), tinggi tripod (c13). Ini sesuai cakupan yang disebut engine, bukan bug, tapi
+   berarti D-rules tidak bisa dipakai sebagai pembanding keamanan untuk topik itu.
+
+Yang belum bisa diuji karena D (AI) belum ada: konversi satuan pada draf AI (c01 "14 inch" vs
+"14 cm"), polaritas (c07), injeksi (c15), dan listing yang dibantah (c04).
 
 U (klasifier Ulasin, `final/ulasin_classifier.md`): pada 120 klausa berlabel manusia, macro F1
 IndoBERT 0,579, leksikon 0,581, TF-IDF 0,585; F1 aspek ukuran/varian 0,174 untuk IndoBERT dan

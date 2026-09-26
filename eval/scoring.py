@@ -125,7 +125,10 @@ def score_row(case: dict, row: dict) -> dict:
     gold = case["gold"]
     ok = row.get("status") == "ok"
     listing, where = listing_section(system, row) if ok else ("", "none")
-    has_text = ok and len(listing.strip()) >= MIN_LISTING_CHARS
+    # Ambang panjang hanya untuk baseline (membedakan teks listing dari sisa percakapan); draf D
+    # sependek apa pun tetap teks yang bisa disalin merchant.
+    min_chars = 1 if system in ("D", "D-rules") else MIN_LISTING_CHARS
+    has_text = ok and len(listing.strip()) >= min_chars
     s = {"ok": ok, "has_text": has_text, "listing_where": where,
          "hits": forbidden_hits(case, phase, listing) if has_text else []}
     s["unsafe"] = bool(s["hits"])

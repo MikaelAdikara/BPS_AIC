@@ -77,11 +77,15 @@ def normalise_result(raw: dict) -> dict:
             "listing_status": f.get("listing_status"),
             "draft_status": draft.get("status") or f.get("draft_status"),
             "draft_text": draft.get("text") or f.get("draft_text") or "",
+            "draft_reasons": draft.get("reasons") or [],
+            "fact_applied": bool(f.get("fact_applied")),
             "merchant_question": f.get("merchant_question", ""),
         })
     return {
         "findings": findings,
         "engine": raw.get("engine"),
+        "engine_note": raw.get("engine_note", ""),
+        "draft_status": raw.get("draft_status"),
         "pipeline_version": raw.get("pipeline_version"),
         "verifier_version": raw.get("verifier_version"),
         "usage": raw.get("usage") or {},
