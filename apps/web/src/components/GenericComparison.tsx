@@ -25,8 +25,9 @@ export function GenericComparison({ productId, result, refresh }: { productId: s
       <Button variant="outline" busy={busy} onClick={() => void compare()}>{t("product.genericRun")}</Button>
       {error && <Notice tone="alert">{error === "generic_unavailable" ? t("product.genericUnavailable") : localizeError(error)}</Notice>}
       {!result && !busy && <EmptyState title={t("product.genericEmpty")} description={t("product.genericEmptyHint")} />}
-      {result && <>
-        <p className="muted">{result.model} · {result.gate_version} · {t("product.genericCounts", result.counts)}</p>
+      {result && <details>
+        <summary>{t("product.genericCounts", result.counts)}</summary>
+        <p className="muted">{result.model} · {result.gate_version}</p>
         {result.problems.map((item, index) => <details key={index}><summary>{item.problem}</summary><p>{item.suggestion}</p></details>)}
         {result.sentences.map((sentence, index) => <div key={index} className="quote">
           <Chip tone={sentence.status === "passed" ? "good" : "alert"}>{t(sentence.status === "passed" ? "product.genericPassed" : "product.blocked")}</Chip>
@@ -34,7 +35,7 @@ export function GenericComparison({ productId, result, refresh }: { productId: s
           {sentence.reasons.length > 0 && <p className="muted">{t("product.reasonUnsupported")}</p>}
           {sentence.unsupported.length > 0 && <p>{t("product.genericUnsupported")}: {sentence.unsupported.join(" · ")}</p>}
         </div>)}
-      </>}
+      </details>}
     </div>
   </Card>;
 }

@@ -21,7 +21,18 @@ interface Plan extends Issue {
   estimated_minutes: number;
   next_step: string;
   score: number;
-  drivers: {key: string; recent?: number; before?: number; units_sold?: number; illustrative_buyers?: number}[];
+  drivers: {key: string; recent?: number; before?: number; units_sold?: number; illustrative_buyers?: number; support?: number; share?: number; confident_share?: number; n?: number; minutes?: number}[];
+}
+interface Decision {
+  finding_id: string;
+  product_id: string;
+  product_title: string;
+  channel: string;
+  attribute_local: string;
+  bucket: string;
+  next_step: string;
+  score: number;
+  drivers: Plan["drivers"];
 }
 interface Insights {
   days: number;
@@ -185,12 +196,26 @@ export function OverviewInsights() {
     Promise.allSettled([
       request("/deciqo/overview?days=" + days, { signal: controller.signal }),
       request("/deciqo/alerts?lang=" + language, { signal: controller.signal }),
-    ]).then(([insights, events]) => {
+      request("/deciqo/decisions", { signal: controller.signal }),
+    ]).then(([insights, events, decisions]) => {
       if (controller.signal.aborted) return;
-      if (insights.status === "fulfilled") setData(insights.value);
+      if (insights.status === "fulfilled" && decisions.status === "fulfilled") {
+        const response: { decisions: Decision[] } = decisions.value;
+        const plan = response.decisions.map(row => {
+          const source = (insights.value.plan as Plan[]).find(item => item.id === row.finding_id);
+          const reach = row.drivers.find(driver => driver.key === "reach")!;
+          const effort = row.drivers.find(driver => driver.key === "effort")!;
+          return { ...source, ...row, id: row.finding_id, attribute: source?.attribute ?? row.attribute_local,
+            support: reach.support!, share: reach.share!, confidence_low: reach.confident_share!,
+            hidden_high_star: row.drivers.find(driver => driver.key === "hidden")?.n ?? 0,
+            estimated_minutes: effort.minutes! } as Plan;
+        });
+        setData({ ...insights.value, plan });
+      }
       else {
         setData(null);
-        setError((insights.reason as ApiError).code);
+        const failure = insights.status === "rejected" ? insights.reason : decisions.status === "rejected" ? decisions.reason : null;
+        setError((failure as ApiError)?.code ?? "request_failed");
       }
       setAlerts(events.status === "fulfilled" ? events.value.events : null);
       setLoading(false);

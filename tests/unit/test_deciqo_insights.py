@@ -55,6 +55,8 @@ def test_server_filter_and_sort_preserve_priority_by_default():
     assert [row["id"] for row in insights.filter_items(rows,order="share")] == ["b","a"]
     assert [row["id"] for row in insights.filter_items(rows,q="kursi",channel="woocommerce",kind="missing_fact",severity="high")] == ["b"]
     assert insights.filter_items(rows,q="tidak ada") == []
+    rows[0]["candidates_read"] = 1
+    assert [row["id"] for row in insights.filter_items(rows,order="share")] == ["a","b"]
 
 
 def test_empty_overview_has_zero_series_and_no_invented_rating(tmp_path):

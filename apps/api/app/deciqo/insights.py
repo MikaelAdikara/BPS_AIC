@@ -24,7 +24,8 @@ def filter_items(items, q="", channel="", kind="", severity="", status="", order
     if order == "reviews":
         out.sort(key=lambda i: -i.get("support", i.get("reviews", 0)))
     elif order == "share":
-        out.sort(key=lambda i: -(i.get("support", 0) / i["denominator"] if i.get("denominator") else 0))
+        out.sort(key=lambda i: -(i.get("support", 0) / (i.get("candidates_read") or i.get("denominator"))
+                                if (i.get("candidates_read") or i.get("denominator")) else 0))
     elif order == "recent":
         out.sort(key=lambda i: i.get("updated_at", i.get("analysed_at")) or "", reverse=True)
     elif order == "product":
@@ -86,7 +87,9 @@ def overview_data(conn, user_id, days=30, now=None):
     by_type = Counter(i["finding_type"] for i in open_items)
     candidates, matches = [], []
     for group in ranked["patterns"]:
-        rows = [item for item in open_items if item["product_id"] in group["product_ids"]]
+        rows = [item for item in open_items if item["product_id"] in group["product_ids"]
+                and conn.execute("SELECT attribute_key FROM findings WHERE id=?", (item["id"],)).fetchone()[0]
+                == group["attribute_key"]]
         if rows:
             candidates.append({"label": rows[0]["attribute_local"], "items": rows})
     for group in ranked["cross_channel"]:

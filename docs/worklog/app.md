@@ -69,3 +69,10 @@
 - Sources menyediakan URL Lazada, status belum dikonfigurasi, batas URL/ulasan/biaya dari API, serta formulir ulasan toko demo sintetis. Hasil pencarian produk kosong menyediakan tombol hapus filter.
 - Kamus bahasa memicu reload penuh saat pengembangan supaya provider tidak terduplikasi di Windows. Label persentase kandidat dibedakan dari seluruh ulasan. URL publik membuang fragmen router agar tautan alert baru tidak memiliki dua fragmen.
 - Form Lazada dan ulasan demo belum diuji sampai selesai melalui browser. Telegram nyata belum dikirim.
+
+## Pembanding dan keputusan
+
+- Browser memanggil pembanding pada produk sintetis Kursi lipat camping: respons gpt-5-mini/verify-v2.2 memuat 29 kalimat, 8 diblokir, dan klaim tanpa sumber tetap terlihat. Hasil disimpan server. Ini satu contoh integrasi, bukan pengukuran keunggulan model.
+- Hasil pembanding berada di disclosure agar investigasi produk tetap mudah dicapai. Overview membaca GET /decisions secara langsung dan mempertahankan urutan/driver server.
+- Pengurutan share server memakai denominator kandidat yang diinvestigasi, dan kandidat atribut lintas produk dibatasi pada attribute_key yang sama.
+- Verifikasi tambahan: 4 tes insights, 29 tes web, typecheck, dan build lulus.
