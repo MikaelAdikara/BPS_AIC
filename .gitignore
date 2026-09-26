@@ -3,6 +3,10 @@ data/raw/*
 data/interim/*
 data/processed/*
 !data/raw/.gitkeep
+# Dua dataset publik kecil (~11 MB) yang dibaca scripts/build_channel_packs.py. Lisensinya
+# (Apache-2.0, CC-BY-4.0) mengizinkan distribusi ulang; atribusi ada di SOURCE.json masing-masing.
+!data/raw/tokopedia_reviews_2019/
+!data/raw/prdect_id/
 !data/interim/.gitkeep
 !data/processed/.gitkeep
 # Pengecualian: baseline kategori dibaca saat MELAYANI request, bukan artefak pipeline antara.

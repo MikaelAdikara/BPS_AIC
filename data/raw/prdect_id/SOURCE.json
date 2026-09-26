@@ -1,0 +1,13 @@
+{
+  "key": "prdect_id",
+  "repo_id": "ZakyF/PRDECT-ID",
+  "source_url": "https://huggingface.co/datasets/ZakyF/PRDECT-ID",
+  "license": "cc-by-4.0",
+  "license_verified": true,
+  "role": "training inti",
+  "citation": "Sutoyo, R. et al. PRDECT-ID: Indonesian product reviews dataset for emotions classification tasks. Data in Brief (2022). arXiv:2406.10118",
+  "notes": "CC-BY-4.0: ATRIBUSI WAJIB. Mirror alternatif SEACrowd/prdect_id memakai loading script (butuh trust_remote_code) - sengaja tidak dipakai.",
+  "files": [
+    "PRDECT-ID Dataset.csv"
+  ]
+}

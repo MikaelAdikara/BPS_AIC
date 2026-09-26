@@ -1,0 +1,13 @@
+{
+  "key": "tokopedia_reviews_2019",
+  "repo_id": "farhamu/tokopedia-product-reviews-2019",
+  "source_url": "https://huggingface.co/datasets/farhamu/tokopedia-product-reviews-2019",
+  "license": "apache-2.0",
+  "license_verified": true,
+  "role": "training tambahan + domain testing",
+  "citation": "Tokopedia Product Reviews 2019, HuggingFace Datasets (Apache-2.0).",
+  "notes": "Sebagian disisihkan untuk DOMAIN TESTING (menguji generalisasi lintas sumber), bukan seluruhnya dipakai training - bagian 26.1.",
+  "files": [
+    "tokopedia-product-reviews-2019.csv"
+  ]
+}
