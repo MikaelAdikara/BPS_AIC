@@ -18,7 +18,7 @@ def engine_mode() -> str:
     return "ai" if llm.available()[0] else "rules"
 
 
-def bucket_of(finding: dict, has_fact: bool, listing_provided: bool) -> str:
+def bucket_of(finding: dict, has_fact: bool, listing_provided: bool, draft_status: str | None = None) -> str:
     state = finding["state"]
     if state == "reopened":
         return "recurrence"
@@ -28,7 +28,10 @@ def bucket_of(finding: dict, has_fact: bool, listing_provided: bool) -> str:
         return "dismissed"
     if finding.get("not_detected_at"):
         return "not_detected"
-    if (finding["finding_type"] in pipeline.FACT_REQUIRED and listing_provided and not has_fact):
+    if listing_provided and not has_fact and (finding["finding_type"] in pipeline.FACT_REQUIRED
+                                              or draft_status == "needs_merchant_fact"):
+        # Mengikuti gerbang draf: apa pun yang ditahan draf karena menunggu merchant ada di sini,
+        # sehingga inbox tidak menyuruh "tulis draf" untuk isu yang drafnya sedang ditahan.
         return "needs_fact"
     return "to_do"
 
@@ -68,7 +71,7 @@ class ProductContext:
         fixable = finding["finding_type"] in pipeline.LISTING_FIXABLE
         section = draft.section(finding, fact_row, self.listing, self.provided) if fixable else None
         draft_status = section["status"] if section else None
-        bucket = bucket_of(finding, bool(fact_row), self.provided)
+        bucket = bucket_of(finding, bool(fact_row), self.provided, draft_status)
         acted_at = pipeline.latest_acted_at(conn, finding["id"]) if finding["state"] in {"acted", "reopened"} else None
         follow = pipeline.follow_up(evidence["items"], self.reviews, acted_at) if acted_at else None
         base = {
@@ -77,7 +80,7 @@ class ProductContext:
             "fix_type": finding["fix_type"], "severity": finding["severity"], "state": finding["state"],
             "bucket": bucket, "next": next_step(bucket, finding, draft_status, self.provided),
             "engine": finding["engine"], "listing_fixable": fixable,
-            "needs_fact": finding["finding_type"] in pipeline.FACT_REQUIRED,
+            "needs_fact": finding["finding_type"] in pipeline.FACT_REQUIRED or draft_status == "needs_merchant_fact",
             "needs_listing": fixable and not self.provided, "fact": facts.public(fact_row),
             "draft_status": draft_status, "updated_at": finding["updated_at"], "follow_up": follow,
             "acted_at": acted_at,

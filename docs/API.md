@@ -29,7 +29,7 @@ severity (`high → low`), lalu support terbanyak.
 | `monitoring` | state `acted` |
 | `dismissed` | state `dismissed` |
 | `not_detected` | analisis sukses terakhir tidak menemukan temuan ini lagi |
-| `needs_fact` | tipe butuh fakta (`missing_fact`, `unclear_fact`, `conflicting_fact`), listing tersedia, fakta belum ada |
+| `needs_fact` | listing tersedia, fakta belum ada, dan tipe butuh fakta (`missing_fact`, `unclear_fact`, `conflicting_fact`) atau draf ditahan `needs_merchant_fact` (mis. `expectation_mismatch`) |
 | `to_do` | aktif lainnya |
 
 **`next`**: `recurrence`, `fact`, `apply` (draf siap), `draft`, `route` (operasional/kualitas),

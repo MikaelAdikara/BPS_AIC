@@ -123,3 +123,18 @@ def test_product_view_bentuk_kontrak(client):
 
 def test_tanpa_sesi_401(client):
     assert client.get("/api/v1/deciqo/inbox").status_code == 401
+
+
+def test_bucket_dan_next_mengikuti_status_draf(client):
+    # expectation_mismatch butuh keterangan merchant sebelum draf; inbox tidak boleh menyuruh
+    # "draft" sementara draf sendiri berstatus needs_merchant_fact.
+    uid = _signup(client, "g@x.id")
+    stats = ingest.upsert_catalog(uid, "manual", [{
+        "source_item_id": "sepatu", "title": "Sepatu sneakers", "description": "Sepatu kanvas warna oranye.",
+        "reviews": [{"id": "a", "rating": 2, "text": "Warnanya tidak sesuai dengan foto, beda jauh."},
+                    {"id": "b", "rating": 1, "text": "Barang tidak sesuai gambar."}]}], data_origin="synthetic")
+    pipeline.analyse(stats.products[0])
+    items = client.get("/api/v1/deciqo/inbox").json()["items"]
+    held = [i for i in items if i["draft_status"] == "needs_merchant_fact"]
+    assert held
+    assert all(i["bucket"] == "needs_fact" and i["next"] == "fact" for i in held)
