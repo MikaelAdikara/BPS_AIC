@@ -69,8 +69,7 @@ def run(product_id: str, db_path=None) -> dict:
             "WHERE x.product_id = ? AND f.active = 1", (product_id,))]
         listing, provided = pipeline.listing_parts(product)
         window = listing[:listing_check.LISTING_LIMIT]
-        reviews_block = "\n".join(f"[{r.get('rating') or '-'}★] {r['text'][:600]}"
-                                  for r in reviews[-pipeline.MEMBERSHIP_LIMIT:])
+        reviews_block = "\n".join(f"[{r.get('rating') or '-'}★] {r['text']}" for r in reviews)
         user = (f"PRODUCT TITLE: {product['title']}\n\nLISTING:\n{window if provided else '(not provided)'}\n\n"
                 f"REVIEWS ({len(reviews)}):\n{reviews_block}")
         key = store.digest(user, fact_texts, llm.model_name(), PROMPT_SHA, verify_version())

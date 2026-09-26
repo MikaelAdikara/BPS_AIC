@@ -47,15 +47,15 @@ def check(finding: dict, listing: str, provided: bool) -> dict:
     proposed = (finding.get("listing_evidence") or "").strip()
     related = related_text(finding, listing)
     in_window = related_text(finding, listing[:LISTING_LIMIT])
+    if related and not in_window:
+        return {"status": INCOMPLETE_SOURCE, "quote": "", "related": related, "coverage": coverage,
+                "reason": "related_text_beyond_model_window"}
     if proposed:
         if verify.quote_in(proposed, listing):
             status = CONFLICTING if finding.get("finding_type") == "conflicting_fact" else EVIDENCE_FOUND
             return {"status": status, "quote": proposed, "related": related, "coverage": coverage}
         return {"status": VERIFICATION_FAILED, "quote": "", "related": related, "coverage": coverage,
                 "reason": "listing_quote_not_verbatim"}
-    if related and not in_window:
-        return {"status": INCOMPLETE_SOURCE, "quote": "", "related": related, "coverage": coverage,
-                "reason": "related_text_beyond_model_window"}
     if related:
         # Listing memuat kata terkait yang tidak dikutip: jangan klaim listing diam soal ini.
         return {"status": VERIFICATION_FAILED, "quote": "", "related": related, "coverage": coverage,

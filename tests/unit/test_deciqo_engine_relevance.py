@@ -10,6 +10,51 @@ SIZE = {"attribute": "inner compartment size", "attribute_local": "ukuran kompar
 DELIVERY = {"attribute": "delivery time", "attribute_local": "waktu pengiriman"}
 
 
+@pytest.mark.parametrize("text", ["Adaptornya panas banget.", "Charger cepet panas."])
+def test_overheating_matches_quality_attribute(text):
+    finding = {"attribute": "overheating", "attribute_local": "suhu adaptor"}
+    assert relevance.judge(text, finding).label == "supports"
+
+
+@pytest.mark.parametrize("text", ["Adaptornya tidak panas.", "Charger tidak overheat."])
+def test_negated_overheating_does_not_support(text):
+    finding = {"attribute": "overheating", "attribute_local": "suhu adaptor"}
+    assert relevance.judge(text, finding).label != "supports"
+
+
+@pytest.mark.parametrize("text", ["Pesen XL dikirim L.", "Pesan merah dikirim biru."])
+def test_direct_variant_swap(text):
+    assert lexicon.is_wrong_item(text)
+    assert relevance.judge(text, SIZE).reason == "wrong_item_routes_to_operations"
+
+
+@pytest.mark.parametrize("text", ["Pesen XL dikirim XL.", "Pesan merah dikirim merah.",
+                                  "Pesan kemarin dikirim hari ini.", "Pesan charger dikirim rusak."])
+def test_direct_delivery_is_not_automatically_wrong_item(text):
+    assert not lexicon.is_wrong_item(text)
+
+
+def test_capacity_quote_is_related_without_repeating_attribute_name():
+    finding = {"attribute": "capacity definition", "attribute_local": "definisi kapasitas"}
+    result = relevance.judge("1,2 liter itu air atau beras?", finding)
+    assert result.reason == "mentions_attribute_without_complaint"
+
+
+def test_conflicting_ai_labels_can_resolve_only_with_unanimous_clause_verdicts():
+    from app.deciqo.engine import pipeline
+    finding = {"attribute": "capacity", "attribute_local": "kapasitas"}
+    review = {"id": "r", "text": "Kapasitas tidak sesuai.", "rating": 4}
+    labels = [{"review_id": "r", "quote": review["text"], "label": label}
+              for label in ["supports", "contradicts"]]
+    result = pipeline._judge_pairs(finding, [review], "ai", labels)
+    assert set(result["supports"]) == {"r"}
+    mixed = {**review, "text": "Kapasitas tidak sesuai. Kapasitas sesuai."}
+    labels[1]["quote"] = "Kapasitas sesuai."
+    result = pipeline._judge_pairs(finding, [mixed], "ai", labels)
+    assert not result["supports"]
+    assert result["uncertain"]["r"] == "labelled_both_ways"
+
+
 def test_kelompok_atribut_dari_label_temuan():
     assert "size" in lexicon.attribute_groups(SIZE["attribute"], SIZE["attribute_local"])
     assert "delivery" in lexicon.attribute_groups(DELIVERY["attribute"], DELIVERY["attribute_local"])

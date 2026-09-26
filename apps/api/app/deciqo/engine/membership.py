@@ -1,4 +1,4 @@
-"""Membership: model melabeli SEMUA ulasan tersimpan (maks. 150, batch 50) terhadap temuan final.
+"""Membership: model melabeli seluruh ulasan tersimpan dalam batch terhadap temuan final.
 
 Ini yang membuat hitungan bermakna: kalau 20 dari 30 ulasan mengeluh, discovery mungkin hanya
 mengutip 6. Label di sini tetap usulan; pipeline menyaringnya dengan verifier kutipan dan juri
@@ -11,6 +11,7 @@ from .. import store
 from . import llm
 
 BATCH = 50
+MAX_BATCH_CHARS = 24000
 MAX_OUTPUT_TOKENS = 10000
 
 SYSTEM = """You label customer reviews of ONE product against a fixed list of findings.
@@ -25,6 +26,9 @@ Skip reviews that do not discuss a finding. Skip findings a review does not disc
 A review saying a different variant/colour/size arrived than ordered supports only a wrong-item or
 delivery finding, never a size or size-chart finding.
 Star rating is metadata only; judge the text.
+The label is relative to the ISSUE, never relative to the listing's advertised claim.
+For conflicting_fact issues, a buyer saying the product falls short of the advertised capacity
+SUPPORTS the issue. A buyer confirming the advertised capacity CONTRADICTS the issue.
 quote: copy EXACTLY, character for character, the words from that review (5-20 words) that show
 the label. Never paraphrase. finding: the finding number from the list."""
 
@@ -46,7 +50,7 @@ def build_user(findings: list[dict], batch: list[dict]) -> str:
     listed = "\n".join(
         f"{i}. {f.get('attribute', '')} / {f.get('attribute_local', '')} ({f.get('finding_type', '')}): "
         f"{f.get('buyer_expectation', '')}" for i, f in enumerate(findings))
-    reviews = "\n".join(f"[id={r['id']} rating={r.get('rating') or '-'}] {r['text'][:600]}" for r in batch)
+    reviews = "\n".join(f"[id={r['id']} rating={r.get('rating') or '-'}] {r['text']}" for r in batch)
     return f"FINDINGS:\n{listed}\n\nREVIEWS ({len(batch)}):\n{reviews}"
 
 
@@ -57,8 +61,18 @@ def run(findings: list[dict], reviews: list[dict], *, user_id=None, ref="", db_p
     # membayar seluruh prompt dan skema, dan menambah latensi tanpa manfaat.
     batches = max(1, -(-len(reviews) // BATCH))
     size = -(-len(reviews) // batches) if reviews else BATCH
-    for start in range(0, len(reviews), size):
-        batch = reviews[start:start + size]
+    pending, chars = [], 0
+    batches_to_read = []
+    for review in reviews:
+        length = len(review["text"]) + 80
+        if pending and (len(pending) >= size or chars + length > MAX_BATCH_CHARS):
+            batches_to_read.append(pending)
+            pending, chars = [], 0
+        pending.append(review)
+        chars += length
+    if pending:
+        batches_to_read.append(pending)
+    for batch in batches_to_read:
         data, part = llm.call_json(purpose="membership", system=SYSTEM, user=build_user(findings, batch),
                                    schema=SCHEMA, schema_name="membership", max_output_tokens=MAX_OUTPUT_TOKENS,
                                    user_id=user_id, ref=ref, reasoning=None, db_path=db_path)

@@ -1,0 +1,1870 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,h32,before,"Issue: motor durability (product_quality); draft status: route
+
+
+Issue: capacity impression vs expectation (expectation_mismatch); draft status: needs_review
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x002,h34,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Panjang kabel tidak tercantum di listing → beberapa pembeli kaget karena kabel hanya 1 meter.
+- Pilihan panjang tidak tersedia → pelanggan menginginkan opsi panjang yang berbeda (mis. untuk jarak TV ke konsol).
+- Komplain utama: kabel ""kependekan"" / ""pendek banget"" sehingga tidak sampai ke perangkat.
+
+Saran tindakan
+1. Cantumkan panjang kabel dengan jelas pada judul dan deskripsi (mis. 1 m, 2 m, 3 m, 5 m).
+2. Sediakan beberapa pilihan panjang populer (1 m, 2 m, 3 m, 5 m). Jika stok terbatas, tulis status stok per panjang.
+3. Tambahkan spesifikasi teknis lengkap (bandwidth 48 Gbps, HDMI Type A, dukungan eARC/VRR/ALLM, kompatibilitas PS5/Xbox Series X/PC, sertifikasi Ultra High Speed jika ada).
+4. Cantumkan informasi pengujian (mis. ""diverifikasi 4K@120Hz pada PS5"") untuk meningkatkan kepercayaan.
+5. Sebutkan fitur fisik yang sudah diapresiasi (braided nylon, konektor berlapis emas, ketebalan/robustness) dan kebijakan garansi/retur.
+6. Perbaiki foto produk: tampilkan kabel terulur dengan label panjang, contoh penggunaan (TV ↔ PS5 dengan jarak nyata), close-up konektor dan pelindung braided.
+7. Perbarui teks singkat di daftar agar pelanggan cepat tahu kalau ada pilihan panjang dan dukungan resolusi.
+
+Improved listing text (bahasa Indonesia)
+Judul:
+Kabel HDMI 2.1 Ultra High Speed 48Gbps — Dukungan 8K/60Hz & 4K/120Hz — Braided Nylon & Konektor Berlapis Emas — Pilihan Panjang 1/2/3/5 m
+
+Deskripsi singkat:
+Kabel HDMI 2.1 Ultra High Speed, bandwidth 48 Gbps, dirancang untuk gaming dan home theater. Mendukung 8K@60Hz, 4K@120Hz, eARC, VRR, ALLM — teruji lancar 4K@120Hz pada PS5. Jacket nylon braided dan konektor berlapis emas untuk daya tahan dan koneksi stabil. Tersedia dalam pilihan panjang 1 m, 2 m, 3 m, dan 5 m.
+
+Fitur utama
+- Bandwidth: 48 Gbps (HDMI 2.1 Ultra High Speed)
+- Resolusi & refresh: 8K@60Hz, 4K@120Hz, kompatibel juga dengan 1440p/60–240Hz sesuai perangkat
+- Audio: Mendukung eARC untuk audio lossless
+- Gaming: Mendukung VRR dan ALLM (ideal untuk PS5, Xbox Series X|S)
+- Material: Kabel tebal & kokoh, sleeve nylon braided; konektor berlapis emas anti-karat
+- Tipe konektor: HDMI Type A (standar)
+- Pilihan panjang: 1 m / 2 m / 3 m / 5 m — pilih panjang saat checkout
+- Pengujian: Diuji untuk 4K@120Hz pada PS5 (hasil positif)
+- Packaging: Packing rapi, siap kirim
+- Garansi/retur: [cantumkan jangka waktu garansi/pengembalian jika ada]
+
+Spesifikasi teknis
+- Standar: HDMI 2.1 Ultra High Speed
+- Bandwidth maksimum: 48 Gbps
+- Kabel: OFC (jika berlaku) + braided nylon
+- Konduktor: [mis. tembaga murni jika relevan]
+- Connector: HDMI Type A 19-pin, berlapis emas
+- Pilihan panjang: 1/2/3/5 m
+
+Isi paket
+- 1 x Kabel HDMI 2.1 (panjang sesuai pilihan)
+- Manual singkat / kartu garansi (jika tersedia)
+
+Catatan penting
+- Pastikan memilih panjang yang sesuai sebelum checkout — ulasan menunjukkan kabel 1 m seringkali terlalu pendek untuk pengaturan TV ↔ konsol. Jika ragu, ukur jarak antara perangkat sebelum membeli.
+- Performa optimal tergantung perangkat sumber dan tampilan (TV/monitor). Untuk pengalaman 4K@120Hz pastikan perangkat mendukung HDMI 2.1.
+
+Tambahan pemasaran singkat (opsional)
+""Dirancang untuk gamer dan penggemar home theater — koneksi cepat, kuat, dan andal. Pilih panjang yang sesuai dan nikmati gambar mulus sampai 4K@120Hz atau 8K@60Hz.""",,,,,,
+x003,h33,before,"Ringkasan masalah berulang
+- Banyak pembeli mengira tas ini ""waterproof"" (tahan hujan), padahal bahan hanya water-resistant => keluhan: isi basah saat hujan deras/10 menit hujan.
+- Komplain konsisten tentang rembes/isi basah di kondisi hujan sedang/deras.
+- Poin positif berulang: banyak kantong rapi, muat laptop 15.6"", dan tali pundak empuk.
+
+Saran tindakan (prioritas)
+1. Perbaiki komunikasi produk segera:
+   - Jelaskan dengan tegas di judul & deskripsi: ""water-resistant — tahan cipratan/gerimis, bukan waterproof/tahan hujan deras"".
+   - Tambahkan rekomendasi penggunaan: pakai rain cover atau payung saat hujan deras.
+2. Tambahkan informasi teknis yang jelas:
+   - Sebutkan bahan (polyester water-resistant), apakah ada lapisan anti-air, tipe resleting, apakah ada lapisan dalam tahan air.
+   - Cantumkan ukuran/kompartemen (muat laptop 15.6"", jumlah kantong) dan fitur kenyamanan (padded straps).
+3. Tawarkan solusi purna jual untuk meningkatkan kepercayaan:
+   - Jaminan retur/garansi singkat bila ada masalah manufaktur (mis. jahitan/resleting bocor).
+   - Sediakan rain cover sebagai opsi bundel (jika memungkinkan).
+4. Perbaikan produk (jika Anda bisa memodifikasi produksi):
+   - Tambah flap penutup untuk resleting, gunakan resleting water-resistant, dan/atau lapisan dalam tahan air.
+   - Pertimbangkan seam-sealing pada sambungan untuk mengurangi rembes.
+5. Materi pemasaran & foto:
+   - Tambahkan foto close-up label ""water-resistant (not waterproof)"".
+   - Tunjukkan tas di kondisi gerimis vs hujan deras dengan keterangan jelas.
+   - Tampilkan foto kompartemen laptop, jumlah kantong, dan padding strap.
+
+Teks listing yang diperbaiki (Indonesia)
+Judul:
+Tas Ransel Laptop 15.6"" – Polyester Water‑Resistant (Tahan Cipratan/Gerimis, Bukan Waterproof) – Banyak Kantong, Padded Shoulder Strap
+
+Bullet points / fitur utama:
+- Untuk laptop hingga 15.6"" — kompartemen laptop padded melindungi perangkat Anda.
+- Bahan polyester water‑resistant: tahan cipratan dan gerimis, namun bukan tahan hujan deras. Jangan gunakan tanpa pelindung saat hujan lebat.
+- Banyak kantong rapi untuk organisasi: kompartemen utama, kantong laptop terpisah, kantong front organizer, kantong samping untuk botol.
+- Tali pundak empuk dan pegangan atas nyaman untuk penggunaan sehari‑hari.
+- Resleting kuat dan jahitan rapi untuk ketahanan jangka panjang.
+- Rekomendasi: saat menghadapi hujan deras, gunakan rain cover atau payung untuk perlindungan maksimal.
+
+Deskripsi singkat:
+Tas ransel praktis untuk kerja, kuliah, dan perjalanan sehari‑hari. Desain kompak namun lapang dengan banyak kantong untuk laptop 15.6"", charger, buku, dan aksesoris. Bahan polyester water‑resistant memberikan perlindungan terhadap cipratan dan hujan ringan (gerimis). Perlu diperhatikan: tas ini bukan waterproof — saat hujan deras isi bisa basah. Jika Anda sering berkendara di kondisi hujan, pertimbangkan menambah rain cover atau pilihan tas yang khusus waterproof.
+
+Catatan tambahan (opsional yang bisa dimasukkan ke listing atau FAQ):
+- Dimensi luar: [masukkan dimensi jika tersedia].
+- Berat kosong: [masukkan jika tersedia].
+- Termasuk: tas ransel (rain cover tersedia sebagai aksesori terpisah jika ada).
+- Garansi/retur: hubungi kami jika produk diterima dengan kerusakan manufaktur.
+
+Jika Anda mau, saya bisa juga:
+- Menyusun FAQ singkat untuk ditambahkan di halaman produk.
+- Membuat variasi teks iklan untuk marketplace (Singkat untuk judul serta deskripsi pendek).",,,,,,
+x004,h35,before,(no issues reported),,,,,,
+x005,h39,after,"Issue: connector type / compatibility (missing_fact); draft status: ready
+Tipe konektor: konektor jack 3,5 mm; tidak ada versi USB-C atau Lightning.",,,,,,
+x006,h39,before,(no issues reported),,,,,,
+x007,h34,after,"Issue: product size (missing_fact); draft status: ready
+Ukuran produk: panjang kabel 1 meter.",,,,,,
+x008,h40,after,"Ringkasan masalah berulang (dari 20 ulasan)
+- Ukuran terasa kebesaran / longgar (banyak ulasan menyebut mending ambil lebih kecil atau longgar di tumit).  
+- Ketidaksesuaian pesanan / kesalahan pengiriman ukuran (satu kasus dikirim ukuran berbeda).  
+- Tidak ada panduan ukuran di listing → menyebabkan salah pilih.  
+- Pengiriman lama (setidaknya satu ulasan menyebut seminggu).  
+- Bau karet awal (beberapa menyebut, tapi hilang setelah dijemur).  
+- Keluhan minor lain: beberapa pelanggan menilai biasa saja meski banyak yang puji empuk, anti-slip, nyaman dan awet.
+
+Rekomendasi tindakan untuk merchant
+1. Tambahkan panduan ukuran yang jelas di listing:
+   - Cantumkan panjang insole per ukuran (lihat data konfirmasi) dan rekomendasi kecocokan (produk cenderung besar ~0.5 ukuran).  
+   - Berikan tabel EU → panjang (cm) → saran pemilihan berdasarkan panjang kaki pelanggan.
+2. Selesaikan masalah operasional pengiriman:
+   - Periksa dan perkuat SOP pengepakan: cek ukuran sebelum kirim, tambah stiker/label ukuran jelas di box.  
+   - Jelaskan estimasi pengiriman di listing (mis. proses packing 1-2 hari, estimasi kurir 2-5 hari) dan beri pilihan ekspres jika tersedia.
+3. Tambahkan kebijakan retur/penukaran yang mudah untuk masalah ukuran/kesalahan kirim:
+   - Gratis/terjangkau untuk salah kirim atau apabila ukuran salah dari deskripsi.
+4. Cantumkan informasi produk dan perawatan untuk mengurangi keluhan bau:
+   - Saran jemur di udara terbuka sebelum dipakai, lap permukaan dengan kain basah jika perlu.
+5. Perjelas fitur utama di judul dan deskripsi: material EVA, ringan, empuk, anti-slip, cocok pakai harian/di kamar mandi/masjid, tahan lama.
+6. Perbaiki foto: tampilkan insole dengan garis pengukuran cm, foto sisi tumit/sol untuk tunjukkan anti-slip.
+7. Pantau kualitas: jika banyak feedback “kebesaran”, evaluasi pola ukuran produksi (cutting) dengan pabrik.
+
+Improved listing text (Bahasa Indonesia)
+Judul singkat: Sandal Slide Pria EVA — Ringan, Empuk & Anti-Slip (39–44)
+
+Deskripsi produk:
+Sandal slide pria berbahan EVA yang sangat ringan, empuk, dan anti-slip — nyaman untuk dipakai santai di rumah, ke masjid, atau di kamar mandi. Sol karet EVA memberikan bantalan empuk dan daya cengkeram yang baik pada permukaan basah.
+
+Fitur utama:
+- Bahan: EVA (ringan, empuk, tahan air)  
+- Anti-slip: sol didesain untuk cengkeram di lantai basah  
+- Nyaman: empuk, tidak mudah pegal untuk pemakaian sehari-hari  
+- Tersedia ukuran EU 39–44, warna: hitam (opsional warna lain jika ada)  
+- Awet: beberapa pelanggan membeli ulang karena ketahanan
+
+Panduan ukuran (panjang insole — gunakan ini untuk memilih ukuran terbaik)
+- EU 39 = insole 25,0 cm  
+- EU 40 = insole 25,5 cm  
+- EU 41 = insole 26,0 cm  
+- EU 42 = insole 26,5 cm  
+- EU 43 = insole 27,0 cm  
+- EU 44 = insole 27,5 cm
+
+Rekomendasi pemilihan:
+- Produk cenderung terasa sedikit lebih longgar dibanding ukuran standar. Jika Anda memakai EU 41 biasa dan suka fit pas, pilih EU 40 (kurangi 0,5 ukuran).  
+- Ukur panjang kaki dari tumit ke ujung jari lalu pilih ukuran dengan insole ≥ panjang kaki + 0,5 cm untuk ruang gerak nyaman.
+
+Perawatan & tips:
+- Bau karet baru wajar; jemur sementara di bawah sinar matahari atau udara terbuka beberapa jam untuk menghilangkan bau.  
+- Bersihkan permukaan dengan kain lembab dan keringkan sebelum digunakan.
+
+Pengiriman & retur:
+- Proses packing 1–2 hari kerja. Estimasi pengiriman tergantung kurir (lihat pilihan pengiriman saat checkout).  
+- Jika kami mengirim ukuran/produk yang salah atau Anda menerima barang cacat, silakan hubungi layanan pelanggan untuk penukaran/retur mudah. (Kami sarankan menyertakan foto bukti.)
+
+Kenapa memilih produk ini:
+- Ringan, empuk, anti-slip — cocok untuk pemakaian harian. Banyak pelanggan menyukai kenyamanannya dan membeli ulang.
+
+Jika Anda ingin, saya bisa buatkan gambar ukuran (visual scale) yang bisa diunggah ke listing agar pembeli lebih mudah memilih ukuran yang tepat.",,,,,,
+x009,h37,before,"Issue: delivery time (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x010,h38,before,"Summary of recurring customer feedback
+- Positive, consistent points found in multiple reviews:
+  - Very thin and lightweight (users report it feels like no case) — matches current listing claim of thickness 0,5 mm.
+  - Comfortable, non‑slippery matte surface; resists fingerprints.
+  - Good fit; not loose.
+  - Clean, defect‑free finishing.
+  - Users report it does not make the phone hot while gaming.
+
+- No recurring customer problems detected in the reviews provided.
+
+Recommended seller actions
+1. Add missing product facts that customers need to buy with confidence:
+   - Specify exact compatible phone models. (I could not infer this from the data; please provide.)
+   - Provide color/options list. (Please provide.)
+   - If available, confirm whether cutouts are precise for ports/camera, and list package contents.
+   - If you want to advertise weight, internal dimensions, or drop/protection level, provide those numbers or confirm you don’t want to claim them.
+
+   Use placeholders in marketing copy until you supply these facts (see improved text below).
+
+2. Improve listing assets and information:
+   - Add clear photos showing front, back, side profile (to demonstrate 0,5 mm thinness), and close‑ups of the matte texture and cutouts.
+   - Include at least one photo of the case installed on a phone from the compatible models list.
+   - Add a short installation/removal tip and care instructions (non‑abrasive cloth, avoid solvents) if you can confirm them.
+
+3. Quality and customer service actions:
+   - Continue QC to keep the “no defects, rapi” standard customers praise.
+   - If customers report delivery, packaging, wrong item, or defective items, those are fulfillment/customer service issues — handle via logistics or customer support channels (refunds/replacements, shipping carrier claims). These are not listing problems.
+
+4. Marketing/SEO suggestions:
+   - Update title to include compatibility / color (e.g., “Case HP Slim Matte — [compatible models] — [color]”) once you provide compatible models and colors.
+   - Use bullet highlights in the first section of the listing: “Tipis 0,5 mm • Matte anti‑sidik jari • Pas & rapi • Ringan”.
+
+Improved listing text (Indonesian)
+Notes: I used only facts from the listing and reviews. Where required information is missing, I left a clearly marked placeholder — please replace the placeholders with the correct details.
+
+Title suggestion:
+Case HP Slim Matte — [[compatible phone models]] — [[colors available]]
+
+Deskripsi singkat:
+Case HP Slim Matte, bahan PC. Tipis 0,5 mm, tidak menambah ketebalan HP. Permukaan matte anti‑selip dan anti‑sidik jari; pas rapi di bodi HP.
+
+Fitur utama:
+- Bahan: PC.
+- Ketebalan: 0,5 mm.
+- Permukaan matte — tidak licin dan mengurangi noda sidik jari (dilaporkan oleh pengguna).
+- Ringan dan terasa seperti tanpa case (dilaporkan oleh pengguna).
+- Pas dan tidak longgar; finishing rapi tanpa cacat (dilaporkan oleh pengguna).
+- Tidak menyebabkan HP jadi panas saat bermain game (dilaporkan oleh pengguna).
+
+Informasi tambahan (lengkapi sebelum publish):
+- Kompatibilitas: [[compatible phone models]]
+- Warna tersedia: [[colors available]]
+- Isi paket: [[package contents]]
+- Petunjuk perawatan: [[care instructions]] (jika ada)
+
+Jika Anda ingin, saya bisa:
+- Buatkan variasi judul dan bullet points untuk A/B testing setelah Anda mengisi placeholder.
+- Menyusun daftar foto yang disarankan untuk upload.
+
+Silakan berikan nilai untuk placeholder di atas (terutama kompatibilitas dan warna) supaya saya bisa menggabungkannya ke versi final listing.",,,,,,
+x011,h31,after,"Ringkasan masalah berulang (dari review)
+- Klaim daya tahan 8 jam dianggap menyesatkan/berlebihan oleh beberapa pembeli: banyak yang melaporkan baterai habis jauh lebih cepat saat memakai speed 3.
+- Variasi pengalaman baterai: beberapa pelanggan sangat puas (seharian aman), beberapa mengeluh mati dalam 2–3 jam.
+- Kebisingan pada speed 3: beberapa review menyebut “agak berisik”.
+- Kelebihan yang konsisten: ringan/portabel dan pengecasan cepat via USB-C diapresiasi.
+
+Rekomendasi tindakan untuk merchant
+1. Perbaiki listing dengan data runtimes yang jelas per kecepatan:
+   - Cantumkan fakta merchant yang dikonfirmasi: kecepatan 1 ≈ 8 jam, kecepatan 3 ≈ 2,5 jam, dan jelaskan bahwa kecepatan 2 berada di antara keduanya.
+2. Tambahkan spesifikasi teknis lengkap dan transparan:
+   - Kapasitas baterai (2000 mAh), tipe port (USB-C), dan estimasi waktu pengisian jika tersedia.
+3. Sertakan keterangan kebisingan:
+   - Jelaskan tingkat suara (mis. “tenang di kecepatan 1–2; lebih bising di kecepatan 3”) sehingga ekspektasi pelanggan jelas.
+4. Berikan tips penggunaan untuk mengoptimalkan masa pakai baterai:
+   - Gunakan speed 1–2 untuk penggunaan lama, matikan fungsi tidak terpakai, isi penuh sebelum pemakaian panjang.
+5. Tingkatkan kualitas/jaminan purna jual:
+   - Perkuat kontrol kualitas baterai, sediakan garansi penggantian kalau ada baterai cepat rusak, dan proses klaim yang mudah.
+6. Layanan & paket:
+   - Pastikan apakah kabel USB-C disertakan; jika ya, cantumkan; jika tidak, sebutkan pelanggan perlu sediakan kabel sendiri. Pertimbangkan menyertakan kabel untuk mengurangi kebingungan.
+7. Komunikasi proaktif:
+   - Tambahkan FAQ pada halaman produk yang menanggapi masalah umum (mengapa runtime berbeda, suara, cara perawatan baterai).
+8. Perbaikan produk (jika memungkinkan dan ekonomis):
+   - Telaah sumber kebisingan pada speed 3 (motor/kipas) dan pertimbangkan peredam atau penyeimbangan baling-baling untuk batch berikutnya.
+
+Improved listing text (Bahasa Indonesia) — gunakan ini untuk judul & deskripsi produk
+Judul singkat:
+Kipas Angin Portable USB-C | 3 Kecepatan | Baterai 2000mAh | Ringan & Rechargeable
+
+Deskripsi produk:
+Kipas angin portable dengan baterai rechargeable 2000 mAh dan port USB‑C — ideal untuk kampus, kantor, atau perjalanan. Ringan dan mudah dibawa.
+
+Fitur utama:
+- 3 tingkat kecepatan: pilih aliran angin sesuai kebutuhan.
+- Daya tahan baterai (merchant-confirmed): kecepatan 1 ≈ 8 jam; kecepatan 3 ≈ 2,5 jam. Kecepatan 2 berada di antara keduanya.
+- Kapasitas baterai: 2000 mAh.
+- Pengisian cepat via USB‑C (kabel: cek keterangan paket).
+- Bobot ringan — cocok untuk dibawa harian.
+- Suara: tenang pada kecepatan 1–2; cenderung lebih berisik pada kecepatan 3.
+
+Tips penggunaan:
+- Untuk pemakaian sepanjang hari, gunakan kecepatan 1–2.
+- Isi baterai penuh sebelum penggunaan lama untuk hasil terbaik.
+- Jika ingin aliran angin maksimal, gunakan speed 3 tetapi perhatikan durasi sekitar 2–2,5 jam.
+
+Catatan penting & garansi:
+- Performa baterai dipengaruhi oleh tingkat kecepatan; hasil nyata dapat bervariasi tergantung kondisi penggunaan.
+- Jika Anda mengalami masalah baterai (mis. daya turun drastis dalam beberapa jam), hubungi layanan pelanggan kami untuk pengecekan atau klaim garansi.
+
+Dengan memperjelas runtime per kecepatan, kebisingan, dan tips penggunaan di listing, pelanggan akan punya ekspektasi yang lebih realistis dan keluhan terkait “tidak sesuai klaim 8 jam” dapat berkurang.",,,,,,
+x012,h34,before,"Recurring customer problems (from reviews)
+- Cable length not stated and several buyers found the cable too short for their setup (reviews: “kependekan”, “cuma semeter”, “pendek banget”, request for length options).
+- Lack of offered length variants (buyers asked for choices).
+
+Positive points to keep
+- Customers report 4K@120Hz working on PS5 (user report).
+- Cable described as thick/robust and nicely packaged.
+
+What you should do (recommended seller actions)
+1. Clearly list available cable lengths on the product page (and in the title or bullets). If you sell multiple lengths, create separate variants/SKUs for each length.
+2. If you currently only offer one length, decide whether to offer additional lengths (e.g., 1 m, 2 m, 3 m) and add them as options. If you cannot offer multiple lengths immediately, state the exact length that is included.
+3. Add a visible field on the listing that shows the exact cable length (numeric), and show photos with the cable next to a ruler or common objects to give scale.
+4. Update the title/bullets to include the length(s) so buyers can see it before purchase.
+5. In the Q&A and product description, include usage guidance (e.g., measure the distance between devices before ordering).
+6. If customers contact you about wrong length, delivery, wrong item or defects, handle via customer service/after-sales support (returns/exchanges/complaints): instruct buyers to contact your customer service team for replacements/refunds. (Delivery or wrong-item issues are handled by customer service/fulfillment team, not the listing copy.)
+
+Improved product listing text (Indonesian)
+Title
+Kabel HDMI 2.1 8K Ultra High Speed — mendukung 8K@60Hz dan 4K@120Hz — konektor lapis emas — jaket nylon braided — panjang: [[pilihan panjang atau satu panjang, isi dengan nilai]]
+
+Bullet points
+- Dukungan sinyal: HDMI 2.1 — mendukung 8K@60Hz dan 4K@120Hz.
+- Konektor: lapis emas untuk koneksi stabil.
+- Pelindung: jaket nylon braided yang tebal dan kokoh.
+- Panjang kabel: [[masukkan panjang yang ditawarkan, contoh: 1 m / 2 m / 3 m atau khusus: __ m]].
+- Kompatibilitas: cocok untuk perangkat HDMI generasi terbaru (mis. TV, konsol, AV receiver) — perhatikan panjang kabel sebelum membeli.
+- Kemasan: packing rapi.
+
+Deskripsi singkat
+Kabel HDMI 2.1 Ultra High Speed ini mendukung sinyal hingga 8K@60Hz dan 4K@120Hz dengan konektor lapis emas dan jaket nylon braided yang kokoh. Pastikan memilih panjang kabel yang sesuai: [[masukkan pilihan panjang atau panjang tunggal produk]]. Jika butuh bantuan menentukan panjang yang tepat, ukur jarak antara perangkat Anda sebelum membeli.
+
+Photo suggestions to upload
+- Foto yang menunjukkan panjang kabel dengan penggaris atau meteran.
+- Close-up konektor (lapis emas) dan tekstur jaket braided.
+- Foto varian panjang (jika ada) atau label panjang di kemasan.
+
+Placeholders you must fill (required)
+- [[pilihan panjang atau satu panjang, isi dengan nilai]]
+- [[masukkan panjang yang ditawarkan, contoh: 1 m / 2 m / 3 m atau khusus: __ m]]
+
+If you want, I can draft variant titles/descriptions for specific lengths once you provide the exact length options.",,,,,,
+x013,h31,after,"A. Ringkasan masalah berulang dari ulasan dan saran tindakan untuk penjual
+- Masalah berulang:
+  1. Ketidaksesuaian ekspektasi daya tahan baterai — beberapa pembeli mengeluh baterai cepat habis pada speed 3 atau mati jauh lebih cepat dari klaim.
+  2. Kebisingan pada speed 3 — ada beberapa laporan suara cukup berisik.
+  3. Pujian: portabilitas ringan dan pengisian cepat lewat USB‑C disukai pembeli.
+
+- Fakta terkonfirmasi oleh merchant yang harus ditampilkan:
+  - Daya tahan baterai ≈ 8 jam pada speed 1, dan ≈ 2,5 jam pada speed 3.
+
+- Saran tindakan untuk penjual:
+  1. Perbarui teks listing untuk mencantumkan daya tahan baterai yang terkonfirmasi (8 jam pada speed 1; 2,5 jam pada speed 3) agar ekspektasi pelanggan jelas.
+  2. Tambahkan keterangan kecepatan (3 tingkat) dan jelaskan trade‑off: speed lebih tinggi menghasilkan aliran udara lebih besar namun mengurangi waktu pakai dan meningkatkan kebisingan.
+  3. Jika memungkinkan, ukur dan cantumkan tingkat kebisingan dalam dB untuk setiap speed; jika belum ada data, mintalah pengukuran lab/produksi dan tambahkan sesegera mungkin. (Jika Anda tidak bisa menyediakan nilai dB sekarang, tampilkan tips penggunaan seperti “untuk penggunaan di ruangan tenang, pilih speed 1–2”.)
+  4. Cantumkan waktu pengisian baterai dan apakah kabel/pengisi disertakan; jika belum, tambahkan informasi itu atau buat paket yang menyertakan kabel USB‑C.
+  5. Sediakan bab FAQ/troubleshooting singkat di listing (mis. langkah reset, perawatan baling‑baling) dan arahkan keluhan fungsi/kerusakan ke tim After‑Sales / Customer Service untuk penggantian atau klaim garansi.
+  6. Tampilkan keunggulan yang sudah disukai pelanggan: ringan, portabel, pengisian cepat lewat USB‑C.
+  7. Pantau kualitas batch produksi terkait baterai/komponen daya jika ada banyak keluhan; koordinasikan dengan gudang/produksi untuk pengecekan unit.
+
+Catatan penanganan keluhan non‑listing:
+- Keluhan tentang pengiriman, kemasan, barang salah atau barang cacat harus ditangani oleh tim Customer Service / After‑Sales (layanan purna jual, retur & pengembalian, garansi). Listing harus fokus ke spesifikasi dan penggunaan.
+
+B. Teks listing yang diperbarui (bahasa Indonesia)
+Judul:
+Kipas Angin Portable USB‑C, 3 Kecepatan — Baterai Rechargeable
+
+Deskripsi singkat:
+Kipas angin portable dengan 3 level kecepatan dan pengisian USB‑C, dirancang untuk penggunaan sehari‑hari di kampus, kantor, atau saat bepergian.
+
+Fitur utama:
+- 3 tingkat kecepatan: pilih sesuai kebutuhan — kecepatan lebih tinggi memberikan angin lebih kencang namun mengurangi waktu pakai dan meningkatkan kebisingan.
+- Daya tahan baterai (terkonfirmasi): sekitar 8 jam pada speed 1 dan sekitar 2,5 jam pada speed 3.
+- Baterai internal: 2000mAh.
+- Pengisian cepat via USB‑C — pengisian mudah pakai powerbank atau adapter USB.
+- Ringan dan portabel — mudah dibawa ke kampus atau kantor.
+
+Petunjuk singkat & tips penggunaan:
+- Untuk masa pakai baterai paling lama, gunakan pada speed 1 atau 2.
+- Untuk penggunaan di lingkungan tenang, pilih speed 1–2 karena speed 3 dapat lebih berisik.
+- Jika Anda mengalami masalah daya (mis. unit mati terlalu cepat), hubungi tim Customer Service/After‑Sales untuk bantuan atau klaim.
+
+Informasi yang perlu dikonfirmasi (silakan sediakan data agar listing lebih lengkap):
+- Berat produk: [[berat]]
+- Dimensi produk (tinggi × lebar ×): [[dimensi]]
+- Waktu pengisian dari 0–100%: [[waktu isi ulang]]
+- Apakah kabel USB‑C disertakan: [[kabel disertakan?]]
+- Tingkat kebisingan (dB) untuk masing‑masing speed: [[db]]
+
+Garansi & dukungan:
+- Untuk masalah pengiriman, kemasan, barang salah, atau kerusakan: hubungi Customer Service / After‑Sales agar dapat diproses retur atau penggantian.
+
+Jika Anda ingin, saya bisa:
+- Memasukkan nilai‑nilai spesifik (berat, dimensi, waktu isi ulang, apakah kabel disertakan, tingkat kebisingan) ke dalam teks setelah Anda memberikan atau mengonfirmasi data tersebut.",,,,,,
+x014,h34,after,"Ringkasan masalah berulang dari ulasan pelanggan
+- Panjang kabel tidak jelas/dirasakan terlalu pendek. (Ulasan r1, r2, r5)  
+- Pelanggan kecewa karena berharap pilihan panjang lain atau informasi panjang tersedia. (r5)  
+- Positif: performa 4K120 di PS5 baik, build kokoh, packing rapi. (r3, r4, r6)
+
+Saran tindakan (prioritas)
+1. Perbaiki listing sekarang juga: tampilkan panjang kabel secara jelas di judul dan deskripsi (merchant sudah konfirmasi: 1 meter).  
+2. Tambahkan opsi panjang produk (mis. 1 m / 2 m / 3 m / 5 m) jika memungkinkan — atau jelaskan bahwa hanya tersedia 1 m.  
+3. Tambahkan spesifikasi teknis lengkap dan klaim yang dapat dibuktikan (mis. sertifikasi “Ultra High Speed HDMI”, bandwidth 48 Gbps jika benar).  
+4. Sertakan kompatibilitas dan batasan jarak: jelaskan kalau kabel pasif 1 m mendukung 8K60/4K120, dan untuk panjang >3 m mungkin diperlukan kabel aktif atau repeater.  
+5. Tambahkan foto jelas dengan skala (mis. kabel terentang di samping pengukur atau digambarkan dari TV ke konsol) sehingga pelanggan bisa menilai panjang.  
+6. Tampilkan fitur fisik yang sudah dinilai positif: nylon braided, konektor berlapis emas, ketebalan/kekokohan, packing rapi.  
+7. Cantumkan kebijakan pengembalian/garansi singkat untuk mengurangi kekhawatiran pembeli.  
+8. Jika tidak bisa menyediakan panjang lain segera, tambahkan FAQ di listing: “Apakah panjang lain tersedia?” dan “Apakah kabel ini cocok untuk PS5/TV saya?” dengan jawaban jelas.
+
+Teks listing yang diperbaiki (versi bahasa Indonesia)
+Judul:
+Kabel HDMI 2.1 Ultra High Speed 48Gbps — 1 m — Mendukung 8K@60Hz & 4K@120Hz, Nylon Braided, Gold-Plated
+
+Deskripsi singkat:
+Kabel HDMI 2.1 Ultra High Speed (1 meter) — dirancang untuk gaming dan home theater: mendukung 8K@60Hz serta 4K@120Hz (ideal untuk PS5, Xbox Series X, PC, dan TV 4K/8K). Jacket nylon braided dan konektor berlapis emas memberikan daya tahan dan koneksi stabil. Packing rapi.
+
+Spesifikasi utama:
+- Panjang: 1 meter (variant lain: sebutkan di sini jika tersedia; jika tidak: “hanya tersedia 1 m saat ini”)  
+- Standar: HDMI 2.1 Ultra High Speed  
+- Bandwidth maksimum: hingga 48 Gbps (mendukung ALLM, VRR, eARC)  
+- Resolusi & refresh: hingga 8K@60Hz, 4K@120Hz  
+- Konektor: berlapis emas untuk koneksi anti-korosi  
+- Kabel: jacket nylon braided, inti tembaga berkualitas tinggi, pelindung ganda untuk mengurangi interferensi  
+- Kompatibilitas: PS5, Xbox Series X/S, PC GPU modern, Smart TV 4K/8K, AV receiver
+
+Catatan dan saran penggunaan:
+- Kabel pasif 1 m mendukung 8K/4K120 seperti diuji pada PS5. Untuk panjang >3 meter, sinyal 8K/4K120 mungkin membutuhkan kabel aktif atau repeater.  
+- Pastikan TV/monitor dan perangkat mendukung pengaturan yang diperlukan untuk 4K@120Hz (setting output perangkat dan input TV).
+
+Apa yang Anda dapatkan:
+- 1x Kabel HDMI 2.1 Ultra High Speed (1 m)  
+- Packing rapi siap kirim  
+- Garansi/retur: [masukkan kebijakan singkat, mis. 1 tahun garansi/retur 7 hari jika barang rusak]
+
+FAQ singkat:
+- Q: Apakah kabel ini cocok untuk PS5? A: Ya — diuji mendukung 4K@120Hz pada PS5.  
+- Q: Apakah ada pilihan panjang lain? A: Saat ini tersedia 1 m. Kami sedang mempertimbangkan menambah opsi 2 m / 3 m / 5 m — cek listing untuk update.
+
+Ajakan beli:
+Pilih sekarang untuk koneksi stabil dan kualitas gambar tinggi—cocok untuk gaming dan home theater.
+
+Jika mau, saya bisa buat versi singkat untuk judul/preview marketplace dan versi lengkap untuk detail produk. Juga bisa bantu membuat foto mockup dengan skala teks untuk menampilkan panjang.",,,,,,
+x015,h32,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Motor cepat rusak: beberapa pembeli melaporkan bau gosong dan mesin mati setelah dipakai beberapa kali (r1, r2, r4).
+- Umur pakai singkat/ketidakawetan: keluhan mesin ""mati"" di minggu ketiga atau belum sebulan (r2, r4).
+- Kapasitas kecil: pelanggan menyebut cuma cukup untuk 1 gelas (r5).
+- Pengiriman lambat: satu ulasan menyebut pengiriman 8 hari (r7).
+
+Saran perbaikan (produk & layanan)
+1. Perbaiki kualitas motor dan perlindungan:
+   - Ganti atau tingkatkan motor dengan spesifikasi yang lebih kuat dan tahan panas.
+   - Tambahkan proteksi termal (thermal cutoff/overheat protection) untuk mencegah bau gosong dan kebakaran.
+   - Uji siklus hidup motor (mis. uji pemakaian berulang) dan pastikan durability minimal sesuai ekspektasi.
+
+2. Instruksi pemakaian & pembatasan yang jelas:
+   - Sertakan panduan penggunaan: potong bahan menjadi potongan kecil (<2 cm), jangan mengisi melebihi kapasitas, jangan gunakan terus-menerus lebih dari X detik (mis. 20–30 detik) dan beri jeda 1–2 menit antara siklus untuk mencegah panas berlebih.
+   - Jelaskan jenis bahan yang boleh/tdk boleh (mis. es besar, bahan sangat keras).
+
+3. Perbaiki spesifikasi & transparansi listing:
+   - Nyatakan kapasitas 380 ml sebagai ""cukup untuk 1 gelas/1 porsi"" agar ekspektasi tepat.
+   - Cantumkan runtime per charge, waktu pengecasan, dan jumlah siklus yang direkomendasikan per charge.
+
+4. Garansi & layanan purna jual:
+   - Berikan garansi minimal (mis. 6–12 bulan) terhadap kerusakan motor.
+   - Mudahkan proses klaim (alamat email/telepon, kebijakan retur).
+   - Jika masalah umum sudah teridentifikasi, tawarkan penggantian atau perbaikan cepat.
+
+5. Kemasan & logistik:
+   - Perbaiki kemasan pengaman agar komponen tidak rusak selama transit.
+   - Koordinasi dengan ekspedisi untuk memperbaiki waktu pengiriman atau berikan estimasi pengiriman yang realistis.
+
+6. Perbaikan produk jangka menengah:
+   - Pertimbangkan opsi versi dengan kapasitas lebih besar atau varian ""heavy-duty"" untuk pelanggan yang butuh daya lebih.
+   - Tambahkan indikator baterai dan/atau lampu status untuk memberi informasi lebih pada pengguna.
+
+Improved listing text (Indonesia) — singkat, jelas, dan informatif
+Judul:
+Blender Portable 380 ml | 6 Mata Pisau Stainless | USB Rechargeable | Mudah Dicuci | Garansi 6 Bulan
+
+Deskripsi singkat / poin fitur:
+- Kapasitas 380 ml — ideal untuk 1 gelas jus atau smoothie, praktis dibawa ke gym/kerja.
+- 6 mata pisau stainless yang tajam untuk hasil blender halus.
+- USB rechargeable — isi ulang lewat powerbank, laptop, atau adaptor USB.
+- Motor dengan proteksi overheat — dirancang untuk pemakaian harian yang aman.
+- Mudah dibuka & dicuci — bagian pisau dapat dibersihkan cepat.
+- Garansi 6 bulan & layanan pelanggan siap membantu.
+
+Petunjuk penggunaan & peringatan:
+- Potong bahan menjadi potongan kecil (≤2 cm) dan jangan isi melebihi tanda kapasitas.
+- Gunakan maksimal 20–30 detik per siklus, beri jeda ~1–2 menit antar siklus untuk mencegah panas berlebih.
+- Jangan blender bahan yang sangat keras (mis. biji besar, kacang utuh, es besar) tanpa memecahnya terlebih dahulu.
+- Jangan gunakan untuk cairan panas.
+
+Isi paket:
+- 1 x Blender Portable 380 ml (dengan 6 pisau stainless)
+- 1 x Kabel USB
+- Manual + kartu garansi 6 bulan
+
+Layanan & pengiriman:
+- Garansi 6 bulan untuk kerusakan motor (syarat & ketentuan berlaku).
+- Customer service: [email/telepon] — bantu klaim, tips penggunaan, dan troubleshooting.
+- Estimasi pengiriman: 3–5 hari kerja (tergantung lokasi); paket dikemas aman untuk mencegah kerusakan.
+
+Catatan akhir:
+Untuk daya tahan optimal: isi sesuai kapasitas, potong bahan kecil, dan jangan gunakan terus-menerus. Hubungi kami jika ada masalah — kami siap membantu atau mengganti sesuai garansi.
+
+Jika mau, saya bisa menyusun versi listing yang lebih panjang untuk marketplace tertentu (Tokopedia/Shopee/Lazada) termasuk bullet point untuk fitur teknis, FAQ, dan template pesan balasan untuk keluhan pelanggan. Mau lanjut?",,,,,,
+x016,h34,before,"Issue: cable length (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x017,h32,before,"Issue: delivery time (operational); draft status: route
+",,,,,,
+x018,h39,before,"Issue: connector type (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x019,h39,before,"Ringkasan masalah berulang dari ulasan
+- Kekurangan informasi tentang jenis konektor: beberapa pembeli menyangka bisa langsung dipakai di ponsel tanpa jack (contoh: iPhone 15 atau ponsel tanpa jack) tetapi listing tidak menyebutkan apakah ini jack 3.5mm, USB‑C, Lightning, atau lain. (r1, r2, r4)
+- Dampak: pembeli terpaksa membeli adapter atau merasa produk tidak sesuai harapan.
+
+Hal yang pembeli puji (bisa dit tonjolkan)
+- Bass terasa dalam (r3).
+- Mikrofon jernih untuk meeting (r5).
+- Kabel tidak kusut sesuai klaim (r6).
+
+Saran tindakan untuk penjual
+1. Segera perbarui listing untuk mencantumkan jenis konektor secara jelas (mis. ""jack 3.5mm"", ""USB‑C"", atau ""Lightning""). Jika ada varian dengan konektor berbeda, buat listing/varian terpisah atau tuliskan dengan jelas opsi varian.
+2. Jika produk tidak termasuk adapter, nyatakan secara eksplisit: ""adapter tidak termasuk"" atau ""adapter perlu dibeli terpisah"". Jika Anda menyediakan adapter sebagai opsi, tambahkan itu sebagai varian produk.
+3. Perbarui judul produk agar menyertakan jenis konektor (contoh: tambahkan [[connector type]] di judul). Ini mengurangi kebingungan saat pelanggan mencari.
+4. Tambahkan bagian ""Kompatibilitas"" di deskripsi yang menjelaskan perangkat yang kompatibel atau butuh adapter (mis. ponsel dengan jack 3.5mm, dll.). Jika Anda belum menentukan daftar, minta konfirmasi teknis lalu isi.
+5. Tambahkan foto close‑up konektor sehingga pembeli melihat bentuk fisiknya.
+6. Tambahkan FAQ singkat di listing: ""Apakah membutuhkan adapter?"" dan jawaban jelas.
+7. Untuk keluhan pengiriman/salah item/defek: arahkan pelanggan ke layanan pelanggan/after‑sales (refund/replace) — itu bukan masalah listing; mintalah tim CS menindaklanjuti sesuai kebijakan toko.
+
+Pertanyaan yang perlu dijawab oleh penjual (sebelum memperbarui listing)
+- Jenis konektor apa yang digunakan? Tuliskan persis: ""3.5mm TRS"", ""USB‑C"", atau ""Lightning"" atau varian lain. (Isi di bawah akan menampilkan placeholder jika Anda belum memberi jawaban.)
+- Apakah adapter disertakan atau harus dibeli terpisah?
+- Ada varian konektor? Jika ya, sebutkan setiap varian dan sku/warna.
+
+Teks listing yang disarankan (ganti placeholder dengan fakta yang benar)
+Judul:
+Earphone In‑Ear Bass Mic — dengan tombol volume, kabel anti kusut 1,2 m — konektor: [[connector type]]
+
+Deskripsi singkat:
+- Earphone in‑ear dilengkapi mikrofon dan tombol volume untuk menerima panggilan/menjalankan kontrol. 
+- Bass mantap dan suara vokal jelas untuk mendengarkan musik dan meeting.
+- Kabel anti kusut panjang 1,2 m, nyaman dipakai sehari‑hari.
+
+Fitur utama:
+- Mikrofon jernih untuk meeting dan panggilan.
+- Bass yang dalam (pengalaman pengguna).
+- Kabel anti kusut, panjang 1,2 m.
+- Tombol kontrol volume dan fungsi panggil/stop/play.
+
+Konektivitas & kompatibilitas:
+- Konektor: [[connector type]].
+- Kompatibilitas: [[compatible devices]].
+- Catatan: adapter [[included/not included — pilih salah satu]] jika diperlukan.
+
+Apa yang termasuk di dalam kotak:
+- 1x Earphone in‑ear dengan mic dan tombol volume
+- (Jika ada) 1x [[adapter]]  — jika tidak ada, tuliskan: ""Adapter tidak termasuk. Jika perangkat Anda tidak memiliki [[connector type]] port, adapter perlu dibeli terpisah.""
+
+Tips pembelian:
+- Periksa jenis port pada perangkat Anda sebelum membeli (mis. apakah ponsel Anda punya jack 3.5mm, USB‑C, atau Lightning). Jika ragu, lihat foto konektor di galeri produk atau tanyakan kami sebelum membeli.
+
+FAQ singkat:
+- Apakah earphone ini bisa langsung dipakai di iPhone 15? [[jawaban sesuai fakta: ya / tidak — jika tidak, jelaskan perlu adapter]]
+- Apakah adapter disertakan? [[jawaban sesuai fakta]]
+
+Bagian layanan purna jual (untuk tim CS, bukan listing):
+- Keluhan tentang pengiriman, barang salah kirim, atau produk cacat harus ditangani oleh tim layanan pelanggan: proses refund/replace sesuai kebijakan toko. Listing hanya mengatasi kebingungan spesifikasi.
+
+Jika Anda setuju, kirimkan jawaban untuk placeholder di bawah supaya saya bisa masukkan ke teks listing yang lengkap:
+- connector type:
+- apakah adapter termasuk? (ya/tidak)
+- compatible devices (opsional, atau tulis ""lihat foto konektor"" jika ingin lebih umum)
+- apakah ada varian konektor? (jika ya, sebutkan)
+
+Saya akan merapikan teks akhir setelah Anda mengisi placeholder.",,,,,,
+x020,h37,before,"Issue: delivery time / shipping speed (operational); draft status: route
+
+
+Issue: wrong variant / item sent (operational); draft status: route
+",,,,,,
+x021,h35,after,"Ringkasan masalah yang berulang
+- Banyak pembeli melaporkan sprei tidak bisa menutup sampai bawah pada kasur yang tebal (contoh: 30 cm).  
+- Karet keliling dianggap pendek/tidak mencapai sudut untuk kasur tebal.  
+- Beberapa pembeli meminta informasi tentang ketebalan maksimal kasur yang cocok.
+
+Saran tindakan (prioritas)
+1. Segera perbarui listing untuk mencantumkan batas ketebalan kasur yang cocok: ""maksimal tebal 20 cm"" (sesuai konfirmasi merchant).  
+2. Tambahkan foto produk yang memperlihatkan sprei terpasang pada kasur dengan ketebalan berbeda (contoh: kasur tipis dan kasur tebal 20 cm) sehingga pembeli tahu batasannya.  
+3. Jelaskan spesifikasi karet (full elastic / karet keliling) dan kapasitasnya (untuk ketebalan hingga 20 cm).  
+4. Tambahkan ukuran sarung bantal dan jumlah (2 buah), bahan (katun), keunggulan (bahannya adem, warna tidak luntur).  
+5. Sediakan informasi perawatan (cuci, suhu, hindari pemutih) untuk menjaga warna dan kelembutan.  
+6. Pertimbangkan menghadirkan varian ""deep pocket"" (untuk kasur >20 cm) atau catat rekomendasi jika pembeli ingin ukuran lain.  
+7. Perjelas kebijakan retur/penukaran jika produk tidak sesuai ukuran agar mengurangi ketidakpuasan.
+
+Teks listing yang diperbaiki (Indonesian)
+Judul:
+Sprei Katun Motif Bunga 160x200 cm — Fitted Sheet, Karet Keliling (Cocok hingga Tebal 20 cm)
+
+Deskripsi singkat:
+Sprei katun motif bunga ukuran 160 x 200 cm, fitted sheet dengan karet keliling, nyaman dipakai, adem, dan warna tahan luntur. Sudah termasuk 2 sarung bantal.
+
+Detail produk:
+- Ukuran: 160 x 200 cm (panjang x lebar)  
+- Cocok untuk ketebalan kasur: maksimal 20 cm (tidak direkomendasikan untuk kasur >20 cm)  
+- Model: fitted sheet dengan karet keliling (full elastic) — memberikan pengait rapi pada kasur sampai tepi untuk ketebalan hingga 20 cm  
+- Bahan: katun (nyaman & adem)  
+- Warna & motif: motif bunga, warna tidak mudah luntur  
+- Isi paket: 1 sprei + 2 sarung bantal  
+- Sarung bantal: (cantumkan ukuran sarung bantal jika ada—mis. 40x60 cm)  
+
+Keunggulan:
+- Nyaman dan adem untuk tidur sehari-hari  
+- Motif cantik dan warna tahan lama  
+- Model karet keliling membuat pemasangan mudah dan rapi untuk kasur sampai 20 cm
+
+Perawatan:
+- Cuci dengan air dingin/suam–suam kuku, jangan gunakan pemutih keras  
+- Setrika pada suhu sedang jika perlu  
+- Hindari pengeringan terlalu lama agar warna tetap awet
+
+Catatan penting:
+- Produk ini dirancang untuk kasur dengan ketebalan maksimal 20 cm. Untuk kasur tebal (mis. 25–30 cm), sprei ini kemungkinan tidak menutupi seluruh sisi.  
+- Jika Anda membutuhkan ukuran untuk kasur yang lebih tebal, hubungi kami untuk informasi varian ""deep pocket"" atau sesuaikan ukuran pesanan.
+
+Kebijakan pengembalian:
+- Pastikan ukuran kasur Anda sebelum membeli. Jika ada masalah ukuran atau cacat produk, silakan hubungi layanan pelanggan dalam 3x24 jam untuk opsi retur/penukaran.
+
+Jika mau, saya bisa juga sediakan versi singkat untuk marketplace (Tokopedia/Shopee/Lazada) atau menyesuaikan teks dengan limit karakter judul/deskripsi pada platform tertentu.",,,,,,
+x022,h35,before,"Recurring customer problems (from reviews)
+- Fit on thick mattresses: multiple customers report the elastic ""karet keliling"" does not reach the corners or the sheet does not cover deep/thick mattresses (one review mentions a 30 cm mattress not covered).
+- Lack of explicit guidance: customers asked that the listing state the maximum mattress thickness the fitted sheet supports.
+Positive points (from reviews)
+- Fabric feels cool (""bahannya adem"").
+- Pattern is attractive (""motif cantik"").
+- Color does not fade (""warnanya ga luntur"").
+- Fits thin foam mattresses well.
+
+Recommended actions for the seller
+1. Determine and publish pocket depth / maximum mattress thickness:
+   - Measure the product’s actual pocket depth and the built-in elastic length so you can state a clear maximum mattress thickness (e.g., “fits mattresses up to X cm”). If you don’t have that measured value yet, measure now.
+   - Add that measurement to the product listing (see placeholder below).
+2. Offer or label a ""deep pocket"" variant if you want to satisfy customers with thicker mattresses.
+3. Improve or verify elastic length and corner construction if multiple returns/complaints confirm it's too short.
+4. Add clear photos showing the sheet fitted on mattresses of different thicknesses (thin, medium, deep) and include before/after corner photos.
+5. Add a short ""how to measure your mattress"" guide in the listing (one-sentence) to reduce sizing confusion.
+6. Update listing copy to highlight the positive points reported by customers (fabric cool, pattern, colorfast), but only as customer-reported facts — do not assert other unconfirmed claims.
+7. Handle individual issues via the appropriate business function:
+   - Returns, exchanges, sizing complaints and product issues: Customer Service / After-sales team should manage refunds/exchanges and troubleshooting.
+   - Delivery, wrong item, or packaging issues: Fulfillment/shipping team should handle logistics and replacements.
+
+Improved listing text (Indonesian)
+Sprei katun motif bunga ukuran 160 x 200 cm. Sudah termasuk 2 sarung bantal dan model karet keliling.
+
+Catatan ukuran dan kecocokan:
+- Ukuran permukaan: 160 x 200 cm.
+- Keterangan penting: pelanggan dengan kasur tebal melaporkan bahwa karet tidak selalu menjangkau sudut pada kasur yang sangat tebal. Silakan pastikan ketebalan kasur Anda sebelum membeli.
+- Maksimal ketebalan kasur yang cocok: [[maksimal ketebalan kasur (cm)]] — harap lengkapi dengan ukuran pocket depth/keterangan ketebalan yang ingin Anda tampilkan.
+- Jika Anda memiliki kasur sangat tebal, pertimbangkan untuk menanyakan apakah tersedia varian ""deep pocket"" sebelum membeli.
+
+Keunggulan (laporan pelanggan):
+- Banyak pembeli melaporkan bahan terasa adem.
+- Motif terlihat cantik.
+- Beberapa pembeli melaporkan warna tidak luntur setelah pemakaian.
+
+Panduan singkat mengukur kasur:
+- Ukur ketebalan kasur dari permukaan atas sampai sisi bawah (contoh: 20 cm). Cocokkan dengan keterangan ""Maksimal ketebalan kasur"" di atas sebelum membeli.
+
+Informasi tambahan:
+- Termasuk: sprei 160 x 200 cm + 2 sarung bantal.
+- Model: karet keliling (fitted sheet).
+
+Jika Anda ingin saya masukkan ukuran maksimal ketebalan kasur yang tepat ke teks ini, berikan ukuran pocket depth / maksimal ketebalan kasur yang sudah diukur (mis. [[maksimal ketebalan kasur (cm)]]), dan saya akan perbarui listing.
+
+Which team to contact for reported problems
+- Sizing/fit complaints, returns or exchanges: Customer Service / After-sales.
+- Delivery, wrong item or packaging problems: Fulfillment / Shipping team.",,,,,,
+x023,h34,after,"Issue: cable length (missing_fact); draft status: ready
+Panjang kabel: panjang kabel 1 meter.",,,,,,
+x024,h36,after,"Recurring customer problems (from reviews)
+- Missing ingredient information in the listing (multiple reviews mention ""komposisi apa aja/ga ada info kandungannya"").
+- Presence and scent of alcohol: reviewers report a strong alcohol smell and want this disclosed.
+- Customers are uncertain about suitability for sensitive / alcohol-allergic skin.
+
+Suggested actions for the seller
+1. Publish the complete ingredient list (INCI) in the listing immediately. If you cannot publish the full list now, add a clear partial list highlighting strong actives and allergens. 
+2. Prominently disclose known ingredients that matter to customers:
+   - State that the product contains niacinamide 5% (merchant-confirmed).
+   - State that the product contains alcohol denat (merchant-confirmed) and add an allergy/sensitivity notice.
+3. Add a scent/texture note: mention that the formula has an alcohol scent and a lightweight, fast-absorbing texture (supported by reviews).
+4. Add usage guidance and precautions for customers with alcohol sensitivity or very dry/sensitive skin, or recommend a patch test. If you have dermatologist guidance or suitability claims, include supporting info or remove claims until confirmed.
+5. Consider product development changes (business decision):
+   - Offer an alcohol-reduced or alcohol-free variant for sensitive-skin customers.
+   - Include a sample/mini for first-time users or a fragrance-minimized option.
+6. Update product images and bullet points to show the bottle and call out ""cute bottle"" (positive review) and clearly show volume (20 ml).
+7. Customer service handling: reviews indicating scent/ingredient concerns are listing/content issues to fix; any complaints about defects, wrong items, delivery, or returns should be handled by your fulfillment/after-sales team.
+
+Improved listing text (use only confirmed facts; placeholders left where information is missing)
+Title
+Serum Wajah Brightening 20 ml — Niacinamide 5% • Mengandung Alcohol Denat
+
+Key benefits (bullet points)
+- Niacinamide 5% — bahan aktif untuk perawatan kulit wajah (merchant-confirmed).
+- Mengandung alcohol denat — dapat berbau alkohol; harap periksa toleransi kulit sebelum pemakaian (merchant-confirmed).
+- Tekstur ringan dan cepat meresap (customer feedback).
+- Kemasan botol menarik/cute (customer feedback).
+- Volume: 20 ml.
+
+Full description
+Serum Wajah Brightening 20 ml dirancang untuk perawatan wajah dengan tekstur ringan yang cepat meresap. Formula mengandung niacinamide 5% dan alcohol denat. Beberapa pengguna melaporkan aroma alkohol yang terasa kuat; mohon diperhatikan jika Anda sensitif terhadap alkohol atau memiliki riwayat alergi.
+
+Penting — informasi bahan dan keselamatan
+- Kandungan yang dikonfirmasi: niacinamide 5% dan alcohol denat.
+- Untuk keamanan konsumen, harap periksa daftar bahan lengkap sebelum membeli: [[full ingredient list / INCI here]].
+- Jika Anda alergi terhadap alkohol atau memiliki kulit sensitif, lakukan patch test sebelum penggunaan atau konsultasikan dengan profesional kesehatan kulit.
+- Petunjuk penggunaan: [[directions for use — please provide text]].
+- Kesesuaian kulit: [[suitable skin types — please confirm]].
+- Penyimpanan dan masa pakai setelah dibuka: [[storage and PAO/shelf life — please provide]].
+
+What we will update based on customer feedback
+- We will add the full ingredient list and clearer warnings about alcohol on the product page.
+- We are evaluating a low-/no-alcohol variant and sample options for customers who prefer fragrance-free or alcohol-free formulas.
+
+Questions for you (placeholders I need you to fill)
+- Please provide the full ingredient list (INCI) to include in the listing: [[full ingredient list]].
+- Provide recommended usage instructions and frequency: [[directions for use]].
+- Confirm recommended skin types and any contraindications: [[suitable skin types/contraindications]].
+- Provide storage/shelf life and PAO (period after opening): [[storage and shelf life]].
+- Any official claims, clinical data, or certifications you want displayed? If yes, please supply documentation.
+
+If you want, I can draft alternate listing copy that emphasizes sensitive-skin recommendations or a version tailored to buyers who prefer alcohol-free products once you supply the missing details.",,,,,,
+x025,h35,before,"Issue: max mattress thickness (fit) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: elastic coverage (karet sampai sudut) (operational); draft status: route
+",,,,,,
+x026,h35,before,"Ringkasan masalah yang sering muncul (recurring problems)
+- Sprei tidak pas/ga nutup sampai bawah pada kasur yang tebal (review menyebut kasur ~30 cm). Beberapa pembeli menyarankan harus ada keterangan maksimal ketebalan kasur.
+- Karet keliling dianggap “kurang panjang/ga menjangkau sudut” untuk kasur springbed atau kasur tebal.
+- Sebaliknya, tidak ada masalah untuk kasur tipis — bahan adem dan warna tidak luntur (positif).
+
+Saran tindakan (apa yang harus Anda lakukan)
+1. Tambahkan informasi dimensi lengkap di listing:
+   - Ukuran permukaan: 160 x 200 cm.
+   - Kedalaman kantong (pocket depth) yang jelas, mis. “kedalaman kantong 25 cm” — tentukan angka yang sesuai dengan produk Anda setelah pengukuran nyata.
+   - Jelaskan bahwa karet adalah “karet keliling (full elastic)” dan sebutkan panjang/kelenturannya jika memungkinkan.
+
+2. Jika produk saat ini tidak cocok untuk kasur >25–28 cm:
+   - Nyatakan batas maksimal ketebalan kasur yang disarankan (contoh: “cocok untuk ketebalan kasur sampai 25 cm”).  
+   - Pertimbangkan menambah varian “deep pocket” (kedalaman 30–35 cm) untuk customer dengan kasur tebal.
+
+3. Beri informasi pelengkap yang diminati pembeli:
+   - Ukuran dan jumlah sarung bantal (mis. 2 sarung bantal 40 x 60 cm).
+   - Bahan (100% katun), keunggulan (adem, tidak mudah luntur), dan instruksi perawatan (cuci mesin dengan air dingin, jangan pemutih, setrika suhu sedang).
+   - Foto close-up karet di sudut dan foto sprei terpasang pada kasur tipis & kasur tebal sebagai referensi.
+
+4. Tambahkan FAQ singkat di listing:
+   - “Apakah muat untuk kasur tebal X cm?” — jawab sesuai batas yang Anda tetapkan.
+   - Kebijakan retur/ganti jika salah ukuran.
+
+5. Perbaiki komunikasi pra-pembelian:
+   - Tambahkan kalimat mengingatkan pembeli untuk mengukur ketebalan kasur sebelum membeli.
+   - Jika memungkinkan, tawarkan chat/adu tanya untuk konfirmasi ukuran.
+
+6. Kualitas & jaminan:
+   - Tonjolkan testimoni positif (bahannya adem, motif cantik, warna tidak luntur).
+   - Jika memungkinkan beri garansi warna/ketahanan karet selama beberapa hari untuk meningkatkan kepercayaan.
+
+Improved listing text (Bahasa Indonesia)
+Judul:
+Sprei Katun Motif Bunga 160 x 200 cm – Full Elastic, 2 Sarung Bantal (Katun Adem, Warna Tahan Luntur)
+
+Deskripsi:
+Sprei katun motif bunga ukuran 160 x 200 cm, bahan 100% katun yang adem dan nyaman untuk tidur. Motif cantik dan warna tahan luntur setelah pencucian sesuai instruksi. Model karet keliling (full elastic) agar sprei melekat rapi pada kasur.
+
+Spesifikasi:
+- Ukuran permukaan: 160 x 200 cm (panjang x lebar)
+- Kedalaman kantong (pocket depth): 25 cm — cocok untuk ketebalan kasur sampai 25 cm
+- Karet: full elastic (karet mengelilingi seluruh tepi)
+- Termasuk: 2 sarung bantal standar (±40 x 60 cm)
+- Bahan: 100% katun — adem & nyaman
+
+Petunjuk Pembelian:
+- Mohon ukur ketebalan (tinggi) kasur Anda sebelum membeli. Untuk kasur yang lebih tebal dari 25 cm, silakan pilih varian “deep pocket” atau hubungi kami dulu.
+- Jika ragu, chat kami untuk konfirmasi ukuran agar tidak salah beli.
+
+Perawatan:
+- Cuci mesin dengan air dingin atau hangat (maks 30°C)
+- Hindari pemutih
+- Setrika pada suhu sedang
+- Cuci terpisah pada warna pertama kali
+
+Kenapa pilih produk ini:
+- Bahan katun adem, cocok untuk iklim tropis
+- Motif bunga rapi dan warna stabil (tidak mudah luntur)
+- Desain karet keliling agar rapi dan tidak mudah bergeser
+
+FAQ singkat:
+- Apakah muat untuk kasur setebal 30 cm? Tidak (produk ini direkomendasikan untuk ketebalan sampai 25 cm). Untuk kasur 30 cm, pilih varian deep pocket atau tanyakan stok kami.
+- Berapa jumlah sarung bantal? 2 buah (standar 40x60 cm).
+
+Tambahan langkah layanan:
+Jika Anda ingin, saya bisa bantu susun varian listing untuk “Deep Pocket (kedalaman 30–35 cm)” lengkap dengan foto dan teks.",,,,,,
+x027,h39,after,"Recurring customer problems (from reviews)
+- Missing/unclear connector information: several buyers complained the listing didn’t state the connector type and they discovered their phones didn’t have a compatible port (r1, r2, r4).
+- Expectation of USB-C/Lightning compatibility: buyers expected to plug directly into newer phones (iPhone 15, phones with USB‑C) and were surprised it didn’t work (r1, r2, r4).
+
+Merchant-confirmed fact to incorporate
+- Connector is 3.5 mm jack; there is no USB‑C or Lightning version.
+
+What you should do (actionable recommendations)
+1. Update the product title and main bullets to state the connector clearly: “3.5 mm jack” (visible in title and first bullet).
+2. Add a clear compatibility note: “Works with devices that have a 3.5 mm headphone jack. Not compatible with USB‑C or Lightning-only devices unless using a separate adapter.” Do not claim any adapter is included unless you actually supply one.
+3. Offer an adapter as an optional accessory or bundle (if you can supply one). If you can sell/advice adapters, list recommended adapter types and SKU links.
+4. Add product photos that clearly show the 3.5 mm plug and a close-up of the mic/button. Include a diagram or short FAQ image about compatibility (example: “Needs 3.5 mm jack; adapters sold separately”).
+5. Add a short Q&A / FAQ in the listing addressing common questions: connector type, whether adapters are included (state “not included” unless you change that), and how the mic performs for calls/meetings.
+6. Train customer service / fulfillment team to handle non-listing complaints: if buyers report wrong items, defects, or delivery problems, those should be handled by after‑sales/customer service and returns/fulfillment teams rather than listing edits.
+
+Improved listing text (Indonesian)
+Title:
+Earphone In‑Ear Bass + Mic — Kabel Anti Kusut 1,2 m — 3,5 mm Jack
+
+Bullet points / short description:
+- Konektor: 3,5 mm jack (perlu perangkat dengan jack 3,5 mm) — tidak ada versi USB‑C atau Lightning.
+- Mic jernih untuk meeting dan panggilan, dilengkapi tombol volume/play-pause.
+- Bass mantap untuk musik, desain in‑ear nyaman dipakai lama.
+- Kabel anti kusut, panjang 1,2 m untuk penggunaan sehari-hari.
+- Perhatian: jika perangkat Anda hanya punya port USB‑C atau Lightning, diperlukan adaptor 3,5 mm terpisah (adaptor tidak termasuk).
+
+Detail singkat:
+Earphone in‑ear dengan mic dan tombol kontrol (volume/play-pause). Dirancang untuk perangkat yang memiliki port headphone 3,5 mm. Nikmati bass dalam dan kabel anti kusut sepanjang 1,2 m. Untuk perangkat tanpa jack 3,5 mm, gunakan adaptor 3,5 mm yang kompatibel (adaptor dijual terpisah).
+
+FAQ singkat (masukkan ke bagian Q&A atau deskripsi)
+- Apakah ada versi USB‑C atau Lightning? Tidak — produk ini menggunakan 3,5 mm jack saja.
+- Apakah adaptor termasuk? Tidak termasuk. Silakan beli adaptor 3,5 mm yang sesuai untuk perangkat Anda jika diperlukan.
+- Cocok untuk panggilan/meeting? Mic terbukti memberikan suara jernih menurut beberapa pengguna.
+
+Notes for listing assets
+- Tambahkan foto yang jelas menampilkan ujung 3,5 mm jack, mic/tombol, dan kabel untuk mengurangi kebingungan pembeli.
+- Tambahkan satu gambar teks yang menekankan “3,5 mm jack — tidak kompatibel tanpa adaptor” agar terlihat sebelum checkout.
+
+If you want, I can produce alternate shorter/longer listing versions or text for an image overlay that highlights the 3.5 mm connector.",,,,,,
+x028,h40,before,"Recurring customer problems (from reviews)
+- Sizing inconsistency: multiple buyers report the sandals run large or feel loose (especially around the heel). Several reviewers recommend choosing a smaller size; others say their usual size fit fine. One review reports receiving the wrong size.
+- Heel slippage: at least one buyer said the sandal was loose at the heel and tended to come off when walking.
+- Lack of size guidance in the listing: a buyer explicitly noted ""no size guide, so chose wrong.""
+- Rubber/chemical smell: one buyer reported an initial rubber odor that went away after airing.
+- Delivery time / wrong item: a reviewer complained about slow shipping and another about receiving a different size — these are fulfillment/shipping issues, not product specification problems.
+- Positive points to keep highlighting: lightweight, soft/comfortable (many reviews), durable for repeated buys, anti-slip works (including in bathroom), suitable for casual/home/mosque use, and an elegant black color.
+
+Recommended seller actions
+1. Add a clear size guide in the listing: provide inner/footbed length per size or a printable sizing chart, and give a recommendation based on customer feedback (for example, “if you prefer a snug fit, consider ordering one size down”) — ask the seller to supply exact internal measurements per size so we can include them exactly: [[please provide inner length (cm) for sizes 39–44]].
+2. Improve product photos and description to show where fit might be loose (heel/strap area) and show the sole/profile so buyers understand fit and slip-resistance.
+3. Quality control for order accuracy: check picking/packing procedures to prevent shipping wrong sizes. If wrong-size shipments or delays occur, customer service/fulfillment should handle returns/exchanges and logistics.
+4. Add a short care/first-use note: mention that a mild rubber smell may dissipate after airing (based on customer report).
+5. Emphasize tested benefits seen in reviews: anti-slip for bathroom use, lightweight, soft cushioning, and durability for repeated use.
+6. Monitor size feedback and consider adjusting sizing or producing a size-fit note if most buyers confirm a consistent trend.
+
+Which teams should handle non-listing issues
+- Wrong item shipped / incorrect size sent: Fulfillment / Customer Service should handle exchange/return and investigate packing errors.
+- Slow delivery complaints: Logistics / Shipping operations should review transit times and carrier performance.
+- Defects or damaged items out of the box: Customer Service for returns/exchanges and Quality Control for root-cause.
+
+Improved listing text (use only confirmed facts; placeholder for missing size measurements)
+Title:
+Sandal Slide Pria EVA — Ringan, Empuk, Anti Slip (Ukuran 39–44)
+
+Bullet points / short description:
+- Bahan: EVA — ringan dan empuk, nyaman untuk dipakai santai di rumah atau ke masjid.
+- Anti slip: tapak memberikan daya cengkeram yang baik (reviewer melaporkan aman dipakai di kamar mandi).
+- Rentang ukuran: tersedia dari 39 sampai 44.
+- Nyaman & awet: beberapa pembeli melaporkan empuk dan tahan lama setelah pemakaian berulang.
+- Warna: warna hitam dilaporkan tampak elegan oleh pembeli.
+- Perawatan pertama pakai: beberapa pembeli merasakan bau karet awalnya yang hilang setelah dijemur/diangin-anginkan.
+
+Ukuran & panduan pemesanan:
+- Kami menyediakan ukuran 39–44. Untuk membantu Anda memilih ukuran yang tepat, silakan lihat tabel ukuran berikut: [[silakan kirimkan panjang bagian dalam/footbed (cm) untuk setiap ukuran 39, 40, 41, 42, 43, 44 sehingga dapat ditampilkan di sini]].
+- Catatan dari pembeli: beberapa pelanggan merasa ukurannya agak longgar; jika Anda menginginkan pas yang lebih rapat, pertimbangkan rekomendasi ukuran berdasarkan tabel ukuran di atas.
+
+Informasi tambahan:
+- Cocok untuk pemakaian santai di rumah, ke masjid, dan pemakaian sehari-hari.
+- Jika pesanan Anda tiba dengan ukuran yang berbeda dari yang dipesan atau ada masalah pengiriman, silakan hubungi layanan pelanggan/fulfillment untuk bantuan—mereka yang menangani penukaran, pengembalian, dan masalah pengiriman.
+
+Pertanyaan untuk penjual (perlu jawaban agar listing bisa dilengkapi)
+- Tolong berikan panjang bagian dalam (inner/footbed length) dalam cm untuk setiap ukuran 39–44 supaya kita dapat menambahkan tabel ukuran yang akurat.
+- Ada warna lain selain hitam yang boleh dicantumkan? Jika ya, sebutkan warna yang tersedia.
+- Apakah ada panduan ukuran resmi pabrikan (mis. run small / run large) yang boleh kami kutip?
+
+Jika Anda ingin, saya akan memasukkan tabel ukuran dan menambahkan foto close-up area tumit/sol setelah Anda mengirimkan pengukuran dan foto produk.",,,,,,
+x029,h38,before,"Ringkasan temuan dari ulasan pelanggan
+- Tidak ada keluhan signifikan; semua ulasan cenderung positif.
+- Poin yang sering disebut (kekuatan/keunggulan):
+  - Sangat tipis (0,5 mm) — terasa seperti tanpa case.
+  - Ringan dan nyaman digenggam.
+  - Finishing matte: tidak licin dan minim sidik jari.
+  - Pas/rapi: fitting presisi, tidak longgar.
+  - Kualitas rapi tanpa cacat.
+  - Tidak menimbulkan panas saat bermain game.
+
+Kemungkinan masalah yang belum disebut tapi sebaiknya diantisipasi
+- Perlindungan terhadap benturan/terjatuh: ketebalan 0,5 mm menunjukkan proteksi minimal terhadap benturan/sok; beberapa pembeli mungkin khawatir soal drop protection.
+- Perlindungan kamera dan bibir layar: tidak disebut apakah ada raised bezel untuk lensa/kaca.
+- Kompatibilitas model dan akses tombol/port: pembeli perlu kepastian model yang cocok dan akses yang presisi.
+- Pilihan warna/finishing dan stok: ulasan tidak menyebut warna/varian — pembeli bisa ingin opsi.
+- Garansi/quality control: meski ulasan menyebut “ga ada cacat”, menambahkan jaminan meningkatkan kepercayaan.
+
+Saran tindakan (apa yang harus Anda lakukan)
+1. Perjelas detail teknis di listing:
+   - Sebutkan model HP yang kompatibel (daftar lengkap).
+   - Sebutkan fitur proteksi: apakah ada raised bezel di kamera/layar, anti-scratch coating, tahan tekanan/kekuatan PC.
+   - Cantumkan dimensi/ketebalan 0,5 mm dan berat (angka aktual jika tersedia).
+2. Tegaskan keunggulan yang sudah disukai pelanggan:
+   - Highlight “ultra slim 0,5 mm”, “finish matte anti-sidik jari”, “fit presisi”, “ringan seperti tanpa case”.
+   - Tambah klaim “tidak menghambat pendinginan” bila diuji.
+3. Tawarkan bukti kualitas:
+   - Cantumkan foto close-up (fitting pada beberapa model), foto profil tipis, dan foto kamera/port.
+   - Tambah informasi QC & garansi/retur (mis. 7 hari pengembalian bila ada cacat).
+4. Tambah fitur/opsional untuk menjawab kekhawatiran:
+   - Opsional: varian dengan raised bezel atau lapisan pelindung ekstra untuk yang ingin proteksi lebih.
+5. Optimalkan listing untuk konversi:
+   - Sertakan bullet benefit di awal dan spesifikasi teknis terpisah.
+   - Tambah FAQ singkat (kompatibilitas, perawatan, pemasangan).
+6. Pantau feedback berkelanjutan:
+   - Minta pembeli meninggalkan foto dan rating; gunakan untuk perbaikan produk atau listing.
+
+Improved listing text (bahasa Indonesia, siap pakai)
+Judul:
+Case HP Slim Matte — Ultra Slim 0,5 mm, Bahan PC, Matte Anti-Sidik Jari, Fit Presisi
+
+Deskripsi singkat (poin utama):
+- Ultra slim 0,5 mm — sangat tipis dan ringan, terasa seperti tanpa case.
+- Finishing matte anti-sidik jari — tidak licin, minim noda, nyaman digenggam.
+- Fit presisi — pas di bodi, tidak longgar; potongan tombol & port rapi.
+- Material PC berkualitas — tahan gores ringan dan rapi tanpa cacat.
+- Tidak menghambat pendinginan — aman untuk penggunaan gaming.
+
+Spesifikasi:
+- Material: Polycarbonate (PC) berkualitas
+- Ketebalan: 0,5 mm
+- Berat: (cantumkan berat jika tersedia)
+- Kompatibilitas: (cantumkan daftar model HP yang didukung — contoh: Samsung Axx / Xiaomi xx / iPhone xx — sesuaikan dengan stok)
+- Perlindungan kamera: (sebutkan jika ada raised bezel; kalau tidak, tambahkan catatan)
+- Warna: (cantumkan varian warna yang tersedia)
+
+Keunggulan tambahan:
+- Pemasangan mudah dan tidak membuat tombol berat.
+- Permukaan matte yang halus: mengurangi sidik jari dan pantulan.
+- Quality checked — produk dikirim rapi tanpa cacat.
+
+Garansi & layanan:
+- Cek produk saat terima: garansi pengembalian/penukaran bila ada cacat produksi dalam 7 hari.
+- Butuh bantuan memilih ukuran/model? Hubungi kami sebelum beli.
+
+Tips perawatan:
+- Bersihkan dengan kain mikrofiber lembap untuk menjaga tampilan matte.
+- Hindari pembersih berbahan abrasif.
+
+FAQ singkat:
+- Apakah case ini melindungi dari jatuh? Case ini didesain ultra slim untuk mencegah goresan dan pemakaian sehari-hari; untuk proteksi benturan yang kuat, lihat varian dengan bumper/peredam tambahan.
+- Cocok untuk model saya? Periksa daftar kompatibilitas di atas atau tanyakan sebelum membeli.
+
+Gunakan teks ini untuk menggantikan deskripsi saat ini dan tambahkan foto yang menampilkan profil tipis, finish matte, serta pemasangan pada model yang umum. Jika Anda mau, saya bisa bantu susun daftar kompatibilitas atau versi teks singkat untuk marketplace tertentu (Tokopedia/Shopee/Lazada).",,,,,,
+x030,h37,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Pengiriman terlambat / estimasi tidak akurat (beberapa pelanggan menerima setelah 12 hari atau ~2 minggu padahal estimasi 3 hari).
+- Masalah kurir (pengiriman berputar-putar, lama sampai).
+- Pesanan warna berbeda dari yang diterima (pesan putih dikirim hitam) — masalah stok/packing/quality control.
+
+Saran tindakan (prioritas & langkah konkret)
+1. Perbaiki estimasi pengiriman dan opsi logistik
+   - Tinjau layanan kurir/mitra pengiriman; pertimbangkan pindah ke kurir dengan performa lebih baik atau tawarkan opsi pengiriman ekspres berbayar.
+   - Update estimasi waktu pengiriman di listing berdasarkan performa riil (beri rentang realistis, mis. 3–7 hari kerja).
+   - Aktifkan/tingkatkan nomor resi dan pelacakan otomatis sehingga pembeli bisa memantau status.
+
+2. Perkuat kontrol stok & packing (mengatasi warna salah)
+   - Tandai dan pisahkan stok menurut varian warna; gunakan label/kode SKU jelas.
+   - Tambahkan checklist packing yang meminta verifikasi warna sebelum dikemas.
+   - Ambil foto stok tiap varian untuk audit berkala.
+
+3. Komunikasi dan kebijakan purna jual
+   - Tambahkan informasi yang jelas tentang estimasi pengiriman, nomor resi, dan kontak layanan pelanggan.
+   - Sediakan kebijakan pengembalian/penukaran cepat bila barang salah warna atau rusak (mis. free return dalam 7 hari).
+   - Kirim notifikasi proaktif bila terjadi delay (email/WA/sistem marketplace).
+
+4. Tingkatkan deskripsi produk agar ekspektasi jelas
+   - Cantumkan fitur utama (koneksi 2.4GHz, tipe baterai, layout US, tombol senyap, dimensi/berat) dan varian warna yang tersedia.
+   - Sertakan foto jelas tiap warna, foto close-up tombol, dan foto tipis/portabilitas.
+
+5. Monitoring & perbaikan berkelanjutan
+   - Kumpulkan feedback pengiriman per kurir selama 1–2 bulan, ukur on-time rate.
+   - Tindak lanjuti tiap keluhan warna dengan root cause analysis; beri kompensasi bila perlu untuk memperbaiki reputasi.
+
+Contoh teks listing yang diperbaiki (bahasa Indonesia)
+Keyboard Wireless Slim — 2.4GHz | Layout US | Tombol Senyap | Tipis & Ringan
+
+Deskripsi singkat:
+Keyboard wireless slim dengan koneksi 2.4GHz (dongle USB), layout US, dan tombol berteknologi silent untuk mengetik nyaman tanpa suara berisik. Sangat tipis dan ringan, ideal untuk kerja di rumah, kantor, atau perjalanan.
+
+Fitur utama:
+- Koneksi: Wireless 2.4GHz (plug & play via dongle USB, kompatibel Windows/Mac/Linux)
+- Daya: Menggunakan 2 x baterai AAA (tidak termasuk)
+- Layout: US (tata letak tombol Amerika Serikat)
+- Suara: Tombol senyap (silent) — nyaman untuk lingkungan bersama
+- Desain: Tipis & ringan — mudah dibawa
+- Warna tersedia: Putih, Hitam (pilih warna saat checkout) — foto varian tersedia di galeri
+
+Ukuran & berat:
+- Tebal: (cantumkan mm jika tersedia)
+- Berat: (cantumkan gram jika tersedia)
+
+Informasi pengiriman & garansi:
+- Estimasi pengiriman: 3–7 hari kerja (tergantung lokasi). Nomor resi akan dikirim setelah paket dikirim.
+- Jika Anda menerima warna yang salah atau barang rusak: hubungi kami dalam 7 hari untuk pengembalian atau penukaran gratis.
+- Untuk pengalaman pengiriman lebih cepat, pilih opsi ekspres (jika tersedia).
+
+Catatan tambahan:
+- Plug & play: masukkan dongle ke port USB, keyboard otomatis ready.
+- Baterai AAA tidak termasuk dalam paket — pastikan menyiapkan 2 buah AAA.
+
+Kenapa pilih produk ini:
+- Nyaman mengetik tanpa gangguan suara
+- Ringan dan tipis untuk mobilitas
+- Kualitas build praktis untuk penggunaan sehari-hari
+
+Butuh bantuan atau ingin konfirmasi ketersediaan warna? Hubungi kami lewat chat toko — kami siap membantu.
+
+---
+
+Jika mau, saya bisa:
+- Buatkan versi singkat untuk judul dan bullet points sesuai format marketplace tertentu (Tokopedia/Shopee/Lazada).
+- Susun template SOP packing singkat untuk mencegah pengiriman warna salah.",,,,,,
+x031,h34,after,"Ringkasan masalah berulang dari ulasan pelanggan
+- Panjang kabel tidak ditulis di listing awal → beberapa pembeli terkejut kabel terlalu pendek untuk kebutuhan mereka (TV ke PS5 tidak sampai). (Review r1, r2, r5)
+- Tidak ada pilihan panjang/varian → pembeli menginginkan opsi panjang yang berbeda. (r5)
+- Hal-hal positif yang muncul berulang: mendukung 4K120 pada PS5 (r3), packing rapi (r6), beberapa pembeli menyebut kabel terasa tebal/kokoh (r4).
+
+Saran tindakan untuk penjual
+1. Segera perbarui listing untuk menyertakan panjang kabel yang dikonfirmasi: 1 meter. (Merchant-confirmed fact)
+2. Tambahkan pilihan varian panjang jika memungkinkan (mis. 1m, 2m, 3m). Jika saat ini hanya tersedia 1m, tampilkan secara jelas bahwa hanya 1 meter yang tersedia dan jangan tawarkan opsi lain sampai stok tersedia.
+3. Tambahkan foto dan/atau diagram yang memperlihatkan panjang 1 m (mis. kabel digelar di samping objek referensi) sehingga pembeli dapat menilai kecukupan panjang.
+4. Di bagian FAQ atau deskripsi singkat, beri catatan penggunaan praktis: mis. periksa jarak antara perangkat (TV/monitor) dan sumber (console, PC) sebelum membeli—jika jarak melebihi 1 m, pilih varian panjang (apabila tersedia) atau kontak penjual.
+5. Sorot hasil uji/keluhan positif dari pembeli secara jelas tapi jujur, mis. ""beberapa pembeli melaporkan 4K120 lancar di PS5"" dan ""beberapa pembeli menyebut kabel terasa tebal/kokoh"" (sebagai laporan pelanggan), tanpa mengubahnya menjadi klaim teknis tambahan.
+6. Perbaiki proses after-sales untuk masalah non-listing: masalah pengiriman, kemasan, barang salah, atau cacat fisik harus ditangani oleh tim Customer Service / Fulfillment — sediakan panduan pengembalian/pertukaran di halaman toko.
+7. Pertimbangkan menambahkan tabel perbandingan varian panjang (ketika tersedia) dan rekomendasi penggunaan per panjang untuk mengurangi kebingungan pembeli.
+
+Perbaikan teks listing (Indonesia)
+Judul: Kabel HDMI 2.1 8K Ultra High Speed — 1 m
+
+Deskripsi singkat (perbarui langsung di listing):
+- Tipe: HDMI 2.1
+- Mendukung: 8K @ 60Hz dan 4K @ 120Hz
+- Panjang kabel: 1 meter
+- Konektor: lapis emas
+- Jaket: nylon braided
+
+Catatan tambahan untuk pembeli:
+- Panjang kabel adalah 1 meter. Mohon periksa jarak antara perangkat Anda (mis. PS5 ke TV) sebelum membeli. Beberapa pembeli melaporkan bahwa 4K@120Hz berjalan lancar pada PS5. Beberapa pembeli juga melaporkan kabel terasa tebal dan kokoh.
+- Jika Anda membutuhkan panjang lebih dari 1 meter, silakan hubungi penjual untuk menanyakan ketersediaan varian panjang lainnya.
+
+Informasi after-sales:
+- Untuk pertanyaan tentang pengiriman, kemasan, barang salah, atau klaim cacat, hubungi Customer Service/Tim Fulfillment kami untuk proses pengembalian atau penukaran.
+
+Jika Anda ingin, saya bisa:
+- Menyusun versi singkat untuk tampilan utama dan versi lengkap untuk bagian detail teknis.
+- Membuat contoh teks gambar/foto yang menunjukkan panjang 1 m (caption) untuk diunggah bersama foto produk.
+
+Catatan: saya hanya menggunakan fakta yang tersedia: spesifikasi dari listing awal, laporan pelanggan, dan konfirmasi merchant bahwa panjang adalah 1 meter. Jika Anda ingin menambahkan varian panjang ke listing, sebutkan varian yang akan tersedia (mis. 2 m, 3 m) agar saya dapat memasukkan opsi itu ke teks.",,,,,,
+x032,h39,after,"Ringkasan masalah berulang dari review
+- Kebingungan / kekecewaan tentang jenis konektor: beberapa pembeli mengira ini USB‑C atau Lightning, atau tidak melihat keterangan sehingga harus beli adaptor.
+- Keluhan karena hp modern tanpa jack 3,5 mm sehingga earphone tidak langsung terpasang.
+- Tidak ada masalah teknis besar selain itu — pelanggan puas dengan bass, mikrofon, dan kabel anti‑kusut.
+
+Rekomendasi tindakan (prioritas)
+1. Perbaiki listing segera: tulis jenis konektor dengan jelas di judul, bullets, dan foto (contoh: ""3.5 mm jack analog"").  
+2. Tambahkan foto close‑up colokan 3.5 mm dan diagram kompatibilitas (ikon “Works with devices with 3.5 mm jack”; ikon “Not compatible without adapter”).
+3. Cantumkan catatan kompatibilitas dan panduan adapter:
+   - Jelaskan bahwa produk menggunakan konektor jack 3,5 mm (analog) dan berfungsi langsung pada perangkat yang memiliki port 3,5 mm.
+   - Tegaskan bahwa untuk ponsel yang tidak punya jack, pelanggan perlu adapter 3.5 mm yang sesuai (USB‑C → 3.5 mm atau Lightning → 3.5 mm), dan peringatkan bahwa beberapa adapter digital/aktif mungkin tidak mendukung mikrofon — sarankan ""analog headset adapter"" yang mendukung mic jika ingin memakai mikrofon.
+4. Tambahkan FAQ di listing: “Apakah ini USB‑C / Lightning?” (Jawab: bukan — 3.5 mm), “Butuh adapter?” (Jawab: ya jika perangkat tanpa jack).
+5. Pertimbangkan bundling atau menawarkan adaptor sebagai opsi upsell (jika memungkinkan).
+6. Update judul produk agar lebih jelas dan menarik (sertakan ""3.5 mm"", ""mic"", ""tombol volume"", ""anti‑kusut"", ""bass"").
+7. Respon template untuk review negatif: minta maaf atas kebingungan dan arahkan ke keterangan produk terbaru.
+
+Perkiraan manfaat: menurunkan review 1–2 bintang yang disebabkan oleh miskomunikasi, mengurangi retur/pertanyaan, dan meningkatkan konversi dari pelanggan yang mengerti kompatibilitas.
+
+Improved listing text (Indonesian) — judul + deskripsi singkat / poin
+Judul singkat:
+Earphone In‑Ear dengan Mic & Tombol Volume — Jack 3.5 mm, Bass Dalam, Kabel Anti‑Kusut 1.2 m
+
+Deskripsi / Poin fitur:
+- Konektor: jack 3.5 mm analog — cocok untuk perangkat dengan port headphone 3.5 mm. (Bukan USB‑C / Lightning.)
+- Mikrofon terintegrasi + tombol volume/answer untuk panggilan dan meeting.
+- Suara: bass dalam untuk musik yang lebih penuh.
+- Kabel 1,2 m dengan desain anti‑kusut — lebih rapi dan tahan pakai.
+- Nyaman dipakai in‑ear untuk pemakaian sehari‑hari dan meeting online.
+
+Catatan penting (compatibility):
+- Perangkat tanpa port 3.5 mm (mis. banyak ponsel terbaru) memerlukan adapter 3.5 mm yang sesuai (USB‑C → 3.5 mm atau Lightning → 3.5 mm) — adapter dijual terpisah.
+- Jika Anda butuh mikrofon berfungsi lewat adapter, pastikan memilih adapter analog/headset yang mendukung mic; beberapa adapter digital mungkin hanya mengeluarkan audio tanpa mendukung input mikrofon.
+
+FAQ singkat:
+Q: Apakah ini USB‑C atau Lightning? A: Tidak — ini menggunakan jack 3.5 mm.
+Q: Apakah mic akan tetap berfungsi jika pakai adapter? A: Hanya jika adapter yang Anda gunakan mendukung mikrofon (periksa spesifikasi adapter).
+
+Saran tambahan untuk gambar listing:
+- Foto close up colokan 3.5 mm yang jelas.
+- Ilustrasi “Works with 3.5 mm jack” dan ikon “Adapter required for phones without jack”.
+- Foto yang menonjolkan mic, tombol volume, dan tekstur kabel anti‑kusut.
+
+Jika mau, saya bisa susun versi bahasa Inggris atau beberapa variasi judul/deskripsi sesuai marketplace (Tokopedia, Shopee, Bukalapak, Amazon, dsb.).",,,,,,
+x033,h36,before,"Issue: ingredients / composition (missing_fact); draft status: needs_listing
+
+
+Issue: alcohol content / presence of alcohol (missing_fact); draft status: needs_listing
+",,,,,,
+x034,h40,after,"Issue: product size (missing_fact); draft status: ready
+Ukuran produk: panjang insole: 39 = 25 cm; 40 = 25,5 cm; 41 = 26 cm; 42 = 26,5 cm; 43 = 27 cm; 44 = 27,5 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x035,h40,before,"Issue: size and fit (runs large / inconsistent) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: heel fit / slipper loosens at heel (product_quality); draft status: route
+
+
+Issue: wrong item/size sent (operational); draft status: route
+
+
+Issue: new-product rubber smell (product_quality); draft status: route
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x036,h36,before,(no issues reported),,,,,,
+x037,h33,before,"Issue: water resistance (expectation_mismatch); draft status: needs_review
+",,,,,,
+x038,h31,before,(no issues reported),,,,,,
+x039,h36,before,"Summary — recurring customer problems
+- Multiple reviewers complain the ingredient list / composition is not provided.
+- Two reviewers specifically mention/notice a strong alcohol smell and one says they are allergic to alcohol and were worried.
+- These gaps caused distrust and low ratings despite positive comments about texture and packaging.
+
+What you should do (actionable recommendations)
+1. Publish a complete ingredient list (full INCI) in the product listing and on product images.
+   - This is the top priority. Many shoppers will not buy without it.
+2. Call out alcohol and fragrance clearly.
+   - If the formula contains alcohol (e.g., denat, ethanol) state which type and why it’s used (texture, penetration, preservation).
+   - If fragrance or essential oils are present, label them and provide a “fragrance-free” or “contains fragrance” statement.
+3. Add allergy & safety information.
+   - Add a short allergy warning: “Contains [ethanol/denat alcohol]/fragrance — please patch test if sensitive.” Recommend patch testing for reactive skin.
+4. Use images to show the ingredient list and “no hidden ingredients” messaging.
+   - Include a clear photo of the back label showing the INCI.
+5. Highlight the product’s positives shown in reviews.
+   - Emphasize lightweight texture, fast absorption, and attractive packaging.
+6. Provide usage, benefits, and for-whom information.
+   - Indicate skin types suitable, directions, volume (20 ml), and expected results timeline for brightening.
+7. Offer customer support & transparency.
+   - Add a short Q&A or “Have allergies? Contact us” and respond quickly to questions.
+8. Consider reformulation (if many customers complain).
+   - If alcohol smell is genuinely strong and causes complaints, consider lowering denat alcohol or switching to less irritating solvents and test with a consumer panel.
+
+Improved listing text (use as-is but replace placeholders with your actual data)
+Title:
+Serum Wajah Brightening 20 ml — Lightweight, Fast-Absorbing | [Key Active, e.g., Niacinamide/Vitamin C] (Insert actual active ingredient)
+
+Short description (one line):
+Serum wajah ringan 20 ml untuk mencerahkan & meratakan warna kulit — cepat meresap, kemasan compact.
+
+Main product description:
+Deskripsi singkat
+Serum Wajah Brightening 20 ml — formula ringan yang cepat meresap untuk membantu mencerahkan dan meratakan warna kulit. Tekstur watery-gel yang nyaman dipakai sehari-hari dan travel-friendly.
+
+Manfaat utama
+- Mencerahkan tampilan kulit dan meratakan warna
+- Tekstur ringan, cepat meresap (reviewer-tested)
+- Kemasan compact & estetik (20 ml)
+
+Bahan & keamanan
+- Full ingredient list (INCI): [INSERT FULL INGREDIENT LIST EXACTLY AS ON LABEL]
+  — Penting: jika Anda memiliki alergi atau sensitif terhadap alkohol/fragrance, mohon periksa daftar di atas sebelum membeli.
+- Mengandung: [If product contains alcohol: “mengandung [ethanol/denat. alcohol]” — replace with exact ingredient name]; [If contains fragrance: “mengandung fragrance / parfum — see INCI”]
+- Saran keselamatan: Lakukan patch test 24–48 jam sebelum pemakaian penuh. Hentikan pemakaian jika iritasi muncul. Hindari kontak mata.
+
+Petunjuk pemakaian
+1. Bersihkan wajah dan keringkan.
+2. Teteskan 2–3 tetes ke telapak tangan, usapkan ke seluruh wajah dan leher.
+3. Gunakan pagi &/atau malam sebelum pelembap. Jika dipakai pagi hari, gunakan sunscreen SPF 30+.
+
+Cocok untuk
+- Kulit kusam dan ingin hasil mencerahkan
+- Semua jenis kulit yang tidak sensitif terhadap alkohol/fragrance (periksa INCI)
+
+Ukuran & kemasan
+- Isi bersih: 20 ml
+- Botol pipet/eye-dropper (masukkan detail kemasan aktual)
+
+FAQ singkat
+Q: Apakah mengandung alkohol?
+A: [Jawaban jujur — e.g., “Mengandung denatured alcohol (Ethanol).” or “Formulasi bebas alkohol” — fill appropriately.]
+Q: Apakah aman untuk kulit sensitif?
+A: Jika sensitif/fragrance- or alcohol-sensitive, periksa full INCI dan lakukan patch test. Hubungi kami untuk info lebih detail.
+
+Jaminan & layanan pelanggan
+- Jika Anda memiliki reaksi atau pertanyaan tentang bahan, hubungi layanan pelanggan kami di [kontak] — kami akan membantu dan memberikan detail INCI.
+
+A note to seller (implementation checklist)
+- Add product images showing full INCI on label (high-res).
+- Edit product page to include the exact alcohol/fragrance statement.
+- Train customer service to answer ingredient/allergy questions and offer refunds/exchanges for allergic reactions.
+
+If you want, I can:
+- Draft a version of the above listing that states a specific active ingredient (e.g., niacinamide or vitamin C) — tell me the actual formula or upload the ingredient list and I’ll fill it in exactly.",,,,,,
+x040,h39,after,(no issues reported),,,,,,
+x041,h38,before,(no issues reported),,,,,,
+x042,h36,after,(no issues reported),,,,,,
+x043,h38,before,(no issues reported),,,,,,
+x044,h33,before,(no issues reported),,,,,,
+x045,h40,after,"Ringkasan masalah berulang (dari ulasan)
+- Ukuran tidak konsisten / cenderung kebesaran: banyak pembeli melaporkan ukuran ""kebesaran"" atau ""longgar"" (beberapa menyatakan 41 terasa longgar pada kaki 41). Ada juga keluhan ""size nya ga standar"" dan ""ga ada panduan ukuran"".
+- Salah kirim atau varian salah: ada satu ulasan yang melaporkan memesan 42 tapi dikirim 44.
+- Longgar di tumit / mudah lepas saat jalan: beberapa pelanggan menyebut tumit longgar sehingga sandal gampang lepas.
+- Bau material karet/produk baru: beberapa pembeli menyebut ada bau yang hilang setelah dijemur.
+- Keluhan pengiriman lama: beberapa komentar tentang pengiriman (bukan kualitas produk).
+
+Saran tindakan untuk penjual (prioritas dan siapa bertanggung jawab)
+1. Tambahkan panduan ukuran yang jelas di listing (tanggung jawab: konten listing / product team).
+   - Gunakan data panjang insole yang dikonfirmasi merchant untuk setiap nomor (lihat tabel di listing yang disarankan di bawah).
+   - Sertakan catatan bahwa banyak pembeli merasa ukurannya cenderung lebih besar dan sarankan agar pelanggan mempertimbangkan memesan 1 ukuran lebih kecil jika ragu.
+2. Perbaiki proses fulfillment dan pengecekan pesanan (tanggung jawab: gudang/operasi/fulfillment).
+   - Terapkan pengecekan double-check SKU/nomor sebelum packing untuk mengurangi salah kirim.
+   - Catat dan tindak lanjuti insiden salah barang dengan laporan kasus agar frekuensi menurun.
+3. Tambahkan teks perawatan/penyiapan produk di listing (tanggung jawab: konten listing/customer support).
+   - Beri tahu pelanggan bahwa bau awal dapat berkurang dengan dijemur/diangin-anginkan sebelum dipakai.
+4. Tanggapi masalah tumit longgar (tanggung jawab: produk / R&D / customer service).
+   - Kumpulkan data terperinci dari pelanggan yang melaporkan tumit longgar (mis. nomor yang dipakai, foto, panjang insole kaki) untuk menentukan pola (apakah karena ukuran/potongan model/produk).
+   - Jika banyak ditemukan masalah, evaluasi desain/passform pada produksi berikutnya.
+   - Sementara itu, customer service harus menawarkan opsi retur/penukaran untuk pelanggan yang mengalami kebesaran atau tumit longgar.
+5. Keluhan pengiriman/delivery: arahkan pelanggan ke layanan pengiriman/customer service untuk penanganan (tanggung jawab: customer service / ekspedisi).
+   - Pengiriman/paket terlambat atau kondisi paket ditangani oleh tim logistik dan customer service, bukan oleh pengubahan listing.
+
+Perbaikan teks listing (versi yang disarankan — gunakan hanya fakta yang tersedia)
+Judul: Sandal Slide Pria EVA — ringan, empuk, anti slip (ukuran 39–44)
+
+Deskripsi singkat:
+Sandal slide pria bahan EVA — ringan dan empuk, permukaan sol anti slip. Cocok untuk dipakai santai di rumah, ke masjid, atau aktivitas sehari-hari.
+
+Panduan ukuran (panjang insole sesuai konfirmasi merchant)
+- 39 = 25,0 cm
+- 40 = 25,5 cm
+- 41 = 26,0 cm
+- 42 = 26,5 cm
+- 43 = 27,0 cm
+- 44 = 27,5 cm
+
+Catatan ukuran penting
+- Beberapa pembeli melaporkan sandalnya cenderung kebesaran/longgar. Jika ragu, pertimbangkan memesan 1 ukuran lebih kecil.
+- Jika Anda ingin perbandingan lebih akurat, ukur panjang telapak kaki (dari tumit ke jari terpanjang) dan pilih nomor yang memiliki panjang insole sedikit lebih besar dari ukuran kaki Anda.
+
+Perawatan singkat
+- Jika ada bau material awal, jemur atau angin-anginkan sandal sebentar sebelum digunakan.
+
+Informasi tambahan
+- Ukuran tersedia: 39 sampai 44.
+- Jika ada kesalahan pengiriman atau produk rusak, harap hubungi customer service untuk retur/penukaran.
+- Untuk keluhan terkait pengiriman (terlambat/kurir), hubungi tim pengiriman/customer service.
+
+Bagian yang perlu Anda (penjual) lengkapi jika ingin ditambahkan di listing
+- Jika ada warna lain, berat produk, bahan tambahan/detail sol atau garansi, mohon konfirmasi untuk dimasukkan. (Placeholder jika diperlukan: [[warna tersedia]], [[berat]], [[material tambahan]], [[garansi]]).
+
+Kalimat untuk dipasang di halaman toko/FAQ (opsional)
+- “Jika barang yang Anda terima berbeda nomor/varian dari yang dipesan, mohon hubungi customer service kami untuk proses penukaran atau pengembalian. Kami menindaklanjuti setiap laporan salah kirim.”
+
+Jika Anda mau, saya bisa:
+- Menghasilkan versi listing singkat dan versi panjang untuk marketplace yang berbeda.
+- Menyusun pesan template untuk customer service menangani retur/salah kirim dan keluhan ukuran.",,,,,,
+x046,h35,after,"Issue: maximum mattress thickness (fit) (missing_fact); draft status: ready
+Maksimal ketebalan kasur: cocok untuk kasur 160 x 200 cm dengan tebal maksimal 20 cm.
+
+Issue: elastic corner coverage (operational); draft status: route
+",,,,,,
+x047,h35,after,(no issues reported),,,,,,
+x048,h31,before,"Recurring customer problems (from reviews)
+- Battery runtime shorter than advertised: several buyers report the fan dies well before the claimed ""tahan hingga 8 jam"" (reports: 2 hours at speed 3, 3 hours, ""cepet abis""); others report full-day battery—shows inconsistent user experience.
+- Unclear/runtime depends on speed: reviews indicate runtime decreases at higher speed but the listing does not state runtime per speed.
+- Noise on highest speed: at least one review reports ""suaranya agak berisik di speed 3"".
+- Positive points to keep: portable/lightweight and charges quickly via USB-C (several reviews agree charging with Type-C is fast and it's easy to carry).
+
+Recommended seller actions
+1. Test and verify battery performance:
+   - Run controlled tests to measure actual runtime at each speed (speed 1/2/3). Record typical range and conditions (e.g., full charge, ambient temperature, usage pattern).
+2. Update the listing with measured runtimes:
+   - Replace the single ""tahan hingga 8 jam"" claim with runtime per speed (e.g., ""speed 1: [[runtime]], speed 2: [[runtime]], speed 3: [[runtime]]""). If you cannot provide exact runtimes yet, ask lab/test team and add placeholders in the listing.
+3. Address unit variability and quality control:
+   - If testing shows some units underperform, inspect manufacturing/stock batches and increase QC for battery capacity and assembly. Offer a clear troubleshooting/return path for customers who receive underperforming units.
+4. Clarify noise level:
+   - Measure or provide typical noise level at each speed (dB) and add to listing, or add a note: ""may be noticeably louder at speed 3"" if confirmed. If noise is within spec but perceived loud, suggest usage tips (e.g., keep at lower speed indoors or place on a stable surface).
+5. Customer service guidance:
+   - Delivery/packaging/wrong-item/defect claims should be handled by customer support/returns team. For batteries that die too soon, offer replacement, repair, or refund per your return policy.
+6. Emphasize confirmed positives:
+   - Keep highlighting portability and USB-C fast charging since multiple buyers noted these.
+
+Improved listing text (Indonesian)
+Kipas Angin Portable USB Rechargeable
+
+- 3 tingkat kecepatan (speed 1 / speed 2 / speed 3)
+- Baterai 2000mAh, pengisian menggunakan USB-C
+- Pengisian cepat dengan kabel Type-C (dilaporkan oleh beberapa pembeli)
+- Ringan dan mudah dibawa untuk aktivitas harian atau kampus
+
+Catatan penting untuk pembeli
+- Runtime tergantung kecepatan pemakaian. Listing ini perlu runtime per kecepatan; silakan konfirmasi dari penjual: [[runtime speed 1]], [[runtime speed 2]], [[runtime speed 3]].
+- Pada kecepatan tertinggi (speed 3) beberapa pengguna melaporkan tingkat suara yang lebih terdengar. Jika Anda membutuhkan kipas yang sangat senyap, pertimbangkan menggunakan kecepatan lebih rendah.
+- Jika unit tiba dengan masalah baterai atau mati terlalu cepat, hubungi layanan pelanggan kami untuk penggantian atau pengembalian sesuai kebijakan toko.
+
+Jika Anda ingin, saya bisa:
+- Menulis versi listing yang menyatakan runtimes setelah Anda berikan hasil pengujian per kecepatan.
+- Menyusun FAQ singkat untuk dimasukkan ke halaman produk (mis. cara perawatan baterai, tips mengurangi kebisingan).
+- Menyusun pesan layanan pelanggan standar untuk penanganan klaim baterai/defect.
+
+Silakan konfirmasi atau kirim hasil pengujian runtimes dan/atau angka kebisingan (dB) untuk melengkapi dan finalisasi teks listing.",,,,,,
+x049,h31,after,"Issue: battery runtime (conflicting_fact); draft status: ready
+Duras baterai: daya tahan baterai sekitar 8 jam di kecepatan 1 dan sekitar 2,5 jam di kecepatan 3.
+
+Issue: noise at max speed (product_quality); draft status: route
+",,,,,,
+x050,h33,before,"Ringkasan masalah yang sering muncul (dari review)
+- Kebingungan soal ketahanan air: beberapa pembeli mengira produk waterproof padahal listing menyebut ""water resistant"". Beberapa pelanggan melaporkan isi basah saat hujan deras atau hujan ~10 menit.
+- Keluhan berulang tentang rembes saat hujan berat/deras.
+- Poin positif berulang: banyak kantong (rapi), muat laptop 15.6"", tali bahu empuk.
+
+Saran tindakan untuk penjual
+1. Perjelas batas ketahanan air di listing dan di foto:
+   - Tegaskan bahwa bahan polyester bersifat water resistant (tahan cipratan/gerimis) dan bukan waterproof; tambahkan contoh kondisi yang aman (mis. gerimis/percikan) dan yang tidak (hujan deras, terpapar lama).
+2. Tawarkan solusi opsional:
+   - Pertimbangkan menjual atau menyertakan rain cover sebagai aksesori/opsi tambahan, atau informasikan agar pembeli menggunakan pelindung hujan/ponco saat dipakai di hujan deras.
+3. Perbaiki ekspektasi pelanggan:
+   - Gunakan kata-kata yang mudah dimengerti (mis. ""aman untuk gerimis, tidak untuk hujan deras"") agar calon pembeli tidak keliru mengira waterproof.
+4. Perlihatkan fitur yang disukai pembeli:
+   - Tambahkan foto/detail yang menonjolkan banyak kantong, kompartemen laptop 15.6"" dan tali bahu empuk.
+5. Proses keluhan non-listing:
+   - Masalah pengiriman, barang salah, atau barang cacat harus ditangani oleh layanan pelanggan/after-sales (garansi/retur). Berikan instruksi kontak yang jelas di toko untuk kasus tersebut.
+
+Improved listing text (bahasa Indonesia)
+Judul: Tas Ransel Laptop 15.6"" – Polyester Water Resistant, Banyak Kantong
+
+Deskripsi produk:
+- Cocok untuk laptop 15.6"" (muat pas).
+- Bahan: polyester water resistant — tahan cipratan dan gerimis, bukan waterproof. Catatan penting: tas aman untuk kondisi hujan ringan/gerimis, namun dapat rembes jika terkena hujan deras atau terpapar hujan dalam waktu lama. Harap gunakan rain cover/ponco saat turun hujan deras.
+- Banyak kantong dan kompartemen rapi untuk buku, aksesoris, dan perangkat kecil.
+- Tali bahu empuk untuk kenyamanan saat membawa beban.
+- Cocok untuk penggunaan sehari-hari, kerja, dan kuliah.
+
+Informasi tambahan:
+- Jika Anda membutuhkan pelindung ekstra untuk penggunaan di hujan deras, kami sarankan menambahkan rain cover (opsional) atau menggunakan tas penutup hujan.
+- Untuk masalah pengiriman, barang salah, atau kerusakan, silakan hubungi layanan pelanggan toko untuk penanganan retur/garansi.
+
+Jika Anda ingin, saya bisa bantu menulis versi listing yang lebih singkat untuk tampilan mobile, atau membuat teks promosi untuk gambar produk yang menekankan ""aman untuk gerimis — bukan waterproof"". Juga konfirmasi apakah Anda ingin menawarkan rain cover sebagai aksesori sehingga saya bisa menambahkan teks penawaran di listing.",,,,,,
+x051,h36,after,"Ringkasan masalah berulang dari review
+- Banyak pembeli mengeluh: tidak ada informasi komposisi/ingridients di deskripsi (n = 3).
+- Bau alkohol dirasakan kuat / pengguna alergi alkohol khawatir (n = 2).
+- Poin positif yang berulang: tekstur ringan & cepat meresap; kemasan/botol menarik.
+
+Saran tindakan yang sebaiknya Anda ambil
+1. Segera perbarui listing dengan:
+   - Daftar bahan lengkap (full ingredients) dan persentase bahan aktif utama.
+   - Penegasan bahwa produk mengandung Niacinamide 5% dan Alcohol Denat (sesuai konfirmasi merchant).
+   - Informasi tentang bau/KEWASPADAAN terhadap alkohol (mis. “mengandung alcohol denat — memiliki bau alkohol yang mungkin tercium”).
+   - Petunjuk penggunaan, patch test, dan rekomendasi untuk tipe kulit (mis. cocok untuk kulit berminyak/berjerawat; hindari jika sensitif terhadap alkohol).
+2. Tambahkan label dan peringatan keamanan:
+   - “Lakukan patch test 24–48 jam sebelum pemakaian rutin.”
+   - “Jika Anda sensitif atau alergi alkohol, jangan gunakan.”
+3. Tawarkan solusi untuk calon pelanggan yang keberatan:
+   - Jika memungkinkan, sediakan varian tanpa alkohol atau versi “sensitive” di masa depan; atau tawarkan sample/size kecil sehingga pembeli dapat mencoba dulu.
+4. Tingkatkan transparansi visual & komunikasi:
+   - Foto close-up label belakang yang menampilkan daftar bahan.
+   - FAQ singkat pada halaman produk yang menjawab: “Apakah mengandung alkohol?”, “Cocok untuk kulit sensitif?”, “Apakah berbau?”.
+5. Gunakan review positif sebagai bukti:
+   - Sorot testimoni tentang tekstur ringan dan kemasan lucu di deskripsi untuk meningkatkan konversi.
+
+Improved listing text (Indonesia) — judul, bullets singkat, deskripsi, komposisi, cara pakai, peringatan
+Judul:
+Serum Wajah Brightening 20ml — Niacinamide 5% | Tekstur Ringan, Cepat Meresap
+
+Poin utama ( bullets / highlights ):
+- Niacinamide 5% untuk mencerahkan, meratakan warna kulit, dan mengontrol minyak
+- Tekstur ringan & cepat meresap — nyaman dipakai siang & malam
+- Kemasan 20 ml, botol mungil & travel-friendly
+- Mengandung Alcohol Denat (bisa tercium bau alkohol); tidak disarankan untuk yang alergi/terlalu sensitif terhadap alkohol
+- Direkomendasikan untuk kulit kombinasi & berminyak; patch test disarankan untuk kulit sensitif
+
+Deskripsi produk:
+Serum Wajah Brightening 20ml diformulasikan dengan Niacinamide 5% untuk membantu mencerahkan kulit, menyamarkan noda, dan memperbaiki tekstur kulit. Tekstur serum ringan dan cepat meresap tanpa meninggalkan rasa lengket, cocok dipakai sebelum pelembap dan make-up. Botolnya compact dan lucu — praktis untuk dibawa bepergian.
+
+Komposisi (Ingredients):
+- Bahan aktif utama: Niacinamide 5%
+- Mengandung: Alcohol Denat (alkohol terdenaturasi)
+- Full ingredients (contoh format — cantumkan daftar lengkap sesuai label): Aqua, Niacinamide (5%), Propanediol, Alcohol Denat, Glycerin, Butylene Glycol, Pentylene Glycol, Sodium Hyaluronate, Phenoxyethanol, Ethylhexylglycerin, [dst — cantumkan daftar lengkap sesuai formulasi pabrik].
+(Catatan: harap pastikan daftar lengkap sesuai label pabrik/nomor batch sebelum publish.)
+
+Cara pakai:
+1. Cuci muka dan keringkan.
+2. Teteskan 2–3 tetes serum ke wajah atau telapak tangan.
+3. Ratakan ke seluruh wajah dan leher, tepuk-tepuk ringan sampai meresap.
+4. Gunakan pagi dan/atau malam. Jika dipakai pagi, kombinasikan dengan sunscreen SPF 30+.
+5. Lakukan patch test 24–48 jam sebelum penggunaan rutin.
+
+Peringatan & tips:
+- Produk mengandung Alcohol Denat — bau alkohol mungkin terasa. Hindari jika Anda alergi atau sensitif terhadap alkohol.
+- Jika timbul kemerahan, iritasi, atau reaksi alergi, hentikan pemakaian dan konsultasi ke dokter kulit.
+- Simpan di tempat sejuk, terhindar dari sinar matahari langsung.
+- Untuk hasil optimal, gunakan rutin bersamaan dengan perawatan pencerah lain yang aman dan sunscreen di siang hari.
+
+FAQ singkat (opsional ditampilkan di listing):
+Q: Apakah produk ini mengandung alkohol?
+A: Ya — mengandung Alcohol Denat. Kami menyarankan patch test jika Anda sensitif terhadap alkohol.
+Q: Cocok untuk kulit sensitif?
+A: Formula ini lebih cocok untuk kulit kombinasi/berminyak. Kulit sensitif sebaiknya melakukan patch test dulu.
+Q: Berapa persentase niacinamide?
+A: Mengandung Niacinamide 5%.
+
+Rekomendasi tindakan lanjutan untuk merchant
+- Unggah foto label belakang yang jelas (close-up ingredients).
+- Tambahkan bagian FAQ di halaman produk.
+- Pertimbangkan varian “Alcohol-free / Sensitive” pada lini produk jika banyak keluhan berkaitan alkohol.
+- Balas review negatif dengan sopan: jelaskan kandungan, minta maaf atas ketidakjelasan sebelumnya, dan tawarkan solusi (mis. refund/sample/dukungan).
+
+Jika Anda mau, saya bisa:
+- Susun daftar full ingredients berdasarkan formulasi pabrik bila Anda berikan daftar bahan lengkap.
+- Buat gambar teks (label) untuk diunggah di halaman produk/fitur gambar.",,,,,,
+x052,h40,after,"Issue: size / fit guidance (missing_fact); draft status: ready
+Panduan ukuran: panjang insole: 39 = 25 cm; 40 = 25,5 cm; 41 = 26 cm; 42 = 26,5 cm; 43 = 27 cm; 44 = 27,5 cm.
+
+Issue: heel retention / looseness at heel (product_quality); draft status: route
+
+
+Issue: wrong item sent (variant/size) (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+
+
+Issue: rubber odor (product_quality); draft status: route
+",,,,,,
+x053,h36,before,"Summary of recurring customer problems
+- Multiple buyers say the product description does not list the composition / ingredient list (r1, r4).
+- Two buyers report a strong alcohol smell and say alcohol was not disclosed in the description (r1, r2). One buyer explicitly states they are allergic to alcohol and hesitated to buy (r1).
+- Positive points raised in reviews that you can keep and highlight: customers report the texture is lightweight and absorbs quickly (r3) and that the bottle is attractive (r5).
+
+Recommended seller actions
+1. Publish a complete ingredient list in the product page immediately.
+   - Include INCI/formal ingredient names and any common names used on the packaging.
+   - Clearly mark any potential allergens (e.g., alcohol, fragrance, botanical extracts) so buyers with sensitivities can decide safely.
+
+2. Disclose alcohol presence and scent profile up front.
+   - If the formula contains denatured/alcohol or other alcohols, state which alcohol(s) and their purpose (e.g., solvent, preservative) — only after you confirm the facts.
+   - If it has a noticeable scent, add a short scent description (or state “scent-free” if applicable). If it is low/no alcohol, state that clearly.
+
+3. Add usage and safety info.
+   - Provide basic directions for use, and a clear allergy/warning statement (for example, “If you are allergic to [ingredient], avoid use” — insert confirmed ingredient).
+   - Recommend a patch test if appropriate.
+
+4. Emphasize verified positive attributes from customers.
+   - Note lightweight texture and fast absorption and the attractive bottle — label them as “customer-reported” if you don’t have official claims to avoid overstating.
+
+5. Improve visuals and specification section.
+   - Add clear photos of the ingredient list on the packaging, close-ups of the bottle, and a product-in-hand or texture photo.
+   - Add a short “Ingredients” section in the bullet/spec area.
+
+6. Handle operational complaints through the right teams.
+   - Complaints about wrong items, damaged goods, or delivery should be resolved by your logistics/fulfillment and customer support teams (process returns, replacements, refunds).
+   - Ingredient/allergy concerns are product-information issues and should be handled by the product/quality team; escalate repeated allergy reports to R&D/regulatory for review.
+
+What I need from you (placeholders)
+I cannot invent ingredient or formulation details. Please provide the following so I can complete the listing text without placeholders:
+- Full ingredient list as printed on packaging (INCI names if available).
+- Whether the formula contains alcohol (and which type), and whether the product is fragranced or “scent-free.”
+- Any official usage directions and safety/allergy warnings you want shown.
+- Any merchant-confirmed claims (e.g., clinically tested, dermatologically tested) or certifications you want included.
+
+Improved listing text (insert merchant-provided facts where noted)
+Title:
+Serum Wajah Brightening 20ml
+
+Short product overview:
+Serum Wajah Brightening — 20ml. Lightweight brightening serum in a compact, attractive bottle. Customers report a light texture that absorbs quickly and a cute bottle design.
+
+Key features
+- Net volume: 20ml
+- Texture: ringan, cepat meresap (customer-reported)
+- Packaging: botol menarik/desain compact (customer-reported)
+- Ingredients: [[full ingredient list — provide exact list]]
+- Alcohol content: [[alcohol presence and type — provide confirmation]]
+- Scent: [[fragrance description or “scent-free” — provide confirmation]]
+- Directions for use: [[directions — provide exact text]]
+- Allergy & safety: [[allergy/warning text — provide exact text]]
+
+Why buy
+- Ideal for users looking for a lightweight serum with brightening intent.
+- Clear ingredient list and allergy information available in the spec section (please verify the ingredient list below).
+
+Important notices
+- If you have known allergies (for example to alcohol or fragrances), check the full ingredient list above before purchase.
+- We recommend a patch test prior to first use.
+
+Customer care and returns
+- For questions about ingredients, product safety, or adverse reactions please contact our product support team (provide contact/info).
+- For delivery issues, wrong items, or damaged products, please contact our customer support/returns team so they can process replacements or refunds.
+
+Next steps for you
+1. Send the full ingredient list, alcohol status, scent description, and any official directions/warnings you want included.
+2. Consider adding a zoomable photo of the ingredient panel and a short video or image showing texture to reduce pre-sale uncertainty.
+3. If the product contains alcohol and you want to reduce negative feedback, consider (a) explicitly explaining why alcohol is used and (b) offering an alcohol-free alternative in future SKUs.
+
+If you provide the missing ingredient and safety details now, I will replace placeholders and produce a final, publication-ready product description optimized for clarity and conversions.",,,,,,
+x054,h34,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x055,h31,before,"Issue: battery runtime vs claimed 8 hours (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: battery premature failure / quality (product_quality); draft status: route
+
+
+Issue: noise level at top speed (product_quality); draft status: route
+",,,,,,
+x056,h36,after,"Issue: alcohol content / presence (missing_fact); draft status: needs_listing
+
+
+Issue: full ingredient list / composition (missing_fact); draft status: needs_listing
+",,,,,,
+x057,h39,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Ketidakjelasan jenis konektor: beberapa pembeli mengira ini Type-C atau Lightning; review menunjukkan banyak yang kecewa karena ponsel mereka tidak memiliki colokan jack 3.5 mm.
+- Kurangnya informasi kompatibilitas: listing tidak menyebut perlu/tdk perlu adaptor, sehingga pembeli harus membeli adaptor tambahan tanpa sadar.
+- Poin positif yang konsisten: bass kuat, mikrofon jernih untuk meeting, kabel memang anti-kusut.
+
+Saran tindakan (prioritas)
+1. Segera update listing untuk menyebutkan jenis konektor secara jelas (mis. 3.5 mm TRRS) dan kompatibilitas perangkat.
+2. Tambahkan foto close-up dari ujung konektor (plug) sehingga pembeli bisa melihat bentuknya.
+3. Cantumkan kompatibilitas/penjelasan: “langsung pakai untuk perangkat dengan jack 3.5 mm”; jelaskan bahwa perangkat tanpa jack memerlukan adaptor dan sebutkan adaptor yang direkomendasikan (3.5 mm → USB-C atau 3.5 mm → Lightning), serta bahwa adaptor tidak termasuk kecuali Anda menjual bundel.
+4. Tawarkan opsi bundel adaptor (opsional): mis. paket dengan adaptor USB-C atau Lightning agar pembeli tidak kebingungan.
+5. Tambahkan bagian FAQ di listing: jenis plug (3.5 mm TRRS), standar wiring (CTIA/OMTP jika relevan), apakah mic mendukung panggilan/meeting, panjang kabel, garansi/retur.
+6. Perbaiki kata-kata deskriptif produk: sebutkan “mic jernih untuk panggilan/meeting”, “bass dalam”, “kabel anti-kusut 1,2 m”.
+7. Jika memungkinkan, sertakan kompatibilitas contoh model (mis. Samsung, Xiaomi, laptop, iPhone lama dengan adapter) dan peringatkan bahwa iPhone 7 ke atas atau iPhone 15 memerlukan adaptor/USB-C.
+8. Update kata kunci dan judul agar pencarian relevan (masukkan “3.5mm”, “TRRS”, “mic”, “bass”, “anti-kusut”, “adapter diperlukan”).
+
+Improved listing text (Indonesian)
+Judul:
+Earphone In‑Ear Bass + Mic — Jack 3.5 mm (TRRS) | Kabel Anti‑Kusut 1,2 m | Mic Jernih untuk Meeting
+
+Deskripsi singkat:
+Earphone in‑ear dengan bass dalam dan mikrofon jernih — ideal untuk musik dan meeting. Kabel anti‑kusut 1,2 m dengan tombol kontrol volume dan tombol panggilan.
+
+Fitur utama:
+- Jack: 3.5 mm TRRS (plug 3.5 mm stereo + mic) — lihat foto close‑up konektor.
+- Suara: Bass dalam, vokal jelas.
+- Mikrofon: Mic terintegrasi untuk panggilan dan meeting (mendukung tombol jawab/akhir panggilan).
+- Kontrol: Tombol volume dan tombol panggilan di kabel.
+- Kabel: Anti‑kusut (1,2 m) — bahan tahan lama.
+- Kompatibilitas: Langsung bekerja dengan perangkat yang memiliki jack 3.5 mm (smartphone lama, laptop, tablet, MP3 player).
+  - Catatan penting: Perangkat tanpa jack 3.5 mm (mis. sebagian smartphone modern seperti iPhone 7 ke atas atau ponsel Android tanpa colokan) memerlukan adaptor 3.5 mm → USB‑C atau 3.5 mm → Lightning. Adaptor tidak termasuk kecuali Anda memilih bundle adaptor.
+- Standar wiring: TRRS (CTIA) — kompatibel dengan sebagian besar smartphone modern yang memiliki jack 3.5 mm.
+
+Apa yang ada di dalam kotak:
+- 1x Earphone in‑ear dengan mic & kontrol
+- 3 pasang ear tips (S/M/L)
+- Panduan singkat
+
+FAQ singkat:
+- Apakah ini Type‑C/Lightning? Tidak — ini plug 3.5 mm. Perlu adaptor untuk perangkat tanpa jack.
+- Bisa dipakai untuk iPhone 15? Hanya jika menggunakan adaptor USB‑C → 3.5 mm (tidak termasuk).
+- Mic cocok untuk meeting? Ya, mic jernih dan tombol panggilan berfungsi untuk meeting/telepon.
+
+Rekomendasi penjualan/opsi:
+- Pertimbangkan menambahkan pilihan bundel dengan adaptor USB‑C atau Lightning untuk mengurangi pembelian adaptor terpisah dan mengurangi keluhan pelanggan.
+
+Catatan untuk listing dan toko:
+- Tambahkan foto close‑up konektor, foto earphone saat terhubung ke ponsel dengan jack 3.5 mm, dan contoh perangkat yang kompatibel.
+- Perbarui kata kunci produk agar pembeli yang mencari “3.5mm earphone”, “TRRS”, “earphone mic untuk meeting”, atau “earphone anti kusut” menemukan produk ini.",,,,,,
+x058,h31,before,"Ringkasan masalah yang sering muncul (dari ulasan)
+- Daya tahan baterai tidak konsisten dengan klaim “tahan hingga 8 jam”: beberapa pelanggan mendapatkan ~2–3 jam pada speed 3, beberapa lain melaporkan layanan seharian.
+- Kecepatan tertinggi (speed 3) relatif menguras baterai cepat — runtime nyata pada speed 3 biasanya jauh di bawah klaim maksimum.
+- Kebisingan di speed 3 agak mengganggu untuk sebagian pengguna.
+- Hal positif berulang: angin kencang di mode tinggi, ringan dan mudah dibawa, pengisian cepat lewat USB-C.
+
+Saran tindakan (apa yang harus Anda lakukan)
+1. Koreksi spesifikasi runtime di listing
+   - Berikan estimasi runtime terperinci per tingkat kecepatan (mis. Speed 1, 2, 3) dengan angka konservatif yang realistis berdasarkan pengujian internal—jangan klaim satu angka “hingga 8 jam” tanpa keterangan.
+2. Lakukan pengujian kualitas dan kontrol produksi
+   - Uji beberapa unit untuk variabilitas baterai dan kebisingan; pastikan kapasitas baterai dan efisiensi sirkuit memenuhi spesifikasi.
+   - Jika ditemukan unit di bawah standar, perbaiki supplier/line produksi.
+3. Tambahkan informasi transparan ke pelanggan
+   - Di listing cantumkan runtime perkiraan per mode, level kebisingan (mis. “sedang”/“cukup berisik di speed 3”), dan waktu pengisian.
+   - Sertakan tips penggunaan untuk mendapatkan runtime maksimal (isi penuh sebelum penggunaan, hindari mode 3 terus-menerus).
+4. Tingkatkan layanan purna jual
+   - Tawarkan garansi / penggantian unit bermasalah (mis. 6–12 bulan) dan petunjuk klaim yang mudah.
+   - Siapkan FAQ dan panduan troubleshooting singkat (kalibrasi baterai pertama kali, apakah harus dinyalakan saat dicas, dll.).
+5. Optimalkan ekspektasi pemasaran
+   - Sorot keunggulan nyata: portable, angin kuat, pengisian USB-C cepat, ringan untuk kampus/kerja.
+   - Jangan menyembunyikan keterbatasan (kebisingan pada speed 3 dan runtime berkurang di mode tinggi).
+
+Contoh teks listing yang diperbaiki (Bahasa Indonesia)
+Judul:
+Kipas Angin Portable USB-C — 3 Kecepatan | Baterai 2000mAh | Ringan & Cepat Cas
+
+Deskripsi singkat / poin utama:
+- 3 tingkat kecepatan: Low / Medium / High — angin kuat di mode High.
+- Baterai 2000mAh, pengisian cepat USB‑C.
+- Perkiraan runtime (berdasarkan pengujian): Low ≈ hingga 8 jam, Medium ≈ 4–5 jam, High ≈ 2–3 jam. (Runtime dapat bervariasi tergantung kondisi penggunaan.)
+- Ringan dan praktis untuk dibawa ke kampus, kantor, atau perjalanan.
+- Termasuk kabel USB-C untuk pengisian cepat.
+- Garansi 6 bulan & layanan pelanggan responsif.
+
+Deskripsi panjang / detail produk:
+Nikmati pendinginan praktis di mana saja dengan kipas portable kami. Desain ringan memudahkan memasukkan ke tas atau dibawa di tangan, sementara motor bertenaga memberikan aliran angin kuat pada mode High. Baterai 2000mAh dengan pengisian USB‑C memungkinkan penggunaan berjam‑jam pada mode rendah dan pengisian cepat saat Anda butuh tenaga kembali.
+
+Spesifikasi:
+- Kapasitas baterai: 2000mAh
+- Port pengisian: USB‑C (kabel included)
+- Waktu pengisian: sekitar X jam (isi sesuai pengujian; ganti X sesuai hasil pengujian Anda)
+- Runtime (perkiraan): Low ≈ hingga 8 jam | Medium ≈ 4–5 jam | High ≈ 2–3 jam
+- Mode: 3 kecepatan
+- Berat: (cantumkan berat aktual)
+- Garansi: 6 bulan
+
+Tips penggunaan:
+- Untuk daya tahan baterai maksimal, isi penuh sebelum digunakan.
+- Gunakan mode Medium/Low untuk penggunaan jangka panjang; mode High cocok untuk pendinginan cepat dalam waktu singkat.
+- Suara mesin meningkat di mode High — jika membutuhkan ruang yang sangat senyap, gunakan mode rendah/medium.
+
+Layanan & garansi:
+Kami menyediakan garansi 6 bulan untuk cacat pabrik. Jika unit Anda mati lebih cepat dari yang seharusnya atau menunjukkan masalah lain, hubungi layanan pelanggan kami untuk pemeriksaan dan penggantian.
+
+Ajakan:
+Beli sekarang untuk kipas portabel yang ringan, angin kencang, dan pengisian cepat USB‑C — ideal untuk kampus, kantor, dan perjalanan harian.
+
+Catatan implementasi: Pastikan untuk mengganti placeholder (mis. waktu pengisian, berat) dengan data pengujian dan spesifikasi nyata dari produk Anda sebelum mempublikasikan.
+
+Jika mau, saya bisa:
+- Buat versi listing yang lebih ringkas untuk marketplace (Tokopedia/Shopee/Bukalapak).
+- Susun FAQ/halaman troubleshooting & template balasan untuk keluhan baterai. Mana yang Anda mau saya kerjakan dulu?",,,,,,
+x059,h31,after,(no issues reported),,,,,,
+x060,h40,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x061,h35,after,"Recurring customer problems (from reviews)
+- Fitted sheet tidak pas untuk kasur yang tebal: beberapa pembeli melaporkan karet tidak mencapai sudut dan sprei tidak menutup sisi kasur.
+- Keluhan tersebut berulang pada kasur “spring bed”/kasur tebal; beberapa pembeli meminta agar di-listing ditulis ketebalan kasur maksimal yang cocok.
+
+Apa yang harus dilakukan penjual
+1. Segera perbarui listing untuk mencantumkan kedalaman/pocket depth yang jelas. Merchant sudah konfirmasi: cocok untuk kasur 160 x 200 cm dengan tebal maksimal 20 cm — tampilkan ini dengan jelas.
+2. Tambahkan saran pembeli: tuliskan bahwa produk ini tidak cocok untuk kasur yang lebih tebal dari 20 cm; anjurkan pembeli dengan kasur tebal untuk memilih varian ""deep pocket"" atau produk lain (jika tersedia).
+3. Perbarui foto produk: sertakan foto yang memperlihatkan sudut kasur dengan sprei terpasang pada kasur setebal 20 cm agar pembeli tahu bagaimana fit-nya.
+4. Tambahkan spesifikasi karet (model: karet keliling) dan jelaskan sekali lagi jumlah sarung bantal yang termasuk (2 buah) agar tidak timbul kebingungan.
+5. Siapkan jawaban standar Customer Service untuk pertanyaan ukuran kasur dan untuk kasus pelanggan membeli padahal kasur lebih tebal dari 20 cm.
+6. Untuk pelanggan yang mengeluh tentang pengiriman, barang salah, atau cacat fisik: arahkan masalah tersebut ke layanan purna jual / customer service untuk proses retur/penukaran dan ke tim logistik untuk masalah pengiriman. (Catatan: keluhan pengiriman/produk rusak harus ditangani oleh layanan pelanggan/retur, bukan oleh perubahan listing.)
+7. Pertimbangkan menambahkan varian “deep pocket” (jika memungkinkan) atau layanan pembuatan custom pocket untuk kasur >20 cm.
+
+Improved listing text (bahasa Indonesia)
+Judul
+Sprei Katun Motif Bunga 160 x 200 cm — Karet Keliling, 2 Sarung Bantal
+
+Deskripsi singkat
+Sprei katun motif bunga ukuran 160 x 200 cm, model karet keliling, sudah termasuk 2 sarung bantal. Cocok untuk kasur ukuran 160 x 200 cm dengan tebal maksimal 20 cm.
+
+Detail produk
+- Ukuran: 160 x 200 cm
+- Model karet: karet keliling (fitted sheet)
+- Cocok untuk ketebalan kasur: maksimal 20 cm
+- Termasuk: 2 sarung bantal
+- Bahan: katun
+- Motif: bunga
+
+Catatan penting sebelum membeli
+- Pastikan ketebalan kasur Anda tidak lebih dari 20 cm. Untuk kasur yang lebih tebal (mis. spring bed tebal), sprei ini mungkin tidak menutup sampai bawah atau karet tidak mencapai sudut.
+- Jika kasur Anda lebih tebal dari 20 cm, silakan pilih varian deep pocket atau hubungi kami (jika tersedia) untuk opsi custom.
+
+Testimoni singkat pelanggan (laporan pengguna)
+- Beberapa pelanggan melaporkan bahan adem dan motif cantik.
+- Beberapa pelanggan melaporkan warna tidak luntur setelah pemakaian.
+
+Instruksi layanan pelanggan
+- Pertanyaan tentang kecocokan ukuran/ketebalan: arahkan ke deskripsi ukuran di atas; bantu konfirmasi ketebalan kasur pelanggan.
+- Keluhan pengiriman, barang salah, atau produk cacat: ditangani oleh tim Customer Service / purna jual untuk proses retur/penukaran dan oleh tim logistik untuk masalah pengiriman.
+
+Jika Anda ingin, saya bisa menyiapkan versi listing yang juga menyertakan foto contoh pada kasur 20 cm dan teks singkat untuk FAQ di halaman produk.",,,,,,
+x062,h32,before,"Recurring customer problems (from reviews)
+- Motor failures / stops working after few uses: reported in r1, r2, r4 (motor smelled burnt, unit died within weeks).
+- Small capacity: r5 says capacity is small, only fits one glass.
+- Slow shipping: r7 reports 8-day delivery (this is a logistics issue, not a product specification).
+
+Positive points from reviews
+- Portable and convenient for gym use (r3).
+- Produces smooth juice (r4).
+- Easy to clean (r6).
+
+What you (the seller) should do
+1. Investigate reliability failures
+   - Run QC on motors and assemblies for units that died early. Check for overheating, wiring, motor seals, and charging circuit issues.
+   - Collect failed units and logs (purchase date, batch/serial number) for analysis.
+2. Provide clear user guidance (to reduce misuse-related failures)
+   - Publish recommended continuous run time and recommended fill/ingredient limits (e.g., avoid hard ice chunks unless specified). If you don’t have these specs yet, provide them after testing.
+   - Provide charging instructions (charging time and indicator behavior). If unknown, test and supply the values.
+   - Add cleaning and maintenance instructions.
+3. Offer a clear support/returns path
+   - Publish contact/support instructions and a replacement/repair policy for DOA or early failures. (If you have a warranty or return policy, add it to the listing. If not, decide one and provide details.)
+4. Address perception of small capacity
+   - Make capacity explicit and show how many servings it makes (use the existing 380ml). Consider adding photos that show the cup with a typical serving to set expectations.
+5. Fix shipping complaints
+   - Coordinate with your logistics/fulfillment partner to speed up delivery and display accurate estimated delivery times on the store page. This is a fulfillment/logistics issue, not a product defect.
+
+Information I need from you to improve the listing further (placeholders inserted where needed)
+- Recommended continuous run time (to avoid motor overheating): [[recommended continuous run time]]
+- Charging time and charging indicator behavior: [[charging time and indicator behavior]]
+- Official warranty/return policy or after-sales support contact: [[warranty/return policy or support contact]]
+- Any restrictions on ingredients (e.g., do not blend ice, frozen fruit without liquid): [[ingredient restrictions]]
+- Confirmation of material/specs beyond what's already listed (if you want them shown): [[additional specs you want included]]
+
+Improved listing text (Indonesian)
+Blender Portable 380 ml — 6 mata pisau stainless — Cas USB — Cocok untuk jus & smoothie
+
+Ringkasan:
+- Kapasitas: 380 ml
+- 6 mata pisau berbahan stainless
+- Pengisian: cas USB
+- Cocok untuk membuat jus dan smoothie sekali sajian (portable untuk dibawa ke gym atau kerja)
+- Mudah dibersihkan
+
+Keterangan penting (harap baca sebelum membeli):
+- Kapasitas cup 380 ml — pengguna melaporkan bahwa ini cocok untuk satu gelas/sekali sajian. Sesuaikan ekspektasi bila Anda membutuhkan kapasitas lebih besar.
+- Untuk memperpanjang umur perangkat, ikuti panduan penggunaan dan perawatan. [[recommended continuous run time]]
+- Cara isi dan penggunaan yang disarankan: [[ingredient restrictions]]
+- Informasi pengisian baterai: [[charging time and indicator behavior]]
+- Dukungan purna jual / garansi: [[warranty/return policy or support contact]]
+
+Apa yang pelanggan sering sukai:
+- Praktis dan portable untuk dibawa ke gym
+- Jus halus dan mudah dibersihkan
+
+Catatan penting untuk penjual (ditampilkan pada dashboard, bukan di listing)
+- Periksa batch motor untuk kemungkinan overheating/kerusakan awal.
+- Tawarkan proses pengembalian/garansi cepat untuk unit yang mati dalam beberapa pemakaian.
+- Tinjau estimasi pengiriman dengan mitra logistik untuk mengurangi keterlambatan.
+
+Jika Anda ingin, saya dapat:
+- Memasukkan data yang Anda berikan untuk placeholder di atas dan membuat versi listing final yang siap diposting.
+- Menyusun FAQ teknis dan panduan singkat penggunaan/penyimpanan berdasarkan spesifikasi yang Anda konfirmasi.",,,,,,
+x063,h40,before,"Ringkasan masalah yang sering muncul (dari 20 review)
+- Ukuran tidak konsisten / cenderung kebesaran: banyak pelanggan menyebut produk ""kebesaran"" atau ""longgar"" dan beberapa salah memilih ukuran karena tidak ada panduan ukuran.
+- Kesalahan pengiriman / kontrol kualitas: ada laporan dikirim nomor yang salah (pesan 42 dikasih 44).
+- Long delivery: beberapa pelanggan mengeluh pengiriman lama (±1 minggu).
+- Bau karet awal: beberapa bilang ada bau karet yang hilang setelah dijemur.
+- Longgar di tumit / gampang lepas saat jalan: beberapa pelanggan merasakan slide mudah lepas dari tumit.
+
+Saran tindakan (prioritas dan tindakan konkret)
+1. Perbaiki informasi ukuran di listing (prioritas tinggi)
+   - Tambahkan tabel ukuran (EU → panjang kaki dalam cm) dan panduan pemilihan ukuran.
+   - Rekomendasi jelas: jika ragu, pilih 1 nomor lebih kecil karena model ini cenderung kebesaran.
+
+2. Perketat kontrol kualitas & packing (prioritas tinggi)
+   - Terapkan pemeriksaan SKU/varian sebelum packing untuk mengurangi kesalahan pengiriman.
+   - Cantumkan ""QC checked"" di listing untuk meyakinkan pembeli.
+
+3. Perbaiki pengalaman pengiriman & komunikasi (prioritas menengah)
+   - Tampilkan estimasi pengiriman yang realistis.
+   - Tawarkan opsi pengiriman lebih cepat atau update tracking.
+   - Jika pengiriman terlambat, kirim pemberitahuan otomatis/penjelasan.
+
+4. Atasi masalah bau karet & kenyamanan tumit (prioritas menengah)
+   - Tambahkan instruksi perawatan: jemur di tempat teduh/angin-anginkan beberapa jam untuk mengurangi bau.
+   - Berikan tips pemakaian awal (gunakan di rumah beberapa kali untuk ""break-in"").
+   - Kalau banyak keluhan lepas di tumit, pertimbangkan revisi desain (menambahkan lekukan tumit/tekstur tapak belakang) untuk produksi selanjutnya.
+
+5. Kebijakan pengembalian/penukaran yang jelas (prioritas menengah)
+   - Jelas dan mudah diakses: tukar ukuran bila salah kirim atau ukuran tidak pas (syarat & batas waktu).
+   - Gratis/discount ongkir untuk pengembalian terkait kesalahan kami.
+
+Improved listing text (bahasa Indonesia) — gunakan untuk judul + deskripsi singkat dan poin fitur
+
+Judul:
+Sandal Slide Pria EVA — Ringan, Empuk & Anti-Slip | Size 39–44 (Rekomendasi: ambil 1 nomor lebih kecil)
+
+Deskripsi singkat + fitur:
+Sandal slide pria berbahan EVA yang sangat ringan dan empuk — cocok untuk santai di rumah, ke masjid, atau kamar mandi. Sol anti-slip efektif di permukaan basah. Tersedia ukuran 39–44. Model ini cenderung longgar, jadi jika ragu, pilih 1 nomor lebih kecil.
+
+Fitur utama:
+- Bahan: EVA empuk — ringan, tahan air, mudah dibersihkan.
+- Sol anti-slip: karet pola tapak untuk cengkeraman lebih baik di lantai basah.
+- Nyaman: bantalan empuk, cocok untuk pemakaian santai sehari-hari.
+- Warna: tersedia (mis. hitam elegan).
+- Tahan lama: banyak pelanggan beli ulang, awet dipakai.
+
+Panduan ukuran (panjang kaki ≈ cm)
+- EU 39 = 24.5 cm
+- EU 40 = 25.5 cm
+- EU 41 = 26.5 cm
+- EU 42 = 27.5 cm
+- EU 43 = 28.5 cm
+- EU 44 = 29.5 cm
+Catatan: produk ini cenderung longgar; jika ukuran kaki Anda di batas antara dua nomor, kami rekomendasikan memilih 1 nomor lebih kecil.
+
+Perawatan & tips
+- Untuk mengurangi bau karet baru: jemur di tempat teduh atau angin-anginkan beberapa jam.
+- Jika terasa longgar di tumit, coba gunakan beberapa hari di rumah untuk ""break-in"" atau tambahkan insoles tipis untuk kenyamanan tambahan.
+
+Jaminan & pengiriman
+- QC checked sebelum dikirim — kami pastikan nomor yang dikirim sesuai pesanan.
+- Estimasi pengiriman: tampilkan waktu pengiriman aktual (mis. 2–4 hari kerja). Opsi pengiriman lebih cepat tersedia.
+- Kebijakan retur/tukar: tukar ukuran jika tidak cocok (lihat syarat di halaman toko). Hubungi kami bila menerima ukuran yang salah — kami akan bantu proses penukaran/return.
+
+Call-to-action singkat:
+Pesan sekarang — pilih ukuran berdasarkan tabel panjang kaki dan jika ragu pilih 1 nomor lebih kecil. Butuh bantuan ukuran? Chat kami untuk rekomendasi cepat.
+
+Jika mau, saya bisa:
+- Buatkan versi listing yang lebih singkat untuk marketplace (Shopee/Tokopedia) atau versi panjang untuk website.
+- Buatkan gambar ukuran (mockup) yang bisa dipasang di foto produk.",,,,,,
+x064,h37,before,"Ringkasan masalah pelanggan (berdasarkan ulasan)
+- Keterlambatan pengiriman berulang (ulasan r1, r2, r5). Ini masalah logistik/kurir, bukan masalah deskripsi produk.
+- Beberapa pembeli menerima warna yang berbeda dari pesanan (ulasan r4) — ini kasus pengiriman/penanganan pesanan atau kontrol kualitas paket, bukan kesalahan deskripsi.
+- Pujian berulang untuk tombol yang senyap dan bodi yang tipis/enteng (ulasan r3, r6) — fitur ini sebaiknya ditonjolkan di listing.
+
+Rekomendasi tindakan penjual
+1. Logistik & estimasi waktu:
+   - Perjelas dan tampilkan waktu proses pemesanan (handling time) dan estimasi pengiriman di halaman produk.
+   - Koordinasikan dengan tim pengiriman/kurir untuk mempercepat rute atau gunakan layanan kurir yang lebih andal jika perlu.
+   - Tawarkan nomor resi/tracking segera setelah pengiriman agar pembeli bisa memantau.
+
+2. Prosedur penanganan warna/varian:
+   - Perketat pengecekan sebelum pengemasan: pastikan warna/varian sesuai pesanan.
+   - Jika ada banyak varian warna, pastikan opsi warna di halaman produk sinkron dengan stok gudang.
+   - Siapkan kebijakan retur/penukaran cepat bila pelanggan menerima barang yang salah; tugaskan tim customer service untuk menindaklanjuti klaim warna/ketidaksesuaian.
+
+3. Komunikasi pelanggan:
+   - Tambahkan instruksi kontak customer service yang jelas di listing untuk masalah salah kirim/kerusakan.
+   - Berikan informasi proses klaim (retur/penukaran) agar pelanggan yang mengalami masalah tahu langkah selanjutnya.
+
+4. Perbaikan listing & materi:
+   - Tonjolkan fitur yang disukai pembeli: “tombol senyap”, “tipis dan ringan”.
+   - Tambahkan foto produk dari beberapa sudut dan foto close-up tombol serta foto opsi warna yang akurat.
+   - Tampilkan informasi yang sering dicari (dimensi, berat, kompatibilitas OS, warna tersedia, waktu proses pengiriman) — bila data ini belum tersedia, lengkapi dulu agar calon pembeli tidak ragu.
+
+Bagian yang harus menangani masalah spesifik dari ulasan
+- Keluhan tentang lama/kondisi pengiriman dan kurir: hubungi tim logistik / mitra kurir.
+- Keluhan barang warna salah atau salah kirim: tim Customer Service & Fulfillment (penerimaan/pengemasan) untuk retur/penukaran dan peningkatan kontrol kualitas.
+
+Teks listing yang diperbarui (gunakan hanya fakta tertera)
+Catatan: jika ada informasi yang belum diberikan, tolong lengkapi nilai pada placeholder di dalam tanda [[...]].
+
+Judul:
+Keyboard Wireless Slim — 2.4GHz, Baterai AAA x2, Layout US, Tombol Senyap
+
+Deskripsi singkat:
+Keyboard wireless slim dengan koneksi 2.4GHz. Menggunakan 2 buah baterai AAA. Layout tombol: US. Tombol dirancang senyap untuk mengetik nyaman. Desain tipis dan ringan.
+
+Fitur utama:
+- Koneksi: 2.4GHz wireless
+- Daya: Baterai AAA x2
+- Layout: US
+- Karakter tombol: tombol senyap (quiet/silent)
+- Desain: slim, ringan
+
+Informasi tambahan yang perlu dilengkapi (harap isi):
+- Warna tersedia: [[daftar warna]]
+- Dimensi produk (panjang x lebar x tinggi): [[dimensi mm atau cm]]
+- Berat produk: [[berat g atau kg]]
+- Kompatibilitas OS (mis. Windows/Mac/Android/iOS): [[kompatibilitas]]
+- Waktu proses pemesanan (handling time) sebelum dikirim: [[hari kerja]]
+- Estimasi pengiriman yang ditawarkan kepada pembeli (contoh: JNE Reg 2–4 hari) — isi dengan data aktual: [[estimasi pengiriman]]
+
+Pengiriman & layanan pelanggan:
+- Setelah pengiriman, nomor resi akan dikirim ke pembeli untuk pelacakan.
+- Untuk masalah salah warna, salah barang, atau klaim lainnya, hubungi customer service kami di: [[kontak CS]] agar kami dapat membantu proses retur atau penukaran.
+
+Foto & media:
+- Sertakan foto produk: tampak depan, tampak samping (menunjukkan ketipisan), close-up tombol (menunjukkan layout US), dan foto setiap warna yang tersedia.
+
+Jika Anda ingin, saya bisa buat versi listing yang disesuaikan untuk marketplace tertentu (Tokopedia/Shopee/Bukalapak/dll.) — kirimkan juga nilai untuk placeholder di atas agar deskripsi lengkap dan tidak menimbulkan kebingungan pembeli.",,,,,,

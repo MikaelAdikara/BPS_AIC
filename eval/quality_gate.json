@@ -1,0 +1,12 @@
+{
+  "_note": "Ditetapkan 26 Sep 2026 sebelum hasil gap-v1.13 dilihat. Lantai akurasi dibandingkan dengan batas bawah Wilson 95%. Jangan menurunkan lantai untuk meloloskan run; catat kegagalan di ITERATIONS.md.",
+  "use_wilson_lower": true,
+  "max_findings_on_praise_only": 0,
+  "floors": {
+    "gold_finding_found": 0.65,
+    "action_routing": 0.6,
+    "membership_precision": 0.85,
+    "membership_recall": 0.55,
+    "ready_after_fact": 0.4
+  }
+}

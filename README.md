@@ -44,8 +44,10 @@ python scripts/download_checkpoint.py     # downloads ~499 MB into ./models (not
 APP_COMMIT=$(git rev-parse --short HEAD) docker compose up --build -d
 ```
 
-On Windows, double-click `start.bat` (it copies `.env.example` to `.env` if missing, builds, and
-opens the browser).
+On Windows, double-click `start.bat`: it starts Docker Desktop if it is not running, copies
+`.env.example` to `.env` if missing, builds, waits until the app answers, and opens the browser.
+`stop.bat` stops the containers and keeps the data. The Compose project is always named
+`deciqo-local`, so the database volume is the same whichever folder or shell starts it.
 
 | What | Where |
 |---|---|

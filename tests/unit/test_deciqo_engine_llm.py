@@ -91,15 +91,16 @@ def test_jalur_ai_menghitung_dari_label_yang_lolos_verifier(db):
     assert result["engine"] == "ai"
     with store.database(path) as conn:
         [f] = store.rows(conn.execute("SELECT * FROM findings WHERE product_id = ?", (pid,)))
-    assert f["support"] == 2  # r4 ditolak: kutipan bukan salinan persis
+    assert f["support"] == 2  # r4 ditolak: ulasan berisi instruksi, dan kutipannya pun bukan salinan persis
     assert f["contradicting"] == 1
     rejected = store.loads(f["rejected_json"])
     r4 = next(r for r in rejected if r["review_id"] == "r4")
-    assert r4["reason"] == "quote_not_verbatim"
+    assert r4["reason"] == "instruction_in_review"
     assert r4["quote"] == "tas terlalu sempit untuk laptop"  # kutipan usulan disimpan untuk audit
     assert store.loads(f["listing_check_json"])["status"] == "evidence_found"
     rows = _ledger(path)
-    assert [r["purpose"] for r in rows] == ["discovery", "membership"]
+    # second_read: setiap bukti yang dihitung dibaca ulang oleh panggilan independen (gap-v1.14).
+    assert [r["purpose"] for r in rows] == ["discovery", "membership", "second_read"]
     assert all(r["status"] == "ok" and r["cached_tokens"] == 400 and r["price_cached"] > 0 for r in rows)
     expected = (600 * 0.25 + 400 * 0.025 + 200 * 2.0) / 1_000_000
     assert rows[0]["cost_usd"] == pytest.approx(expected)
@@ -203,3 +204,33 @@ def test_panggilan_openai_tidak_disimpan_dan_tanpa_pii(db, monkeypatch):
     assert client.kwargs and all(kw["store"] is False for kw in client.kwargs)
     sent = json.dumps([kw["input"] for kw in client.kwargs])
     assert "id=r9" in sent and "[nomor telepon]" in sent and "0812" not in sent
+
+def test_wrong_item_routes_even_when_model_proposes_nothing(db, monkeypatch):
+    path, pid = db
+    from app.deciqo.engine import discovery
+    with store.database(path) as conn:
+        ingest.upsert_catalog(1, "manual", [{"source_item_id": "tas", "title": "Tas laptop kanvas",
+            "reviews": [{"id": "swap", "rating": 4, "text": "Pesen XL dikirim L."}]}], conn=conn)
+    monkeypatch.setattr(discovery, "run_all", lambda *a, **kw: {
+        "proposals": [], "labels": [], "usage": {}, "trace": []})
+    pipeline.analyse(pid, db_path=path)
+    with store.database(path) as conn:
+        findings = store.rows(conn.execute("SELECT * FROM findings WHERE product_id = ?", (pid,)))
+    assert any(f["finding_type"] == "operational" and f["support"] == 1 for f in findings)
+
+
+def test_membership_receives_every_saved_review_over_150(db, monkeypatch):
+    path, pid = db
+    from app.deciqo.engine import discovery
+    added = [{"id": f"bulk-{i}", "rating": 5, "text": "Warna elegan."} for i in range(160)]
+    with store.database(path) as conn:
+        ingest.upsert_catalog(1, "manual", [{"source_item_id": "tas", "title": "Tas laptop kanvas",
+            "reviews": added}], conn=conn)
+    seen = []
+    def investigate(product, listing, provided, candidates, reviews, total, **kwargs):
+        seen.extend(r["id"] for r in reviews)
+        return {"proposals": [], "labels": [], "usage": {}, "trace": []}
+    monkeypatch.setattr(discovery, "run_all", investigate)
+    pipeline.analyse(pid, db_path=path)
+    assert len(seen) == 164
+    assert set(r["id"] for r in REVIEWS) <= set(seen)

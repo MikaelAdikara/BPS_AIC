@@ -48,3 +48,12 @@ def test_db_terpisah_per_kasus(tmp_path):
     harness.run_bundle(BUNDLE, db_path=tmp_path / "c.sqlite3", engine="rules")
     again = harness.run_bundle(BUNDLE, db_path=tmp_path / "c.sqlite3", engine="rules")
     assert len({f["id"] for f in again["findings"]}) == len(again["findings"])
+
+
+def test_provider_failure_is_not_success_with_no_findings(tmp_path, monkeypatch):
+    from app.deciqo.engine import pipeline
+    def fail(*args, **kwargs):
+        raise pipeline.AnalysisFailed("provider unavailable")
+    monkeypatch.setattr(pipeline, "analyse", fail)
+    with pytest.raises(pipeline.AnalysisFailed, match="provider unavailable"):
+        harness.run_bundle(BUNDLE, db_path=tmp_path / "failed.sqlite3", engine="ai")

@@ -1,0 +1,193 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,c18,before,(no issues reported),,,,,,
+x002,c13,before,"Issue: max height (extended) (missing_fact); draft status: needs_listing
+
+
+Issue: maximum load / phone weight capacity (missing_fact); draft status: needs_listing
+
+
+Issue: stability when holding heavier phones (product_quality); draft status: route
+",,,,,,
+x003,c01,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran dalam: 34 x 24 cm.
+
+Issue: zipper closure function (product_quality); draft status: route
+",,,,,,
+x004,c15,before,(no issues reported),,,,,,
+x005,c05,before,"Issue: device compatibility / laptop support (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: output voltage and current (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x006,c20,before,"Issue: brightness / luminous output (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x007,c18,before,(no issues reported),,,,,,
+x008,c21,before,"Issue: compatible phone size (width and case thickness) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x009,c08,before,(no issues reported),,,,,,
+x010,c22,before,"Issue: device compatibility (Lightning vs USB-C devices) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x011,c12,before,"Issue: shipping time (operational); draft status: route
+
+
+Issue: packaging (operational); draft status: route
+",,,,,,
+x012,c04,after,"Issue: battery capacity (conflicting_fact); draft status: ready
+Kapasitas baterai: kapasitas rated 13000 mAh pada output 5V.",,,,,,
+x013,c21,after,"Issue: product size (missing_fact); draft status: ready
+Ukuran produk: lebar HP maksimal 8,5 cm termasuk case.",,,,,,
+x014,c20,after,"Issue: delivery time (operational); draft status: route
+",,,,,,
+x015,c17,before,"Issue: inner compartment size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x016,c01,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran kompartemen dalam: 34 x 24 cm.",,,,,,
+x017,c22,after,"Issue: product size (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x018,c07,before,(no issues reported),,,,,,
+x019,c04,after,(no issues reported),,,,,,
+x020,c22,after,"Issue: device compatibility (which iPhone/iPad models fit) (missing_fact); draft status: ready
+Kompatibilitas perangkat: kompatibel dengan iPhone 8 sampai iPhone 14 yang memakai port Lightning; tidak untuk iPhone 15 dan iPad Air generasi terbaru.",,,,,,
+x021,c06,before,"Issue: size consistency / fit (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x022,c07,before,"Issue: water resistance / waterproof (expectation_mismatch); draft status: needs_review
+",,,,,,
+x023,c09,before,"Issue: presence of dedicated F1–F12 keys (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x024,c09,before,(no issues reported),,,,,,
+x025,c18,after,(no issues reported),,,,,,
+x026,c06,before,"Issue: size chart measurements (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x027,c10,before,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: shipping speed (operational); draft status: route
+
+
+Issue: suitability for bedside/bed use (effective length) (expectation_mismatch); draft status: needs_review
+",,,,,,
+x028,c10,before,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: product size (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x029,c11,before,(no issues reported),,,,,,
+x030,c13,before,(no issues reported),,,,,,
+x031,c05,before,(no issues reported),,,,,,
+x032,c21,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x033,c19,after,"Issue: USB output current (missing_fact); draft status: ready
+Arus keluar USB: output USB total 5V 2,4A (12W).
+
+Issue: socket overheating under high load (product_quality); draft status: route
+",,,,,,
+x034,c06,after,"Issue: size chart (missing_fact); draft status: ready
+Tabel ukuran: M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x035,c03,before,"Issue: compatible phone models (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: camera cutout alignment (operational); draft status: route
+",,,,,,
+x036,c19,before,(no issues reported),,,,,,
+x037,c16,before,"Issue: folded size (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x038,c22,before,"Issue: product size (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x039,c08,before,(no issues reported),,,,,,
+x040,c15,before,"Issue: overheating during use (product_quality); draft status: route
+",,,,,,
+x041,c17,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran kompartemen dalam: ukuran dalam kompartemen utama 23 x 16 x 6 cm.",,,,,,
+x042,c17,before,"Issue: internal usable space / compartment internal dimensions (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x043,c21,after,"Issue: phone size compatibility (missing_fact); draft status: ready
+Kecocokan ukuran HP: lebar HP maksimal 8,5 cm termasuk case.",,,,,,
+x044,c16,before,"Issue: hinge durability (product_quality); draft status: route
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x045,c14,before,"Issue: internal compartment size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x046,c05,after,"Issue: output voltage and current (V/A) per charging mode (missing_fact); draft status: ready
+Tegangan dan arus output: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W).",,,,,,
+x047,c03,after,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x048,c13,after,"Issue: max height when fully extended (missing_fact); draft status: needs_listing
+
+
+Issue: recommended maximum load / phone weight (missing_fact); draft status: needs_listing
+",,,,,,
+x049,c20,before,"Issue: delivery time (operational); draft status: route
+",,,,,,
+x050,c19,after,(no issues reported),,,,,,
+x051,c12,before,"Issue: delivery time (operational); draft status: route
+
+
+Issue: packaging (operational); draft status: route
+",,,,,,
+x052,c19,before,"Issue: USB output (amps/voltage) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: overheating of main socket under load (product_quality); draft status: route
+",,,,,,
+x053,c05,after,(no issues reported),,,,,,
+x054,c02,before,"Issue: water resistance / IP rating (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x055,c09,after,"Issue: presence of dedicated function keys (F1–F12) (missing_fact); draft status: ready
+Keberadaan tombol fungsi F1–F12: tombol F1-F12 diakses dengan kombinasi Fn + angka 1 sampai 0, minus, dan sama dengan.",,,,,,
+x056,c09,after,(no issues reported),,,,,,
+x057,c02,before,(no issues reported),,,,,,
+x058,c01,before,"Issue: inner compartment size (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: resleting / zipper closure (product_quality); draft status: route
+",,,,,,
+x059,c04,before,(no issues reported),,,,,,
+x060,c11,before,"Issue: audio channel durability (left/right driver failure) (product_quality); draft status: route
+
+
+Issue: cable brittleness near 3.5mm jack (product_quality); draft status: route
+",,,,,,
+x061,c20,after,"Issue: brightness (lumens/watt) (missing_fact); draft status: ready
+Kecerahan: daya 5W, sekitar 250 lumen.",,,,,,
+x062,c01,before,"Issue: inner compartment size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x063,c13,after,(no issues reported),,,,,,
+x064,c17,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran ruang/kompartemen dalam: ukuran dalam kompartemen utama 23 x 16 x 6 cm.",,,,,,
+x065,c04,before,(no issues reported),,,,,,
+x066,c03,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x067,c03,after,"Issue: compatible phone models / variant mapping (missing_fact); draft status: ready
+Daftar tipe/varian yang kompatibel: kompatibel dengan iPhone 11, iPhone 12, dan iPhone 13 Pro.
+
+Issue: camera cutout alignment (expectation_mismatch); draft status: needs_review
+
+
+Issue: product color/yellowing resistance (product_quality); draft status: route
+",,,,,,
+x068,c18,after,"Issue: capacity definition (water/raw rice/cooked rice) (missing_fact); draft status: ready
+Definisi kapasitas: kapasitas beras mentah maksimal 0,5 liter.",,,,,,
+x069,c06,after,"Issue: size chart measurements (missing_fact); draft status: ready
+Ukuran detail per size: M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x070,c14,before,"Issue: inner compartment size (unclear_fact); draft status: needs_merchant_fact
+",,,,,,

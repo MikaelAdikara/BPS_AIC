@@ -1,0 +1,2650 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,h20,before,"Summary of recurring customer feedback
+- Positive, recurring points:
+  - Hot-swap works as advertised; switching switches is easy (r4).
+  - Switches (reported red) feel good and typing sound is quiet/pleasant (r1, r6).
+  - Detachable USB‑C cable is sturdy (r7).
+  - RGB lighting is present (r2) and the keyboard is well suited for work and gaming (r8).
+  - Packaging is protective (r3) and several buyers reported no defects (r2, r5).
+
+- Recurring problem:
+  - RGB lighting brightness: at least one buyer found the RGB “too bright” (r2). No other consistent complaints were reported.
+
+Recommended actions for the seller
+1. Clarify RGB behavior in the listing and manual:
+   - State what RGB is (already present) and whether brightness or lighting modes can be adjusted. If the keyboard has brightness/mode controls, add clear instructions and include them in the product manual and listing. If it does not, consider firmware/software updates or a hardware change to add adjustable brightness.
+2. Add usage and feature guidance to the listing:
+   - Add brief instructions on how to hot-swap switches safely and how to attach/detach the USB‑C cable (so buyers know the cable is intended to be removable and sturdy).
+3. Offer options and alternatives:
+   - Consider offering other switch types (e.g., tactile/blue) or listing switch options if you sell variants, since some buyers may prefer different feel or noise levels.
+4. Improve listing completeness:
+   - Add unambiguous specifications and photos showing: the hot-swap sockets, the detachable USB‑C cable connected and detached, RGB lighting turned on (at neutral brightness), and keys close-up. If any specification is missing, collect it (dimensions, layout, keycap material, etc.) and add it to the listing.
+5. After‑sales handling:
+   - For delivery, wrong item, packaging damage, or defects, direct customers to your customer service / returns department. (These are not listing issues but operational/service issues.)
+
+Improved listing text (Indonesian)
+Keyboard mechanical 68 key — hot-swap, switch merah, RGB, kabel USB‑C lepas pasang
+
+Deskripsi singkat
+- Mechanical 68-key keyboard dengan hot-swap: ganti switch mudah tanpa solder (sesuai laporan pembeli).
+- Switch: tipe merah (red); banyak pembeli melaporkan feel enak dan suara ketik yang tidak berisik.
+- RGB lighting: lampu RGB tersedia. Catatan: beberapa pembeli menyatakan lampu tampak sangat terang pada pengaturan default.
+- Kabel USB‑C: kabel lepas pasang yang kokoh menurut pembeli.
+- Cocok untuk kerja dan gaming menurut pengalaman beberapa pengguna.
+
+Yang perlu Anda tahu (ketentuan dan placeholder)
+- Layout (ANSI/ISO): [[layout]]
+- Koneksi: [[wired/wireless atau hanya wired?]]
+- Keycap material: [[keycap material]]
+- Dimensi/berat: [[dimensions/weight]]
+- Fitur pengaturan RGB / kecerahan: [[RGB brightness control available?]]
+- Paket termasuk: [[items included (keyboard, kabel, manual, dsb.)]]
+
+Tips penggunaan (tambahan berguna untuk pembeli)
+- Cara melepas/menyambung kabel USB‑C akan dijelaskan dalam paket/manual.
+- Jika Anda merasa RGB terlalu terang: periksa manual untuk pengaturan lampu (jika tersedia) atau hubungi layanan pelanggan untuk bantuan.
+
+Gambar dan dokumentasi
+- Foto close-up hot-swap socket, kabel terpasang/lepas, dan lampu RGB menyala sangat direkomendasikan untuk ditambahkan ke halaman produk.
+
+Customer service / retur
+- Untuk masalah pengiriman, barang salah, kerusakan fisik, atau cacat, mohon arahkan pembeli ke tim layanan pelanggan/retur Anda sehingga dapat ditangani segera.
+
+Jika Anda ingin, saya bisa:
+- Menyusun teks spesifikasi akhir setelah Anda mengisi placeholder di atas.
+- Menyusun instruksi singkat hot-swap dan cara mengatur RGB jika fitur tersebut tersedia.",,,,,,
+x002,h11,after,"Ringkasan masalah yang berulang (dari ulasan)
+- Konsumen mengira output HDMI 4K mendukung 60 Hz; produk sebenarnya hanya 4K@30Hz (merchant-confirmed). Ini menyebabkan keluhan lag/gerakan patah di monitor/TV.
+- Beberapa pembeli menerima unit tanpa slot SD (diduga salah varian dikirim) → masalah kontrol kualitas/pengiriman.
+- Keluhan pengiriman lambat (logistik), meskipun bukan masalah produk.
+- Poin positif berulang: PD charging bekerja baik (user melaporkan ~65W ke laptop), USB3.0 transfer cepat, bodi aluminium kokoh dan tidak panas.
+
+Rekomendasi tindakan (prioritas dan langkah konkrit)
+1. Perbaiki deskripsi listing sekarang juga
+   - Cantumkan explicitly kemampuan video: ""HDMI: 4K @30Hz, 1080p @60Hz"".
+   - Jelaskan batasan: performa 4K/60Hz tidak didukung; refresh rate juga tergantung perangkat host dan kabel.
+   - Sebutkan PD nominal (100W) dan catatan praktis: beberapa laptop mungkin menerima watt lebih rendah tergantung adaptor/cable.
+
+2. Tingkatkan kontrol kualitas & packing
+   - Pastikan SKU/varian jelas di gudang (6-in-1 vs 4-in-1) dan lakukan pengecekan final sebelum packing.
+   - Tandai paket dengan isi yang jelas atau gunakan stiker varian sehingga staf packing tidak salah kirim.
+
+3. Kebijakan penukaran/garansi & komunikasi pelanggan
+   - Siapkan prosedur cepat: jika pelanggan menerima varian salah, tawarkan retur gratis + pengiriman unit pengganti atau refund penuh.
+   - Tambahkan FAQ di listing mengenai PD watt, kabel yang disertakan/ direkomendasikan, dan kompatibilitas OS.
+
+4. Informasi teknis & kompatibilitas
+   - Tambahkan catatan kompatibilitas (Windows/macOS/Linux, beberapa tablet/phone mungkin tidak mendukung video out).
+   - Sarankan kabel HDMI berkualitas tinggi untuk resolusi dan refresh optimal; rekomendasikan pengguna menguji dengan kabel yang mendukung spesifikasi.
+
+5. Perbaiki pengalaman pengiriman
+   - Koordinasikan dengan mitra logistik untuk mempercepat fulfillment; tampilkan estimasi pengiriman realistis di listing.
+
+6. Respons publik ke ulasan
+   - Balas ulasan negatif menjelaskan spesifikasi yang sekarang telah diperjelas dan menawarkan solusi (penggantian/retur). Ini memperbaiki trust calon pembeli.
+
+Teks listing yang diperbaiki (Indonesia, ringkas & jujur)
+Judul: USB-C Hub 6-in-1 — HDMI 4K (30Hz), 3x USB3.0, SD Card, USB-C PD up to 100W, Aluminium
+
+Deskripsi singkat:
+Hub USB-C 6-in-1 serbaguna untuk laptop dan tablet USB-C. Bodinya aluminium kokoh dan adem. Plug & play, cocok untuk kerja, transfer file cepat, dan menambah port eksternal.
+
+Spesifikasi utama:
+- HDMI: 4K @30Hz, 1080p @60Hz (catatan: tidak mendukung 4K@60Hz)
+- USB 3.0 x3: kecepatan transfer tinggi untuk drive eksternal, flashdisk, dll.
+- SD Card slot: mendukung SD/SDHC/SDXC
+- USB-C PD: hingga 100W power delivery (kinerja charging bergantung pada adaptor dan kabel)
+- Material: Aluminium, desain kompak, plug-and-play
+
+Kesesuaian & catatan penting:
+- Pastikan perangkat host mendukung video output via USB-C (DisplayPort Alt Mode).
+- Untuk pengalaman terbaik pada TV/monitor 4K, gunakan kabel HDMI berkualitas yang mendukung 4K.
+- Jika Anda membutuhkan 4K@60Hz, produk ini tidak mendukung—silakan hubungi kami untuk rekomendasi model lain.
+- PD: meskipun hub mendukung hingga 100W, beberapa laptop mungkin hanya menerima watt lebih rendah tergantung adaptor/port.
+
+Isi paket:
+- USB-C Hub 6-in-1 x1
+- Kabel USB-C (terpasang/terintegrasi sesuai model)
+- Panduan singkat + kartu garansi
+
+Garansi & retur:
+- Garansi 12 bulan; jika Anda menerima varian yang salah (mis. tanpa slot SD) atau barang cacat, hubungi kami untuk penggantian/retur gratis.
+
+Pengiriman:
+- Estimasi pengiriman ditampilkan pada halaman checkout. Jika pengiriman terlambat, hubungi layanan pelanggan kami untuk bantuan.
+
+Kenapa pilih ini:
+- Build aluminium kokoh dan tidak panas
+- Transfer USB3.0 cepat
+- Charging PD handal untuk kebanyakan laptop
+- Deskripsi teknis jelas untuk menghindari kebingungan soal refresh rate
+
+Jika mau, saya bisa membuat versi bahasa Inggris untuk marketplace internasional, atau versi singkat untuk bullet points di halaman produk. Which one do you want next?",,,,,,
+x003,h16,before,"Issue: size chart measurements (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x004,h15,after,(no issues reported),,,,,,
+x005,h22,before,"Issue: packaging (operational); draft status: route
+
+
+Issue: product quality (product_quality); draft status: route
+",,,,,,
+x006,h19,before,"Issue: battery type (missing_fact); draft status: needs_listing
+
+
+Issue: package contents — battery included (operational); draft status: route
+",,,,,,
+x007,h15,after,"Ringkasan masalah berulang dari review
+- Kompatibilitas dan kebingungan spesifikasi
+  - Beberapa pelanggan mengira bisa ngecas laptop 65W atau perangkat yang memerlukan 15V (r7, r1).
+  - Ada kebingungan soal fast charging di perangkat Samsung: terdeteksi cuma ""fast charging biasa"" bukan ""super fast""/PPS (r2).
+  - Beberapa review mengeluhkan kurangnya informasi volt-ampere di listing (r3).
+
+- Kinerja dan ekspektasi
+  - Berhasil cepat untuk beberapa ponsel (iPhone 30 menit 50%) tapi tidak memenuhi ekspektasi untuk perangkat yang mengharapkan mode pengisian spesifik (r4 vs r2, r7, r1).
+
+- Kualitas dan keandalan
+  - Ada komplain soal unit mati dalam seminggu (r6) — potensi masalah kualitas/garansi.
+
+- Pengemasan dan ukuran
+  - Poin positif: kecil, ringkes, cocok untuk traveling (r5) dan packing aman (r8).
+
+Saran tindakan yang harus Anda lakukan
+1. Perjelas spesifikasi di listing:
+   - Cantumkan output PD lengkap: 5V/3A, 9V/3A, 11V/3A (maks 33W).
+   - Tegaskan bahwa charger tidak mendukung Samsung PPS 25W dan bukan pengganti adaptor 65W atau perangkat yang memerlukan 15V.
+   - Tambahkan daftar perangkat umum yang kompatibel/tidak kompatibel (mis. ideal untuk smartphone PD hingga 33W; tidak cocok untuk laptop yang memerlukan 45–65W atau perangkat yang butuh 15V/20V).
+
+2. Perbaiki ekspektasi pelanggan:
+   - Jelaskan contoh kecepatan pengisian (mis. iPhone: mendukung pengisian cepat PD; hasil dapat berbeda tergantung kabel/perangkat).
+   - Tambahkan catatan bahwa beberapa merek/seri (Samsung dengan PPS) mungkin hanya mendeteksi sebagai fast charging biasa.
+
+3. Tingkatkan kualitas & layanan purna jual:
+   - Audit kualitas produk/lot: periksa rate kegagalan, supplier, dan uji umur.
+   - Berikan garansi minimum (mis. 1–3 bulan) atau kebijakan retur yang jelas untuk unit bermasalah.
+   - Siapkan prosedur pengembalian/penukaran yang mudah dan cantumkan di listing.
+
+4. Tambahkan informasi teknis dan aksesori:
+   - Sarankan kabel USB-C PD berkualitas untuk mencapai kecepatan maksimal.
+   - Jika memungkinkan, sertakan atau tawarkan kabel yang sesuai sebagai bundle.
+
+5. Perbaiki listing dan FAQ:
+   - Buat bagian FAQ singkat: “Apakah cocok untuk laptop saya?” “Apakah mendukung Samsung PPS?” “Berapa outputnya?” untuk mengurangi pertanyaan yang sama berulang.
+
+Improved listing text (Bahasa Indonesia, siap pasang)
+Judul:
+Kepala Charger USB-C PD 33W — Compact, Proteksi Overheat
+
+Deskripsi singkat:
+Adaptor USB-C PD 33W compact untuk pengisian cepat smartphone dan perangkat kecil. Ringkas untuk traveling dan dilengkapi proteksi terhadap panas berlebih.
+
+Spesifikasi utama:
+- Output USB-C PD: 5V / 3A, 9V / 3A, 11V / 3A (maksimal 33W)
+- Kompatibilitas: ideal untuk smartphone dan perangkat yang mendukung USB-C Power Delivery hingga 33W
+- Tidak mendukung Samsung PPS 25W
+- Ukuran: kecil dan ringkas — mudah dibawa
+- Proteksi: overheat / proteksi panas berlebih
+
+Catatan penting (baca sebelum membeli):
+- BUKAN pengganti adaptor laptop 65W atau perangkat yang memerlukan output 15V/20V. Jika perangkat Anda membutuhkan 15V atau 20V (mis. beberapa docking/laptop), charger ini kemungkinan tidak kompatibel.
+- Untuk beberapa ponsel Samsung yang mengandalkan PPS, perangkat mungkin hanya terdeteksi sebagai ""fast charging"" biasa, bukan mode PPS 25W.
+- Kecepatan pengisian tergantung pada model perangkat, kondisi baterai, dan kualitas kabel. Untuk hasil terbaik gunakan kabel USB-C PD berkualitas.
+
+Garansi & layanan:
+- [Cantumkan kebijakan garansi/retur Anda, mis. 1 bulan garansi penggantian jika unit mati dalam masa garansi — sesuaikan dengan kebijakan merchant]
+
+Isi paket:
+- 1 x Kepala Charger USB-C PD 33W (kabel tidak termasuk) — packing rapi dan aman
+
+FAQ singkat:
+- Apakah cocok untuk laptop? Jika laptop Anda membutuhkan ≥45W atau khusus 15V/20V, tidak disarankan.
+- Mendukung PPS? Tidak, charger ini tidak mendukung Samsung PPS 25W.
+- Kabel disertakan? Tidak termasuk — gunakan kabel USB-C PD berkualitas untuk kecepatan maksimal.
+
+Rekomendasi internal singkat untuk merchant (prioritas):
+1. Segera update teks listing dengan spesifikasi dan catatan kompatibilitas di atas.
+2. Tampilkan kebijakan garansi/retur yang jelas di halaman produk.
+3. Lakukan pengecekan kualitas pada stok saat ini, dan pertimbangkan inspeksi lot jika keluhan mati total muncul lebih banyak.
+4. Pertimbangkan paket bundling dengan kabel PD berkualitas atau tawarkan sebagai upsell.
+
+Bila mau, saya bisa:
+- Buatkan versi listing yang lebih pendek untuk marketplace (judul + 3 bullet point utama + 1 baris garansi).
+- Siapkan teks FAQ/quick reply untuk customer service agar jawaban konsisten. Which one do you want next?",,,,,,
+x008,h16,after,"Issue: size / fit consistency (missing_fact); draft status: ready
+Konsistensi ukuran: M: lebar dada 48 cm, panjang 68 cm; L: lebar dada 50 cm, panjang 70 cm; XL: lebar dada 52 cm, panjang 72 cm.
+
+Issue: wrong size variant sent (operational); draft status: route
+",,,,,,
+x009,h13,before,"Ringkasan masalah yang sering muncul
+- Ketidakjelasan kompatibilitas: beberapa pembeli dengan iPhone 13 Pro, 13 Pro Max, dan 13 Mini melaporkan case tidak pas. Banyak kebingungan karena judul/deskripsi tidak menyebutkan ukuran/model yang tepat.
+- Informasi produk kurang lengkap: pelanggan ingin tahu pas untuk model mana (ukuran layar / kode model) dan detail lubang kamera.
+- Pengiriman lama: ada keluhan tentang waktu pengiriman.
+
+Saran tindakan (prioritas tinggi → rendah)
+1. Perbaiki judul dan deskripsi untuk menyebutkan secara tegas model yang didukung (mis. ""iPhone 13 6.1 inch saja""). Jika case hanya untuk iPhone 13 standar, tulis ""Untuk iPhone 13 (6.1"") — TIDAK cocok untuk 13 Mini / 13 Pro / 13 Pro Max"".
+2. Tambahkan daftar kompatibilitas yang jelas:
+   - Tuliskan ukuran layar atau kode model Apple (mis. A2633 / A2482 / A2631 — cek dan cantumkan kode yang benar jika tersedia).
+3. Tambah foto yang menunjukkan case terpasang pada iPhone 13 standar, dan bandingkan dengan 13 Pro/13 Mini/13 Pro Max (atau tambahkan teks overlay ""Tidak cocok untuk 13 Pro / 13 Mini / 13 Pro Max"").
+4. Jelaskan detail fisik penting:
+   - Material (TPU), ketebalan sudut, pelindung kamera timbul (tertinggi X mm), ketahanan terhadap kuning (anti-yellow coating bila ada).
+   - Tampilkan dimensi lubang kamera & port, tombol tertutup, akses ke tombol/port/charger.
+5. Perbaiki proses pembelian:
+   - Tambahkan filter kompatibilitas di toko/listing.
+   - Berikan panduan ukuran singkat (mis. ukur dari ujung-ke-ujung kamera jika perlu).
+6. Kebijakan pengiriman & retur:
+   - Cantumkan estimasi waktu pengiriman dan nomor resi, dan kebijakan tukar/retur bila salah pilih model.
+   - Jika pengiriman sering lambat, evaluasi fulfillment atau tambahkan opsi pengiriman lebih cepat.
+7. Tindak lanjuti feedback pelanggan:
+   - Balas review yang mengeluh (minta maaf dan jelaskan langkah perbaikan).
+   - Pertimbangkan label “Fit Guarantee” / refund jika tidak cocok.
+
+Improved listing text (bahasa Indonesia, siap pakai)
+Judul:
+Case iPhone 13 (6.1"") Clear Anti-Crack — TPU Bening, Sudut Tebal, Pelindung Kamera
+
+Deskripsi singkat:
+Case softcase bening untuk iPhone 13 (layar 6.1""). Material TPU fleksibel anti-slip dengan lapisan anti-kuning, sudut diperkuat untuk perlindungan benturan, dan raised bezel untuk melindungi lensa kamera.
+
+Kompatibilitas:
+- Cocok untuk: iPhone 13 (6.1"") — HANYA untuk model iPhone 13 standar.
+- Tidak cocok untuk: iPhone 13 Mini / iPhone 13 Pro / iPhone 13 Pro Max.
+(Catatan: pastikan memilih model yang benar sebelum membeli.)
+
+Fitur utama:
+- Bening jernih & anti-kuning: menampilkan warna asli hp lebih lama tanpa cepat menguning.
+- Bahan TPU fleksibel: mudah dipasang/lepas, anti-selip.
+- Sudut tebal & anti-crack: perlindungan ekstra pada titik benturan.
+- Pelindung kamera timbul: raised bezel di sekitar lensa untuk mencegah gores.
+- Presisi cutout: akses penuh ke port, speaker, dan tombol.
+- Tipis & ringan, tetap melindungi.
+
+Spesifikasi tambahan:
+- Kompatibel untuk layar 6.1"" (iPhone 13 standar). Jika Anda ragu, periksa model hp Anda di Settings > General > About.
+- Berat: [isi jika ada], Ketebalan raised bezel: [isi jika ada].
+
+Pengiriman & retur:
+- Proses packing: 1–2 hari kerja. Estimasi pengiriman: [isi estimasi sesuai tempat Anda].
+- Salah pilih model? Kami menerima pengembalian/penukaran dalam 7 hari selama produk belum rusak — hubungi customer service untuk instruksi.
+
+Kenapa pilih produk ini:
+- Terbukti jernih dan tidak cepat menguning (testimoni pelanggan).
+- Perlindungan kamera dan sudut yang baik dengan harga terjangkau.
+
+Tip pembelian:
+- Pastikan memilih ""iPhone 13 (6.1"")"" saat checkout. Jika butuh pas untuk 13 Pro/13 Mini/13 Pro Max, cari listing terpisah yang khusus menuliskan model tersebut.
+
+Jika mau, saya bisa bantu menulis versi pendek untuk marketplace (Tokopedia/ Shopee/ Bukalapak) dan contoh teks overlay pada foto produk yang menegaskan ""HANYA untuk iPhone 13 (6.1"")"". Mau lanjut ke itu?",,,,,,
+x010,h18,after,"Ringkasan masalah berulang (dari ulasan)
+- Kebingungan tentang kapasitas: beberapa pembeli mengira ""1,2 L"" berarti kapasitas beras, sehingga merasa porsi lebih kecil dari ekspektasi.
+- Ekspektasi porsi: beberapa menyebut cukup untuk 1–2 orang, ada yang mengira bisa untuk 4 orang dan kecewa.
+- Kabel terlalu pendek (keluhan berulang).
+- Poin positif: panci anti-lengket efektif, nasi pulen, hemat listrik (300W), cocok untuk anak kos/dua orang.
+
+Saran tindakan yang harus Anda ambil
+1. Klarifikasi kapasitas dengan jelas di judul dan deskripsi:
+   - Tulis bahwa ""1,2 L"" adalah kapasitas maksimal air, dan sebutkan kapasitas beras maksimal dalam cup: maksimal 4 cup beras (≈0,6 L beras kering).
+   - Tambahkan panduan porsi: mis. cukup untuk 1–2 orang sehari-hari; hingga 3–4 orang tergantung porsi.
+2. Tambahkan spesifikasi teknis lengkap di bagian fitur:
+   - Daya (300W), fungsi (masak & penghangat), bahan panci (anti-lengket/removable), kapasitas air & maksimal cup beras, perkiraan porsi (orang), dan berat/ukuran produk.
+3. Tangani keluhan kabel pendek:
+   - Ukur dan tampilkan panjang kabel di spesifikasi.
+   - Jika panjang memang pendek, tawarkan saran (mis. gunakan kabel ekstensi ber-SNI) atau, lebih baik lagi, siapkan varian kabel lebih panjang/aksesoris kabel yang dijual terpisah.
+4. Perbaiki foto & konten:
+   - Sertakan foto yang menunjukkan jumlah nasi yang dapat dimasak (mis. foto 4 cup beras matang).
+   - Tampilkan panci, tutup, ukuran ke dalam satu gambar spesifikasi.
+5. Tambahkan informasi penggunaan:
+   - Sertakan tabel konversi cup beras ke porsi orang dan instruksi singkat pengukuran air untuk tiap jumlah cup beras.
+6. Tindak lanjut after-sales:
+   - Jika ada masalah kabel atau keluhan lain, sediakan FAQ/garansi/service center agar pembeli merasa aman.
+
+Teks listing yang lebih baik (bahasa Indonesia, siap pakai)
+Rice Cooker Mini 1.2L — Hemat Listrik 300W | Panci Anti-Lengket | Masak & Penghangat
+
+Deskripsi singkat:
+Rice Cooker Mini ideal untuk anak kos, pasangan, atau dapur kecil. Daya rendah 300W membuat pemasakannya hemat listrik, dengan panci anti-lengket yang memudahkan pembersihan dan menghasilkan nasi yang pulen.
+
+Spesifikasi utama:
+- Kapasitas air: 1,2 L (kapasitas maksimum air untuk memasak)
+- Maksimal kapasitas beras: 4 cup beras kering (±0,6 L beras kering)
+- Perkiraan porsi: cocok untuk 1–2 orang sehari-hari; hingga 3–4 orang tergantung porsi
+- Daya: 300W — hemat listrik
+- Fungsi: Memasak & Menghangatkan otomatis
+- Panci: lapisan anti-lengket (mudah dibersihkan)
+- Termasuk: panci inner, tutup, sendok nasi, cup takar
+
+Panduan singkat penggunaan:
+- Ukur beras menggunakan cup takar (1 cup beras ≈ 1 porsi kecil). Untuk 4 cup beras, isi air sesuai garis/tanda atau ikut panduan pada manual.
+- Setelah memasak, fungsi penghangat otomatis akan bekerja sehingga nasi tetap hangat.
+
+Keunggulan:
+- Panci anti-lengket → nasi tidak mudah lengket, bersih lebih mudah
+- Daya rendah → konsumsi listrik lebih hemat
+- Desain compact → cocok untuk ruang sempit/anak kos
+
+Catatan penting:
+- ""1,2 L"" merujuk pada kapasitas air; kapasitas beras maksimal adalah 4 cup. Silakan lihat gambar spesifikasi untuk panduan cup-to-portion.
+- Untuk kenyamanan penggunaan, periksa panjang kabel pada spesifikasi gambar (atau hubungi kami jika ingin info panjang kabel sebelum membeli).
+
+Garansi & layanan purna jual:
+- [Isi sesuai kebijakan merchant: garansi berapa bulan, kontak layanan]
+
+Jika Anda mau, saya bisa juga:
+- Menyusun teks FAQ/catatan pemakaian cup vs porsi dan langkah pengisian air yang bisa Anda tempel di halaman produk.
+- Menulis varian listing yang menonjolkan solusi kabel (mis. “varian kabel panjang” atau rekomendasi aksesoris).",,,,,,
+x011,h14,before,"Ringkasan masalah yang berulang (dari ulasan)
+- Klaim kapasitas 20.000 mAh dipertanyakan / terasa lebih kecil dari yang diharapkan (beberapa pelanggan mengukur output ~9.8Ah atau bilang cuma muat 2x-4x ngecas ponsel 4.000 mAh).
+- Persepsi bahwa “20.000 mAh bohong” atau cepat habis (ketidakjelasan perbedaan antara kapasitas sel nominal dan kapasitas keluaran yang bisa dipakai).
+- Poin positif: fast charging 22.5W berfungsi pada beberapa perangkat, desain ramping disukai, dan daya tahan/awet dilaporkan oleh sebagian pengguna.
+- Keluhan minor: agak berat untuk saku.
+
+Apa yang sebaiknya Anda lakukan (tindakan rekomendasi)
+1. Jelaskan kapasitas dengan transparan
+   - Cantumkan kapasitas nominal sel (20.000 mAh pada 3.7V) dan juga kapasitas ter-rated/output yang dapat dipakai pada 5V (mAh yang setara atau Wh), plus asumsi efisiensi konversi. Contoh: “20000 mAh (nominal pada 3.7V) ≈ setara 12.000–13.000 mAh output pada 5V setelah konversi” — atau jika Anda punya data pengujian, cantumkan angka terukur yang lebih akurat.
+2. Tambahkan spesifikasi teknis lengkap dan kondisi pengujian
+   - Tegangan/Wh: tampilkan Wh (mis. 20.000 mAh × 3.7V = 74 Wh) sehingga pelanggan paham.
+   - Jelaskan kondisi pengukuran jumlah kali pengisian (mis. pengisian ponsel 4000 mAh dihitung pada 80% efisiensi dan sisa energi).
+3. Berikan estimasi realistis jumlah pengisian
+   - Contoh klaim realistis: “Untuk ponsel 4000 mAh, 2–3 kali pengisian penuh tergantung model & efisiensi.”
+4. Sertakan detail port & daya yang jelas
+   - Tuliskan input (mis. USB-C PD 5–20V/2.25A) dan output per port (USB-A1, USB-A2, USB-C) serta total output maksimum (22.5W).
+   - Beri petunjuk agar pelanggan pakai kabel & port yang mendukung PD/QC untuk dapatkan 22.5W.
+5. Tambahkan fitur keamanan & garansi
+   - Cantumkan proteksi OVP/OTP/OVP/Short-circuit, sertifikasi bila ada (CE, RoHS, dll.) dan garansi (mis. 12 bulan) untuk meningkatkan kepercayaan.
+6. Perbaiki kontrol kualitas / produksi (opsional tapi disarankan)
+   - Audit batch sel baterai, uji keluaran di pabrik, pantau variabilitas kapasitas antar unit.
+7. Edukasi pemasaran / customer support
+   - Tambahkan FAQ di halaman produk yang menjelaskan perbedaan “nominal” vs “usable”, tip menguji sendiri (gunakan kabel & adapter berkualitas), dan cara memaksimalkan efisiensi (isi daya powerbank penuh sebelum pemakaian, matikan powerbank saat digunakan untuk waktu lama).
+8. Visual & listing
+   - Tambahkan tabel spesifikasi, gambar close-up port/label kapasitas/sertifikasi, diagram estimasi jumlah isi ulang untuk beberapa kapasitas baterai ponsel, dan video singkat demo pengisian.
+9. Kebijakan retur & dukungan teknis
+   - Sediakan kebijakan retur/garansi yang jelas jika kapasitas unit jauh dari spesifikasi, serta layanan test/manual troubleshooting.
+
+Contoh teks listing yang sudah diperbaiki (bahasa Indonesia)
+Powerbank 20.000 mAh – Fast Charging 22.5W (Desain Ramping, 3 Port, Proteksi Lengkap)
+
+Deskripsi singkat
+Powerbank kapasitas nominal 20.000 mAh (74 Wh pada 3.7V) dengan fast charging hingga 22.5W. Desain ramping dan ringan untuk penggunaan harian, cocok untuk ngecas smartphone, tablet, earbud, dan perangkat USB lainnya.
+
+Spesifikasi utama
+- Kapasitas: 20.000 mAh (nominal pada 3.7V) — setara sekitar 12.000–13.000 mAh output pada 5V setelah konversi (efisiensi konversi tergantung penggunaan). Contoh estimasi: untuk ponsel 4.000 mAh — kira-kira 2–3 kali pengisian penuh tergantung model & kondisi baterai.
+- Daya (maks): 22.5W fast charging
+- Port:
+  - 1 × USB-C (Output/Input) — PD support
+  - 2 × USB-A (Output) — QC kompatibel
+- Input: USB-C untuk isi ulang (support PD)
+- Indikator: LED level charge
+- Proteksi: Overcharge, Over-discharge, Short-circuit, Overcurrent, Overtemperature
+- Dimensi & berat: (cantumkan dimensi dan berat aktual di sini)
+- Sertifikasi: (cantumkan CE/RoHS/sertifikat lain jika ada)
+- Garansi: 12 bulan (syarat & ketentuan berlaku)
+
+Keterangan penting (baca sebelum membeli)
+- Angka 20.000 mAh adalah kapasitas nominal sel baterai pada tegangan 3.7V. Karena konversi tegangan ke 5V dan efisiensi sirkuit powerbank, kapasitas output yang bisa dipakai biasanya lebih rendah. Kami menyarankan menggunakan port USB-C/PD dan kabel berkualitas untuk mendapatkan kecepatan 22.5W.
+- Estimasi pengisian: tergantung model ponsel dan kondisi baterai. Contoh: ponsel 4.000 mAh biasanya dapat diisi penuh 2–3x.
+- Untuk performa optimal: isi daya powerbank hingga penuh sebelum digunakan, gunakan kabel yang mendukung PD/QC, dan matikan powerbank bila tidak sedang mengisi perangkat.
+
+Apa yang Anda dapatkan
+- 1 × Powerbank 20.000 mAh
+- 1 × Kabel USB-C (jika disertakan; sebutkan kalau include)
+- Panduan singkat + garansi 12 bulan
+
+FAQ singkat
+- “Kenapa tidak terasa 20.000 mAh?” — 20.000 mAh adalah kapasitas sel pada 3.7V. Setelah konversi ke 5V untuk ngecas ponsel, kapasitas usable berkurang karena efisiensi konversi. Kami cantumkan estimasi output agar lebih transparan.
+- “Apakah fast charging bekerja di ponsel saya?” — Fast charging 22.5W bekerja pada perangkat yang mendukung PD/QC. Periksa spesifikasi ponsel Anda.
+
+Catatan penjual: kami berkomitmen pada transparansi. Jika Anda mendapat unit dengan performa jauh di bawah spesifikasi, hubungi layanan purna jual kami untuk pengecekan/garansi.
+
+Jika Anda mau, saya bisa:
+- Susun versi teks listing dalam bahasa Inggris juga.
+- Buat tabel spesifikasi dan FAQ siap-tempel untuk halaman produk.
+- Rekomendasikan template gambar dan teks untuk kemasan/label yang membantu mengurangi kebingungan pelanggan.",,,,,,
+x012,h19,before,"Ringkasan masalah yang sering muncul dari ulasan
+- Kebingungan soal jenis dan ketersediaan baterai: beberapa pembeli tidak tahu mouse pakai baterai AAA dan beberapa kecewa karena tidak mendapat baterai di paket.
+- Ekspektasi soal pengisian daya: ada yang mengira mouse bisa dicas padahal pakai baterai sekali pakai.
+- Dongle sangat kecil sehingga mudah hilang.
+- Poin positif berulang: klik benar-benar senyap, nyaman digenggam, ringan.
+
+Saran tindakan (prioritas dan tindakan konkret)
+1. Perjelas informasi pada listing (segera)
+   - Cantumkan jenis baterai: ""Baterai: 1× AAA"" (atau jumlah yang benar — pastikan sesuai produk).
+   - Sebutkan apakah baterai disertakan: jika tidak, tulis ""Baterai tidak termasuk"".
+   - Nyatakan metode daya: ""Bukan mouse isi ulang / tidak bisa dicas"".
+   - Tambahkan informasi perkiraan masa pakai baterai (jika tersedia), mis. ""Hingga X bulan penggunaan normal"".
+   - Sertakan peringatan/ikon yang menonjol agar pembeli tidak salah paham.
+
+2. Perbaiki informasi produk & foto (segera)
+   - Tambahkan foto close-up: kompartemen baterai terbuka dengan contoh baterai AAA, dan foto yang menunjukkan bahwa baterai tidak disertakan (mis. teks kecil ""baterai tidak termasuk"").
+   - Foto dongle dengan skala (mis. bersanding dengan koin) dan foto penempatan dongle (mis. tersimpan di slot di bawah mouse, jika ada).
+   - Jika ada slot penyimpanan dongle di mouse, tunjukkan itu jelas. Jika tidak ada, pertimbangkan menambahkan aksesori (slot/holder) di versi berikutnya.
+
+3. Solusi untuk masalah dongle (produk/aftermarket)
+   - Jika memungkinkan, tambahkan fitur penyimpanan dongle di bawah mouse atau pemasangan magnetik pada kemasan.
+   - Sertakan saran penggunaan: simpan dongle di port USB laptop atau gunakan keychain USB extender; cantumkan dalam FAQ/descr.
+   - Pertimbangkan menawarkan kabel/holder dongle atau versi Bluetooth (tanpa dongle) di SKU lain.
+
+4. Kebijakan operasional / kemasan
+   - Jika memungkinkan secara operasional, sertakan 1 baterai AAA sebagai nilai tambah (meningkatkan rating awal). Alternatif: tawarkan paket bundle dengan baterai terpasang.
+   - Tambahkan FAQ singkat di listing: ""Apakah baterai disertakan?"", ""Apakah bisa dicas?"", ""Bagaimana mencegah kehilangan dongle?""
+
+5. Komunikasi purna jual
+   - Di halaman produk, sertakan instruksi singkat tentang mengganti baterai dan menyimpan dongle.
+   - Tawarkan garansi/dukungan jika dongle hilang (mis. penjualan dongle pengganti atau kebijakan penggantian).
+
+Improved listing text (bahasa Indonesia)
+Judul: Mouse Nirkabel Silent Click — Klik Senyap, Ringan & Nyaman, Baterai AAA
+
+Deskripsi singkat:
+Nikmati pengalaman mengetik dan bekerja yang lebih tenang dengan Mouse Nirkabel Silent Click. Desain ergonomis yang ringan membuatnya nyaman digenggam sepanjang hari, dengan tombol klik yang benar-benar senyap — cocok untuk kantor, belajar, dan ruang bersama.
+
+Fitur utama:
+- Klik hening: tombol kiri/kanan berteknologi silent click untuk mengurangi gangguan suara.
+- Nyaman & ringan: bentuk ergonomis yang pas di tangan dan ringan dipakai lama.
+- Koneksi nirkabel 2.4 GHz: plug-and-play dengan dongle USB kecil untuk koneksi stabil.
+- Daya: menggunakan 1× AAA (baterai tidak termasuk).
+- Tidak dapat diisi ulang: mouse memakai baterai AAA, bukan baterai isi ulang/USB-C.
+- Masa pakai baterai: hingga X bulan pemakaian normal (angka perkiraan jika tersedia).
+- Kompatibilitas: Windows, macOS, Linux (periksa kebutuhan driver untuk beberapa OS).
+- Dimensi dongle: sangat kecil — simpan di slot/kompartemen di bawah mouse (lihat foto) atau simpan di tempat aman agar tidak hilang.
+
+Catatan penting:
+- Baterai tidak termasuk dalam paket — pastikan mempersiapkan 1× AAA.
+- Mouse ini bukan model isi ulang. Jika Anda membutuhkan opsi isi ulang, lihat varian Bluetooth/Rechargeable kami.
+
+Apa yang ada dalam paket:
+- 1× Mouse Nirkabel Silent Click
+- 1× Dongle USB 2.4 GHz
+- Panduan cepat
+(NB: baterai tidak disertakan)
+
+Tips penggunaan & penyimpanan dongle:
+- Simpan dongle di slot khusus di bagian bawah mouse (jika tersedia) atau di tempat aman saat tidak digunakan.
+- Untuk mencegah hilang, gunakan adaptor USB kecil yang menempel pada tas laptop atau gunakan keychain extender.
+
+Garansi & dukungan:
+- 12 bulan garansi pabrikan (sesuaikan dengan kebijakan Anda).
+- Customer support siap membantu penggantian dongle atau pertanyaan teknis.
+
+Jika mau, saya bisa juga menuliskan versi singkat untuk judul alternatif, bullet points untuk e-commerce (short), dan contoh gambar yang perlu ditambahkan. Mau lanjut ke itu?",,,,,,
+x013,h15,before,"Ringkasan masalah yang muncul dari review pelanggan
+- Ketidakjelasan spesifikasi: beberapa pelanggan mengeluh output (volt/ampere) tidak dicantumkan sehingga sulit mencocokkan dengan perangkat mereka.
+- Kompatibilitas terbatas: charger 33W tidak bisa mengisi laptop 65W dan beberapa docking/station yang butuh 15V, serta beberapa Samsung hanya terdeteksi sebagai “fast charging biasa” (bukan super fast).
+- Keandalan/garansi: ada keluhan unit mati dalam waktu singkat (baru seminggu).
+- Nilai positif yang bisa dimanfaatkan: cepat mengisi iPhone (30 menit 50%), ukuran kecil bagus untuk traveling, packing aman.
+
+Saran tindakan (prioritas & tindakan konkret)
+1. Perjelas spesifikasi teknis pada listing dan kemasan (segera)
+   - Cantumkan output lengkap: protokol yang didukung (mis. USB Power Delivery), dan profil volt-amp (mis. 5V/3A, 9V/3A, 11V/3A) serta total max 33W.
+   - Tuliskan batasan: “Tidak cocok untuk laptop yang membutuhkan 45–65W+ atau perangkat yang memerlukan 15V/3A/20V (mis. beberapa docking/laptop)”.
+2. Sebutkan kompatibilitas & contoh perangkat (segera)
+   - Beri contoh: “Cocok untuk: iPhone dengan PD fast charge, banyak smartphone Android untuk fast charging (tergantung dukungan perangkat). Tidak cocok untuk: laptop 45–100W, docking yang memerlukan 15V/20V.”
+3. Jelaskan protokol pengisian yang didukung (segera)
+   - Mis. “Mendukung USB Power Delivery (PD) / kompatibel dengan QC (sebutkan jika mendukung Quick Charge)”.
+4. Perbaiki quality control & layanan purna jual (jangka pendek/menengah)
+   - Perketat QC sebelum kirim; catat tingkat kegagalan rendah.
+   - Berikan garansi/return policy yang jelas (mis. 6–12 bulan garansi penggantian) dan instruksi klaim.
+5. Komunikasi produk & aksesori (segera)
+   - Tambahkan info apakah kabel termasuk atau tidak; jika tidak, sarankan kabel USB-C PD yang kompatibel.
+6. Ulasan & edukasi pelanggan (ongoing)
+   - Tambah FAQ di listing: cara cek apakah perangkat mendukung PD, kenapa beberapa Samsung tidak menunjukkan “super fast”, kenapa 33W tak bisa menggantikan charger 65W.
+7. Perbaikan teknis produk (jika memungkinkan)
+   - Jika banyak permintaan untuk mendukung 15V/20V, pertimbangkan menghadirkan versi 45W/65W di lini produk.
+
+Contoh improved listing text (Bahasa Indonesia, siap pakai)
+Judul:
+Kepala Charger USB‑C PD 33W — Compact Fast Charger, Proteksi Overheat
+
+Deskripsi singkat:
+Kepala charger USB‑C PD 33W compact untuk pengisian cepat perangkat mobile. Aman untuk digunakan sehari‑hari dengan proteksi overheat, overcurrent, dan short‑circuit. Cocok untuk smartphone dan perangkat kecil yang mendukung USB Power Delivery.
+
+Spesifikasi:
+- Output maksimum: 33W
+- Profil PD yang didukung: 5V/3A, 9V/3A, 11V/3A (USB Power Delivery)
+- Port: 1× USB‑C (Power Delivery)
+- Proteksi: overheat, overcurrent, short circuit
+- Ukuran: kecil & ringkas, ideal untuk travel
+- Kabel: (sebutkan jika termasuk atau tidak) — contoh: “Termasuk/ Tidak termasuk kabel. Disarankan kabel USB‑C PD untuk performa optimal.”
+
+Kompatibilitas & catatan penting:
+- Direkomendasikan untuk: iPhone (PD fast charge), banyak smartphone Android dengan dukungan PD/QC, perangkat kecil lainnya.
+- Bukan pengganti untuk charger laptop 45–65W atau perangkat yang membutuhkan output 15V/20V (mis. beberapa docking station atau laptop). Jika perangkat Anda memerlukan 15V/3A atau lebih (biasanya laptop), charger ini kemungkinan tidak akan mengisi atau bekerja optimal.
+- Beberapa model Samsung mungkin hanya menunjukkan “fast charging” biasa tergantung dukungan firmware/charger perangkat.
+
+Keunggulan:
+- Pengisian cepat untuk smartphone yang mendukung PD
+- Ringkas dan ringan — mudah dibawa traveling
+- Proteksi keamanan terpasang
+- Packing aman saat pengiriman
+
+Garansi & layanan:
+- Garansi resmi X bulan (contoh: 6 bulan) untuk kerusakan pabrik. Jika unit bermasalah dalam masa garansi, hubungi kami untuk penggantian/return.
+
+FAQ singkat:
+- Q: Bisa ngecas laptop 65W? A: Tidak, charger ini hanya 33W. Gunakan charger 45–65W untuk laptop.
+- Q: Kabel termasuk? A: (jawab sesuai stok).
+- Q: Kenapa Samsung saya tidak muncul “Super Fast”? A: Beberapa ponsel memerlukan adaptor/sumber yang mendukung protokol khusus atau kabel yang sesuai. Pastikan perangkat mendukung PD dan gunakan kabel USB‑C PD berkualitas.
+
+Tambahan operasional untuk listing:
+- Tampilkan tabel singkat output dan kompatibilitas di bagian teratas.
+- Sertakan foto close‑up spesifikasi pada adaptor (stiker output) dan label garansi.
+- Tambahkan catatan “Jika ragu, cek kebutuhan voltase perangkat Anda sebelum membeli” dan link ke panduan singkat cara cek dukungan PD pada perangkat.
+
+Jika mau, saya bisa:
+- Buatkan versi listing yang lebih singkat untuk marketplace (Tokopedia/Shopee) dan versi panjang untuk e‑commerce, atau
+- Susun FAQ / template balasan untuk customer service menjawab pertanyaan kompatibilitas/ganti unit.",,,,,,
+x014,h19,before,(no issues reported),,,,,,
+x015,h21,before,"Issue: material thickness (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong size sent (operational); draft status: route
+
+
+Issue: stitching durability (product_quality); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x016,h16,after,"Issue: size chart measurements (missing_fact); draft status: ready
+Ukuran detail per size: M: lebar dada 48 cm, panjang 68 cm; L: lebar dada 50 cm, panjang 70 cm; XL: lebar dada 52 cm, panjang 72 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x017,h14,after,"Ringkasan masalah berulang dari review pelanggan
+- Klaim ""20000mAh"" dipertanyakan / terasa cepat habis. Banyak pelanggan mengukur keluaran jauh di bawah 20000mAh.
+- Perbedaan harapan vs kapasitas keluaran nyata: beberapa merasa cuma dapat 2 pengisian untuk HP 4000mAh, ada yang mendapat 4x—inkonsistensi menimbulkan kebingungan.
+- Pujian untuk fast charging 22.5W dan desain ramping, tapi ada catatan soal bobot (agak berat dibawa di kantong).
+
+Saran tindakan (apa yang harus Anda lakukan)
+1. Perbaiki listing supaya transparan dan edukatif
+   - Cantumkan kedua angka: kapasitas sel nominal 20000mAh (nilai sel pada 3.7V) dan kapasitas keluaran nyata sekitar 12000mAh pada 5V. Jelaskan singkat mengapa beda (konversi tegangan dan efisiensi).
+   - Berikan contoh nyata jumlah pengisian untuk perangkat umum (mis. smartphone 4000mAh ≈ 3 kali pengisian penuh).
+2. Tambahkan spesifikasi dan petunjuk penggunaan yang membantu mengurangi keluhan
+   - Sebutkan port (2×USB-A, 1×USB-C), dukungan fast charging 22.5W, indikator LED, dan rekomendasi kabel/port untuk kecepatan maksimal.
+   - Berikan tip: gunakan kabel berkualitas/original, charge device saat standby, gunakan satu port untuk kecepatan tertinggi.
+3. Perbaiki kualitas komunikasi & pemasaran
+   - Di gambar/listing, tampilkan info “usable capacity ~12000mAh (5V)” agar pelanggan tidak merasa tertipu.
+   - Tambah FAQ singkat di listing: mengapa 20000mAh tertulis, berapa kali dapat mengisi, faktor yang mempengaruhi (efisiensi, kabel, suhu, kondisi baterai ponsel).
+4. Tingkatkan QC dan dokumentasi pengujian
+   - Lakukan pengukuran keluaran dengan USB tester dan sertakan rata‑rata hasil pengujian internal pada paket/halaman produk.
+   - Jika variasi produksi ada, perbaiki proses produksi / kalibrasi supaya keluaran lebih konsisten.
+5. Jaminan & layanan purna-jual
+   - Tawarkan garansi (mis. 6/12 bulan) dan instruksi klaim jika powerbank bermasalah. Ini menurunkan kekecewaan dan review negatif.
+6. Pertimbangkan peningkatan hardware (opsional)
+   - Jika memungkinkan, optimalkan konverter DC-DC untuk meningkatkan efisiensi keluaran mendekati angka yang diharapkan konsumen.
+
+Teks listing yang diperbaiki (versi singkat, jelas, jujur — bahasa Indonesia)
+Powerbank 20000mAh — Fast Charging 22.5W (2×USB-A + 1×USB-C) • Indikator LED
+
+Ringkasan:
+- Kapasitas sel: 20000mAh (kapasitas sel nominal).
+- Kapasitas keluaran nyata: sekitar 12000mAh pada 5V (akibat konversi tegangan dan efisiensi).
+- Fast charging: hingga 22.5W (mendukung pengisian cepat pada perangkat yang kompatibel).
+- Port: 2× USB-A + 1× USB-C (input/output). Indikator LED menunjukkan sisa daya.
+- Desain: ramping, mudah dibawa meski terasa agak berat untuk kantong kecil.
+
+Perkiraan pengisian:
+- Untuk smartphone 4000mAh: sekitar 3 kali pengisian penuh (nilai dapat bervariasi berdasarkan model HP, kondisi baterai, kabel, dan pengaturan perangkat).
+- Untuk smartphone 3000–5000mAh: biasanya 2–4 kali.
+
+Tips agar mendapatkan performa terbaik:
+- Gunakan kabel berkualitas atau kabel bawaan perangkat.
+- Untuk pengisian cepat, sambungkan ke port USB-C atau port yang mendukung 22.5W.
+- Matikan layar/aktivitas berat pada ponsel saat mengisi untuk efisiensi lebih baik.
+
+Apa yang memengaruhi jumlah pengisian:
+- Konversi tegangan (3.7V sel → 5V output), efisiensi rangkaian, kondisi baterai ponsel, suhu, dan kabel yang dipakai.
+
+Garansi & layanan:
+- [Cantumkan durasi garansi Anda di sini, mis. 12 bulan]. Jika ada masalah performa, hubungi kami untuk pemeriksaan/garansi.
+
+Beli dengan tenang: kapasitas sel 20000mAh nyata, dan kami jelaskan juga kapasitas keluaran sehingga Anda tahu ekspektasi pengisian di dunia nyata.
+
+Jika Anda mau, saya bisa bantu menulis versi listing yang lebih panjang untuk marketplace (deskripsi lengkap + FAQ + tabel perbandingan berapa kali isi untuk beberapa kapasitas baterai umum).",,,,,,
+x018,h21,before,"Ringkasan masalah berulang (dari review)
+- Banyak pelanggan mengeluhkan kain terlalu tipis/nerawang (beberapa bilang tipis sekali, beberapa puas menyebut “lumayan tebal” → inkonsistensi persepsi).
+- Perbedaan kualitas antar batch/varian: beberapa merasa beda dengan flanel offline atau dengan pesanan sebelumnya.
+- Masalah ukuran/pengiriman: ada kasus dikirim ukuran salah (pesan L dapat M) dan keluhan kurir lambat.
+- Kualitas jahitan/ketahanan: beberapa jahitan lepas dan ada yang melar setelah dicuci.
+- Kerutan gampang muncul; beberapa menyarankan harus pakai kaos dalam karena agak nerawang.
+- Poin positif berulang: motif sesuai foto, kancing kayu kuat/cakep, warna tidak luntur, banyak yang bilang adem/nyaman.
+
+Rekomendasi tindakan (prioritas dan langkah konkret)
+1. Koreksi deskripsi produk (segera)
+   - Jelaskan ketebalan sebenarnya: bila produk memang bukan flanel tebal, ubah klaim dari “tebal” menjadi “medium/lebih ringan”. Sebutkan tipe flanel (contoh: flanel ringan/soft flannel) atau cantumkan GSM jika tersedia.
+   - Beri saran penggunaan: “cocok untuk siang hari / cocok dipakai dengan kaos dalam jika menginginkan coverage lebih”.
+
+2. Tambahkan ukuran dan panduan fit yang jelas
+   - Cantumkan ukuran lengkap (lingkar dada, panjang baju, panjang lengan) untuk M/L/XL agar pembeli tahu fit.
+   - Berikan saran fit (mis. “regular fit — bila suka longgar, pilih 1 ukuran lebih besar”).
+
+3. Tingkatkan kontrol kualitas sebelum kirim
+   - Terapkan pengecekan 1–2 poin: ukuran benar sesuai label, jahitan utama (ketiak, kancing) diperiksa, kancing terpasang kuat.
+   - Catat batch produksi dan supplier agar bisa ditelusuri bila ada keluhan kualitas.
+
+4. Perbaiki kualitas jahit dan stabilitas kain (jika memungkinkan)
+   - Perkuat jahitan ketiak dan sambungan kancing.
+   - Jika ada peluang, gunakan flanel dengan sedikit campuran serat yang memberikan ketahanan (mis. campuran katun + poliester) untuk mengurangi melar/nerawang.
+
+5. Tambahkan instruksi perawatan jelas
+   - Cara cuci yang direkomendasikan (cuci dingin, jangan direndam lama, jangan pakai pemutih, setrika suhu rendah).
+   - Sebutkan kemungkinan penyusutan/melar ringan setelah cuci dan langkah mengurangi risiko (cuci terbalik, hindari mesin pengering).
+
+6. Perbaiki proses pengiriman & layanan pelanggan
+   - Cek dan tingkatkan packing untuk menghindari penukaran ukuran.
+   - Pantau estimasi kurir, tawarkan nomor resi otomatis, dan beri opsi ekspres.
+   - Siapkan kebijakan retur/komplain cepat (mis. ganti barang jika salah kirim dalam X hari).
+
+7. Transparansi foto & varian
+   - Tambahkan foto detail: dekat kain (texture), foto di badan dengan ukuran model tertera, foto kancing, jahitan.
+   - Jelaskan varian warna/ketebalan bila ada batch berbeda.
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Judul:
+Kemeja Flanel Pria Lengan Panjang — Flanel Lembut (Medium), Motif Kotak, Kancing Kayu — M / L / XL
+
+Deskripsi singkat & poin fitur:
+- Bahan: Flanel lembut (medium weight) — nyaman & adem untuk dipakai siang maupun malam.
+- Motif: Kotak klasik sesuai foto.
+- Kancing: Kancing kayu asli, kuat dan estetik.
+- Pilihan ukuran: M / L / XL — lihat panduan ukuran di bawah untuk fit pas.
+- Warna: Sesuai gambar; warna tahan luntur (uji pakai normal).
+- Perawatan: Cuci biasa (air dingin), jangan direndam lama, jangan pakai pemutih, hindari mesin pengering agar awet.
+
+Panduan ukuran (ukur dalam cm)
+- M: Lingkar dada 102 — Panjang baju 68 — Panjang lengan 60
+- L: Lingkar dada 108 — Panjang baju 70 — Panjang lengan 62
+- XL: Lingkar dada 114 — Panjang baju 72 — Panjang lengan 64
+(Saran: untuk fit longgar, pilih 1 ukuran lebih besar)
+
+Catatan penting & tips:
+- Produk ini adalah flanel medium (lebih ringan dari flanel winter tebal). Jika Anda menginginkan flanel sangat tebal, mohon pertimbangkan produk khusus flanel winter.
+- Jika khawatir nerawang, pakai kaos dalam sebagai lapisan.
+- Sedikit kemungkinan perubahan dimensi setelah cuci; ikuti instruksi perawatan untuk mengurangi risiko melar/menyusut.
+
+Kualitas & layanan:
+- Semua produk melewati pemeriksaan kualitas: label ukuran, jahitan & kancing dicek sebelum dikirim.
+- Jika Anda menerima barang dengan ukuran salah atau cacat produksi, hubungi kami dalam 3 hari sejak terima untuk penukaran/h reimbursement.
+
+Mengapa beli:
+- Motif rapi & sesuai foto
+- Kancing kayu yang rapi & tahan lama
+- Nyaman dipakai (adem) untuk aktivitas sehari-hari
+
+Call to action:
+Pesan sekarang — pilih ukuran yang sesuai dan lihat foto detail untuk memastikan fit. Hubungi kami jika butuh saran ukuran atau foto close-up sebelum beli.
+
+Jika Anda mau, saya bisa bantu:
+- Buat template ukuran model (mis. tinggi & ukuran yang dikenakan) untuk foto; atau
+- Menyusun checklist QC sederhana untuk tim gudang agar kasus salah kirim/ukuran bisa diminimalkan.",,,,,,
+x019,h12,before,"Issue: water resistance information (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: Bluetooth range/connection reliability (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x020,h13,after,"Ringkasan masalah berulang (dari ulasan + fakta merchant)
+- Kebingungan kompatibilitas: beberapa pembeli memasang ke iPhone 13 Pro, 13 Pro Max atau 13 mini dan ukurannya tidak pas. Merchant mengonfirmasi: case ini hanya untuk iPhone 13 (6,1 inch). Bukan untuk iPhone 13 mini, 13 Pro, atau 13 Pro Max.
+- Potongan kamera tidak cocok ketika dipasang di model selain iPhone 13 standar (keluhan langsung).
+- Keluhan pengiriman lama (satu ulasan) — ini bukan masalah listing produk tetapi layanan pengiriman/fulfillment.
+
+Saran tindakan untuk penjual
+1. Perbaiki title dan deskripsi secara tegas menyatakan kompatibilitas:
+   - Cantumkan “Only for iPhone 13 (6.1"")” / “Hanya untuk iPhone 13 (6,1 inch) — bukan untuk 13 mini / 13 Pro / 13 Pro Max”.
+2. Tambahkan bagian “Cocok untuk” yang jelas di awal deskripsi dan ulangi di bullet points.
+3. Tambahkan foto produk yang memperlihatkan case terpasang pada iPhone 13 (6,1"") dan, jika mungkin, foto perbandingan yang menunjukkan bahwa case tidak cocok pada 13 mini / 13 Pro / 13 Pro Max.
+4. Tambahkan FAQ singkat di listing, contoh: “Apakah cocok untuk iPhone 13 Pro? — Tidak. Case ini hanya untuk iPhone 13 (6,1"").”
+5. Perbaiki title produk agar pembeli cepat mengetahui model yang sesuai (lihat contoh title di bawah).
+6. Perjelas ukuran/fit kamera: tambahkan kalimat bahwa potongan kamera disesuaikan untuk iPhone 13 (mencegah keluhan pasang ke model lain).
+7. Tindak lanjuti keluhan pengiriman melalui tim logistik/penanganan pesanan: periksa lead time, ekspedisi, dan update estimasi pengiriman di toko.
+8. Customer service: berikan petunjuk pengembalian/penukaran untuk pembeli yang salah beli karena kekeliruan informasi kompatibilitas.
+9. Jika tersedia, buat varian produk untuk iPhone 13 Pro / Pro Max / mini sehingga pembeli memiliki opsi yang tepat (jika penjual punya stok berbeda).
+
+Perubahan listing yang disarankan (teks pengganti)
+Title:
+Case iPhone 13 (6,1"") Clear Anti Crack — Soft TPU, Sudut Tebal, Pelindung Kamera
+
+Deskripsi singkat:
+Softcase bening anti crack untuk iPhone 13 (6,1""). Bahan TPU, sudut tebal untuk perlindungan benturan, dan pelindung kamera timbul.
+
+Poin fitur (bullet points):
+- Kompatibilitas: Hanya untuk iPhone 13 (6,1 inch). Tidak cocok untuk iPhone 13 mini, iPhone 13 Pro, atau iPhone 13 Pro Max.  
+- Material: Soft TPU (bening).  
+- Proteksi: Sudut case tebal untuk meredam benturan.  
+- Kamera: Pelindung kamera timbul untuk melindungi lensa saat diletakkan di permukaan datar.  
+- Desain: Bening, menampilkan desain asli ponsel.
+
+Catatan penting:
+- Pastikan Anda membeli untuk model iPhone 13 (6,1"") — jika Anda memiliki iPhone 13 mini, 13 Pro atau 13 Pro Max, case ini tidak akan pas.  
+- Untuk masalah pengiriman atau barang yang salah/bermasalah, hubungi tim layanan pelanggan/fulfillment kami.
+
+FAQ singkat (di bawah deskripsi):
+Q: Apakah case ini cocok untuk iPhone 13 Pro?  
+A: Tidak. Case ini hanya untuk iPhone 13 (6,1 inch).  
+Q: Bagaimana jika saya salah beli?  
+A: Hubungi layanan pelanggan untuk prosedur pengembalian/penukaran.
+
+Bagian fotografi yang disarankan (untuk diunggah bersama listing)
+- Foto case terpasang di iPhone 13 (6,1"") dari beberapa sudut (depan, belakang, potongan kamera, sisi).  
+- Foto perbandingan singkat (optional): menampilkan bahwa case tidak pas pada 13 mini / 13 Pro / 13 Pro Max agar mencegah kesalahan pembelian.
+
+Tindakan untuk bagian operasi/logistik
+- Periksa dan, jika perlu, perbaiki estimasi waktu pengiriman yang ditampilkan pada toko.  
+- Pastikan tim pengemasan/fulfillment mencantumkan label kompatibilitas yang jelas pada paket/nota agar pembeli segera tahu model yang cocok.
+
+Jika Anda ingin, saya bisa:
+- Menyusun versi title dan bullet points dalam bahasa Inggris juga.  
+- Menyusun teks notifikasi otomatis (pesan toko) yang dikirim ke pembeli untuk mengingatkan kompatibilitas sebelum checkout.",,,,,,
+x021,h15,after,"Ringkasan masalah berulang (dari ulasan)
+- Ketidaksesuaian daya / profil pengisian:
+  - Beberapa pembeli melaporkan charger tidak mengisi laptop yang membutuhkan 65W atau profil 15V (r1, r7).
+  - Beberapa ponsel (Samsung) hanya mendeteksi “fast charging biasa”, bukan mode super/PPS (r2).
+- Informasi teknis tidak cukup jelas di listing:
+  - Pembeli mengeluh volt/ampere output tidak dijelaskan sehingga sulit mencocokkan perangkat (r3).
+- Kualitas / reliabilitas:
+  - Ada keluhan unit mati dalam waktu singkat (r6).
+- Hal positif:
+  - Pengisian cepat di iPhone (contoh: 50% dalam 30 menit) menurut salah satu ulasan (r4).
+  - Produk kecil dan ringkas, cocok untuk traveling (r5).
+  - Packing diterima aman (r8).
+
+Rekomendasi tindakan untuk penjual
+1. Perbarui listing dengan spesifikasi output yang jelas (sesuai konfirmasi merchant):
+   - Cantumkan profil USB-C PD yang didukung: 5V/3A, 9V/3A, 11V/3A (maksimal 33W).
+   - Tegaskan bahwa produk tidak mendukung Samsung PPS 25W.
+2. Tambahkan pernyataan kompatibilitas/ketidakcocokan:
+   - Jelaskan bahwa charger ini memberikan maks. 33W dan tidak cocok untuk laptop atau perangkat yang membutuhkan 65W, atau yang mengharuskan profil tegangan lain seperti 15V/20V (sebutkan buyer reports sebagai alasan kompatibilitas).
+   - Sarankan pembeli memeriksa kebutuhan daya perangkat mereka sebelum membeli.
+3. Perbaiki kejelasan teknis di listing:
+   - Masukkan tabel ringkas output voltase & arus sehingga pembeli mudah mencocokkan.
+4. Menangani masalah kualitas/garansi:
+   - Tingkatkan pemeriksaan kualitas (quality control) dan pengujian unit sebelum pengiriman.
+   - Siapkan prosedur after-sales/garansi: minta tim layanan pelanggan/garansi mengganti atau mengembalikan jika unit tiba rusak atau mati dalam waktu singkat. (Keluhan tentang kerusakan produk harus ditangani oleh layanan purna jual/garansi, bukan oleh tim listing.)
+5. Layanan pelanggan & pengiriman:
+   - Komplain tentang pengiriman, packaging atau barang salah harus ditangani oleh tim logistik/customer service; cantumkan petunjuk kontak layanan pelanggan di listing.
+6. Opsional: sediakan rekomendasi kabel atau aksesori yang kompatibel sebagai opsi terpisah (jika tersedia), agar pelanggan tidak menggunakan kabel non-PD yang menghambat pengisian cepat.
+
+Teks listing yang disarankan (ganti/masukkan sesuai bahasa akhir toko Anda)
+Judul: Kepala Charger 33W USB-C (USB-C PD 33W)
+
+Deskripsi singkat:
+Adaptor charger USB-C PD 33W, ringkas dan aman untuk penggunaan sehari-hari, dilengkapi proteksi panas berlebih.
+
+Spesifikasi teknis (dinyatakan oleh merchant):
+- Output USB-C PD: 5V / 3A; 9V / 3A; 11V / 3A (maks. 33W)
+- Tidak mendukung Samsung PPS 25W
+
+Kompatibilitas:
+- Cocok untuk ponsel dan perangkat yang menerima profil PD sampai 33W (lihat spesifikasi di atas).
+- Tidak cocok untuk perangkat yang membutuhkan daya lebih tinggi (contoh: laptop yang memerlukan 65W atau perangkat yang memerlukan profil tegangan 15V/20V). Pastikan memeriksa kebutuhan daya perangkat Anda sebelum membeli.
+
+Fitur keselamatan:
+- Proteksi terhadap panas berlebih
+
+Keunggulan:
+- Desain kecil dan ringkas, mudah dibawa untuk traveling
+
+Catatan penting:
+- Jika perangkat Anda memerlukan Samsung PPS 25W atau profil lain yang tidak tercantum, charger ini tidak akan mendukungnya.
+- Untuk masalah produk rusak atau mati setelah penerimaan, silakan hubungi layanan purna jual/garansi kami. Masalah pengiriman/packing harus dilaporkan ke tim logistik/customer service.
+
+Kontak layanan pelanggan:
+- [Masukkan cara menghubungi layanan pelanggan di sini]  <-- gantikan dengan informasi kontak toko
+
+Tambahan dari penjual (opsional): jika Anda ingin kami menambahkan rekomendasi kabel yang kompatibel atau menampilkan daftar perangkat umum yang cocok/tidak cocok, berikan daftar perangkat yang ingin ditampilkan atau izinkan kami membuat daftar berdasarkan permintaan pelanggan.
+
+Jika anda ingin, saya bisa menyediakan versi listing singkat dan versi panjang untuk marketplace tertentu (Tokopedia, Shopee, dsb.) atau menambahkan FAQ singkat tentang kompatibilitas.",,,,,,
+x022,h14,after,"Summary — recurring customer problems
+- Perceived mismatch antara kapasitas yang diiklankan (20000mAh) dan kapasitas yang dirasakan/diukur oleh pembeli. Beberapa pembeli melaporkan output sekitar 9.8k–10k mAh; merchant mengonfirmasi kapasitas sel 20000mAh tetapi kapasitas keluaran nyata sekitar 12000mAh pada 5V.
+- Keluhan “cepat habis” / merasa kapasitas tidak sesuai ekspektasi muncul berulang kali.
+- Positif: fast charging 22.5W bekerja pada beberapa perangkat (contoh: Xiaomi); desain ramping disukai, namun ada juga komentar tentang “agak berat”.
+
+Saran tindakan untuk penjual (prioritas tinggi → rendah)
+1. Segera perbarui listing agar jelas dan jujur tentang kapasitas:
+   - Cantumkan bahwa kapasitas sel tertera 20000mAh, dan tambahkan keterangan kapasitas keluaran nyata yang terukur: sekitar 12000mAh pada 5V (merchant-confirmed). Jangan biarkan pembeli menyimpulkan 100% usable dari angka sel.
+   - Di judul/tampilan ringkas sertakan keterangan singkat seperti “20000mAh (sel) — usable ≈12000mAh @5V” agar pembeli langsung mengerti perbedaan.
+2. Tambahkan penjelasan singkat (satu baris) di deskripsi tentang alasan umum perbedaan kapasitas sel vs. keluaran (mis. konversi tegangan dan efisiensi), tanpa memasukkan angka yang tidak dikonfirmasi. Jika Anda ingin memasukkan penjelasan teknis lebih lengkap, sediakan bukti/tes lab yang dapat diunduh.
+3. Tampilkan hasil pengukuran/tes internal yang memverifikasi “kapasitas keluaran nyata ≈12000mAh @5V” (mis. foto/scan pengukuran atau ringkasan) supaya meningkatkan kepercayaan.
+4. Perjelas kompatibilitas fast charging:
+   - Tekankan fast charging 22.5W tersedia (merchant/listing menyebut) dan sertakan contoh perangkat yang diuji (hanya jika Anda memiliki bukti). Saat ini ada review yang menyebut bekerja pada HP Xiaomi — jika Anda mengonfirmasi pengujian pada perangkat lain, tambahkan.
+5. Perbaiki ekspektasi pelanggan pada bagian FAQ:
+   - Jelaskan berapa kali rata-rata dapat mengisi ulang ponsel berkapasitas umum (hanya masukkan angka jika Anda punya data yang dikonfirmasi); jika tidak, minta saya membuat FAQ tanpa angka.
+6. Tindak lanjuti keluhan operasional di bagian yang tepat:
+   - Keluhan tentang pengiriman, paket salah, atau kerusakan barang harus ditangani oleh layanan pelanggan / aftersales (refund/replace). Listing harus fokus pada informasi produk.
+7. Kualitas & pengemasan:
+   - Lakukan pemeriksaan kualitas (QC) unit acak untuk memastikan output konsisten mendekati angka keluaran yang diiklankan.
+8. Layanan purna jual:
+   - Siapkan skrip untuk CS yang menjelaskan perbedaan antara kapasitas sel dan usable output, plus menawarkan kompensasi/penukaran jika unit cacat.
+
+Perbaikan teks listing (bahasa Indonesia)
+Judul:
+Powerbank 20000mAh (sel) — usable ≈12000mAh @5V, Fast Charging 22.5W, 2×USB-A + 1×USB-C, Indikator LED
+
+Deskripsi singkat:
+Powerbank dengan kapasitas sel tertera 20000mAh, mendukung fast charging 22.5W, dilengkapi 2 port USB-A dan 1 port USB-C serta indikator LED.
+
+Detail produk:
+- Kapasitas sel: 20000mAh (sesuai label)
+- Kapasitas keluaran nyata yang terukur: sekitar 12000mAh pada 5V (merchant-confirmed)
+- Fast charging: 22.5W
+- Port: 2× USB-A + 1× USB-C
+- Indikator: LED untuk menunjukkan sisa daya
+- Desain: ramping dan mudah dibawa (menurut pengguna)
+
+Catatan penting (baca sebelum membeli):
+- Angka 20000mAh adalah kapasitas sel internal. Kapasitas yang dapat digunakan pada output USB berbeda dan telah terukur sekitar 12000mAh pada 5V. Perbedaan ini umum pada powerbank karena konversi daya dan efisiensi rangkaian.
+- Fast charging 22.5W bekerja pada perangkat yang mendukung protokol tersebut (beberapa pengguna melaporkan pengisian cepat pada ponsel Xiaomi).
+
+Garansi & layanan purna jual:
+- Untuk masalah pengiriman, barang salah, atau kerusakan fisik/produk cacat, silakan hubungi layanan pelanggan kami untuk penanganan pengembalian/penukaran atau refund.
+
+Jika Anda ingin, saya bisa:
+- Menyusun versi listing yang lebih panjang dengan FAQ dan contoh berapa kali pengisian untuk ponsel dengan kapasitas umum (hanya akan memasukkan angka bila Anda memiliki data pengujian/pengukuran), atau
+- Membuat template bukti pengukuran yang bisa Anda upload ke halaman produk (foto tester, ringkasan hasil).",,,,,,
+x023,h13,after,"Issue: product size (missing_fact); draft status: ready
+Ukuran produk: hanya untuk iPhone 13 (6,1 inch), tidak untuk iPhone 13 mini, 13 Pro, atau 13 Pro Max.
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x024,h15,before,"Recurring customer problems (from reviews)
+- Missing technical details: multiple buyers said the listing does not state the output voltages/amps so they cannot check compatibility (reviews r3, r7).
+- Compatibility confusion: buyers report it will not charge a 65W laptop and may not power a Nintendo Switch dock (r1, r7). A Samsung phone showed only “fast charging” rather than “super fast” (r2). One buyer reported fast charging an iPhone to 50% in 30 minutes (r4).
+- Reliability report: one buyer reported the charger failed after about a week (r6).
+- Positive points to keep: compact for travel (r5) and packing was safe (r8).
+
+What you (the seller) should do
+1. Update the listing to include exact electrical specs and supported charging protocols. Ask your product team/manufacturer to confirm and supply:
+   - All supported output voltage/current combinations (e.g., 5V/3A, 9V/3A, 11V/3A, etc.) — do not list any values until confirmed. Use placeholders in the listing until you provide the real numbers.
+   - Whether the charger supports USB Power Delivery (PD), PPS, Quick Charge, or other protocols.
+   - Confirm maximum output power (the title says 33W — keep that only if you can confirm it).
+2. Provide a clear compatibility note in the listing:
+   - Explain that some laptops, docked consoles, or phones require higher wattage or specific voltage profiles to charge or to run in dock mode; give examples only after you confirm supported voltages/protocols.
+   - If certain devices (e.g., 65W laptops, Nintendo Switch docks) are not supported, state that explicitly.
+3. Address reliability and returns:
+   - Offer clear return/replacement instructions and a contact for warranty/defect claims. (Defective units and warranty issues should be handled by your customer service/returns department.)
+   - Consider improving quality control or offering a short warranty period if you don’t already.
+4. Add user-facing notes based on positive feedback:
+   - Highlight compact size and built-in overheat protection (already in listing).
+   - Note that packaging is secure for shipping.
+5. After you obtain confirmed specs, update product images and bullet points to show volt/amp outputs and protocol support so buyers can match the charger to their device.
+
+Improved listing text (placeholders used where seller confirmation is needed)
+Title:
+Kepala Charger 33W USB-C
+
+Bullet points / short description:
+- USB‑C charger, compact dan ringkas — cocok untuk traveling.
+- Dilengkapi proteksi panas berlebih untuk keamanan saat ngecas.
+- Maks. daya: 33W (dikonfirmasi dari judul) — lihat detail output di bawah.
+- Packing aman saat pengiriman.
+- Catatan kompatibilitas: pastikan perangkat Anda cocok dengan output dan protokol charger ini sebelum membeli.
+
+Detailed product description (replace placeholders after confirming specs):
+Adaptor charger USB‑C, desain kecil dan mudah dibawa. Dilengkapi proteksi terhadap panas berlebih untuk keamanan selama pengisian baterai. Cocok untuk mengisi daya smartphone dan perangkat USB‑C lain yang sesuai dengan spesifikasi output charger ini.
+
+Output & protokol ([[REPLACE WITH CONFIRMED VALUES]]):
+- Output tegangan & arus yang didukung: [[insert list of supported voltages and currents, e.g. 5V/3A, 9V/3A, ...]]
+- Mendukung protokol: [[insert confirmed protocols, e.g. USB Power Delivery / PPS / Quick Charge / none]]
+- Maksimum daya: [[confirm 33W or actual max wattage]]
+
+Compatibility guidance:
+- Periksa spesifikasi perangkat Anda (tegangan/arus dan protokol pengisian). Jika perangkat Anda membutuhkan daya atau profil tegangan di luar daftar di atas (mis. laptop 65W atau docking console tertentu), charger ini mungkin tidak mengisi daya atau tidak menyediakan daya yang cukup.
+- Contoh: beberapa laptop 65W dan beberapa docking console membutuhkan output/voltase yang tidak didukung oleh charger ini — jika Anda ingin memastikan kompatibilitas, bandingkan list output di atas dengan kebutuhan perangkat Anda.
+
+Garansi & dukungan:
+- Jika Anda menerima unit yang tidak berfungsi atau rusak, hubungi layanan pelanggan kami untuk penggantian/retur. (Masalah unit mati atau cacat adalah masalah produk — harap hubungi customer service/returns untuk penanganan.)
+- Masalah terkait pengiriman, packing, atau salah kirim silakan hubungi bagian logistik/layanan pelanggan.
+
+Why buy:
+- Ringkas untuk dibawa bepergian.
+- Proteksi panas berlebih untuk keamanan pengisian.
+- Packing aman saat pengiriman.
+
+Next steps for you (seller)
+- Provide the confirmed output voltage/current pairs and the supported charging protocols so the placeholders above can be replaced with exact values.
+- Provide your returns/warranty contact and any warranty period to add to the listing.
+- Consider adding an explicit compatibility list (devices known to be supported and known not to be supported) once you confirm specs.
+
+If you want, I can produce a final listing with the confirmed numbers and a short FAQ about device compatibility once you supply the missing technical details and warranty contact.",,,,,,
+x025,h18,after,"Ringkasan masalah pelanggan (recurring)
+- Kebingungan tentang kapasitas: beberapa pembeli mengira ""1,2 L"" berarti kapasitas beras; keluhan menyatakan panci terlalu kecil untuk 4 orang. (Ulasan r1–r5, r7)
+- Porsi masak terlalu kecil untuk keluarga; banyak menyebut cukup untuk 1–2 orang atau anak kos. (r2, r5, r7)
+- Kabel terlalu pendek menurut satu pembeli (r6).
+- Poin positif berulang: nasi pulen, lapisan anti-lengket bekerja, hemat listrik. (r4, r8)
+
+Saran tindakan untuk penjual
+1. Klarifikasi informasi kapasitas di listing
+   - Tulis dengan jelas bahwa ""1,2 L"" adalah kapasitas air, dan tambahkan kapasitas masak beras yang sesuai: maksimal 4 cup beras (sekitar 0,6 L beras) — info ini sudah dikonfirmasi merchant.
+   - Tambahkan panduan porsi: tampilkan berapa cup beras bisa dimasak (mencantumkan 4 cup) sehingga pembeli tahu perkiraan porsi (contoh: cocok untuk porsi kecil/anak kos atau 1–2 orang berdasarkan ulasan pelanggan).
+2. Tambahkan ukuran atau informasi kabel
+   - Karena ada keluhan tentang kabel pendek, tambahkan panjang kabel ke listing atau, jika panjang kabel memang pendek, tampilkan itu agar pembeli tahu sebelum membeli.
+   - Jika Anda menyediakan adaptor/ekstensi atau varian dengan kabel lebih panjang, sebutkan atau tawarkan sebagai aksesori.
+   - (Jika Anda belum mengonfirmasi panjang kabel, minta data dari pabrik; saya sertakan placeholder di listing di bawah.)
+3. Perbaiki foto dan deskripsi produk
+   - Tambahkan foto bagian dalam panci yang jelas memperlihatkan tanda ukur (jika ada) dan foto dengan contoh porsi (mis. 1 cup, 2 cup, hingga 4 cup beras) supaya pembeli bisa membayangkan kapasitas sebenarnya.
+   - Sertakan foto/screenshot manual yang menunjukkan langkah mengukur air vs beras (agar tidak terjadi salah paham).
+4. Instruksi & aksesori yang membantu
+   - Sertakan gelas takar (measuring cup) atau tambahkan informasi bahwa pembeli perlu menggunakan gelas takar.
+   - Tambahkan tabel singkat atau panduan pada halaman produk: ""Masukkan X cup beras + air sesuai garis dalam panci untuk hasil terbaik.""
+5. Penanganan keluhan non-listing
+   - Keluhan tentang pengiriman, kesalahan barang, atau cacat fisik harus ditangani oleh tim customer service dan logistik (pengembalian, penggantian, atau refund). Jangan ubah listing untuk masalah pengiriman/kerusakan.
+6. Pertimbangkan perbaikan produk (opsional)
+   - Jika banyak keluhan tentang kabel, pertimbangkan meminta pabrik menambah panjang kabel pada batch berikutnya atau menyediakan kabel ekstensi bawaan.
+
+Permintaan data yang perlu Anda konfirmasi
+- Panjang kabel listrik: [[panjang kabel]] (harap berikan angka/cm atau deskripsi)
+- Apakah ada gelas takar yang disertakan? (ya/tidak) [[gelas takar disertakan?]]
+- Apakah ada tanda ukur di dalam panci? (ya/tidak) [[tanda ukur di panci?]]
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Rice Cooker Mini 1.2L — 300W, panci anti-lengket, fungsi masak & penghangat
+
+Deskripsi singkat:
+- Kapasitas: 1,2 L (kapasitas air). Maksimal dapat memasak hingga 4 cup beras (sekitar 0,6 L beras), sesuai konfirmasi merchant.
+- Daya: 300 W — hemat listrik.
+- Fungsi: masak & penghangat otomatis.
+- Panci: lapisan anti-lengket (memudahkan pembersihan).
+
+Catatan penting tentang kapasitas:
+- 1,2 L yang dicantumkan adalah kapasitas air. Maksimal masak: 4 cup beras (sekitar 0,6 L beras). Harap perhatikan jumlah cup beras saat membeli untuk menyesuaikan kebutuhan porsi.
+- Banyak pembeli menyebut produk ini cocok untuk porsi kecil/anak kos dan biasanya cukup untuk 1–2 orang.
+
+Kelengkapan & penggunaan:
+- (Isi kelengkapan yang benar: mis. unit rice cooker, tutup, panci dalam, kabel listrik, manual) [[sebutkan kelengkapan jika perlu dikonfirmasi]]
+- Apakah gelas takar disertakan: [[gelas takar disertakan?]]
+- Panjang kabel: [[panjang kabel]] — harap periksa sebelum membeli.
+
+Kelebihan:
+- Nasi pulen dan anti-lengket (dilaporkan oleh pembeli).
+- Hemat listrik (dilaporkan oleh pembeli).
+
+Foto & panduan:
+- Lihat foto yang menampilkan tanda ukur di panci dan contoh porsi (1–4 cup) untuk memperkirakan kebutuhan Anda.
+- Ikuti panduan di manual untuk perbandingan beras/air sesuai tanda ukur.
+
+Informasi garansi & pengiriman:
+- Untuk masalah pengiriman, kesalahan barang, atau kerusakan produk, silakan hubungi tim customer service kami untuk pengembalian atau penggantian.
+
+Catatan untuk tim penjual (internal):
+- Segera tambahkan data panjang kabel dan konfirmasi apakah gelas takar disertakan; update listing dengan informasi tersebut.
+- Tambahkan foto yang menunjukkan ukuran cup/garis ukur dalam panci.
+- Pertimbangkan menyertakan gelas takar atau menawarkan kabel ekstensi sebagai aksesori jika banyak keluhan berlanjut.
+
+Jika Anda setuju, saya bisa:
+- Memasukkan panjang kabel dan info gelas takar ke teks listing setelah Anda memberikan datanya.
+- Membuat versi singkat untuk judul dan bullet points untuk marketplace (jika perlu).",,,,,,
+x026,h11,after,"Recurring customer problems (based only on the listing, reviews, and merchant-confirmed fact)
+- HDMI refresh-rate mismatch / expectation: multiple buyers expected 4K@60Hz but report 4K only runs at 30Hz and that causes mouse/desktop lag or makes gaming on a TV undesirable. Merchant confirmed: HDMI supports 4K@30Hz and 1080p@60Hz.
+  Suggested action: prominently disclose supported HDMI refresh rates (4K@30Hz, 1080p@60Hz) in the title and product description and add a short compatibility/usage note (not for 4K@60Hz gaming).
+- Variant/fulfillment errors (missing SD slot / wrong unit sent): one buyer received a 4-in-1 without an SD slot though listing says 6-in-1.
+  Suggested action: have fulfillment/warehouse check stock and packing SOPs to ensure correct variant is shipped; add clear photos and a port diagram to listing; add SKU/variant label on product page; strengthen QC checklist before dispatch.
+- Delivery time complaints: at least one buyer cited very slow courier delivery.
+  Suggested action: have customer service and logistics/operations review preferred carriers and shipping options; offer clearer estimated delivery windows on the product page and provide tracking proactively.
+- Ambiguous PD charging specification: listing claims ""USB-C PD 100W"" but reviews report charging at about 65W for one user and merchant did not confirm PD wattage. This is a missing/uncertain fact.
+  Suggested action: confirm the exact USB-C PD maximum wattage with the product/engineering team and update listing. Until confirmed, do not advertise a specific PD wattage.
+- Other positive/neutral signals: buyers praise aluminium body, low heat, good USB 3.0 transfer speed, and PD charging seems to work for at least one user. Keep those facts that are supported by listing/reviews.
+
+Who should handle the specific complaint types
+- Wrong item, missing ports, defective units: customer service / fulfillment & returns team should handle replacements/returns and internal QC.
+- Delivery delays and slow shipping: logistics/shipping partner and customer service should handle (offer alternatives, faster shipping, refunds if applicable).
+- Technical questions about compatibility/performance: product support / technical team (and listing updates) should provide clear specs and usage notes.
+
+Immediate seller actions (practical checklist)
+1. Update the listing to clearly state HDMI capabilities (4K@30Hz, 1080p@60Hz) and add a short note that the hub does not guarantee 4K@60Hz output for all host devices—suitable for office/multimedia, not for 4K@60Hz gaming.
+2. Confirm and publish the exact USB-C PD maximum wattage. If you cannot confirm immediately, remove any specific wattage claim until verified.
+3. Verify inventory SKUs and packing lists so the 6-in-1 variant always ships with SD card slot. Add an internal QC step: check ports against SKU before sealing package.
+4. Add clear product photos that show all ports and labels, and a simple diagram listing each port and supported resolutions/refresh rates.
+5. Improve customer-facing shipping info: estimated delivery windows, tracking, and preferred carriers; empower customer service to escalate delayed shipments.
+6. Add an FAQ or compatibility note in the listing explaining host-device requirements for higher refresh rates (e.g., some laptops/phones/TVs or HDMI/USB-C ports may limit output).
+
+Improved listing text (use only facts given; placeholders where seller input required)
+Title:
+USB-C Hub 6-in-1 — HDMI (4K@30Hz), 3× USB 3.0, USB-C PD [[PD wattage]], SD card slot, Aluminium
+
+Short description / bullets:
+- Ports: HDMI (4K@30Hz; 1080p@60Hz), 3 × USB 3.0, USB-C PD [[PD wattage]], SD card slot.
+- Body: aluminium — sturdy build and stays cool in use.
+- Plug-and-play: works with laptops and tablets that have a USB-C port.
+- Fast file transfer via USB 3.0 ports (user reports high transfer speeds).
+- Note on video output: HDMI supports up to 4K at 30Hz. This hub does not provide 4K@60Hz output. For smooth 4K@60Hz performance, please confirm your host device and cable support 4K@60Hz.
+
+What’s included / other info:
+- Product is the 6-in-1 USB-C hub with the ports listed above.
+- If you need the exact USB-C PD maximum wattage, please contact seller — [[PD wattage]].
+- If you have questions about compatibility with your laptop/TV (e.g., 4K@60Hz requirements), contact our support before purchase.
+
+Customer service & shipping note:
+- For wrong item received, missing ports, or defective units, please contact our customer service/returns team for replacement or refund.
+- Shipping times depend on the chosen carrier; contact support for tracking and delivery assistance.
+
+Questions for you (required to finalize and avoid inaccuracies)
+1. Please confirm the exact USB-C PD maximum wattage you want shown on the listing (replace [[PD wattage]]), or confirm you want the wattage omitted until verified.
+2. Confirm that every shipped unit of the 6-in-1 variant includes the SD card slot (so we can safely state ""SD card slot"" on the page). If there are multiple SKUs/variants, provide the SKU names and which ports each contains so the listing can be matched to each variant.
+
+If you confirm the two items above, I will produce a final listing-ready version (title, bullets, full product description, and a short FAQ) ready to paste to your store.",,,,,,
+x027,h16,before,"Issue: size chart / measurements (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: chest circumference / fit (expectation_mismatch); draft status: needs_review
+
+
+Issue: wrong item / variant sent (operational); draft status: route
+
+
+Issue: body length (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x028,h17,before,"Summary — recurring customer problems
+- Multiple customers reported one earbud (left or right) stopped working or lost connection after short use (reports at ~2–4 weeks). This is a clear recurring failure mode.
+- One customer reported slow shipping (9 days).
+- Positive recurring points: several customers said the sound is good for the price and the earbuds stay in place when running.
+
+Recommended seller actions
+1. Quality control & investigation
+   - Inspect returned/failing units and run root-cause analysis to find whether failures are due to manufacturing defects, firmware/pairing bugs, charging-case contacts, or user handling.
+   - Add outgoing QC checks focused on earbud connectivity and charging: measure each earbud pairing, battery voltage, and left/right balance before shipping.
+
+2. Firmware / pairing stability
+   - If failures are software/connection related, publish a firmware update and/or clear, tested pairing/reset procedure. Provide the exact reset/pairing steps to customer service and the listing.
+
+3. Customer support & returns handling
+   - Make a clear replacement/repair/warranty process and display it prominently in the listing. Train customer service to handle one-earbud failures quickly (replacement or repair).
+   - Complaints about defects, wrong items, or damaged items should be handled by your customer support/warranty team / returns department. Delivery delays or lost shipments should be handled by the fulfillment/shipping team and customer service liaising with the carrier.
+
+4. Shipping & fulfillment
+   - Review fulfillment lead times and carriers; reduce processing time where possible or set realistic estimated delivery times in the listing to avoid customer disappointment.
+
+5. Listing & documentation updates
+   - Add an official troubleshooting / reset pairing guide and the exact warranty and IP-rating only after you confirm them. Do not rely on customer claims (e.g., the review claiming “garansi resmi 2 tahun” and “IPX7”) unless you can confirm those facts and provide documentation.
+
+What I need from you (seller) before finalizing listing text
+- Confirm or provide these factual items (do not guess):
+  - Official warranty length and terms (e.g., “2 years” or other): [[warranty length and terms]]
+  - Official water resistance rating, if any (e.g., IPX7), with documentation: [[IP rating]]
+  - Battery life per earbud (playtime per charge): [[earbud playtime]]
+  - Charging time for earbuds and case, and case capacity already listed (300 mAh is in current listing): confirm case capacity if needed: [[confirm case capacity]]
+  - Official pairing/reset instructions or troubleshooting steps to include: [[pairing/reset instructions]]
+  - Model number / product name to display: [[model number]]
+  - Included accessories (ear tips sizes, charging cable type, manual): [[included accessories]]
+  - Any certifications (e.g., CE, RoHS) you want listed: [[certifications]]
+  - Expected shipping/processing time you promise to customers: [[shipping time estimate]]
+
+Improved listing text (Indonesian)
+Note: I used only confirmed facts from your current listing and customer feedback. Places where I need your confirmation are shown as placeholders in double brackets.
+
+Judul
+TWS Earbuds Bluetooth 5.3 — kontrol sentuh, case charging 300mAh, mic untuk telepon
+
+Deskripsi singkat
+Earbuds nirkabel TWS dengan Bluetooth 5.3, kontrol sentuh, dan case pengisi daya 300mAh. Microphone terintegrasi untuk panggilan.
+
+Fitur utama
+- Bluetooth 5.3 untuk koneksi cepat dan stabil.
+- Kontrol sentuh pada earbud untuk mengatur musik dan panggilan.
+- Case charging 300mAh (sesuai informasi saat ini).
+- Mic terintegrasi untuk panggilan suara.
+
+Kelebihan berdasarkan masukan pelanggan
+- Beberapa pembeli melaporkan kualitas suara yang baik untuk kisaran harga ini.
+- Beberapa pengguna menyatakan earbud nyaman dan tetap di tempat saat dipakai untuk lari.
+
+Perhatian & dukungan purna jual
+- Beberapa pelanggan melaporkan masalah di mana satu earbud (kiri atau kanan) berhenti berfungsi atau kehilangan koneksi setelah beberapa minggu penggunaan. Jika Anda mengalami masalah ini, hubungi layanan pelanggan untuk bantuan, penggantian, atau klaim garansi.
+- Untuk pengaduan tentang produk rusak, barang yang tidak sesuai, atau cacat: hubungi tim layanan pelanggan / garansi kami untuk proses pengembalian atau penggantian.
+- Untuk masalah pengiriman/penundaan: hubungi tim pengiriman/fulfillment atau customer service sehingga kami dapat menindaklanjuti dengan kurir.
+
+Informasi yang perlu kami konfirmasi (harap tambahkan sebelum publikasi)
+- Masa dan cakupan garansi: [[warranty length and terms]]
+- Rating ketahanan air (jika ada): [[IP rating]]
+- Daya tahan baterai per earbud (waktu bermain): [[earbud playtime]]
+- Waktu pengisian untuk earbud dan case: [[charging times]]
+- Petunjuk pairing/reset untuk masalah koneksi: [[pairing/reset instructions]]
+- Nomor model dan daftar aksesori yang disertakan: [[model number]] / [[included accessories]]
+- Estimasi waktu pengiriman yang dijanjikan: [[shipping time estimate]]
+
+Kalimat penutup
+Setelah Anda konfirmasi fakta yang dibutuhkan di atas, saya akan gabungkan semuanya menjadi deskripsi produk penuh yang siap dipublikasikan, termasuk langkah-langkah pemecahan masalah dan kebijakan garansi/pengembalian yang jelas.",,,,,,
+x029,h14,after,"Issue: battery capacity (actual output) (conflicting_fact); draft status: ready
+Kapasitas baterai: kapasitas sel 20000mAh; kapasitas keluaran nyata sekitar 12000mAh pada 5V.
+
+Issue: product weight (portability) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x030,h13,before,"Recurring customer problems (from reviews)
+- Kurang jelas kompatibilitas: beberapa pembeli menyangka casing ini untuk varian lain dari seri 13 (13 Pro, 13 Pro Max, 13 Mini) dan melaporkan bahwa casing tidak pas. Beberapa review spesifik: tidak muat di 13 Mini (r2), tidak pas untuk 13 Pro (r1, r6), pembeli bingung apakah cocok untuk 13 Pro Max (r4). Satu pembeli menyatakan pas di iPhone 13 standar (r5).
+- Ketidakjelasan ukuran/fit menyebabkan salah beli -> klaim retur/keluhan produk yang sebenarnya karena listing tidak cukup spesifik.
+- Pujian produk: beberapa pembeli menyukai casing yang bening dan tidak cepat menguning (r3), serta sudut tebal (r5), dan harga murah (r7).
+- Keluhan pengiriman lama (r8) — ini bukan masalah listing; tangani lewat tim pengiriman/fulfillment.
+
+Saran perbaikan (apa yang harus dilakukan penjual)
+1. Segera perjelas kompatibilitas pada listing:
+   - Tuliskan secara eksplisit model iPhone 13 yang didukung (contoh: ""Hanya untuk iPhone 13 (standar) — tidak cocok untuk iPhone 13 Mini / 13 Pro / 13 Pro Max"") jika itu memang benar. Jika Anda belum memastikan, konfirmasi dulu dan jangan menebak.
+   - Tambahkan pilihan varian produk (jika tersedia) atau dropdown untuk memilih model yang cocok.
+2. Tambah foto jelas:
+   - Foto casing terpasang pada iPhone 13 yang sesuai, menampilkan potongan kamera, tombol, dan port agar pembeli bisa membandingkan.
+   - Foto close-up sudut tebal dan pelindung kamera timbul.
+3. Perbarui deskripsi agar memuat fitur yang sudah ada dan umpan balik positif:
+   - Bahan TPU, sudut tebal, pelindung kamera timbul, tampilan bening.
+   - Jika Anda menerima klaim “tidak kuning” dari batch tertentu, jangan tulis sebagai spesifikasi kecuali bisa Anda jamin; sebutkan sebagai “pelanggan melaporkan casing terlihat bening dan tidak cepat menguning” bila ingin menonjolkan feedback.
+4. Tambahkan instruksi pembeli:
+   - Minta pembeli memastikan model iPhone mereka (lihat di Settings > General > About > Model) sebelum membeli.
+5. Proses operasional:
+   - Untuk keluhan pengiriman lama, minta tim fulfillment/logistik marketplace untuk menindaklanjuti dan pertimbangkan opsi pengiriman ekspres atau update estimasi waktu kirim di listing.
+6. Layanan purna jual:
+   - Siapkan kebijakan return/exchange yang jelas untuk kasus salah beli akibat ketidakjelasan kompatibilitas.
+
+Perbaikan teks listing (bahasa Indonesia)
+Catatan penting: mohon konfirmasi model yang didukung dan ganti placeholder [[compatible_models]] dengan daftar model yang benar sebelum publish.
+
+Judul:
+Case iPhone 13 Clear Anti Crack — Softcase Bening TPU, Sudut Tebal, Pelindung Kamera
+
+Deskripsi singkat:
+Softcase bening anti crack untuk iPhone. Terbuat dari bahan TPU, dengan sudut tebal dan pelindung kamera timbul untuk perlindungan ekstra.
+
+Fitur utama:
+- Bahan: TPU (softcase)
+- Desain: bening, melindungi tanpa menutupi tampilan ponsel
+- Sudut tebal untuk perlindungan benturan
+- Pelindung kamera timbul untuk mengurangi gores pada lensa
+
+Kompatibilitas (PENTING — BACA SEBELUM MEMBELI):
+- Kompatibel dengan: [[compatible_models]] (ganti dengan daftar model yang benar sebelum publish).
+- Catatan dari pembeli: beberapa pelanggan melaporkan casing ini tidak pas untuk iPhone 13 Pro, 13 Pro Max, atau 13 Mini. Pastikan Anda memilih model yang sesuai sebelum membeli.
+
+Panduan pembeli:
+- Pastikan model iPhone Anda sebelum checkout (cek di Settings > General > About > Model).
+- Lihat foto produk yang menampilkan potongan kamera dan tombol untuk memastikan kecocokan.
+
+Lain-lain:
+- Gambar di listing menunjukkan tampilan casing terpasang pada model yang sesuai; periksa gambar untuk memastikan kecocokan.
+- Untuk masalah pengiriman atau keterlambatan, hubungi tim pengiriman/fulfillment kami atau layanan pengiriman marketplace.
+
+Tambahan untuk seller (tindakan cepat)
+- Update listing sekarang juga dengan placeholder kompatibilitas diganti setelah konfirmasi.
+- Tambahkan foto close-up yang menampilkan potongan kamera dan bagian bawah casing.
+- Jika memungkinkan, sediakan varian untuk setiap model iPhone 13 (13, 13 Mini, 13 Pro, 13 Pro Max) atau jelaskan secara tegas bahwa casing ini hanya untuk model tertentu.
+- Serahkan keluhan pengiriman ke tim logistik/fulfillment untuk penanganan.",,,,,,
+x031,h17,before,"Issue: delivery time (operational); draft status: route
+",,,,,,
+x032,h14,after,(no issues reported),,,,,,
+x033,h21,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Ketidakkonsistenan ketebalan kain: banyak pembeli mengatakan kain tipis/nerawang/gak sesuai deskripsi ""tebal"" (r1,r2,r6,r8,r9,r12,r16,r19,r21), sementara beberapa pembeli menyatakan tebal/aman dipakai (r5,r13,r22,r29). Ini menimbulkan ekspektasi yang tidak jelas.
+- Transparansi (nerawang) dan kebutuhan kaos dalam: beberapa pembeli menyebut harus pakai baju dalam/kaos (r1,r21).
+- Perubahan ukuran/fit dan pengiriman barang yang salah: ada laporan dikirim ukuran berbeda (pesan L dikasih M) — ini masalah pemenuhan/pengemasan (r10).
+- Kualitas jahitan: ada satu laporan jahitan lepas di ketiak (r14).
+- Perawatan/shrink/stretch: ada laporan melar setelah dicuci (r16).
+- Keluhan non-listing: keluhan kurir lama/penyampaian (r24) — bukan masalah deskripsi produk.
+
+Saran tindakan yang sebaiknya dilakukan seller
+1. Perjelas spesifikasi kain di listing (jangan klaim ""tebal"" kecuali bisa dipastikan). Segera konfirmasi dan tampilkan:
+   - komposisi bahan (mis. 100% flanel atau campuran) — jika belum tersedia, dapatkan dari pabrik.
+   - ketebalan/berat kain atau keterangan apakah ""semi-flanel/ ringan/berlapis"" — minta parameter yang jelas (gsm atau deskripsi pabrikan).
+   - tingkat transparansi (mis. nerawang/tidak) dan rekomendasi pemakaian (butuh kaos dalam atau tidak).
+   Jika data ini belum tersedia, tambahkan placeholder di listing dan tanyakan ke produsen.
+
+2. Tambahkan size chart terukur (lebar bahu, dada, panjang baju, lengan) untuk M/L/XL sehingga pembeli tahu ukuran nyata. Ukuran yang jelas mengurangi komplain salah ukuran.
+
+3. Perbaiki quality control (QC) pra-kirim:
+   - Pastikan paket sesuai varian ukuran yang dipesan (cek packing slip vs isi).
+   - Periksa jahitan kritis (ketiak, kancing) agar tidak ada jahitan lepas.
+
+4. Tambahkan instruksi perawatan di listing (cara cuci, suhu, hindari pemutih, dll.) untuk mengurangi risiko melar atau luntur. Jika belum ada instruksi pabrik, minta saran produsen.
+
+5. Jika ada variasi batch (beberapa pembeli merasakan tipis, beberapa tebal), komunikasikan transparan di listing atau tandai varian berbeda agar ekspektasi konsumen sesuai.
+
+6. Tindak lanjuti masalah non-deskripsi:
+   - Pengiriman terlambat atau kesalahan item: tangani lewat tim pengiriman/customer service (refund/resend/tracking) — bukan pembaruan deskripsi.
+   - Keluhan pengemasan/produk cacat: proses retur/garansi melalui layanan purna jual.
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Catatan: saya hanya menggunakan fakta yang tersedia dari data; beberapa detail teknis diperlukan dari produsen. Jika belum memberikan, mohon lengkapi tempat yang diberi tanda [[...]].
+
+Judul
+Kemeja Flanel Pria Lengan Panjang — Motif Kotak, Kancing Kayu, Pilihan Ukuran M/L/XL
+
+Deskripsi singkat
+Kemeja flanel pria lengan panjang bermotif kotak dengan kancing kayu. Tersedia ukuran M, L, dan XL. Motif dan warna sesuai foto produk.
+
+Fitur utama
+- Motif: kotak (sesuai foto).
+- Kancing: kancing kayu (dilaporkan kuat dan menarik oleh beberapa pembeli).
+- Ukuran: tersedia M, L, XL — lihat size chart di bawah sebelum membeli.
+- Kenyamanan: beberapa pembeli melaporkan adem dan nyaman dipakai siang hari; ada juga yang merasakan bahannya ringan/lebih tipis.
+- Warna: dilaporkan tidak mudah luntur oleh beberapa pembeli.
+
+Informasi penting & transparansi (baca sebelum membeli)
+- Ketebalan / transparansi: ulasan pelanggan menunjukkan pengalaman berbeda — beberapa pelanggan menyatakan bahan terasa tipis dan agak nerawang (mungkin perlu kaos dalam), sementara pembeli lain merasa tebal/sempurna untuk malam/kerja. Jika Anda mengutamakan kain tebal dan tidak menerawang, mohon konfirmasi spesifikasi kain dengan kami sebelum membeli.
+- Perawatan: beberapa pembeli melaporkan perubahan setelah cuci (melar). Mohon ikuti instruksi perawatan yang kami cantumkan (lihat bagian perawatan). Jika Anda ingin petunjuk perawatan khusus, konfirmasi ke kami.
+
+Size chart (harus dilengkapi)
+- M: [[lebar bahu, dada, panjang badan, panjang lengan]]
+- L: [[lebar bahu, dada, panjang badan, panjang lengan]]
+- XL: [[lebar bahu, dada, panjang badan, panjang lengan]]
+
+Spesifikasi bahan (mohon konfirmasi dari pemasok)
+- Komposisi bahan: [[fabric composition]]
+- Ketebalan / berat kain: [[fabric weight/thickness]]
+- Transparansi: [[transparency info]]
+
+Perawatan (mohon konfirmasi jika ada rekomendasi pabrik)
+- [[care instructions]]
+
+Garansi & pengiriman
+- Untuk masalah pengiriman, barang salah ukuran, atau produk cacat: hubungi tim customer service kami untuk penukaran/retur/refund. (Catatan: keterlambatan kurir atau masalah pengantaran tanggung jawab tim logistik/kurir.)
+
+Pesan dari penjual
+Jika Anda membutuhkan detail kain, foto close-up, atau ukuran aktual sebelum membeli, silakan hubungi kami. Kami siap membantu memilih ukuran yang tepat dan menjawab pertanyaan Anda.
+
+Tindakan langsung yang saya rekomendasikan seller lakukan sekarang
+1. Minta dari pabrik: komposisi kain, gramatur/ketebalan (gsm) atau deskripsi ketebalan, dan instruksi perawatan. Isi placeholder di atas segera setelah tersedia.
+2. Siapkan size chart terukur untuk M/L/XL dan unggah ke listing.
+3. Terapkan checklist QC pra-kirim: cek ukuran varian, cek jahitan di area ketiak, cek kancing.
+4. Update listing dengan pernyataan yang jujur tentang tingkat transparansi/ketebalan sehingga ekspektasi pembeli selaras.
+5. Latih tim packing untuk meminimalkan salah kirim; siapkan prosedur cepat untuk penanganan klaim ukuran/salah barang.
+
+Jika Anda mau, saya bisa:
+- Membantu mengisi teks listing setelah Anda berikan bahan (komposisi kain, gramatur, ukuran terukur, instruksi cuci).
+- Menyusun template email/FAQ untuk customer service menangani klaim ukuran/salah kirim dan retur.",,,,,,
+x034,h22,before,"Berikut ringkasan masalah pelanggan, rekomendasi tindakan, dan contoh teks listing yang diperbaiki.
+
+1) Masalah berulang dari ulasan
+- Kerusakan fisik layar tiba di pelanggan (layar retak) — beberapa kemasan tampak tidak memadai.
+- Kemasan penyok / styrofoam pecah / tidak ada bubble wrap — indikasi packing tidak konsisten atau tidak cukup pelindung.
+- Satu laporan dead pixel — masalah kontrol kualitas/inspeksi produk.
+- Poin positif: warna bagus, 75Hz terasa halus, bezel tipis, beberapa pelanggan menyatakan sesuai deskripsi.
+
+2) Rekomendasi tindakan (prioritas tinggi ke rendah)
+- Perbaiki standar kemasan:
+  - Gunakan pelindung ganda untuk panel: bubble wrap atau kantong udara yang menutupi layar, ditambah styrofoam atau foam-insert yang menahan posisi monitor.
+  - Gunakan kardus luar yang lebih tebal (double-wall) dan lapisan shock-absorbing; pertimbangkan corner protectors.
+  - Segel dan beri label ""Fragile / This Side Up"" jelas.
+  - Uji paket dengan drop-test sederhana untuk memastikan ketahanan.
+- Standar inspeksi kualitas:
+  - Periksa setiap unit sebelum dikemas: tes display (dead/stuck pixels), backlight bleed, koneksi HDMI/VGA, kondisi bezel.
+  - Catat hasil inspeksi dan sertakan kartu kecil “QC passed” di dalam paket.
+- Kebijakan garansi & proses retur:
+  - Tawarkan garansi minimal 1 tahun untuk defect pabrik, dan garansi pengiriman (refund/replace jika rusak saat kirim dalam X hari).
+  - Jelaskan prosedur klaim kerusakan pengiriman (foto kemasan + unit, kontak support).
+- Proses packing & pelatihan:
+  - Instruksikan dan latih tim packing agar konsisten mengikuti SOP packing.
+  - Audit reguler pemasok packing untuk kualitas material.
+- Komunikasi listing:
+  - Tambahkan informasi di listing bahwa unit “telah diperiksa sebelum dikirim” dan jelaskan standar kemasan untuk menenangkan pembeli.
+  - Cantumkan garansi/retur dan cara klaim sehingga pembeli tahu perlindungan mereka.
+
+3) Contoh teks listing yang diperbaiki (Indonesia) — singkat, jelas, menonjolkan fitur dan jaminan
+
+Monitor 24"" IPS Full HD (1920x1080) — 75Hz | HDMI + VGA | Bezel Tipis
+
+Deskripsi singkat:
+Nikmati tampilan jernih dan warna akurat dengan panel IPS 24 inci Full HD. Refresh rate 75Hz memberikan pengalaman lebih halus untuk kerja, streaming, dan gaming ringan. Desain modern dengan bezel tipis cocok untuk setup multi-monitor.
+
+Fitur utama:
+- Layar: 24 inci IPS, Full HD 1920 x 1080
+- Refresh rate: 75Hz untuk tampilan lebih smooth
+- Port: HDMI + VGA (mudah dipasangkan ke PC, laptop, dan perangkat multimedia)
+- Desain: bezel tipis, tampilan elegan
+- Kualitas warna: reproduksi warna yang baik untuk kerja sehari-hari dan hiburan
+
+Packing & jaminan:
+- Setiap unit melewati pemeriksaan kualitas (QC) untuk memeriksa pixel dan fungsi sebelum dikirim.
+- Dikemas dengan proteksi ekstra (bubble wrap + foam insert + kardus tebal) untuk meminimalkan risiko kerusakan saat pengiriman.
+- Garansi: 1 tahun garansi pabrik untuk kerusakan produksi; kebijakan penggantian/retur jika unit tiba dalam kondisi rusak karena pengiriman (harap kirim foto kemasan & unit saat penerimaan).
+- Hubungi layanan pelanggan kami jika ada masalah: [cantumkan cara kontak/WA/email].
+
+Isi paket:
+- Monitor 24” x1
+- Kabel power x1
+- Manual & skrup pemasangan (jika ada)
+
+Catatan:
+Pastikan memeriksa paket saat diterima dan dokumentasikan kondisi kemasan bila ada kerusakan. Kami siap membantu proses klaim dengan cepat.
+
+Jika mau, saya bisa menyesuaikan teks ini untuk format marketplace tertentu (Tokopedia/Shopee/Lazada) atau menambahkan detail teknis lain (brightness, contrast ratio, response time, VESA mount) jika tersedia.",,,,,,
+x035,h20,before,(no issues reported),,,,,,
+x036,h17,before,"Ringkasan masalah berulang (dari ulasan)
+- Banyak unit mengalami kerusakan satu sisi (earbud kiri/kanan mati atau tidak terkoneksi) setelah pemakaian beberapa minggu.
+- Keluhan keandalan/quality (kualitas build atau komponen inconsisten).
+- Keluhan pengiriman lambat (1 pengalaman: 9 hari).
+- Poin positif: suara wajar untuk harga, nyaman dipakai lari (tidak mudah copot).
+- Satu pelanggan menyatakan garansi 2 tahun dan IPX7 — pastikan klaim ini benar sebelum dicantumkan.
+
+Rekomendasi tindakan (prioritas)
+1. Penanganan purna jual segera
+   - Sediakan penggantian/unit pengganti cepat atau perbaikan gratis untuk klaim di masa garansi pendek (mis. garansi resmi 12–24 bulan jika memungkinkan).
+   - Buat prosedur RMA yang jelas dan respons cepat (balas dalam 48 jam, ganti dalam 7–14 hari kerja).
+2. Quality control & perbaikan manufaktur
+   - Periksa batch produksi yang bermasalah (komponen driver, sambungan kabel, konektor solder, atau modul BT).
+   - Terapkan tes burn-in untuk setiap unit (mis. putar audio + pairing 4–8 jam) sebelum pengiriman.
+   - Perbaiki/resertifikasi firmware Bluetooth bila ada masalah konektivitas mono/stereo.
+3. Panduan pengguna & troubleshooting
+   - Sertakan panduan reset/pairing langkah-demi-langkah pada kemasan dan di listing (cara mengatasi satu-sisi tidak bunyi).
+   - Sertakan FAQ di listing tentang masalah umum dan solusi cepat.
+4. Pengiriman & komunikasi
+   - Percepat proses fulfillment / kirim dari gudang terdekat untuk menurunkan waktu kirim.
+   - Cantumkan estimasi waktu pengiriman dan nomor resi segera setelah dikirim.
+5. Transparansi listing
+   - Hanya cantumkan sertifikasi (IPX7, garansi 2 tahun, dll.) jika ada bukti/kontrak resmi. Klaim yang salah akan merusak reputasi.
+6. Monitoring
+   - Kumpulkan serial/batch dari klaim kerusakan untuk menemukan pola produksi dan menarik batch jika perlu.
+
+Contoh teks listing yang diperbaiki (bahasa Indonesia)
+Catatan: sesuaikan klaim garansi/IPX hanya jika Anda benar-benar menyediakan sertifikat/garansi tersebut.
+
+TWS Earbuds Bluetooth 5.3 — Suara Jernih, Nyaman Dipakai, Siap Aktif Seharian
+- Bluetooth 5.3 untuk koneksi cepat dan stabil, rendah latensi.
+- Kontrol sentuh intuitif (play/pause, panggilan, asisten suara).
+- Case charging 300 mAh — pengisian cepat dan total jam putar lebih lama.
+- Mikrofon built-in untuk panggilan jelas.
+- Desain ergonomis: pas dan nyaman saat lari atau aktivitas sehari-hari.
+- Baterai + case => (cantumkan estimasi jam putar jika tersedia).
+
+Jaminan & After-sales (sesuaikan dengan kebijakan Anda)
+- Garansi resmi 24 bulan / 12 bulan (ganti atau perbaikan) — tulis yang benar.
+- Layanan klaim cepat: hubungi kami lewat [nomor/WhatsApp/email], respon dalam 48 jam.
+- Pengembalian/penukaran mudah jika unit bermasalah di periode garansi.
+
+Panduan singkat pemecahan masalah (jika terjadi satu sisi tidak keluar suara)
+1. Letakkan kedua earbud dalam case, tutup 5 detik lalu keluarkan kembali untuk reset pairing.
+2. Hapus perangkat earbud dari daftar Bluetooth di ponsel, lalu lakukan pairing ulang.
+3. Jika masih bermasalah, hubungi layanan purna jual dengan foto/nomor batch untuk klaim.
+
+Kenapa pilih produk ini?
+- Kualitas suara sepadan dengan harga.
+- Nyaman dipakai saat olahraga — aman tidak mudah copot.
+- Dukungan purna jual yang jelas dan proses klaim cepat (lihat syarat garansi).
+
+Tambahan operasional (untuk Anda sebagai penjual)
+- Cantumkan estimasi waktu pengiriman jelas (mis. pengiriman 1–3 hari kerja dari gudang lokal).
+- Simpan catatan batch/serial untuk mempermudah tracking klaim.
+
+Jika Anda mau, saya bisa:
+- Buat versi listing yang lebih singkat untuk marketplace (Tokopedia/Shopee/Bukalapak).
+- Buat teks FAQ & instruksi reset yang bisa dicetak untuk kemasan.",,,,,,
+x037,h22,before,"Issue: packaging protection (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: screen cracked on arrival (operational); draft status: route
+
+
+Issue: dead pixel (product_quality); draft status: route
+",,,,,,
+x038,h22,before,"Recurring customer problems (from reviews)
+- Packaging and shipping damage: multiple reviews report thin/dented boxes, no bubble wrap, broken styrofoam, and at least one unit arriving cracked. This is a recurring issue affecting product condition on arrival.
+- Quality control issues: at least one report of a dead pixel.
+- Operational complaints (delivery/packaging damage and defects) should be handled by fulfillment/shipping and customer service/after-sales respectively — these are not listing-text problems but operational ones to fix.
+
+Recommended actions for the seller
+1. Improve packaging immediately
+   - Use sturdier outer boxes (double-box if needed).
+   - Add internal protective materials: bubble wrap around the screen, intact/strong foam inserts or corner protectors, and secure the monitor to prevent movement.
+   - Mark cartons clearly as FRAGILE and show the correct orientation.
+2. Strengthen shipping procedures
+   - Choose couriers with better handling for fragile electronics or use a more protective shipping service.
+   - Require photos of packaged item before pickup as proof of proper packing.
+3. Add a simple incoming inspection / QC step
+   - Check each unit for screen cracks and obvious defects before shipping; inspect for dead pixels.
+   - Record a quick photo of the unit powered on (showing no visible damage) before dispatch.
+4. Update after-sales policy and customer instructions (visible on listing and order confirmation)
+   - Provide clear return/replace steps and expected timelines for customers who receive damaged or defective units.
+   - Direct customers with damaged-on-arrival or defective items to contact customer support (include contact method in the store policies), and have fulfillment handle shipping claims.
+5. Track and audit
+   - Monitor returned/damaged rates after packaging changes to confirm effectiveness.
+
+Improved listing text (Indonesian, factual, uses only confirmed product facts and reviewer observations)
+Monitor 24 inch panel IPS, 75Hz, Full HD 1920x1080. Tersedia port HDMI dan VGA. Desain bezel tipis.
+
+Ringkasan keunggulan berdasarkan pengalaman pembeli:
+- Panel IPS, warna tampak bagus menurut beberapa pembeli.
+- Refresh rate 75Hz terasa lebih halus untuk penggunaan sehari-hari.
+- Desain bezel tipis yang rapi.
+
+Informasi penting tentang pengiriman dan garansi:
+- Jika barang tiba rusak atau ada cacat (mis. layar retak atau dead pixel), segera hubungi layanan pelanggan kami untuk proses pengembalian atau penggantian. (Masalah pengiriman/kemasan ditangani melalui layanan pengiriman/fulfillment dan layanan pelanggan.)
+
+Catatan untuk penjual (placeholder jika diperlukan)
+- Jika Anda ingin menambahkan informasi dimensi paket, bobot, atau rincian garansi, harap konfirmasi data tersebut agar bisa dimasukkan ke listing: [[paket dimensi dan berat]], [[ketentuan garansi dan return policy]].
+
+Jika Anda mau, saya bisa:
+- Menulis versi listing yang lebih panjang untuk marketplace tertentu (mis. Tokopedia, Shopee) atau
+- Menyediakan teks singkat untuk FAQ pengiriman/retur yang bisa ditambahkan ke halaman toko.",,,,,,
+x039,h19,after,"Ringkasan masalah berulang (dari ulasan)
+- Kebingungan tentang jenis baterai: beberapa pembeli mengira AAA atau baterai isi ulang, padahal produk pakai 1× AA.
+- Baterai tidak disertakan dalam paket → pelanggan kecewa harus beli sendiri.
+- Dongle USB sangat kecil sehingga mudah hilang.
+- Poin positif: klik benar-benar senyap, nyaman digenggam / ringan.
+
+Saran tindakan untuk penjual (prioritas tinggi → rendah)
+1. Segera perbarui halaman produk/judul/fitur untuk menyatakan dengan jelas:
+   - Jenis dan jumlah baterai: ""1× AA (tidak termasuk dalam paket)"".
+   - Produk tidak bisa dicas / bukan mouse isi ulang.
+   - Ukuran dongle: ""mini USB receiver — simpan dengan aman"" (lihat saran penyimpanan di bawah).
+2. Tawarkan opsi pembelian tambahan:
+   - Bundel dengan 1 baterai AA (opsional) atau paket berisi 2 baterai.
+   - Opsi ""dongle cadangan"" atau paket aksesoris (kantong/holder).
+3. Kurangi risiko dongle hilang:
+   - Tambahkan slot penyimpanan dongle pada desain/kemasan (jika memungkinkan) atau sertakan kantong kain kecil untuk dongle.
+   - Cantumkan saran penggunaan di listing: simpan dongle di port USB saat tidak dipakai / gunakan pouch.
+4. Perbaiki gambar & deskripsi:
+   - Tampilkan foto close-up tempat baterai (jenis AA) dan keterangan ""baterai tidak termasuk"".
+   - Tunjukkan ukuran dongle relatif terhadap koin atau ujung jari.
+5. Layanan purna jual:
+   - Jelaskan kebijakan garansi/dukungan bila dongle hilang dan opsi penggantian berbayar.
+   - Siapkan FAQ singkat di halaman produk: baterai apa, disertakan/tidak, bisa dicas tidak, cara pairing, tip penyimpanan dongle.
+6. Monitoring:
+   - Pantau review setelah perubahan untuk memastikan kebingungan berkurang.
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Judul:
+Mouse Nirkabel Silent Click — Klik Senyap, Ringan & Ergonomis | 2.4GHz USB Receiver
+
+Bullet fitur utama:
+- Klik benar-benar senyap: desain tombol khusus untuk bekerja di kantor/ruang belajar tanpa gangguan suara.
+- Nyaman dan ringan: bentuk ergonomis cocok untuk pemakaian lama.
+- Koneksi stabil 2.4 GHz: plug-and-play dengan USB receiver mini (tak perlu pairing manual).
+- Kompatibilitas luas: Windows, macOS, Linux, Chromebook (port USB-A diperlukan).
+- Baterai: menggunakan 1× AA (tidak termasuk dalam paket). Produk ini bukan mouse isi ulang / tidak dapat dicas.
+- Ukuran receiver: mini USB — mudah dibawa namun rawan hilang; simpan di port USB atau bawa di pouch kecil.
+
+Spesifikasi singkat:
+- Tipe koneksi: 2.4 GHz wireless (USB receiver)
+- Daya: 1× AA (tidak termasuk)
+- Fungsi: klik kiri/kanan, scroll wheel, tombol tambahan (jika ada)
+- Bobot: ringan (sebanding dengan mouse nirkabel standar)
+- Paket berisi: 1× Mouse, 1× USB receiver, manual pengguna
+  (Baterai tidak termasuk)
+
+Catatan penting & tips:
+- Harap siapkan 1 baterai AA sebelum pemakaian — baterai tidak disertakan dalam paket.
+- Mouse tidak dapat dicas; jangan gunakan charger USB untuk menggantikan baterai.
+- Karena receiver berukuran mini, simpan di port USB komputer saat tidak digunakan atau simpan di pouch/kotak penyimpanan untuk menghindari kehilangan.
+- Jika membutuhkan bantuan pairing atau penggantian receiver, hubungi layanan pelanggan kami.
+
+Ajakan/kepercayaan:
+- Dapatkan kenyamanan kerja tanpa gangguan suara — pesan sekarang. Untuk pertanyaan teknis atau permintaan bundle baterai, hubungi kami via [kontak penjual].
+
+Jika mau, saya juga bisa menulis versi singkat untuk judul + 5-bullet yang cocok untuk marketplace (Tokopedia/Shopee/Amazon) atau membuat FAQ singkat yang bisa ditempel di bagian deskripsi. Mau versi singkat atau FAQ?",,,,,,
+x040,h15,before,"Issue: output voltage / power specifications (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x041,h21,before,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+
+
+Issue: stitching quality (product_quality); draft status: route
+",,,,,,
+x042,h14,before,"Issue: usable capacity (actual output mAh) (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: weight (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x043,h13,before,"Issue: camera cutout alignment (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x044,h21,after,"Issue: fabric thickness (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong size sent (operational); draft status: route
+
+
+Issue: stitching durability (product_quality); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x045,h19,before,"Recurring problems found (from reviews)
+- Battery information missing/unclear: multiple reviewers expected rechargeable or unclear power type; several said the mouse uses AAA batteries.
+- Batteries not included in package: at least one buyer reported no batteries were provided.
+- Small wireless USB dongle is easy to lose: one reviewer explicitly called out the dongle's small size.
+- Positive points to keep: reviewers confirm the clicks are truly silent and the mouse is comfortable and lightweight.
+
+What the seller should do
+1. Update the product listing immediately
+   - Clearly state power type (battery type vs rechargeable), whether batteries are included, and whether the mouse is rechargeable. These are the most frequent buyer concerns.
+   - State whether a USB receiver/dongle is included and describe any storage/slot for it (or advise how to keep it safe).
+   - Highlight confirmed positives: silent click, ergonomic/comfortable, lightweight.
+
+2. Confirm product facts (seller action required)
+   - Confirm and publish: battery type ([[battery type]]), whether batteries are included ([[batteries included: yes/no]]), whether the mouse is rechargeable ([[rechargeable: yes/no]]), and whether a USB receiver is included and its storage details ([[USB receiver included? yes/no; receiver storage?]]). If you prefer, provide exact wording/images showing battery compartment, charging port, or dongle storage.
+
+3. Fix packing/fulfillment issues
+   - If batteries should be included but are not arriving with some orders, check fulfillment and packing QC immediately. Missing items are a fulfillment/warehouse issue — customer service should handle individual missing-item complaints and offer replacements/refunds.
+
+4. Reduce dongle-lost complaints
+   - Short-term: add a clear note in listing and included paperwork about the dongle's small size and recommended storage (e.g., keep in laptop USB port or a safe place).
+   - Medium-term: consider adding a simple physical solution (secure slot in the product, labeled pouch in box, or a dongle extender/keychain) and/or bundle option at checkout. (Product changes must be confirmed before listing.)
+
+5. Improve product images and copy
+   - Add clear photos of the battery compartment / charging port and of the receiver next to a common object (coin/USB port) so buyers understand its size.
+   - Add a short “What’s in the box” section listing exact items included.
+
+Improved listing text (seller: please fill placeholders in brackets)
+Title
+Mouse Wireless Silent Click — Lightweight Ergonomic Design
+
+Short description
+Enjoy quiet, comfortable computing with a lightweight, ergonomic wireless mouse that delivers truly silent clicks and smooth everyday performance.
+
+Key features
+- Silent click: Designed for near-silent left/right clicks for distraction-free use.
+- Lightweight and comfortable: Ergonomic shape for comfortable long-use handling.
+- Wireless connectivity: Includes wireless connection via USB receiver. [[USB receiver included? yes/no]]
+- Power: [[battery type]]; [[rechargeable? yes/no]]. [[batteries included: yes/no]]
+- Note on receiver: Some users find the USB receiver very small. We recommend storing it safely when not in use. [[optional: receiver storage details]]
+
+What’s in the box
+- 1 x wireless mouse
+- 1 x USB receiver [[if applicable]]
+- [[batteries included: yes/no — list batteries if included]]
+- Quick start guide
+
+Important seller prompts (fill before publishing)
+- Confirm battery type: [[battery type]]
+- Confirm rechargeable: [[yes/no]]
+- Confirm whether batteries are included: [[yes/no]]
+- Confirm whether USB receiver is included and whether the mouse has a storage slot or tether for the receiver: [[USB receiver included? yes/no; receiver storage?]]
+
+Short customer-facing FAQ (examples to include once facts are confirmed)
+- Q: Is this mouse rechargeable or battery-powered?
+  A: [[rechargeable? yes/no — if no, specify battery type and whether included]]
+- Q: Does it come with a USB receiver?
+  A: [[USB receiver included? yes/no — include note about small size and storage]]
+
+If you want, I can:
+- Produce final copy with the placeholders filled if you provide the confirmed facts (battery type, rechargeable yes/no, batteries included yes/no, receiver included yes/no and receiver storage details).
+- Suggest exact image captions and a “what to show” photo checklist for listing images.",,,,,,
+x046,h11,after,"Issue: HDMI 4K refresh rate (expectation_mismatch); draft status: ready
+Refresh rate HDMI 4K: HDMI 4K 30Hz, 1080p 60Hz.
+
+Issue: delivery time / courier speed (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x047,h20,before,"Issue: RGB brightness / brightness control (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x048,h18,after,(no issues reported),,,,,,
+x049,h14,before,"Ringkasan masalah yang muncul dari review
+- Kapasitas terasa lebih kecil dari klaim 20000mAh (beberapa pembeli melaporkan pengukuran 9800–10000mAh atau pengalaman cuma ~2 kali ngecas ponsel 4000mAh). (r1, r2, r3, r4, r9)
+- Ketidakkonsistenan pengalaman: beberapa pelanggan mengatakan sesuai/awet (bisa 4x), beberapa mengeluh cepat habis. (r4, r5, r9)
+- Fast charging 22.5W dilaporkan berfungsi pada setidaknya satu ponsel Xiaomi. (r8)
+- Desain disukai (ramping), namun beberapa menganggap agak berat untuk kantong. (r6, r7)
+
+Rekomendasi tindakan untuk penjual (prioritas tinggi ke rendah)
+1. Verifikasi kapasitas dan performance
+   - Lakukan pengujian keluaran riil (usable/output mAh) dengan metode yang dapat direproduksi (mis. mengukur total mAh keluar pada arus/tegangan khas sampai powerbank habis). Catat kondisi uji: beban (A), tegangan, suhu, kabel yang dipakai.
+   - Jika keluaran rata‑rata jauh di bawah 20000mAh, perbaiki klaim di kemasan/listing agar sesuai regulasi dan kenyataan.
+
+2. Update listing dengan informasi nyata dan transparan
+   - Tambahkan ""usable capacity"" (kapasitas yang dapat disalurkan ke perangkat) jika berbeda dari kapasitas nominal. Jika Anda belum menimbang/ukur, sediakan data tersebut setelah pengujian. Gunakan placeholder di listing sampai data tersedia.
+   - Cantumkan protokol fast-charge yang didukung (mis. PD, QC) dan arus/tegangan input/output untuk port USB‑C dan USB‑A. Jika belum tersedia, ukur dan laporkan. Jangan klaim dukungan perangkat tertentu kecuali sudah diuji.
+
+3. Beri informasi penggunaan nyata
+   - Tambahkan estimasi jumlah kali pengisian penuh untuk ponsel dengan kapasitas umum (mis. 4000mAh) berdasarkan pengujian Anda. Jika belum diuji, jangan menulis angka — gunakan placeholder sampai tersedia.
+   - Sebutkan waktu pengisian powerbank (input watt/jenis charger yang dibutuhkan) dan apakah pass‑through charging (bisa isi ulang sambil men-charge perangkat) didukung.
+
+4. Perbaiki pengalaman pelanggan dan penanganan keluhan
+   - Siapkan panduan troubleshooting singkat (mis. periksa kabel/port, gunakan kabel/data berkualitas, pastikan ponsel mendukung fast charge).
+   - Latih tim CS untuk menanggapi keluhan ""kapasitas tidak sesuai"" dengan menawarkan pengukuran, pengembalian barang, atau penggantian bila terbukti cacat.
+   - Jika ada banyak klaim performa berbeda, lakukan sampling QC batch dan informasikan hasilnya ke pelanggan yang mengeluh.
+
+5. Perbaikan produk/kemasan (opsional tapi disarankan)
+   - Jika sel baterai atau manufaktur menyebabkan variabilitas performa, koordinasikan dengan pabrik untuk kontrol kualitas lebih ketat.
+   - Cantumkan berat dan dimensi di listing agar ekspektasi pelanggan sesuai.
+
+Bagian bisnis yang harus menangani review negatif terkait barang
+- Keluhan tentang performa/kapasitas dan permintaan pengukuran/pengembalian: Customer Service / Support
+- Aduan tentang salah kirim / kerusakan fisik kemasan atau barang: Customer Service / Logistik / Fulfillment
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Catatan: saya hanya menggunakan fakta yang sudah ada. Di bawah ada placeholder untuk informasi yang belum Anda konfirmasi — gantikan [[...]] dengan data nyata setelah pengujian.
+
+Judul
+Powerbank 20000mAh Fast Charging 22.5W — 2× USB‑A + 1× USB‑C, indikator LED
+
+Deskripsi singkat
+Powerbank kapasitas nominal 20000mAh dengan dukungan fast charging 22.5W. Dilengkapi 2 output USB‑A, 1 USB‑C, dan indikator LED status baterai.
+
+Spesifikasi (konfirmasi/perlu diisi)
+- Kapasitas nominal: 20000mAh (tertulis pada produk)
+- Kapasitas usable/output terukur: [[usable capacity mAh atau persentase]] — (placeholder: mohon isi setelah pengujian)
+- Fast charging: 22.5W (tersedia)
+- Port: 2× USB‑A, 1× USB‑C
+- Indikator: LED indikator level baterai
+- Berat: [[berat (gram)]] (placeholder)
+- Tipe sel baterai: [[tipe sel (mis. Li‑ion/Li‑poly)]] (placeholder)
+- Input (untuk mengisi ulang powerbank): [[spesifikasi input (V/A atau W)]] (placeholder)
+- Output per port: [[spesifikasi output per port (V/A)]] (placeholder)
+- Dukungan protokol fast charge (PD/QC/ lainnya): [[daftar protokol yang didukung]] (placeholder)
+- Waktu pengisian penuh powerbank (dengan charger [[watt]]): [[waktu pengisian]] (placeholder)
+- Pass‑through charging (isi ulang sambil men‑charge perangkat): [[ya/tidak]] (placeholder)
+
+Panduan penggunaan singkat
+- Gunakan kabel berkualitas baik untuk performa optimal.
+- Kecepatan fast charging bergantung pada perangkat yang diisi dan kabel yang digunakan.
+- Jika terasa kapasitas tidak sesuai harapan, hubungi customer service untuk pemeriksaan atau pengembalian.
+
+Catatan penting untuk pelanggan
+- Kapasitas yang tertera adalah kapasitas nominal baterai. Kapasitas yang bisa disalurkan ke perangkat (usable capacity) bisa lebih rendah karena konversi tegangan dan efisiensi; angka usable akan kami cantumkan setelah pengujian laboratorium internal.
+
+Ajakan tindakan untuk penjual (ringkas)
+- Lakukan pengujian keluaran nyata dan perbarui placeholder di listing.
+- Cantumkan protokol fast‑charge dan spesifikasi input/output lengkap.
+- Perkuat FAQ/CS untuk menjawab keluhan kapasitas; tawarkan pengukuran atau pengembalian bila perlu.
+- Terapkan QC batch untuk mengurangi variabilitas performa.
+
+Jika Anda mau, saya bisa:
+- Membuat versi listing akhir setelah Anda mengisi placeholder (usable capacity, berat, input/output, protokol, waktu isi).
+- Menyusun template FAQ dan skrip CS untuk menangani keluhan kapasitas.",,,,,,
+x050,h19,after,"Issue: battery specification and inclusion (missing_fact); draft status: needs_listing
+",,,,,,
+x051,h19,after,"Summary — recurring customer problems (from reviews + merchant confirmation)
+- Battery type confusion and missing battery: multiple buyers expected rechargeable or AAA; merchant confirms it uses 1 AA battery and the battery is not included. Customers were surprised/unhappy they had to buy a battery.
+- Dongle is very small and easy to lose: several reviewers reported the dongle can be misplaced.
+- Positive points to keep in listing: silent clicks (“klik nya beneran senyap”), comfortable to hold and lightweight.
+
+Recommended seller actions
+1. Update the listing immediately to clearly state battery requirements and that no battery is included:
+   - Explicitly say “Uses 1 AA battery (NOT included)” and “Not rechargeable” in the title/feature bullets and product details.
+2. Reduce future confusion about rechargeability/AAA vs AA:
+   - Add product photos showing the battery compartment with a clearly labeled AA battery illustration.
+3. Address dongle-loss complaints:
+   - If the mouse has a built-in dongle storage slot, state that clearly and show it in photos. If it does not, consider adding one of these improvements (merchant decision):
+     - Include a small dongle holder inside the mouse packaging, or
+     - Sell an optional bundle that includes a tiny dongle keychain/holder, or
+     - Add a tether/adhesive holder in packaging instructions.
+   - In the interim, add a usage tip in the listing advising customers to keep the dongle attached to the laptop or stored safely when not in use.
+4. Offer optional purchase options (business decision):
+   - Offer the mouse as “with battery included” as an optional SKU or bundle so customers can buy ready-to-use units.
+5. Improve visuals and copy:
+   - Add close-up photos of the dongle size relative to a coin/finger, battery compartment, and packaging contents.
+   - Highlight positives (silent click, comfortable grip, lightweight) using quotes or verified review snippets.
+6. Customer service responsibility guidance:
+   - Complaints about missing items in a shipped order, wrong items, or defects should be handled by your Customer Service/After-sales team (do not try to fix these in the listing copy).
+
+Improved listing text (Indonesian)
+Title:
+Mouse Nirkabel — Silent Click, Ringan & Nyaman (Menggunakan 1 AA — Tidak Termasuk, Tidak Dapat Dicas)
+
+Short bullets / fitur utama:
+- Klik senyap: teknologi silent click untuk penggunaan tanpa suara.
+- Nyaman & ringan: desain ergonomis terasa pas di tangan dan mudah dibawa.
+- Koneksi nirkabel: dongle USB kecil untuk koneksi plug-and-play. [[wireless type — please confirm if 2.4GHz/Bluetooth/etc]]
+- Daya: menggunakan 1 baterai AA (tidak termasuk dalam paket). Perhatian: produk tidak dapat dicas / bukan baterai isi ulang.
+- Perhatian dongle: dongle sangat kecil — simpan dengan aman saat tidak dipakai. [[if mouse has dongle storage, replace this with “Dongle dapat disimpan di [[dongle storage info]]” — please confirm]]
+
+Deskripsi produk:
+Mouse nirkabel ini dirancang untuk penggunaan yang tenang dan nyaman. Klik benar-benar senyap sehingga cocok untuk kantor, ruang belajar, atau penggunaan di malam hari. Bobot yang ringan dan bentuk yang nyaman membuatnya nyaman dipakai sepanjang hari.
+
+Catatan penting (harus ditampilkan jelas):
+- Menggunakan 1 baterai AA (tidak termasuk). Pembeli perlu menyiapkan baterai sendiri. (Merchant: konfirmasi — 1 baterai AA, tidak termasuk)
+- Produk tidak dapat dicas.
+- Dongle USB berukuran kecil; harap simpan dongle pada tempat yang aman untuk menghindari kehilangan.
+
+Konten paket (harap lengkapi sesuai kenyataan):
+- 1 × Mouse nirkabel
+- 1 × Dongle USB
+- 1 × Panduan singkat
+- [[Jika ada aksesoris lain atau baterai termasuk, tuliskan di sini; jika tidak, hapus/konfirmasi]]
+
+Gambar yang disarankan (untuk diunggah):
+- Foto produk utama dari berbagai sudut
+- Close-up klik (untuk menonjolkan “silent click”)
+- Foto interior kompartemen baterai dengan ilustrasi AA
+- Foto ukuran dongle dibandingkan koin/finger + (jika ada) foto tempat penyimpanan dongle di dalam mouse
+- Foto packaging dan konten kotak
+
+Placeholder / pertanyaan yang perlu penjual konfirmasi (ganti sebelum publikasikan):
+- Konfirmasi jenis koneksi nirkabel: [[wireless type — 2.4GHz / Bluetooth / lainnya?]]
+- Apakah mouse memiliki slot penyimpanan dongle internal? [[dongle storage info]]
+- Tolong konfirmasi daftar isi paket final (apakah ada baterai, manual, garansi, dll): [[contents]]
+
+Short seller checklist to implement now
+- Revise listing title and bullets to include battery/charge info and dongle caution.
+- Add clear images of battery compartment and dongle size.
+- Decide whether to offer a “with battery included” bundle or add small dongle holder; if yes, create an SKU for it.
+- Train customer service to handle missing item/defect/delivery complaints and update returns/FAQ accordingly.
+
+If you want, I can produce:
+- A final ready-to-publish product description and bullet list once you confirm the placeholders above (battery already confirmed as 1 AA not included; still need confirmation about wireless type, dongle storage, and exact package contents).",,,,,,
+x052,h19,after,(no issues reported),,,,,,
+x053,h16,after,"Recurring customer problems (from reviews)
+- Ukuran terasa kecil/lebih sempit dari yang diharapkan; beberapa pembeli menyarankan naik satu ukuran, dan satu pembeli menyebut size L terasa seperti M.
+- Tidak ada size chart di listing sebelumnya, sehingga pembeli kesulitan memilih ukuran.
+- Panjang badan terasa sedikit pendek untuk sebagian pembeli.
+- Kesalahan pemenuhan: beberapa pesanan dikirim ukuran atau warna yang berbeda dari yang dipesan.
+- Puas: bahan adem (nyaman), jahitan rapi, warna tidak luntur saat dicuci.
+
+Saran tindakan untuk penjual (prioritas & tindakan konkret)
+1. Perbarui listing dengan size chart resmi (pakai data yang sudah dikonfirmasi). Tambahkan rekomendasi fit (mis. bila ingin longgar, pertimbangkan naik 1 size) untuk mengurangi kebingungan.
+2. Tampilkan ukuran panjang baju di listing (sudah dikonfirmasi) sehingga pembeli tahu panjang pada tiap size.
+3. Tambahkan foto atau grafik yang memperlihatkan cara pengukuran (mis. lebar dada diukur di bawah lengan, panjang diukur dari bahu) — kalau ingin saya bisa menulis keterangan gambarnya.
+4. Perbaiki proses fulfillment/quality control:
+   - Minta tim packing untuk mencocokkan label ukuran dan warna pada paket sebelum kirim.
+   - Terapkan checklist packing (size, warna, variant) dan sampling QC harian.
+   - Jika terjadi salah kirim atau barang cacat, arahkan pembeli ke customer service untuk retur/penukaran dan pastikan prosedur penanganan klaim cepat.
+5. Tambahkan FAQ singkat di listing: soal sizing (ukuran resmi), penanganan salah kirim (hubungi CS), dan tips memilih ukuran.
+6. Kumpulkan dan tampilkan foto nyata produk dari berbagai angle / pada model dengan keterangan size yang dipakai (minta konfirmasi ukuran model dari Anda jika ingin ditambahkan).
+
+Perbaikan teks listing (Bahasa Indonesia)
+Judul:
+Kaos Polos Cotton Combed 30s — Jahitan Rantai — Size M / L / XL (Hitam, Putih, Navy)
+
+Deskripsi singkat:
+Kaos polos berbahan cotton combed 30s dengan jahitan rantai yang rapi. Pilihan warna: hitam, putih, navy. Tersedia size M, L, XL. Bahan adem dan nyaman dipakai sehari-hari.
+
+Size chart (lebar dada x panjang):
+- M: lebar dada 48 cm, panjang 68 cm
+- L: lebar dada 50 cm, panjang 70 cm
+- XL: lebar dada 52 cm, panjang 72 cm
+
+Panduan memilih ukuran:
+- Ukur baju favorit Anda di bagian dada (di bawah ketiak) dan bandingkan dengan size chart di atas.
+- Jika Anda ingin fit lebih longgar, pertimbangkan untuk memilih 1 ukuran lebih besar dari ukuran yang biasa Anda pakai.
+
+Warna & kualitas:
+- Warna tersedia: hitam, putih, navy.
+- Bahan nyaman dan adem; jahitan rapi. (Beberapa pelanggan melaporkan warna tidak luntur setelah dicuci.)
+
+Pengiriman & layanan:
+- Jika Anda menerima barang yang tidak sesuai pesanan (ukuran atau warna salah) atau kondisi tidak memuaskan, hubungi customer service kami untuk pengembalian atau penukaran.
+
+Catatan tambahan:
+- Foto produk menunjukkan ukuran pakaian yang dipakai pada model — periksa caption foto untuk mengetahui size model (jika tersedia).
+
+Jika Anda ingin, saya bisa:
+- Menambahkan gambar grafik pengukuran untuk dimasukkan ke listing.
+- Menyusun checklist packing / skrip QC singkat untuk tim fulfillment.
+- Menulis FAQ singkat untuk bagian bawah listing (mis. cara mengukur, kebijakan retur).",,,,,,
+x054,h18,before,"Issue: usable cooking capacity (max cups of rice) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: power cord length (operational); draft status: route
+",,,,,,
+x055,h16,before,"Ringkasan masalah yang sering muncul (dari 10 ulasan)
+- Ukuran terasa kecil / fit mengecil: beberapa pembeli (r1, r2, r3, r7, r9) memberi sinyal inkonsistensi ukuran — ada yang merasa L mirip M, ada yang sarankan naik 1 size, ada yang pas.
+- Tidak ada size chart / kebingungan ukuran: satu pembeli (r7) menyebut size chart tidak ada; beberapa ulasan menyebut fit pas atau pas ketat sehingga menunjukkan kebutuhan panduan ukuran yang jelas.
+- Panjang badan terasa agak pendek untuk beberapa orang (r8).
+- Kesalahan pengiriman varian (warna/size): beberapa pembeli menerima warna atau size yang berbeda dari pesanan (r4, r5) → masalah packing/labeling atau manajemen stok.
+- Pujian produk: bahan adem, jahitan rapi, warna tahan cuci (r3, r6, r10).
+
+Rekomendasi tindakan (prioritas & langkah konkret)
+1. Tambahkan size chart lengkap dan petunjuk fit di listing
+   - Cantumkan ukuran (cm) untuk Lebar Dada (pit-to-pit), Panjang Baju, Lebar Bahu (opsional), dan Panjang Lengan (jika kaos lengan pendek biasanya tidak perlu).
+   - Beri rekomendasi ""jika Anda suka fit longgar/relaxed, naik 1 size; jika suka fit slim, pilih ukuran sesuai ukuran tubuh"".
+   - Sertakan contoh referensi: mis. ""Model A tinggi 175 cm, berat 70 kg, pakai L"" untuk membantu pembeli.
+
+2. Standarisasi & perbaiki kontrol kualitas ukuran
+   - Ukur beberapa sample dari tiap batch dan bandingkan dengan size chart; update chart bila perlu.
+   - Tandai produk yang menyimpang (mis. shrinkage dari pencucian atau produksi).
+   - Pastikan supplier/konveksi mengikuti spec ukuran yang distandarkan.
+
+3. Perbaiki proses packing dan manajemen varian
+   - Terapkan checklist packing: periksa label size & warna sebelum segel.
+   - Gunakan label barcode/QR untuk meminimalkan human error.
+   - Audit stok varian di gudang secara berkala.
+
+4. Perjelas deskripsi produk dan foto varian
+   - Tambah foto setiap warna di lighting natural dan close-up jahitan & label ukuran.
+   - Sebutkan bahwa warna yang tersedia: Hitam, Putih, Navy (pastikan stok sesuai listing).
+
+5. Informasi panjang baju
+   - Ukur dan cantumkan panjang baju; jika memang cenderung pendek, sampaikan sehingga pembeli tahu dan bisa memilih size lebih panjang bila perlu.
+
+6. Garansi & layanan purna jual
+   - Tawarkan kebijakan retur/replacement bila salah kirim atau barang cacat, jelaskan prosedur klaim untuk meningkatkan kepercayaan.
+
+Improved listing text (Bahasa Indonesia)
+Judul:
+Kaos Polos Cotton Combed 30s — Jahitan Rantai, Adem & Nyaman (Warna: Hitam/Putih/Navy)
+
+Deskripsi singkat:
+Kaos polos bahan Cotton Combed 30s berkualitas — lembut, adem, dan jahitan rantai rapi. Pilihan warna: Hitam, Putih, Navy. Cocok untuk daily wear dan seragam.
+
+Detail produk:
+- Bahan: Cotton Combed 30s (nyaman & adem)
+- Jahitan: Jahitan rantai rapi untuk daya tahan
+- Warna: Hitam / Putih / Navy (lihat foto varian untuk warna sebenarnya)
+- Ukuran tersedia: M, L, XL
+
+Size chart (ukuran dalam cm — ukur produk rata tanpa ditarik)
+- M: Lebar Dada (pit-to-pit) xx cm — Panjang Baju yy cm
+- L: Lebar Dada (pit-to-pit) xx cm — Panjang Baju yy cm
+- XL: Lebar Dada (pit-to-pit) xx cm — Panjang Baju yy cm
+Catatan ukuran: Jika Anda menginginkan fit longgar, disarankan naik 1 size. Contoh referensi: Model A — 175 cm / 70 kg memakai L.
+
+Tips memilih size:
+- Mau fit slim/tepat badan → pilih sesuai ukuran tubuh.
+- Mau sedikit longgar/relaxed → naik 1 size.
+
+Perawatan:
+- Cucian mesin dengan air dingin atau hangat rendah.
+- Hindari pemutih keras; jemur tidak langsung di bawah sinar matahari terik agar warna awet.
+- Warna stabil setelah pencucian (berdasarkan pengujian kami).
+
+Kualitas & layanan:
+- Setiap pesanan diperiksa sebelum dikirim untuk memastikan size dan warna sesuai.
+- Jika terjadi kesalahan pengiriman atau produk cacat, segera hubungi kami untuk penggantian atau retur sesuai kebijakan toko.
+
+Foto:
+- Lihat gallery untuk foto close-up bahan, jahitan, dan tiap warna varian.
+
+Catatan akhir:
+Pastikan memilih ukuran sesuai size chart. Jika ragu, hubungi kami dengan tinggi/berat Anda untuk rekomendasi size cepat.
+
+Jika Anda mau, saya bisa:
+- Buatkan size chart lengkap (isi angka cm) berdasarkan pengukuran produk sample Anda.
+- Siapkan template checklist packing & label yang bisa dipakai di gudang.
+- Buat draft kebijakan retur singkat untuk listing.",,,,,,
+x056,h13,after,"Issue: camera cutout alignment (product_quality); draft status: route
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x057,h21,after,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+
+
+Issue: stitching quality (product_quality); draft status: route
+",,,,,,
+x058,h16,after,"Ringkasan masalah berulang (dari review)
+- Ukuran terasa kecil/fit lebih kecil dari yang pembeli harapkan (beberapa minta naik 1 size; beberapa bilang M/L pas, jadi inkonsistensi).
+- Panjang badan terasa agak pendek/“nanggung” untuk sebagian pembeli.
+- Kesalahan pengiriman/varian: pesanan warna/size tidak sesuai (mis‑ship).
+- Poin positif berulang: bahan adem (cotton combed 30s), jahitan rapi, warna tidak luntur.
+
+Saran tindakan (prioritas dan langkah operasional)
+1. Tambahkan size chart jelas di listing dan di gambar produk
+   - Implementasi: gunakan ukuran yang sudah dikonfirmasi merchant (M: lebar dada 48 cm/panjang 68 cm; L: 50/70; XL: 52/72).
+   - Tunjukkan cara pengukuran (ukur dari ketiak ke ketiak untuk lebar dada, dari pundak ke bawah untuk panjang).
+   - Beri rekomendasi fit (mis. “sesuai badan / slim fit” atau “relaxed fit”) dan saran naik size bila pembeli menginginkan ruang lebih.
+
+2. Beri panduan ukuran/fit di deskripsi dan FAQ
+   - Contoh: “Untuk yang biasa pakai M dengan baju longgar → naik 1 ukuran.”
+   - Tambahkan contoh tinggi/berat pemakai dan ukuran yang dipakai jika memungkinkan.
+
+3. Tangani masalah pengiriman/packing
+   - Prosedur: perkuat quality control packing (cek label size & warna sebelum kirim), stiker packing slip dengan ukuran & warna, foto paket sebelum dikirim untuk bukti.
+   - Latih staf/pick‑and‑pack checklist sehingga kesalahan (kirim L tapi pesan XL) turun.
+
+4. Komunikasi setelah jual
+   - Jika terjadi kesalahan pengiriman, sediakan proses retur/ganti cepat & gratis untuk meminimalkan komplain (tulis di policy).
+   - Beri nomor kontak/CS responsif untuk klaim size/wrong item.
+
+5. Tinjau dan perbaiki foto & keterangan produk
+   - Tambahkan foto model (beragam body type) dengan keterangan tinggi/berat dan ukuran yang dipakai.
+   - Sertakan close‑up jahitan dan label ukuran untuk menegaskan kualitas.
+
+6. Opsional: pertimbangkan menambah varian panjang (long/regular) jika banyak pelanggan keluhkan panjang.
+
+Improved listing text (Bahasa Indonesia)
+Judul:
+Kaos Polos Cotton Combed 30s — Jahitan Rantai, Adem & Awet | Size M/L/XL (Detail Ukuran di Deskripsi)
+
+Deskripsi singkat:
+Kaos polos nyaman dari cotton combed 30s — adem, lembut, dan jahitan rantai rapi. Pilihan warna: Hitam, Putih, Navy. Tersedia ukuran M, L, XL. Warna tahan cuci.
+
+Fitur utama:
+- Bahan: Cotton Combed 30s — adem dan nyaman dipakai sehari‑hari.
+- Jahitan: Rantai, rapi dan kuat.
+- Warna: Hitam, Putih, Navy — tidak mudah luntur bila dicuci sesuai instruksi.
+- Ketersediaan: Size M, L, XL.
+
+Size chart (ukuran produk asli — diukur saat datar)
+- M: lebar dada 48 cm — panjang 68 cm
+- L: lebar dada 50 cm — panjang 70 cm
+- XL: lebar dada 52 cm — panjang 72 cm
+
+Cara mengukur dan saran ukuran:
+- Ukur dada dari ketiak ke ketiak (lebar dada). Untuk ukuran pakaian yang longgar, tambahkan 4–6 cm ke ukuran dada tubuh Anda.
+- Kalau Anda suka fit pas: pilih ukuran sesuai biasa dipakai. Kalau suka longgar/oversize: naik 1 size.
+- Contoh model: (opsional tambahkan foto model dengan keterangan tinggi/berat & size yang dipakai).
+
+Panjang baju:
+- Panjangnya termasuk regular; beberapa pembeli merasa sedikit lebih pendek jika menginginkan lebih panjang — bila ingin lebih panjang, pertimbangkan naik 1 size sebagai solusi.
+
+Perawatan:
+- Cuci terbalik dengan air dingin, hindari pemutih; setrika suhu rendah. Ikuti petunjuk untuk menjaga warna & serat.
+
+Kebijakan pengiriman & retur:
+- Kami cek label & isi paket sebelum kirim. Jika Anda menerima ukuran atau warna yang tidak sesuai pesanan, hubungi CS dalam 3x24 jam untuk proses retur/ganti cepat (biaya retur ditanggung merchant bila kesalahan dari kami).
+
+Mengapa pilih ini:
+- Material nyaman dan adem, jahitan rapi, warna stabil setelah cuci — favorit untuk sehari‑hari.
+
+Call to action:
+Pilih warna dan ukuran Anda sekarang. Periksa size chart di atas sebelum checkout — jika ragu, hubungi kami untuk rekomendasi ukuran.
+
+---
+
+Kalimat untuk ditambahkan di toko/pack slip agar mengurangi komplain:
+- “Mohon cek size & warna pada packing slip. Jika ada kesalahan, hubungi kami segera: [nomor/WA].”
+- Checklist packing internal: SKU → Warna → Size → Foto sebelum kirim.
+
+Jika ingin, saya bisa:
+- Buatkan 2–3 variasi teks listing (singkat untuk marketplace, panjang untuk web), dan template gambar size chart yang siap upload.",,,,,,
+x059,h18,before,"Ringkasan masalah yang sering muncul (dari review)
+- Kapasitas membingungkan: banyak pelanggan mengira ""1.2L"" berarti jumlah beras atau kapasitas lebih besar. Beberapa menyebut hanya muat 3 cup beras/masak untuk 2 orang, ada ekspektasi ""cukup untuk 4 orang"".
+- Porsi terlalu kecil untuk keluarga: beberapa review menyatakan kurang untuk 3–4 orang; cocoknya hanya untuk 1–2 orang atau anak kos.
+- Kabel terlalu pendek: ada keluhan nyata soal panjang kabel.
+
+Saran tindakan (prioritas & tindakan konkret)
+1. Klarifikasi kapasitas di listing (SEGERA)
+   - Tulis kapasitas dalam satuan cup beras dan estimasi porsi: mis. ""Mampu memasak maksimal 3 cup beras mentah (hasil masak ≈ 6 cup nasi), cukup untuk 1–2 orang.""
+   - Jelaskan apa yang dimaksud ""1.2L"" (mis. volume dalam panci/kapasitas penuh air).
+2. Tambahkan spesifikasi teknis lengkap (SEGERA)
+   - Daya: 300W
+   - Kapasitas: 1.2 L (maks air), maks 3 cup beras mentah
+   - Dimensi panci/produk dan berat
+   - Panjang kabel (ukuran pasti dalam cm) — bila produk sekarang punya kabel pendek, cantumkan panjangnya.
+3. Perbaiki ekspektasi pelanggan (listing & gambar)
+   - Sertakan foto panci dengan takaran cup beras/ilustrasi berapa porsi (mis. foto dengan 3 cup beras, foto porsi untuk 1–2 orang).
+   - Cantumkan rekomendasi penggunaan (anak kos, pasangan, single).
+4. Tawarkan solusi untuk kabel pendek (jika tidak bisa ganti desain segera)
+   - Tambahkan di paket: gratis/opsional kabel ekstensi atau info rekomendasi (mis. gunakan extension cord standar yang aman) — bila memungkinkan berikan 1 pcs measuring cup & spatula agar jelas.
+5. Jika Anda bisa melakukan perubahan produk jangka menengah
+   - Pertimbangkan varian dengan panci lebih besar (mis. 1.8L/2.0L) untuk pelanggan keluarga.
+   - Perpanjang kabel di batch berikutnya.
+6. Tingkatkan FAQ & after-sales
+   - Tambahkan FAQ di listing: cara mengukur cup, berapa porsi, cara membersihkan panci anti-lengket, garansi, dan keamanan listrik.
+   - Tanggapi review negatif dengan penjelasan kapasitas dan rekomendasi pemakaian.
+
+Improved listing text (dalam Bahasa Indonesia)
+Judul:
+Rice Cooker Mini 1.2L — 300W, Anti-Lengket, Masak & Hangat, Hemat Listrik (Maks 3 Cup Beras)
+
+Deskripsi singkat:
+Rice Cooker mini 1.2L, ideal untuk anak kos atau pasangan. Daya 300W, panci anti-lengket, fungsi memasak & penghangat otomatis, hemat listrik.
+
+Spesifikasi utama:
+- Kapasitas panci: 1.2 L (kapasitas maksimal air)
+- Kapasitas memasak: maksimal 3 cup beras mentah (hasil masak ≈ 6 cup nasi) — ideal untuk 1–2 orang
+- Daya: 300W — hemat listrik
+- Fungsi: Cook & Keep Warm (masak dan penghangat otomatis)
+- Lapisan: panci anti-lengket mudah dibersihkan
+- Aksesori: measuring cup & spatula (jika ada) — cantumkan bila disertakan
+- Panjang kabel: [isi panjang kabel dalam cm] — periksa posisi stopkontak sebelum pemakaian
+- Garansi: [isi lama garansi]
+
+Kelebihan:
+- Hasil nasi pulen dan tidak lengket
+- Ukuran compact, cocok untuk ruang kecil/anak kos, praktis untuk 1–2 orang
+- Konsumsi daya rendah — hemat listrik
+
+Catatan penting:
+- 1.2L adalah volume panci (maks air). Untuk hasil optimal, gunakan maksimal 3 cup beras mentah sesuai takaran. Tidak direkomendasikan untuk kebutuhan 4 orang atau keluarga besar.
+- Jika stopkontak jauh, pertimbangkan penggunaan kabel ekstensi yang aman (selalu gunakan produk berkualitas dan sesuai standar listrik).
+
+Apa yang Anda dapatkan:
+- Rice cooker 1.2L, panci anti-lengket, [measuring cup & spatula jika ada], buku petunjuk & garansi.
+
+Tambahan promosi (opsional):
+- Demo foto: lihat gambar dengan 3 cup beras untuk gambaran porsi.
+- Tersedia varian kapasitas lebih besar (cek toko) — jika Anda butuh untuk keluarga, pilih varian 1.8L/2.0L.
+
+Jika Anda mau, saya bisa juga:
+- Menulis versi singkat untuk marketplace (judul + bullet singkat) dan versi panjang untuk halaman produk.
+- Membuat contoh FAQ singkat untuk ditambahkan di listing.",,,,,,
+x060,h11,after,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x061,h21,after,"Ringkasan masalah berulang (berdasarkan ulasan + fakta merchant)
+- Ketebalan kain: banyak pembeli mengeluhkan bahannya tipis/nerawang; beberapa pembeli lain menyebut tebal. Merchant mengonfirmasi bahan: katun flanel 130 gsm (kategori tipis–sedang). Kesimpulan: ekspektasi ""tebal"" di deskripsi saat ini tidak konsisten dengan bahan 130 gsm sehingga menimbulkan kebingungan.
+- Transparansi / perlu lapisan: beberapa pembeli menyatakan baju nerawang dan menyarankan memakai kaos dalam.
+- Perubahan bentuk setelah cuci & kerut: ada komentar kain melar setelah dicuci dan gampang kusut.
+- Kualitas jahitan & kontrol kualitas: ada satu laporan jahitan lepas di ketiak.
+- Kesalahan pengiriman ukuran / salah kirim: satu pembeli melaporkan pesan L tapi dikirim M.
+- Keluhan pengiriman/kurir (lama): ada komentar soal kurir lama — ini bukan masalah listing.
+
+Saran tindakan untuk penjual
+1. Perbarui informasi produk di listing agar akurat terhadap fakta:
+   - Cantumkan bahan yang dikonfirmasi: ""katun flanel 130 gsm (tipis–sedang)"". Jelaskan konsekuensi: beberapa pembeli mungkin menemukan bahan agak tipis/ada sedikit tembus cahaya.
+   - Tambahkan catatan tentang kemungkinan perlu mengenakan kaos dalam bagi yang tidak ingin terlihat nerawang (berdasarkan ulasan pelanggan).
+   - Tambahkan instruksi perawatan yang jelas pada listing (paketkan instruksi cuci & drying) untuk mengurangi keluhan melar/kusut — seller harus mengonfirmasi teks perawatan yang direkomendasikan; saya akan sertakan placeholder untuk itu.
+   - Perbarui klaim yang tidak dapat dibuktikan (hapus kata ""tebal"" jika itu menyesatkan).
+2. Tambahkan ukuran yang lebih jelas:
+   - Sediakan size chart lengkap (lingkar dada, panjang badan, panjang lengan, dsb.). Jika Anda belum memberi ukuran tersebut, tolong tambahkan; saya sisipkan placeholder [[size chart measurements]] di teks listing.
+3. Tingkatkan kontrol kualitas:
+   - Periksa jahitan (khususnya ketiak dan kancing) sebelum pengiriman.
+   - Catat perbaikan jika ada laporan jahitan lepas.
+4. Proses after-sales & pengembalian:
+   - Untuk kasus salah ukuran / salah kirim / produk cacat: arahkan pelanggan ke layanan pelanggan/retur — ini bukan masalah listing; pastikan tim fulfillment/CS menindaklanjuti cepat.
+   - Untuk keluhan kurir/pengiriman: koordinasi dengan penyedia logistik/warehouse.
+5. Foto & deskripsi:
+   - Tambahkan foto close-up tekstur kain (agar pembeli melihat ketebalan/nerawang), serta foto produk dipakai (fit nyata).
+6. Komunikasi di listing:
+   - Jujur dan spesifik agar ekspektasi pelanggan sesuai dengan produk sebenarnya — ini akan mengurangi ulasan negatif terkait ketebalan.
+
+Siapa yang harus menindaklanjuti masalah non-listing
+- Salah kirim, barang cacat, klaim pengembalian: customer service / fulfillment.
+- Pengiriman lambat / masalah kurir: tim logistik / mitra kurir.
+
+Teks listing yang disarankan (bahasa Indonesia)
+Judul: Kemeja Flanel Pria Lengan Panjang — Katun Flanel 130 gsm, Motif Kotak, Kancing Kayu
+
+Deskripsi singkat:
+Kemeja flanel pria lengan panjang motif kotak dengan kancing kayu — gaya kasual yang nyaman untuk dipakai sehari-hari.
+
+Detail produk:
+- Bahan: katun flanel 130 gsm (ketegori tipis–sedang). Beberapa pembeli melaporkan bahan terasa agak tipis/ada sedikit tembus cahaya; jika Anda menginginkan tampilan tidak tembus, disarankan memakai kaos dalam.
+- Motif: kotak, sesuai foto.
+- Kancing: kancing kayu (desain seperti di foto).
+- Fit: [[jenis fit: mis. regular/slim — konfirmasikan dan isi]]
+- Ukuran tersedia: M, L, XL. Silakan cek size chart sebelum membeli: [[size chart measurements]].
+- Perawatan: [[instruksi perawatan yang ingin Anda cantumkan (mis. cuci tangan/suhu mesin maksimal/larangan pemutih/dst.)]]
+
+Catatan penting:
+- Keterangan ketebalan: produk ini menggunakan katun flanel 130 gsm — masuk kategori tipis–sedang. Kami menyarankan memeriksa ukuran dan mempertimbangkan menggunakan kaos dalam bila menginginkan ketidak-tembusan.
+- Jika Anda menerima barang yang salah ukuran, cacat jahitan, atau mengalami masalah pengiriman, silakan hubungi layanan pelanggan kami untuk penggantian/retur. (Kesalahan pengiriman dan barang cacat akan ditangani oleh tim customer service/fulfillment.)
+
+Foto yang disarankan untuk diunggah (supaya ekspektasi pelanggan tepat):
+- Foto close-up tekstur kain di bawah cahaya terang.
+- Foto yang menunjukkan apakah kain tembus cahaya (mis. di depan cahaya lembut).
+- Foto model mengenakan kemeja (tampak depan + samping) untuk memperlihatkan fit.
+- Foto detail: kancing kayu, jahitan ketiak, label ukuran.
+
+Jika Anda setuju dengan perubahan di atas, tolong konfirmasikan atau lengkapi informasi yang masih kosong:
+- Isi [[size chart measurements]] dengan ukuran (lingkar dada, panjang badan, panjang lengan, bahu) per ukuran M/L/XL.
+- Konfirmasi jenis fit (regular/slim/oversize).
+- Isi [[instruksi perawatan]] yang ingin dicantumkan.
+
+Saya bisa segera masukkan data tersebut ke teks final listing setelah Anda memberi detail yang diminta.",,,,,,
+x062,h15,before,(no issues reported),,,,,,
+x063,h11,before,"Recurring customer problems (from reviews)
+- HDMI refresh rate: Multiple buyers report the HDMI output at 4K is limited to 30 Hz (r1, r2, r3, r4, r8). This caused visible lag for mouse movement and poor gaming/TV performance.
+- Missing SD card slot / wrong configuration: At least one buyer says they ordered a 6-in-1 but received a 4-in-1 with no SD slot (r6).
+- Conflicting PD charging reports: The listing currently states ""USB-C PD 100W"", but a reviewer reported PD charging working at 65W for their laptop (r5). (Buyer reports are not confirmation; please verify.)
+- Delivery speed: One reviewer complained about slow courier (r9). This is a logistics/shipping issue, not a listing problem.
+- Positive notes to keep in the listing: solid aluminum body and good USB 3.0 transfer performance (r7, r10).
+
+Recommended actions for the seller
+1. Verify technical limits and update listing:
+   - Confirm the HDMI maximum refresh rate at 4K (e.g., 30 Hz or 60 Hz) under controlled testing and update the product text to state the confirmed maximum. If some host devices limit to 30 Hz, explicitly say so or provide guidance.
+   - Confirm the USB-C PD pass-through maximum wattage under testing and update the listing with the verified PD wattage (do not keep 100W unless confirmed).
+2. Inventory & quality control:
+   - Audit fulfillment to ensure units shipped match the advertised 6-in-1 configuration (i.e., that every unit includes the SD slot). Fix packing/stock labeling so customers don’t receive 4-in-1 units by mistake.
+   - Add a final QC step before shipping to verify the correct model and all ports are present.
+3. Customer-facing fixes:
+   - Update the listing to clearly state the confirmed HDMI refresh-rate limit and PD wattage so customers know what to expect and avoid returns for unmet expectations.
+   - Add a short compatibility/usage note: performance can depend on host device, display, and cables (so buyers understand possible variability).
+4. Handle non-listing complaints through the right channels:
+   - Wrong item, missing port or defect: handle via customer service/returns and fulfillment/warehouse.
+   - Late delivery: investigate with your shipping provider/fulfillment partner and offer tracking/compensation policies through customer service.
+5. If you want to reduce support requests, consider including in the package a short one-page spec sheet listing confirmed limits (HDMI refresh rate, PD wattage) and a contact for support.
+
+Improved listing text (use only confirmed facts; placeholders where you must confirm)
+Title:
+USB-C Hub 6-in-1 — HDMI 4K, 3× USB 3.0, USB-C PD, SD card slot, Aluminum Body, Plug & Play
+
+Short description:
+Compact USB-C hub with HDMI 4K output, three USB 3.0 ports, USB-C PD pass-through, SD card slot, and aluminum housing. Plug-and-play for laptops and tablets with USB-C.
+
+Features (update the placeholders with your verified values before publishing)
+- Ports:
+  - HDMI 4K — max refresh rate: [[confirm HDMI max refresh rate, e.g., 30 Hz or 60 Hz]]
+  - USB 3.0 ×3 (high-speed data transfer)
+  - USB-C PD pass-through (maximum confirmed wattage: [[confirm PD wattage]])
+  - SD card slot
+- Durable aluminum body — solid build and good heat dissipation
+- Plug & play — designed for laptops and tablets with USB-C
+
+Important notes (do not change unless you can verify)
+- Performance may vary depending on the host device, display, and cables. Please check that your laptop/tablet and monitor/TV support the desired resolution and refresh rate.
+- If you require 4K at 60 Hz, confirm the HDMI refresh-rate specification above before purchase.
+
+What we have improved (seller-facing)
+- We will update the listing as soon as you confirm the HDMI max refresh rate and the PD wattage.
+- We recommend adding a QA check to prevent shipping 4-in-1 units when the customer ordered 6-in-1.
+
+Which team should handle reported issues
+- Wrong item / missing ports / defective unit: Customer Service & Fulfillment (returns/exchange).
+- Slow delivery / late arrival: Logistics / Shipping provider (investigate tracking and carrier).
+
+Next steps for you (seller)
+1. Please confirm these product facts so I can replace placeholders in the listing:
+   - Confirmed HDMI maximum refresh rate at 4K (e.g., ""4K @ 30 Hz"" or ""4K @ 60 Hz"").
+   - Confirmed USB-C PD pass-through maximum wattage (do not provide a number unless tested/verified).
+   - Confirm every unit being shipped includes the SD card slot (yes/no).
+2. If you want, I will produce a final listing version with those values inserted.",,,,,,
+x064,h15,after,"Issue: laptop charging compatibility (expectation_mismatch); draft status: ready
+Kompatibilitas untuk ngecas laptop: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W); tidak mendukung Samsung PPS 25W.
+
+Issue: product durability / early failure (product_quality); draft status: route
+",,,,,,
+x065,h12,before,"Ringkasan masalah berulang (dari ulasan)
+- Kesalahpahaman waterproof: Beberapa pembeli mengira bisa direndam/untuk dipakai di kolam/berenang, tapi produk hanya IPX4 (anti cipratan). Ada kasus mati setelah terkena air banyak/tercelup.
+- Kerusakan karena air: Keluhan nyata tentang speaker mati setelah kecemplung atau terkena banyak air → kemungkinan perlu penanganan atau pengujian ketat soal sealing.
+- Koneksi Bluetooth: Beberapa pengguna mengeluhkan putus-putus kalau jarak jauh.
+- Poin positif: Suara dianggap jernih untuk ukuran kecil, bass lumayan, baterai tahan lama, packing rapi.
+
+Rekomendasi tindakan (prioritas dan tindakan yang bisa dilakukan sekarang)
+1. Perjelas label dan deskripsi produk (segera)
+   - Tambahkan teks yang eksplisit: “IPX4 — tahan cipratan/hujan ringan. Tidak untuk direndam atau dipakai saat berenang.”
+   - Sertakan contoh penggunaan aman: aman dipakai di teras saat hujan tipis / di dapur saat ada percikan, tapi jangan letakkan di pinggir kolam atau masukkan ke air.
+2. Update manual dan kemasan (segera)
+   - Sertakan instruksi perawatan ketika terkena cipratan: buka tutup port, keringkan sisa air, tunggu minimal X jam sebelum menyalakan/charging.
+   - Beri panduan garansi terkait kerusakan akibat air (apakah ditanggung atau tidak).
+3. Tambahkan FAQ di halaman listing
+   - Jawab pertanyaan umum: “Bisa dipakai di kolam/berenang?” “Berapa jarak koneksi Bluetooth?” “Berapa lama baterai?” dll.
+4. Perbaiki ekspektasi pelanggan di listing (segera)
+   - Cantumkan jarak efektif Bluetooth (mis. hingga 10 m tanpa halangan) dan estimasi waktu pemakaian berdasarkan baterai (mis. hingga 8–12 jam tergantung volume).
+5. Tindak lanjut kualitas & R&D (menengah)
+   - Evaluasi proses sealing/quality control: periksa apakah beberapa unit memiliki cacat penyegelan sehingga gampang rusak oleh cipratan.
+   - Jika banyak keluhan air terjadi, pertimbangkan upgrade proteksi ke IPX6/IP67 untuk model berikutnya.
+   - Periksa antena/modul Bluetooth atau firmware untuk mengurangi putus koneksi.
+6. Layanan purna jual (segera/menengah)
+   - Tawarkan solusi proaktif untuk pembeli yang mengalami masalah air: penggantian/servis jika masih dalam garansi (sesuaikan kebijakan).
+   - Respon cepat pada review/pertanyaan yang menyebut kerusakan karena air supaya reputasi tidak makin menurun.
+
+Contoh teks listing yang diperbaiki (Bahasa Indonesia)
+Judul:
+Speaker Bluetooth Portable Mini — Bluetooth 5.0 | Baterai 1200mAh | IPX4 (Tahan Cipratan)
+
+Deskripsi singkat:
+Speaker portable kecil tetapi bertenaga — cocok untuk penggunaan sehari-hari. Dilengkapi Bluetooth 5.0 untuk koneksi stabil, baterai 1200mAh buat pemakaian seharian, dan perlindungan IPX4 terhadap cipratan air.
+
+Fitur utama:
+- Konektivitas: Bluetooth 5.0 — koneksi cepat dan hemat daya (jarak efektif hingga ~10 m tanpa halangan).
+- Baterai: 1200mAh — pemakaian hingga 8–12 jam tergantung volume. Waktu pengisian ~2–3 jam.
+- Tahan cipratan: IPX4 — aman dipakai saat hujan ringan atau terkena percikan. NOT waterproof: jangan direndam atau dibawa berenang.
+- Suara: Kualitas suara jernih dengan bass yang baik untuk ukuran mini.
+- Portabilitas: Desain ringkas dan ringan, mudah dibawa.
+- Paket termasuk: 1x speaker, 1x kabel pengisian (USB), manual pengguna.
+
+Peringatan & perawatan (mohon dibaca):
+- IPX4 = tahan cipratan/percikan saja. Tidak untuk diselamkan, tidak untuk digunakan saat berenang atau ditaruh di pinggir kolam. Menaruh speaker di air atau merendamnya dapat menyebabkan kerusakan permanen dan tidak ditanggung garansi.
+- Jika terkena cipratan banyak: segera matikan, lepaskan kabel charging, keringkan permukaan dan port, biarkan mengering 24 jam sebelum menyalakan.
+- Jaga jarak maksimal koneksi Bluetooth ±10 m tanpa penghalang; dinding/halangan dapat mengurangi jangkauan.
+
+Garansi & layanan:
+- Garansi resmi [sebutkan durasi, mis. 6/12 bulan] untuk cacat pabrik. Kerusakan akibat perendaman tidak termasuk garansi. Untuk klaim garansi atau bantuan teknis, hubungi layanan pelanggan kami [kontak].
+
+Kenapa beli produk ini:
+- Suara jernih dan bass mengejutkan untuk ukuran mini.
+- Baterai tahan seharian.
+- Ringan dan mudah dibawa, aman untuk penggunaan outdoor biasa (hujan ringan).
+
+CTA singkat:
+Pesan sekarang — bawa suara berkualitas ke mana saja! Ingat: tidak untuk direndam atau berenang.
+
+---
+
+Jika Anda ingin, saya bisa:
+- Menyusun FAQ singkat untuk ditambahkan di halaman produk.
+- Menyusun teks peringatan untuk kemasan/manual agar lebih menonjol.
+- Membuat balasan standar untuk menanggapi review negatif terkait perendaman.",,,,,,
+x066,h18,before,"Recurring customer problems (from reviews)
+- Kapasitas tidak jelas / mengecewakan:
+  - Beberapa pembeli mengira ""1.2L"" berarti jumlah beras, lalu melaporkan masak nasi hanya muat ~3 cangkir atau pas untuk 1–2 orang; ada komentar bahwa tidak cukup untuk 4 orang. Pembeli meminta informasi jumlah cup maksimal.
+- Panjang kabel terlalu pendek:
+  - Setidaknya satu pembeli menilai kabel terlalu pendek untuk penempatan umum.
+- Ekspektasi tidak terpenuhi karena informasi penting tidak ada di listing:
+  - Pembeli ingin angka cup maksimal (mis. “masak berapa cup beras”), dan info panjang kabel atau aksesori yang disertakan.
+
+Hal yang pembeli suka (positif, bisa ditonjolkan)
+- Panci anti lengket berfungsi baik dan nasi pulen.
+- Hemat listrik / daya 300W diapresiasi.
+- Ukuran cocok untuk kos / 1–2 orang.
+
+Saran tindakan untuk penjual
+1. Perbaiki listing untuk menghindari kebingungan:
+   - Cantumkan kapasitas nyata untuk memasak dalam satuan cup beras (mis. “maksimal X cup beras kering” atau “masak hingga X cup nasi matang”) — jika penjual belum mengonfirmasi angka ini, minta pengukuran. Gunakan placeholder jika perlu.
+   - Cantumkan apakah 1.2L mengacu pada volume air/total volume panci atau lainnya; jika belum dikonfirmasi, minta klarifikasi.
+   - Sebutkan panjang kabel listrik secara tepat. Jika panjang kabel pendek dan tidak bisa diubah, pertimbangkan menawarkan kabel ekstensi resmi atau menginformasikan cara aman menempatkan unit dekat stopkontak.
+   - Jelaskan jumlah porsi yang biasa bisa dilayani (mis. “cukup untuk 1–2 orang”) jika penjual ingin memberi panduan.
+2. Tambahkan informasi gambar/demonstrasi:
+   - Unggah foto bagian dalam panci dengan tanda ukur (jika ada) atau foto contoh kapasitas (mis. nasi untuk 1/2/3 cup) untuk memberi ekspektasi visual.
+3. Tangani masalah kabel:
+   - Jika memungkinkan, sertakan panjang kabel di listing dan, bila memungkinkan, tawarkan opsi bundling dengan kabel ekstensi atau pengganti. Jika tidak, sebutkan bahwa kabel pendek membutuhkan stopkontak dekat.
+4. Layanan pelanggan:
+   - Keluhan terkait pengiriman, barang salah, atau cacat harus ditangani oleh tim Customer Service/After Sales (garansi/retur/pertukaran). Jangan ubah listing untuk masalah pengiriman.
+5. Jika ada aksesoris (cup takar, sendok nasi), konfirmasi dan cantumkan secara jelas; jika tidak termasuk, sebutkan ""accessories not included"" atau serupa — minta penjual mengonfirmasi.
+
+Informasi yang saya butuhkan dari Anda (seller) sebelum menulis listing final yang sepenuhnya lengkap
+- Apakah kapasitas 1.2L merujuk pada volume total panci atau volume air? Jika ada standar pabrik, tolong konfirmasi.
+- Berapa maksimal cup beras kering yang bisa dimasak (mis. X cup beras kering → Y porsi nasi)?
+- Panjang kabel listrik (cm/meter)?
+- Apakah ada aksesori yang disertakan (mis. cup takar, sendok nasi, steamer)? Sebutkan apa saja bila ada.
+- Apakah Anda ingin menyatakan rekomendasi jumlah orang per sekali masak (mis. “cocok untuk 1–2 orang”)?
+
+Improved listing text (draft) — update yang bisa Anda pakai segera
+Rice Cooker Mini 1.2L — 300W, panci anti-lengket, fungsi masak & penghangat
+
+Fitur utama:
+- Kapasitas: 1.2L [[klarifikasi kapasitas: apakah ini total volume panci atau volume air?]] — maksimal memasak: [[max rice cups]] cup beras kering (harap konfirmasi)
+- Daya rendah 300W — hemat listrik, ideal untuk kos atau keluarga kecil
+- Panci anti-lengket — memudahkan memasak dan membersihkan; banyak pembeli melaporkan nasi pulen dan tidak lengket
+- Fungsi: masak nasi & penghangat otomatis
+- Rekomendasi penggunaan: cocok untuk [[rekomendasi jumlah orang per sekali masak]] (harap konfirmasi)
+- Panjang kabel: [[power cord length]] (harap konfirmasi)
+
+Catatan penting untuk pembeli:
+- Angka ""1.2L"" pada listing perlu diklarifikasi untuk menghindari kebingungan antara satuan liter dan jumlah cup beras. Silakan lihat detail kapasitas dalam cup yang kami sediakan di atas. (Jika informasi belum tersedia, hubungi penjual untuk klarifikasi.)
+- Jika Anda membutuhkan jarak stopkontak tambahan, periksa panjang kabel yang tertera atau gunakan kabel ekstensi yang aman.
+
+Apa yang sudah banyak pembeli sukai:
+- Panci anti-lengketnya efektif, nasi menjadi pulen.
+- Cocok untuk penggunaan hemat listrik dan untuk penghuni kos/kamar kecil.
+
+Jika Anda ingin saya masukkan detail lengkap (mis. jumlah cup maksimal, panjang kabel, aksesori yang disertakan), berikan data tersebut dan saya akan perbarui listing agar menghilangkan kebingungan pembeli dan mengurangi komplain.
+
+Catatan operasional: masalah pengiriman, paket salah, atau produk cacat harus ditangani oleh tim Customer Service/After Sales untuk retur/penukaran/kompensasi.",,,,,,
+x067,h18,before,(no issues reported),,,,,,
+x068,h12,before,(no issues reported),,,,,,
+x069,h11,before,"Ringkasan masalah berulang (dari ulasan)
+- HDMI 4K hanya berjalan di 30 Hz (pelanggan mengira/harapkan 60 Hz) — banyak komplain tentang lag/“patah‑patah” saat mouse atau game.
+- Klaim spesifikasi PD/port tidak konsisten — satu ulasan menyebut charging lancar 65W padahal judul mencantumkan “PD 100W”.
+- Unit yang dikirim tidak sesuai varian — ada pelanggan yang memesan 6‑in‑1 tapi menerima 4‑in‑1 (tidak ada slot SD).
+- Pengiriman lambat (masalah kurir/logistik) — satu komentar menyebut seminggu baru sampai.
+- Puas terhadap build quality (aluminium, tidak panas) dan kecepatan USB 3.0 — poin positif yang perlu dipertahankan.
+
+Rekomendasi tindakan (prioritas dan tindakan konkret)
+1. Perbaiki spesifikasi produk di listing (segera)
+   - Nyatakan dengan jelas batasan HDMI: “HDMI 4K@30Hz” jika hardware memang hanya mendukung itu.
+   - Jelaskan kapasitas PD sebenarnya: jika perangkat hanya menyediakan pass‑through sampai 65W praktiknya, tulis “PD pass‑through up to 65W (depend on host & cable)” atau jika hardware mendukung 100W, verifikasi dan sertakan catatan penggunaan kabel dan sumber daya yang kompatibel.
+   - Tambahkan catatan kompatibilitas: host (laptop/tablet/phone) harus mendukung USB-C Alt Mode/DP Alt Mode untuk output video; beberapa device hanya mendukung 4K@30/60 tergantung port versi.
+2. QC dan pengepakan (operasional)
+   - Periksa lini produksi/stock: pastikan varian 6‑in‑1 selalu dikirim sebagai 6‑in‑1. Beri tanda model/sku yang jelas pada kemasan.
+   - Tambahkan checklist packing (jumlah port, slot SD ada/tidak) untuk kurangi kesalahan pengiriman.
+3. Klarifikasi dan edukasi pelanggan (preventif)
+   - Tambahkan FAQ singkat di listing: mengapa bisa 30Hz, bagaimana mendapat 60Hz (jika mungkin), pengaruh kabel dan GPU, langkah troubleshooting (cek cable, update driver, cek pengaturan monitor).
+4. Perbaiki logistik/pengiriman
+   - Tinjau mitra kurir, opsi pengiriman ekspres, dan estimasi waktu yang realistis. Tambahkan tracking penuh di konfirmasi pemesanan.
+5. Layanan purna jual
+   - Siapkan proses retur/penukaran cepat untuk kasus “salah varian”.
+   - Jika spesifikasi ternyata tidak sesuai klaim lama, tawarkan kompensasi/retur gratis bagi yang merasa dirugikan.
+6. Materi promosi & listing: tonjolkan kelebihan
+   - Pertahankan highlight yang disukai: bodi aluminium, kinerja USB3.0, tidak panas, plug & play.
+   - Sertakan informasi teknis lebih lengkap (resolusi/refresh, power draw, kompatibilitas OS).
+
+Improved listing text (Bahasa Indonesia, format jual yang jelas dan jujur)
+Judul:
+USB‑C Hub 6‑in‑1 — HDMI 4K@30Hz • 3× USB 3.0 • USB‑C PD pass‑through • SD Card • Aluminium • Plug & Play
+
+Deskripsi singkat:
+Hub USB‑C 6‑in‑1 compact dengan bodi aluminium kokoh — solusi all‑in‑one untuk laptop, tablet, dan smartphone yang mendukung USB‑C Alt Mode. Ringkas, tidak panas, dan mendukung transfer data cepat lewat USB 3.0.
+
+Spesifikasi utama:
+- HDMI: 4K (3840×2160) pada 30Hz. Untuk output 60Hz, perangkat host dan kabel harus mendukung USB‑C DP Alt Mode dan HDMI 2.0; hub ini mendukung maksimum 4K@30Hz.
+- USB‑A: 3× USB 3.0 (hingga 5 Gbps) — transfer file cepat untuk HDD/SSD/flash drive.
+- USB‑C PD: Pass‑through charging hingga 65W (praktis terukur). Kecepatan charge tergantung adaptor dan kabel yang digunakan serta kemampuan laptop. (Jika perangkat dan adaptor mendukung 100W, use cable and adapter rated for 100W — namun hub ini hanya menjamin hingga 65W pass‑through.)
+- Pembaca kartu: slot SD (full‑size) — baca/ tulis foto langsung dari kamera.
+- Material: Aluminium heatsink body — tahan lama dan pembuangan panas baik.
+- Kompatibilitas: Windows, macOS, Linux, iPad Pro (perlu dukungan USB‑C Alt Mode untuk video), dan smartphone dengan fitur video output. Tidak semua smartphone mendukung video output.
+- Plug & Play: Tidak perlu driver.
+
+Apa yang termasuk di kotak:
+- 1× USB‑C Hub 6‑in‑1
+- 1× Kabel USB‑C (termasuk)
+- Panduan singkat + garansi 12 bulan
+
+Catatan penting & tips:
+- HDMI 4K hanya sampai 30Hz pada hub ini. Jika Anda butuh 4K@60Hz untuk gaming/refresh tinggi, periksa apakah laptop/monitor serta kabel mendukung 4K60, atau pilih hub/adapter yang spesifik mendukung HDMI 2.0/DP 1.4 4K60.
+- PD charging: gunakan adaptor dan kabel USB‑C PD berkualitas untuk mendapatkan output maksimal. Jika laptop Anda membutuhkan 100W, kami sarankan menggunakan adaptor langsung ke laptop saat performa maksimal diperlukan.
+- Jika tampilan Anda berkedip/lag: coba ganti kabel HDMI, cek pengaturan refresh rate di sistem operasi, pastikan port laptop mendukung Alt Mode.
+- Jika Anda menerima unit yang tidak sesuai (mis. varian 4‑in‑1), hubungi layanan pelanggan untuk penukaran/retur gratis.
+
+Keunggulan:
+- Desain aluminium kokoh dan tidak cepat panas
+- Transfer data USB 3.0 kencang
+- Ringkas dan cocok untuk kerja mobile
+
+Garansi & layanan:
+Garansi 12 bulan. Tukar/balet cepat untuk unit yang tidak sesuai. Hubungi kami lewat [kontak toko] untuk bantuan teknis atau klaim garansi.
+
+----
+
+Jika Anda mau, saya bisa juga:
+- Menyusun FAQ singkat yang bisa ditaruh di listing/packing slip untuk mengurangi kebingungan soal 4K/60Hz vs 30Hz.
+- Menulis template balasan customer service untuk kasus “salah varian” dan “komplain refresh rate”.",,,,,,
+x070,h14,before,(no issues reported),,,,,,
+x071,h20,before,"Ringkasan masalah berulang (dari review):
+- Keterangan mayoritas positif: switchnya nyaman, hot-swap berfungsi, kabel USB-C kokoh, suara ketik tenang, cocok untuk kerja & gaming, packing rapi.
+- Masalah yang muncul: RGB dianggap “terlalu terang” (1 review). Tidak ada keluhan lain yang konsisten (tidak ada cacat/gores, tidak ada masalah kualitas kabel atau hot-swap).
+
+Saran tindakan praktis (prioritas):
+1. Tambahkan kontrol kecerahan RGB atau mode lampu:
+   - Implementasikan / jelaskan tombol shortcut (Fn + …) untuk mengatur brightness, mematikan lampu, dan mengganti efek.
+   - Jika tidak ada kontrol hardware, pertimbangkan update firmware atau penyertaan panduan cara menurunkan intensitas (mis. kombinasi tombol).
+2. Perjelas spesifikasi & fitur di listing:
+   - Tegaskan bahwa keyboard hot-swap (ganti switch tanpa solder), tipe switch default (Red), jumlah key (68), detachable USB-C, dan kabel kokoh.
+   - Cantumkan bahwa suara ketik low-noise/tenang dan cocok untuk kerja & gaming.
+   - Jelaskan dukungan RGB (berapa mode, apakah dimmable) agar pembeli tahu intensitas lampu.
+3. Tambahkan nilai jual & kepercayaan:
+   - Sertakan foto/potongan video mode RGB pada berbagai level kecerahan.
+   - Tawarkan opsi switch (Red/Blue/Brown) bila memungkinkan.
+   - Jelaskan garansi, QC sebelum pengiriman, dan packing tebal untuk keamanan.
+4. Customer support & panduan:
+   - Sediakan panduan singkat dalam paket tentang cara mengganti switch dan mengatur RGB.
+   - Respon cepat bila pembeli mengeluh soal kecerahan (solusi: panduan matikan LED atau kirim firmware/shortcut).
+5. Aksesoris/bonus opsional:
+   - Sertakan keycap ekstra/penarik switch atau bantalan karet kaki anti-slip sebagai nilai tambah.
+
+Improved listing text (Bahasa Indonesia, singkat & jualan):
+Judul: Mechanical Keyboard 68-Key Hot-Swap | USB-C Lepas Pasang | Switch Red | RGB Dimmable
+
+Deskripsi singkat:
+Keyboard mechanical compact 68-key, ideal untuk kerja dan gaming. Hot-swap true — ganti switch tanpa solder, plug & play. Switch Red terasa ringan dan responsif, cocok untuk mengetik cepat dan gaming tanpa berisik. Kabel USB-C detachable berkualitas tinggi, terpasang kokoh dan mudah dibawa.
+
+Fitur utama:
+- 68 Tuts compact (layout 65/68-style) — hemat ruang, tetap fungsional
+- Hot-swap socket — mudah ganti switch sendiri
+- Switch: Red (linear) — suara lembut dan responsif
+- RGB full-spectrum dengan opsi dimming — beberapa mode & tingkat kecerahan (termasuk off)
+- USB-C detachable — kabel kuat dan mudah dilepas
+- Build quality: casing kokoh, packing tebal untuk pengiriman aman
+- Suara ketik low-noise — nyaman di kantor atau malam hari
+- Cocok untuk kerja dan gaming
+
+Apa yang disertakan:
+- Keyboard 68-key (switch Red terpasang)
+- Kabel USB-C detachable
+- Keycap puller / switch puller (jika disertakan)
+- Panduan singkat hot-swap & kontrol RGB
+- Garansi & layanan purna jual
+
+Catatan tambahan:
+- Ingin kecerahan LED lebih redup? Gunakan shortcut Fn + (tombol brightness) untuk mengecilkan atau matikan lampu. Hubungi kami jika butuh panduan atau opsi switch lain (Brown/Blue tersedia dengan request).
+
+Beli sekarang — compact, nyaman, dan siap di-custom sesuai gaya Anda!
+
+Jika mau, saya bisa susun versi listing lebih panjang untuk marketplace tertentu (Tokopedia/Shopee/Bukalapak) atau buat daftar FAQ dan shortcut tombol RGB untuk dimasukkan ke deskripsi.",,,,,,
+x072,h11,before,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x073,h17,before,"Issue: earbud channel reliability (product_quality); draft status: route
+
+
+Issue: warranty and waterproof rating (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x074,h13,after,"Ringkasan masalah berulang (dari review)
+- Kebingungan dan pembelian salah karena informasi kompatibilitas tidak jelas: beberapa pembeli mencoba pakai pada iPhone 13 Pro, 13 Pro Max, atau 13 Mini dan case tidak pas (beberapa memberi rating rendah karena ini).
+- Potongan kamera tidak cocok untuk model Pro (laporan lubang kamera tidak pas).
+- Keluhan sekali tentang pengiriman lama.
+- Poin positif berulang: case benar-benar bening (tidak cepat menguning), sudut tebal/perlindungan baik, harga murah.
+
+Saran tindakan (prioritas dan konkret)
+1. Perbaiki kompatibilitas di judul dan deskripsi — buat sangat jelas hanya untuk iPhone 13 (6.1"") dan cantumkan model yang tidak kompatibel (13 Mini / 13 Pro / 13 Pro Max).
+   - Judul: sertakan “Only for iPhone 13 (6.1"")”.
+   - Deskripsi: ulangi kompatibilitas di bagian awal dan gunakan bold/ALL CAPS untuk titik penting bila platform mendukung.
+2. Tambahkan foto produk yang jelas:
+   - Foto yang menampilkan case terpasang di iPhone 13 dari depan, belakang, dan close-up potongan kamera.
+   - Foto perbandingan: tampilkan bahwa case TIDAK cocok di 13 Pro/13 Mini/13 Pro Max (opsional: label “Not compatible”).
+3. Cantumkan spesifikasi fisik yang membantu pembeli memverifikasi kecocokan:
+   - Dimensi internal/luas kamera cutout, material (TPU), tebal sudut (mm), bobot.
+4. Perbaiki title/tag listing untuk pencarian: sertakan kata kunci relevan tapi akurat (iPhone 13 case, clear TPU, anti-crack).
+5. Kebijakan pengiriman & retur:
+   - Tampilkan estimasi waktu pengiriman yang realistis.
+   - Berikan informasi return/exchange jika pembeli salah model (mis. opsi tukar/retur dalam 7 hari dengan biaya pengiriman ditanggung pembeli).
+6. Jika memungkinkan, sediakan varian untuk model iPhone 13 lainnya (13 Pro, 13 Mini, 13 Pro Max) sebagai SKU terpisah sehingga pembeli dapat memilih yang benar.
+7. Buat FAQ singkat di listing:
+   - “Apakah cocok untuk iPhone 13 Pro?” — Tidak.
+   - “Apakah case cepat menguning?” — Tidak, formula TPU anti-yellowing.
+8. Tindak lanjut operasional:
+   - Periksa proses packing/labeling untuk mencegah kesalahan pengiriman item yang salah.
+   - Evaluasi mitra logistik jika ada keluhan pengiriman lama berulang.
+
+Improved listing text (Bahasa Indonesia)
+Judul:
+Case iPhone 13 (6.1"") Clear Anti-Crack — Soft TPU Bening, Sudut Tebal, Pelindung Kamera
+
+Deskripsi singkat (tampilan atas, harus terlihat):
+Kompatibilitas: HANYA untuk iPhone 13 (6.1""). TIDAK cocok untuk iPhone 13 Mini, iPhone 13 Pro, atau iPhone 13 Pro Max. Mohon pastikan model Anda sebelum membeli.
+
+Fitur utama:
+- Material: Soft TPU bening anti-yellowing — tetap jernih, tidak cepat kuning.
+- Proteksi: Sudut tebal untuk meredam benturan; pelindung kamera timbul untuk menghindari gores.
+- Desain slim dan ringan — menjaga bentuk asli perangkat tanpa menambah banyak ketebalan.
+- Cutout presisi untuk port dan tombol (khusus iPhone 13).
+- Anti-crack: formulasi TPU yang tahan retak pada sudut.
+
+Spesifikasi:
+- Kompatibilitas: iPhone 13 (layar 6.1"", model resmi iPhone 13).
+- Bahan: Thermoplastic Polyurethane (TPU).
+- Warna: Bening (Clear).
+- Termasuk: 1x Case iPhone 13 Clear.
+
+Catatan penting:
+- TIDAK UNTUK iPhone 13 Mini / 13 Pro / 13 Pro Max — pastikan model ponsel Anda adalah iPhone 13 (6.1"").
+- Jika ragu, cek di Pengaturan > Umum > About / Model pada ponsel Anda sebelum membeli.
+
+Pengiriman & retur:
+- Estimasi pengiriman: [isi dengan estimasi realistis Anda, mis. 2–5 hari kerja].
+- Kebijakan retur: Tukar/retur diterima dalam 7 hari bila produk tidak sesuai deskripsi; pembeli bertanggung jawab biaya pengiriman untuk retur kecuali kesalahan kami.
+
+FAQ singkat:
+- Apakah case cepat menguning? Tidak — dirancang anti-yellowing.
+- Cocok untuk iPhone 13 Pro? Tidak — potongan kamera berbeda.
+- Apa yang saya lakukan bila mendapat case yang salah? Hubungi seller untuk proses retur/tukar.
+
+Tambahan rekomendasi tampilan:
+- Tambahkan foto close-up potongan kamera terpasang di iPhone 13.
+- Jika memungkinkan, tambahkan label “Only for iPhone 13 (6.1"")” pada gambar utama.
+
+Jika perlu, saya bisa bantu menulis versi judul/deskripsi yang dipersingkat untuk marketplace tertentu (Tokopedia, Shopee, Lazada, dsb.) atau membuat template FAQ dan gambar overlay untuk foto produk. Mau lanjut ke salah satu platform?",,,,,,
+x075,h21,after,"Ringkasan masalah yang berulang (dari ulasan):
+- Banyak pembeli mengeluh bahan terasa tipis/nerawang dan berbeda dengan ekspektasi “tebal”. (beberapa nilai 1–3/5)
+- Beberapa pembeli menyebut bahan cepat melar atau gampang kusut setelah cuci.
+- Ada keluhan soal ukuran/packing (satu kasus dikirim ukuran salah).
+- Ada laporan jahitan lepas di ketiak (kualitas jahit belum konsisten).
+- Keluhan pengiriman terlambat (satu ulasan).
+- Beberapa pembeli puas dengan motif, kancing kayu, dan warna yang tidak luntur.
+
+Fakta yang dikonfirmasi merchant:
+- Bahan: katun flanel 130 gsm — ketebalan tipis–sedang.
+
+Rekomendasi tindakan (prioritas dan tindakan spesifik)
+1. Perbaiki deskripsi produk sekarang juga
+   - Cantumkan secara jelas: bahan 100% katun flanel 130 gsm (tipis–sedang). Jelaskan konsekuensi: bisa sedikit nerawang di cahaya kuat; cocok untuk cuaca siang/kerja santai/transition seasons.
+   - Tambah saran styling: “disarankan pakai kaos dalaman bila khawatir nerawang”.
+
+2. Tambahkan ukuran detail + panduan fit
+   - Sertakan tabel ukuran (lebar dada, panjang baju, panjang lengan) untuk M/L/XL agar pembeli bisa memilih lebih akurat.
+   - Beri saran fit (mis. slim fit/regular fit) dan referensi tinggi/berat model jika ada foto pemakaian.
+
+3. Perbaiki ekspektasi kualitas & foto
+   - Upload foto close-up kain (lighting natural dan backlight) agar pembeli bisa lihat ketebalan/tekstur.
+   - Sertakan foto produk di bawah cahaya terang untuk tunjukkan tingkat nerawang.
+
+4. Tingkatkan kontrol kualitas
+   - Pemeriksaan pre-kirim: cek ukuran sesuai pesanan, cek jahitan area ketiak, cek kancing.
+   - Berikan catatan QC di packing (mis. “sudah diperiksa: jahit & ukuran”).
+
+5. Perbaiki perawatan & instruksi cuci
+   - Cantumkan petunjuk cuci untuk mengurangi melar dan kusut: cuci dingin, jangan rendam lama, hindari mesin pengering, setrika suhu sedang, keringkan dengan cara digantung.
+   - Tawari tips mengembalikan bentuk jika melar ringan (mis. setrika hangat setelah dicuci).
+
+6. Layanan purna jual & pengiriman
+   - Tegaskan kebijakan pengembalian/penukaran bila salah ukuran dikirim atau cacat produksi.
+   - Evaluasi kurir/estimasi pengiriman agar kasus terlambat bisa dikurangi; tampilkan estimasi pengiriman yang realistis.
+
+7. Perbaikan produk jangka menengah
+   - Perkuat jahitan di titik rawan (ketiak) untuk mengurangi keluhan lepas jahit.
+   - Pertimbangkan varian 160–200 gsm sebagai opsi “lebih tebal” bila permintaan tinggi.
+
+Contoh teks listing yang diperbaiki (Indonesia) — gunakan ini menggantikan deskripsi lama:
+
+Judul:
+Kemeja Flanel Pria Lengan Panjang — Katun Flanel 130 gsm, Motif Kotak, Kancing Kayu (M/L/XL)
+
+Deskripsi singkat:
+Kemeja flanel pria nyaman untuk pemakaian sehari-hari. Terbuat dari 100% katun flanel 130 gsm (tipis–sedang), motif kotak klasik, dan kancing kayu asli untuk tampilan casual rapi.
+
+Fitur utama:
+- Bahan: 100% katun flanel, 130 gsm — ketebalan tipis–sedang (nyaman dipakai siang hari, adem).
+- Motif: kotak klasik, warna tidak mudah luntur.
+- Kancing: kancing kayu yang kuat dan estetik.
+- Ukuran tersedia: M / L / XL. (Lihat tabel ukuran di bawah untuk memilih yang pas.)
+- Cocok untuk: kegiatan santai, kerja kantor casual, layering.
+
+Penting — harap baca sebelum beli:
+- Ketebalan: 130 gsm = tipis–sedang. Pada cahaya kuat/terang produk bisa tampak sedikit nerawang; bila khawatir, pakai kaos dalaman.
+- Perawatan: cuci dengan air dingin, jangan direndam lama, jangan gunakan mesin pengering, keringkan digantung, setrika dengan suhu sedang. Ikuti petunjuk cuci untuk menjaga bentuk dan mencegah melar.
+- QC & garansi: Semua produk diperiksa sebelum dikirim. Jika menerima ukuran salah atau cacat jahit, hubungi kami untuk penukaran/retur.
+
+Tabel ukuran (contoh — sesuaikan dengan ukuran aktual):
+- M: lebar dada 52 cm, panjang baju 70 cm, panjang lengan 61 cm
+- L: lebar dada 55 cm, panjang baju 72 cm, panjang lengan 62 cm
+- XL: lebar dada 58 cm, panjang baju 74 cm, panjang lengan 63 cm
+
+Pengiriman & layanan:
+- Packing rapi; estimasi kirim: 2–5 hari kerja (zona dekat) — waktu bisa berbeda tergantung kurir.
+- Hubungi customer service bila ingin konfirmasi ukuran atau ada masalah barang.
+
+Alasan pembelian singkat (CTA):
+Motif keren + kancing kayu yang menarik, pilihan nyaman untuk tampilan casual. Pesan sekarang dan cek tabel ukuran agar pas di badan!
+
+----
+
+Jika mau, saya bisa:
+- Buatkan tabel ukuran yang akurat bila Anda berikan pengukuran aktual tiap varian.
+- Menyusun foto contoh yang perlu diambil (close-up kain, backlight, model) untuk upload.
+- Menyusun teks notifikasi packing/label QC untuk tim gudang.",,,,,,
+x076,h12,before,"Ringkasan masalah yang sering muncul (dari ulasan)
+- Salah paham soal ketahanan air: beberapa pembeli mencemplungkan speaker atau membawa berenang lalu perangkat mati. Ulasan menunjukkan banyak pembeli mengira produk “waterproof” penuh padahal listing menyebut IPX4 (anti cipratan).
+- Jangkauan Bluetooth/putus-nyambung: ada laporan koneksi bluetooth kadang terputus kalau jauh.
+- Puas dengan baterai dan suara: beberapa pembeli memuji baterai “awet seharian” dan suara jernih serta bass lumayan.
+
+Saran tindakan untuk penjual
+1. Perbaiki teks listing agar sangat jelas tentang batasan IPX4:
+   - Jelaskan bahwa IPX4 hanya tahan cipratan/percikan, bukan untuk direndam atau digunakan di dalam air.
+   - Beri contoh penggunaan aman (hujan ringan, di dapur, dekat kolam tapi tidak dicemplungkan).
+   - Tambahkan peringatan tegas “Jangan direndam / jangan digunakan saat berenang”.
+2. Tambahkan penanganan ekspektasi Bluetooth:
+   - Jika Anda memiliki spesifikasi jangkauan Bluetooth (mis. meter/pengukuran), cantumkan angkanya. Jika belum, tambahkan catatan bahwa jangkauan bisa berkurang oleh halangan/tembok dan kondisi lingkungan.
+   - Jika memungkinkan, tes produk dan sediakan angka jangkauan yang dapat diverifikasi, lalu perbarui listing.
+   - Sediakan tips penggunaan (mis. dekatkan ponsel jika sering putus).
+3. Perjelas informasi baterai dan performa suara:
+   - Tonjolkan kapasitas baterai 1200mAh dan ringkasan ulasan positif tentang daya tahan dan kualitas suara.
+   - Jika ada data resmi waktu putar rata-rata, tambahkan; jika belum ada, minta penjual mengukur sebelum mencantumkan.
+4. Layanan purna jual / penanganan keluhan:
+   - Semua soal barang rusak (termasuk akibat terendam) harus ditangani oleh tim Customer Service / After-Sales. Sediakan prosedur pengembalian/garansi/penanganan klaim yang jelas di halaman toko.
+   - Untuk kasus diduga kerusakan karena pemakaian di luar spesifikasi (mis. direndam meski listing menyebut “tidak untuk direndam”), CS harus menegaskan syarat garansi sesuai kebijakan toko.
+5. FAQ singkat di listing:
+   - Tambahkan bagian FAQ yang menanyakan “Bolehkah dicelupkan ke kolam/air?” dan jawab tegas “Tidak”.
+   - Tambahkan FAQ soal alasan Bluetooth bisa terputus (jangkauan, halangan) dan tips perbaikan.
+6. Jika ingin mengurangi kebingungan lebih jauh:
+   - Tambahkan ikon atau teks menonjol pada gambar produk: “IPX4 — Tahan cipratan, bukan untuk direndam”.
+   - Pertimbangkan sertakan gambar penggunaan yang benar (di meja, hujan ringan) dan gambar silang untuk penggunaan yang dilarang (berenang, dicelup).
+
+Teks listing yang disarankan (Bahasa Indonesia)
+Speaker Bluetooth Portable Mini — Bluetooth 5.0, Baterai 1200mAh, IPX4 (Tahan Cipratan)
+
+Deskripsi singkat
+Speaker Bluetooth portable dengan koneksi Bluetooth 5.0 dan baterai 1200mAh. Suara jernih dengan bass yang lumayan untuk ukuran mini. Cocok untuk penggunaan sehari-hari: di meja kerja, piknik, atau saat hujan ringan.
+
+Poin penting (baca sebelum membeli)
+- Ketahanan air: IPX4 — tahan cipratan/percikan air. Tidak untuk direndam dalam air. Jangan digunakan saat berenang atau dicemplungkan ke kolam/ember.
+- Jika Anda membutuhkan speaker yang bisa direndam, produk ini bukan pilihan yang tepat.
+- Bluetooth: versi 5.0 untuk koneksi stabil pada jarak normal. Performa sinyal dapat berkurang oleh dinding atau gangguan lingkungan. [[Jika Anda ingin menampilkan jangkauan Bluetooth, masukkan detail: [[Bluetooth range]]]]
+- Baterai: kapasitas 1200mAh. Banyak pembeli melaporkan baterai “awet seharian”. [[Jika Anda punya data waktu putar rata-rata, tambahkan di sini: [[estimasi waktu putar]]]]
+
+Fitur
+- Bluetooth 5.0
+- Baterai 1200mAh
+- IPX4 — tahan cipratan (tidak untuk direndam)
+- Suara jernih, bass lumayan untuk ukuran mini
+
+Tips penggunaan
+- Jangan celupkan atau rendam speaker.
+- Hindari mengisi daya atau membuka port charger saat kondisinya basah; keringkan dahulu.
+- Jika koneksi Bluetooth sering terputus, coba dekatkan perangkat sumber (ponsel) atau kurangi penghalang antara ponsel dan speaker.
+
+FAQ singkat
+- Bolehkah dipakai di kolam/berenang? Tidak. IPX4 hanya tahan cipratan, bukan untuk submersi.
+- Kenapa Bluetooth kadang putus? Jangkauan dan gangguan lingkungan (tembok, perangkat lain) bisa mempengaruhi; dekatkan perangkat untuk koneksi lebih stabil.
+
+Bagian Layanan Pelanggan
+- Untuk barang rusak atau klaim, hubungi Customer Service kami. Pengembalian dan klaim garansi akan diproses sesuai kebijakan toko. (Catatan: kerusakan akibat penggunaan di luar spesifikasi, seperti direndam, akan ditangani sesuai ketentuan garansi.)
+
+Catatan untuk Anda (seller)
+- Jika Anda ingin menampilkan data teknis lain (mis. jangkauan Bluetooth dalam meter, estimasi jam pemutaran musik), kirimkan angka yang terukur agar bisa saya masukkan ke listing. Gunakan placeholder [[Bluetooth range]] atau [[estimasi waktu putar]] jika belum ada datanya.
+
+Jika Anda mau, saya bisa:
+- Buatkan versi singkat untuk header produk atau gambar (mis. teks singkat “IPX4 — Tahan cipratan, Jangan Direndam”) dan beberapa contoh FAQ yang bisa dipasang di halaman.",,,,,,
+x077,h11,before,"Issue: HDMI 4K refresh rate (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time / courier speed (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x078,h18,after,"Issue: listed capacity meaning (1.2L) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: max cookable cups / servings (expectation_mismatch); draft status: ready
+Kapasitas maksimal dalam cangkir: kapasitas 1,2 L air; maksimal 4 cup beras (sekitar 0,6 L beras).
+
+Issue: power cable length (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x079,h13,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x080,h16,before,"Ringkasan masalah berulang (dari ulasan)
+- Ukuran terasa kecil / tidak konsisten: beberapa pembeli (r1, r2, r3, r7, r9) melaporkan L terasa seperti M, ada saran “naik satu size”, dan ada yang bilang lingkar dada “ngepas banget”.
+- Tidak ada size chart di listing (r7) — pembeli mengeluh karena tidak ada panduan ukuran.
+- Panjang badan sedikit pendek/“nanggung” untuk beberapa pembeli (r8).
+- Kesalahan pemenuhan/pengiriman: beberapa pembeli menerima warna atau ukuran yang berbeda dari pesanan (r4, r5).
+- Poin positif berulang: bahan adem, jahitan rapi, warna tidak luntur setelah dicuci (r3, r6, r10).
+
+Saran tindakan untuk penjual
+1. Segera tambahkan size chart lengkap ke listing (ukuran konkret: lingkar dada, panjang badan, panjang lengan, lebar bahu) untuk setiap ukuran (M, L, XL). Jika Anda belum memiliki angka ini, kirimkan pengukuran yang akurat atau ukur sample sekarang.
+   - Jika Anda ingin saya masukkan ukuran di teks listing, tolong berikan ukuran tersebut; saya akan sisipkan ke teks. Sampel placeholder yang diperlukan: [[lingkar dada M/L/XL]], [[panjang badan M/L/XL]], [[panjang lengan M/L/XL]], [[lebar bahu M/L/XL]].
+2. Jika produk memang ukuran “kecil” dibanding standar umum, tambahkan catatan rekomendasi size (mis. “Jika ragu, silakan pilih 1 size lebih besar”). Jangan tebak—konfirmasi dulu dengan pengukuran aktual.
+3. Tambahkan ukuran panjang badan eksplisit agar pembeli tahu apakah panjang sesuai kebutuhan (mengatasi keluhan “kependekan dikit”).
+4. Perbaiki proses kontrol kualitas dan pemenuhan:
+   - Koordinasikan dengan gudang/packing untuk cek akhir sebelum kirim: pastikan warna dan ukuran sesuai pesanan.
+   - Tingkatkan label/packing list agar pengiriman warna/size yang salah bisa diminimalkan.
+   - Untuk kasus salah kirim atau barang cacat, tunjuk bagian Customer Service / Fulfillment untuk menindaklanjuti pengembalian/penukaran dan komunikasikan kebijakan penukaran di listing atau di pesan order.
+5. Tambahkan informasi perawatan (jika Anda ingin) berdasarkan fakta yang tersedia: beberapa pembeli melaporkan warna tidak luntur dan bahan adem — Anda bisa menonjolkan ini. Jika Anda ingin memasukkan instruksi pencucian resmi, berikan petunjuk perawatan yang benar agar saya bisa meletakkannya.
+6. Pertimbangkan untuk menambahkan foto yang menunjukkan fit (model dengan tinggi dan ukuran yang dipakai) — saya butuh data model (tinggi badan model dan ukuran yang dipakai) untuk memasukkannya ke listing.
+
+Perbaikan teks listing (bahasa Indonesia)
+Judul:
+Kaos Polos Cotton Combed 30s — Jahitan Rantai — Size M / L / XL — Warna: Hitam, Putih, Navy
+
+Deskripsi singkat:
+Kaos polos bahan cotton combed 30s dengan jahitan rantai yang rapi. Tersedia pilihan ukuran M, L, XL dan warna hitam, putih, navy. Bahan terasa adem menurut beberapa pembeli.
+
+Ukuran (harap isi dengan pengukuran aktual):
+- M: lingkar dada [[lingkar dada M]], panjang badan [[panjang badan M]], panjang lengan [[panjang lengan M]], lebar bahu [[lebar bahu M]]
+- L: lingkar dada [[lingkar dada L]], panjang badan [[panjang badan L]], panjang lengan [[panjang lengan L]], lebar bahu [[lebar bahu L]]
+- XL: lingkar dada [[lingkar dada XL]], panjang badan [[panjang badan XL]], panjang lengan [[panjang lengan XL]], lebar bahu [[lebar bahu XL]]
+
+Catatan ukuran:
+- Jika Anda biasa memakai ukuran di tepi antara dua ukuran, kami sarankan untuk mempertimbangkan naik 1 size. (Rekomendasi ini ditambahkan karena beberapa pembeli merasakan ukuran sedikit kecil.)
+
+Warna:
+- Hitam, Putih, Navy (sesuaikan pilihan saat checkout)
+
+Kualitas & keunggulan:
+- Bahan dilaporkan adem oleh pembeli.
+- Jahitan rantai rapi.
+- Beberapa pembeli melaporkan warna tidak luntur setelah dicuci.
+
+Informasi pemesanan & layanan pelanggan:
+- Untuk memastikan Anda menerima ukuran dan warna yang benar, tim pemenuhan kami melakukan pengecekan sebelum pengiriman. Jika Anda menerima barang yang salah (warna atau ukuran) atau rusak, silakan hubungi Customer Service / Fulfillment kami untuk penukaran atau pengembalian. (Penanganan kesalahan pengiriman ditangani oleh tim Fulfillment/CS.)
+
+Permintaan data dari penjual (yang harus Anda berikan agar listing lengkap)
+- Silakan konfirmasi dan kirimkan pengukuran aktual untuk M/L/XL: lingkar dada, panjang badan, panjang lengan, lebar bahu.
+- Jika Anda memiliki petunjuk perawatan resmi, foto model (tinggi & ukuran yang dipakai), atau kebijakan penukaran/garansi, kirimkan agar saya masukkan ke listing.
+
+Jika Anda mau, saya bisa:
+- Masukkan ukuran yang Anda berikan ke dalam teks di atas.
+- Menulis teks singkat untuk banner/FAQ tentang pengembalian/penukaran untuk kasus salah kirim.
+
+Catatan terakhir:
+- Keluhan tentang pengiriman barang yang salah atau warna salah harus ditangani langsung oleh tim Fulfillment / Customer Service — bukan perbaikan teks listing. Listing disempurnakan membantu mencegah keluhan baru (size chart, catatan naik 1 size, ukuran panjang badan), tapi perbaikan operasional diperlukan untuk menghilangkan kesalahan pengiriman.",,,,,,

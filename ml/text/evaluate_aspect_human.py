@@ -44,8 +44,10 @@ Jalankan:
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import sys
+import time
 from pathlib import Path
 
 import numpy as np
@@ -244,6 +246,14 @@ def evaluate(ref: dict[str, np.ndarray], texts: dict[str, str], sources: dict[st
     res = predict_indobert(T)
     out["models"]["indobert_finetuned"] = pack(res[0]) if res is not None else {"skipped": "checkpoint tidak ada"}
 
+    # The serving adapter can override the checkpoint's original head and threshold.
+    # Measure that exact path separately so the original head is not labelled as current.
+    runtime = predict_runtime(T)
+    if "predictions" in runtime:
+        out["models"]["indobert_runtime"] = pack(runtime.pop("predictions")) | runtime
+    else:
+        out["models"]["indobert_runtime"] = runtime
+
     # Label gold-LLM sebagai "pendekatan" keempat - hanya pada klausa yang berasal dari gold.
     gold_ids = [i for i in ids if sources.get(i) == "gold"]
     if gold_ids and GOLD.exists():
@@ -272,6 +282,35 @@ def evaluate(ref: dict[str, np.ndarray], texts: dict[str, str], sources: dict[st
         for name, P in preds.items():
             out["models"][name]["on_gold_subset"] = pack(P, gold_ids)
     return out
+
+
+def predict_runtime(texts: list[str]) -> dict:
+    sys.path.insert(0, str(REPO_ROOT / "apps" / "api"))
+    from app.adapters.text_model import TextModelAdapter
+
+    started = time.perf_counter()
+    adapter = TextModelAdapter(device="cpu")
+    load_s = time.perf_counter() - started
+    if adapter.model is None:
+        return {"skipped": adapter.fallback_reason or "runtime fell back to lexicon"}
+    started = time.perf_counter()
+    predictions = adapter._predict_neural(texts)
+    elapsed = time.perf_counter() - started
+    matrix = np.array([[int(a in {v.value for v in p.aspects}) for a in ALL_ASPECTS]
+                       for p in predictions], dtype=int)
+    from app.adapters.text_model import ASPECT_HEAD_V2
+    files = [adapter.checkpoint_path]
+    if adapter.aspect_head_version != "v1":
+        files.append(ASPECT_HEAD_V2)
+    hashes = {}
+    for path in files:
+        with path.open("rb") as stream:
+            hashes[str(path.relative_to(REPO_ROOT))] = hashlib.file_digest(stream, "sha256").hexdigest()
+    return {"predictions": matrix, "model_version": adapter.model_version,
+            "threshold": adapter.threshold, "device": "cpu", "artifact_sha256": hashes,
+            "load_seconds": round(load_s, 3), "inference_seconds": round(elapsed, 3),
+            "clauses_per_second": round(len(texts) / elapsed, 2) if elapsed else None,
+            "protocol": "Same 120 reference clauses; repeated regression evaluation, not a fresh holdout."}
 
 
 def main() -> int:

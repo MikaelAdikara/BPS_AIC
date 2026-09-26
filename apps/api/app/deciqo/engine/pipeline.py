@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import logging
 import math
+import os
 import re
 from datetime import datetime, timedelta, timezone
 
@@ -25,7 +26,6 @@ log = logging.getLogger("deciqo.engine")
 LISTING_FIXABLE = {"missing_fact", "unclear_fact", "conflicting_fact", "expectation_mismatch"}
 FACT_REQUIRED = {"missing_fact", "unclear_fact", "conflicting_fact"}
 FINDING_TYPES = LISTING_FIXABLE | {"product_quality", "operational"}
-MEMBERSHIP_LIMIT = 150
 ACTIVE_STATES = {"open", "investigating", "reopened"}
 
 
@@ -183,8 +183,12 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
     rejected: dict[str, str] = {}
     wrong_item: set[str] = set()
 
+    injected = {r["id"] for r in reviews if lexicon.looks_like_instruction(r["text"])}
+
     if engine == "rules":
         for review in reviews:
+            if review["id"] in injected:
+                continue
             verdict = relevance.judge(review["text"], proposal, review.get("rating"))
             if verdict.label == relevance.SUPPORTS:
                 supports[review["id"]] = {"quote": verdict.clause}
@@ -199,6 +203,7 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
 
     model_labels: dict[str, set[str]] = {}
     quotes: dict[str, str] = {}
+    spans: dict[str, list[str]] = {}
     proposed: dict[str, str] = {}  # kutipan usulan model per ulasan, untuk audit penolakan
     for item in labels:
         rid = str(item.get("review_id", ""))
@@ -207,12 +212,17 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
         if review is None:
             rejected[rid] = "unknown_review_id"
             continue
+        if rid in injected:
+            # Instruksi di dalam ulasan tidak pernah menjadi bukti, walau kutipannya verbatim.
+            rejected[rid] = "instruction_in_review"
+            continue
         ok, reason = verify.check_quote(item.get("quote", ""), review["text"])
         if not ok:
             rejected.setdefault(rid, reason)
             continue
         model_labels.setdefault(rid, set()).add(item.get("label", "supports"))
         quotes.setdefault(rid, item.get("quote", ""))
+        spans.setdefault(rid, []).append(item.get("quote", ""))
     for rid, said in model_labels.items():
         rejected.pop(rid, None)
         review = by_id[rid]
@@ -220,7 +230,16 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
         if verdict.reason in {"wrong_item_routes_to_operations", "also_reports_wrong_variant"}:
             wrong_item.add(rid)
         if len(said) > 1:
-            uncertain[rid] = "labelled_both_ways"
+            # Models sometimes mean "contradicts the listing" rather than "contradicts the issue".
+            # Resolve only when every verified span has the same definite code verdict.
+            verdicts = [relevance.judge_span(review["text"], span, proposal, review.get("rating"))
+                        for span in spans[rid]]
+            if all(v.label == relevance.SUPPORTS for v in verdicts):
+                supports[rid] = {"quote": quotes[rid]}
+            elif all(v.label == relevance.CONTRADICTS for v in verdicts):
+                contradicting[rid] = {"quote": quotes[rid]}
+            else:
+                uncertain[rid] = "labelled_both_ways"
         elif "supports" in said:
             if verdict.label == relevance.SUPPORTS:
                 supports[rid] = {"quote": quotes[rid]}
@@ -256,6 +275,165 @@ def _rules_topics() -> list[dict]:
     return [{"topic": key, "attribute": a, "attribute_local": al, "finding_type": ft, "fix_type": fx,
              "buyer_expectation": be, "merchant_question": mq, "listing_evidence": ""}
             for key, a, al, ft, fx, be, mq in rules._OTHER_TOPICS]
+
+
+def code_route(proposal: dict) -> dict:
+    """Rute ditentukan kode dari atribut, bukan dari tipe usulan model.
+
+    Kemasan, pengiriman, dan layanan penjual tidak bisa diperbaiki dengan menulis ulang listing;
+    model kadang menyebut "packaging protection" sebagai missing_fact."""
+    groups = lexicon.attribute_groups(proposal.get("attribute", ""), proposal.get("attribute_local", ""))
+    if groups and groups <= lexicon.OPERATIONAL_GROUPS and proposal.get("finding_type") != "operational":
+        return {**proposal, "finding_type": "operational", "fix_type": "fix_operations",
+                "routed_by": "code", "model_finding_type": proposal.get("finding_type")}
+    return proposal
+
+
+# Atribut yang nilainya bisa diperiksa merchant (ukuran, kapasitas, daya, kompatibilitas).
+VERIFIABLE_GROUPS = {"size", "capacity", "battery", "compatibility"}
+
+
+def code_fact_rule(proposal: dict) -> dict:
+    """Kebutuhan fakta ditentukan kode, bukan tipe usulan model.
+
+    Model kadang menyebut keluhan tabel ukuran sebagai expectation_mismatch ("fit consistency"),
+    sehingga draf tidak menunggu ukuran nyata. Untuk atribut yang nilainya bisa diukur/diperiksa,
+    isu listing selalu butuh fakta merchant."""
+    if proposal.get("finding_type") != "expectation_mismatch":
+        return proposal
+    groups = lexicon.attribute_groups(proposal.get("attribute", ""), proposal.get("attribute_local", ""))
+    if groups & VERIFIABLE_GROUPS and not groups & lexicon.OPERATIONAL_GROUPS:
+        return {**proposal, "finding_type": "unclear_fact", "fact_rule": "code",
+                "model_finding_type": proposal.get("model_finding_type") or "expectation_mismatch"}
+    return proposal
+
+
+# Alasan juri yang berarti "leksikon tidak yakin", bukan "leksikon membaca kebalikannya dengan pasti".
+DISPUTABLE = {"not_about_this_attribute", "complaint_without_attribute",
+              "complaint_not_about_this_attribute", "labelled_both_ways"}
+_WRONG_ITEM_REASONS = {"wrong_item_routes_to_operations", "also_reports_wrong_variant"}
+MAX_ORPHANS = 60
+MAX_ITEMS = 400
+
+
+def _second_read_accepts(kind: str, text: str, quote: str, proposal: dict) -> tuple[bool, str]:
+    """Aturan kode untuk hasil second read yang menyatakan "reports".
+
+    `dispute`: membership SUDAH menyatakan supports; dua pembacaan model yang independen kini
+    sepakat, jadi leksikon yang ragu tidak lagi memveto. Salah kirim tetap diveto.
+    `orphan`: hanya second read yang membaca; kode tetap memveto pujian dan keluhan atribut lain."""
+    ok, reason = verify.check_quote(quote, text)
+    if not ok:
+        return False, reason
+    verdict = relevance.judge_span(text, quote, proposal)
+    if verdict.reason in _WRONG_ITEM_REASONS:
+        return False, verdict.reason
+    if kind == "dispute":
+        return True, ""
+    if verdict.label == relevance.SUPPORTS or verdict.reason in {
+            "mentions_attribute_without_complaint", "complaint_without_attribute", "not_about_this_attribute"}:
+        return True, ""
+    return False, verdict.reason or verdict.label
+
+
+def _second_read(built: dict[str, dict], reviews: list[dict], candidates: list[dict], wrong_item_ids: set[str],
+                 ai_output: dict, *, user_id, ref: str, db_path, cache_only: bool) -> tuple[dict, dict]:
+    """Pembacaan kedua yang independen atas tiga jenis item:
+
+    - `confirm`: ulasan yang sudah lolos membership + juri. Tetap dihitung hanya bila pembaca kedua
+      juga menyatakan "reports". Dua sinyal lemah yang keliru ke arah yang sama ("panasnya awet"
+      dibaca keluhan oleh model DAN leksikon) hanya tertangkap pembaca yang tidak melihat keduanya.
+    - `dispute`: membership menyatakan supports, leksikon ragu. Dihitung bila pembaca kedua setuju.
+    - `orphan`: ulasan bersinyal keluhan yang tidak dilabeli sama sekali.
+
+    Kegagalan provider di tahap ini tidak menggagalkan analisis: hitungan kembali ke aturan
+    membership + juri dan trace menyebut alasannya."""
+    from . import llm, second_read  # noqa: PLC0415
+
+    by_id = {r["id"]: r for r in reviews}
+    injected = {r["id"] for r in reviews if lexicon.looks_like_instruction(r["text"])}
+    blocked = wrong_item_ids | injected
+    items: list[dict] = []
+    for key, entry in built.items():
+        if entry["proposal"].get("topic") == "wrong_item":
+            continue
+        for rid in entry["judged"]["supports"]:
+            if rid in by_id and rid not in blocked:
+                items.append({"kind": "confirm", "review_id": rid, "text": by_id[rid]["text"],
+                              "targets": [key], "issues": [entry["proposal"]]})
+    for key, entry in built.items():
+        if entry["proposal"].get("topic") == "wrong_item":
+            continue
+        judged = entry["judged"]
+        said = judged.get("model_label", {})
+        for part in ("uncertain", "rejected"):
+            for rid, reason in judged[part].items():
+                if (reason in DISPUTABLE and "supports" in said.get(rid, "") and rid in by_id
+                        and rid not in blocked and rid not in judged["supports"]):
+                    items.append({"kind": "dispute", "review_id": rid, "text": by_id[rid]["text"],
+                                  "targets": [key], "issues": [entry["proposal"]]})
+    touched = {rid for e in built.values() for part in ("supports", "contradicting", "uncertain", "rejected")
+               for rid in e["judged"][part]}
+    signal = [c["id"] for c in candidates] + [r["id"] for r in reviews if lexicon.complaint_signal(r["text"])]
+    targets = [k for k, e in built.items() if e["proposal"].get("topic") != "wrong_item"]
+    orphans = [rid for rid in dict.fromkeys(signal) if rid in by_id and rid not in touched and rid not in blocked]
+    for rid in orphans[:MAX_ORPHANS]:
+        items.append({"kind": "orphan", "review_id": rid, "text": by_id[rid]["text"], "targets": targets,
+                      "issues": [built[k]["proposal"] for k in targets]})
+    if len(items) > MAX_ITEMS:
+        # Produk sangat besar: sisa item tidak dibaca ulang dan tetap memakai aturan membership + juri.
+        items = items[:MAX_ITEMS]
+    trace = {"stage": "second_read", "confirmed_asked": sum(1 for i in items if i["kind"] == "confirm"),
+             "disputed": sum(1 for i in items if i["kind"] == "dispute"),
+             "orphans": sum(1 for i in items if i["kind"] == "orphan"),
+             "orphans_skipped": max(0, len(orphans) - MAX_ORPHANS), "accepted": 0, "withdrawn": 0}
+    if not items or not targets:
+        return {}, trace
+
+    cache = ai_output.setdefault("second_read", {})
+    for item in items:
+        item["cache"] = second_read.cache_key(item["review_id"], item["text"], item["targets"])
+    ask = [i for i in items if i["cache"] not in cache]
+    usage: dict = {}
+    if ask and cache_only:
+        trace["skipped"] = "cache_only"
+    elif ask:
+        try:
+            results, usage = second_read.run(ask, user_id=user_id, ref=ref, db_path=db_path)
+        except llm.LLMError as exc:  # termasuk key ditolak dan anggaran habis
+            trace["skipped"] = f"{type(exc).__name__}:{str(exc)[:60]}"
+            results = []
+        for result in results:
+            cache[ask[result["index"]]["cache"]] = {k: v for k, v in result.items() if k != "index"}
+
+    rejected_reads = 0
+    for item in items:
+        result = cache.get(item["cache"])
+        if item["kind"] == "confirm":
+            if not result:
+                continue  # tidak ada suara kedua (dilewati model/provider): aturan lama berlaku
+            if result.get("verdict") == "reports" and result.get("issue") == 0:
+                continue
+            judged = built[item["targets"][0]]["judged"]
+            judged["supports"].pop(item["review_id"], None)
+            judged["uncertain"][item["review_id"]] = f"second_read_{result.get('verdict', 'unclear')}"
+            trace["withdrawn"] += 1
+            continue
+        if not result or result.get("verdict") != "reports" or not 0 <= result.get("issue", -1) < len(item["targets"]):
+            continue
+        key = item["targets"][result["issue"]]
+        entry = built[key]
+        ok, _ = _second_read_accepts(item["kind"], item["text"], result.get("quote", ""), entry["proposal"])
+        if not ok:
+            rejected_reads += 1
+            continue
+        judged = entry["judged"]
+        judged["supports"][item["review_id"]] = {"quote": result["quote"], "via": "second_read"}
+        judged["uncertain"].pop(item["review_id"], None)
+        judged["rejected"].pop(item["review_id"], None)
+        trace["accepted"] += 1
+    trace["vetoed"] = rejected_reads
+    return usage, trace
 
 
 # --- analisis ---------------------------------------------------------------------------------
@@ -315,7 +493,7 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
     if mode == "ai":
         from . import discovery, llm  # noqa: PLC0415
 
-        membership_reviews = reviews[-MEMBERSHIP_LIMIT:]
+        membership_reviews = reviews
         ai_hash = discovery.ai_hash(product, listing, provided, candidates, membership_reviews, len(reviews),
                                     existing_issues)
         cached = store.loads(previous["summary_json"], {}) if previous else {}
@@ -354,15 +532,17 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
                 for e in p.get("evidence", []))
         for label in ai_output.get("labels", []):
             labels_by_index.setdefault(int(label.get("finding", -1)), []).append({**label, "via": "membership"})
-        candidates_read = min(len(reviews), MEMBERSHIP_LIMIT)
+        candidates_read = len(reviews) if proposals else len(candidates)
 
     # 3. verifier + relevansi + metrik
     built: dict[str, dict] = {}
-    wrong_item_ids: set[str] = set()
+    # Operational reports must not depend on discovery proposing a listing finding first.
+    wrong_item_ids = {r["id"] for r in reviews if lexicon.is_wrong_item(r["text"])}
     quotes_rejected = dropped = 0
     for index, proposal in enumerate(proposals):
         if proposal.get("finding_type") not in FINDING_TYPES:
             proposal = {**proposal, "finding_type": "missing_fact"}
+        proposal = code_fact_rule(code_route(proposal))
         judged = _judge_pairs(proposal, reviews, mode, labels_by_index.get(index, []))
         quotes_rejected += sum(1 for r in judged["rejected"].values() if r.startswith("quote_"))
         wrong_item_ids |= judged["wrong_item"]
@@ -380,6 +560,15 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         proposal = _wrong_item_proposal()
         judged = _judge_pairs(proposal, [r for r in reviews if r["id"] in wrong_item_ids], "rules", [])
         built[finding_key(proposal)] = {"proposal": proposal, "judged": judged}
+
+    # DECIQO_SECOND_READ=off hanya untuk ablation eval; produksi selalu menyalakannya.
+    if mode == "ai" and built and os.environ.get("DECIQO_SECOND_READ", "on").lower() != "off":
+        sr_usage, sr_trace = _second_read(built, reviews, candidates, wrong_item_ids, ai_output,
+                                          user_id=product["user_id"], ref=product_id, db_path=db_path,
+                                          cache_only=cache_only)
+        trace.append(sr_trace)
+        if sr_usage:
+            usage = llm.add_usage(dict(usage), sr_usage)
 
     built = dedupe(built)
     findings = []

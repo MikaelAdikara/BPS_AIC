@@ -1,0 +1,242 @@
+{
+  "x001": {
+    "system": "B1",
+    "case_id": "h09",
+    "phase": "after"
+  },
+  "x002": {
+    "system": "B1",
+    "case_id": "h07",
+    "phase": "before"
+  },
+  "x003": {
+    "system": "D-rules",
+    "case_id": "h03",
+    "phase": "before"
+  },
+  "x004": {
+    "system": "B1",
+    "case_id": "h04",
+    "phase": "after"
+  },
+  "x005": {
+    "system": "D",
+    "case_id": "h03",
+    "phase": "after"
+  },
+  "x006": {
+    "system": "D",
+    "case_id": "h10",
+    "phase": "before"
+  },
+  "x007": {
+    "system": "D-rules",
+    "case_id": "h03",
+    "phase": "after"
+  },
+  "x008": {
+    "system": "D",
+    "case_id": "h04",
+    "phase": "after"
+  },
+  "x009": {
+    "system": "D",
+    "case_id": "h06",
+    "phase": "before"
+  },
+  "x010": {
+    "system": "B1",
+    "case_id": "h08",
+    "phase": "before"
+  },
+  "x011": {
+    "system": "D",
+    "case_id": "h09",
+    "phase": "after"
+  },
+  "x012": {
+    "system": "B1",
+    "case_id": "h09",
+    "phase": "before"
+  },
+  "x013": {
+    "system": "D",
+    "case_id": "h06",
+    "phase": "after"
+  },
+  "x014": {
+    "system": "D-rules",
+    "case_id": "h02",
+    "phase": "before"
+  },
+  "x015": {
+    "system": "B1",
+    "case_id": "h01",
+    "phase": "after"
+  },
+  "x016": {
+    "system": "D",
+    "case_id": "h05",
+    "phase": "after"
+  },
+  "x017": {
+    "system": "D",
+    "case_id": "h04",
+    "phase": "before"
+  },
+  "x018": {
+    "system": "B1",
+    "case_id": "h03",
+    "phase": "before"
+  },
+  "x019": {
+    "system": "B1",
+    "case_id": "h10",
+    "phase": "before"
+  },
+  "x020": {
+    "system": "B1",
+    "case_id": "h05",
+    "phase": "before"
+  },
+  "x021": {
+    "system": "B1",
+    "case_id": "h05",
+    "phase": "after"
+  },
+  "x022": {
+    "system": "D-rules",
+    "case_id": "h10",
+    "phase": "before"
+  },
+  "x023": {
+    "system": "D-rules",
+    "case_id": "h06",
+    "phase": "after"
+  },
+  "x024": {
+    "system": "D-rules",
+    "case_id": "h08",
+    "phase": "before"
+  },
+  "x025": {
+    "system": "B1",
+    "case_id": "h04",
+    "phase": "before"
+  },
+  "x026": {
+    "system": "D",
+    "case_id": "h01",
+    "phase": "after"
+  },
+  "x027": {
+    "system": "D-rules",
+    "case_id": "h07",
+    "phase": "before"
+  },
+  "x028": {
+    "system": "D-rules",
+    "case_id": "h04",
+    "phase": "after"
+  },
+  "x029": {
+    "system": "B1",
+    "case_id": "h06",
+    "phase": "before"
+  },
+  "x030": {
+    "system": "D",
+    "case_id": "h02",
+    "phase": "before"
+  },
+  "x031": {
+    "system": "D-rules",
+    "case_id": "h09",
+    "phase": "before"
+  },
+  "x032": {
+    "system": "D-rules",
+    "case_id": "h05",
+    "phase": "before"
+  },
+  "x033": {
+    "system": "B1",
+    "case_id": "h06",
+    "phase": "after"
+  },
+  "x034": {
+    "system": "D-rules",
+    "case_id": "h01",
+    "phase": "before"
+  },
+  "x035": {
+    "system": "D-rules",
+    "case_id": "h01",
+    "phase": "after"
+  },
+  "x036": {
+    "system": "D",
+    "case_id": "h03",
+    "phase": "before"
+  },
+  "x037": {
+    "system": "D-rules",
+    "case_id": "h06",
+    "phase": "before"
+  },
+  "x038": {
+    "system": "D",
+    "case_id": "h09",
+    "phase": "before"
+  },
+  "x039": {
+    "system": "D",
+    "case_id": "h08",
+    "phase": "before"
+  },
+  "x040": {
+    "system": "D-rules",
+    "case_id": "h05",
+    "phase": "after"
+  },
+  "x041": {
+    "system": "B1",
+    "case_id": "h02",
+    "phase": "before"
+  },
+  "x042": {
+    "system": "D",
+    "case_id": "h07",
+    "phase": "before"
+  },
+  "x043": {
+    "system": "D",
+    "case_id": "h01",
+    "phase": "before"
+  },
+  "x044": {
+    "system": "B1",
+    "case_id": "h01",
+    "phase": "before"
+  },
+  "x045": {
+    "system": "D-rules",
+    "case_id": "h09",
+    "phase": "after"
+  },
+  "x046": {
+    "system": "D",
+    "case_id": "h05",
+    "phase": "before"
+  },
+  "x047": {
+    "system": "B1",
+    "case_id": "h03",
+    "phase": "after"
+  },
+  "x048": {
+    "system": "D-rules",
+    "case_id": "h04",
+    "phase": "before"
+  }
+}

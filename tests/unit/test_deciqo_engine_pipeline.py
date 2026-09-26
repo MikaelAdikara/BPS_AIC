@@ -56,6 +56,16 @@ def test_attribute_key_menyatukan_parafrasa():
     assert pipeline.attribute_key("Size of the product") == pipeline.attribute_key("product sizing")
 
 
+def test_triage_recomputes_cached_signal_after_lexicon_change(db):
+    review = {"id": "r-cache", "text": "Jahitan berantakan.", "version_hash": "same"}
+    old = {"v": "same", "model": triage.LEXICON_ONLY, "lexicon": False, "neg_aspects": [],
+           "lexicon_version": "lexicon-old"}
+    signal = triage.signals([{**review, "triage_json": store.dumps(old)}])["r-cache"]
+    assert signal["lexicon"] is True
+    from app.deciqo.engine import lexicon
+    assert signal["lexicon_version"] == lexicon.LEXICON_VERSION
+
+
 def test_analisis_aturan_menghitung_dukungan_dari_kode(db):
     pid = _ingest(db, BAG)
     result = pipeline.analyse(pid, db_path=db)

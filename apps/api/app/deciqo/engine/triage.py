@@ -95,7 +95,8 @@ def signals(reviews: list[dict], conn=None) -> dict[str, dict]:
     todo: list[dict] = []
     for review in reviews:
         cached = store.loads(review.get("triage_json"), None)
-        if cached and cached.get("v") == review.get("version_hash") and cached.get("model") == version:
+        if (cached and cached.get("v") == review.get("version_hash") and cached.get("model") == version
+                and cached.get("lexicon_version") == lexicon.LEXICON_VERSION):
             out[review["id"]] = cached
         else:
             todo.append(review)
@@ -104,6 +105,7 @@ def signals(reviews: list[dict], conn=None) -> dict[str, dict]:
         result = {
             "v": review.get("version_hash"),
             "model": version,
+            "lexicon_version": lexicon.LEXICON_VERSION,
             # Pertanyaan pembeli ("1,8 liter itu air atau beras?") menandai informasi yang kurang
             # walau tidak ada kata keluhan; ini seleksi input, bukan hitungan.
             "lexicon": lexicon.complaint_signal(review["text"]) or "?" in review["text"],

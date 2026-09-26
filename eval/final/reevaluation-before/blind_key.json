@@ -1,0 +1,177 @@
+{
+  "x001": {
+    "system": "D",
+    "case_id": "c03",
+    "phase": "before"
+  },
+  "x002": {
+    "system": "D",
+    "case_id": "c10",
+    "phase": "before"
+  },
+  "x003": {
+    "system": "D",
+    "case_id": "c20",
+    "phase": "after"
+  },
+  "x004": {
+    "system": "D",
+    "case_id": "c04",
+    "phase": "after"
+  },
+  "x005": {
+    "system": "D",
+    "case_id": "c17",
+    "phase": "after"
+  },
+  "x006": {
+    "system": "D",
+    "case_id": "c06",
+    "phase": "before"
+  },
+  "x007": {
+    "system": "D",
+    "case_id": "c09",
+    "phase": "before"
+  },
+  "x008": {
+    "system": "D",
+    "case_id": "c21",
+    "phase": "before"
+  },
+  "x009": {
+    "system": "D",
+    "case_id": "c08",
+    "phase": "before"
+  },
+  "x010": {
+    "system": "D",
+    "case_id": "c19",
+    "phase": "after"
+  },
+  "x011": {
+    "system": "D",
+    "case_id": "c15",
+    "phase": "before"
+  },
+  "x012": {
+    "system": "D",
+    "case_id": "c22",
+    "phase": "after"
+  },
+  "x013": {
+    "system": "D",
+    "case_id": "c01",
+    "phase": "after"
+  },
+  "x014": {
+    "system": "D",
+    "case_id": "c16",
+    "phase": "before"
+  },
+  "x015": {
+    "system": "D",
+    "case_id": "c05",
+    "phase": "before"
+  },
+  "x016": {
+    "system": "D",
+    "case_id": "c19",
+    "phase": "before"
+  },
+  "x017": {
+    "system": "D",
+    "case_id": "c05",
+    "phase": "after"
+  },
+  "x018": {
+    "system": "D",
+    "case_id": "c22",
+    "phase": "before"
+  },
+  "x019": {
+    "system": "D",
+    "case_id": "c13",
+    "phase": "before"
+  },
+  "x020": {
+    "system": "D",
+    "case_id": "c09",
+    "phase": "after"
+  },
+  "x021": {
+    "system": "D",
+    "case_id": "c20",
+    "phase": "before"
+  },
+  "x022": {
+    "system": "D",
+    "case_id": "c17",
+    "phase": "before"
+  },
+  "x023": {
+    "system": "D",
+    "case_id": "c04",
+    "phase": "before"
+  },
+  "x024": {
+    "system": "D",
+    "case_id": "c11",
+    "phase": "before"
+  },
+  "x025": {
+    "system": "D",
+    "case_id": "c01",
+    "phase": "before"
+  },
+  "x026": {
+    "system": "D",
+    "case_id": "c13",
+    "phase": "after"
+  },
+  "x027": {
+    "system": "D",
+    "case_id": "c07",
+    "phase": "before"
+  },
+  "x028": {
+    "system": "D",
+    "case_id": "c21",
+    "phase": "after"
+  },
+  "x029": {
+    "system": "D",
+    "case_id": "c12",
+    "phase": "before"
+  },
+  "x030": {
+    "system": "D",
+    "case_id": "c18",
+    "phase": "before"
+  },
+  "x031": {
+    "system": "D",
+    "case_id": "c02",
+    "phase": "before"
+  },
+  "x032": {
+    "system": "D",
+    "case_id": "c03",
+    "phase": "after"
+  },
+  "x033": {
+    "system": "D",
+    "case_id": "c18",
+    "phase": "after"
+  },
+  "x034": {
+    "system": "D",
+    "case_id": "c06",
+    "phase": "after"
+  },
+  "x035": {
+    "system": "D",
+    "case_id": "c14",
+    "phase": "before"
+  }
+}

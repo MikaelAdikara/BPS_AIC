@@ -1,0 +1,9 @@
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 666.2585
+> ulasin-web@0.1.0 typecheck
+> tsc --noEmit
+

@@ -74,6 +74,7 @@ def normalise_result(raw: dict) -> dict:
             "route": f.get("route") or route_of(f.get("finding_type")),
             "support_ids": sorted(set(f.get("support_ids") or f.get("supports") or [])),
             "contradict_ids": sorted(set(f.get("contradict_ids") or f.get("contradicts") or [])),
+            "set_aside": f.get("set_aside") or [],
             "listing_status": f.get("listing_status"),
             "draft_status": draft.get("status") or f.get("draft_status"),
             "draft_text": draft.get("text") or f.get("draft_text") or "",

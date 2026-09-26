@@ -70,8 +70,9 @@ def run_bundle(bundle: dict, *, db_path: str | Path, engine: str = "ai") -> dict
     result: dict = {}
     try:
         result = pipeline.analyse(pid, force=True, engine="rules" if engine == "rules" else None, db_path=db_path)
-    except pipeline.AnalysisFailed as exc:
-        errors.append(f"analysis_failed: {exc}")
+    except pipeline.AnalysisFailed:
+        # A provider failure is an error output, not a successful analysis with zero findings.
+        raise
 
     with store.database(db_path) as conn:
         rows = store.rows(conn.execute(
@@ -100,6 +101,10 @@ def run_bundle(bundle: dict, *, db_path: str | Path, engine: str = "ai") -> dict
             "merchant_question": f["merchant_question"], "severity": f["severity"],
             "support_ids": [i["review_id"] for i in evidence["items"]],
             "contradict_ids": [i["review_id"] for i in evidence["contradicting"]],
+            # Label model yang disisihkan verifier/juri, supaya kehilangan recall bisa diatribusikan.
+            "set_aside": [{"review_id": x.get("review_id"), "reason": x.get("reason"),
+                           "model_label": x.get("model_label", "")}
+                          for x in store.loads(f.get("rejected_json"), [])],
             "metrics": evidence["metrics"],
             "listing_status": store.loads(f["listing_check_json"], {}).get("status"),
             "fact_applied": bool(fact_target and fact_target["id"] == f["id"]),

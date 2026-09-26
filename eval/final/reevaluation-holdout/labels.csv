@@ -1,0 +1,1002 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,h09,after,"Recurring customer problems (from reviews)
+- Keluhan utama: daya tahan baterai terasa pendek (ulasan menyebut “cuma tahan sejam”, “baru dipake bentar udah minta dicas”).
+- Informasi pada listing dianggap kurang: pembeli menyebut “ga ada info berapa jam tahan baterainya”.
+- Positive: beberapa pembeli menyebut produk mudah dibawa (ulasan: “enteng dibawa kemana-mana”).
+
+Saran tindakan untuk penjual
+1. Perbarui listing segera dengan fakta baterai yang dikonfirmasi:
+   - Cantumkan kapasitas baterai: 2000 mAh.
+   - Cantumkan runtime yang dikonfirmasi: “tahan sekitar 3 jam di kecepatan terendah”.
+2. Tambahkan spesifikasi yang belum ada (isi atau konfirmasi ke pabrikan/distributor lalu lengkapi listing):
+   - Jumlah tingkat/kecepatan kipas: [[jumlah tingkat kecepatan]].
+   - Perkiraan waktu tahan baterai untuk tiap kecepatan: [[runtime per kecepatan]].
+   - Waktu pengisian baterai: [[waktu pengisian]].
+   - Apakah kabel USB disertakan dan tipe kabel: [[kabel disertakan? tipe kabel]].
+   - Berat dan dimensi: [[berat]] / [[dimensi]].
+3. Buat bagian FAQ singkat di listing yang menjawab:
+   - “Berapa lama baterai tahan?” (jawab dengan fakta 3 jam di kecepatan terendah; tambahkan runtime lain setelah dikonfirmasi).
+   - “Bagaimana cara mengisi ulang?” (jelaskan metode USB bila benar-benar pakai USB).
+   - “Apakah ada indikator baterai?” (isi setelah dikonfirmasi).
+4. Tambahkan tips penggunaan untuk mengurangi keluhan:
+   - Sarankan penggunaan kecepatan lebih rendah ketika butuh durasi lebih lama (sesuai fakta: 3 jam di kecepatan terendah).
+   - Beri instruksi singkat tentang perawatan baterai (mis. hindari pengosongan total sering — hanya jika penjual/mfg dapat mengonfirmasi rekomendasi).
+5. Perbaikan produk/opsi layanan (opsional, jika memungkinkan):
+   - Pertimbangkan menambahkan pilihan baterai dengan kapasitas lebih besar atau power bank bundle bila banyak pelanggan mengeluh.
+   - Pertimbangkan menambahkan indikator level baterai pada model berikutnya.
+6. Penanganan keluhan non-listing:
+   - Keluhan tentang pengiriman, kemasan, barang salah atau cacat harus ditangani oleh layanan pelanggan/fulfillment dan garansi/after-sales. (Jangan ubah listing untuk masalah ini; arahkan pembeli ke support untuk pengembalian/garansi.)
+
+Perbaikan teks listing (Indonesia)
+Judul: Kipas Angin Portable Mini USB — Baterai 2000 mAh
+
+Deskripsi singkat
+Kipas angin portable mini dengan pengisian USB. Dilengkapi baterai internal 2000 mAh — bertahan sekitar 3 jam pada kecepatan terendah (dikonfirmasi oleh penjual). Ringkas dan mudah dibawa, cocok untuk penggunaan sehari-hari di meja kerja, perjalanan, atau outdoor singkat.
+
+Fitur utama (fakta yang dikonfirmasi)
+- Baterai: 2000 mAh (tertutup internal).
+- Runtime: sekitar 3 jam pada kecepatan terendah (dikonfirmasi).
+- Pengisian: via USB (sesuai nama produk).
+
+Catatan dari pembeli
+- Beberapa pembeli melaporkan produk mudah dibawa.
+- Beberapa pembeli menginginkan informasi runtime yang lebih lengkap — kami sudah menambahkan informasi runtime untuk kecepatan terendah; detail runtime untuk kecepatan lain akan ditampilkan setelah dikonfirmasi.
+
+Informasi yang perlu dikonfirmasi (placeholder — mohon lengkapi)
+- Jumlah tingkat/kecepatan kipas: [[jumlah tingkat kecepatan]]
+- Perkiraan waktu tahan baterai untuk tiap kecepatan: [[runtime per kecepatan]]
+- Waktu pengisian baterai: [[waktu pengisian]]
+- Apakah kabel USB disertakan (dan tipe kabel): [[kabel disertakan? tipe kabel]]
+- Berat dan dimensi produk: [[berat]] / [[dimensi]]
+- Apakah ada indikator level baterai: [[indikator baterai?]]
+
+Tips penggunaan singkat
+- Untuk masa pakai baterai terlama, gunakan pada kecepatan terendah (sekitar 3 jam).
+- Isi ulang dengan kabel USB yang kompatibel; periksa waktu pengisian setelah dikonfirmasi.
+
+Call-to-action
+Untuk informasi spesifikasi tambahan (mis. runtime pada kecepatan menengah/tinggi, berat, waktu pengisian, atau apakah kabel disertakan), mohon konfirmasi dan kami akan segera memperbarui listing.
+
+---
+
+Jika Anda mau, saya dapat:
+- Menyusun versi listing lengkap begitu Anda mengisi placeholder di atas, atau
+- Menyusun teks FAQ dan bullets untuk menjawab pertanyaan baterai yang sering muncul.",,,,,,
+x002,h07,before,"Summary of customer feedback (facts-only)
+- Positive: Size matches description (fits keyboard and mouse) — reviewer r1.
+- Positive: Anti-slip base works well, does not slide — reviewer r3.
+- Negative (non-product): One reviewer reported slow courier/delivery (8 days) — reviewer r2.
+
+Recurring problems
+- There are no recurring product defects reported across these reviews. The only issue mentioned is a delivery delay reported by a single reviewer; delivery/fulfillment issues are not product listing problems.
+
+Recommended seller actions
+- Logistics / Fulfillment team: Investigate the reported delivery delay. Check courier performance for the areas where delays occurred. Consider switching couriers in problem regions or offering faster shipping options.
+- Customer Service: Proactively communicate estimated delivery times and tracking info to buyers. Respond quickly to customers who report slow delivery; offer status updates, refunds, or replacements per your policy.
+- Listing / Operations: Add clear shipping/handling time and expected delivery ranges to the listing so buyers have realistic expectations. If you offer faster shipping options or local warehouses, list them.
+- Quality/Marketing (no immediate action required from product side): Emphasize confirmed positives from reviews in the listing (accurate size, fits keyboard+mouse; reliable anti-slip).
+
+Improved product listing text (Indonesian)
+Judul:
+Desk Mat Mouse Pad XL 80 x 30 cm — Permukaan Kain Halus, Alas Karet Anti-Slip
+
+Deskripsi singkat:
+Desk mat ukuran 80 x 30 cm yang pas untuk keyboard dan mouse. Permukaan kain halus untuk kenyamanan saat mengetik dan menggeser mouse. Bagian bawah memakai alas karet anti-slip yang mencegah mat bergeser saat digunakan.
+
+Fitur utama:
+- Ukuran: 80 x 30 cm — muat keyboard dan mouse (sesuai pengalaman pembeli).
+- Permukaan: kain halus untuk kenyamanan dan kontrol mouse.
+- Alas: karet anti-slip yang menjaga posisi desk mat tetap stabil.
+
+Informasi pengiriman:
+- Periksa estimasi pengiriman dan opsi kurir yang tersedia pada halaman checkout.
+- Jika ada keterlambatan pengiriman, silakan hubungi layanan pelanggan kami untuk bantuan dan pelacakan.
+
+Catatan tambahan:
+- Untuk pertanyaan tentang bahan, ketebalan, atau perawatan produk, silakan tanyakan kepada kami di bagian tanya penjual.
+
+Jika Anda ingin, saya bisa also:
+- Tambahkan teks garansi atau pengembalian jika Anda provide that information.
+- Buat beberapa varian teks promosi singkat untuk marketplace (judul alternatif, bullet points).",,,,,,
+x003,h03,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x004,h04,after,"Summary of recurring customer problems (based only on the reviews and merchant confirmation)
+- Several buyers reported the drive showed less capacity than advertised:
+  - Two 1-star reviews say the device was detected as 64 GB or “kapasitas palsu.”
+  - Merchant-confirmed fact: kapasitas yang benar 64 GB (so the 128 GB claim in the current listing is incorrect).
+- Multiple reports of reliability problems when storing large amounts or large files:
+  - One review: files above ~30 GB became corrupted.
+  - Another review: errors occur when many files are stored.
+- Usability comments:
+  - One buyer noted it is small and light and has a keychain (positive).
+
+Recommended actions for the seller
+1. Correct the listing immediately to show the true capacity (64 GB). Stop selling or advertising it as 128 GB.
+2. Remove or correct any other claims you cannot verify. If you cannot confirm the “kecepatan baca hingga 100 MB/s” figure with test data, either verify it with controlled tests or remove the speed claim.
+3. Investigate the reported reliability issues:
+   - Perform quality checks on current stock (capacity verification tools, full-write/read tests) to detect counterfeit or defective units.
+   - Test with large single files and many small files to reproduce the corruption/errors reported.
+   - If tests show defects, quarantine and do not sell affected batches.
+4. Customer service & remedies:
+   - Offer refunds or replacements to customers who received units not matching the true capacity or that produce corrupted files.
+   - Provide a clear contact path (customer service/returns) in the listing for buyers who experience issues.
+5. Update product packaging/listing details to prevent confusion:
+   - State the confirmed capacity (64 GB) clearly.
+   - If you support a specific file system or have recommended formatting instructions, add those only after you verify them and provide exact steps.
+6. If the problems are due to counterfeit/fake-capacity devices in your supply chain, escalate to your supplier and consider changing suppliers.
+
+Which team/department should handle which issues
+- Listing and product-spec updates: Sales/Marketplace listing management.
+- Quality checks, testing, supplier investigation: Operations/Quality Assurance.
+- Refunds, returns, replacements and delivery-related complaints: Customer Service/Returns & Fulfillment.
+
+Improved listing text (Indonesian)
+Title:
+Flashdisk 64 GB USB 3.0 Bodi Metal — Ada Gantungan Kunci
+
+Bullet/features (listing body):
+- Kapasitas: 64 GB (kapasitas yang dikonfirmasi oleh penjual)
+- Antarmuka: USB 3.0
+- Bodi metal dengan gantungan kunci
+- Kecepatan baca: hingga 100 MB/s (tercantum sesuai teks sebelumnya; hapus atau ubah jika tidak dapat Anda verifikasi)
+- Cocok untuk penyimpanan sehari-hari dan penggunaan portabel
+
+Catatan penting untuk pembeli:
+- Jika Anda menerima produk yang menunjukkan kapasitas berbeda atau mengalami file korup/masalah saat menyimpan file besar, harap hubungi layanan pelanggan kami untuk pengembalian atau penggantian.
+- Untuk pertanyaan teknis, format/rekomendasi penggunaan, atau masalah garansi/retur, silakan hubungi tim Customer Service.
+
+Jika Anda ingin, saya bisa:
+- Produce an alternate listing that omits the speed claim (if you haven't verified it).
+- Draft a short customer-service message/template for refunds/replacements to use with affected buyers.
+- Provide a short QA/test checklist you can run on inventory to verify capacity and large-file integrity.",,,,,,
+x005,h03,after,(no issues reported),,,,,,
+x006,h10,before,(no issues reported),,,,,,
+x007,h03,after,"Issue: product size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x008,h04,after,"Issue: capacity (conflicting_fact); draft status: ready
+Kapasitas: kapasitas yang benar 64 GB.
+
+Issue: file reliability (file corruption) (product_quality); draft status: route
+",,,,,,
+x009,h06,before,"Issue: body length for size L (expectation_mismatch); draft status: needs_review
+
+
+Issue: chest width for size XL (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x010,h08,before,"Summary of recurring customer problems
+- Multiple reviewers report hardware failures soon after purchase:
+  - Motion sensor stopped working after ~5 days (r2).
+  - Battery lost charge within a day despite only being used at night (r3).
+- A reviewer asked the seller to state certification (SNI) and a 2-year warranty in the listing (r1). You must not claim certification or warranty unless you can confirm them.
+
+What you should do (recommended seller actions)
+1. Immediately support affected customers
+   - Offer replacements, repairs, or refunds through your customer service/after-sales team. (Complaints about defects and wrong items should be handled by customer service/returns, not by changing the listing text alone.)
+   - Log each returned/defective unit (batch number, production date, photos) to identify whether failures are batch-related.
+
+2. Investigate quality/reliability issues
+   - Run a QA check on current inventory focusing on the motion sensor and battery modules.
+   - Reproduce failure modes (sensor dead, rapid battery drop) to find root causes (hardware, firmware, assembly, or shipping damage).
+   - If a faulty component or batch is found, quarantine affected stock and notify customers who bought from those batches.
+
+3. Improve product information (before making claims)
+   - Do not state certifications (e.g., SNI) or warranty length in the listing unless you can confirm them. If you can confirm, provide the exact certification number and the warranty terms.
+   - Provide clear battery runtime expectations and charging time based on lab/test results. If you don’t have tested numbers yet, request testing and then update the listing.
+
+4. Documentation & support materials
+   - Add clear charging and usage guidance (charging time, recommended first charge, typical runtime per night) once confirmed.
+   - Add simple troubleshooting steps for sensor issues (e.g., check battery level, charge fully, ensure sensor not covered, reset procedure if available).
+   - Provide an easy-to-find customer support contact and a clear returns/replacement policy.
+
+5. Prevent future negative reviews
+   - Strengthen outgoing QC and include a “tested before shipment” check.
+   - Consider a limited warranty or guarantee you can honor; if you add one to the listing, ensure customer service can fulfill it.
+
+Questions / placeholders I need from you to finalize the listing
+- Do you offer an official warranty? If yes, what is the warranty period and its terms? If yes, provide exact text. Otherwise leave as [[warranty_period]].
+- Is the product certified (SNI or others)? If yes, give exact certification names/numbers. Otherwise leave as [[certifications]].
+- What is the battery capacity, tested charging time, and typical runtime per charge under normal usage? If unknown, leave placeholders [[battery_capacity]], [[charging_time]], [[typical_runtime]].
+
+Improved listing text (Indonesian)
+Title:
+Lampu Tidur LED Sensor Gerak Magnet — Lampu LED Isi Ulang USB, Mount Magnet
+
+Bullet/features (use placeholders where facts are not provided)
+- Sensor gerak otomatis: lampu menyala saat mendeteksi gerakan, praktis untuk lorong, lemari, atau kamar tidur.
+- Pengisian ulang lewat USB: isi ulang mudah dengan kabel USB (kabel charger tidak termasuk / sertakan jika Anda menyediakan).
+- Pemasangan magnetis: dapat ditempel/ditanggalkan dengan mudah pada permukaan logam atau bracket magnetik.
+- Baterai isi ulang: [[battery_capacity]]; pengisian penuh sekitar [[charging_time]]; runtime tipikal per charge: [[typical_runtime]]. (Jika Anda ingin menampilkan angka pasti, berikan hasil pengujian.)
+- Troubleshooting singkat: jika sensor tidak merespons, coba isi baterai penuh, pastikan permukaan sensor tidak tertutup, dan pasang ulang unit. Jika masalah tetap terjadi, hubungi layanan pelanggan.
+
+Isi paket
+- Lampu LED sensor gerak (1 pcs)
+- Kabel USB (jika Anda sertakan; jika tidak, sebutkan “kabel USB tidak termasuk”)
+- Bracket magnetik / manual penggunaan (sebutkan yang sebenarnya disertakan)
+
+Garansi dan sertifikasi
+- Sertifikasi: [[certifications]] (Isi hanya jika Anda dapat membuktikannya.)
+- Garansi: [[warranty_period]] (Isi hanya jika Anda menyediakan dan dapat memenuhi klaim.)
+
+Informasi penting & layanan purna jual
+- Jika Anda menerima barang cacat atau mengalami masalah fungsi (mis. sensor mati, baterai cepat habis), mohon hubungi layanan pelanggan kami untuk penggantian/garansi/penanganan retur. Semua masalah fungsi dan penggantian akan ditangani oleh tim layanan pelanggan kami.
+- Untuk informasi lebih lanjut atau bantuan teknis, sertakan alamat email/nomor telepon layanan pelanggan.
+
+Catatan untuk Anda (seller) saat mengunggah listing
+- Lengkapi semua placeholder ([[...]]) dengan data yang teruji dan dapat dibuktikan sebelum mempublikasikan.
+- Jangan klaim SNI atau durasi garansi kecuali Anda dapat menunjukkan bukti resmi (sertifikat, tertulis di garansi, dll.). Jika Anda ingin menambahkan klaim tersebut, kirimkan salinan sertifikat dan teks garansi sehingga saya bisa memasukkan wording yang tepat.
+
+Jika Anda mau, saya bisa:
+- Memasukkan angka baterai/charging/runtime dan teks garansi/sertifikasi setelah Anda kirimkan datanya.
+- Menyusun template email/pesan layanan pelanggan untuk merespons pembeli yang melaporkan sensor mati atau baterai cepat habis.",,,,,,
+x011,h09,after,"Issue: battery runtime (actual) (product_quality); draft status: route
+
+
+Issue: battery life (stated) (missing_fact); draft status: needs_listing
+",,,,,,
+x012,h09,before,"Ringkasan masalah berulang dari review pelanggan
+- Keluhan utama: daya/baterai cepat habis atau harus sering dicas.
+  - r1: ""batrenya cuma tahan sejam""
+  - r3: ""baru dipake bentar udah minta dicas""
+  - r2: menyebut tidak ada informasi berapa jam tahan baterainya (keluhan tentang informasi yang hilang)
+- Poin positif berulang: portabilitas/berat ringan.
+  - r4: ""enteng dibawa kemana-mana""
+
+Rekomendasi tindakan untuk penjual
+1. Segera tambahkan spesifikasi baterai yang jelas di listing:
+   - Kapasitas baterai (mAh), tipe baterai, perkiraan waktu kerja per pengisian (pada tiap tingkatan/kecepatan bila ada), dan waktu pengisian. Jika Anda belum punya data ini, ukur dulu produk contoh atau minta info dari pabrik.
+   - Gunakan format mudah dibaca: ""Daya tahan baterai: sampai [[battery runtime]] jam (pada speed rendah)"" dan sebutkan runtime untuk speed menengah/tinggi jika relevan.
+   - Jika ada variasi model, jelaskan per model.
+
+2. Periksa kualitas baterai dan kontrol kualitas (QC):
+   - Uji beberapa unit acak untuk memverifikasi runtime rata‑rata dan konsistensi.
+   - Jika banyak unit bermasalah, koordinasi dengan pemasok untuk perbaikan/komponen pengganti atau penggantian batch.
+
+3. Perbarui listing dengan informasi pengisian dan aksesoris:
+   - Cantumkan apakah kabel USB disertakan, tipe konektor, dan tegangan/arus pengisian. Jika Anda belum memastikan, tambahkan placeholder agar tidak memberikan informasi palsu.
+   - Beri petunjuk singkat penggunaan agar pembeli tahu ekspektasi waktu penggunaan.
+
+4. Komunikasi purna jual:
+   - Siapkan FAQ/section “Tentang baterai” di halaman produk.
+   - Jika ada pelanggan mengeluhkan baterai cepat habis, arahkan mereka ke layanan pelanggan untuk troubleshooting atau klaim garansi/solusi (meskipun detail garansi harus Anda tentukan).
+
+5. Perbaiki listing untuk menonjolkan kelebihan:
+   - Tonjolkan portabilitas/berat ringan (didukung review r4) sehingga calon pembeli tahu keunggulan produk.
+
+6. Tanggung jawab penanganan masalah:
+   - Keluhan tentang kualitas produk (baterai cepat habis, perangkat rusak) harus ditangani oleh tim produk/garansi/after‑sales.
+   - Keluhan tentang pengiriman, paket salah, atau kerusakan saat pengiriman harus ditangani oleh tim logistik/fulfillment dan layanan pelanggan.
+
+Teks listing yang diperbaiki (pakai placeholder untuk fakta yang belum dikonfirmasi)
+Judul: Kipas Angin Portable Mini USB
+
+Deskripsi singkat:
+Kipas angin portable mini dengan koneksi USB — ringan dan mudah dibawa kemana saja. Cocok untuk penggunaan di meja kerja, perjalanan, atau saat beraktivitas di luar rumah.
+
+Fitur utama:
+- Desain mini dan portabel: enteng dibawa kemana-mana.
+- Ditenagai via USB: mudah diisi ulang lewat power bank, laptop, atau adaptor USB.
+- Penggunaan yang nyaman: ideal untuk penggunaan pribadi di meja atau saat bepergian.
+- Informasi baterai: kapasitas dan performa baterai — [[battery capacity]]; daya tahan per pengisian: [[battery runtime]] (low), [[battery runtime_medium]] (medium), [[battery runtime_high]] (high). Waktu pengisian: [[charging_time]].
+- Isi paket: [[included_items]].
+
+Catatan penting:
+- Jika Anda membutuhkan informasi teknis tambahan (mis. mAh, tipe baterai, apakah kabel disertakan), mohon hubungi kami atau periksa spesifikasi di bagian spesifikasi di atas. Kami akan memperbarui listing segera setelah data resmi tersedia.
+
+Ajakan:
+Pesan sekarang untuk mendapatkan kipas mini yang ringkas dan mudah dibawa — jika ada pertanyaan tentang baterai atau penggunaan, silakan tanyakan sebelum membeli.
+
+Elemen listing yang perlu Anda lengkapi (action items untuk penjual)
+- Isi placeholder berikut dengan data terkonfirmasi:
+  - [[battery capacity]]
+  - [[battery runtime]]
+  - [[battery runtime_medium]]
+  - [[battery runtime_high]]
+  - [[charging_time]]
+  - [[included_items]]
+- Tambahkan foto close‑up port pengisian, label baterai (jika ada), dan foto ukuran/scale untuk menonjolkan portabilitas.
+- Sediakan informasi layanan purna jual: kebijakan pengembalian, garansi/dukungan baterai (jika ada), dan prosedur klaim.
+
+Jika Anda mau, saya bisa:
+- Bantu menulis ulang teks spesifikasi setelah Anda isi placeholder dengan data yang terkonfirmasi.
+- Menyusun FAQ singkat tentang baterai dan troubleshooting berdasarkan data yang Anda berikan.",,,,,,
+x013,h06,after,"Issue: shirt length (missing_fact); draft status: ready
+Panjang badan: L: lebar dada 52 cm, panjang badan 72 cm; XL: lebar dada 55 cm, panjang badan 74 cm.
+
+Issue: chest width (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x014,h02,before,(no issues reported),,,,,,
+x015,h01,after,"Recurring customer problems (from reviews)
+- Fit is tight for some devices: multiple reviewers said the sleeve is narrow or that their 11"" tablet (one an iPad Pro 11) was difficult to insert.
+- Keyboard or bulky cases may prevent fit: a reviewer reported an 11"" tablet with a keyboard case did not fit.
+- Listing omitted inner dimensions, causing confusion: a reviewer explicitly asked for inner size rather than only outer size.
+
+What you should do (recommended seller actions)
+1. Update the listing to show inner usable dimensions (merchant-confirmed): 26 x 19 cm — and keep outer size (28 x 21 cm).
+2. Add a clear compatibility note: state that the sleeve fits devices up to the inner size, and warn that tablets with keyboard cases or thick protective cases may not fit.
+3. Add sample fit guidance: ask buyers to measure their tablet including any case/keyboard before purchase.
+4. Add photos showing a tablet (and a tablet with a slim case) inserted so customers can judge fit visually.
+5. Consider offering a slightly larger model or a “with case” version if many customers use keyboard/case combos.
+6. Improve title to include inner size or a clearer compatibility statement (see suggested listing text below).
+7. Customer-service note: any complaints about late delivery, wrong items, or defects should be handled by your after-sales/fulfillment team (not resolved by changing the product text).
+
+Improved listing text (Indonesian)
+Judul:
+Sarung Tablet Felt 11 Inch — Inner 26 x 19 cm, Outer 28 x 21 cm, Tutup Magnet, Kantong Stylus
+
+Deskripsi singkat:
+Sarung tablet berbahan felt, cocok untuk tablet dengan ukuran maksimal inner 26 x 19 cm. Bagian luar 28 x 21 cm. Tutup magnet aman dan terdapat kantong depan untuk stylus.
+
+Detail produk
+- Bahan: felt
+- Ukuran dalam (ruang yang dapat dipakai): 26 x 19 cm
+- Ukuran luar: 28 x 21 cm
+- Penutup: tutup magnet
+- Fitur tambahan: kantong depan untuk stylus
+- Warna: abu-abu
+
+Catatan penting tentang kecocokan
+- Pastikan ukuran tablet Anda (termasuk casing/keyboard jika dipakai) tidak melebihi 26 x 19 cm. Produk ini dapat terasa pas atau sempit untuk beberapa model 11""—terutama jika menggunakan keyboard case tebal.
+- Jika Anda menggunakan keyboard case atau casing tebal, kami sarankan mengukur perangkat dengan casing tersebut sebelum membeli.
+
+Tips pembelian
+- Ukur panjang x lebar perangkat Anda termasuk casing/keyboard.
+- Lihat foto produk yang menampilkan tablet di dalam sleeve untuk referensi kecocokan.
+
+Jika Anda ingin, saya juga bisa menyiapkan versi teks singkat untuk marketplace atau mengusulkan gambar/gaya foto agar pelanggan lebih mudah menilai kecocokan.",,,,,,
+x016,h05,after,"Issue: suitability for SMD / temperature control / tip type (expectation_mismatch); draft status: ready
+Kecocokan untuk SMD: tegangan 220V, suhu maksimal 450°C.",,,,,,
+x017,h04,before,"Issue: reported usable capacity (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: data integrity with large files (product_quality); draft status: route
+
+
+Issue: reliability when storing many files (product_quality); draft status: route
+",,,,,,
+x018,h03,before,"Summary of recurring customer problems
+- Compatibility / sizing unclear: multiple reviews say buyers weren’t sure which phone models the glass fits (r2), and one buyer received a protector that was too large for Redmi Note 12 (r1).
+- Fit / edge adhesion issue: a buyer reports the edges didn’t stick (r1).
+- Positive on privacy function: one buyer confirms the anti-spy effect works (r3).
+
+Recommended seller actions
+1. Provide a clear compatibility list and precise dimensions
+   - Publish a complete list of compatible phone models or exact inner/active-screen dimensions for each variant. This directly addresses the “ga ada daftar tipe yg cocok” complaint and prevents wrong-fit orders.
+   - Action for seller: supply [[compatible models list]] and/or [[inner size]] / [[outer size]] for each variant (see placeholders below).
+
+2. Clarify coverage and edge/adhesive type
+   - State whether the protector is full-screen (edge-to-edge) or smaller than the display, and whether it uses full-surface adhesive (full-glue) or only center/glass adhesive. This reduces surprises about edges not sticking.
+   - Action for seller: confirm and provide text for [[coverage type]] and [[adhesive type]].
+
+3. State compatibility with curved screens and phone cases
+   - Many phones have curved edges or need a “case-friendly” gap; explicitly list if the protector supports curved displays or if a small bezel remains.
+   - Action: provide [[curved-screen compatible?]] and [[case-friendly?]].
+
+4. Improve quality control and packaging checks
+   - Investigate reports of poor edge adhesion. Implement a QC step to check fit and adhesive performance before shipping.
+   - Action: QC/production team to test adhesion on sample units and document pass/fail criteria.
+
+5. Add installation guidance and support
+   - Provide installation instructions (short steps or a link to a video) and cleaning wipes/ dust stickers in the package. Clear install instructions reduce complaints about “doesn’t stick” that result from poor installation.
+   - Action: prepare a simple install guide and include it in the listing and/or the package.
+
+6. Handle individual complaints via customer service/fulfillment
+   - Wrong-fit, damaged, or adhesive problems on individual orders should be managed by customer service / returns & replacements teams (fulfillment/support), not by changing the listing text alone. Provide an easy returns/replacement policy and contact channel.
+   - Action: ensure front-line support knows to offer replacement or refund for wrong-size/defective items and to log recurring defects for QC follow-up.
+
+7. Use the positive review as validation of privacy feature
+   - Keep the privacy claim (anti-spy works) but back it up with compatibility/coverage & installation details so customers understand when the feature will work best.
+
+Improved listing text (Indonesian)
+Note: I used only facts from the current listing and reviews. Several important details are missing — see placeholders below. Please provide the requested values so I can finalize the text without guessing.
+
+Judul
+Tempered Glass Anti Spy kekerasan 9H — layar tidak terlihat dari samping
+
+Deskripsi singkat
+Tempered glass anti-spy dengan kekerasan 9H yang mengurangi pandangan dari samping sehingga orang sebelah tidak bisa mengintip layar Anda. Pilih tipe HP di varian.
+
+Poin produk (lengkapi placeholder yang diminta)
+- Fungsi: Anti-spy / privacy — layar sulit dilihat dari sudut samping (berdasarkan pengalaman pembeli).
+- Kekerasan: 9H (sesuai judul).
+- Varian: Pilih tipe HP di varian. [[compatible models list]]  <-- (MASIH PERLU DIISI OLEH PENJUAL)
+- Ukuran / kecocokan: [[inner size]] atau dimension untuk setiap varian (HARUS DIFORMAT DENGAN SPESIFIK MODEL). <-- (MASIH PERLU DIISI)
+- Coverage & adhesive: [[coverage type: mis. full-screen / visible bezel?]]; [[adhesive type: mis. full-glue / center-adhesive?]]. <-- (MASIH PERLU DIISI)
+- Kompatibilitas layar melengkung / case-friendly: [[curved-screen compatible?]]; [[case-friendly?]]. <-- (MASIH PERLU DIISI)
+- Isi paket: [[package contents — mis. tempered glass, wipes, dust sticker, guide?]]. <-- (MASIH PERLU DIISI)
+
+Petunjuk pemasangan singkat
+- Bersihkan layar dengan kain/alkohol wipe, gunakan dust sticker untuk menghilangkan debu sebelum pemasangan. (Sertakan video/ilustrasi jika tersedia.)
+- Jika tepi tidak menempel penuh setelah pemasangan, lepaskan perlahan, bersihkan lagi, dan pasang ulang mengikuti panduan. Jika masih bermasalah, hubungi layanan pelanggan.
+
+Kebijakan & dukungan
+- Untuk salah pilih tipe atau produk yang ternyata tidak cocok: hubungi layanan pelanggan kami untuk proses pengembalian atau penggantian. (Pastikan tim customer service/fulfillment menangani kasus per-order ini dan laporkan kasus berulang ke tim QC.)
+- Untuk masalah kualitas atau adhesive yang tidak menempel: tim Quality Control / Produksi harus ditinjau; hubungi dukungan untuk penukaran atau refund.
+
+Catatan penting untuk penjual (hal yang perlu Anda tambahkan di listing)
+- Isi semua placeholder: [[compatible models list]], [[inner size]], [[coverage type]], [[adhesive type]], [[curved-screen compatible?]], [[case-friendly?]], [[package contents]].
+- Sertakan foto close-up yang menunjukkan:
+  - potongan/area cutout (kamera, sensor) yang sesuai model;
+  - tepi dan apakah pelindung bersentuhan dengan bezel (untuk menunjukkan coverage);
+  - contoh pandangan dari samping untuk memperlihatkan efek anti-spy.
+- Tambahkan panduan pemasangan singkat dan/atau tautan video.
+- Siapkan prosedur penggantian/retur di customer service untuk kasus salah ukuran atau masalah rekat; laporkan item yang sering dikembalikan ke QC.
+
+Jika Anda ingin, saya bisa:
+- Menggabungkan data kompatibilitas dan ukuran bila Anda berikan daftar model + dimensi (isi placeholders), lalu menghasilkan teks listing final yang siap dipasang.
+- Membuat contoh teks kebijakan pengembalian singkat dan naskah jawaban customer service untuk kasus “kegedean / pinggirnya ga nempel”.
+
+Mau melanjutkan? Berikan daftar model yang kompatibel dan ukuran/coverage yang tepat untuk setiap varian (isi placeholders di atas).",,,,,,
+x019,h10,before,"Summary — recurring customer problems
+- No recurring product complaints appear in the reviews provided. All four reviews report positive experiences: image quality is clear, 4K@60Hz runs stably, length matches description, and customers note the cable is thick with strong connectors.
+- No delivery/packaging/wrong-item/defect complaints are present. Reminder: any such complaints should be handled by your customer service / fulfillment team (returns, refunds, replacements, shipping inquiries).
+
+Seller recommendations (actions to take)
+1. Add missing technical details customers commonly look for:
+   - Confirm and show connector type(s) (e.g., HDMI full-size to full-size). Placeholder: [[connector type]]
+   - Specify device compatibility (TV, monitor, PS/Xbox, laptop, Blu-ray, etc.). Placeholder: [[compatible devices]]
+   - Provide materials/shielding and construction details (e.g., conductor/core, shielding, jacket). Placeholder: [[materials/shielding]]
+   - State any certifications (e.g., HDMI certification) or tests passed. Placeholder: [[certification]]
+   - State warranty or return policy. Placeholder: [[warranty]]
+2. Add clear product photos:
+   - Close-ups of connectors, jacket, and cable thickness.
+   - A photo showing the 2 m length (e.g., cable laid out or next to a tape measure).
+3. Add short usage/compatibility examples and troubleshooting tips (e.g., ensure both devices set to correct input and cable seated properly) — keep generic and factual.
+4. Quality assurance: highlight any internal QC steps or tests you perform (if applicable). If you do not have these, consider implementing simple checks (continuity, 4K@60Hz test) before shipping.
+5. Customer-facing info: include quick installation & compatibility notes and contact info for post-sale support so buyers know where to get help for defects or shipping issues.
+6. Handling post-sale problems: instruct customer service/fulfillment to manage delivery problems, wrong items, defects, returns and refunds — include a standard process and response templates.
+
+Improved listing text (Indonesian)
+Title:
+Kabel HDMI 2.0 — Panjang 2 m — Mendukung 4K @ 60Hz
+
+Bullet points / ringkasan produk:
+- HDMI 2.0, panjang 2 meter sesuai deskripsi.
+- Mendukung resolusi hingga 4K pada 60Hz (4K@60Hz).
+- Pelanggan melaporkan gambar jernih dan pemutaran 4K yang stabil tanpa putus-putus.
+- Konstruksi tebal dan konektor kuat — customer feedback menyebut kabel terasa kokoh.
+- Cocok untuk perangkat dengan port HDMI standar: [[connector type dan compatible devices — mohon konfirmasi dari penjual]].
+- Untuk informasi material, shielding, sertifikasi atau garansi, lihat bagian spesifikasi di bawah atau hubungi layanan pelanggan. [[materials/shielding]] [[certification]] [[warranty]]
+
+Deskripsi singkat:
+Kabel HDMI 2.0 panjang 2 m ini dirancang untuk menghubungkan perangkat HDMI Anda dan mendukung tampilan 4K pada 60Hz. Review pelanggan melaporkan kualitas gambar yang jernih, koneksi yang stabil untuk 4K, serta kabel yang terasa tebal dan konektor yang kuat. Panjang kabel sesuai (2 meter).
+
+Catatan penting / kebutuhan konfirmasi dari penjual (placeholder — mohon lengkapi sebelum publish):
+- Jenis konektor (mis. HDMI A ke HDMI A / full-size ke full-size): [[connector type]]
+- Daftar perangkat yang dijamin kompatibel atau contoh perangkat: [[compatible devices]]
+- Bahan/jumlah lapisan shielding dan detail konstruksi: [[materials/shielding]]
+- Sertifikasi resmi atau pengujian (jika ada): [[certification]]
+- Informasi garansi/retur: [[warranty]]
+
+Panduan singkat pemasangan & dukungan:
+- Sambungkan ujung kabel ke port HDMI pada perangkat sumber dan ke TV/monitor pada port input. Pilih input HDMI yang sesuai di perangkat tampilan.
+- Jika mengalami masalah gambar, periksa pemasangan konektor dan input yang dipilih; untuk masalah teknis, silakan hubungi layanan pelanggan kami.
+- Untuk isu pengiriman, kerusakan saat pengiriman, atau penerimaan barang yang salah, hubungi tim Customer Service / Fulfillment untuk pengembalian atau penggantian.
+
+Jika Anda ingin, saya bisa:
+- Menyusun versi listing yang lebih singkat untuk marketplace yang membatasi karakter.
+- Menyusun FAQ/garis besar kebijakan retur & garansi yang bisa Anda pakai di halaman produk (berikan detail garansi yang ingin Anda tawarkan).",,,,,,
+x020,h05,before,"Ringkasan masalah berulang dari ulasan pelanggan
+- Tidak ada informasi tegangan (pelanggan khawatir tidak cocok dengan listrik rumah). (review r1)
+- Tidak ada informasi suhu maksimal / apakah ada pengaturan suhu; pelanggan kesulitan untuk pekerjaan SMD. (review r2)
+- Perlu detail tip/ukuran ujung solder dan apakah ada kontrol suhu atau wattage terkontrol agar cocok untuk SMD. (terkait r2)
+Catatan positif dari ulasan
+- Pelanggan melaporkan solder cepat panas dan gagang nyaman/anti-slip. (review r3)
+
+Saran tindakan untuk penjual
+1. Segera tambahkan spesifikasi teknis yang hilang ke listing:
+   - Tegangan operasi / jenis colokan (mis. 110V/220V atau universal) → jika belum tersedia, konfirmasi dengan pemasok/produksi.
+   - Suhu maksimal dan apakah suhu dapat diatur (analog/digital atau tetap) → jika ada pengatur suhu, jelaskan rentang suhu dan cara pengaturan.
+   - Informasi apakah cocok untuk pekerjaan SMD (mis. apakah ada pengaturan suhu/ujung kecil) — jika tidak cocok, jelaskan batasan penggunaan.
+   - Jenis dan ukuran ujung solder yang disertakan, serta apakah ujung dapat diganti.
+   - Waktu pemanasan (perkiraan) dan info keselamatan (mis. isolasi gagang, proteksi panas) bila tersedia.
+   - Panjang kabel dan jenis colokan (plug) serta informasi garansi/sertifikasi jika ada.
+   Gunakan placeholder pada listing sementara jika informasi belum dikonfirmasi (contoh: [[tegangan operasi]], [[suhu maksimal]], [[ukuran ujung solder]]).
+
+2. Jika produk sebenarnya tidak memiliki kontrol suhu atau tidak cocok untuk SMD, jelaskan itu jelas di listing dan sarankan penggunaan yang sesuai (mis. pekerjaan umum, sambungan kabel, komponen besar). Jangan biarkan pelanggan mengira bisa untuk SMD jika tidak.
+
+3. Tambahkan bagian “Catatan pelanggan” yang menyatakan ulasan positif (fact-based): beberapa pelanggan melaporkan solder cepat panas dan gagang terasa nyaman/anti-slip. Ini membantu pembeli memahami pengalaman orang lain.
+
+4. Perbaiki gambar/ikon yang menampilkan spesifikasi teknis setelah Anda konfirmasi data, agar pembeli mudah melihat tegangan, suhu, dan kompatibilitas.
+
+5. Untuk masalah non-listing seperti pengiriman, kemasan rusak, atau barang salah/kecacatan: arahkan pelanggan ke layanan purna jual / customer service untuk pengembalian/komplain. (Ini bukan masalah listing.)
+
+Draf teks listing produk yang diperbaiki
+Judul:
+Solder Listrik 60W — Gagang Anti-Slip, Dilengkapi Dudukan Besi
+
+Deskripsi singkat:
+Solder listrik 60W dengan gagang anti-slip dan dudukan besi untuk meletakkan solder saat tidak dipakai. Cocok untuk pekerjaan solder umum di rumah dan bengkel ringan.
+
+Spesifikasi (lengkapi placeholder dengan data yang dikonfirmasi):
+- Daya: 60W (sesuai nama produk)
+- Tegangan operasi: [[tegangan operasi — contoh: 110V/220V atau sebutkan jika universal]]
+- Suhu maksimal: [[suhu maksimal (°C) atau keterangan “tidak dapat diatur”/“dapat diatur”]] 
+- Pengaturan suhu: [[ada/tidak ada — jika ada, sebutkan rentang dan jenis pengaturan]]
+- Jenis/ukuran ujung solder yang disertakan: [[ukuran/jenis ujung]]
+- Waktu pemanasan (perkiraan): [[waktu hingga mencapai suhu kerja]]
+- Aksesoris: dudukan besi (termasuk)
+- Fitur keselamatan: [[mis. isolasi gagang, proteksi lainnya jika ada]]
+- Panjang kabel & jenis colokan: [[panjang kabel]] / [[jenis colokan]]
+- Garansi/sertifikasi: [[garansi / sertifikasi jika ada]]
+
+Kegunaan yang disarankan:
+- Cocok untuk pekerjaan solder umum (perbaikan kabel, sambungan komponen besar).
+- Jika Anda membutuhkan solder untuk pekerjaan SMD yang sensitif, periksa dulu apakah unit ini memiliki kontrol suhu dan ujung halus; jika tidak, pertimbangkan solder dengan kontrol suhu untuk hasil terbaik.
+
+Ulasan pelanggan (ringkasan):
+- Beberapa pembeli melaporkan solder cepat panas dan gagang terasa nyaman saat dipegang.
+
+Catatan penting:
+- Jika Anda membutuhkan informasi teknis yang belum tercantum, silakan tanyakan sebelum membeli. (Kami akan memperbarui listing segera setelah semua spesifikasi dikonfirmasi.)
+- Untuk masalah pengiriman, barang salah, atau kerusakan, hubungi customer service/fulfillment untuk penanganan retur atau penggantian.
+
+---
+
+Jika Anda mau, saya bisa:
+- Susun versi listing yang lebih singkat untuk tampilan mobile.
+- Buat checklist spesifikasi yang perlu Anda tanyakan ke pemasok (tegangan, pengaturan suhu, ukuran ujung, waktu pemanasan, panjang kabel, colokan, garansi). Ingin saya buatkan checklist itu sekarang?",,,,,,
+x021,h05,after,"Ringkasan masalah yang berulang (dari review)
+- Kurang informasi teknis penting pada listing: tegangan dan suhu maksimal tidak dicantumkan (dikonfirmasi oleh merchant: tegangan 220V, suhu maksimal 450°C).
+- Pembeli butuh detail lain yang sering ditanyakan: tipe ujung solder, panjang kabel, jenis colokan, apakah suhu dapat diatur atau tetap, dan waktu pemanasan.
+- Ada umpan balik positif tentang kenyamanan gagang dan kecepatan panas (reviewer: ""cepet panas, gagangnya enak dipegang"").
+
+Rekomendasi tindakan untuk penjual
+1. Perbarui listing dengan spesifikasi teknis yang jelas: tegangan, daya, suhu maksimal. (Sudah tersedia: 220V dan 450°C).
+2. Tambahkan informasi yang sekarang hilang atau konfirmasi apakah tersedia: tipe ujung/tip yang disertakan, apakah suhu adjustable/konstan, waktu pemanasan (dari dingin ke operasional), panjang kabel, jenis colokan, bobot, dan bahan gagang. Jika Anda tidak memiliki data tersebut, tanyakan ke produsen dan isi listing; sementara itu gunakan placeholder di listing (lihat di bawah).
+3. Tambahkan foto close-up ujung solder, label tegangan/pada gagang, dan foto aksesoris (dudukan) sehingga pembeli dapat melihat detail.
+4. Tambahkan petunjuk penggunaan singkat dan peringatan keselamatan (mis. jangan menyentuh ujung panas) serta informasi penanganan garansi/retur. Untuk keluhan terkait pengiriman, kesalahan barang, atau kerusakan, beri arahan jelas agar pembeli menghubungi layanan pelanggan/after-sales.
+5. Jika ingin meningkatkan penjualan pada pasar SMD, sebutkan secara eksplisit apakah solder ini cocok untuk pekerjaan SMD—hanya jika Anda dapat memverifikasinya; kalau tidak yakin, jangan klaim. Pertimbangkan menawarkan varian dengan pengatur suhu atau set tip halus bila banyak permintaan SMD.
+
+Perbaikan teks listing (bahasa Indonesia)
+Judul:
+Solder Listrik 60W Gagang Anti Slip dengan Dudukan Besi — 220V, Tmax 450°C
+
+Poin utama (bullet):
+- Daya: 60W
+- Tegangan: 220V
+- Suhu maksimal: 450°C
+- Gagang anti-slip untuk kenyamanan pegangan
+- Termasuk dudukan besi
+- Pengguna melaporkan: cepat panas dan gagang nyaman dipegang
+- Informasi lain: [[tipe ujung yang disertakan]], [[apakah suhu bisa diatur atau tetap]], [[waktu pemanasan dari dingin ke operasional]], [[panjang kabel]], [[jenis colokan]], [[berat produk]]
+
+Deskripsi singkat:
+Solder listrik 60W dengan gagang anti-slip dan dudukan besi. Dirancang untuk pekerjaan solder umum. Tegangan operasi 220V dan suhu maksimal 450°C. Pengguna melaporkan solder ini cepat panas dan nyaman dipegang. Untuk detail tambahan seperti tipe ujung, kemampuan pengaturan suhu, waktu pemanasan, panjang kabel, dan jenis colokan, lihat spesifikasi atau tanyakan kepada penjual (placeholder tertera di atas).
+
+Informasi penting & layanan purna jual:
+- Untuk pertanyaan teknis lebih lanjut (mis. kecocokan untuk pekerjaan SMD), harap konfirmasi spesifikasi tip dan kontrol suhu sebelum membeli.
+- Jika menerima barang yang salah, rusak, atau ada masalah pengiriman, hubungi layanan pelanggan/after-sales untuk bantuan retur/penukaran.
+
+Catatan untuk penjual (teknis & pemasaran singkat)
+- Segera isi semua placeholder teknis di listing setelah konfirmasi pabrik/produksi.
+- Tambahkan foto ujung solder, foto label tegangan/suhu di badan solder, dan foto panjang kabel/jenis colokan.
+- Pertimbangkan menambahkan FAQ di halaman produk (mis. ""Apakah suhu bisa diatur?"", ""Cocok untuk SMD?"") untuk mengurangi pertanyaan dari calon pembeli.
+- Tim yang menangani: untuk pertanyaan tentang spesifikasi produk — tim produk/teknis; untuk masalah pengiriman/kerusakan/barang salah — tim layanan pelanggan/after-sales.
+
+Jika Anda setuju, saya bisa menghasilkan versi listing yang memuat tambahan spesifikasi begitu Anda berikan nilai untuk tiap placeholder (mis. tipe tip, panjang kabel, apakah adjustable, waktu pemanasan, jenis colokan).",,,,,,
+x022,h10,before,(no issues reported),,,,,,
+x023,h06,after,"Issue: size chart measurements (missing_fact); draft status: ready
+Ukuran detail per size: L: lebar dada 52 cm, panjang badan 72 cm; XL: lebar dada 55 cm, panjang badan 74 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x024,h08,before,(no issues reported),,,,,,
+x025,h04,before,"Recurring customer problems (from reviews)
+- Beberapa buyers report the flash drive is detected as 64GB instead of 128GB (r1).
+- Large files become corrupted: files above ~30GB reported corrupted (r2).
+- Errors occur when the drive is filled with many files (r3).
+- Positive note: small and lightweight (r3).
+
+What the seller should do (recommended actions)
+1. Inventory check and testing
+   - Test a sample batch with a reliable capacity-verification tool (e.g., H2testw or F3) to confirm real usable capacity and detect fake-capacity units.
+   - Verify read/write stability by copying large single files (e.g., >30GB) and many small files to reproduce reported errors.
+
+2. Confirm and publish technical facts (needed for listing)
+   - Confirm actual formatted usable capacity and whether units are consistently 128GB or some are 64GB. If some units are defective, remove or segregate them.
+   - Confirm the default filesystem (FAT32, exFAT, NTFS, etc.) and whether the drive supports single files >4GB (this is tied to filesystem).
+   - Measure and confirm typical read/write speeds (not just read speed) and whether ""up to 100 MB/s"" is verified under which conditions.
+
+   Insert in listing only verified facts. If you cannot confirm, update product text to avoid claiming 128GB or specific file-size support.
+
+3. Quality control and logistics
+   - Quarantine and test returns/refunds to detect batches with fake capacity or corruption.
+   - If counterfeit/fake-capacity units are found, stop selling affected stock and issue recalls/returns.
+   - Improve supplier checks and request batch numbers/traceability.
+
+4. Customer support actions
+   - For buyers who reported wrong capacity, corrupted files, or defective units, handle through Customer Service / Returns department (offer replacement, refund, or tested exchange).
+   - Provide clear troubleshooting steps and ask customers to run a capacity test (offer step-by-step or links to tools) and to send test logs for refund/replace claims.
+
+5. Product page and buyer guidance
+   - Add clear instructions about maximum single-file size depending on filesystem (once confirmed).
+   - Advise customers to format the drive before first use and provide recommended file system (once confirmed).
+   - Add a short QC-tested statement if you have verified units (e.g., ""Each unit tested for true capacity and large-file transfers"" — only add if you actually do this).
+
+Improved listing text (Indonesian)
+Note: I used only facts provided. Several important technical facts are missing or disputed by customer reports — please confirm them so the listing can be completed accurately. Placeholders are marked with [[...]].
+
+Title:
+Flashdisk 128GB USB 3.0 bodi metal — gantungan kunci
+
+Short description:
+Flashdisk bodi metal dengan koneksi USB 3.0 dan gantungan kunci. Klaim kapasitas: 128GB; kecepatan baca hingga 100 MB/s (klaim penjual). Harap baca catatan penting di bawah sebelum membeli.
+
+Detailed product text:
+- Model: Flashdisk USB 3.0 dengan bodi metal dan gantungan kunci.
+- Kapasitas: 128GB (klaim). IMPORTANT: Terdapat laporan dari beberapa pembeli tentang perangkat yang terbaca 64GB atau mengalami korupsi pada file besar; kami menyarankan pembeli untuk memeriksa unit setelah diterima. Jika Anda menemukan masalah, silakan hubungi tim Customer Service/Returns untuk penggantian atau pengembalian dana.
+- Kecepatan baca: hingga 100 MB/s (klaim penjual). Kecepatan nyata dapat bervariasi tergantung perangkat host dan kondisi penggunaan.
+- Ukuran fisik: kecil dan ringan (sesuai pengalaman pelanggan).
+- Sistem file & kompatibilitas: [[format filesystem default (mis. exFAT/FAT32/NTFS)?]] — tolong konfirmasi. Jika drive memakai FAT32, batas ukuran file tunggal adalah 4GB; jika memakai exFAT/NTFS, mendukung file lebih besar.
+- Rekomendasi penggunaan: format drive terlebih dahulu sesuai kebutuhan Anda (mis. exFAT untuk file tunggal >4GB) — hanya jika penjual mengonfirmasi filesystem support.
+- Garansi / pengembalian: [[konfirmasi kebijakan garansi/return]] — tolong konfirmasi.
+
+Catatan penting untuk pembeli
+- Jika drive terbaca kapasitas berbeda atau Anda menemukan file korup setelah menyalin file besar, segera hubungi Customer Service/Returns. Keluhan teknis (kapasitas palsu, file korup, atau perangkat rusak) harus ditangani melalui proses pengembalian/penukaran.
+- Untuk membantu proses klaim, kami sarankan menjalankan alat verifikasi kapasitas (mis. H2testw atau F3) dan menyimpan hasilnya untuk dilampirkan pada laporan.
+
+Informasi yang kami butuhkan dari Anda (seller) untuk final listing
+- Apakah semua unit telah QC dan menghasilkan kapasitas 128GB yang benar? Jika ya, sebutkan ""setiap unit diuji: true capacity verified"" — only if verified.
+- Default filesystem pada produk: [[filesystem default]]
+- Kecepatan tulis rata-rata yang terukur (jika tersedia): [[write speed verified]]
+- Kebijakan garansi/retur yang berlaku: [[warranty/return policy]]
+
+Which team should handle the reported issues
+- Customer Service / Returns department: handle complaints about wrong capacity, corrupted files, defective items, exchanges and refunds.
+- Warehouse / QC team: investigate and test returned units, isolate bad batches, and ensure incoming stock matches specifications.
+
+If you confirm the missing technical facts listed above, I will produce a finalized, customer-facing product description that replaces placeholders and adds recommended troubleshooting/formatting steps.",,,,,,
+x026,h01,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran dalam ruang utama: 26 x 19 cm.
+
+Issue: fit with keyboard case / bulky cases (expectation_mismatch); draft status: needs_review
+",,,,,,
+x027,h07,before,"Issue: delivery time (operational); draft status: route
+",,,,,,
+x028,h04,after,(no issues reported),,,,,,
+x029,h06,before,"Summary — recurring customer problems and recommended seller actions
+
+Recurring problems found in reviews
+- Inconsistent sizing / fit: customers report XL felt too small (r1) and L was too long (r3). This suggests size/fit varies or is unclear.
+- Wrong color sent: a buyer ordered black but received navy (r2) — a fulfillment/packing error.
+- Positive note: fabric is comfortable and stitching is neat (r4).
+
+What you should do
+1. Provide a clear size chart with flat measurements for every size (S–XXL). Do not guess numbers — if you don’t already have them, measure these and add them to the listing. Placeholders: [[chest width across flat]], [[body length from shoulder to hem]], [[shoulder width]], [[sleeve length]] for each size.
+2. State the intended fit (e.g., regular/relaxed/slim) and whether measurements are for garment or body. If you have a model photo, add model height and the size they wear — or add placeholders: [[model height]] and [[model wears size]].
+3. Improve quality control and fulfillment:
+   - Add a checklist at packing to verify variant color and size against the order.
+   - Retrain/refresh staff on checking SKU/color labels before shipping.
+   - If you use a fulfillment partner, escalate and require color/size pick accuracy.
+   - For wrong-item reports, direct customers to customer service/fulfillment for returns/exchanges.
+4. Add clear color names in the listing and ensure product photos match the actual fabric colors under neutral lighting.
+5. Consider adding a short sizing guidance note (e.g., if customers prefer looser fit, choose one size up) — only after you confirm and measure garment sizing.
+6. Keep evidence of QC checks (photos/pack sheets) for dispute resolution with customers.
+
+Who should handle reported issues
+- Wrong item/color delivered: fulfillment/shipping and customer service team should handle returns/exchanges and investigate packing errors.
+- Sizing complaints/returns for fit: customer service (returns/exchanges) and product team (review sizing and update listing).
+- Product defects or manufacturing faults (if any): manufacturing/QC team.
+
+Improved listing text (Indonesian)
+Kaos Polos Cotton Combed 30s — jahitan rantai di bahu. Nyaman dipakai sehari-hari, jahitan rapi.
+
+Fitur utama:
+- Bahan: Cotton Combed 30s.
+- Detail jahitan: jahitan rantai di bahu.
+- Pilihan warna: hitam, navy, [[daftar warna lain jika ada]].
+- Ukuran tersedia: S, M, L, XL, XXL.
+
+Penting — ukuran & fit
+- Kami menyertakan ukuran pakaian dalam ukuran rata-rata (flat measurements). Silakan cek ukuran sebelum memesan:
+  - S: [[chest width S]], [[body length S]], [[shoulder S]], [[sleeve S]]
+  - M: [[chest width M]], [[body length M]], [[shoulder M]], [[sleeve M]]
+  - L: [[chest width L]], [[body length L]], [[shoulder L]], [[sleeve L]]
+  - XL: [[chest width XL]], [[body length XL]], [[shoulder XL]], [[sleeve XL]]
+  - XXL: [[chest width XXL]], [[body length XXL]], [[shoulder XXL]], [[sleeve XXL]]
+- Fit: [[intended fit — mis. regular/relaxed/slim]].
+- Model: [[model height]] cm, memakai ukuran [[model wears size]] (jika ada foto model).
+
+Perhatian warna & foto
+- Kami menampilkan foto produk untuk memperlihatkan warna seakurasi mungkin. Jika warna yang diterima berbeda dari pesanan, hubungi customer service untuk penukaran atau pengembalian.
+
+Perawatan
+- Petunjuk perawatan: [[tambahkan instruksi cuci & perawatan jika ada]].
+
+Keterangan tambahan
+- Jika Anda menerima barang yang salah (warna/ukuran), tim fulfilment/customer service kami akan membantu proses retur atau penukaran.
+- Untuk pertanyaan ukuran atau rekomendasi fit, silakan hubungi kami sebelum memesan.
+
+Catatan untuk penjual (internal, jangan tampilkan di listing)
+- Segera tambahkan ukuran flat measurements yang akurat dan update listing.
+- Terapkan checklist packing untuk mencegah pengiriman warna/ukuran salah.
+- Perbarui foto agar warna lebih akurat, dan tambahkan foto close-up jahitan (pelanggan memuji kerapian jahitan).
+
+Jika Anda ingin, saya bisa:
+- Membantu menyusun format tabel ukuran yang rapi untuk ditempelkan di listing.
+- Menulis pesan otomatis untuk customer service saat ada laporan warna/ukuran salah.
+
+Sebutkan ukuran flat measurements dan fit yang sebenarnya agar saya dapat memasukkan angka yang tepat ke dalam teks listing.",,,,,,
+x030,h02,before,"Issue: water resistance (ingress) (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x031,h09,before,(no issues reported),,,,,,
+x032,h05,before,(no issues reported),,,,,,
+x033,h06,after,"Recurring customer problems (from reviews)
+- Ketidaksesuaian ukuran / kebingungan fit: beberapa pembeli melaporkan XL terasa kekecilan (r1) dan L terasa kepanjangan di badan (r3).
+- Kesalahan warna saat pengiriman: pembeli pesan warna hitam tetapi menerima navy (r2).
+- Positif: satu pembeli menyebut kaos ""adem"" dan ""jaitannya rapi"" (r4).
+
+Rekomendasi tindakan untuk penjual
+1. Perbaiki informasi ukuran di listing:
+   - Tampilkan tabel ukuran dengan lebar dada (chest) dan panjang badan untuk semua varian (S, M, L, XL, XXL). Saat ini hanya L dan XL dikonfirmasi oleh merchant:
+     - L: lebar dada 52 cm, panjang badan 72 cm
+     - XL: lebar dada 55 cm, panjang badan 74 cm
+   - Minta merchant mengukur dan menambahkan ukuran untuk S, M, XXL; tambahkan placeholder di listing jika belum tersedia (lihat di bawah).
+   - Tambahkan catatan jelas apakah pengukuran adalah ukuran pakaian datar (flat) dan bagaimana pembeli sebaiknya membandingkannya dengan kaos mereka sendiri.
+
+2. Perbaiki manajemen varian & kontrol kualitas pengiriman:
+   - Lakukan cross-check stok varian warna di gudang agar varian warna pada listing sinkron dengan stok fisik.
+   - Tambahkan proses QC sebelum packing untuk memastikan warna yang dikirim sesuai pilihan pembeli.
+   - Jika ada kesalahan pengiriman atau item salah warna/varian, itu harus ditangani oleh tim fulfillment / customer service (retur/penukaran/refund).
+
+3. Perbaiki visual & informasi di listing:
+   - Tambahkan foto flat-lay kaos dengan pita pengukur menunjukkan lebar dada dan panjang badan untuk setiap ukuran.
+   - Sertakan foto close-up jahitan bahu untuk menonjolkan ""jahitan rantai di bahu"" dan kualitas jahitan.
+   - Cantumkan pilihan warna varian dengan nama warna yang jelas di setiap gambar.
+
+4. Layanan pelanggan & kebijakan:
+   - Cantumkan instruksi singkat: ""Jika warna/ukuran tidak sesuai pesanan, hubungi layanan pelanggan untuk penukaran/retur.""
+   - Latih CS untuk menangani kasus kesalahan varian (sebagai masalah fulfilment), bukan sebagai masalah listing.
+
+Perbaikan teks listing (bahasa Indonesia)
+Judul:
+Kaos Polos Cotton Combed 30s — jahitan rantai di bahu (S–XXL)
+
+Deskripsi singkat:
+Kaos polos bahan cotton combed 30s dengan jahitan rantai di bahu. Nyaman dipakai sehari-hari; beberapa pembeli melaporkan kaos terasa adem dan jahitannya rapi.
+
+Fitur utama:
+- Bahan: cotton combed 30s
+- Detail jahitan: jahitan rantai di bahu
+- Rentang ukuran: S sampai XXL (lihat tabel ukuran untuk pengukuran aktual)
+- Varian warna: pilih warna pada opsi varian saat checkout
+
+Tabel ukuran (ukuran pakaian, pengukuran datar)
+- S: lebar dada [[S — lebar dada]] cm, panjang badan [[S — panjang badan]] cm
+- M: lebar dada [[M — lebar dada]] cm, panjang badan [[M — panjang badan]] cm
+- L: lebar dada 52 cm, panjang badan 72 cm
+- XL: lebar dada 55 cm, panjang badan 74 cm
+- XXL: lebar dada [[XXL — lebar dada]] cm, panjang badan [[XXL — panjang badan]] cm
+
+Catatan ukuran:
+- Ukuran di atas adalah ukuran pakaian yang diukur datar. Untuk memilih ukuran yang pas, bandingkan dengan kaos Anda sendiri yang sudah nyaman.
+- Jika ragu, hubungi kami dengan ukuran dada dan panjang badan yang Anda inginkan, kami bantu rekomendasi ukuran.
+
+Warna & pemesanan:
+- Pastikan memilih warna yang tepat pada opsi varian sebelum checkout.
+- Jika Anda menerima warna yang berbeda dari yang dipesan, segera hubungi layanan pelanggan untuk penukaran atau solusi. Kesalahan pengiriman ditangani oleh tim fulfillment/customer service.
+
+Foto yang disertakan:
+- Foto produk tampak depan dan belakang
+- Foto flat-lay dengan pita pengukur menunjukkan lebar dada dan panjang badan
+- Foto close-up jahitan bahu untuk menunjukkan detail jahitan rantai
+
+Pernyataan kualitas:
+- Beberapa pembeli menilai kaos nyaman (adem) dan jahitannya rapi.
+
+Jika Anda (penjual) ingin saya masukkan ukuran lengkap ke listing, tolong berikan pengukuran lebar dada dan panjang badan untuk S, M, dan XXL; saya akan mengganti placeholder [[...]] dengan angka yang Anda konfirmasi.
+
+Catatan proses untuk tim internal (singkat)
+- Inventory/warehouse: verifikasi kesesuaian nama varian warna antara sistem dan fisik.
+- QC packing: cek warna & ukuran sebelum dikirim.
+- Customer service: tangani kasus salah warna/varian sebagai isu fulfilment (retur/penukaran/refund).",,,,,,
+x034,h01,before,"Issue: product size (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x035,h01,after,"Issue: product size (unclear_fact); draft status: ready
+Ukuran produk: ukuran dalam 26 x 19 cm.",,,,,,
+x036,h03,before,"Issue: fit / edge adhesion for Redmi Note 12 (product_quality); draft status: route
+
+
+Issue: exact physical dimensions / cut dimensions (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x037,h06,before,"Issue: size chart measurements (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x038,h09,before,"Issue: battery life (missing_fact); draft status: needs_listing
+",,,,,,
+x039,h08,before,"Issue: motion sensor reliability (product_quality); draft status: route
+",,,,,,
+x040,h05,after,(no issues reported),,,,,,
+x041,h02,before,"Ringkasan masalah yang muncul dari ulasan
+- Masalah berulang: beberapa pembeli melaporkan masuknya air atau berkabutnya layar setelah pemakaian di air (satu orang setelah dibawa renang, satu orang setelah dipakai mandi). Ini menunjukkan kebingungan atau kegagalan terkait ketahanan terhadap air.
+- Aspek positif yang konsisten: beberapa pembeli memuji lampu LED yang terang dan alarm yang keras.
+
+Saran tindakan untuk penjual (prioritas dan siapa yang menanganinya)
+1. Perjelas pernyataan ketahanan air di listing (tindakan: tim konten/marketing)
+   - Tambahkan peringatan tegas tentang batas pemakaian air, misalnya hindari mandi, berenang, menyelam, dan paparan air bertekanan. Ulasan menunjukkan pembeli memakai produk untuk mandi/berenang meskipun ada peringatan singkat; peringatan yang lebih jelas bisa mengurangi pengembalian/keluhan.
+2. Perbarui instruksi perawatan dan penggunaan (tindakan: tim konten & tim produk)
+   - Sertakan langkah pencegahan sederhana: keringkan setelah terkena percikan, jangan tekan tombol saat basah, hindari paparan air panas/sabun jika relevan.
+3. Perbaikan kualitas & pemeriksaan produk (tindakan: tim produksi/QA)
+   - Lakukan pemeriksaan kedap air pada batch produk (seal, casing, sambungan tombol) untuk mengurangi kasus masuknya air. Jika ada kegagalan produksi, perbaiki proses perakitan atau komponen seal.
+4. Proses penanganan keluhan/garansi (tindakan: layanan pelanggan & retur)
+   - Siapkan alur klaim yang jelas untuk kasus masuknya air/kerusakan: instruksi pengembalian, penggantian atau pengembalian dana sesuai kebijakan.
+   - Keluhan seperti kerusakan karena masuknya air ditangani oleh layanan pelanggan/retur, bukan oleh tim listing.
+5. Komunikasi pasca-penjualan (tindakan: layanan pelanggan)
+   - Jika ada pembeli melaporkan masalah serupa, minta detail (foto, kondisi pemakaian) dan tindak lanjuti melalui layanan pelanggan. Gunakan data ini untuk menentukan apakah masalahnya penggunaan yang tidak sesuai atau cacat produksi.
+
+Pertanyaan yang perlu dijawab oleh penjual (diperlukan untuk listing yang lengkap)
+- Konfirmasi resmi ketahanan air yang ingin dicantumkan: apakah tetap ""water resistant 3 ATM""? (Listing sekarang menyebut 3 ATM — konfirmasi bahwa ini informasi resmi yang mau dipertahankan.)
+- Apakah Anda ingin menambahkan larangan spesifik seperti ""Jangan dipakai saat mandi"" selain larangan berenang/menyelam?
+- Apakah ada garansi atau kebijakan retur yang ingin dicantumkan? Jika ya, berikan teks atau durasinya — jika tidak, tuliskan kebijakan yang harus ditautkan.
+- Informasi produk lain yang belum dicantumkan (bahan tali/kasing, ukuran, berat, tipe baterai, fitur tambahan): berikan detail atau setujui placeholder di bawah.
+
+Teks listing yang diperbaiki (bahasa Indonesia)
+Nama produk:
+Jam Tangan Digital Sport LED
+
+Deskripsi singkat:
+Jam tangan digital sport dengan lampu LED dan alarm. Desain kasual untuk penggunaan sehari-hari dengan tampilan digital yang mudah dibaca.
+
+Fitur utama:
+- Lampu LED terang untuk melihat waktu dalam gelap (laporkan oleh pengguna).
+- Alarm yang cukup keras untuk pengingat harian (laporkan oleh pengguna).
+- Water resistant 3 ATM. Tidak untuk menyelam atau berenang. Hindari juga pemakaian saat mandi atau paparan air bertekanan/air panas untuk mencegah masuknya air/berkabut pada layar.
+- Tampilan digital mudah dibaca dan pengaturan alarm sederhana.
+
+Perhatian dan perawatan:
+- Jangan menekan tombol saat jam dalam keadaan basah.
+- Keringkan jam jika terkena percikan air.
+- Hindari penggunaan di sauna, shower bertekanan, atau aktivitas menyelam.
+- Jika terjadi kabut/masuknya air, hubungi layanan pelanggan untuk penanganan lebih lanjut.
+
+Spesifikasi (silakan lengkapi atau konfirmasi):
+- Bahan casing: [[bahan casing]]
+- Bahan tali: [[bahan tali]]
+- Ukuran casing / diameter: [[ukuran casing]]
+- Ketahanan air: water resistant 3 ATM (tidak untuk renang/mandi/menyelam)
+- Tipe baterai: [[tipe baterai]]
+- Garansi / kebijakan retur: [[garansi atau retur]]
+
+Apa yang harus dilakukan pembeli bila mengalami masalah:
+- Untuk masalah teknis atau masuknya air/kerusakan, mohon hubungi layanan pelanggan kami melalui [saluran layanan pelanggan Anda] agar dapat diproses retur atau klaim sesuai kebijakan.
+
+Catatan penjual untuk perbaikan listing/operasi
+- Jika Anda ingin, saya bisa memasukkan teks garansi dan instruksi retur resmi yang Anda berikan, serta melengkapi spesifikasi yang masih berplaceholder. Setelah Anda konfirmasi detail tersebut, saya akan menghasilkan versi final listing yang siap dipublikasikan.
+
+Jika Anda ingin, saya juga bisa menulis contoh balasan layanan pelanggan untuk kasus masuknya air yang dapat digunakan oleh tim CS.",,,,,,
+x042,h07,before,(no issues reported),,,,,,
+x043,h01,before,"Issue: internal/inner dimensions (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: compatibility with tablets that have keyboard/case (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x044,h01,before,"Recurring customer problems (from reviews)
+- Fit terasa sempit / pas-pasan: beberapa pembeli melaporkan tablet 11"" harus “dipaksa” masuk.
+- Tidak muat jika tablet memakai keyboard case: setidaknya satu pembeli menyatakan tablet 11"" tidak muat ketika ada keyboard case terpasang.
+- Ukuran dalam tidak dicantumkan: pelanggan mengeluh hanya ada ukuran luar sehingga sulit menilai kecocokan perangkat.
+- Catatan positif: warna abu-abu disukai (satu pembeli).
+
+Saran tindakan untuk penjual
+1. Ukur dan cantumkan ukuran dalam produk (panjang x lebar x ketebalan/tinggi ruang dalam). Jika sudah ada, pastikan ditampilkan jelas. Jika belum diukur: ukur segera dan lengkapi listing.
+   - Placeholder yang harus diisi: [[ukuran dalam: panjang x lebar x tinggi]] dan/atau [[maks. ketebalan perangkat yang muat]].
+2. Uji kecocokan dengan aksesori umum (contoh: keyboard case untuk iPad Pro 11"") dan tambahkan keterangan kompatibilitas:
+   - Jika keyboard case tidak muat, nyatakan jelas “tidak cocok untuk tablet dengan keyboard case”.
+3. Tambahkan foto produk yang menampilkan:
+   - Tablet 11"" masuk ke sarung (tanpa case) untuk memperlihatkan fit.
+   - Jika memungkinkan, contoh tidak muat dengan keyboard case agar pembeli tahu risikonya.
+   - Foto ukuran (mis. penggaris atau skala) dan foto bagian dalam.
+4. Perbarui deskripsi agar membedakan ukuran luar dan ukuran dalam secara jelas, dan sertakan peringatan bila fitnya pas/sempit.
+5. Tampilkan contoh model perangkat yang cocok/tidak cocok (mis. “cocok untuk iPad 11"" tanpa case”) hanya setelah Anda mengonfirmasi kecocokan—jangan mengarang daftar model.
+6. Perbaiki kebingungan pelanggan di FAQ atau bullet point: jelaskan bahan (felt sudah pada listing), tutup magnet, adanya kantong depan untuk stylus, dan warna yang tersedia.
+7. Tindak lanjuti komplain individu tentang produk rusak/penukaran/pengiriman melalui layanan pelanggan/logistik — ini bukan masalah listing. (Customer support / after-sales harus menanganinya.)
+
+Perubahan teks listing yang disarankan
+Catatan: saya tidak mengubah fakta yang belum dikonfirmasi. Harap isi placeholder berikut sebelum dipublikasikan: [[ukuran dalam: panjang x lebar x tinggi]] dan [[maks. ketebalan perangkat yang muat]].
+
+Judul
+Sarung Tablet Felt 11 Inch — Tutup Magnet, Kantong Stylus, Warna Abu-abu
+
+Deskripsi singkat
+Sarung tablet bahan felt dengan tutup magnet dan kantong depan untuk stylus. Ukuran luar: 28 x 21 cm. Warna abu-abu.
+
+Detail produk
+- Bahan: felt
+- Tutup: magnet
+- Kantong depan: untuk stylus
+- Ukuran luar: 28 x 21 cm
+- Ukuran dalam: [[ukuran dalam: panjang x lebar x tinggi]] (harap periksa ukuran perangkat Anda)
+- Maks. ketebalan perangkat yang muat: [[maks. ketebalan perangkat yang muat]]
+
+Panduan kecocokan & peringatan
+- Dirancang untuk tablet 11"" tanpa case tebal. Beberapa pembeli melaporkan fit yang pas-pasan; jika Anda memakai keyboard case atau case tebal, ukur ketebalan total perangkat + case sebelum membeli.
+- Contoh tindakan yang disarankan: ukur perangkat Anda (panjang x lebar x ketebalan) dan bandingkan dengan ""Ukuran dalam"" di atas.
+
+Tips pembelian
+- Jika ragu apakah device + case Anda akan muat, kirimkan ukuran perangkat lengkap ke kami atau ukur sarung secara langsung sebelum membeli.
+- Lihat foto produk yang menunjukkan skala/ukuran untuk referensi.
+
+Warna
+- Abu-abu (lihat foto produk)
+
+Foto yang direkomendasikan untuk diunggah
+- Foto sarung dari depan dan belakang
+- Foto tablet 11"" masuk ke sarung (tanpa case)
+- Foto alat ukur (penggaris) menunjukkan ukuran dalam
+- Jika relevan, foto contoh tidak muat dengan keyboard case
+
+Jika Anda ingin, saya bisa:
+- Menyusun teks versi singkat dan versi panjang untuk marketplace Anda.
+- Membuat contoh pernyataan kompatibilitas untuk beberapa model (setelah Anda mengonfirmasi ukuran dalam dan/atau pengujian dengan model tertentu).",,,,,,
+x045,h09,after,(no issues reported),,,,,,
+x046,h05,before,"Issue: suitability for SMD work / tip size (expectation_mismatch); draft status: needs_merchant_fact
+",,,,,,
+x047,h03,after,"Recurring customer problems (from reviews)
+- Buyers selected the wrong model variant because the listing did not show a clear list of compatible phone models (review r2).
+- A buyer reported the protector was too large and the edges did not stick on their Redmi Note 12 (r1). That may be a fit/variant selection issue or a quality/adhesive issue.
+- One buyer confirms the anti-spy function works (r3).
+
+Recommended seller actions
+1. Fix the variant/compatibility information immediately
+   - Clearly list every phone model this exact product fits. Merchant-confirmed: Redmi Note 13 and Redmi Note 13 Pro. If the product fits other models, confirm them and add to the listing; if not, state only the supported models.
+   - Show the exact variant names in the variant dropdown (do not use vague labels). Example options: “Redmi Note 13” and “Redmi Note 13 Pro”.
+
+2. Add clear selection instructions and warnings
+   - Add a short, prominent instruction: “PILIH VARIAN SESUAI MODEL HP ANDA — cek di Pengaturan > Tentang ponsel atau di kotak ponsel.”
+   - Add a one-line warning: “Jika memilih varian yang tidak sesuai, produk mungkin tidak pas pada layar.”
+
+3. Address reported fit/adhesive concern
+   - Inspect stock for quality issues (adhesive/edge fit). If you find problems, stop shipping affected batches and perform QC.
+   - If fit problems happen because buyers selected the wrong phone model (e.g., Redmi Note 12), clarify compatibility to reduce mismatches.
+   - If you provide exchanges or replacements for wrong-fit or defective protectors, state the procedure in the listing (confirm return/exchange policy with seller).
+
+4. Improve product images and descriptive content
+   - Add clear photos showing the protector installed on Redmi Note 13 and Redmi Note 13 Pro (front, edge close-up).
+   - Add an image or text callout showing “Anti-spy: layar tidak terlihat dari samping” and “Kekerasan 9H” as product features.
+
+5. Customer service & fulfillment responsibilities
+   - Complaints about wrong item sent, defects, delivery, or damaged packaging should be handled by your customer service / fulfillment team. Include contact/return instructions in the product page and in shipped package.
+
+Questions / placeholders (seller must confirm)
+- Do you want to support any other phone models besides Redmi Note 13 and Redmi Note 13 Pro? If yes, list them.
+- What is your return/exchange policy for wrong-fit or defective items? Provide the exact text to include: [[return_exchange_policy]].
+- What is included in the package (e.g., cleaning cloth, dust sticker, alcohol wipe)? Provide exact list to fill [[package_contents]].
+- Do you have product images showing installed fit on each supported model? If not, please supply.
+
+Improved listing text (Indonesian)
+Tempered Glass Anti Spy 9H — Perlindungan layar yang menjaga privasi dari samping
+
+Fitur utama
+- Anti-spy: layar tidak terlihat dari samping sehingga orang di sebelah tidak bisa mengintip.
+- Kekerasan 9H untuk perlindungan goresan.
+- Tersedia untuk: Redmi Note 13; Redmi Note 13 Pro.
+
+PENTING — PILIH VARIAN SESUAI MODEL HP ANDA
+Pilih varian yang tepat pada menu varian sebelum checkout. Cek model ponsel Anda di Pengaturan > Tentang ponsel atau di kemasan ponsel. Jika memilih varian yang tidak sesuai, produk mungkin tidak pas pada layar.
+
+Detail produk
+- Fungsi utama: privasi layar (anti-spy) dan perlindungan keras 9H.
+- Kompatibilitas: hanya untuk model yang disebutkan di atas. (Jika Anda butuh model lain, hubungi kami terlebih dahulu.)
+
+Isi paket
+[[package_contents]]
+
+Kebijakan pengembalian / garansi
+[[return_exchange_policy]]
+
+Catatan penting
+- Keluhan terkait salah barang terkirim, barang cacat, atau pengiriman: harap hubungi layanan pelanggan kami agar dapat diproses sesuai kebijakan penukaran / pengembalian.
+- Untuk hasil pemasangan terbaik, ikuti panduan pemasangan yang disertakan.
+
+Butuh tambahan info?
+- Jika Anda ingin kami tambahkan model lain, daftar aksesoris pendukung, atau teks kebijakan pengembalian, berikan detail tersebut dan saya akan mengupdate listing.
+
+If you confirm the missing items above (package contents and return/exchange policy) I will produce a final listing ready to paste into the store.",,,,,,
+x048,h04,before,(no issues reported),,,,,,

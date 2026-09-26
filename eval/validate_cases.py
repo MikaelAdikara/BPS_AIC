@@ -16,7 +16,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_FILES = [HERE / "final" / "cases.jsonl", HERE / "final" / "cases_holdout.jsonl"]
+DEFAULT_FILES = [HERE / "final" / "cases.jsonl", HERE / "final" / "cases_holdout.jsonl",
+                 HERE / "final" / "cases_holdout2.jsonl", HERE / "final" / "cases_holdout3.jsonl",
+                 HERE / "final" / "cases_holdout4.jsonl"]
 
 CATEGORIES = {
     "missing_fact", "cm_inch", "inner_outer", "negation", "water_claims", "compatibility",

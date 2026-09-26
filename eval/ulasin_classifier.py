@@ -22,7 +22,8 @@ OUT = REPO / "eval" / "final" / "ulasin_classifier.md"
 LABELS = {
     "lexicon_rule_based": "Leksikon (rule-based)",
     "tfidf_logreg": "TF-IDF + logistic regression",
-    "indobert_finetuned": "IndoBERT fine-tuned (as-shipped)",
+    "indobert_finetuned": "IndoBERT head awal (v1)",
+    "indobert_runtime": "IndoBERT runtime (head/ambang yang aktif)",
     "gold_llm_labels_adr017": "Label gold-LLM lama (hanya klausa dari gold)",
     "llm_annotator_a": "Anotator LLM A",
 }
@@ -35,7 +36,7 @@ def main() -> None:
     ev = data["evaluation"]
     agr = data["agreement"]
     lines = [
-        "# Baseline U: klasifier aspek Ulasin (as-shipped)", "",
+        "# Baseline U: klasifier aspek Ulasin", "",
         f"Sumber: `ml/evaluation/aspect_human_results.json` (git blob `{blob[:12]}`), dihasilkan "
         "`ml/text/evaluate_aspect_human.py`. Tidak dijalankan ulang di sini.", "",
         f"Susunan label: `{data['setup']}`. Rujukan = label manusia saja; label LLM hanya "
@@ -57,14 +58,23 @@ def main() -> None:
         lines.append(f"| {label} | {m['aspect_macro_f1']:.3f} | {m['aspect_micro_f1']:.3f} | "
                      f"{'–' if size is None else f'{size:.3f}'} |")
     lines += [
-        "", "Bacaan: pada rujukan manusia yang sama, IndoBERT fine-tuned setara dengan leksikon dan "
-        "TF-IDF (selisih macro F1 kurang dari 0,01). Aspek ukuran/varian, yang paling relevan untuk "
+        "", "Bacaan: bedakan head awal dari runtime yang memakai head dan ambang aktif. "
+        "Baris bertanda kosong tidak dijalankan; skor TF-IDF historis tidak membuktikan hasil saat ini. "
+        "Aspek ukuran/varian, yang paling relevan untuk "
         "keluhan informasi produk, adalah salah satu yang paling lemah. Klasifikasi aspek saja tidak "
         "memberi tahu seller fakta apa yang hilang, tindakan apa yang perlu, atau apakah masalahnya "
         "muncul lagi; karena itu klasifier dipertahankan hanya sebagai sinyal triage.", "",
         "Catatan interval: F1 per kelas di sini dihitung dari support kecil (mis. 9 klausa untuk "
         "ukuran_varian), jadi selisih kecil antarpendekatan tidak bermakna.",
     ]
+    runtime = ev["models"].get("indobert_runtime", {})
+    if runtime.get("model_version"):
+        lines += ["", f"Runtime terukur: `{runtime['model_version']}`, CPU, "
+                  f"{runtime['inference_seconds']:.3f} detik untuk {runtime['n']} klausa "
+                  f"({runtime['clauses_per_second']} klausa/detik). Waktu load terpisah: "
+                  f"{runtime['load_seconds']:.3f} detik. Ini pengukuran lokal satu run, bukan SLA.",
+                  "Hash artefak lengkap tersimpan pada hasil JSON. Dataset ini sudah dipakai "
+                  "evaluasi sebelumnya; run ulang adalah regresi, bukan holdout baru."]
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"ditulis {OUT}")
 

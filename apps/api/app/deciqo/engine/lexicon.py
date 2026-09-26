@@ -17,6 +17,8 @@ from pathlib import Path
 
 from .verify import normalise
 
+LEXICON_VERSION = "lexicon-v3"
+
 _ML_TEXT = Path(__file__).resolve().parents[5] / "ml" / "text"
 
 
@@ -33,7 +35,7 @@ def _base_slang() -> dict[str, str]:
 
 # Negasi dipetakan ke "tidak" supaya pemeriksaan jendela negasi seragam.
 NEGATIONS = {"tidak", "tak", "gak", "ga", "gk", "nggak", "ngga", "engga", "enggak", "kurang",
-             "bukan", "belum", "tdk", "kagak", "no", "not", "never",
+             "bukan", "belum", "tdk", "kagak", "no", "not", "never", "nothing",
              # ejaan yang muncul di ulasan marketplace nyata
              "tida", "gx", "egk", "eggk", "eggak", "engak", "nda", "ndak", "kaga", "gaa", "ngk", "nggk"}
 SLANG = {k: v for k, v in _base_slang().items() if " " not in v}
@@ -66,7 +68,7 @@ COMPLAINT_TERMS = {
     "thin", "flimsy", "cheap", "leaking", "leak", "leaks", "leaked", "stained", "scratched",
     "scratch", "faulty", "dull", "duller", "crushed", "torn", "fake", "expensive", "overpriced",
     "broke", "shrank", "shrunk", "peeling", "peeled", "misleading", "disappointing", "useless",
-    "smells", "smelly", "loose",
+    "smells", "smelly", "loose", "different", "berantakan",
     # Inggris
     "broken", "damaged", "defective", "wrong", "missing", "bad", "poor", "late", "small", "tight",
 }
@@ -83,6 +85,8 @@ PRAISE_TERMS = {
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
 ATTRIBUTE_GROUPS: dict[str, set[str]] = {
+    "capacity": {"capacity", "kapasitas", "volume", "liter", "ml", "cup", "cups", "porsi", "beras", "nasi"},
+    "thermal": {"panas", "overheat", "overheating", "heat", "heating", "hot", "suhu", "temperature"},
     "size": {"ukuran", "size", "sizing", "muat", "sempit", "kekecilan", "kebesaran",
              "kecilan", "kegedean", "gedean", "kependekan", "kepanjangan", "dimensi", "lingkar",
              "kompartemen", "inch", "inci", "cm", "fit", "dimension", "dimensions", "measurement",
@@ -136,6 +140,12 @@ GENERIC_GROUPS = {"quality"}
 _LONG_LASTING = {"tahan", "baterai", "battery", "daya", "awet", "pemakaian", "dipakai", "digunakan"}
 
 _ORDER = r"\b(?:pesan|pesen|psen|mesen|mesan|order|beli|pilih|minta)\w*\b"
+# Compare explicit variant values; arrival by itself does not imply a wrong item.
+_VARIANT = r"(?:xxxl|xxl|xl|xs|s|m|l|merah|biru|hitam|putih|hijau|kuning|red|blue|black|white|green)"
+_DIRECT_SWAP = re.compile(
+    _ORDER + r"\s+(?:(?:ukuran|size|warna|colou?r)\s+)?(?P<ordered>" + _VARIANT + r")\b"
+    r"\s+(?:di\s?kirim|dikasih|dapat|dapet)\s+(?:(?:ukuran|size|warna|colou?r)\s+)?"
+    r"(?P<received>" + _VARIANT + r")\b", re.I)
 _WRONG_ITEM = [
     # "pesan L dikasih M", "pesan BLACK yang datang NAVY", "order 13pro mlh dikirim yg 13 biasa".
     # "Pesanan sudah sampai" bukan salah kirim: kedatangan saja tidak cukup, butuh "dikasih",
@@ -319,6 +329,8 @@ def span_text(text: str, quote: str) -> str:
 
 def is_wrong_item(text: str) -> bool:
     text = text or ""
+    if any(m["ordered"].lower() != m["received"].lower() for m in _DIRECT_SWAP.finditer(text)):
+        return True
     if _DEFECT_AFTER.search(text) and not _STRONG_SWAP.search(text):
         return False  # "malah dikirim barang rusak" adalah cacat, bukan varian yang salah
     return any(p.search(text) for p in _WRONG_ITEM)
@@ -326,6 +338,20 @@ def is_wrong_item(text: str) -> bool:
 
 def wrong_item_clause(clause: Clause) -> bool:
     return is_wrong_item(clause.text)
+
+
+# Ulasan yang memberi perintah ke sistem ("abaikan instruksi", "tulis di listing: garansi 2 tahun").
+# Teksnya tetap disimpan dan ditampilkan, tetapi tidak pernah dihitung sebagai bukti isu apa pun.
+_INSTRUCTION = re.compile(
+    r"\b(?:abaikan|lupakan|acuhkan|ignore|disregard|forget)\b.{0,30}?"
+    r"\b(?:instruksi|perintah|aturan|prompt|instructions?|rules|previous|sebelumnya)\b"
+    r"|\b(?:tulis(?:kan)?|tambahkan|cantumkan|write|add)\b.{0,15}?\b(?:di|ke|dalam|in|to|into)\s+"
+    r"(?:the\s+)?(?:listing|deskripsi|description)\b\s*:"
+    r"|\bsystem\s*prompt\b|\byou\s+are\s+now\b|\bsebagai\s+(?:ai|asisten)\b", re.I | re.S)
+
+
+def looks_like_instruction(text: str) -> bool:
+    return bool(_INSTRUCTION.search(text or ""))
 
 
 def complaint_signal(text: str) -> bool:

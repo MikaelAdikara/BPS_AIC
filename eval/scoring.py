@@ -377,6 +377,31 @@ def write_all(cases: list[dict], rows: dict, out_dir: Path) -> None:
     (out_dir / "report.md").write_text(render_report(cases, rows, res), encoding="utf-8")
     labels, key = render_blind(cases, rows)
     if labels:
+        label_path = out_dir / "labels.csv"
+        key_path = out_dir / "blind_key.json"
+        identity_fields = {"blind_id", "case_id", "phase", "output"}
+        if label_path.exists() and key_path.exists():
+            old_key = json.loads(key_path.read_text(encoding="utf-8"))
+            with label_path.open(encoding="utf-8", newline="") as stream:
+                old_labels = list(csv.DictReader(stream))
+            def identity(label, mapping):
+                system = mapping.get(label["blind_id"], {}).get("system")
+                return label["case_id"], label["phase"], system, label["output"]
+            by_output = {identity(label, old_key): label for label in old_labels}
+            for label in labels:
+                old = by_output.get(identity(label, key), {})
+                for field in label.keys() - identity_fields:
+                    label[field] = old.get(field, "")
+            new_identities = {identity(label, key) for label in labels}
+            if any(identity(old, old_key) not in new_identities and
+                   any(v for k, v in old.items() if k not in identity_fields) for old in old_labels):
+                backup = out_dir / "labels.previous.csv"
+                index = 1
+                while backup.exists():
+                    backup = out_dir / f"labels.previous.{index}.csv"
+                    index += 1
+                backup.write_bytes(label_path.read_bytes())
+                backup.with_suffix(".key.json").write_bytes(key_path.read_bytes())
         with (out_dir / "labels.csv").open("w", encoding="utf-8", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(labels[0].keys()), lineterminator="\n")
             w.writeheader()

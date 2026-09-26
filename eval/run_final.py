@@ -36,7 +36,8 @@ from prompts import PROMPTS, bundle_text, prompt_sha  # noqa: E402
 
 CASES_DIR = HERE / "final"
 OUT = CASES_DIR  # bisa diganti --out; kasus selalu dibaca dari CASES_DIR
-CASE_FILES = ["cases.jsonl", "cases_holdout.jsonl"]
+CASE_FILES = ["cases.jsonl", "cases_holdout.jsonl", "cases_holdout2.jsonl", "cases_holdout3.jsonl",
+              "cases_holdout4.jsonl"]
 ALL_SYSTEMS = ["B0", "B1", "D", "D-rules"]
 PAID = {"B0", "B1", "D"}
 

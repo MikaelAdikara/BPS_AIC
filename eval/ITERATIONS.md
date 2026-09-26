@@ -441,3 +441,26 @@ Efek samping dan sisa masalah:
 - Batas metrik: c13 (tanpa listing) dihitung "not ready" setelah fakta, padahal perilakunya sesuai
   aturan produk: tanpa listing, draf menunggu listing ditempel (`needs_listing`). Label emas kasus ini
   tidak diubah; kasusnya dicatat di sini.
+
+
+## Iterasi 4 dan 5 — reevaluasi serta audit pitch (26 September 2026)
+
+Rincian, artefak, dan batas hasil: [CHECKPOINT_2.md](CHECKPOINT_2.md) dan [PITCH_CLAIMS.md](PITCH_CLAIMS.md).
+
+gap-v1.10 / verify-v2.3 memperbaiki suhu, salah kirim langsung, routing independen dari discovery, cache triage, dan status sumber. gap-v1.11 menghapus pemotongan membership 150 ulasan/600 karakter dan membetulkan harness error. Run development ulang masih kehilangan c04/c18 karena konflik label serta kosakata kapasitas. gap-v1.12 / verify-v2.4 menyelesaikan konflik hanya pada verdict span yang tegas dan seragam, menambah kelompok kapasitas, serta memperjelas prompt membership.
+
+Holdout pertama disimpan utuh di final/reevaluation-holdout; run berikutnya atas kasus itu diberi nama holdout-regression. Skor terbaik antar-run tidak dipilih sebagai klaim performa. Blind label manusia, merchant pilot, dan generalisasi tetap belum selesai.
+
+## Iterasi 6–8 — fresh holdout per siklus dan second read (gap-v1.13 → gap-v1.15, 26 September 2026)
+
+Ringkasan tabel dan artefak: [CHECKPOINT_2.md](CHECKPOINT_2.md) §3. Setiap siklus diuji pada
+development sebagai regresi dan pada holdout baru yang ditulis serta dikunci (`cases_holdout{2,3,4}.lock`)
+sebelum versinya dijalankan. Gerbang `quality_gate.py` memakai batas bawah Wilson.
+
+- v1.12 diagnosis (holdout2): ulasan instruksi terhitung, recall 26/50, h20 pujian → FAIL.
+- v1.13: ulasan instruksi tidak pernah menjadi bukti. Dev PASS; holdout3 FAIL (precision, n kecil).
+- v1.14: veto juri hanya bila leksikon yakin kebalikannya. Holdout4 PASS; dev FAIL held 12/13.
+- v1.15: second read independen. rc 62 kasus: semua gerbang akurasi lulus, FAIL hanya h20.
+  Ablation tanpa second read: recall holdout 106/125 → 70/125.
+
+Belum selesai: h20, hold berlebih, replikasi v1.15, label manusia buta, rebuild runtime.

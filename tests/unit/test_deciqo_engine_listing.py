@@ -26,3 +26,16 @@ def test_listing_pendek_tanpa_kata_atribut_tidak_ditemukan():
 
 def test_listing_belum_ada():
     assert listing_check.check(SIZE, "", False)["status"] == "not_provided"
+
+
+def test_invalid_model_quote_does_not_hide_incomplete_source():
+    listing = "Ransel harian warna hitam. " * 400 + "Saku dalam 26 x 18 cm."
+    finding = {**SIZE, "listing_evidence": "Saku dalam 26 x 18 cm" + " (ideal)."}
+    check = listing_check.check(finding, listing, True)
+    assert check["status"] == "incomplete_source"
+    assert check["reason"] == "related_text_beyond_model_window"
+
+
+def test_invalid_quote_with_visible_related_text_still_fails():
+    finding = {**SIZE, "listing_evidence": "Saku dalam 99 cm."}
+    assert listing_check.check(finding, "Saku dalam 26 x 18 cm.", True)["status"] == "verification_failed"

@@ -1,5 +1,9 @@
 # Eval Deciqo
 
+Reevaluasi terbaru: [`CHECKPOINT_2.md`](CHECKPOINT_2.md), 26 September 2026,
+runtime head v2, development dan holdout pertama. Audit pitch dan iterasi lanjut:
+[`PITCH_CLAIMS.md`](PITCH_CLAIMS.md), engine gap-v1.12 / verify-v2.4.
+
 Isi checkpoint 1 (kerangka, eksekusi pertama, skor baseline, bukti eksekusi, daftar kelemahan):
 [`CHECKPOINT_1.md`](CHECKPOINT_1.md).
 

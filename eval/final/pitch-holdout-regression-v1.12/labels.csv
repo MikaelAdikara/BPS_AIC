@@ -1,0 +1,53 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,h03,after,"Issue: fit / edge adhesion (product_quality); draft status: route
+",,,,,,
+x002,h09,before,"Issue: battery life (missing_fact); draft status: needs_listing
+",,,,,,
+x003,h05,after,"Issue: input voltage / mains compatibility (missing_fact); draft status: ready
+Tegangan input: tegangan 220V, suhu maksimal 450°C.
+
+Issue: suitability for SMD soldering (expectation_mismatch); draft status: needs_merchant_fact
+",,,,,,
+x004,h06,after,"Issue: body length for L (expectation_mismatch); draft status: needs_review
+
+
+Issue: chest width by size (missing_fact); draft status: ready
+Lebar dada per ukuran: L: lebar dada 52 cm, panjang badan 72 cm; XL: lebar dada 55 cm, panjang badan 74 cm.
+
+Issue: color accuracy / wrong color sent (operational); draft status: route
+",,,,,,
+x005,h09,after,"Issue: battery life (missing_fact); draft status: needs_listing
+",,,,,,
+x006,h07,before,"Issue: delivery time / courier speed (operational); draft status: route
+",,,,,,
+x007,h03,before,"Issue: fit / edge adhesion for Redmi Note 12 (expectation_mismatch); draft status: needs_review
+",,,,,,
+x008,h04,after,"Issue: storage capacity (conflicting_fact); draft status: ready
+Kapasitas penyimpanan: kapasitas yang benar 64 GB.",,,,,,
+x009,h08,before,"Issue: sensor reliability (product_quality); draft status: route
+",,,,,,
+x010,h05,before,"Issue: operating voltage / mains compatibility (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x011,h01,before,"Issue: claim 'fits 11 inch tablets' (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x012,h01,after,"Issue: inner compartment dimensions (missing_fact); draft status: ready
+Ukuran dalam: 26 x 19 cm.
+
+Issue: compatibility with tablets that have cases/keyboard cases (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x013,h10,before,(no issues reported),,,,,,
+x014,h04,before,"Issue: file integrity with large files (product_quality); draft status: route
+
+
+Issue: capacity (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x015,h02,before,"Issue: water resistance (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: screen condensation (product_quality); draft status: route
+",,,,,,
+x016,h06,before,"Issue: sizing / fit (body length and chest width) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
