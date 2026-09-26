@@ -100,3 +100,15 @@ def test_label_draf_tanpa_angka_dan_alternatif_dari_model():
     sec = draft.section(finding, _fact("saku dalam 28 x 20 cm", "28 x 20", "cm"), "Tas.", True)
     assert sec["status"] == "ready"
     assert sec["text"] == "Ukuran saku dalam: 28 x 20 cm."
+
+
+def test_angka_bersatuan_di_label_tanpa_alternatif_dibuang():
+    # Kasus demo tas laptop: label model "muat laptop 14 inci" / "14-inch" tanpa " / ". Angka di label
+    # tidak bersumber dari fakta, jadi harus dibuang supaya draf tidak terblokir oleh labelnya sendiri.
+    check = {"status": "conflicting", "quote": "muat laptop hingga 14 inch."}
+    fact = _fact("kompartemen dalam 32 x 24", "32 x 24", "cm")
+    for local in ("muat laptop 14 inci", "compatibility with 14-inch laptops"):
+        sec = draft.section(_finding("conflicting_fact", local, "compatibility with 14-inch laptops"), fact,
+                            "Tas laptop kanvas, muat laptop hingga 14 inch.", True, listing_check=check)
+        assert sec["status"] == "ready", sec
+        assert "14" not in sec["text"] and "32 x 24 cm" in sec["text"]

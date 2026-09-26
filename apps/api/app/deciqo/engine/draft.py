@@ -20,7 +20,7 @@ STATUS_RANK = ["blocked", "needs_merchant_fact", "needs_listing", "needs_review"
 _PURE_QUANTITY = re.compile(r"^[\d\s.,x×*]+(?:[a-z]{1,4})?\.?$", re.I)
 
 
-_LABEL_QUANTITY = re.compile(r"\s*\(?\d+(?:[.,]\d+)?\s*(?:inch|inci|in|cm|mm|kg|g|ml|l|mah|w|v|a)\)?", re.I)
+_LABEL_QUANTITY = re.compile(r"\s*\(?\b\d+(?:[.,]\d+)?[\s-]*(?:inch|inci|in|cm|mm|kg|g|ml|l|mah|w|v|a)\b\)?", re.I)
 
 
 def _label(finding: dict) -> str:
