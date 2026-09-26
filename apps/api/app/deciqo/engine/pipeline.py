@@ -284,6 +284,9 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         reviews = load_reviews(conn, product_id)
         previous = store.row(conn.execute("SELECT * FROM analyses WHERE product_id = ?", (product_id,)))
         candidates, triage_trace = triage.candidates(reviews, conn)
+        existing_issues = [{"attribute": r["attribute"], "attribute_local": r["attribute_local"]}
+                           for r in conn.execute("SELECT attribute, attribute_local FROM findings "
+                                                 "WHERE product_id = ? ORDER BY created_at", (product_id,))]
 
     mode, note = _engine_choice(engine, product["user_id"])
     model_name = ""
@@ -307,7 +310,8 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         from . import discovery, llm  # noqa: PLC0415
 
         membership_reviews = reviews[-MEMBERSHIP_LIMIT:]
-        ai_hash = discovery.ai_hash(product, listing, provided, candidates, membership_reviews, len(reviews))
+        ai_hash = discovery.ai_hash(product, listing, provided, candidates, membership_reviews, len(reviews),
+                                    existing_issues)
         cached = store.loads(previous["summary_json"], {}) if previous else {}
         if not force and cached.get("ai_hash") == ai_hash and cached.get("ai_output"):
             ai_output = cached["ai_output"]
@@ -315,8 +319,8 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         else:
             try:
                 ai_output = discovery.run_all(product, listing, provided, candidates, membership_reviews,
-                                              len(reviews), user_id=product["user_id"], ref=product_id,
-                                              db_path=db_path)
+                                              len(reviews), existing=existing_issues,
+                                              user_id=product["user_id"], ref=product_id, db_path=db_path)
             except llm.KeyRejected as exc:
                 mode, note = "rules", f"key_rejected:{exc.reason}"
             except llm.BudgetExceeded as exc:
@@ -369,6 +373,7 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         judged = _judge_pairs(proposal, [r for r in reviews if r["id"] in wrong_item_ids], "rules", [])
         built[finding_key(proposal)] = {"proposal": proposal, "judged": judged}
 
+    built = dedupe(built)
     findings = []
     for key, entry in built.items():
         proposal, judged = entry["proposal"], entry["judged"]
@@ -407,6 +412,79 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
             "trace": trace, "usage": usage, "note": note}
 
 
+def route_of(finding_type: str) -> str:
+    if finding_type in LISTING_FIXABLE:
+        return "listing"
+    return "quality" if finding_type == "product_quality" else "operations"
+
+
+def _support_ids(judged: dict) -> set[str]:
+    return set(judged["supports"]) - set(judged["uncertain"])
+
+
+DEDUPE_OVERLAP = 0.8
+
+
+def dedupe(built: dict[str, dict]) -> dict[str, dict]:
+    """Usulan dengan rute sama yang berbagi ≥80% ulasan pendukung adalah satu keluhan.
+
+    Model kadang memecah satu keluhan jadi dua atribut ("fits a 14 inch laptop" dan "inner
+    compartment size") dengan bukti yang sama; merchant lalu melihat dua isu kembar."""
+    order = sorted(built, key=lambda k: -len(_support_ids(built[k]["judged"])))
+    kept: dict[str, dict] = {}
+    for key in order:
+        entry = built[key]
+        ids = _support_ids(entry["judged"])
+        route = route_of(entry["proposal"].get("finding_type", ""))
+        target = None
+        for other_key, other in kept.items():
+            other_ids = _support_ids(other["judged"])
+            if (ids and other_ids and route == route_of(other["proposal"].get("finding_type", ""))
+                    and len(ids & other_ids) / min(len(ids), len(other_ids)) >= DEDUPE_OVERLAP):
+                target = other
+                break
+        if target is None:
+            kept[key] = entry
+            continue
+        for part in ("supports", "contradicting", "uncertain", "rejected"):
+            for rid, value in entry["judged"][part].items():
+                target["judged"][part].setdefault(rid, value)
+    return {k: kept[k] for k in built if k in kept}
+
+
+MATCH_EVIDENCE = 0.5
+MATCH_KEY = 0.5
+
+
+def _jaccard(a: str, b: str) -> float:
+    x, y = set(a.split()), set(b.split())
+    return len(x & y) / len(x | y) if x | y else 0.0
+
+
+def match_existing(f: dict, existing: dict[str, dict], taken: set[str]) -> dict | None:
+    """Temuan tersimpan yang merupakan isu yang sama dengan temuan baru ini.
+
+    Cocok bila kuncinya sama, atau rutenya sama dan (≥50% ulasan pendukung baru sudah menjadi bukti
+    isu lama, atau token kunci atributnya mirip, Jaccard ≥0,5). Dengan begitu parafrasa model
+    ("respon penjual pada chat" vs "respon penjual / waktu balasan") tetap menempel ke keputusan lama."""
+    free = [old for fid, old in existing.items() if fid not in taken]
+    for old in free:
+        if old["attribute_key"] == f["key"]:
+            return old
+    route = route_of(f["proposal"]["finding_type"])
+    best, best_score = None, 0.0
+    for old in free:
+        if route_of(old["finding_type"]) != route:
+            continue
+        old_ids = {i["review_id"] for i in read_evidence(old["evidence_json"])["items"]}
+        evidence = len(f["support_ids"] & old_ids) / len(f["support_ids"]) if f["support_ids"] else 0.0
+        key = _jaccard(f["key"], old["attribute_key"])
+        score = max(evidence if evidence >= MATCH_EVIDENCE else 0.0, key if key >= MATCH_KEY else 0.0)
+        if score > best_score:
+            best, best_score = old, score
+    return best
+
+
 def _record_failure(product_id: str, previous: dict | None, exc: Exception, db_path) -> None:
     """Kegagalan provider tercatat di status analisis; temuan lama tidak disentuh."""
     detail = {"error": type(exc).__name__, "message": str(exc)[:200]}
@@ -440,8 +518,11 @@ def _persist(conn, product: dict, user: dict, reviews: list[dict], findings: lis
     by_id = {r["id"]: r for r in reviews}
     existing = {f["id"]: f for f in store.rows(conn.execute("SELECT * FROM findings WHERE product_id = ?", (pid,)))}
     seen: list[str] = []
+    taken: set[str] = set()
     for f in findings:
-        fid = finding_id(pid, f["key"])
+        match = match_existing(f, existing, taken)
+        fid = match["id"] if match else finding_id(pid, f["key"])
+        taken.add(fid)
         seen.append(fid)
         p, judged, metrics = f["proposal"], f["judged"], f["metrics"]
         items = _evidence_items({rid: judged["supports"][rid] for rid in f["support_ids"]}, by_id)
@@ -463,6 +544,9 @@ def _persist(conn, product: dict, user: dict, reviews: list[dict], findings: lis
             "updated_at": now,
         }
         if fid in existing:
+            # Label yang sudah dilihat merchant dipertahankan; parafrasa model tidak mengganti nama isu.
+            for kept_label in ("attribute", "attribute_key", "attribute_local"):
+                values.pop(kept_label)
             sets = ", ".join(f"{k} = ?" for k in values)
             conn.execute(f"UPDATE findings SET {sets}, not_detected_at = NULL WHERE id = ?", (*values.values(), fid))
         else:

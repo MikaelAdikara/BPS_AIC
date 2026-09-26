@@ -50,7 +50,10 @@ Rules:
 - merchant_question: ONE question in Indonesian the seller can answer by checking the product.
   Never answer it yourself and never guess numbers.
 - Do not invent facts, numbers, or specifications.
-- praised_attributes: attributes buyers praise, with the review ids."""
+- praised_attributes: attributes buyers praise, with the review ids.
+- EXISTING ISSUES lists issues already tracked for this product. When a finding is about the same
+  topic as an existing issue, reuse its attribute and attribute_local text EXACTLY so the seller's
+  history stays attached. Only create a new attribute for a genuinely different topic."""
 
 SCHEMA = {
     "type": "object",
@@ -97,25 +100,35 @@ def _review_line(r: dict) -> str:
     return f"[{' '.join(meta)}] {r['text']}"
 
 
-def build_user(title: str, listing: str, provided: bool, candidates: list[dict], total: int) -> str:
+def _existing_block(existing: list[dict] | None) -> str:
+    if not existing:
+        return "EXISTING ISSUES: (none)"
+    lines = "\n".join(f"- {e.get('attribute', '')} | {e.get('attribute_local', '')}" for e in existing)
+    return f"EXISTING ISSUES (attribute | attribute_local):\n{lines}"
+
+
+def build_user(title: str, listing: str, provided: bool, candidates: list[dict], total: int,
+               existing: list[dict] | None = None) -> str:
     listing_block = (listing[:listing_check.LISTING_LIMIT] if provided
                      else "(NOT PROVIDED: only the title is known. Do not claim the listing omits or contradicts anything.)")
     lines = "\n".join(_review_line(r) for r in candidates)
-    return (f"PRODUCT TITLE: {title}\n\nLISTING TEXT:\n{listing_block}\n\n"
+    return (f"PRODUCT TITLE: {title}\n\nLISTING TEXT:\n{listing_block}\n\n{_existing_block(existing)}\n\n"
             f"total_reviews_stored: {total}\nCANDIDATE REVIEWS WITH COMPLAINT SIGNALS ({len(candidates)}):\n{lines}")
 
 
-def ai_hash(product: dict, listing: str, provided: bool, candidates: list[dict], reviews: list[dict], total: int) -> str:
+def ai_hash(product: dict, listing: str, provided: bool, candidates: list[dict], reviews: list[dict], total: int,
+            existing: list[dict] | None = None) -> str:
     return store.digest(product.get("title", ""), listing[:listing_check.LISTING_LIMIT], provided,
+                        [(e.get("attribute"), e.get("attribute_local")) for e in existing or []],
                         [(c["id"], c.get("rating"), c.get("variant"), c["text"]) for c in candidates],
                         [(r["id"], r.get("rating"), r["text"]) for r in reviews], total, llm.model_name(),
                         PROMPT_SHA, membership.PROMPT_SHA)
 
 
 def run(title: str, listing: str, provided: bool, candidates: list[dict], total: int, *,
-        user_id=None, ref="", db_path=None) -> tuple[list[dict], dict]:
+        existing: list[dict] | None = None, user_id=None, ref="", db_path=None) -> tuple[list[dict], dict]:
     data, usage = llm.call_json(purpose="discovery", system=SYSTEM,
-                                user=build_user(title, listing, provided, candidates, total),
+                                user=build_user(title, listing, provided, candidates, total, existing),
                                 schema=SCHEMA, schema_name="discovery", max_output_tokens=MAX_OUTPUT_TOKENS,
                                 user_id=user_id, ref=ref, db_path=db_path)
     findings = [f for f in data.get("findings", [])[:MAX_FINDINGS] if f.get("attribute")]
@@ -127,7 +140,7 @@ def run(title: str, listing: str, provided: bool, candidates: list[dict], total:
 
 
 def run_all(product: dict, listing: str, provided: bool, candidates: list[dict], reviews: list[dict], total: int,
-            *, user_id=None, ref="", db_path=None) -> dict:
+            *, existing: list[dict] | None = None, user_id=None, ref="", db_path=None) -> dict:
     """Discovery lalu membership. Tanpa kandidat keluhan, tidak ada panggilan model."""
     usage: dict = {}
     trace: list[dict] = []
@@ -135,7 +148,7 @@ def run_all(product: dict, listing: str, provided: bool, candidates: list[dict],
         return {"proposals": [], "labels": [], "praised": [], "usage": usage,
                 "trace": [{"stage": "discovery", "proposed": 0, "skipped": "no_complaint_candidates"}]}
     proposals, disc_usage = run(product.get("title", ""), listing, provided, candidates, total,
-                                user_id=user_id, ref=ref, db_path=db_path)
+                                existing=existing, user_id=user_id, ref=ref, db_path=db_path)
     praised = disc_usage.pop("praised", [])
     llm.add_usage(usage, disc_usage)
     trace.append({"stage": "discovery", "proposed": len(proposals)})
