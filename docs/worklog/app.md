@@ -21,3 +21,12 @@
 - Alias Vite dinormalisasi ke forward slash. Sebelum perbaikan, hot reload memuat provider bahasa lewat dua URL modul dan layar kosong; setelah perbaikan, hot reload kamus dan pergantian bahasa berhasil. Tes regresi alias ditambahkan.
 - Verifikasi: 28 tes lulus, typecheck dan build lulus; pemeriksa mekanis antarmuka tidak menemukan pelanggaran.
 - Halaman produk, Sources, Alerts, Settings, serta grafik dan decision plan belum tersambung. Landing/login tetap menunggu pemiliknya.
+
+## Halaman produk
+
+- Halaman produk membaca source, statistik, tahapan investigasi, finding, bukti, pemeriksaan listing, draf, dan keputusan dari API.
+- Lima langkah tersedia: kutipan pelanggan, cakupan pemeriksaan listing, konfirmasi fakta, draf yang lolos status server, dan keputusan dengan catatan penerapan atau alasan pengabaian. Isu operasional diarahkan ke tindakan operasional.
+- Browser pada basis data uji terpisah: fakta kosong ditolak dan pesan inline bertahan; fakta 32 x 24 cm tersimpan; draf memuat fakta tersebut; salin berhasil; penerapan mengubah bucket ke monitoring dan menampilkan follow-up menunggu ulasan baru beserta riwayat.
+- Pada 375px gelap/ID, dokumen 360px tanpa overflow horizontal. Alias modul memakai /src agar hot reload kamus berbagi provider; perubahan teks terlihat tanpa layar kosong.
+- Verifikasi: 28 tes, typecheck, dan build lulus. Pemeriksa mekanis antarmuka tidak menemukan pelanggaran.
+- Sources, katalog produk, Alerts, Settings, grafik, dan decision plan belum tersambung. Landing Orang 4 telah masuk ke main.

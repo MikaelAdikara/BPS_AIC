@@ -32,7 +32,7 @@ Pemilik landing/login menambahkan `screens/LandingScreen.tsx` dan `screens/Login
 
 Router hanya membaca hash berawalan `#/`. Anchor `#how` dan `#gate` mempertahankan permukaan aktif. Query dapat dibaca dari `parseRoute(window.location.hash).query`. Semua rute `#/app/...` memerlukan sesi; pemeriksaan sesi gagal menyediakan aksi coba lagi.
 
-Sebelum layar publik terpasang, layar penghubung menyediakan login demo untuk memeriksa koneksi API. Data produk tidak direkayasa di frontend. Overview dan Issues membaca read model API dalam satu WorkspaceProvider. Halaman produk, Sources, Alerts, dan Settings masih berupa slot.
+Sebelum layar publik terpasang, layar penghubung menyediakan login demo untuk memeriksa koneksi API. Data produk tidak direkayasa di frontend. Overview dan Issues membaca read model API dalam satu WorkspaceProvider. Halaman produk membaca bukti, fakta, draf, keputusan, dan follow-up dari API. Sources, katalog produk, Alerts, dan Settings masih berupa slot.
 
 `useWorkspace()` menyediakan channels, summary, inbox, status, loading, error, refresh, dan `run(task, successKey, jobLabel)`. `run()` mengikuti `job_id` hingga selesai, menerjemahkan pesan hasil dari kunci kamus, lalu memuat ulang read model. Polling dihentikan setelah delapan kegagalan beruntun. Semua bucket, metrik, dan urutan berasal dari API; tab Issues hanya menyaring bucket yang dikirim server.
 

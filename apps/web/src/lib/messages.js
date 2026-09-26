@@ -2,18 +2,21 @@ import { common } from "./messages-common.js";
 import { errors } from "./messages-errors.js";
 import { landing } from "./messages-landing.js";
 import { workspace } from "./messages-workspace.js";
+import { product } from "./messages-product.js";
 export const messages = {
   en: {
     common: common.en,
     errors: errors.en,
     landing: landing.en,
     workspace: workspace.en,
+    product: product.en,
   },
   id: {
     common: common.id,
     errors: errors.id,
     landing: landing.id,
     workspace: workspace.id,
+    product: product.id,
   },
 };
 export function translate(language, key, values = {}) {

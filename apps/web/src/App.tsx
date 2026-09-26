@@ -12,6 +12,7 @@ import { WorkspaceProvider } from "@/api/workspace";
 import { WorkspaceShell } from "@/components/WorkspaceShell";
 import { OverviewScreen } from "@/screens/OverviewScreen";
 import { IssuesScreen } from "@/screens/IssuesScreen";
+import { ProductScreen } from "@/screens/ProductScreen";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { navigate, resolveRoute } from "@/lib/router.js";
@@ -173,6 +174,8 @@ function Routes() {
           <OverviewScreen />
         ) : route.path === "/app/issues" ? (
           <IssuesScreen query={route.query} />
+        ) : route.productId ? (
+          <ProductScreen productId={route.productId} query={route.query} />
         ) : (
           <>
             <h1>{t("common." + (labels[route.path] ?? "products"))}</h1>
