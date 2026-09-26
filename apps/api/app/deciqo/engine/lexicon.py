@@ -61,7 +61,12 @@ COMPLAINT_TERMS = {
     "kembung", "gembung", "menggembung", "bengkak", "lobet",
     # kerusakan permukaan dan fungsi yang sering muncul di ulasan rumah tangga
     "mengelupas", "ngelupas", "terkelupas", "baret", "tergores", "kegores", "luber", "meluber",
-    "tumpah", "lemah", "berisik", "bising", "koyak", "noda", "reject",
+    "tumpah", "lemah", "berisik", "bising", "koyak", "noda", "reject", "ringsek", "basah", "asalan",
+    # Inggris: ulasan marketplace sering campur bahasa
+    "thin", "flimsy", "cheap", "leaking", "leak", "leaks", "leaked", "stained", "scratched",
+    "scratch", "faulty", "dull", "duller", "crushed", "torn", "fake", "expensive", "overpriced",
+    "broke", "shrank", "shrunk", "peeling", "peeled", "misleading", "disappointing", "useless",
+    "smells", "smelly", "loose",
     # Inggris
     "broken", "damaged", "defective", "wrong", "missing", "bad", "poor", "late", "small", "tight",
 }
@@ -72,6 +77,8 @@ PRAISE_TERMS = {
     "berfungsi", "jalan", "original", "asli", "good", "great", "fits", "fit", "perfect",
     # "tidak real 20.000mah", "ga penuh": pujian yang dinegasikan
     "real", "penuh", "baik", "nempel",
+    "worth", "recommended", "responsive", "described", "replied", "reply", "respond", "fast",
+    "nice", "happy", "fine", "sturdy", "generous", "okay", "ok",
 }
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
@@ -99,10 +106,12 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
                       "oppo", "vivo", "device", "perangkat"},
     "contents": {"isi", "kelengkapan", "aksesoris", "contents", "bonus", "included"},
     "delivery": {"kirim", "dikirim", "pengiriman", "kurir", "ekspedisi", "sampai", "estimasi",
-                 "delivery", "shipping", "paket", "resi", "courier"},
-    "packaging": {"kemasan", "packing", "bungkus", "dus", "kardus", "box", "bubble", "packaging"},
+                 "delivery", "shipping", "paket", "resi", "courier", "arrive", "arrived", "parcel"},
+    "packaging": {"kemasan", "packing", "bungkus", "dus", "kardus", "box", "bubble", "packaging",
+                  "pembungkus", "segel", "amplop", "dikemas", "kemas", "wrap", "wrapped", "wrapping"},
     "service": {"penjual", "seller", "chat", "respon", "balas", "dibalas", "membalas", "admin",
-                "cs", "pelayanan", "dicuekin", "service", "responsiveness", "respons", "responsif"},
+                "cs", "pelayanan", "dicuekin", "service", "responsiveness", "respons", "responsif",
+                "responsive", "replied", "reply", "message"},
     "quality": {"kualitas", "rusak", "cacat", "kokoh", "quality", "defect", "defects",
                 "durability", "awet", "rapuh", "pecah", "patah", "retak", "bolong", "robek", "sobek",
                 "koyak", "noda", "reject", "mengelupas", "terkelupas", "baret"},
@@ -114,8 +123,13 @@ OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "wrong_item"}
 WEAK_TERMS: dict[str, set[str]] = {
     "size": {"masuk", "longgar", "panjang", "pendek", "lebar", "tinggi", "besar", "kecil", "dada",
              "pinggang", "bahu", "lengan", "lipat", "dilipat", "lipatan", "kantong"},
-    "delivery": {"kirim", "dikirim", "sampai", "paket"},
+    "delivery": {"kirim", "dikirim", "sampai", "paket", "arrive", "arrived", "parcel"},
 }
+# Kata kerusakan menandai kualitas produk KECUALI klausanya menyebut kemasan tanpa menyebut
+# barangnya: "dusnya sobek" adalah keluhan kemasan, "barangnya rusak, dusnya penyok" tetap kualitas.
+DAMAGE_TERMS = {"rusak", "cacat", "pecah", "patah", "retak", "bolong", "robek", "sobek", "koyak",
+                "penyok", "noda", "mengelupas", "terkelupas", "baret", "ringsek", "crushed", "torn"}
+_ITEM_NOUNS = {"barang", "produk", "isi", "item", "product", "unit"}
 # "quality" adalah kelompok umum; label yang menyebut kelompok spesifik tidak ikut memakainya.
 GENERIC_GROUPS = {"quality"}
 # "lama" setelah kata-kata ini berarti awet ("tahan lama", "baterainya lama"), bukan lambat.
@@ -226,7 +240,16 @@ def _strong_groups(toks) -> set[str]:
             if any(t in vocab and t not in WEAK_TERMS.get(g, set()) for t in toks)}
 
 
+def _packaging_damage_only(toks) -> bool:
+    packaging = ATTRIBUTE_GROUPS["packaging"]
+    return (any(t in packaging for t in toks) and not any(t in _ITEM_NOUNS for t in toks)
+            and not any(t in ATTRIBUTE_GROUPS["quality"] - DAMAGE_TERMS for t in toks))
+
+
 def mentions(toks, groups: set[str], extra: set[str] | None = None) -> bool:
+    if "quality" in groups and _packaging_damage_only(toks):
+        groups = groups - {"quality"}
+        extra = (extra or set()) - DAMAGE_TERMS
     if extra and any(t in extra for t in toks):
         return True
     strong = _strong_groups(toks)

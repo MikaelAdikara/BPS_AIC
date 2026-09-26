@@ -73,9 +73,9 @@ Analisis diserialkan satu lock, jadi "analyse all" 10 produk Lazada ±9 menit. U
 | QA19 | Shopee AI | ejaan pesen/mesen/psen dan akhiran -nya melewatkan salah kirim | diperbaiki (gap-v1.5) |
 | QA20 | Sintetis | triage leksikon melewatkan mengelupas/baret/luber/pertanyaan; rice cooker tidak pernah dianalisis | diperbaiki (gap-v1.5) |
 | QA21 | Lazada | "order PB merk lain" (pembanding) terbaca salah kirim | diperbaiki (gap-v1.5) |
-| QA22 | data/eval | polaritas klausa Inggris: 10/30 dan 17/40 benar | terbuka |
-| QA23 | data/eval | kemasan vs kualitas: 10/24; "kemasan rusak, kotaknya sobek" juga dihitung kualitas | terbuka |
-| QA24 | data/eval | sinyal keluhan ★4–5: recall 5/12 tanpa IndoBERT | terbuka |
+| QA22 | data/eval | polaritas klausa Inggris: english_negative_cues 10/30, en_reviews 17/40, negasi campuran 24/32 | sebagian (gap-v1.6): 26/30, 31/40, 29/32 |
+| QA23 | data/eval | kemasan vs kualitas: kerusakan kemasan ikut dihitung keluhan kualitas produk | sebagian (gap-v1.6): 20/24 |
+| QA24 | data/eval | sinyal keluhan ★4–5: recall 5/12 tanpa IndoBERT | sebagian (gap-v1.6): 8/12, sinyal palsu 1/9 |
 | QA25 | data/eval | input bukan ulasan (kode, bahasa lain, pertanyaan) tidak ditandai | terbuka |
 | — | Lazada AI | kutipan model tidak verbatim (parafrasa, "...", ulasan lain) | penolakan benar, bukan bug |
 | — | Shopee AI | label model keliru ("Barang sampai sesuai pesanan" = salah kirim) ditolak juri | penolakan benar, bukan bug |
@@ -84,4 +84,7 @@ Temuan di luar engine (dilaporkan ke pemiliknya): redaksi PII di ingest melewatk
 email `[at]`, nomor resi, dan kode pos (`data/eval/pii_cases.csv`, 8 kasus).
 
 Semua perbaikan di atas diukur ulang pada 22 kasus eval mode aturan: hanya c10 berubah (salah kirim
-1 → 2, emas r1, r2). Kasus `data/eval` yang dipakai untuk menemukan QA22–25 berstatus development.
+1 → 2, emas r1, r2). Kasus `data/eval` yang dipakai untuk menemukan QA22–25 berstatus development: tes regresinya ditulis
+dengan kalimat sendiri, tetapi angka setelah perbaikan diukur pada berkas yang sama, jadi bukan holdout.
+Skor kemasan awal (10/24) salah hitung di skrip ukur: klausa kemasan positif yang dijawab
+`contradicts` terhitung gagal. Dengan skrip yang dibetulkan, angka sebelum perbaikan tidak diukur ulang.

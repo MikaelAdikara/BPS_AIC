@@ -254,3 +254,46 @@ def test_qa20_triage_menangkap_keluhan_dan_pertanyaan_spesifikasi(text):
 def test_qa21_merek_lain_sebagai_pembanding_bukan_salah_kirim():
     assert not lexicon.is_wrong_item("sudah beberapa kali sy order PB merk lain, & baru kali ini sy menemukan PB yg cepat")
     assert lexicon.is_wrong_item("merek hp nya beda")
+
+
+# --- bahasa Inggris dan kemasan (kalimat ditulis sendiri, bukan salinan data uji) --------------
+
+PACKAGING = {"attribute": "packaging", "attribute_local": "kemasan"}
+
+
+@pytest.mark.parametrize("text", [
+    "The strap feels flimsy and cheap",
+    "Lid was leaking all over my bag",
+    "Shirt came stained on the collar",
+    "Case arrived scratched on one side",
+    "The handle broke after a week",
+    "Not worth it for this price",
+    "Totally not as described",
+])
+def test_qa22_keluhan_bahasa_inggris(text):
+    assert any(lexicon.polarity(c.tokens) == "complaint" for c in lexicon.clauses(text))
+
+
+@pytest.mark.parametrize("text", ["Seller never replied to my chat", "Admin not responsive at all"])
+def test_qa22_keluhan_layanan_bahasa_inggris(text):
+    service = {"attribute": "seller responsiveness", "attribute_local": "respons penjual"}
+    assert relevance.judge(text, service).label == relevance.SUPPORTS
+
+
+def test_qa22_litotes_bukan_keluhan():
+    assert lexicon.polarity(lexicon.tokens("not bad at all")) != "complaint"
+
+
+@pytest.mark.parametrize("text", [
+    "Dusnya sobek di dua sudut",
+    "kardusnya ringsek parah",  # sudah lulus: "parah" keluhan, kardus kemasan
+    "The parcel box came crushed",
+    "plastik pembungkusnya robek",
+])
+def test_qa23_kerusakan_kemasan_bukan_kualitas_produk(text):
+    assert relevance.judge(text, PACKAGING).label == relevance.SUPPORTS
+    assert relevance.judge(text, QUALITY).label != relevance.SUPPORTS
+
+
+def test_qa23_barang_rusak_dan_dus_penyok_tetap_kualitas():
+    assert relevance.judge("barangnya rusak, dusnya juga penyok", QUALITY).label == relevance.SUPPORTS
