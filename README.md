@@ -161,7 +161,8 @@ Lenovo, Garansi Resmi 5 Tahun". Deciqo's first version had its own specific fail
 answer rendered as "100 x 60 x 106 x 62 cm" and still marked ready, triage that dropped every
 review of two products before the model saw them, and drafts held even when the listing already
 answered the question. Every finding, fix, and failed fix is logged in
-[eval/ITERATIONS.md](eval/ITERATIONS.md); the full tables are in
+[eval/ITERATIONS.md](eval/ITERATIONS.md). Baseline tables:
+[eval/final/run1-baseline-gap-v1/report.md](eval/final/run1-baseline-gap-v1/report.md); latest run:
 [eval/final/report.md](eval/final/report.md).
 
 **U (why classification alone was not enough):** on the same human reference, IndoBERT macro F1 was

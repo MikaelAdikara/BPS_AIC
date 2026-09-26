@@ -1,6 +1,6 @@
 # Suite komponen (data/eval)
 
-Commit `1d5ae76`, engine `gap-v1.6` / `verify-v1.1`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
+Commit `5b3a712`, engine `gap-v1.4` / `verify-v1.1`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
 
 Pembanding: sinyal keluhan engine Deciqo (menentukan ulasan mana masuk triage) dan leksikon Ulasin as-shipped. Aspek hanya dinilai untuk kemasan, pengiriman, ukuran, dan layanan penjual, yang padanannya di engine jelas.
 
@@ -8,41 +8,49 @@ Pembanding: sinyal keluhan engine Deciqo (menentukan ulasan mana masuk triage) d
 
 | Sistem | Metrik | Hasil |
 |---|---|---|
-| deciqo_lexicon | complaint_recall | 19/21 (90%; 71–97) |
+| deciqo_lexicon | complaint_recall | 12/21 (57%; 37–76) |
 | deciqo_lexicon | control_specificity | 3/3 (100%; 44–100) |
-| deciqo_lexicon | aspect_hit | 17/17 (100%; 82–100) |
+| deciqo_lexicon | aspect_hit | 14/17 (82%; 59–94) |
 | ulasin_lexicon | complaint_recall | 11/21 (52%; 32–72) |
 | ulasin_lexicon | control_specificity | 3/3 (100%; 44–100) |
 | ulasin_lexicon | aspect_hit | 12/17 (71%; 47–87) |
 
-Contoh kegagalan Deciqo (maks. 8 per metrik):
+Contoh kegagalan Deciqo (maks. 6 per metrik):
 
+- `complaint_recall` KP05: box-nya ringsek tapi barangnya aman
 - `complaint_recall` KP07: segelnya sudah terbuka waktu diterima
+- `complaint_recall` KP08: amplopnya basah kena hujan
+- `complaint_recall` KP09: dikemas asal-asalan
 - `complaint_recall` KP10: tidak pakai bubble wrap sama sekali
+- `complaint_recall` KP20: kardusnya basah tapi produknya kering
+- `aspect_hit` KP07: segelnya sudah terbuka waktu diterima
+- `aspect_hit` KP08: amplopnya basah kena hujan
+- `aspect_hit` KP09: dikemas asal-asalan
 
 ## s02 · Negasi Inggris, Singlish, dan campuran
 
 | Sistem | Metrik | Hasil |
 |---|---|---|
-| deciqo_lexicon | complaint_recall | 54/68 (79%; 68–87) |
+| deciqo_lexicon | complaint_recall | 19/68 (28%; 19–40) |
 | deciqo_lexicon | control_specificity | 32/34 (94%; 81–98) |
-| deciqo_lexicon | aspect_hit | 39/42 (93%; 81–98) |
+| deciqo_lexicon | aspect_hit | 36/42 (86%; 72–93) |
 | ulasin_lexicon | complaint_recall | 11/68 (16%; 9–27) |
 | ulasin_lexicon | control_specificity | 33/34 (97%; 85–99) |
 | ulasin_lexicon | aspect_hit | 32/42 (76%; 61–87) |
 
-Contoh kegagalan Deciqo (maks. 8 per metrik):
+Contoh kegagalan Deciqo (maks. 6 per metrik):
 
-- `complaint_recall` EN12: Took two weeks to arrive with no update
-- `complaint_recall` EN13: Courier left it outside without knocking
-- `complaint_recall` EN19: Battery drains very fast
-- `complaint_recall` EN20: Stopped charging after a week
-- `complaint_recall` MN19: the color is different from the picture
-- `complaint_recall` MN25: took two weeks to arrive
-- `complaint_recall` ER09: Delivery took almost two weeks with no update.
-- `complaint_recall` ER20: Ordered two, only one arrived.
+- `complaint_recall` EN01: Material feels thin and the stitching came loose after one wash
+- `complaint_recall` EN03: The fabric is flimsy for this price
+- `complaint_recall` EN04: Print started peeling after two uses
+- `complaint_recall` EN05: The zipper is faulty
+- `complaint_recall` EN06: Bottle was leaking inside the box
+- `complaint_recall` EN07: Fabric arrived stained
 - `control_specificity` MN06: shipping not fast but ok lah
 - `control_specificity` ER19: Bubble wrap was generous, nothing damaged.
+- `aspect_hit` EN12: Took two weeks to arrive with no update
+- `aspect_hit` MN25: took two weeks to arrive
+- `aspect_hit` ER02: Arrived in three days, well packed, very happy.
 - `aspect_hit` ER20: Ordered two, only one arrived.
 - `aspect_hit` ER33: Fast response but the item was out of stock after payment.
 - `aspect_hit` ER40: Item ok but delivery guy was rude.
@@ -51,18 +59,20 @@ Contoh kegagalan Deciqo (maks. 8 per metrik):
 
 | Sistem | Metrik | Hasil |
 |---|---|---|
-| deciqo_lexicon | complaint_recall | 8/12 (67%; 39–86) |
+| deciqo_lexicon | complaint_recall | 5/12 (42%; 19–68) |
 | deciqo_lexicon | control_specificity | 8/9 (89%; 56–98) |
 | deciqo_lexicon | same_label_any_rating | 21/21 (100%; 85–100) |
 | ulasin_lexicon | complaint_recall | 0/12 (0%; 0–24) |
 | ulasin_lexicon | control_specificity | 8/9 (89%; 56–98) |
 
-Contoh kegagalan Deciqo (maks. 8 per metrik):
+Contoh kegagalan Deciqo (maks. 6 per metrik):
 
 - `complaint_recall` SHP95734159145: alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg 
 - `complaint_recall` SHP80405302429: Bahan:lumayan Desain:oke Tekstur:lembut Pengemasan dan pengiriman cepe
 - `complaint_recall` SM04: Suka warnanya. Sayang jahitan bagian dalam agak berantakan.
 - `complaint_recall` SM05: Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.
+- `complaint_recall` SM10: Good product, however the size chart is misleading
+- `complaint_recall` SM11: Nice shirt but the packaging arrived crushed
 - `control_specificity` SHP78252741100: Barang nya cepet banget sampe nya pesen hari Senin Selasa nya udh samp
 
 ## s04 · Input aneh di parser tempel dan sinyal keluhan
@@ -81,7 +91,7 @@ Contoh kegagalan Deciqo (maks. 8 per metrik):
 | deciqo_ingest | no_false_redaction | 3/3 (100%; 44–100) |
 | deciqo_ingest | optional_masked_info | 1/6 (17%; 3–56) |
 
-Contoh kegagalan Deciqo (maks. 8 per metrik):
+Contoh kegagalan Deciqo (maks. 6 per metrik):
 
 - `required_pii_masked` P04 (name): Atas nama Siti Rahma, pesanan INV/2026/0012345
 - `required_pii_masked` P08 (name): Rekening BCA [nomor] a.n. Contoh Nama untuk refund
@@ -96,24 +106,6 @@ Contoh kegagalan Deciqo (maks. 8 per metrik):
 - `optional_masked_info` P16 (city): Kirim ulang ke rumah ibu saya, Ibu Sri, di Bandung
 - `optional_masked_info` P19 (city): Saya Andi dari Surabaya, barang sampai cepat
 - `optional_masked_info` P21 (postal_code): Kode pos 60119, alamat sudah benar
-
-## f01 · Validasi jawaban fakta merchant (probe)
-
-| Sistem | Metrik | Hasil |
-|---|---|---|
-| deciqo_facts | invalid_answer_rejected | 0/10 (0%; 0–28) |
-| deciqo_facts | valid_answer_accepted | 5/5 (100%; 57–100) |
-
-Contoh kegagalan Deciqo (maks. 8 per metrik):
-
-- `invalid_answer_rejected` size: 'oke' -> accepted
-- `invalid_answer_rejected` size: 'ya sudah' -> accepted
-- `invalid_answer_rejected` size: 'sip' -> accepted
-- `invalid_answer_rejected` size: 'done' -> accepted
-- `invalid_answer_rejected` size: '32 x 24' -> accepted
-- `invalid_answer_rejected` size: 'sekitar segitu lah' -> accepted
-- `invalid_answer_rejected` size: 'ukuran luar 36 x 27 cm' -> accepted
-- `invalid_answer_rejected` compat: 'oke' -> accepted
 
 ## Tidak dijalankan
 

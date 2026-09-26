@@ -167,10 +167,17 @@ engine `ai` di semua baris, $0,10 total, rata-rata 15,4 detik per baris.
 | Missing fact held / asked (proxy B) | 5/13 | 12/13 | 8/13 (62%; 36–82) | 4/13 |
 | Unnecessary hold / asked | 1/3 | 1/3 | 3/3 | 1/3 |
 | Gold finding found (B proxy jenuh) | 21/21 | 21/21 | 15/21 (71%; 50–86) | 7/21 |
-| Ready after fact | – | – | 6/13 (46%; 23–71) | 4/13 |
-| Unsafe output rate, after-fact | 1/13 | 1/13 | 1/7 (14%; 3–51) | 1/6 |
+| Ready after fact | – | – | 6/13 (46%; 23–71), lalu 7/13 (lihat catatan) | 4/13 |
+| Unsafe output rate, after-fact | 1/13 | 1/13 | 1/7 (14%; 3–51), lalu 1/8 | 1/6 |
 | Membership precision / recall (before, pooled) | – | – | 20/21 / 20/53 (38%; 26–51) | 15/15 / 15/53 |
 | Wrong-item routing | – | – | 0/3 | 1/3 |
+
+Catatan variasi: c04, c13, dan c18 dijalankan ulang pada versi yang sama (`gap-v1`) untuk menangkap
+trace engine. Di run kedua c18 after-fact menghasilkan 1 temuan berstatus `ready`, padahal di run
+pertama 0 temuan. Laporan baseline yang tersimpan (`final/run1-baseline-gap-v1/report.md`) memuat
+run kedua itu, sehingga ready after fact di sana 7/13 dan unsafe after-fact 1/8. Ini contoh
+pertama bahwa satu run D bisa berbeda dari run berikutnya pada versi yang sama; karena itu variasi
+antar-run diukur terpisah (`final/noise-gap-v1.5/`).
 
 Unsafe rate D before-fact "undefined" berarti D tidak menulis teks sebelum fakta ada, bukan 0%.
 Coverage-nya terlihat dari baris "Missing fact held" dan "Gold finding found".
@@ -259,3 +266,62 @@ laptop demo, jawaban "oke" disimpan sebagai fakta ("Fact saved"), lalu "32 x 24"
 luar 36 x 27 cm" untuk pertanyaan ukuran dalam, "oke" untuk kompatibilitas, "13000" tanpa mAh,
 "sudah dicek"); jawaban valid diterima 5/5. Kasus eval end-to-end tidak menangkap ini karena fakta
 yang diberikan runner selalu valid; karena itu probe ini ditambahkan.
+
+## Iterasi 1 — engine gap-v1 → gap-v1.6 / verify-v1.1 (engine 1d5ae76)
+
+Temuan yang dipakai: kelemahan baseline di atas (triage, relevansi, salah kirim, kualitas satu
+ulasan) plus QA pemilik engine atas data Lazada, Shopee, Tokopedia, dan `data/eval` (QA01–QA24 di
+`docs/worklog/engine.md`). Kasus `data/eval` yang dipakai untuk memperbaiki berstatus development.
+
+Hipotesis sebab: (a) leksikon triage dan juri relevansi tidak mengenal ejaan informal, bahasa
+Inggris, dan kerusakan kemasan, sehingga ulasan keluhan tidak pernah sampai ke model atau labelnya
+dibuang; (b) juri menilai seluruh ulasan, bukan klausa yang dikutip, sehingga pujian di klausa lain
+membatalkan label; (c) salah kirim dengan ejaan "pesen/mesen" tidak dikenali.
+
+Perubahan (pemilik engine): gap-v1.1 sampai gap-v1.6 dan verify-v1.1, ringkasan per versi di pesan
+commit engine dan log QA. Tes regresi `test_qaNN_*`.
+
+Uji ulang: runner yang sama, bundle sama, 22 kasus development. Baseline di
+`final/run1-baseline-gap-v1/`; run baru di `final/outputs.jsonl`. Variasi antar-run pada versi yang
+sama (`final/noise-gap-v1.5/`): identik untuk held, hold berlebih, temuan emas, ready, dan unsafe;
+±2 untuk recall membership dan ±1 untuk wrong-item. Selisih sebesar itu tidak dibaca sebagai
+perbaikan.
+
+| Metrik D (AI) | gap-v1 | gap-v1.6 | Dibaca sebagai |
+|---|---|---|---|
+| Missing fact held (before) | 8/13 | 10/13 (77%; 50–92) | naik 2 |
+| Unnecessary hold (before) | 3/3 | 3/3 | **tidak berubah** |
+| Gold finding found (before) | 15/21 | 17/21 (81%; 60–92) | naik 2 |
+| Action routing (before) | 14/15 | 17/17 | naik |
+| Membership recall (before, pooled) | 20/53 | 26/53 (49%; 36–62) | naik 6, di atas variasi ±2 |
+| Wrong-item routing (before) | 0/3 | 2/3 | naik; variasi ±1 |
+| Ready after fact | 7/13 | 10/13 (77%; 50–92) | naik 3 |
+| Unsafe output rate (after) | 1/8 | 1/10 | sama (c06) |
+| Temuan pada kontrol pujian | 0 | 0 | sama |
+
+Suite komponen (`final/components.md`; baseline di `final/run1-baseline-gap-v1/components.md`):
+
+| Suite | gap-v1.4 | gap-v1.6 |
+|---|---|---|
+| s01 recall keluhan kemasan | 12/21 | 19/21 |
+| s02 recall keluhan Inggris/campuran | 19/68 | 54/68 (79%; 68–87) |
+| s02 spesifisitas kontrol | 32/34 | 32/34 |
+| s03 recall keluhan bintang 4–5 | 5/12 | 8/12 (67%; 39–86) |
+| s10 PII wajib tersamarkan | 11/17 | 11/17 |
+| f01 jawaban fakta tidak valid ditolak | 0/10 | 0/10 |
+
+Status kelemahan baseline:
+
+- Teratasi: c16 engsel longgar kini temuan kualitas; c10 "2 meter dateng 1 meter" dan "putih
+  dikasih hitam" kini satu temuan operasional; c18 rice cooker kini punya temuan kapasitas (ditahan
+  menunggu fakta); c03/c22 draf kompatibilitas memakai label kompatibilitas.
+- **Belum teratasi:** c04 dan c13 masih `triage kept 0 of 4` sehingga discovery tidak dipanggil
+  ("kapasitas ga sampe 20000", "pendek banget kalo ditarik full"); c20 ("redup bgt") hanya temuan
+  kemasan; hold berlebih c02, c07, c14 (listing sudah menjawab, draf tetap meminta fakta); c06
+  tabel ukuran masih "100 x 60 x 106 x 62 cm" dan `ready`; c21 masih kehilangan atribut ("Ukuran HP
+  maksimal (lebar/ketebalan): 8,5 cm"); validasi fakta f01 0/10; redaksi nama dan ukuran tubuh.
+
+Efek samping: c19 after-fact kini `ready` (sebelumnya `blocked`), tetapi teksnya **"Output USB
+(ampere/volt): 5 v."** Fakta merchant "5V 2,4A (12W)" kehilangan arus dan dayanya. Draf ini tidak
+terkena pola terlarang c19, jadi unsafe rate tidak menangkapnya. Ini batas metrik: draf yang
+membuang sebagian fakta tidak dihitung sebagai klaim tanpa sumber.

@@ -1,16 +1,23 @@
 {
-  "commit": "1d5ae76",
-  "pipeline_version": "gap-v1.6",
+  "commit": "5b3a712",
+  "pipeline_version": "gap-v1.4",
   "verifier_version": "verify-v1.1",
   "suites": {
     "s01": {
       "deciqo_lexicon": {
         "complaint_recall": {
-          "k": 19,
+          "k": 12,
           "n": 21,
           "failures": [
+            "KP05: box-nya ringsek tapi barangnya aman",
             "KP07: segelnya sudah terbuka waktu diterima",
-            "KP10: tidak pakai bubble wrap sama sekali"
+            "KP08: amplopnya basah kena hujan",
+            "KP09: dikemas asal-asalan",
+            "KP10: tidak pakai bubble wrap sama sekali",
+            "KP20: kardusnya basah tapi produknya kering",
+            "KP21: The box arrived crushed",
+            "KP22: packaging was torn but the item is fine",
+            "KP23: no bubble wrap at all, item was scratched"
           ]
         },
         "control_specificity": {
@@ -19,9 +26,13 @@
           "failures": []
         },
         "aspect_hit": {
-          "k": 17,
+          "k": 14,
           "n": 17,
-          "failures": []
+          "failures": [
+            "KP07: segelnya sudah terbuka waktu diterima",
+            "KP08: amplopnya basah kena hujan",
+            "KP09: dikemas asal-asalan"
+          ]
         }
       },
       "ulasin_lexicon": {
@@ -62,20 +73,55 @@
     "s02": {
       "deciqo_lexicon": {
         "complaint_recall": {
-          "k": 54,
+          "k": 19,
           "n": 68,
           "failures": [
+            "EN01: Material feels thin and the stitching came loose after one wash",
+            "EN03: The fabric is flimsy for this price",
+            "EN04: Print started peeling after two uses",
+            "EN05: The zipper is faulty",
+            "EN06: Bottle was leaking inside the box",
+            "EN07: Fabric arrived stained",
+            "EN08: Screen came scratched",
+            "EN10: Colour is duller than the photo",
+            "EN11: Not as described at all",
             "EN12: Took two weeks to arrive with no update",
             "EN13: Courier left it outside without knocking",
+            "EN14: Seller never replied to my message",
+            "EN15: Overpriced for what you get",
+            "EN16: Looks fake, the logo is off-centre",
+            "EN17: Smells strongly of chemicals",
+            "EN18: It shrank after washing",
             "EN19: Battery drains very fast",
             "EN20: Stopped charging after a week",
+            "EN28: barangnya not worth it",
+            "EN29: seller not responsive sama sekali",
+            "MN02: barangnya not worth it",
+            "MN05: seller not responsive sama sekali",
+            "MN08: not recommended buat yang cari bahan tebal",
+            "MN11: ga worth it sih harganya",
             "MN19: the color is different from the picture",
+            "MN22: material feels cheap for this price",
             "MN25: took two weeks to arrive",
+            "ER01: Material feels thin and the stitching came loose after one wash.",
+            "ER04: Colour is nothing like the photo, much duller in person.",
+            "ER05: Box was crushed but the item inside was fine.",
+            "ER08: Item looks fake, the logo is off-centre.",
             "ER09: Delivery took almost two weeks with no update.",
+            "ER14: Seller never reply my message, quite disappointing.",
+            "ER15: Price quite expensive compared to other shops.",
+            "ER16: The zipper broke on the second day.",
+            "ER18: Smells strongly of chemicals when unpacked.",
             "ER20: Ordered two, only one arrived.",
+            "ER21: The fabric is soft but it shrank after washing.",
             "ER23: Description says waterproof, it is not.",
+            "ER25: Cheap plastic, feels like it will break soon.",
             "ER28: Courier left it outside without knocking.",
+            "ER30: The print started peeling after two uses.",
+            "ER31: Nice product but the packaging was torn.",
+            "ER32: Good product, however the size chart is misleading.",
             "ER33: Fast response but the item was out of stock after payment.",
+            "ER34: Too expensive for the quality, honestly.",
             "ER36: It works but the battery drains very fast.",
             "ER38: Stopped charging after a week.",
             "ER40: Item ok but delivery guy was rude."
@@ -90,9 +136,12 @@
           ]
         },
         "aspect_hit": {
-          "k": 39,
+          "k": 36,
           "n": 42,
           "failures": [
+            "EN12: Took two weeks to arrive with no update",
+            "MN25: took two weeks to arrive",
+            "ER02: Arrived in three days, well packed, very happy.",
             "ER20: Ordered two, only one arrived.",
             "ER33: Fast response but the item was out of stock after payment.",
             "ER40: Item ok but delivery guy was rude."
@@ -191,13 +240,16 @@
     "s03": {
       "deciqo_lexicon": {
         "complaint_recall": {
-          "k": 8,
+          "k": 5,
           "n": 12,
           "failures": [
             "SHP95734159145: alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg ",
             "SHP80405302429: Bahan:lumayan Desain:oke Tekstur:lembut Pengemasan dan pengiriman cepe",
             "SM04: Suka warnanya. Sayang jahitan bagian dalam agak berantakan.",
-            "SM05: Barang sesuai. Tapi estimasi 3 hari jadi 8 hari."
+            "SM05: Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.",
+            "SM10: Good product, however the size chart is misleading",
+            "SM11: Nice shirt but the packaging arrived crushed",
+            "SM12: Material feels thin for the price, still okay though"
           ]
         },
         "control_specificity": {
@@ -292,31 +344,6 @@
             "P19 (city): Saya Andi dari Surabaya, barang sampai cepat",
             "P21 (postal_code): Kode pos 60119, alamat sudah benar"
           ]
-        }
-      }
-    },
-    "f01": {
-      "deciqo_facts": {
-        "invalid_answer_rejected": {
-          "k": 0,
-          "n": 10,
-          "failures": [
-            "size: 'oke' -> accepted",
-            "size: 'ya sudah' -> accepted",
-            "size: 'sip' -> accepted",
-            "size: 'done' -> accepted",
-            "size: '32 x 24' -> accepted",
-            "size: 'sekitar segitu lah' -> accepted",
-            "size: 'ukuran luar 36 x 27 cm' -> accepted",
-            "compat: 'oke' -> accepted",
-            "capacity: '13000' -> accepted",
-            "capacity: 'sudah dicek' -> accepted"
-          ]
-        },
-        "valid_answer_accepted": {
-          "k": 5,
-          "n": 5,
-          "failures": []
         }
       }
     }
