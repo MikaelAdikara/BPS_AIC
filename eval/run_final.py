@@ -294,7 +294,8 @@ def main() -> int:
         client = openai.OpenAI(timeout=180, max_retries=2)
 
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    db_dir = HERE / ".work" / run_id
+    # Folder kerja unik per proses: dua run yang mulai di detik yang sama tidak boleh berbagi SQLite.
+    db_dir = HERE / ".work" / f"{run_id}-{os.getpid()}"
     db_dir.mkdir(parents=True, exist_ok=True)
 
     jobs = [(c, ph, s) for c in cases for ph in phases_for(c) for s in systems]
