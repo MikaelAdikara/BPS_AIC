@@ -105,12 +105,15 @@ rejected[], uncertain, not_detected_at`.
 ```
 
 Section dibuat untuk temuan aktif yang bisa diperbaiki lewat listing. Urutan keputusan:
-fakta dibutuhkan tapi belum ada → `needs_merchant_fact`; listing belum ada → `needs_listing`; placeholder
+listing belum ada → `needs_listing`; fakta dibutuhkan tapi belum ada → `needs_merchant_fact`; placeholder
 `[[…]]` tersisa → `needs_merchant_fact`; angka bersatuan tanpa sumber → `blocked` (`unsupported_quantity`);
 selain itu `ready` ("Ready for your review"). Teks dirender dari jawaban merchant apa adanya
-(`rendered_from: "merchant_fact"`). Bila listing sudah menyatakan atributnya (`listing_check.status =
-evidence_found`, bukan `conflicting`), draf tidak ditahan: teks memakai kutipan listing
-(`rendered_from: "listing"`, `reasons: ["already_in_listing"]`). Status keseluruhan = section terlemah; tanpa section → `nothing_to_draft`.
+(`rendered_from: "merchant_fact"`). Untuk `expectation_mismatch` tanpa fakta merchant, bila listing sudah
+menyatakan atributnya (`listing_check.status = evidence_found`) dan kutipan cocok dengan teks listing,
+section menjadi `needs_review`, dengan `reasons: ["already_in_listing"]` dan kutipan pada `sources`.
+Teks draf tetap kosong dan `rendered_from` tetap `null`; merchant meninjau penekanan listing.
+Section tanpa teks yang dapat dirender juga menjadi `needs_review`, dengan alasan `nothing_rendered`.
+Status keseluruhan = section terlemah; tanpa section → `nothing_to_draft`.
 
 ## Fungsi in-process untuk evaluasi
 

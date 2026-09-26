@@ -101,3 +101,9 @@
 - Seluruh 587 tes unit backend lulus setelah perbaikan editor. Browser produksi menampilkan model_chars 143/143 dan menyimpan ulang deskripsi tanpa analisis baru; toast Listing saved terlihat.
 - Filter dampak tinggi di Issues produksi menghasilkan 18 baris; pada 375px lebar dokumen 360px. Filter dipulihkan setelah pengujian.
 - Snapshot memperlihatkan ukuran pribadi berbentuk tinggi saya. Redaksi mencakup kata ganti pada ukuran pribadi, dengan tes regresi; spesifikasi tinggi/berat produk tetap dipertahankan.
+
+## Verifikasi redaksi tersimpan
+
+- Pemuatan ulang snapshot selesai 1/1 produk berubah. API melaporkan 517 masuk, 1 diperbarui, 514 tidak berubah, 2 kosong dilewati, dan 4 diredaksi. Probe database tidak menemukan pola ukuran pribadi yang teridentifikasi sebelum perbaikan.
+- Seluruh 591 tes unit backend, 29 tes web, typecheck, dan build lulus. Pilihan channel dipulihkan ke WooCommerce dan Manual setelah pengujian.
+- Dokumentasi draf mengikuti engine: expectation_mismatch yang sudah dinyatakan listing memerlukan tinjauan, tanpa merender kutipan menjadi teks draf. Alasan already_in_listing dan nothing_rendered dijelaskan terpisah.
