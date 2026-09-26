@@ -77,6 +77,9 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("image_url", "TEXT"),
         ("price", "REAL"),
         ("units_sold", "INTEGER"),
+        # Cara ulasan tersimpan diambil: complete (semua ulasan sumber), random, skewed (sengaja
+        # memperbanyak bintang rendah), unknown. Proyeksi ke unit terjual hanya untuk complete/random.
+        ("sampling", "TEXT NOT NULL DEFAULT 'unknown'"),
         ("snapshot_hash", "TEXT NOT NULL DEFAULT ''"),
         ("data_origin", "TEXT NOT NULL DEFAULT 'channel'"),
         ("captured_at", "TEXT"),

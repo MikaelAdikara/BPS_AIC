@@ -70,7 +70,7 @@ def ensure_demo_user(conn: sqlite3.Connection) -> dict:
 def load_demo_catalog(conn: sqlite3.Connection, user_id: int) -> ingest.ImportStats:
     """Isi katalog toko Woo sintetis dan hubungkan akun ke toko itu."""
     stats = ingest.upsert_catalog(user_id, "woocommerce", demo_catalog.as_catalog(),
-                                  data_origin="synthetic", conn=conn)
+                                  data_origin="synthetic", sampling="complete", conn=conn)
     conn.execute(
         "INSERT INTO woo_connections(user_id, base_url, consumer_key, consumer_secret, is_demo, created_at) "
         "VALUES(?, ?, ?, ?, 1, ?) ON CONFLICT(user_id) DO UPDATE SET base_url = excluded.base_url, "

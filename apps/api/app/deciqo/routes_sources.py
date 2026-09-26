@@ -126,7 +126,9 @@ def sync_woo(ctx: jobs.JobContext | None, user_id: int, *, analyse: bool = True)
     if ctx:
         ctx.progress(stage="saving")
     origin = "synthetic" if connection["is_demo"] else "channel"
-    stats = ingest.upsert_catalog(user_id, "woocommerce", catalog, data_origin=origin, full_sync=True)
+    # Sinkron penuh membaca semua ulasan yang disetujui, jadi sampelnya lengkap.
+    stats = ingest.upsert_catalog(user_id, "woocommerce", catalog, data_origin=origin, full_sync=True,
+                                  sampling="complete")
     result = {"stats": stats.public(), "products": len(stats.products)}
     if analyse:
         result["analysis"] = analysis.analyse_products(ctx, stats.changed_products)
@@ -289,7 +291,8 @@ def list_packs() -> dict[str, dict]:
                 continue
             packs[path.stem] = {"name": path.stem, "channel": meta.get("channel"),
                                 "data_origin": meta.get("data_origin"), "captured_at": meta.get("captured_at"),
-                                "label": meta.get("label", path.stem), "products": len(meta.get("products", []))}
+                                "label": meta.get("label", path.stem), "products": len(meta.get("products", [])),
+                                "sampling_kind": meta.get("sampling_kind", "unknown")}
     return packs
 
 
@@ -312,7 +315,8 @@ def load_sample(name: str, user: dict = Depends(current_user)) -> dict:
         ctx.progress(stage="saving")
         stats = ingest.upsert_catalog(user["id"], pack["channel"], pack["products"],
                                       data_origin=pack.get("data_origin", "synthetic"),
-                                      captured_at=pack.get("captured_at"))
+                                      captured_at=pack.get("captured_at"),
+                                      sampling=pack.get("sampling_kind", "unknown"))
         return {"stats": stats.public(), "analysis": analysis.analyse_products(ctx, stats.changed_products)}
 
     return _accepted(jobs.start(user["id"], "sample", run, target=name))

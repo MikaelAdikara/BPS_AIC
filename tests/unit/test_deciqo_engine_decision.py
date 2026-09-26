@@ -28,10 +28,11 @@ def db(tmp_path, monkeypatch):
     return path
 
 
-def _product(path, sid, title, listing, reviews, channel="manual", units=None):
+def _product(path, sid, title, listing, reviews, channel="manual", units=None, sampling="unknown"):
     with store.database(path) as conn:
         stats = ingest.upsert_catalog(1, channel, [{"source_item_id": sid, "title": title, "description": listing,
-                                                    "units_sold": units, "reviews": reviews}], conn=conn)
+                                                    "units_sold": units, "reviews": reviews}],
+                                      sampling=sampling, conn=conn)
     pipeline.analyse(stats.products[0], db_path=path)
     return stats.products[0]
 
@@ -88,3 +89,33 @@ def test_pola_lintas_produk_dan_channel_adalah_kandidat(db):
     assert plan["patterns"] and plan["patterns"][0]["products"] == 2
     assert plan["cross_channel"] and plan["cross_channel"][0]["similarity"] >= 0.5
     assert plan["cross_channel"][0]["kind"] == "candidate"
+
+
+def test_pembeli_terdampak_batas_bawah_tanpa_proyeksi_untuk_sampel_miring():
+    units = decision.buyers(4, 18, 3483, "skewed")
+    assert units["at_least"] == 4 and units["units_sold"] == 3483
+    assert units["projected_min"] is None and units["assumption"] is None
+
+
+def test_proyeksi_hanya_untuk_sampel_lengkap_atau_acak():
+    units = decision.buyers(4, 40, 1000, "complete")
+    assert units["projected_min"] == int(pipeline.wilson_lower(4, 40) * 1000)
+    assert units["projected_min"] >= units["at_least"]
+    assert units["assumption"] == "reviewers_represent_buyers"
+    assert decision.buyers(4, 40, 1000, "random")["projected_min"] is not None
+    assert decision.buyers(4, 40, 1000, "unknown")["projected_min"] is None
+    assert decision.buyers(1, 40, 1000, "complete")["projected_min"] is None
+    # Unit terjual tidak diketahui atau lebih kecil dari jumlah penulis ulasan: tidak ada angka.
+    assert decision.buyers(4, 40, None, "complete") is None
+    assert decision.buyers(4, 40, 3, "complete") is None
+
+
+def test_driver_units_mengikuti_sampling_produk(db):
+    _product(db, "tas", "Tas laptop kanvas", "Tas kanvas muat laptop 14 inch.", BAG_REVIEWS, units=300,
+             sampling="skewed")
+    with store.database(db) as conn:
+        first = decision.plan(conn, 1)["decisions"][0]
+    units = next(d for d in first["drivers"] if d["key"] == "units")
+    assert units["at_least"] == 3 and units["units_sold"] == 300
+    assert units["sampling"] == "skewed" and units["projected_min"] is None
+    assert "illustrative_buyers" not in units

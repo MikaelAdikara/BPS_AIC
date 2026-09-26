@@ -136,7 +136,7 @@ Heuristik yang bisa dijelaskan, bukan optimum atau prediksi profit. Hanya isu di
 - `next_step` dan menit (konstanta, `measured: false`): `paste_listing` 2, `review_draft` 3,
   `edit_listing` 8, `confirm_fact` 10, `change_process` 30, `talk_to_supplier` 45.
 - `drivers[].key` ∈ `reach` (`support`, `share`, `confident_share`), `hidden` (`n`), `rising`/`falling`
-  (`recent`, `before`), `recurrence`, `units` (`units_sold`, `illustrative_buyers`, `assumption: true`),
+  (`recent`, `before`), `recurrence`, `units` (`units_sold`, `at_least` = ulasan yang menyebut isu, `projected_min` = ⌊Wilson × units sold⌋ hanya bila `sampling` produk `complete`/`random` dan `at_least` ≥ 2, selain itu `null`; `sampling`; `assumption`),
   `single_report`, `effort` (`step`, `minutes`, `measured`).
 - `patterns`: atribut yang sama di beberapa produk; `cross_channel`: judul mirip (≥0,5) di channel
   berbeda. Keduanya `kind: "candidate"`, bukan identitas SKU.

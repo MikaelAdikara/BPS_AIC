@@ -36,6 +36,7 @@ CHANNEL_LABEL = {
 DATA_ORIGINS = (
     "synthetic", "public_snapshot", "public_live", "public_dataset", "team_collected", "channel",
 )
+SAMPLINGS = ("complete", "random", "skewed", "unknown")
 
 # Pola alamat bawaan redaksi lama terlalu lebar untuk teks ulasan: "dibawa jalan jalan" atau
 # "blok warnanya" ikut terhapus dan kutipan bukti jadi rusak. Di sini alamat hanya dikenali
@@ -143,6 +144,7 @@ def upsert_catalog(
     captured_at: str | None = None,
     full_sync: bool = False,
     role: str = "own",
+    sampling: str = "unknown",
     conn: sqlite3.Connection | None = None,
 ) -> ImportStats:
     """Simpan produk beserta ulasannya.
@@ -150,6 +152,9 @@ def upsert_catalog(
     Setiap produk: `source_item_id`, `title`, dan opsional `url`, `description`, `specs`,
     `variants`, `image_url`, `price`, `units_sold`, `reviews`. Setiap ulasan: `text`, dan opsional
     `id` (id di sumber), `rating`, `variant`, `images`, `review_time`.
+
+    `sampling` menyatakan cara ulasan diambil (lihat `SAMPLINGS`); menentukan boleh tidaknya
+    share keluhan diproyeksikan ke unit terjual di rencana keputusan.
 
     `full_sync=True` berarti daftar ulasan ini lengkap untuk produk tersebut: ulasan tersimpan
     yang tidak lagi muncul dikeluarkan dari bukti aktif. Hanya dipanggil setelah sinkron yang
@@ -159,10 +164,13 @@ def upsert_catalog(
         raise ValueError(f"unknown channel {channel}")
     if data_origin not in DATA_ORIGINS:
         raise ValueError(f"unknown data_origin {data_origin}")
+    if sampling not in SAMPLINGS:
+        raise ValueError(f"unknown sampling {sampling}")
     if conn is None:
         with store.database() as own:
             return upsert_catalog(user_id, channel, products, data_origin=data_origin,
-                                  captured_at=captured_at, full_sync=full_sync, role=role, conn=own)
+                                  captured_at=captured_at, full_sync=full_sync, role=role,
+                                  sampling=sampling, conn=own)
 
     stats = ImportStats()
     now = store.now()
@@ -184,22 +192,22 @@ def upsert_catalog(
         if existing is None:
             conn.execute(
                 "INSERT INTO products(id, user_id, channel, source_item_id, url, title, description, "
-                "specs_json, variants_json, image_url, price, units_sold, snapshot_hash, data_origin, "
-                "captured_at, fetched_at, role, created_at, updated_at) "
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "specs_json, variants_json, image_url, price, units_sold, sampling, snapshot_hash, "
+                "data_origin, captured_at, fetched_at, role, created_at, updated_at) "
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (pid, user_id, channel, source_item_id, item.get("url") or "", title, description,
                  store.dumps(item.get("specs") or {}), store.dumps(item.get("variants") or []),
-                 item.get("image_url"), item.get("price"), item.get("units_sold"), snapshot,
+                 item.get("image_url"), item.get("price"), item.get("units_sold"), sampling, snapshot,
                  data_origin, captured_at or now, now, role, now, now),
             )
         else:
             conn.execute(
                 "UPDATE products SET url = ?, title = ?, description = ?, specs_json = ?, "
-                "variants_json = ?, image_url = ?, price = ?, units_sold = ?, snapshot_hash = ?, "
+                "variants_json = ?, image_url = ?, price = ?, units_sold = ?, sampling = ?, snapshot_hash = ?, "
                 "data_origin = ?, captured_at = ?, fetched_at = ?, updated_at = ? WHERE id = ?",
                 (item.get("url") or "", title, description, store.dumps(item.get("specs") or {}),
                  store.dumps(item.get("variants") or []), item.get("image_url"), item.get("price"),
-                 item.get("units_sold"), snapshot, data_origin, captured_at or now, now,
+                 item.get("units_sold"), sampling, snapshot, data_origin, captured_at or now, now,
                  now if listing_changed else existing["updated_at"], pid),
             )
         stats.products.append(pid)

@@ -1,8 +1,14 @@
 """Rencana keputusan: urutan isu yang layak diurus dulu, dengan alasan yang terlihat.
 
 Ini heuristik yang bisa dijelaskan, bukan optimum atau prediksi profit. Setiap angka dihitung dari
-ulasan tersimpan; menit usaha adalah konstanta per langkah, bukan waktu terukur. Skala dari units
-sold adalah ilustrasi berlabel asumsi, tidak dijumlahkan antar isu, dan bukan rupiah.
+ulasan tersimpan; menit usaha adalah konstanta per langkah, bukan waktu terukur.
+
+Pembeli terdampak: angka pasti hanya `at_least` = jumlah ulasan yang menyebut isu (orang nyata yang
+menulisnya) dibanding unit terjual. Proyeksi `projected_min` = batas bawah Wilson × unit terjual
+hanya muncul bila sampel ulasan lengkap atau acak dan isu dilaporkan minimal dua ulasan, berlabel
+asumsi "pengulas mewakili pembeli".
+Sampel yang sengaja memperbanyak bintang rendah tidak pernah diproyeksikan. Tidak dijumlahkan antar
+isu dan bukan rupiah.
 """
 
 from __future__ import annotations
@@ -18,6 +24,7 @@ from . import pipeline, workspace
 EFFORT_MINUTES = {"paste_listing": 2, "review_draft": 3, "edit_listing": 8, "confirm_fact": 10,
                   "change_process": 30, "talk_to_supplier": 45}
 TREND_DAYS = 90
+PROJECTABLE_SAMPLING = {"complete", "random"}
 SIMILAR_TITLE = 0.5
 
 
@@ -50,7 +57,20 @@ def trend(items: list[dict], reviews: list[dict], now: datetime | None = None) -
     return {"recent": round(share_recent, 3), "before": round(share_before, 3), "direction": direction}
 
 
-def _score(view: dict, reviews: list[dict], units_sold: int | None) -> tuple[float, list[dict]]:
+def buyers(support: int, read: int, units_sold: int | None, sampling: str) -> dict | None:
+    """Pembeli terdampak dari unit terjual. None bila unit terjual tidak diketahui atau tidak masuk akal."""
+    if not units_sold or units_sold < support:
+        return None
+    projected = None
+    # Satu laporan tidak cukup untuk diproyeksikan, sama seperti penalti `single_report`.
+    if sampling in PROJECTABLE_SAMPLING and read > 0 and support >= 2:
+        projected = max(support, math.floor(pipeline.wilson_lower(support, read) * units_sold))
+    return {"key": "units", "units_sold": units_sold, "at_least": support, "projected_min": projected,
+            "sampling": sampling, "assumption": "reviewers_represent_buyers" if projected is not None else None}
+
+
+def _score(view: dict, reviews: list[dict], units_sold: int | None,
+           sampling: str = "unknown") -> tuple[float, list[dict]]:
     m = view["metrics"]
     support, read = m.get("support", 0), m.get("candidates_read") or m.get("denominator") or 0
     confident = pipeline.wilson_lower(support, read)
@@ -69,8 +89,8 @@ def _score(view: dict, reviews: list[dict], units_sold: int | None) -> tuple[flo
         drivers.append({"key": "recurrence"})
     if units_sold:
         impact += math.log10(1 + units_sold) * 2
-        drivers.append({"key": "units", "units_sold": units_sold,
-                        "illustrative_buyers": round(units_sold * m.get("share", 0)), "assumption": True})
+        if (units := buyers(support, read, units_sold, sampling)) is not None:
+            drivers.append(units)
     if support <= 1:
         impact *= 0.3
         drivers.append({"key": "single_report"})
@@ -103,7 +123,8 @@ def plan(conn, user_id: int) -> dict:
             if view["bucket"] not in workspace.OPEN_BUCKETS:
                 continue
             by_key.setdefault(finding["attribute_key"], set()).add(product["id"])
-            score, drivers = _score(view, ctx.reviews, product.get("units_sold"))
+            score, drivers = _score(view, ctx.reviews, product.get("units_sold"),
+                                    product.get("sampling") or "unknown")
             decisions.append({
                 "finding_id": finding["id"], "product_id": product["id"], "product_title": product["title"],
                 "channel": product["channel"], "attribute_local": finding["attribute_local"],

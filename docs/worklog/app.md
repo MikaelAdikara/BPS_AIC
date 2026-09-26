@@ -107,3 +107,9 @@
 - Pemuatan ulang snapshot selesai 1/1 produk berubah. API melaporkan 517 masuk, 1 diperbarui, 514 tidak berubah, 2 kosong dilewati, dan 4 diredaksi. Probe database tidak menemukan pola ukuran pribadi yang teridentifikasi sebelum perbaikan.
 - Seluruh 591 tes unit backend, 29 tes web, typecheck, dan build lulus. Pilihan channel dipulihkan ke WooCommerce dan Manual setelah pengujian.
 - Dokumentasi draf mengikuti engine: expectation_mismatch yang sudah dinyatakan listing memerlukan tinjauan, tanpa merender kutipan menjadi teks draf. Alasan already_in_listing dan nothing_rendered dijelaskan terpisah.
+
+## Paket Tokopedia, sintetis, dan pembeli terdampak
+
+- Paket Tokopedia bertambah `tokopedia-prdect` (PRDECT-ID, CC-BY-4.0): 23 produk, 355 ulasan, dengan harga dan jumlah terjual. Bersama paket 2019 (kini membawa jumlah terjual), Tokopedia berisi 29 produk dan 626 ulasan. TikTok Shop dan Blibli sintetis masing-masing 2 produk dengan listing dan jumlah terjual.
+- Produk menyimpan `sampling` (complete/random/skewed/unknown). Rencana keputusan mengganti ilustrasi unit terjual × share dengan angka pasti "setidaknya N pembeli menulis ini, dari M unit terjual". Proyeksi batas bawah Wilson × unit terjual hanya muncul untuk sampel complete/random dengan minimal dua laporan. Lazada dan PRDECT-ID bertanda skewed dan tidak pernah diproyeksikan.
+- Seluruh 593 tes unit backend lulus (2 dilewati karena checkpoint), serta 29 tes web, typecheck, dan build. Browser produksi menampilkan chip "At least 5 buyers wrote this, of 4,400 units sold" setelah paket Tokopedia 2019 dimuat ulang. Paket PRDECT-ID diverifikasi dalam mode aturan pada database sementara, belum dianalisis dengan AI di akun demo.

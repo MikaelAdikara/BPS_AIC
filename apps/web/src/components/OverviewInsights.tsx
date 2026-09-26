@@ -47,7 +47,7 @@ interface Plan extends Issue {
   estimated_minutes: number;
   next_step: string;
   score: number;
-  drivers: {key: string; recent?: number; before?: number; units_sold?: number; illustrative_buyers?: number; support?: number; share?: number; confident_share?: number; n?: number; minutes?: number}[];
+  drivers: {key: string; recent?: number; before?: number; units_sold?: number; at_least?: number; projected_min?: number | null; support?: number; share?: number; confident_share?: number; n?: number; minutes?: number}[];
 }
 interface Decision {
   finding_id: string;
@@ -230,6 +230,8 @@ export function OverviewInsights() {
       style: "percent",
       maximumFractionDigits: 1,
     }).format(value);
+  const count = (value?: number | null) =>
+    value == null ? "—" : new Intl.NumberFormat(language).format(value);
   const maxScore = Math.max(0.0001, ...(data?.plan.map((item) => item.score) ?? [0]));
   return (
     <div className="stack">
@@ -374,7 +376,7 @@ export function OverviewInsights() {
                             <Users size={12} aria-hidden />
                             {item.support_is_minimum ? "≥ " : ""}{t("overview.reach", { count: item.support })}
                           </Chip>
-                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key} tone={driver.key==="rising"?"alert":driver.key==="falling"?"good":"muted"}>{driver.key==="rising"?<TrendingUp size={12} aria-hidden />:driver.key==="falling"?<TrendingDown size={12} aria-hidden />:null}{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{buyers:driver.illustrative_buyers??"—",sold:driver.units_sold??"—"}):t("overview."+driver.key,{recent:driver.recent == null ? "—" : percent(driver.recent),before:driver.before == null ? "—" : percent(driver.before)})}</Chip>)}
+                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key} tone={driver.key==="rising"?"alert":driver.key==="falling"?"good":"muted"}>{driver.key==="rising"?<TrendingUp size={12} aria-hidden />:driver.key==="falling"?<TrendingDown size={12} aria-hidden />:null}{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{count:count(driver.at_least),sold:count(driver.units_sold)})+(driver.projected_min==null?"":" · "+t("overview.unitsProjected",{count:count(driver.projected_min)})):t("overview."+driver.key,{recent:driver.recent == null ? "—" : percent(driver.recent),before:driver.before == null ? "—" : percent(driver.before)})}</Chip>)}
                           <Chip>
                             <Percent size={12} aria-hidden />
                             {t("overview.share", {
