@@ -41,11 +41,62 @@ def parse(raw: str, unit: str = "") -> dict:
     return {"raw_value": (raw or "").strip(), "value": value, "unit": unit_found, "location": detect_location(raw)}
 
 
+# Kata konfirmasi dan pengisi: jawaban yang hanya berisi kata-kata ini tidak menyatakan nilai apa pun.
+_FILLER = {
+    "iya", "ya", "yes", "y", "ok", "oke", "okay", "okey", "sip", "siap", "sudah", "udah", "udh", "dah",
+    "done", "beres", "betul", "benar", "bener", "sesuai", "cek", "dicek", "ngecek", "kak", "gan", "min",
+    "bos", "sis", "lah", "kok", "deh", "dong", "nih", "tau", "tahu", "tidak", "ga", "gak", "nggak", "kurang",
+    "lebih", "kira", "segitu", "sekitar", "entah", "nanti", "mungkin", "aja", "saja", "sih", "pokoknya",
+    "itu", "ini", "sama", "seperti", "biasa", "standar", "normal",
+}
+_COMPAT = re.compile(r"kompatib|compatib|\bcocok\b|\bpas dengan\b|\bdidukung\b|\bsupport|\btipe\s+(hp|ponsel|perangkat)|"
+                     r"\bmodel\s+(hp|ponsel)|\bphone models?\b|\bdevices?\b", re.I)
+_MEASURE = re.compile(r"\b(ukuran|size|dimensi|dimension|panjang|lebar|tinggi|tebal|berat|weight|kapasitas|capacity|"
+                      r"volume|daya|watt|voltase|voltage|diameter|lingkar|cm|mm|inch|mah|kg|ml|liter)\b", re.I)
+_MODEL = re.compile(r"\b(iphone|ipad|samsung|galaxy|redmi|xiaomi|poco|oppo|vivo|realme|infinix|tecno|asus|lenovo|"
+                    r"macbook|pixel|nokia)\b|\b[a-z]{1,3}\d{1,4}[a-z]?\b", re.I)
+
+MESSAGES = {
+    "not_a_fact": "Write the actual value (for example 32 x 24 cm), not a confirmation.",
+    "unit_missing": "Add the unit to the number (cm, inch, kg, ml, mAh...).",
+    "measurement_missing": "This question needs a measured value with its unit.",
+    "wrong_location": "This answers a different measurement than the one asked (inside vs outside).",
+}
+
+
+def question_kind(finding: dict) -> str:
+    """`compatibility`, `measurement`, atau `other`, dari pertanyaan dan label temuan."""
+    text = " ".join([finding.get("merchant_question", ""), finding.get("attribute", ""),
+                     finding.get("attribute_local", "")])
+    if _COMPAT.search(text):
+        return "compatibility"
+    return "measurement" if _MEASURE.search(text) else "other"
+
+
+def _reject(code: str) -> DeciqoError:
+    return DeciqoError(422, code, MESSAGES[code])
+
+
 def validate(finding: dict, raw: str, unit: str = "") -> dict:
-    """Jawaban kosong ditolak. Kembalikan fakta terurai."""
-    if not (raw or "").strip():
-        raise DeciqoError(422, "not_a_fact", "Write the actual value (for example 32 x 24 cm), not a confirmation.")
-    return parse(raw, unit)
+    """Tolak jawaban yang bukan fakta dengan kode yang bisa ditindaklanjuti; kembalikan fakta terurai.
+
+    Nomor model ("iPhone 13") adalah identitas perangkat, bukan pengukuran. Jawaban yang menyebut
+    lokasi lain dari yang ditanyakan (luar untuk pertanyaan ukuran dalam) ditolak."""
+    raw = (raw or "").strip()
+    words = re.findall(r"[a-z]+", raw.lower())
+    if not raw or (not re.search(r"\d", raw) and all(w in _FILLER for w in words)):
+        raise _reject("not_a_fact")
+    parsed = parse(raw, unit)
+    kind = question_kind(finding)
+    if kind == "measurement":
+        if not verify.extract_quantities(f"{raw} {unit or ''}"):
+            has_number = bool(re.search(r"\d", raw))
+            raise _reject("unit_missing" if has_number and not _MODEL.search(raw) else "measurement_missing")
+        asked = detect_location(" ".join([finding.get("merchant_question", ""), finding.get("attribute_local", ""),
+                                          finding.get("attribute", "")]))
+        if asked and parsed["location"] and parsed["location"] != asked:
+            raise _reject("wrong_location")
+    return parsed
 
 
 def active_fact(conn, finding_id: str) -> dict | None:

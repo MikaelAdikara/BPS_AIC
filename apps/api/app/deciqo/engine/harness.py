@@ -10,6 +10,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from .. import ingest, store
+from ..errors import DeciqoError
 from . import PIPELINE_VERSION, VERIFIER_VERSION, draft, facts, pipeline
 
 EVAL_EMAIL = "eval@deciqo.local"
@@ -81,7 +82,11 @@ def run_bundle(bundle: dict, *, db_path: str | Path, engine: str = "ai") -> dict
             if fact_target is None:
                 errors.append("fact_not_applied: no finding needs a fact")
             else:
-                facts.save(conn, fact_target, bundle["fact"], user_id=user_id)
+                try:
+                    facts.save(conn, fact_target, bundle["fact"], user_id=user_id)
+                except DeciqoError as exc:
+                    # Gerbang fakta menolak jawaban ini; draf tetap ditahan dan alasannya tercatat.
+                    errors.append(f"fact_rejected:{exc.code}")
         drafted = draft.build(conn, pid)
         analysis = store.row(conn.execute("SELECT engine FROM analyses WHERE product_id = ?", (pid,))) or {}
     sections = {s["finding_id"]: s for s in drafted.get("sections", [])}
