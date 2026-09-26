@@ -1,6 +1,6 @@
-# Deciqo — one review's journey (HyperFrames, v5.1)
+# Deciqo — one review's journey (HyperFrames, v5.2)
 
-158 s · 1920×1080 · 30 fps · **silent** · made to play behind a live presenter (icons and short tags, no sentences).
+158 s · 1920×1080 · 30 fps · **silent** · v5.2 adds 13 presenter cues (`CUES` in `index.html`: key point + detail, placed in each scene's empty space).
 
 One continuous Three.js world driven by HyperFrames time (`hf-seek`); DOM passport, chapter cards, phase stepper and lock-up
 on a GSAP timeline. Palette from the pitch deck (navy night, royal blue, Hold orange).
@@ -24,5 +24,5 @@ on a GSAP timeline. Palette from the pitch deck (navy night, royal blue, Hold or
 ```bash
 npx hyperframes preview --background
 npx hyperframes check
-npx hyperframes render -o output/deciqo-review-journey-v5.1.mp4 --quality high --gpu
+npx hyperframes render -o output/deciqo-review-journey-v5.2.mp4 --quality high --gpu
 ```
