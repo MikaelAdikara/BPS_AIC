@@ -130,6 +130,12 @@ def candidates(reviews: list[dict], conn=None) -> tuple[list[dict], dict]:
         strength = int(bool(s["lexicon"])) + int(bool(s["neg_aspects"]))
         if strength:
             scored.append((strength, _time_key(review), review))
+    if len(reviews) <= MAX_CANDIDATES:
+        # Seleksi hanya perlu bila ulasan lebih banyak dari yang bisa dibaca discovery. Produk kecil
+        # dikirim utuh supaya keluhan yang kosakatanya belum dikenal leksikon ("ga sampe 20000",
+        # "redup bgt") tetap sampai ke model; yang bersinyal tetap didahulukan.
+        flagged = {id(r) for _, _, r in scored}
+        scored += [(0, _time_key(r), r) for r in reviews if id(r) not in flagged]
     scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
     picked = [{**r, "text": r["text"][:MAX_CHARS]} for _, _, r in scored[:MAX_CANDIDATES]]
     return picked, {"stage": "triage", "kept": len(picked), "of": len(reviews),

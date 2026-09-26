@@ -8,6 +8,8 @@ Status "ready" berarti "Ready for your review", bukan "benar".
 
 from __future__ import annotations
 
+import re
+
 from .. import store
 from . import VERIFIER_VERSION, facts, pipeline, verify
 
@@ -15,11 +17,39 @@ from . import VERIFIER_VERSION, facts, pipeline, verify
 STATUS_RANK = ["blocked", "needs_merchant_fact", "needs_listing", "needs_review", "ready"]
 
 
-def render(finding: dict, fact: dict) -> str:
+_PURE_QUANTITY = re.compile(r"^[\d\s.,x×*]+(?:[a-z]{1,4})?\.?$", re.I)
+
+
+def _label(finding: dict) -> str:
     label = (finding.get("attribute_local") or finding.get("attribute") or "").strip()
-    label = label[:1].upper() + label[1:]
-    value = f"{fact['value']} {fact['unit']}".strip()
-    return f"{label}: {value}."
+    return label[:1].upper() + label[1:]
+
+
+def fact_body(finding: dict, fact: dict) -> str:
+    """Isi kalimat dari jawaban merchant apa adanya.
+
+    Jawaban dipakai utuh supaya varian, sumbu, dan keterangan tidak hilang ("S: lingkar dada 96 cm;
+    M: ...", "lebar maksimal 8,5 cm termasuk case", "9V 2,2A (20W)"). Satu-satunya yang dibuang
+    adalah awalan yang hanya mengulang label bila sisanya murni angka dan satuan ("ukuran dalam
+    30 x 22 cm" di bawah label "Ukuran kompartemen dalam"). Satuan dari pilihan form ditambahkan
+    bila jawabannya hanya angka."""
+    raw = " ".join((fact.get("raw_value") or fact.get("value") or "").split()).rstrip(".")
+    unit = fact.get("unit") or ""
+    if unit and not verify.extract_quantities(raw) and verify.extract_quantities(f"{raw} {unit}"):
+        raw = f"{raw} {unit}"
+    label_words = set(re.findall(r"[a-z]+", _label(finding).lower()))
+    words = raw.split(" ")
+    cut = 0
+    while cut < len(words) and words[cut].lower().strip(":") in label_words:
+        cut += 1
+    rest = " ".join(words[cut:])
+    if cut and rest and _PURE_QUANTITY.match(rest):
+        raw = rest
+    return raw
+
+
+def render(finding: dict, fact: dict) -> str:
+    return f"{_label(finding)}: {fact_body(finding, fact)}."
 
 
 def gate(text: str, sources: list[str]) -> tuple[str, list[str], list[str]]:
@@ -32,16 +62,28 @@ def gate(text: str, sources: list[str]) -> tuple[str, list[str], list[str]]:
     return "ready", [], []
 
 
-def section(finding: dict, fact: dict | None, listing: str, listing_provided: bool) -> dict:
+def section(finding: dict, fact: dict | None, listing: str, listing_provided: bool,
+            listing_check: dict | None = None) -> dict:
     base = {"finding_id": finding["id"], "status": "", "text": "", "rendered_from": None,
             "held_suggestion": None, "reasons": [], "unsupported": [], "sources": []}
     # Tanpa listing, temuan adalah kebutuhan pembeli: draf menunggu listing ditempel dulu, dan
     # merchant tidak diminta fakta untuk listing yang belum ada (sama dengan bucket/next di inbox).
     if not listing_provided:
         return {**base, "status": "needs_listing", "reasons": ["listing_not_provided"]}
-    if finding["finding_type"] in pipeline.FACT_REQUIRED or finding["finding_type"] == "expectation_mismatch":
-        if not fact:
-            return {**base, "status": "needs_merchant_fact", "reasons": ["missing_fact"]}
+    needs_fact = finding["finding_type"] in pipeline.FACT_REQUIRED or finding["finding_type"] == "expectation_mismatch"
+    check = listing_check or {}
+    if needs_fact and not fact:
+        # Listing yang sudah menyatakan atributnya (kutipan verbatim, tidak dibantah) adalah sumber:
+        # tidak perlu menahan draf menunggu merchant mengulang hal yang sama. Listing yang sedang
+        # dibantah pembeli (`conflicting`) bukan sumber untuk koreksinya sendiri.
+        quote = (check.get("quote") or "").strip()
+        if check.get("status") == "evidence_found" and quote and verify.quote_in(quote, listing):
+            text = f"{_label(finding)}: {quote.rstrip('.')}."
+            status, reasons, unsupported = gate(text, [listing])
+            return {**base, "status": status, "text": text if status != "blocked" else "",
+                    "rendered_from": "listing", "reasons": reasons or ["already_in_listing"],
+                    "unsupported": unsupported, "sources": [{"kind": "listing", "quote": quote}]}
+        return {**base, "status": "needs_merchant_fact", "reasons": ["missing_fact"]}
     text = render(finding, fact) if fact else ""
     if not text:
         return {**base, "status": "needs_review", "reasons": ["nothing_rendered"]}
@@ -66,14 +108,15 @@ def build(conn, product_id: str) -> dict:
         "AND state IN ('open', 'investigating', 'reopened', 'acted') ORDER BY support DESC", (product_id,)))
         if f["finding_type"] in pipeline.LISTING_FIXABLE]
     fact_rows = {f["id"]: facts.active_fact(conn, f["id"]) for f in findings}
-    key = store.digest([(f["id"], f["updated_at"], f["finding_type"]) for f in findings],
+    key = store.digest([(f["id"], f["updated_at"], f["finding_type"], f["listing_check_json"]) for f in findings],
                        [(k, v["id"] if v else None) for k, v in fact_rows.items()],
                        product["snapshot_hash"], VERIFIER_VERSION)
     cached = conn.execute("SELECT result_json FROM drafts WHERE product_id = ? AND input_hash = ?",
                           (product_id, key)).fetchone()
     if cached:
         return store.loads(cached["result_json"], {})
-    sections = [section(f, fact_rows[f["id"]], listing, provided) for f in findings]
+    sections = [section(f, fact_rows[f["id"]], listing, provided, store.loads(f["listing_check_json"], {}))
+                for f in findings]
     result = {"status": weakest([s["status"] for s in sections]), "gate_version": VERIFIER_VERSION,
               "sections": sections, "title_suggestion": {"text": "", "status": "unchanged"}}
     conn.execute("INSERT OR REPLACE INTO drafts(product_id, input_hash, result_json, created_at) VALUES(?, ?, ?, ?)",

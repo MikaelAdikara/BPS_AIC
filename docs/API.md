@@ -29,7 +29,7 @@ severity (`high → low`), lalu support terbanyak.
 | `monitoring` | state `acted` |
 | `dismissed` | state `dismissed` |
 | `not_detected` | analisis sukses terakhir tidak menemukan temuan ini lagi |
-| `needs_fact` | listing tersedia, fakta belum ada, dan tipe butuh fakta (`missing_fact`, `unclear_fact`, `conflicting_fact`) atau draf ditahan `needs_merchant_fact` (mis. `expectation_mismatch`) |
+| `needs_fact` | listing tersedia, fakta belum ada, dan draf ditahan `needs_merchant_fact` (tipe butuh fakta atau `expectation_mismatch`, dan listing belum menyatakannya secara verbatim) |
 | `to_do` | aktif lainnya |
 
 **`next`**: `recurrence`, `fact`, `apply` (draf siap), `draft`, `route` (operasional/kualitas),
@@ -104,8 +104,10 @@ rejected[], uncertain, not_detected_at`.
 Section dibuat untuk temuan aktif yang bisa diperbaiki lewat listing. Urutan keputusan:
 fakta dibutuhkan tapi belum ada → `needs_merchant_fact`; listing belum ada → `needs_listing`; placeholder
 `[[…]]` tersisa → `needs_merchant_fact`; angka bersatuan tanpa sumber → `blocked` (`unsupported_quantity`);
-selain itu `ready` ("Ready for your review"). Teks dirender dari fakta merchant
-(`rendered_from: "merchant_fact"`). Status keseluruhan = section terlemah; tanpa section → `nothing_to_draft`.
+selain itu `ready` ("Ready for your review"). Teks dirender dari jawaban merchant apa adanya
+(`rendered_from: "merchant_fact"`). Bila listing sudah menyatakan atributnya (`listing_check.status =
+evidence_found`, bukan `conflicting`), draf tidak ditahan: teks memakai kutipan listing
+(`rendered_from: "listing"`, `reasons: ["already_in_listing"]`). Status keseluruhan = section terlemah; tanpa section → `nothing_to_draft`.
 
 ## Fungsi in-process untuk evaluasi
 
