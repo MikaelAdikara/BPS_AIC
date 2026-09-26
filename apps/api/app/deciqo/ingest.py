@@ -280,6 +280,10 @@ def set_listing(conn: sqlite3.Connection, pid: str, listing: str) -> bool:
     if product is None:
         return False
     description, _ = redact(listing.strip())
+    from .engine.pipeline import listing_parts
+
+    if description == listing_parts(product)[0]:
+        return False
     snapshot = listing_hash({
         "title": product["title"], "description": description,
         "specs": store.loads(product["specs_json"], {}), "variants": store.loads(product["variants_json"], []),

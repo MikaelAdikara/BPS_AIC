@@ -89,3 +89,9 @@
 - Pemuatan paket snapshot Lazada selesai 10/10 produk. Job API melaporkan 517 masuk, 515 baru, 2 kosong dilewati, dan 3 diredaksi. Pilihan channel serta bahasa/tema dipulihkan sesudah pengujian.
 - Seluruh 586 tes unit backend lulus setelah perubahan anggaran fetch. Overview menampilkan lima keputusan pertama dari urutan API, dengan tombol untuk seluruh keputusan, agar grafik tetap mudah dicapai pada katalog besar.
 - Fetch provider berbayar, pengiriman Telegram nyata, dan aksi hapus/reset lewat browser tetap belum diuji. Hapus/reset dan isolasi data sudah diuji pada database sementara dalam tes backend.
+
+## Editor listing berspesifikasi
+
+- Probe produksi menemukan bahwa listing_text berisi deskripsi dan spesifikasi sumber. Menyimpan teks gabungan sebagai deskripsi menggandakan spesifikasi dan memicu analisis ulang.
+- ProductView menambah listing_edit_text untuk deskripsi mentah; listing_text tetap teks gabungan yang diperiksa. Editor memakai listing_edit_text. Server menganggap penyimpanan ulang teks gabungan yang identik sebagai tidak berubah.
+- Tes round-trip memastikan spesifikasi hanya muncul sekali, teks tidak berubah tidak memicu perubahan, dan deskripsi baru tetap memakai spesifikasi sumber. Editor/route/pipeline: 19 tes lulus; web: 29 tes, typecheck, dan build lulus.

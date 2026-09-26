@@ -230,7 +230,8 @@ def product_view(conn, product: dict) -> dict:
         "SELECT result_json FROM drafts WHERE product_id = ? ORDER BY created_at DESC LIMIT 1", (product["id"],)))
     return {
         "product": {"id": product["id"], "title": product["title"], "channel": product["channel"],
-                    "url": product["url"], "listing_text": ctx.listing, "listing_provided": ctx.provided,
+                    "url": product["url"], "listing_text": ctx.listing, "listing_edit_text": product.get("description") or "",
+                    "listing_provided": ctx.provided,
                     "data_origin": product["data_origin"], "captured_at": product["captured_at"],
                     "synthetic": product["data_origin"] == "synthetic", "image_url": product.get("image_url")},
         "source": {"status": source.get("status"), "last_success_at": source.get("last_success_at")},

@@ -1,5 +1,6 @@
 export const product = {
   en: {
+    editDescriptionHint: "Edit the description here. Specifications supplied by the source remain part of the investigation.",
     draftReview: "Review the reason below before requesting new listing wording.",
     reasonNothingRendered: "No new wording was produced. Review the finding and its sources.",
     moreMetrics: "Ratings and variants",
@@ -158,6 +159,7 @@ export const product = {
     reload: "Reload product",
   },
   id: {
+    editDescriptionHint: "Ubah deskripsi di sini. Spesifikasi dari sumber tetap dipakai dalam investigasi.",
     draftReview: "Tinjau alasan di bawah sebelum meminta redaksi listing baru.",
     reasonNothingRendered: "Tidak ada redaksi baru yang dihasilkan. Tinjau temuan dan sumbernya.",
     moreMetrics: "Rating dan varian",

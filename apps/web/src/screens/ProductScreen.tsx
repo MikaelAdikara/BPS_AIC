@@ -112,7 +112,7 @@ export function ProductScreen({
       )) as ProductView;
       if (current !== version.current) return;
       setView(result);
-      setListing(result.product.listing_text ?? "");
+      setListing(result.product.listing_edit_text ?? result.product.listing_text ?? "");
     } catch (e) {
       if (current === version.current && !controller.signal.aborted)
         setError((e as ApiError).code ?? "request_failed");
@@ -238,6 +238,7 @@ export function ProductScreen({
         <Card title={t(product.listing_provided ? "product.listingCurrent" : "product.listingTitle")} lead={t("product.listingHint")}>
           <details open={!product.listing_provided}>
             <summary>{t("product.updateListing")}</summary>
+            <p className="muted">{t("product.editDescriptionHint")}</p>
           <form
             className="stack"
             onSubmit={(event) => {

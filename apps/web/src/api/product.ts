@@ -69,6 +69,7 @@ export interface ProductView {
     channel: string;
     url: string;
     listing_text: string;
+    listing_edit_text?: string;
     listing_provided: boolean;
     data_origin: string;
     captured_at: string;
