@@ -293,7 +293,8 @@ def cases() -> list[dict]:
                                 "chest", "sleeve", "lengan"],
             "route": "listing", "finding_type": "missing_fact",
             "supports": ["r1", "r3", "r5"], "not_supports": ["r2", "r4"],
-            "contradicts": ["r4"], "ops_reviews": ["r2"], "fact_needed": True,
+            "contradicts": ["r4"], "ops_reviews": ["r2"], "wrong_item_reviews": ["r2"],
+            "fact_needed": True,
         },
         "fact": "M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm",
         "forbidden_before": [
@@ -426,7 +427,8 @@ def cases() -> list[dict]:
                                 "warna", "panjang", "pengiriman", "delivery", "shipping"],
             "route": "operations", "finding_type": "operational",
             "supports": ["r1", "r2"], "not_supports": ["r3"], "contradicts": [],
-            "ops_reviews": ["r1", "r2", "r4"], "fact_needed": False,
+            "ops_reviews": ["r1", "r2", "r4"], "wrong_item_reviews": ["r1", "r2"],
+            "fact_needed": False,
         },
         "fact": "",
         "forbidden_before": [

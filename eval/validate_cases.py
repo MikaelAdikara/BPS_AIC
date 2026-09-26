@@ -67,7 +67,8 @@ def validate_case(case: dict) -> list[str]:
             errs.append(f"{cid}: gold.{key} tidak ada")
     if gold.get("route") not in ROUTES:
         errs.append(f"{cid}: gold.route '{gold.get('route')}' tidak dikenal")
-    for key in ("supports", "not_supports", "ops_reviews", "contradicts", "quality_reviews"):
+    for key in ("supports", "not_supports", "ops_reviews", "contradicts", "quality_reviews",
+                "wrong_item_reviews"):
         missing = set(gold.get(key, [])) - set(review_ids)
         if missing:
             errs.append(f"{cid}: gold.{key} menyebut ulasan yang tidak ada {sorted(missing)}")
