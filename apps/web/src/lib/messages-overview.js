@@ -1,5 +1,7 @@
 export const overview = {
   en: {
+    showAll: "Show all decisions",
+    showFewer: "Show the first five",
     plan: "Decision plan: do these first",
     planLead: "{count} open decisions in the server's suggested order.",
     heuristic: "How is this ranked?",
@@ -52,6 +54,8 @@ export const overview = {
       "Rules apply to all stored evidence; models propose labels, code checks what reaches this workspace.",
   },
   id: {
+    showAll: "Tampilkan semua keputusan",
+    showFewer: "Tampilkan lima teratas",
     plan: "Urutan keputusan: mulai dari sini",
     planLead: "{count} keputusan terbuka dalam urutan saran server.",
     heuristic: "Bagaimana urutannya ditentukan?",

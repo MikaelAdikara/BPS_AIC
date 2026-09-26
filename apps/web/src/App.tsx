@@ -21,6 +21,8 @@ import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { navigate, resolveRoute } from "@/lib/router.js";
 import { Brand, LangToggle, ThemeToggle } from "@/components/Brand.jsx";
+import { readPreference } from "@/lib/storage.js";
+import { translate } from "@/lib/messages.js";
 import {
   Button,
   Card,
@@ -238,7 +240,9 @@ function Application() {
   );
 }
 export default function App() {
+  const language = readPreference("deciqo-language", "en") === "id" ? "id" : "en";
   return (
+    <Boundary fallback={<main className="workspace-main stack" role="alert"><h1>{translate(language, "common.unknownError")}</h1><button className="btn btn--primary" onClick={() => window.location.reload()}>{translate(language, "common.retry")}</button></main>}>
     <I18nProvider>
       <ThemeProvider>
         <AuthProvider>
@@ -246,5 +250,6 @@ export default function App() {
         </AuthProvider>
       </ThemeProvider>
     </I18nProvider>
+    </Boundary>
   );
 }

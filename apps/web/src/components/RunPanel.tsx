@@ -15,6 +15,8 @@ export function RunPanel() {
         <Metric label={t("catalog.aiBudget")} value={`${usd(status.llm.spent_usd)} / ${usd(status.llm.budget_usd)}`} />
         <Metric label={t("catalog.fetchBudget")} value={`${usd(status.fetch.spent_usd)} / ${usd(status.fetch.budget_usd)}`} />
       </div>
+      <label className="stack">{t("catalog.aiBudget")}<progress max={status.llm.budget_usd || 1} value={status.llm.spent_usd} aria-label={t("catalog.aiBudget")} /></label>
+      <label className="stack">{t("catalog.fetchBudget")}<progress max={status.fetch.budget_usd || 1} value={status.fetch.spent_usd} aria-label={t("catalog.fetchBudget")} /></label>
       <p className="muted">{t("catalog.budgetHint")}</p>
       <details><summary>{t("catalog.stages")}</summary><ol>{["triage", "evidence", "listing", "fact", "draft", "gate", "decision"].map(stage => <li key={stage}>{t("catalog.stage" + stage)}</li>)}</ol></details>
     </div>

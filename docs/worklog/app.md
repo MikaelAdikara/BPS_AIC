@@ -76,3 +76,16 @@
 - Hasil pembanding berada di disclosure agar investigasi produk tetap mudah dicapai. Overview membaca GET /decisions secara langsung dan mempertahankan urutan/driver server.
 - Pengurutan share server memakai denominator kandidat yang diinvestigasi, dan kandidat atribut lintas produk dibatasi pada attribute_key yang sama.
 - Verifikasi tambahan: 4 tes insights, 29 tes web, typecheck, dan build lulus.
+
+## Detail produk dan ketahanan UI
+
+- Teks listing tersimpan bisa ditinjau/diperbarui. Metrik rating tanpa ulasan pendukung diberi keterangan deskriptif, bukan prediksi; varian dengan sedikit bukti berlabel eksploratif. Draf needs_review tanpa teks menampilkan alasan tinjauan yang sesuai.
+- Panel investigasi mempunyai meter anggaran dari API. Riwayat alert menampilkan tanggal kelompok tanpa mengubah urutan server. Error boundary luar menyediakan pesan lokal dan muat ulang bila provider gagal. Menghapus pilihan CSV juga mengosongkan input berkas.
+- Browser: penambahan satu ulasan sintetis selesai; form Lazada menampilkan batas server 12 URL/30 ulasan/$1. Pencarian produk tanpa hasil menampilkan keadaan kosong dan hapus filter; urutan nama berasal dari API. Produk gelap/ID pada 375px memiliki lebar dokumen 360px.
+- Status fetch menghitung reservasi biaya dengan fungsi yang sama seperti penjaga anggaran. Tes sumber terkait: 17 lulus. Paket snapshot Lazada sedang diproses; belum dinyatakan selesai. Pengiriman Telegram nyata dan fetch berbayar belum diuji.
+
+## Verifikasi snapshot selesai
+
+- Pemuatan paket snapshot Lazada selesai 10/10 produk. Job API melaporkan 517 masuk, 515 baru, 2 kosong dilewati, dan 3 diredaksi. Pilihan channel serta bahasa/tema dipulihkan sesudah pengujian.
+- Seluruh 586 tes unit backend lulus setelah perubahan anggaran fetch. Overview menampilkan lima keputusan pertama dari urutan API, dengan tombol untuk seluruh keputusan, agar grafik tetap mudah dicapai pada katalog besar.
+- Fetch provider berbayar, pengiriman Telegram nyata, dan aksi hapus/reset lewat browser tetap belum diuji. Hapus/reset dan isolasi data sudah diuji pada database sementara dalam tes backend.

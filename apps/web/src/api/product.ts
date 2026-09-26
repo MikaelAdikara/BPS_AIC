@@ -34,6 +34,9 @@ export interface Finding extends Issue {
     contradicting: number;
     hidden_high_star: number;
     with_photos: number;
+    rating_now?: number | null;
+    rating_without?: number | null;
+    variants?: {variant: string; complaints: number; complaint_share: number; review_share: number; exploratory: boolean}[];
   };
   evidence: Evidence[];
   contradicting: Evidence[];

@@ -63,7 +63,7 @@ export function TelegramSettings() {
           throw e;
         }
       },
-      path.endsWith("/test") ? "settings.telegram" : "telegram.saved",
+      path.endsWith("/test") ? "" : method === "POST" ? "telegram.created" : "telegram.saved",
     );
   }
   const safeLink =
@@ -84,9 +84,9 @@ export function TelegramSettings() {
         {result && (
           <Notice
             tone={
-              result === "sent"
+              result === "sent" || result === "copied"
                 ? "good"
-                : result === "failed"
+                : result === "failed" || result === "copyFailed"
                   ? "alert"
                   : "warn"
             }

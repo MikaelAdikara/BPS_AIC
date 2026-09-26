@@ -52,8 +52,9 @@ export function AlertRows({ events }: { events: AlertEvent[] }) {
   const { t, language } = useI18n();
   return (
     <ol className="alert-list">
-      {events.map((event) => (
+      {events.map((event, index) => (
         <li key={event.id}>
+          {(index === 0 || new Date(events[index-1].created_at).toDateString() !== new Date(event.created_at).toDateString()) && <h3><time dateTime={event.created_at}>{new Date(event.created_at).toLocaleDateString(language, {day:"numeric", month:"long", year:"numeric"})}</time></h3>}
           <div className="finding-picker">
             <Chip>
               {t(

@@ -60,6 +60,7 @@ const reasons: Record<string, string> = {
   unsupported_claim: "reasonUnsupported",
   placeholder: "reasonPlaceholder",
   already_in_listing: "reasonAlreadyListing",
+  nothing_rendered: "reasonNothingRendered",
 };
 const rejectedReasons: Record<string, string> = {
   quote_not_verbatim: "rejectedQuote",
@@ -234,8 +235,9 @@ export function ProductScreen({
       {view.analysis?.status === "failed" && (
         <Notice tone="warn">{t("product.analysisFailed")}</Notice>
       )}
-      {!product.listing_provided && (
-        <Card title={t("product.listingTitle")} lead={t("product.listingHint")}>
+        <Card title={t(product.listing_provided ? "product.listingCurrent" : "product.listingTitle")} lead={t("product.listingHint")}>
+          <details open={!product.listing_provided}>
+            <summary>{t("product.updateListing")}</summary>
           <form
             className="stack"
             onSubmit={(event) => {
@@ -267,8 +269,8 @@ export function ProductScreen({
               {t("product.saveListing")}
             </Button>
           </form>
+          </details>
         </Card>
-      )}
       <Card
         title={t("product.pipeline")}
         lead={t("product.pipelineLead")}
@@ -568,6 +570,15 @@ function FindingCard({
               ).format(metrics.share),
             })}
           </p>
+          <details>
+            <summary>{t("product.moreMetrics")}</summary>
+            <div className="evidence-metrics">
+              <Metric label={t("product.ratingNow")} value={metrics.rating_now ?? "—"} />
+              <Metric label={t("product.ratingWithout")} value={metrics.rating_without ?? "—"} />
+            </div>
+            <p className="muted">{t("product.ratingHint")}</p>
+            {(metrics.variants?.length ?? 0) > 0 && <ul>{metrics.variants!.map(item => <li key={item.variant}>{item.variant} · {t("product.variantCount", {count:item.complaints})}{item.exploratory && " · " + t("product.variantExploratory")}</li>)}</ul>}
+          </details>
           <div className="stack">
             {finding.evidence.slice(0, 6).map((evidence, index) => (
               <Quote
@@ -747,7 +758,7 @@ function FindingCard({
               ) : (
                 <p className="muted">
                   {t(
-                    status === "needs_merchant_fact" ||
+                    status === "needs_review" ? "product.draftReview" : status === "needs_merchant_fact" ||
                       status === "needs_listing"
                       ? "product.draftHeld"
                       : "product.draftPending",

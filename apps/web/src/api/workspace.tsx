@@ -25,6 +25,7 @@ export interface Issue {
   next: string | null;
   support: number;
   denominator: number;
+  candidates_read: number;
   support_is_minimum: boolean;
   example: string;
   engine: string;

@@ -55,6 +55,7 @@ export function SourcesScreen() {
   const [stats, setStats] = useState<Record<string, number> | null>(null);
   const [confirm, setConfirm] = useState<"reset" | "delete" | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
+  const csvInput = useRef<HTMLInputElement>(null);
   const id = useId();
   const source = channels.find((channel) => channel.key === tab);
   useEffect(() => {
@@ -414,6 +415,7 @@ export function SourcesScreen() {
                         <input
                           id={id + "-csv"}
                           type="file"
+                          ref={csvInput}
                           accept=".csv,text/csv"
                           onChange={async (event) => {
                             const file = event.target.files?.[0];
@@ -443,6 +445,7 @@ export function SourcesScreen() {
                               onClick={() => {
                                 setCsv("");
                                 setFilename("");
+                                if (csvInput.current) csvInput.current.value = "";
                               }}
                             >
                               {t("sources.clearFile")}

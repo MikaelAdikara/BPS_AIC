@@ -188,6 +188,7 @@ export function OverviewInsights() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [revision, setRevision] = useState(0);
+  const [expanded, setExpanded] = useState(false);
   const id = useId();
   useEffect(() => {
     const controller = new AbortController();
@@ -270,7 +271,7 @@ export function OverviewInsights() {
                 />
               ) : (
                 <ol className="decision-list">
-                  {data.plan.map((item) => (
+                  {data.plan.slice(0, expanded ? undefined : 5).map((item) => (
                     <li key={item.id}>
                       <div>
                         <strong>
@@ -285,9 +286,9 @@ export function OverviewInsights() {
                         </p>
                         <div className="finding-picker">
                           <Chip>
-                            {t("overview.reach", { count: item.support })}
+                            {item.support_is_minimum ? "≥ " : ""}{t("overview.reach", { count: item.support })}
                           </Chip>
-                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key}>{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{buyers:driver.illustrative_buyers??0,sold:driver.units_sold??0}):t("overview."+driver.key,{recent:percent(driver.recent??0),before:percent(driver.before??0)})}</Chip>)}
+                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key}>{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{buyers:driver.illustrative_buyers??"—",sold:driver.units_sold??"—"}):t("overview."+driver.key,{recent:driver.recent == null ? "—" : percent(driver.recent),before:driver.before == null ? "—" : percent(driver.before)})}</Chip>)}
                           <Chip>
                             {t("overview.share", {
                               share: percent(item.share),
@@ -317,6 +318,7 @@ export function OverviewInsights() {
                             )}
                           </Chip>
                         </div>
+                        {item.support_is_minimum && <p className="muted">{t("product.minimum", {read:item.candidates_read, total:item.denominator})}</p>}
                       </div>
                       <a className="btn btn--outline" href={issueLink(item)}>
                         {t("overview.open")}
@@ -325,6 +327,7 @@ export function OverviewInsights() {
                   ))}
                 </ol>
               )}
+              {data.plan.length > 5 && <Button variant="text" onClick={() => setExpanded(value => !value)}>{t(expanded ? "overview.showFewer" : "overview.showAll")}</Button>}
               <details>
                 <summary>{t("overview.heuristic")}</summary>
                 <p>{t("overview.heuristicHint")}</p>
