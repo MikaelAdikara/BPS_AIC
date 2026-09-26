@@ -33,11 +33,14 @@ def _base_slang() -> dict[str, str]:
 
 # Negasi dipetakan ke "tidak" supaya pemeriksaan jendela negasi seragam.
 NEGATIONS = {"tidak", "tak", "gak", "ga", "gk", "nggak", "ngga", "engga", "enggak", "kurang",
-             "bukan", "belum", "tdk", "kagak", "no", "not", "never"}
+             "bukan", "belum", "tdk", "kagak", "no", "not", "never",
+             # ejaan yang muncul di ulasan marketplace nyata
+             "tida", "gx", "egk", "eggk", "eggak", "engak", "nda", "ndak", "kaga", "gaa"}
 SLANG = {k: v for k, v in _base_slang().items() if " " not in v}
 SLANG.update({"gede": "besar", "gedean": "gedean", "jaitan": "jahitan", "baterai": "baterai",
               "batre": "baterai", "batrai": "baterai", "hp": "hp", "dtg": "datang", "dateng": "datang",
-              "dapet": "dapat", "sampe": "sampai", "nyampe": "sampai", "cepet": "cepat"})
+              "dapet": "dapat", "sampe": "sampai", "nyampe": "sampai", "cepet": "cepat",
+              "sesuay": "sesuai", "sesuwai": "sesuai", "mlh": "malah"})
 NEGATION_WINDOW = 3
 
 COMPLAINT_TERMS = {
@@ -66,13 +69,14 @@ PRAISE_TERMS = {
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
 ATTRIBUTE_GROUPS: dict[str, set[str]] = {
-    "size": {"ukuran", "size", "sizing", "muat", "masuk", "sempit", "longgar", "kekecilan", "kebesaran",
-             "kecilan", "kegedean", "gedean", "kependekan", "kepanjangan", "panjang", "pendek",
-             "lebar", "tinggi", "besar", "kecil", "dimensi", "lingkar", "dada", "pinggang", "bahu",
-             "lengan", "lipat", "dilipat", "lipatan", "kompartemen", "kantong", "inch", "inci",
-             "cm", "fit", "dimension", "dimensions", "measurement", "measurements", "folded",
-             "inner", "compartment", "chart", "tabel", "kesempitan", "dipaksa", "length", "width",
-             "height", "depth", "large", "tight", "loose", "small"},
+    "size": {"ukuran", "size", "sizing", "muat", "sempit", "kekecilan", "kebesaran",
+             "kecilan", "kegedean", "gedean", "kependekan", "kepanjangan", "dimensi", "lingkar",
+             "kompartemen", "inch", "inci", "cm", "fit", "dimension", "dimensions", "measurement",
+             "measurements", "folded", "inner", "compartment", "chart", "tabel", "kesempitan",
+             "dipaksa", "length", "width", "height", "depth", "large", "tight", "loose", "small",
+             # kata lemah: lihat WEAK_TERMS
+             "masuk", "longgar", "panjang", "pendek", "lebar", "tinggi", "besar", "kecil", "dada",
+             "pinggang", "bahu", "lengan", "lipat", "dilipat", "lipatan", "kantong"},
     "color": {"warna", "color", "colour", "pudar"},
     "material": {"bahan", "kain", "material", "tebal", "tipis", "ketebalan", "kanvas", "katun",
                  "kulit", "fabric", "thickness", "gramasi", "leather"},
@@ -80,7 +84,8 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
     "water": {"air", "basah", "bocor", "rembes", "hujan", "berenang", "renang", "waterproof",
               "water", "resistant"},
     "battery": {"baterai", "battery", "mati", "nyala", "error", "charge", "cas", "daya", "mah",
-                "power", "charging"},
+                "power", "charging", "kapasitas", "pengisian", "ngecas", "casan", "powerbank",
+                "dicas", "dicharge", "ngisi", "mengisi"},
     "compatibility": {"kompatibel", "compatible", "compatibility", "iphone", "samsung", "xiaomi",
                       "oppo", "vivo", "device", "perangkat"},
     "contents": {"isi", "kelengkapan", "aksesoris", "contents", "bonus", "included"},
@@ -94,18 +99,43 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
     "appearance": {"foto", "gambar", "photo", "photos", "tampilan", "appearance", "picture"},
 }
 OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "wrong_item"}
+# Kata yang terlalu umum untuk menandai atribut sendirian: "masuk di cas", "kapasitas besar",
+# "barang cacat dikirim". Hanya dihitung bila klausa tidak menyebut kata kuat kelompok lain.
+WEAK_TERMS: dict[str, set[str]] = {
+    "size": {"masuk", "longgar", "panjang", "pendek", "lebar", "tinggi", "besar", "kecil", "dada",
+             "pinggang", "bahu", "lengan", "lipat", "dilipat", "lipatan", "kantong"},
+    "delivery": {"kirim", "dikirim", "sampai", "paket"},
+}
+# "quality" adalah kelompok umum; label yang menyebut kelompok spesifik tidak ikut memakainya.
+GENERIC_GROUPS = {"quality"}
+# "lama" setelah kata-kata ini berarti awet ("tahan lama", "baterainya lama"), bukan lambat.
+_LONG_LASTING = {"tahan", "baterai", "battery", "daya", "awet", "pemakaian", "dipakai", "digunakan"}
 
+_ORDER = r"\b(?:pesan|order|beli|pilih|minta)\w*\b"
 _WRONG_ITEM = [
-    re.compile(r"\b(?:pesan|order|beli|pilih)\w*\b.{0,40}?\b(?:yang datang|datang|dikasih|dikirim|dapat|yang sampai|sampai)\b(?:\s+(?:malah|justru|tapi|jadi))?", re.I),
+    # "pesan L dikasih M", "pesan BLACK yang datang NAVY", "order 13pro mlh dikirim yg 13 biasa".
+    # "Pesanan sudah sampai" bukan salah kirim: kedatangan saja tidak cukup, butuh "dikasih",
+    # "yang datang", atau penanda kontras sebelum kata kerjanya.
+    re.compile(_ORDER + r".{0,40}?(?:\bdikasi(?:h)?\b|\by(?:an)?g (?:datang|dateng|dtg)\b|"
+               r"\b(?:malah|mlh|justru|kenapa|kok|tapi)\s+(?:\w+\s+){0,2}?(?:datang|dateng|di ?kirim|dapat|dapet)\b)", re.I),
     re.compile(r"\bsalah kirim\b|\bkirim(?:an)?(?:nya)? salah\b", re.I),
     re.compile(r"\b(?:yang )?(?:datang|dikirim|sampai)\b.{0,20}?\b(?:warna|ukuran|varian|size|model|tipe)\s+(?:lain|beda|berbeda)\b", re.I),
     re.compile(r"\bsalah (?:warna|ukuran|varian|size|model|tipe)\b", re.I),
     re.compile(r"\bwrong (?:item|size|colou?r|variant)\b", re.I),
 ]
 _CLAUSE_SPLIT = re.compile(
-    r"(?<!\d)[.,](?!\d)|(?<=\d)[.,](?!\d)|[;!?\n]+|\s(?=(?:tapi|tetapi|namun|sayangnya|padahal|cuma|hanya saja)\b)",
+    r"(?<!\d)[.,](?!\d)|(?<=\d)[.,](?!\d)|[;!?\n]+|\s(?=(?:tapi|tetapi|namun|sayangnya|padahal|cuma|hanya saja)\b)"
+    # Templat ulasan Lazada: "🎧Kualitas Suara:jernih 🔋Daya Tahan Baterai:lama". Setiap emoji dan
+    # setiap "Label:" memulai klausa baru supaya pujian dan keluhan tidak tercampur.
+    r"|[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\uFE0F]+"
+    r"|(?<=\S)\s+(?=[A-Z][A-Za-z]+(?: [A-Za-z]+){0,3}\s?:)",
     re.I)
 _WORD = re.compile(r"[a-z0-9]+")
+
+
+_DEFECT_AFTER = re.compile(
+    r"\b(?:dikirim|datang|dateng)\s+(?:\w+\s+){0,2}?(?:rusak|cacat|pecah|mati|penyok|bocor)\b", re.I)
+_STRONG_SWAP = re.compile(r"\bdikasi(?:h)?\b|\by(?:an)?g (?:datang|dateng)\b", re.I)
 
 
 def stem(word: str) -> str:
@@ -150,6 +180,9 @@ def polarity(toks: tuple[str, ...] | list[str]) -> str:
     complaint = praise = False
     for i, tok in enumerate(toks):
         negated = any(t in NEGATIONS for t in toks[max(0, i - NEGATION_WINDOW):i])
+        if tok == "lama" and any(t in _LONG_LASTING for t in toks[max(0, i - 4):i]):
+            praise = praise or not negated
+            continue
         if tok in COMPLAINT_TERMS:
             if negated:
                 praise = True
@@ -165,15 +198,27 @@ def polarity(toks: tuple[str, ...] | list[str]) -> str:
     return "praise" if praise else "neutral"
 
 
+def _strong_groups(toks) -> set[str]:
+    return {g for g, vocab in ATTRIBUTE_GROUPS.items()
+            if any(t in vocab and t not in WEAK_TERMS.get(g, set()) for t in toks)}
+
+
 def mentions(toks, groups: set[str], extra: set[str] | None = None) -> bool:
-    vocab = set().union(*(ATTRIBUTE_GROUPS.get(g, set()) for g in groups)) if groups else set()
-    if extra:
-        vocab |= extra
-    return any(t in vocab for t in toks)
+    if extra and any(t in extra for t in toks):
+        return True
+    strong = _strong_groups(toks)
+    for g in groups:
+        vocab = ATTRIBUTE_GROUPS.get(g, set())
+        weak = WEAK_TERMS.get(g, set())
+        if any(t in vocab and t not in weak for t in toks):
+            return True
+        if any(t in weak for t in toks) and not (strong - {g}):
+            return True
+    return False
 
 
 def groups_in(toks) -> set[str]:
-    return {g for g, vocab in ATTRIBUTE_GROUPS.items() if any(t in vocab for t in toks)}
+    return {g for g in ATTRIBUTE_GROUPS if mentions(toks, {g})}
 
 
 _WRONG_LABEL = re.compile(r"\b(?:wrong|salah)\b.*\b(?:variant|varian|item|barang|kirim|dikirim|sent|size|ukuran|warna|colou?r)\b"
@@ -186,7 +231,9 @@ def attribute_groups(attribute: str, attribute_local: str = "") -> set[str]:
     label = f"{attribute} {attribute_local}"
     if _WRONG_LABEL.search(label):
         return {"wrong_item"}
-    return groups_in(tokens(label))
+    found = groups_in(tokens(label))
+    specific = found - GENERIC_GROUPS - OPERATIONAL_GROUPS
+    return found - GENERIC_GROUPS if specific else found
 
 
 def attribute_terms(attribute: str, attribute_local: str = "") -> set[str]:
@@ -195,7 +242,10 @@ def attribute_terms(attribute: str, attribute_local: str = "") -> set[str]:
 
 
 def is_wrong_item(text: str) -> bool:
-    return any(p.search(text or "") for p in _WRONG_ITEM)
+    text = text or ""
+    if _DEFECT_AFTER.search(text) and not _STRONG_SWAP.search(text):
+        return False  # "malah dikirim barang rusak" adalah cacat, bukan varian yang salah
+    return any(p.search(text) for p in _WRONG_ITEM)
 
 
 def wrong_item_clause(clause: Clause) -> bool:

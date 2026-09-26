@@ -16,7 +16,7 @@ from . import lexicon, relevance, verify
 
 COVERAGE_NOTE = "AI is off: the rule engine covers size, delivery, packaging and quality complaints only."
 
-_BAG = re.compile(r"\b(tas|ransel|backpack|bag|koper|pouch|sleeve|totebag|tote)\b", re.I)
+_BAG = re.compile(r"\b(tas|ransel|backpack|bag|koper|pouch|sleeve|totebag|tote|soft ?case laptop|laptop ?(?:case|sleeve)|case laptop)\b", re.I)
 _CLOTHING = re.compile(r"\b(kemeja|kaos|baju|celana|dress|gaun|jaket|hoodie|rok|shirt|blouse|kaus|sweater|cardigan|piyama|jersey)\b", re.I)
 _FOLDING = re.compile(r"\b(lipat|folding|foldable)\b", re.I)
 

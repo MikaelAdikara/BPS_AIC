@@ -25,13 +25,11 @@ open_issue = pytest.mark.xfail(strict=True, reason="QA: belum diperbaiki")
 # --- pujian terbaca sebagai keluhan ------------------------------------------------------------
 
 
-@open_issue
 @pytest.mark.parametrize("text", ["Tahan lama dan awet", "Konstruksi yang tahan lama dan kokoh"])
 def test_qa01_tahan_lama_adalah_pujian(text):
     assert relevance.judge(text, QUALITY).label != relevance.SUPPORTS
 
 
-@open_issue
 def test_qa01_daya_tahan_baterai_lama_adalah_pujian():
     assert relevance.judge("Daya Tahan Baterai:Daya tahan baterai yang lama", BATTERY).label != relevance.SUPPORTS
 
@@ -39,7 +37,6 @@ def test_qa01_daya_tahan_baterai_lama_adalah_pujian():
 # --- salah kirim ------------------------------------------------------------------------------
 
 
-@open_issue
 @pytest.mark.parametrize("text", [
     "terimakasih pesanan udah sampai",
     "Alhamdulillah pesanannya sudah sampai",
@@ -52,7 +49,6 @@ def test_qa02_pesanan_sampai_bukan_salah_kirim(text):
     assert not lexicon.is_wrong_item(text)
 
 
-@open_issue
 def test_qa02_barang_rusak_dikirim_bukan_salah_kirim():
     assert not lexicon.is_wrong_item("kecewa udah beli mahal mahal malah dikirim barang rusak")
 
@@ -71,7 +67,6 @@ def test_qa02_salah_kirim_nyata_tetap_terdeteksi(text):
 # --- kata umum terbaca sebagai atribut ukuran ------------------------------------------------
 
 
-@open_issue
 @pytest.mark.parametrize("text", [
     "sayangnya eggk hidup satu handset 'y eggk masuk di cas 🔋Daya Tahan Baterai:Daya tahan baterai yang lama",
     "Kapasitas besar untuk penggunaan yang lebih lama",
@@ -84,7 +79,6 @@ def test_qa03_bukan_keluhan_ukuran(text):
 # --- keluhan kualitas yang menyebut "dikirim" -------------------------------------------------
 
 
-@open_issue
 @pytest.mark.parametrize("text", [
     "KLw Memang Rusak Jngn Dikirim Dong",
     "barang cacat dikirim aowkwkwkwkwkekkekeke",
@@ -102,7 +96,6 @@ def test_qa04_keluhan_pengiriman_nyata_tetap_mendukung():
 # --- ulasan berformat templat Lazada ("Label:isi" + emoji) ---------------------------------
 
 
-@open_issue
 def test_qa05_templat_lazada_dipecah_per_label():
     text = "🎧Kualitas Suara:sangat jernih bagus 🎧Kenyamanan:nyaman sekali 🔋Daya Tahan Baterai:cukup lama"
     assert len(lexicon.clauses(text)) >= 3
@@ -111,7 +104,6 @@ def test_qa05_templat_lazada_dipecah_per_label():
 # --- ejaan negasi informal ---------------------------------------------------------------------
 
 
-@open_issue
 @pytest.mark.parametrize("text", ["barang tida sesuay ukurannya", "ukurannya GX sesuai", "ukuran eggk sesuai"])
 def test_qa06_negasi_informal(text):
     assert relevance.judge(text, SIZE).label == relevance.SUPPORTS
@@ -120,12 +112,19 @@ def test_qa06_negasi_informal(text):
 # --- analyser aturan ---------------------------------------------------------------------------
 
 
-@open_issue
 def test_qa07_jahitan_tidak_menyalin_bukti_kualitas_umum():
     text = "jangan mau beli di toko ini barang tida sesuay dan cepat rusak baru 1 hari"
     assert relevance.judge(text, STITCHING).label != relevance.SUPPORTS
 
 
-@open_issue
 def test_qa08_soft_case_laptop_dikenali_sebagai_tas():
     assert rules.product_kind('Soft Case Laptop 14" ASUS. LENOVO. HP. ACER') == "bag"
+
+
+def test_qa09_kata_depan_terpisah_tetap_salah_kirim():
+    assert lexicon.is_wrong_item('order magnetic malah di kirim polos bening kecewa bat ga amanah')
+
+
+def test_qa09_mengisi_daya_bukan_keluhan_pengiriman():
+    text = "Saya pakai baru berapa hari doang dicas sampai 6 -7 jam malah pas dipakai gak sampai 5 menit"
+    assert relevance.judge(text, DELIVERY).label != relevance.SUPPORTS
