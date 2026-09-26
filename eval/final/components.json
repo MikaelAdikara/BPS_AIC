@@ -1,0 +1,351 @@
+{
+  "commit": "5b3a712",
+  "pipeline_version": "gap-v1.4",
+  "verifier_version": "verify-v1.1",
+  "suites": {
+    "s01": {
+      "deciqo_lexicon": {
+        "complaint_recall": {
+          "k": 12,
+          "n": 21,
+          "failures": [
+            "KP05: box-nya ringsek tapi barangnya aman",
+            "KP07: segelnya sudah terbuka waktu diterima",
+            "KP08: amplopnya basah kena hujan",
+            "KP09: dikemas asal-asalan",
+            "KP10: tidak pakai bubble wrap sama sekali",
+            "KP20: kardusnya basah tapi produknya kering",
+            "KP21: The box arrived crushed",
+            "KP22: packaging was torn but the item is fine",
+            "KP23: no bubble wrap at all, item was scratched"
+          ]
+        },
+        "control_specificity": {
+          "k": 3,
+          "n": 3,
+          "failures": []
+        },
+        "aspect_hit": {
+          "k": 14,
+          "n": 17,
+          "failures": [
+            "KP07: segelnya sudah terbuka waktu diterima",
+            "KP08: amplopnya basah kena hujan",
+            "KP09: dikemas asal-asalan"
+          ]
+        }
+      },
+      "ulasin_lexicon": {
+        "complaint_recall": {
+          "k": 11,
+          "n": 21,
+          "failures": [
+            "KP04: packingnya cuma plastik tipis",
+            "KP05: box-nya ringsek tapi barangnya aman",
+            "KP07: segelnya sudah terbuka waktu diterima",
+            "KP08: amplopnya basah kena hujan",
+            "KP09: dikemas asal-asalan",
+            "KP10: tidak pakai bubble wrap sama sekali",
+            "KP20: kardusnya basah tapi produknya kering",
+            "KP21: The box arrived crushed",
+            "KP22: packaging was torn but the item is fine",
+            "KP23: no bubble wrap at all, item was scratched"
+          ]
+        },
+        "control_specificity": {
+          "k": 3,
+          "n": 3,
+          "failures": []
+        },
+        "aspect_hit": {
+          "k": 12,
+          "n": 17,
+          "failures": [
+            "KP02: dusnya penyok waktu sampai",
+            "KP06: bungkusnya sobek, isinya untung tidak kenapa-kenapa",
+            "KP07: segelnya sudah terbuka waktu diterima",
+            "KP08: amplopnya basah kena hujan",
+            "KP20: kardusnya basah tapi produknya kering"
+          ]
+        }
+      }
+    },
+    "s02": {
+      "deciqo_lexicon": {
+        "complaint_recall": {
+          "k": 19,
+          "n": 68,
+          "failures": [
+            "EN01: Material feels thin and the stitching came loose after one wash",
+            "EN03: The fabric is flimsy for this price",
+            "EN04: Print started peeling after two uses",
+            "EN05: The zipper is faulty",
+            "EN06: Bottle was leaking inside the box",
+            "EN07: Fabric arrived stained",
+            "EN08: Screen came scratched",
+            "EN10: Colour is duller than the photo",
+            "EN11: Not as described at all",
+            "EN12: Took two weeks to arrive with no update",
+            "EN13: Courier left it outside without knocking",
+            "EN14: Seller never replied to my message",
+            "EN15: Overpriced for what you get",
+            "EN16: Looks fake, the logo is off-centre",
+            "EN17: Smells strongly of chemicals",
+            "EN18: It shrank after washing",
+            "EN19: Battery drains very fast",
+            "EN20: Stopped charging after a week",
+            "EN28: barangnya not worth it",
+            "EN29: seller not responsive sama sekali",
+            "MN02: barangnya not worth it",
+            "MN05: seller not responsive sama sekali",
+            "MN08: not recommended buat yang cari bahan tebal",
+            "MN11: ga worth it sih harganya",
+            "MN19: the color is different from the picture",
+            "MN22: material feels cheap for this price",
+            "MN25: took two weeks to arrive",
+            "ER01: Material feels thin and the stitching came loose after one wash.",
+            "ER04: Colour is nothing like the photo, much duller in person.",
+            "ER05: Box was crushed but the item inside was fine.",
+            "ER08: Item looks fake, the logo is off-centre.",
+            "ER09: Delivery took almost two weeks with no update.",
+            "ER14: Seller never reply my message, quite disappointing.",
+            "ER15: Price quite expensive compared to other shops.",
+            "ER16: The zipper broke on the second day.",
+            "ER18: Smells strongly of chemicals when unpacked.",
+            "ER20: Ordered two, only one arrived.",
+            "ER21: The fabric is soft but it shrank after washing.",
+            "ER23: Description says waterproof, it is not.",
+            "ER25: Cheap plastic, feels like it will break soon.",
+            "ER28: Courier left it outside without knocking.",
+            "ER30: The print started peeling after two uses.",
+            "ER31: Nice product but the packaging was torn.",
+            "ER32: Good product, however the size chart is misleading.",
+            "ER33: Fast response but the item was out of stock after payment.",
+            "ER34: Too expensive for the quality, honestly.",
+            "ER36: It works but the battery drains very fast.",
+            "ER38: Stopped charging after a week.",
+            "ER40: Item ok but delivery guy was rude."
+          ]
+        },
+        "control_specificity": {
+          "k": 32,
+          "n": 34,
+          "failures": [
+            "MN06: shipping not fast but ok lah",
+            "ER19: Bubble wrap was generous, nothing damaged."
+          ]
+        },
+        "aspect_hit": {
+          "k": 36,
+          "n": 42,
+          "failures": [
+            "EN12: Took two weeks to arrive with no update",
+            "MN25: took two weeks to arrive",
+            "ER02: Arrived in three days, well packed, very happy.",
+            "ER20: Ordered two, only one arrived.",
+            "ER33: Fast response but the item was out of stock after payment.",
+            "ER40: Item ok but delivery guy was rude."
+          ]
+        }
+      },
+      "ulasin_lexicon": {
+        "complaint_recall": {
+          "k": 11,
+          "n": 68,
+          "failures": [
+            "EN01: Material feels thin and the stitching came loose after one wash",
+            "EN02: Size runs small, order one size up",
+            "EN03: The fabric is flimsy for this price",
+            "EN04: Print started peeling after two uses",
+            "EN05: The zipper is faulty",
+            "EN06: Bottle was leaking inside the box",
+            "EN07: Fabric arrived stained",
+            "EN08: Screen came scratched",
+            "EN09: Runs too tight around the shoulders",
+            "EN10: Colour is duller than the photo",
+            "EN11: Not as described at all",
+            "EN12: Took two weeks to arrive with no update",
+            "EN13: Courier left it outside without knocking",
+            "EN14: Seller never replied to my message",
+            "EN15: Overpriced for what you get",
+            "EN17: Smells strongly of chemicals",
+            "EN18: It shrank after washing",
+            "EN19: Battery drains very fast",
+            "EN20: Stopped charging after a week",
+            "EN23: Cannot fit leh, size damn small",
+            "EN28: barangnya not worth it",
+            "EN29: seller not responsive sama sekali",
+            "MN02: barangnya not worth it",
+            "MN04: packingnya not safe, penyok",
+            "MN05: seller not responsive sama sekali",
+            "MN07: sizenya not fit di badan aku",
+            "MN11: ga worth it sih harganya",
+            "MN12: nggak sesuai sama deskripsi",
+            "MN13: bukan barang jelek, cuma kekecilan",
+            "MN15: kurang tebal bahannya",
+            "MN19: the color is different from the picture",
+            "MN22: material feels cheap for this price",
+            "MN23: runs small, order one size up",
+            "MN25: took two weeks to arrive",
+            "MN27: bahannya oke tapi jahitannya lepas",
+            "MN30: produknya bagus, cuma dusnya penyok",
+            "ER01: Material feels thin and the stitching came loose after one wash.",
+            "ER03: Size runs small. I usually wear M, had to return for L.",
+            "ER04: Colour is nothing like the photo, much duller in person.",
+            "ER05: Box was crushed but the item inside was fine.",
+            "ER09: Delivery took almost two weeks with no update.",
+            "ER12: Cannot fit leh, size damn small.",
+            "ER14: Seller never reply my message, quite disappointing.",
+            "ER16: The zipper broke on the second day.",
+            "ER18: Smells strongly of chemicals when unpacked.",
+            "ER20: Ordered two, only one arrived.",
+            "ER21: The fabric is soft but it shrank after washing.",
+            "ER23: Description says waterproof, it is not.",
+            "ER25: Cheap plastic, feels like it will break soon.",
+            "ER28: Courier left it outside without knocking.",
+            "ER30: The print started peeling after two uses.",
+            "ER31: Nice product but the packaging was torn.",
+            "ER32: Good product, however the size chart is misleading.",
+            "ER33: Fast response but the item was out of stock after payment.",
+            "ER36: It works but the battery drains very fast.",
+            "ER38: Stopped charging after a week.",
+            "ER40: Item ok but delivery guy was rude."
+          ]
+        },
+        "control_specificity": {
+          "k": 33,
+          "n": 34,
+          "failures": [
+            "MN32: tidak tembus pandang, aman dipakai"
+          ]
+        },
+        "aspect_hit": {
+          "k": 32,
+          "n": 42,
+          "failures": [
+            "EN09: Runs too tight around the shoulders",
+            "EN12: Took two weeks to arrive with no update",
+            "MN04: packingnya not safe, penyok",
+            "MN07: sizenya not fit di badan aku",
+            "MN16: sizenya pas banget, fit to body",
+            "MN25: took two weeks to arrive",
+            "MN30: produknya bagus, cuma dusnya penyok",
+            "ER20: Ordered two, only one arrived.",
+            "ER33: Fast response but the item was out of stock after payment.",
+            "ER40: Item ok but delivery guy was rude."
+          ]
+        }
+      }
+    },
+    "s03": {
+      "deciqo_lexicon": {
+        "complaint_recall": {
+          "k": 5,
+          "n": 12,
+          "failures": [
+            "SHP95734159145: alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg ",
+            "SHP80405302429: Bahan:lumayan Desain:oke Tekstur:lembut Pengemasan dan pengiriman cepe",
+            "SM04: Suka warnanya. Sayang jahitan bagian dalam agak berantakan.",
+            "SM05: Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.",
+            "SM10: Good product, however the size chart is misleading",
+            "SM11: Nice shirt but the packaging arrived crushed",
+            "SM12: Material feels thin for the price, still okay though"
+          ]
+        },
+        "control_specificity": {
+          "k": 8,
+          "n": 9,
+          "failures": [
+            "SHP78252741100: Barang nya cepet banget sampe nya pesen hari Senin Selasa nya udh samp"
+          ]
+        },
+        "same_label_any_rating": {
+          "k": 21,
+          "n": 21,
+          "failures": []
+        }
+      },
+      "ulasin_lexicon": {
+        "complaint_recall": {
+          "k": 0,
+          "n": 12,
+          "failures": [
+            "SHP95734159145: alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg ",
+            "SHP80405302429: Bahan:lumayan Desain:oke Tekstur:lembut Pengemasan dan pengiriman cepe",
+            "SHP81375100259: Order pertama size M, fit di badan, Orderan kedua Krn harga terjangkau",
+            "SM01: Bahannya oke sih, cuma kekecilan banget di badan aku. Sizechartnya kur",
+            "SM02: Pengiriman cepat, penjual ramah. Cuma dusnya penyok waktu sampai.",
+            "SM03: Produk bagus, sesuai foto. Tapi CS lama balasnya, 2 hari baru dibalas.",
+            "SM04: Suka warnanya. Sayang jahitan bagian dalam agak berantakan.",
+            "SM05: Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.",
+            "SM09: Barangnya bagus banget, pengiriman cepat, cuma dusnya penyok waktu sam",
+            "SM10: Good product, however the size chart is misleading",
+            "SM11: Nice shirt but the packaging arrived crushed",
+            "SM12: Material feels thin for the price, still okay though"
+          ]
+        },
+        "control_specificity": {
+          "k": 8,
+          "n": 9,
+          "failures": [
+            "SHP78252741100: Barang nya cepet banget sampe nya pesen hari Senin Selasa nya udh samp"
+          ]
+        }
+      }
+    },
+    "s04": {
+      "deciqo_ingest": {
+        "no_crash": {
+          "k": 36,
+          "n": 36,
+          "failures": []
+        },
+        "empty_gives_zero_reviews": {
+          "k": 2,
+          "n": 2,
+          "failures": []
+        }
+      }
+    },
+    "s10": {
+      "deciqo_ingest": {
+        "required_pii_masked": {
+          "k": 11,
+          "n": 17,
+          "failures": [
+            "P04 (name): Atas nama Siti Rahma, pesanan INV/2026/0012345",
+            "P08 (name): Rekening BCA [nomor] a.n. Contoh Nama untuk refund",
+            "P10 (body_measurements): Tinggi 165 berat 55 muat nggak ya?",
+            "P16 (name): Kirim ulang ke rumah ibu saya, Ibu Sri, di Bandung",
+            "P19 (name): Saya Andi dari Surabaya, barang sampai cepat",
+            "P20 (phone_dotted): No HP 0812.3456.7890 (WA only)"
+          ]
+        },
+        "known_gap_masked": {
+          "k": 0,
+          "n": 2,
+          "failures": [
+            "P17 (phone_spelled): WA: nol delapan satu dua tiga empat lima enam",
+            "P18 (email_obfuscated): email: budi[at]example[dot]com"
+          ]
+        },
+        "no_false_redaction": {
+          "k": 3,
+          "n": 3,
+          "failures": []
+        },
+        "optional_masked_info": {
+          "k": 1,
+          "n": 6,
+          "failures": [
+            "P04 (order_id): Atas nama Siti Rahma, pesanan INV/2026/0012345",
+            "P05 (tracking_no): Nomor resi JP1234567890 belum update",
+            "P16 (city): Kirim ulang ke rumah ibu saya, Ibu Sri, di Bandung",
+            "P19 (city): Saya Andi dari Surabaya, barang sampai cepat",
+            "P21 (postal_code): Kode pos 60119, alamat sudah benar"
+          ]
+        }
+      }
+    }
+  }
+}

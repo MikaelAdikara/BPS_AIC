@@ -87,6 +87,18 @@ panggilan model. `--cases "c0*,h*"` dan `--systems` menjalankan sebagian; baris 
 
 Log temuan dan perbaikan ada di [ITERATIONS.md](ITERATIONS.md).
 
+## Suite komponen (`data/eval/`)
+
+```bash
+python eval/components.py
+```
+
+Suite deterministik tanpa model atas data uji di `data/eval/`. Isinya: keluhan kemasan (s01),
+negasi Inggris dan campuran (s02), keluhan di bintang 4–5 (s03), input aneh (s04), dan redaksi PII
+fiktif (s10). Suite ini membandingkan sinyal keluhan engine Deciqo dengan leksikon Ulasin, lalu
+menulis `final/components.md` dan `final/components.json`. Suite narasi, Q&A, dan alert di data
+itu ditulis untuk alur lama dan tidak dijalankan; alasannya tercatat di laporan.
+
 ## Metrik dan batasnya
 
 | Metrik | Definisi | Tidak membuktikan |

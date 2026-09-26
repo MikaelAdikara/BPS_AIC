@@ -213,3 +213,41 @@ Catatan untuk v2 engine (diteruskan ke pemilik engine; tes regression ditulis pe
 probe yang disarankan per kelemahan di atas adalah kasus c04, c13, c20 (triage), c18 (relevansi),
 c02, c07, c14 (hold berlebih), c10, c06 (salah kirim), c19 (gerbang angka desimal koma), c06, c21
 (render fakta), c07, c09 (recall membership), c16 (kualitas satu ulasan).
+
+### Suite komponen atas `data/eval/` (engine gap-v1.4 / verify-v1.1)
+
+`python eval/components.py`: deterministik, tanpa model, hasil di `final/components.md` dan
+`final/components.json`. Label berasal dari `data/eval/` (asal per baris ditandai di berkas itu:
+ulasan Shopee tim, Tokopedia 2019, atau ditulis tim). Pembanding: sinyal keluhan engine Deciqo,
+yang menentukan ulasan mana masuk triage, dan leksikon Ulasin as-shipped.
+
+| Suite | Metrik | Deciqo | Ulasin |
+|---|---|---|---|
+| s01 kemasan + kerusakan | recall keluhan | 12/21 (57%; 37–76) | 11/21 (52%; 32–72) |
+| s01 | aspek kemasan kena | 14/17 | 12/17 |
+| s02 negasi Inggris/campuran | recall keluhan | 19/68 (28%; 19–40) | 11/68 (16%; 9–27) |
+| s02 | spesifisitas kontrol | 32/34 | 33/34 |
+| s03 keluhan di bintang 4–5 | recall keluhan | 5/12 (42%; 19–68) | 0/12 (0%; 0–24) |
+| s03 | label sama di bintang berapa pun | 21/21 | – |
+| s04 input aneh | tidak crash / input kosong → 0 ulasan | 36/36 / 2/2 | – |
+| s10 PII fiktif | PII wajib tersamarkan | 11/17 (65%; 41–83) | – |
+| s10 | tidak ada redaksi palsu | 3/3 | – |
+
+Kelemahan yang teramati (ini batas triage, bukan batas model: ulasan yang tidak lolos triage
+tidak pernah dibaca discovery, seperti c04 dan c13 di atas):
+
+1. **Keluhan berbahasa Inggris hampir tidak dikenali.** "Material feels thin and the stitching came
+   loose", "The fabric is flimsy", "Print started peeling", "The zipper is faulty", "Bottle was
+   leaking": semuanya tidak memberi sinyal keluhan. Recall 19/68. Ini relevan untuk data Lazada
+   berbahasa Inggris.
+2. **Keluhan halus di bintang 4–5 lolos.** "Sayang jahitan bagian dalam agak berantakan", "estimasi
+   3 hari jadi 8 hari", "the size chart is misleading", "the packaging arrived crushed". Recall
+   5/12; leksikon Ulasin 0/12.
+3. **Keluhan kemasan tanpa kata rusak yang umum.** "segelnya sudah terbuka", "amplopnya basah kena
+   hujan", "dikemas asal-asalan", "tidak pakai bubble wrap sama sekali". Recall 12/21.
+4. **Nama orang dan ukuran tubuh tidak diredaksi.** "Atas nama Siti Rahma", "Saya Andi", "Ibu Sri",
+   "Tinggi 165 berat 55" tersimpan apa adanya; nomor dengan titik "0812.3456.7890" juga lolos.
+   Nomor telepon biasa, email, alamat berawalan Jl., NIK, rekening, dan handle tersamarkan.
+   Celah yang sudah diketahui di data: nomor yang dieja dan email "[at] [dot]" (0/2).
+
+Label s01–s03 adalah label tim, bukan penilai independen; interval lebar karena n kecil.
