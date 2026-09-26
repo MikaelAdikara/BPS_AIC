@@ -376,8 +376,7 @@ def _llm_status(conn) -> dict:
 def status(user: dict = Depends(current_user)) -> dict:
     with store.database() as conn:
         llm = _llm_status(conn)
-        fetch_spent = conn.execute(
-            "SELECT COALESCE(SUM(cost_usd), 0) FROM ledger WHERE provider = 'apify'").fetchone()[0]
+        fetch_spent = apify.spent_usd(conn)
         products = conn.execute("SELECT COUNT(*) FROM products WHERE user_id = ?", (user["id"],)).fetchone()[0]
         changed = conn.execute(
             "SELECT COUNT(*) FROM products p LEFT JOIN analyses a ON a.product_id = p.id "

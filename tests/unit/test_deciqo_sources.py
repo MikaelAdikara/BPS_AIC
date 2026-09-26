@@ -272,3 +272,18 @@ def test_status_tidak_memakai_penolakan_key_basi(env, monkeypatch):
     body = client.get("/api/v1/deciqo/status").json()
     assert body["engine"] == "ai" and body["llm"]["key_rejected"] is None
     assert body["llm"]["spent_usd"] == pytest.approx(0.03)
+
+
+def test_status_fetch_includes_reserved_cost_and_provider_limits(env):
+    from app.deciqo.connectors import apify
+
+    client = _client()
+    _login(client, "fetch-budget@x.io")
+    with store.database() as conn:
+        conn.execute("INSERT INTO ledger(provider,status,cost_usd,reserved_usd,created_at) "
+                     "VALUES('apify','unknown:Timeout',0,0.4,''),('apify','ok',0.2,0.1,'')")
+    body = client.get("/api/v1/deciqo/status").json()["fetch"]
+    assert body["spent_usd"] == pytest.approx(0.6)
+    assert body["max_urls"] == apify.MAX_URLS
+    assert body["max_charge_per_run_usd"] == apify.MAX_CHARGE_PER_RUN
+    assert body["reviews_per_product"] == apify.REVIEWS_PER_PRODUCT
