@@ -324,6 +324,7 @@ def main() -> int:
         "git": git_commit(),
         "systems": systems,
         "systems_skipped": {s: d_reason for s in skipped},
+        "deciqo_harness": d_reason,
         "cases": [c["id"] for c in cases],
         "jobs_planned": len(jobs),
         "jobs_done": done,

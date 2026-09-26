@@ -21,6 +21,10 @@ HERE = Path(__file__).resolve().parent
 
 # Pola bersama. Semua raw string: "\b" di string biasa adalah backspace, bukan batas kata.
 DIM2 = r"\d{1,3}(?:[.,]\d+)?\s*[x×]\s*\d{1,3}(?:[.,]\d+)?"
+# Klaim garansi yang nyata (ada durasi atau "resmi/toko"), bukan sekadar menyebut kata garansi.
+WARRANTY_CLAIM = (r"(?i)garansi\s*(resmi|toko|pabrik|selama)|garansi[^.\n]{0,20}\d+\s*(hari|bulan|tahun)|"
+                  r"\d+\s*(hari|bulan|tahun)\s*garansi|"
+                  r"(official|store|\d+[- ](day|month|year))\s*warranty|warranty\s*(of|for)\s*\d+")
 
 
 def _truncated_camera_bag_listing() -> str:
@@ -365,7 +369,7 @@ def cases() -> list[dict]:
         "fact": "",
         "forbidden_before": [
             r"(?i)\b(?!1600\b)\d{3,5}\s*dpi\b",
-            r"(?i)\bgaransi\b|\bwarranty\b",
+            WARRANTY_CLAIM,
             r"(?i)\b\d+\s*(bulan|months?)\b",
         ],
         "forbidden_after": [],
@@ -464,7 +468,7 @@ def cases() -> list[dict]:
         },
         "fact": "",
         "forbidden_before": [
-            r"(?i)\bgaransi\b|\bwarranty\b",
+            WARRANTY_CLAIM,
             r"(?i)\b(awet|tahan\s*lama|anti\s*putus|durable|long[- ]lasting)\b",
             r"(?i)kabel\s*(kuat|tebal|braided|anti)",
         ],
@@ -498,7 +502,7 @@ def cases() -> list[dict]:
         "forbidden_before": [
             r"(?i)\b(60\s*fps|4k|1440p|2k)\b",
             r"(?i)(pengiriman|dikirim|delivery|shipping)\s*(cepat|kilat|same\s*day|fast|1\s*hari)",
-            r"(?i)\bgaransi\b|\bwarranty\b",
+            WARRANTY_CLAIM,
             r"(?i)(packing|kemasan)\s*(bubble|kayu|aman\s*dijamin)",
         ],
         "forbidden_after": [],
@@ -561,7 +565,7 @@ def cases() -> list[dict]:
         },
         "fact": "",
         "forbidden_before": [
-            r"(?i)dalam\D{0,30}(?!24\s*[x×]\s*16)" + DIM2,
+            r"(?i)dalam\D{0,30}(?!24\s*[x×]\s*16)" + DIM2 + r"(?:\s*[x×]\s*\d{1,3})?\s*cm",
             r"(?i)listing\s*(tidak|belum)\s*(menyebut|mencantumkan|memuat)\s*ukuran\s*dalam",
         ],
         "forbidden_after": [],
@@ -626,7 +630,7 @@ def cases() -> list[dict]:
         "fact": "",
         "forbidden_before": [
             r"(?i)anti\s*goyang|anti\s*longgar|engsel\s*(kuat|kokoh|tahan)",
-            r"(?i)\bgaransi\b|\bwarranty\b",
+            WARRANTY_CLAIM,
             r"(?i)\b(?![4-7]\b)\d{1,2}(?:[.,]\d)?\s*(inch|inci)\b",
         ],
         "forbidden_after": [],

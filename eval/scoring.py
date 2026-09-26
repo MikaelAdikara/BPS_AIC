@@ -31,7 +31,7 @@ _ASKS = re.compile(
     r"\b(before|sebelum)\s+(publishing|posting|mempublikasikan)\b|"
     r"\b(TBD|to be confirmed)\b|<[^>\n]{2,40}>)")
 _NO_PROBLEM = re.compile(
-    r"(?i)(no\s+(recurring|significant|real|major|common)\s+(customer\s+)?(problems?|issues?|complaints?)|"
+    r"(?i)(no\s+(recurring|significant|real|major|common)\s+((customer|product)\s+)?(problems?|issues?|complaints?)|"
     r"(tidak|belum)\s+ada\s+(keluhan|masalah)|no\s+(problems?|complaints?|issues?)\s+(found|identified|detected)|"
     r"reviews\s+are\s+(all\s+|uniformly\s+|overwhelmingly\s+)?positive)")
 
@@ -73,9 +73,31 @@ def listing_section(system: str, row: dict) -> tuple[str, str]:
     return "\n".join(lines[idx + 1:]), "after_heading"
 
 
+_PLACEHOLDER = re.compile(r"\[\[[^\]]*\]\]")
+_ABBREV = re.compile(r"(?i)\b(mis|misal|dll|dsb|maks|min|kira-kira|e\.g|i\.e|approx|ca)\.")
+# Titik di antara angka (2.2A, 0.5 L) bukan akhir kalimat.
+_SENTENCE = re.compile(r"(?:[^.!?\n]|(?<=\d)\.(?=\d))+[.!?\n]?|[.!?\n]")
+_CONDITIONAL = re.compile(r"(?i)^\W*(jika|kalau|apabila|bila|if|when)\b")
+
+
+def claim_text(text: str) -> str:
+    """Teks yang diperlakukan sebagai klaim: placeholder, kalimat tanya, dan kalimat kondisional
+    ("Jika Anda butuh ...") dibuang. Aturan ini sama untuk semua sistem."""
+    text = _PLACEHOLDER.sub(" ", text)
+    text = _ABBREV.sub(lambda m: m.group(1), text)
+    kept = []
+    for m in _SENTENCE.finditer(text):
+        sent = m.group(0)
+        if not sent.strip() or sent.rstrip().endswith("?") or _CONDITIONAL.search(sent):
+            continue
+        kept.append(sent)
+    return "".join(kept)
+
+
 def forbidden_hits(case: dict, phase: str, text: str) -> list[int]:
     pats = case["forbidden_before"] if phase == "before" else case["forbidden_after"]
-    return [i for i, p in enumerate(pats) if re.search(p, text)]
+    claims = claim_text(text)
+    return [i for i, p in enumerate(pats) if re.search(p, claims)]
 
 
 def match_finding(case: dict, findings: list[dict]) -> dict | None:
@@ -302,6 +324,8 @@ def render_report(cases: list[dict], rows: dict, res: dict) -> str:
     else:
         out.append("Tidak ada.")
     out += ["", "## Batas metrik", "",
+            "- Placeholder `[[...]]`, kalimat tanya, dan kalimat kondisional ('Jika ...') tidak "
+            "dihitung sebagai klaim, untuk semua sistem.",
             "- Teks listing baseline diambil dari bagian setelah judul bagian listing terakhir; "
             "bila tidak ada judul seperti itu, seluruh output diperiksa (lebih ketat untuk baseline).",
             "- Unsafe rate hanya menangkap pola yang ditulis per kasus; klaim tanpa sumber di luar "
