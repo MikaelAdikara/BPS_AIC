@@ -1,16 +1,4 @@
-/* Titik masuk gaya. Urutannya penting: token lebih dulu, lalu primitif bersama, baru
-   gaya khusus per permukaan yang boleh menimpanya. */
-
+@import "tailwindcss";
+@import "tw-animate-css";
 @import "./tokens.css";
 @import "./base.css";
-@import "./landing.css";
-@import "./urgency.css";
-@import "./landing-wow.css";
-@import "./guide.css";
-@import "./dashboard.css";
-/* Terakhir: laporan memakai primitif dari `dashboard.css` (.panel, .mtable, .equote) dan
-   sesekali menimpanya untuk konteksnya sendiri. */
-@import "./report.css";
-/* Paling akhir: gerak hanya menambah animasi/transisi pada kelas yang sudah ada, tidak
-   mendefinisikan ulang tata letak. Dimuat terakhir supaya delay dan keyframe-nya menang. */
-@import "./motion.css";

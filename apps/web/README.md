@@ -1,109 +1,37 @@
-# apps/web - Frontend React + Vite
+# Deciqo web
 
-Referensi: blueprint bagian 14 (wireframe per screen), 29 (arsitektur frontend), ADR-009,
-`docs/BRAND_GUIDELINES.md`.
+React 18, Vite, TypeScript, Tailwind CSS v4, dan Lucide. Jalankan dari direktori ini:
 
-## Dua permukaan, bukan satu alur
-
-Halaman pemasaran dan fitur analisis dipisahkan menjadi dua alamat. Sebelumnya keduanya satu
-halaman: panel unggah duduk di bawah hero, dan tombol "Mulai" hanya menggulir ke sana.
-
-Pemisahan ini bukan soal rapi. Halaman pemasaran perlu panjang dan bersuara - hero besar,
-kartu mengambang, blok CTA gelap - sementara layar kerja perlu pendek dan diam. Menyatukannya
-memaksa kompromi yang merugikan keduanya, dan membuat pengguna yang kembali harus menggulir
-melewati materi promosi setiap kali ingin menganalisis data.
-
-| Alamat | Permukaan | Isi |
-| --- | --- | --- |
-| `#/` | Landing | Hero, pita marketplace, cara kerja, fitur, CTA penutup |
-| `#/analisis` | Dashboard | Unggah → Proses → Hasil (4 tab) |
-
-Rute memakai **hash**, tanpa library router. Alasannya operasional: berkas statis yang sama
-melayani kedua alamat, sehingga tidak ada aturan fallback yang perlu ditambahkan di nginx
-maupun `vite preview`. Tombol Back dan muat-ulang tetap bekerja seperti yang diharapkan.
-
-## Alur dashboard
-
-Tiga fase berurutan. Navigasi tab baru muncul pada fase terakhir - sebelum ada hasil, tidak
-ada apa pun untuk dijelajahi.
-
-```
-Unggah ──► Proses ──► Hasil ──┬── Hasil        rekomendasi + skor kualitas + benchmark
-                              ├── Detail       peluang + temuan foto + sebaran aspek
-                              ├── Tanya Jawab  percakapan ber-sitasi
-                              └── Roadmap      yang belum ada, beserta alasannya
+```sh
+npm ci
+npm run dev
+npm test
+npm run typecheck
+npm run build
 ```
 
-Fase disimpan sebagai state, bukan rute tersendiri: muat-ulang di tengah analisis tidak dapat
-melanjutkan pekerjaan yang sedang berjalan, jadi alamat yang menjanjikan sebaliknya akan
-menyesatkan.
+Vite meneruskan `/api` ke `http://127.0.0.1:8000`. Gunakan `API_URL` untuk target lain dan `PORT` untuk port web. Alias `@/` menunjuk `src/`.
 
-## Tiga cara memasukkan ulasan
+## Antarmuka bersama
 
-| Tab | Jalur | Catatan |
-| --- | --- | --- |
-| Tempel teks | Satu baris = satu ulasan | Tidak perlu berkas apa pun |
-| Unggah berkas | CSV/JSON + pemetaan kolom | Tebakan kolom otomatis, dapat diubah |
-| Tangkapan layar | OCR di backend (`POST /api/v1/ocr`) | Hasilnya **draf** yang wajib diperiksa |
+- `styles/tokens.css`: warna kedua tema, tipografi, ruang, bentuk, kedalaman, dan jembatan Tailwind.
+- `components/ui.tsx`: Button (`variant`, `size`, `busy`), Chip (`tone`, `synthetic`), Card (`title`, `lead`, `icon`, `action`), Notice, Field (`label`, `hint`, `error`), Toast, Skeleton, LoadingState, Table, Quote, Metric, EmptyState.
+- `components/Brand.jsx`: Brand, BrandMark, LangToggle, ThemeToggle.
+- `lib/i18n.tsx`: `useI18n()` menyediakan `language`, `setLanguage`, `t('namespace.key', values)`, `localizeError(code)`, `plural(count)`.
+- `lib/theme.tsx`: `useTheme()` menyediakan `theme` dan `toggleTheme()`.
+- `api/auth.tsx`: `useAuth()` menyediakan `user`, `loading`, `error`, `refresh`, `login(email, password)`, `register(email, password, name)`, `logout`, `demo`.
+- `api/http.js`: `request('/deciqo/...', { method, body, signal })`, cookie otomatis disertakan. Tangani `ApiError.code` dengan `localizeError` agar teks respons mentah tidak tampil.
 
-Hasil OCR tidak pernah langsung dianalisis. Pembacaan teks dari gambar tidak pernah sempurna,
-dan satu huruf yang salah baca merambat ke seluruh hasil - aspek salah dikenali, kutipan bukti
-berbunyi janggal. Pemilik toko adalah satu-satunya yang tahu bunyi ulasan aslinya, jadi ia
-menyunting lebih dulu.
+Provider tersedia di akar aplikasi, termasuk bagi layar publik. Penyimpanan preferensi boleh gagal tanpa mematikan aplikasi.
 
-## Susunan berkas
+## Integrasi layar publik
 
-```
-src/
-  App.jsx                  cangkang: pilih rute, pegang tema, transisi geser
-  lib/hooks.js             useRoute (hash) + useTheme
-  lib/format.js            label aspek/urgensi, kategori, pemformat angka
-  lib/profile.js           profil toko: aspek per kategori, inisial, sapaan, saran pertanyaan
-  content/roadmap.js       isi tab Roadmap - data, bukan markup
-  api/client.js            klien HTTP + pengurai CSV/JSON + pemetaan kolom
-  screens/                 LandingScreen, DashboardScreen (pemegang state)
-  components/landing/      hero, mockup ponsel, fitur, CTA penutup
-  components/dashboard/    langkah unggah, pemrosesan, dan empat panel hasil
-  components/insight.jsx   primitif hasil yang dipakai lintas tab
-  styles/                  tokens → base → landing → dashboard
-```
+Pemilik landing/login menambahkan `screens/LandingScreen.tsx` dan `screens/LoginScreen.tsx`, masing-masing dengan **default export**. Router memuatnya otomatis. Layar mengatur landmark dan layout sendiri, memakai Brand, LangToggle, dan ThemeToggle; impor `styles/landing.css` langsung dari LandingScreen. Login membaca rute `#/register` untuk mode pendaftaran dan memanggil `useAuth()` untuk autentikasi.
 
-Gaya dipecah mengikuti pembagian yang sama. Aturannya: sesuatu masuk `base.css` hanya kalau
-benar-benar dipakai kedua permukaan; kalau hanya satu sisi, ia tinggal di berkasnya sendiri.
+`lib/messages-landing.js` mengekspor `landing = { en: {}, id: {} }`. Stub awal tersedia dan selanjutnya hanya pemilik landing yang mengeditnya. Kamus induk mengimpornya; tes memeriksa paritas kunci dan placeholder kedua bahasa. Gunakan kunci datar di setiap namespace.
 
-## Profil toko
+Router hanya membaca hash berawalan `#/`. Anchor `#how` dan `#gate` mempertahankan permukaan aktif. Query dapat dibaca dari `parseRoute(window.location.hash).query`. Semua rute `#/app/...` memerlukan sesi; pemeriksaan sesi gagal menyediakan aksi coba lagi.
 
-Layar unggah dibuka dengan satu panel keterangan: kategori produk (wajib), lalu nama toko, nama
-produk, dan sampai tiga aspek yang paling ingin diketahui - ketiganya opsional dan terlipat di
-balik `<details>`.
+Sebelum layar publik terpasang, layar penghubung menyediakan login demo untuk memeriksa koneksi API. Data produk tidak direkayasa di frontend. Halaman workspace masih berupa slot untuk penyambungan read model.
 
-Aturan yang mengikat panel itu: **tiap isian harus punya akibat yang bisa ditunjuk, dan panel
-tidak boleh menjanjikan akibat yang tidak terjadi.** Isian yang tidak mengubah apa pun membuat
-orang berhenti mengisi formulir; janji yang tidak ditepati membuat mereka meragukan angka yang
-muncul sesudahnya. Daftar akibatnya - termasuk apa yang sengaja TIDAK diubah, yaitu urutan
-prioritas kartu tindakan - ada di kepala `lib/profile.js`.
-
-Daftar aspek per kategori disalin dari `configs/taxonomy.yaml` karena dibutuhkan sebelum backend
-pernah dihubungi. `lib/profile.test.js` membaca config aslinya lalu membandingkannya kategori per
-kategori, sehingga salinan itu tidak bisa menyimpang diam-diam.
-
-## Aturan UI yang mengikat
-
-- Setiap Action Card wajib tombol **Terima / Tolak / Simpan dulu** - tidak pernah eksekusi
-  otomatis (ADR-013).
-- Warna urgensi selalu didampingi **label teks** (aksesibilitas buta warna, bagian 14.3).
-- Keyakinan rendah dan abstain memakai **abu-abu, bukan merah** - abstain bukan error.
-- Angka hasil hitungan memakai kelas `.stat`; kutipan verbatim memakai monospace. Itu yang
-  membedakan fakta terhitung dari narasi yang disusun sistem.
-- Kategori produk hanya boleh memuat nilai yang dikenal `Category` di backend dan
-  `configs/taxonomy.yaml`. Menambah entri di satu tempat saja membuat analisis ditolak 422.
-- Bagian temuan foto **tidak dirender** selama backend tidak mengirim data - lebih baik tidak
-  ada daripada ada tetapi berisi tebakan. Statusnya dijelaskan di tab Roadmap.
-
-## Menjalankan
-
-```bash
-npm install
-npm run dev        # http://localhost:5180, /api diproksikan ke 127.0.0.1:8000
-npm run build      # keluaran statis ke dist/
-```
+`VITE_DEMO_EMAIL` dan `VITE_DEMO_PASSWORD` hanya untuk kredensial demo publik. Semua variabel `VITE_*` masuk bundle browser; jangan gunakan kredensial privat.
