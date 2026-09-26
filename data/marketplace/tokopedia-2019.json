@@ -1,0 +1,1413 @@
+{
+ "channel": "tokopedia",
+ "data_origin": "public_dataset",
+ "captured_at": "2019-12-31T00:00:00+00:00",
+ "label": "Tokopedia Product Reviews 2019 (public dataset)",
+ "source": "HuggingFace farhamu/tokopedia-product-reviews-2019, Apache-2.0",
+ "sampling": "6 products with at least 25 reviews and the highest share of 1-3 star reviews (electronics, phones, fashion); first 60 reviews per product in dataset order. The dataset has no review dates and no listing text.",
+ "products": [
+  {
+   "source_item_id": "323865568",
+   "title": "Sabuk Penyangga / Power Magnetic Posture Support / Penyangga Punggung",
+   "url": "https://www.tokopedia.com/handphonetiam/sabuk-penyangga-power-magnetic-posture-support-penyangga-punggung",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp323865568-0",
+     "rating": 3,
+     "text": "Ukuran XL tapi di badan sy serasa ukuran m"
+    },
+    {
+     "id": "tp323865568-1",
+     "rating": 4,
+     "text": "Baik...sesuai pesanan.terima kasih"
+    },
+    {
+     "id": "tp323865568-2",
+     "rating": 4,
+     "text": "Barang sudah sampai sesuai dengan foto"
+    },
+    {
+     "id": "tp323865568-3",
+     "rating": 5,
+     "text": "Kainnya kurang kuat.. baru d pake sekali sobek !!"
+    },
+    {
+     "id": "tp323865568-4",
+     "rating": 5,
+     "text": "PRODUK SESUAI DAN CEPAT DIKIRIM. TQ"
+    },
+    {
+     "id": "tp323865568-5",
+     "rating": 2,
+     "text": "Barang tidak sesuai gambar , ukuran sangat kecil"
+    },
+    {
+     "id": "tp323865568-6",
+     "rating": 4,
+     "text": "Terima kasih Gan,\nBarang sudah sampai dengan cepat...."
+    },
+    {
+     "id": "tp323865568-7",
+     "rating": 1,
+     "text": "Murah barangnya, di pake langsung robek #adahargaadakualitas, plus penjualnya agak lama dikirimnya ke pihak jasapengirimannya 🥴"
+    },
+    {
+     "id": "tp323865568-8",
+     "rating": 4,
+     "text": "Pengiriman cepat, kualitas barang sesuai dengan harga"
+    },
+    {
+     "id": "tp323865568-9",
+     "rating": 2,
+     "text": "XL tapi kecil banget gak sesuai"
+    },
+    {
+     "id": "tp323865568-10",
+     "rating": 5,
+     "text": "Terima kasih barang sdh mendarat dengan selamat..seller fast respond"
+    },
+    {
+     "id": "tp323865568-11",
+     "rating": 4,
+     "text": "trimakasih,........................................"
+    },
+    {
+     "id": "tp323865568-12",
+     "rating": 1,
+     "text": "Barang tidak sesuai harapan"
+    },
+    {
+     "id": "tp323865568-13",
+     "rating": 4,
+     "text": "kemasan paketnya sangat tipis dan kotaknya melesek"
+    },
+    {
+     "id": "tp323865568-14",
+     "rating": 4,
+     "text": "Fast respon cuma barangnya ga dikirim dalam kotak sehingga robek, tp gpp deh, makasih"
+    },
+    {
+     "id": "tp323865568-15",
+     "rating": 4,
+     "text": "Barang lumayan sesuai harga"
+    },
+    {
+     "id": "tp323865568-16",
+     "rating": 5,
+     "text": "Murah..kualitas ok\nMakasi ya om..sukses terus"
+    },
+    {
+     "id": "tp323865568-17",
+     "rating": 5,
+     "text": "sip lahhhhhhhhhhhhhhhhhhhhhh"
+    },
+    {
+     "id": "tp323865568-18",
+     "rating": 1,
+     "text": "Kemasan jelek brg dicoba lsg copit benang2nya"
+    },
+    {
+     "id": "tp323865568-19",
+     "rating": 4,
+     "text": "trimakasih ka,........................."
+    },
+    {
+     "id": "tp323865568-20",
+     "rating": 5,
+     "text": "Order XL, yg datang L. Tapi tdk apa, tetap nyaman dipakai. Tks"
+    },
+    {
+     "id": "tp323865568-21",
+     "rating": 1,
+     "text": "Thanks.........................................."
+    },
+    {
+     "id": "tp323865568-22",
+     "rating": 5,
+     "text": "Produk murah, fungsional"
+    },
+    {
+     "id": "tp323865568-23",
+     "rating": 5,
+     "text": "Terimakasih sesuai dengan pesanan 👍"
+    },
+    {
+     "id": "tp323865568-24",
+     "rating": 5,
+     "text": "Terima kasih.. sesuai pesanan"
+    },
+    {
+     "id": "tp323865568-25",
+     "rating": 3,
+     "text": "..barang sesuai harganya..agak tipis bahannya..semoga tidak mudah lepas jahitannya.."
+    },
+    {
+     "id": "tp323865568-26",
+     "rating": 5,
+     "text": "Terimakasih barang sudah diterima dg baik...."
+    },
+    {
+     "id": "tp323865568-27",
+     "rating": 5,
+     "text": "Terimakasih barang sudah diterima dengan baik."
+    }
+   ]
+  },
+  {
+   "source_item_id": "212916484",
+   "title": "KIPAS PENDINGIN LAPTOP 1 BIG FAN / COOLING PAD 1 KIPAS BESAR M-TECH",
+   "url": "https://www.tokopedia.com/multikomputer201/kipas-pendingin-laptop-1-big-fan-cooling-pad-1-kipas-besar-m-tech",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp212916484-0",
+     "rating": 5,
+     "text": "Barang sesuai pesanan. Respon seller cepat dan pengiriman cepat. Oke banget"
+    },
+    {
+     "id": "tp212916484-1",
+     "rating": 5,
+     "text": "Pengiriman cepet boss, barang sesuai.  Terbaik 👍👍👍👍"
+    },
+    {
+     "id": "tp212916484-2",
+     "rating": 1,
+     "text": "BARANG RUSAK DIJUAL, KIPAS KAGA MUTER"
+    },
+    {
+     "id": "tp212916484-3",
+     "rating": 5,
+     "text": "Mantap barang cepat sampai"
+    },
+    {
+     "id": "tp212916484-4",
+     "rating": 3,
+     "text": "Repeat order...tapi tdk sebagus yg pembelian pertama...kipas muternya lambat"
+    },
+    {
+     "id": "tp212916484-5",
+     "rating": 5,
+     "text": "barang bagus, proses cepat, packing rapiii"
+    },
+    {
+     "id": "tp212916484-6",
+     "rating": 5,
+     "text": "Cepat dan sesuai dgn orderan"
+    },
+    {
+     "id": "tp212916484-7",
+     "rating": 5,
+     "text": "Respon dan pengiriman cepat..mantap..berfungsi dgn baik"
+    },
+    {
+     "id": "tp212916484-8",
+     "rating": 5,
+     "text": "Barang pesanan sudah di test, barangnya bagus"
+    },
+    {
+     "id": "tp212916484-9",
+     "rating": 3,
+     "text": "Ringkih, dan saat ini sudah rusak"
+    },
+    {
+     "id": "tp212916484-10",
+     "rating": 5,
+     "text": "kualitas oke, barang cepat sampai, packing rapih. thanks gan"
+    },
+    {
+     "id": "tp212916484-11",
+     "rating": 1,
+     "text": "Barangnya pecah ketika sampai"
+    },
+    {
+     "id": "tp212916484-12",
+     "rating": 5,
+     "text": "barang sdh trima dengan baik, thanks!"
+    },
+    {
+     "id": "tp212916484-13",
+     "rating": 3,
+     "text": "BARANG RUSAK !!!\n\nRespon cepat dan barang langsung saya terima ..\n\nTapi baut ada yang lepas, jadi saya musti benerin baut yang lepas dulu baru bisa di pakai ..\n\nMungkin kedepannya perlu di periksa dulu barang yang mau di kirim agar kwalitas lebih terjamin ..\n\nMakasih .."
+    },
+    {
+     "id": "tp212916484-14",
+     "rating": 5,
+     "text": "Bagus barang n packing ny"
+    },
+    {
+     "id": "tp212916484-15",
+     "rating": 3,
+     "text": "respon penjual baik, cepat sampai. hanya saja barang bertahan hanya 2 bulan. setelah 2 bulan kipas belah."
+    },
+    {
+     "id": "tp212916484-16",
+     "rating": 1,
+     "text": "sangat tidak recommend. tidak sesuai gambar (kualitas sangat rendah). kipas mau copot. waktu sampai barang nya patah dan penjual tidak ada respon sama sekali."
+    },
+    {
+     "id": "tp212916484-17",
+     "rating": 1,
+     "text": "Jelek Tidak bagus 👎👎👎👎👎"
+    },
+    {
+     "id": "tp212916484-18",
+     "rating": 5,
+     "text": "Terima kasih...................."
+    },
+    {
+     "id": "tp212916484-19",
+     "rating": 3,
+     "text": "thanks semoga awet yaaaaa"
+    },
+    {
+     "id": "tp212916484-20",
+     "rating": 5,
+     "text": "Barang cepat sampai dan kondisi oke :)"
+    },
+    {
+     "id": "tp212916484-21",
+     "rating": 5,
+     "text": "mantapppppppppppppppp"
+    },
+    {
+     "id": "tp212916484-22",
+     "rating": 5,
+     "text": "Barang sesuai foto, dan pengiriman jg cepat"
+    },
+    {
+     "id": "tp212916484-23",
+     "rating": 5,
+     "text": "Ok.................................."
+    },
+    {
+     "id": "tp212916484-24",
+     "rating": 5,
+     "text": "Fast response di chatnya, terima kasih, barang sudah sampai dan nyala"
+    },
+    {
+     "id": "tp212916484-25",
+     "rating": 1,
+     "text": "Baru dipake sehari udh rusak"
+    },
+    {
+     "id": "tp212916484-26",
+     "rating": 4,
+     "text": "Thanks gan...barang sudh sampai tujuan.."
+    },
+    {
+     "id": "tp212916484-27",
+     "rating": 4,
+     "text": "Bagusssss........................"
+    },
+    {
+     "id": "tp212916484-28",
+     "rating": 4,
+     "text": "Respon cepat, pengiriman cepat, barang sudah diterima sesuai harganya. Thanks"
+    },
+    {
+     "id": "tp212916484-29",
+     "rating": 5,
+     "text": "Produk sangat baik dan pengiriman sangat baik"
+    },
+    {
+     "id": "tp212916484-30",
+     "rating": 5,
+     "text": "Barang sudah diterima...ditest bagus....fast respon....makasih gan...."
+    },
+    {
+     "id": "tp212916484-31",
+     "rating": 5,
+     "text": "bagus dan cepat tibax"
+    },
+    {
+     "id": "tp212916484-32",
+     "rating": 4,
+     "text": "cakep barangnya dan cepat"
+    },
+    {
+     "id": "tp212916484-33",
+     "rating": 5,
+     "text": "Terima kasih pesanan saya sudah tiba. kondisi barang bagus. sesuai gambar Dan kualitas oke."
+    },
+    {
+     "id": "tp212916484-34",
+     "rating": 5,
+     "text": "bagus sekali terima kasih sukses selalu"
+    },
+    {
+     "id": "tp212916484-35",
+     "rating": 4,
+     "text": "sesuai dengan permintaan dan pengiriman cepat"
+    },
+    {
+     "id": "tp212916484-36",
+     "rating": 5,
+     "text": "harga dan kualitas produk sesuai deskripsi"
+    },
+    {
+     "id": "tp212916484-37",
+     "rating": 5,
+     "text": "Jazakalloh yah gan barang nya bgs"
+    }
+   ]
+  },
+  {
+   "source_item_id": "266910555",
+   "title": "NOKIA 130 dual sim handphone hp",
+   "url": "https://www.tokopedia.com/anshopp123/nokia-130-dual-sim-handphone-hp",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp266910555-0",
+     "rating": 4,
+     "text": "Fast respon............."
+    },
+    {
+     "id": "tp266910555-1",
+     "rating": 5,
+     "text": "Sesuai pict makasih n respon cepat"
+    },
+    {
+     "id": "tp266910555-2",
+     "rating": 5,
+     "text": "Makasi, barangnya da di terima"
+    },
+    {
+     "id": "tp266910555-3",
+     "rating": 5,
+     "text": "Barang sdh diterima sesuai orderan. Terima kasih"
+    },
+    {
+     "id": "tp266910555-4",
+     "rating": 1,
+     "text": "hp rusak ga bs dipake sama sekali."
+    },
+    {
+     "id": "tp266910555-5",
+     "rating": 1,
+     "text": "Bintang yang menilai semua............"
+    },
+    {
+     "id": "tp266910555-6",
+     "rating": 5,
+     "text": "barang sudah diterima, terimakasih banyak :)"
+    },
+    {
+     "id": "tp266910555-7",
+     "rating": 5,
+     "text": "Biarkan bintang yang berbicara. Thx gan"
+    },
+    {
+     "id": "tp266910555-8",
+     "rating": 5,
+     "text": "Produk sesuai pesanan dan berfungsi dgn baeik."
+    },
+    {
+     "id": "tp266910555-9",
+     "rating": 5,
+     "text": "Makasi. Barangnya da diterima"
+    },
+    {
+     "id": "tp266910555-10",
+     "rating": 3,
+     "text": "Mohon maaf lahir dan batin"
+    },
+    {
+     "id": "tp266910555-11",
+     "rating": 5,
+     "text": "Barang ok sesuai gambar"
+    },
+    {
+     "id": "tp266910555-12",
+     "rating": 5,
+     "text": "barang sudah diterima, terimakasih banyak"
+    },
+    {
+     "id": "tp266910555-13",
+     "rating": 1,
+     "text": "Batteray hp tidak original dan batteray cepat habis atau cepat lowbet"
+    },
+    {
+     "id": "tp266910555-14",
+     "rating": 5,
+     "text": "Barangnya sesuai okeeeeeeeeeee"
+    },
+    {
+     "id": "tp266910555-15",
+     "rating": 5,
+     "text": "the bestttttt recommended seller"
+    },
+    {
+     "id": "tp266910555-16",
+     "rating": 2,
+     "text": "Agak kecewa sama barang yg diorder, ditanya warna merah katanya ready tapi yg dikirim warna hitam"
+    },
+    {
+     "id": "tp266910555-17",
+     "rating": 5,
+     "text": "senanng dengan layanan,barang sesuai pesanan recomended seller"
+    },
+    {
+     "id": "tp266910555-18",
+     "rating": 5,
+     "text": "Makasi. Barangnya da di terima"
+    },
+    {
+     "id": "tp266910555-19",
+     "rating": 1,
+     "text": "Baterai baru sehari udh bau gosong ,,untung ga meledak ,,"
+    },
+    {
+     "id": "tp266910555-20",
+     "rating": 5,
+     "text": "recomended seller,barang sesuai pesanan"
+    },
+    {
+     "id": "tp266910555-21",
+     "rating": 4,
+     "text": "Barang lumayan bagus, insyaallah awet"
+    },
+    {
+     "id": "tp266910555-22",
+     "rating": 5,
+     "text": "barang good response cepat dan best seller 📱"
+    },
+    {
+     "id": "tp266910555-23",
+     "rating": 5,
+     "text": "respon cepat, barang mantap, cepat sampai"
+    },
+    {
+     "id": "tp266910555-24",
+     "rating": 5,
+     "text": "produk oke,, respon chat cepat, rekomended..!!"
+    },
+    {
+     "id": "tp266910555-25",
+     "rating": 5,
+     "text": "Barang oke, respon cepat.. Rekomended..!"
+    },
+    {
+     "id": "tp266910555-26",
+     "rating": 5,
+     "text": "Barang bagus, respon penjual cepet"
+    },
+    {
+     "id": "tp266910555-27",
+     "rating": 5,
+     "text": "barang sesuai pesanan, packing baik, recomended seller"
+    },
+    {
+     "id": "tp266910555-28",
+     "rating": 5,
+     "text": "barang sesuai pesanan, packing ny rapi,, recomended nih!"
+    },
+    {
+     "id": "tp266910555-29",
+     "rating": 4,
+     "text": "hp sudah mendarat blom dicoba, packing aman dan rapih pengiriman standar.."
+    },
+    {
+     "id": "tp266910555-30",
+     "rating": 5,
+     "text": "barang sesuai pesanan, packing baik, recomended lah!!"
+    },
+    {
+     "id": "tp266910555-31",
+     "rating": 5,
+     "text": "barang oke, respon cepat, recomended seller"
+    },
+    {
+     "id": "tp266910555-32",
+     "rating": 5,
+     "text": "Mantaaaaaapppp. Pengiriman cepet. Barang oke. Packing aman. Thankyou buat mimin yg jualan + thankyou buat bapak kurir J&T yg secepat kilat!"
+    },
+    {
+     "id": "tp266910555-33",
+     "rating": 1,
+     "text": "Produk buruk. Tidak bisa dipake, buang tempat sampah. Casing terbuka dan sim tidak bisa terbaca. Mending beli produk 2nd dari produk ini..."
+    },
+    {
+     "id": "tp266910555-34",
+     "rating": 4,
+     "text": "barang sampai dengan aman dan pengiriman cepat"
+    },
+    {
+     "id": "tp266910555-35",
+     "rating": 4,
+     "text": "Produk telah sampai.  Lumayan lah cuma gak rapi. Semoga awet."
+    },
+    {
+     "id": "tp266910555-36",
+     "rating": 5,
+     "text": "barang sesuai pesanan, packing baik, recomended lahh...!!"
+    },
+    {
+     "id": "tp266910555-37",
+     "rating": 4,
+     "text": "Barang udah sampe dengan selamat dan sentosa"
+    },
+    {
+     "id": "tp266910555-38",
+     "rating": 5,
+     "text": "barang sesuai  pesanan,, packing rapi, recomended seller"
+    },
+    {
+     "id": "tp266910555-39",
+     "rating": 5,
+     "text": "Barang bagus, sesuai seskripsi. Service dan pa king oke, timing  cepag 2 thumbs up...!"
+    },
+    {
+     "id": "tp266910555-40",
+     "rating": 5,
+     "text": "barang sesuai pesanan, respon chat cepat, recomended seller"
+    },
+    {
+     "id": "tp266910555-41",
+     "rating": 2,
+     "text": "cashing gak nempel batre drop.. apesss"
+    },
+    {
+     "id": "tp266910555-42",
+     "rating": 5,
+     "text": "sesuai, buat cadangan.. mudah-mudahan awet.."
+    },
+    {
+     "id": "tp266910555-43",
+     "rating": 5,
+     "text": "barabg sesuai pesanan,,,kiriman cepat"
+    },
+    {
+     "id": "tp266910555-44",
+     "rating": 5,
+     "text": "Mantaaaaaaaaaaapppppppp"
+    },
+    {
+     "id": "tp266910555-45",
+     "rating": 1,
+     "text": "Tombol atas nya ga berfungsi"
+    },
+    {
+     "id": "tp266910555-46",
+     "rating": 5,
+     "text": "Biarkan bintang yg berbicara.. recomended seller"
+    },
+    {
+     "id": "tp266910555-47",
+     "rating": 5,
+     "text": "Barang bagus, packing rapih."
+    },
+    {
+     "id": "tp266910555-48",
+     "rating": 2,
+     "text": "Barang kawe kawe ya. Barang kurang berfungsi, ga bisa baca memori, gak bisa bluethoot. Tadinya sy pikir asli. Ternyata bukan."
+    },
+    {
+     "id": "tp266910555-49",
+     "rating": 5,
+     "text": "barang sesuai pesanan, packing baik, recomedned seller"
+    },
+    {
+     "id": "tp266910555-50",
+     "rating": 1,
+     "text": "Kualitasnya tidak sesuai dg merk nya"
+    },
+    {
+     "id": "tp266910555-51",
+     "rating": 4,
+     "text": "Di etalase kirain ada handset..ternyata ngga ada"
+    },
+    {
+     "id": "tp266910555-52",
+     "rating": 4,
+     "text": "Barang bukan nokia asli ..warna yg di pesan hitam kenapa di kirim biru ..jualan di pedia tempat buang barang palsu"
+    },
+    {
+     "id": "tp266910555-53",
+     "rating": 4,
+     "text": "packing rapih, tapi agak lama untuk membaca kartu sim dan sementara Micro SD tidak terbaca"
+    },
+    {
+     "id": "tp266910555-54",
+     "rating": 2,
+     "text": "Barang yg saya terima bukan original nokia, kecewa."
+    },
+    {
+     "id": "tp266910555-55",
+     "rating": 3,
+     "text": "Produk tdk sesuai expetasi...respons cepat...."
+    },
+    {
+     "id": "tp266910555-56",
+     "rating": 5,
+     "text": "barang sudah saya terima....thx"
+    },
+    {
+     "id": "tp266910555-57",
+     "rating": 5,
+     "text": "Mantul barangnya sesuai gambar 👍"
+    },
+    {
+     "id": "tp266910555-58",
+     "rating": 5,
+     "text": "respon cepat, packing baik, recomedned seller"
+    },
+    {
+     "id": "tp266910555-59",
+     "rating": 1,
+     "text": "Barang rusak semua, hp china bener2 payah,  sesuai harga kualitas jelek,  maklum lah,  harga beda 2x lipat dgn yg asli."
+    }
+   ]
+  },
+  {
+   "source_item_id": "26039844",
+   "title": "HOT! Holder Handphone untuk motor / sepeda - MT0-017",
+   "url": "https://www.tokopedia.com/clacc/hot-holder-handphone-untuk-motor-sepeda-mt0-017",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp26039844-0",
+     "rating": 5,
+     "text": "Barang sesuai pesanan dan memuaskan"
+    },
+    {
+     "id": "tp26039844-1",
+     "rating": 5,
+     "text": "Buat travelling mantap juga"
+    },
+    {
+     "id": "tp26039844-2",
+     "rating": 4,
+     "text": "Sesuai dgn yg di gambar tp qo kurir'a lama ya kirim'a.."
+    },
+    {
+     "id": "tp26039844-3",
+     "rating": 4,
+     "text": "Sampe'a cepetttt...cm 1 hari..\nMksh ya"
+    },
+    {
+     "id": "tp26039844-4",
+     "rating": 5,
+     "text": "Sesuai deskripsi, mantap semoga awet"
+    },
+    {
+     "id": "tp26039844-5",
+     "rating": 4,
+     "text": "Sesuai deskripsi, barang sesuai dgn harga lumayan"
+    },
+    {
+     "id": "tp26039844-6",
+     "rating": 5,
+     "text": "produk sesuai dan bagus, kokoh"
+    },
+    {
+     "id": "tp26039844-7",
+     "rating": 5,
+     "text": "Barang bagus pengirimannya juga cepet bngt recomended pokoknya"
+    },
+    {
+     "id": "tp26039844-8",
+     "rating": 5,
+     "text": "Barangnya awet.. Sangat terpercaya"
+    },
+    {
+     "id": "tp26039844-9",
+     "rating": 5,
+     "text": "Barang nya bagus packing nya rapih sesuai dengan gambar"
+    },
+    {
+     "id": "tp26039844-10",
+     "rating": 5,
+     "text": "barang nya sampai dgn aman gan...thanks"
+    },
+    {
+     "id": "tp26039844-11",
+     "rating": 2,
+     "text": "Kagak pas di motor ninja 250 fi.. \nSama kagak pas di polygon stratos.."
+    },
+    {
+     "id": "tp26039844-12",
+     "rating": 3,
+     "text": "barang sudah sampai.. tapi karetnya 1 lepas.. tpi its ok.. thx"
+    },
+    {
+     "id": "tp26039844-13",
+     "rating": 5,
+     "text": "goooooooooooooooooooooooooooooddddddddddddddddd"
+    },
+    {
+     "id": "tp26039844-14",
+     "rating": 5,
+     "text": "barang bagus. kepake pisan oy...."
+    },
+    {
+     "id": "tp26039844-15",
+     "rating": 5,
+     "text": "terimakasih tokopedia pesanan sudah saya terima"
+    },
+    {
+     "id": "tp26039844-16",
+     "rating": 3,
+     "text": "stang saya tidak muat hahah, sayakira bisa"
+    },
+    {
+     "id": "tp26039844-17",
+     "rating": 3,
+     "text": "thanks barangnya sudah sampe walau satu karetnya ilang"
+    },
+    {
+     "id": "tp26039844-18",
+     "rating": 4,
+     "text": "Thanks gan barang sudah sampai,"
+    },
+    {
+     "id": "tp26039844-19",
+     "rating": 5,
+     "text": "good thanks ya :))))))))))))))"
+    },
+    {
+     "id": "tp26039844-20",
+     "rating": 3,
+     "text": "Gabisa dipasang di spion, longgar, tapi bagus barangnya"
+    },
+    {
+     "id": "tp26039844-21",
+     "rating": 4,
+     "text": "barang sudah diterima dngn slamat"
+    },
+    {
+     "id": "tp26039844-22",
+     "rating": 3,
+     "text": "butuh alat tambahan kalau di motor matic, kurang memuaskan"
+    },
+    {
+     "id": "tp26039844-23",
+     "rating": 5,
+     "text": "cepettttt................................."
+    },
+    {
+     "id": "tp26039844-24",
+     "rating": 5,
+     "text": "makasih ya udah smpe holdernya tapi masih bingung cara masangnya hehee"
+    }
+   ]
+  },
+  {
+   "source_item_id": "355367091",
+   "title": "LCD Writing Tablet Board 8.5 inch Papan Tulis LCD Digital",
+   "url": "https://www.tokopedia.com/handphonetiam/lcd-writing-tablet-board-8-5-inch-papan-tulis-lcd-digital",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp355367091-0",
+     "rating": 5,
+     "text": "Sesuai gambar, pengiriman cepat. Memuaskan banget"
+    },
+    {
+     "id": "tp355367091-1",
+     "rating": 5,
+     "text": "Barang ok punya. Rekomended seller"
+    },
+    {
+     "id": "tp355367091-2",
+     "rating": 1,
+     "text": "Barang tidak dikirim, tidak ada pemberitahuan kalau barng kosong"
+    },
+    {
+     "id": "tp355367091-3",
+     "rating": 5,
+     "text": "mantap orderanya, paking rapi seller ramah dan fasto response"
+    },
+    {
+     "id": "tp355367091-4",
+     "rating": 5,
+     "text": "Thanks sis.. anak sy suka.."
+    },
+    {
+     "id": "tp355367091-5",
+     "rating": 5,
+     "text": "Thanks sis...brgnya berfungsi"
+    },
+    {
+     "id": "tp355367091-6",
+     "rating": 5,
+     "text": "Warna sesuai,berfungsi normal...recommended mantap"
+    },
+    {
+     "id": "tp355367091-7",
+     "rating": 5,
+     "text": "Pengiriman cepay barang Bagus top👍"
+    },
+    {
+     "id": "tp355367091-8",
+     "rating": 5,
+     "text": "Bagus barangnya berfungsi dengan baik"
+    },
+    {
+     "id": "tp355367091-9",
+     "rating": 3,
+     "text": "Produk tidak seperti yang saya harapkan, namun dengan harga segitu saya tidak bisa berharap lebih."
+    },
+    {
+     "id": "tp355367091-10",
+     "rating": 5,
+     "text": "Mantab, cepat, rapi salam pengiriman, barang d coba berfungsi normal"
+    },
+    {
+     "id": "tp355367091-11",
+     "rating": 5,
+     "text": "Barang sesuai deskripsi dgn harga miring, good!"
+    },
+    {
+     "id": "tp355367091-12",
+     "rating": 3,
+     "text": "Bagusssssssss....okkkkk"
+    },
+    {
+     "id": "tp355367091-13",
+     "rating": 5,
+     "text": "brg uda diterima dgn selamat,berfungsi dgn baik dan sesuai deskripsi. pengiriman jg super cepat👍"
+    },
+    {
+     "id": "tp355367091-14",
+     "rating": 5,
+     "text": "Sesuai yg ditawarkan. Sangat bagus"
+    },
+    {
+     "id": "tp355367091-15",
+     "rating": 1,
+     "text": "Tombol hapus tidak berfungsi its freaking bad"
+    },
+    {
+     "id": "tp355367091-16",
+     "rating": 1,
+     "text": "Beli ini 2, tombol penghapusnya ndk bisa fungsi semua, mau komplain harus ada vidio, posisi keluar kota hanya dapat informasi barang ndk berfungsi semua"
+    },
+    {
+     "id": "tp355367091-17",
+     "rating": 4,
+     "text": "Pengiriman cepat ,produk ok"
+    },
+    {
+     "id": "tp355367091-18",
+     "rating": 5,
+     "text": "Puuaaassssss bangeettt"
+    },
+    {
+     "id": "tp355367091-19",
+     "rating": 5,
+     "text": "Barang sudah sampai,barang sesuai dgn pesanan.\nThanks gan,"
+    },
+    {
+     "id": "tp355367091-20",
+     "rating": 4,
+     "text": "Barang sampai\nProduk oke\nAnak seneng"
+    },
+    {
+     "id": "tp355367091-21",
+     "rating": 5,
+     "text": "Produk ok, sesuai deskripsi"
+    },
+    {
+     "id": "tp355367091-22",
+     "rating": 5,
+     "text": "Barang telah diterima dengan kondisi baik, terima kasih"
+    },
+    {
+     "id": "tp355367091-23",
+     "rating": 5,
+     "text": "Request warna tp diinfo warna yg dimau kosong. Yaudah ambil warna yg ada aja. Paket ditambah bubble, jd aman deh.. udah di tes juga, hasilnya ok. Recomended seller. Thanks.."
+    },
+    {
+     "id": "tp355367091-24",
+     "rating": 5,
+     "text": "Mudah dan anak2 suka. Tks"
+    },
+    {
+     "id": "tp355367091-25",
+     "rating": 5,
+     "text": "Bagus cepat mantap..."
+    },
+    {
+     "id": "tp355367091-26",
+     "rating": 4,
+     "text": "produk sesuai pesanan hanya 1 pcs batere tidak berfungsi"
+    },
+    {
+     "id": "tp355367091-27",
+     "rating": 5,
+     "text": "biar bintang yang menilai"
+    },
+    {
+     "id": "tp355367091-28",
+     "rating": 2,
+     "text": "Tombol hapus tidak berfungsi"
+    },
+    {
+     "id": "tp355367091-29",
+     "rating": 5,
+     "text": "Kesesuaian dengan deskripsi dan fungsional produk..."
+    },
+    {
+     "id": "tp355367091-30",
+     "rating": 5,
+     "text": "Mantap ..............."
+    },
+    {
+     "id": "tp355367091-31",
+     "rating": 5,
+     "text": "Mendarat dengan baik, barang ok...trims"
+    },
+    {
+     "id": "tp355367091-32",
+     "rating": 2,
+     "text": "Warna sesuai pesanan, cuma tulisan ato gambar tidak jelas kurang terang...bentuk dan lcd tidak sesuai dengan tampilan gambar di tokopedia...padahal awalnya saya bilang cancel...tapi tetep dijalanin...ya so so lah dengan harga segitu 😂"
+    },
+    {
+     "id": "tp355367091-33",
+     "rating": 5,
+     "text": "Pengiriman cepat barang bagus sesuai harga"
+    },
+    {
+     "id": "tp355367091-34",
+     "rating": 5,
+     "text": "Sesuai dengan keterangan...."
+    },
+    {
+     "id": "tp355367091-35",
+     "rating": 5,
+     "text": "Produk sangat bagus, packing rapi"
+    },
+    {
+     "id": "tp355367091-36",
+     "rating": 4,
+     "text": "Mohon baterenya diperiksa sebelum dikirim soalnya pesen 2.. 1 baterenya bisa 1 ga bisa"
+    },
+    {
+     "id": "tp355367091-37",
+     "rating": 1,
+     "text": "Tombol hapus tidak berfungsi..."
+    },
+    {
+     "id": "tp355367091-38",
+     "rating": 3,
+     "text": "Barang sudah sampai, sesuai warna yg di request, sayangnya yg satu batrenya habis, jadi tulisannya tdk bisa di delete. Nyari batre sendiri, harga 40rb di tempat tukang jam, gak jadi lah beli batrenya, karena hampir sama ama harga mainannya. And, ternyata tulisan di lcd kurang terang, sepertinya anak saya kurang tertarik.\n\nTerima kasih."
+    },
+    {
+     "id": "tp355367091-39",
+     "rating": 3,
+     "text": "Tulisannya kurang jelas"
+    },
+    {
+     "id": "tp355367091-40",
+     "rating": 3,
+     "text": "pengiriman cepat tapi dari 3pcs yg dikirim ada 1 yg baterainya sudah habis"
+    },
+    {
+     "id": "tp355367091-41",
+     "rating": 5,
+     "text": "Barang cepat sampai, dan ownernya koperatif banget, thank u gan, semoga awet"
+    },
+    {
+     "id": "tp355367091-42",
+     "rating": 4,
+     "text": "1 dari 3 produk yg diorder ga berfungsi.. mw d return mahalan ongkir pp dari pda harga produk"
+    },
+    {
+     "id": "tp355367091-43",
+     "rating": 5,
+     "text": "Respon pnjual cpt brng udh smpe dan packing nya rapih,produk nya bgs trmksi..."
+    },
+    {
+     "id": "tp355367091-44",
+     "rating": 5,
+     "text": "Packing bagus, pengiriman cepat"
+    },
+    {
+     "id": "tp355367091-45",
+     "rating": 5,
+     "text": "brg ok... kesesuaian pilihan warna pesanan gan Lebih diprioritaskan sesuai yg dipesan !!!"
+    },
+    {
+     "id": "tp355367091-46",
+     "rating": 4,
+     "text": "Makasih sdh tiba barangnya meski kurirnya dikit lambat"
+    },
+    {
+     "id": "tp355367091-47",
+     "rating": 5,
+     "text": "Terimakasih, barang sudah diterima dg baik"
+    },
+    {
+     "id": "tp355367091-48",
+     "rating": 5,
+     "text": "Produk bagus.. cocok buat anak2"
+    },
+    {
+     "id": "tp355367091-49",
+     "rating": 2,
+     "text": "Orderan pertama 1pcs rongsok, nyesel banget irder ditoko ini. Harusnya nunggu orderan oertama dateng dulu baru order lagi. Dan bener aja orderan kedua juga dapet barang rongsok. Klo masalah pengiriman lama masih bisa di toleransi lah. Ini barang tongsok di jual. Tolong dong diperbaiki kualias jualannya. Percuma dong beli klo ngak bisa dipake. \nUangnya emang ngak seberapa tapi tolong dong kepercayaan pembeli dijaga!!!!!\nAgar berfaedah buat yg beli berkah juga buat yg jual.\nTerus packingan juga jgn cuma bubble wrap, percuma domg ada biaya asuransi klo packingan ngak dijaga."
+    },
+    {
+     "id": "tp355367091-50",
+     "rating": 1,
+     "text": "Barang yg dikirim di pesanan berikutnya beda dgn yg pertama tanpa tombol on off dan bermasalah tidak bisa di bersihkan coretannya."
+    },
+    {
+     "id": "tp355367091-51",
+     "rating": 2,
+     "text": "Barang baru dipakai beberapa hari tidak bisa di clear bekas coretannya."
+    },
+    {
+     "id": "tp355367091-52",
+     "rating": 1,
+     "text": "Pesanan di prosesnya lama padahal langsung konfirmasi warna minta warna hitam setelah checkout tp ngotot di tolak penjual tetep kirim random, dan ternyata barang yg dikirimkan barang rusak tidak bisa reset display setelah di corat coret pantes ngotot kirim random. Pesan senin gak di proses2 dan br sampai hari jumat dan cuma jd rongsokan. NOT RECOMMENDED SELLER"
+    },
+    {
+     "id": "tp355367091-53",
+     "rating": 5,
+     "text": "sesuai pesanan... cocok buat Belajar anak..."
+    },
+    {
+     "id": "tp355367091-54",
+     "rating": 5,
+     "text": "Sesuai iklan...\nPacking mantaab...\nBarang bagus...\nJoss dah...\nSukses selalu tantee...."
+    },
+    {
+     "id": "tp355367091-55",
+     "rating": 5,
+     "text": "Sangat bagus ,irit lagi"
+    },
+    {
+     "id": "tp355367091-56",
+     "rating": 4,
+     "text": "Tulisannya kurang jelas.."
+    },
+    {
+     "id": "tp355367091-57",
+     "rating": 5,
+     "text": "Produknya berfungsi dengan baik. Anak saya suka. Terima kasih ya."
+    },
+    {
+     "id": "tp355367091-58",
+     "rating": 5,
+     "text": "Barang sesuai, Pengiriman cepat"
+    },
+    {
+     "id": "tp355367091-59",
+     "rating": 4,
+     "text": "Bagus sesuai dengan gambar, hanya pesanan tidak sesuai, saya minta dikirim hitam dan biru, dikirim biru 2 2 nya"
+    }
+   ]
+  },
+  {
+   "source_item_id": "55299234",
+   "title": "Headset Bluetooth Mini S530 - Micro Sport Stereo Bluetooth Earphone",
+   "url": "https://www.tokopedia.com/handphonetiam/headset-bluetooth-mini-s530-micro-sport-stereo-bluetooth-earphone",
+   "description": "",
+   "reviews": [
+    {
+     "id": "tp55299234-0",
+     "rating": 5,
+     "text": "Produk sesuai dengan deskripsi, berfungsi dengan baik, harga murah tapi tidak murahan.. Terima kasih.."
+    },
+    {
+     "id": "tp55299234-1",
+     "rating": 3,
+     "text": "Barang bagus, tinggal liat durabiliti nya"
+    },
+    {
+     "id": "tp55299234-2",
+     "rating": 4,
+     "text": "Semoga bagus suaranya....."
+    },
+    {
+     "id": "tp55299234-3",
+     "rating": 5,
+     "text": "Barangnya bagus, pengiriman cepat..."
+    },
+    {
+     "id": "tp55299234-4",
+     "rating": 4,
+     "text": "Semoga awet thk gan sukses"
+    },
+    {
+     "id": "tp55299234-5",
+     "rating": 5,
+     "text": "Mantap lah. Suara bagus walau agak bocor.😁😁"
+    },
+    {
+     "id": "tp55299234-6",
+     "rating": 4,
+     "text": "Brg tiba dg selamat n berfungsi dg baik Moga2 awet lah"
+    },
+    {
+     "id": "tp55299234-7",
+     "rating": 5,
+     "text": "Original dan cepat dalam pengiriman"
+    },
+    {
+     "id": "tp55299234-8",
+     "rating": 3,
+     "text": "Kualitas barang sesuai dengan harga.."
+    },
+    {
+     "id": "tp55299234-9",
+     "rating": 4,
+     "text": "Produk bagus berfungsi normal, sesuai dengan gambar dan respon penjual cepat...oke banget, hanya jasa pengirimannya yang slow bgt.\nTerimakasih gan..sukses y"
+    },
+    {
+     "id": "tp55299234-10",
+     "rating": 5,
+     "text": "Packing rapih mantull dah"
+    },
+    {
+     "id": "tp55299234-11",
+     "rating": 5,
+     "text": "Barang mulus...semoga awet..."
+    },
+    {
+     "id": "tp55299234-12",
+     "rating": 4,
+     "text": "pesanan sudah diterima, terima kasih gan"
+    },
+    {
+     "id": "tp55299234-13",
+     "rating": 5,
+     "text": "Topppppppppppppppppppppppppppppppppppppp"
+    },
+    {
+     "id": "tp55299234-14",
+     "rating": 5,
+     "text": "Keseluruhan OK, Recommend"
+    },
+    {
+     "id": "tp55299234-15",
+     "rating": 1,
+     "text": "Earphone nya sih dateng tapi ngga sama kabelnya sebelum di packing di cek dulu ya terima kasih ehe"
+    },
+    {
+     "id": "tp55299234-16",
+     "rating": 5,
+     "text": "Barang berfungsi dengan baik...semoga awet..recommended seller"
+    },
+    {
+     "id": "tp55299234-17",
+     "rating": 5,
+     "text": "Produk sesuai deskripsi, suara lumayan jernih. Mudah2an awet barangnya."
+    },
+    {
+     "id": "tp55299234-18",
+     "rating": 5,
+     "text": "Ukuran dan warna sesuai dengan foto dan deskripsi produk yang dijual\n\nProduk bekerja dengan baik, tidak cepat rusak walau sudah dipakai berkali-kali\n\nSaya senang produknya dipaketkan dengan rapi dan tidak ada cacat. Recommended!"
+    },
+    {
+     "id": "tp55299234-19",
+     "rating": 3,
+     "text": "Just ok sih.. batre nya ga tahan lama.. suara ok aja"
+    },
+    {
+     "id": "tp55299234-20",
+     "rating": 4,
+     "text": "Sedikit kecewa karena pas smpe ad lecet\" nya ,,,untuk lain nya udh bagus cm klo bisa d cek lagi barang nya sblm d kirim"
+    },
+    {
+     "id": "tp55299234-21",
+     "rating": 5,
+     "text": "Cakep barangya hanya cepat habis batrainya."
+    },
+    {
+     "id": "tp55299234-22",
+     "rating": 5,
+     "text": "Mantaaap, berfungsi dengan baik"
+    },
+    {
+     "id": "tp55299234-23",
+     "rating": 5,
+     "text": "Barang sesuai pesanan. Good"
+    },
+    {
+     "id": "tp55299234-24",
+     "rating": 1,
+     "text": "ga da suaranya parah bgt pengirimannya ga sesuai dgn ekstimasi"
+    },
+    {
+     "id": "tp55299234-25",
+     "rating": 4,
+     "text": "Bagus semua smpe nya jga cpt"
+    },
+    {
+     "id": "tp55299234-26",
+     "rating": 4,
+     "text": "Ukuran dan warna sesuai foto"
+    },
+    {
+     "id": "tp55299234-27",
+     "rating": 4,
+     "text": "Barang sudah sampai dengan selamat \nBelum d coba semoga awet aja lahhhhh trm kasih.............."
+    },
+    {
+     "id": "tp55299234-28",
+     "rating": 4,
+     "text": "Barang sudah sampai dgn baik, produk lumayan bagus sesuai harganya."
+    },
+    {
+     "id": "tp55299234-29",
+     "rating": 5,
+     "text": "Ukuran dan warna sesuai pesanan"
+    },
+    {
+     "id": "tp55299234-30",
+     "rating": 1,
+     "text": "Produk tidak berfungsi"
+    },
+    {
+     "id": "tp55299234-31",
+     "rating": 3,
+     "text": "Ga sesuai keterangan, masa baru di pake 1jam sdh drop baterai nya 😢"
+    },
+    {
+     "id": "tp55299234-32",
+     "rating": 5,
+     "text": "Sesuai order sudah sampai terima kasih"
+    },
+    {
+     "id": "tp55299234-33",
+     "rating": 1,
+     "text": "Barang tidak bisa di pakai. Kecewaa"
+    },
+    {
+     "id": "tp55299234-34",
+     "rating": 5,
+     "text": "Mantap gan produknya. Kualitas suaranya juga bagus... Cuman di pengirimannya aja yang lama :) makasih gan"
+    },
+    {
+     "id": "tp55299234-35",
+     "rating": 4,
+     "text": "Barang sudah dites bisa bekerja baik."
+    },
+    {
+     "id": "tp55299234-36",
+     "rating": 5,
+     "text": "Barang bagus, respon cepat, tks"
+    },
+    {
+     "id": "tp55299234-37",
+     "rating": 4,
+     "text": "Barang fungsi bagus, good"
+    },
+    {
+     "id": "tp55299234-38",
+     "rating": 4,
+     "text": "Gan bisa di  return gak,,saya pengennya pake yg kanan"
+    },
+    {
+     "id": "tp55299234-39",
+     "rating": 5,
+     "text": "Barang sesuai dengan gambar dan berfungsi dengan baik."
+    },
+    {
+     "id": "tp55299234-40",
+     "rating": 4,
+     "text": "Packing bagus dan aman, produk sesuai pesanan, tapi 3 pc ga mau nyala, mungkin baterai habis, semoga nanti ga ada problem, makasih"
+    },
+    {
+     "id": "tp55299234-41",
+     "rating": 5,
+     "text": "Barang bagus , mulus , ntaps ,responnya bagus lumayan cepat"
+    },
+    {
+     "id": "tp55299234-42",
+     "rating": 5,
+     "text": "Bassnya bagus dan respon penjual cepat"
+    },
+    {
+     "id": "tp55299234-43",
+     "rating": 5,
+     "text": "mantap . packing rapih . pengiriman cepet"
+    },
+    {
+     "id": "tp55299234-44",
+     "rating": 3,
+     "text": "Cukup lumayan bagus sesuai dgn harganya"
+    },
+    {
+     "id": "tp55299234-45",
+     "rating": 5,
+     "text": "Mantap. Walopun durasi kirimnya tidak maksimal. Tp barangnya bagus. Kecil tp suaranya mantap"
+    },
+    {
+     "id": "tp55299234-46",
+     "rating": 5,
+     "text": "barang sudah sampai. thanks ya boss.."
+    },
+    {
+     "id": "tp55299234-47",
+     "rating": 1,
+     "text": "Barang rusak tdk ada suara padahal sdh konek. Malas komplain krn beli dgn barang lain"
+    },
+    {
+     "id": "tp55299234-48",
+     "rating": 2,
+     "text": "Brg nya yg 1 bs di pake n yg 2 gk bs di pakai."
+    },
+    {
+     "id": "tp55299234-49",
+     "rating": 4,
+     "text": "Pengiriman cepat. Tp baterai agak boros."
+    },
+    {
+     "id": "tp55299234-50",
+     "rating": 1,
+     "text": "Saya Memakai jasa JNE YES dari tanggal 6 Februari 2019 sampai tanggal 9 Februari... Sama seperti lamanya pengiriman yang biaya lebih murah...\nSaya Kecewa"
+    },
+    {
+     "id": "tp55299234-51",
+     "rating": 5,
+     "text": "Bagus.................................."
+    },
+    {
+     "id": "tp55299234-52",
+     "rating": 5,
+     "text": "Lha ini yang saya suka, barangnya sesuai pesanan, berfungsi normal dan tidak cacat...(harapan para buyer online shop)"
+    },
+    {
+     "id": "tp55299234-53",
+     "rating": 4,
+     "text": "Sesuai uraian. Pengiriman cepat"
+    },
+    {
+     "id": "tp55299234-54",
+     "rating": 4,
+     "text": "Oke,,.........................."
+    },
+    {
+     "id": "tp55299234-55",
+     "rating": 3,
+     "text": "product made in chine, bagus dan sdh diterima dgn baik..\nmgkn di profilnya tdk perlu dicantumkan \"Wholesale starts from Rp 15.499 / 2 pcs\" krn yg sy terima hanya 1 pcs...biar tdk terkecoh, tau dpt 1 pcs kan saya bisa langsung pesan 2pcs sekaligus, biar ga 2x kali ongkirnya...masukan aja Om...thank you"
+    },
+    {
+     "id": "tp55299234-56",
+     "rating": 5,
+     "text": "Bagus pengiriman barang cepet,   trma kasih"
+    },
+    {
+     "id": "tp55299234-57",
+     "rating": 5,
+     "text": "Terima kasih barang sudah tiba"
+    },
+    {
+     "id": "tp55299234-58",
+     "rating": 5,
+     "text": "Sangat memuaskan..sya akan order lagi respon pun cepat"
+    },
+    {
+     "id": "tp55299234-59",
+     "rating": 3,
+     "text": "Thanks.. sory baru ulas, untuk suara di bawah standar.. wajar sih harganya jga di bawah standar... hahahaha"
+    }
+   ]
+  }
+ ]
+}

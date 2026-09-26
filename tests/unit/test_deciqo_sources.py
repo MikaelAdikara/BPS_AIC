@@ -242,3 +242,20 @@ def test_snapshot_lazada_bertanggal_dimuat(env):
         captured = conn.execute("SELECT captured_at FROM products LIMIT 1").fetchone()[0]
     assert origins == {"public_snapshot"} and captured.startswith("2026-")
     assert job["result"]["stats"]["inserted"] > 100
+
+
+def test_semua_paket_channel_bisa_dimuat(env):
+    from app.deciqo import routes_sources
+
+    packs = routes_sources.list_packs()
+    assert packs, "data/marketplace kosong"
+    client = _client()
+    _login(client, "pk@x.io")
+    for name, pack in packs.items():
+        job_id = client.post(f"/api/v1/deciqo/samples/{name}").json()["job_id"]
+        job = client.get(f"/api/v1/deciqo/jobs/{job_id}").json()
+        assert job["status"] == "done", (name, job)
+        assert job["result"]["stats"]["inserted"] > 0, name
+    with store.database() as conn:
+        channels = {r[0] for r in conn.execute("SELECT DISTINCT channel FROM products")}
+    assert {"tokopedia", "shopee", "tiktok", "blibli", "lazada"} <= channels

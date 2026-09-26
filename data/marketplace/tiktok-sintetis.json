@@ -1,0 +1,59 @@
+{
+ "channel": "tiktok",
+ "data_origin": "synthetic",
+ "captured_at": "2026-09-26T03:00:00+00:00",
+ "label": "TikTok Shop synthetic example",
+ "source": "Written by the team to show the import format with a listing",
+ "sampling": "Synthetic example, not customer data.",
+ "products": [
+  {
+   "source_item_id": "tt-pb-mag-10k",
+   "title": "Powerbank magnetik 10000 mAh",
+   "description": "Powerbank magnetik 10000 mAh, pengisian nirkabel 15W. Kompatibel iPhone 12, 13, 14. Tebal 1,6 cm, berat 190 gram. Garansi toko 7 hari.",
+   "reviews": [
+    {
+     "id": "tt-pb-mag-10k-1",
+     "rating": 2,
+     "variant": "Hitam",
+     "text": "Di iPhone 15 Pro saya magnetnya lemah, sering lepas kalau di saku.",
+     "review_time": "2026-09-14T03:00:00+00:00"
+    },
+    {
+     "id": "tt-pb-mag-10k-2",
+     "rating": 3,
+     "variant": "Putih",
+     "text": "Magnetnya kurang kuat buat iPhone 15, harus dipegangin.",
+     "review_time": "2026-09-16T03:00:00+00:00"
+    },
+    {
+     "id": "tt-pb-mag-10k-3",
+     "rating": 2,
+     "variant": "Hitam",
+     "text": "Pakai case tebal jadi tidak nempel sama sekali, harusnya ditulis butuh case magsafe.",
+     "review_time": "2026-09-18T03:00:00+00:00"
+    },
+    {
+     "id": "tt-pb-mag-10k-4",
+     "rating": 5,
+     "variant": "Hitam",
+     "text": "Ngecas iPhone 13 lancar, tipis enak dibawa.",
+     "review_time": "2026-09-20T03:00:00+00:00"
+    },
+    {
+     "id": "tt-pb-mag-10k-5",
+     "rating": 4,
+     "variant": "Putih",
+     "text": "Bagus, cuma agak panas waktu ngecas sambil main game.",
+     "review_time": "2026-09-22T03:00:00+00:00"
+    },
+    {
+     "id": "tt-pb-mag-10k-6",
+     "rating": 5,
+     "variant": "Hitam",
+     "text": "Pengiriman cepat, barang sesuai deskripsi.",
+     "review_time": "2026-09-24T03:00:00+00:00"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,59 @@
+{
+ "channel": "blibli",
+ "data_origin": "synthetic",
+ "captured_at": "2026-09-26T03:00:00+00:00",
+ "label": "Blibli synthetic example",
+ "source": "Written by the team to show the import format with a listing",
+ "sampling": "Synthetic example, not customer data.",
+ "products": [
+  {
+   "source_item_id": "bb-rc-18",
+   "title": "Rice cooker digital 1,8 liter",
+   "description": "Rice cooker digital kapasitas 1,8 liter, panci anti lengket, 8 menu masak, timer 24 jam. Daya 400 watt.",
+   "reviews": [
+    {
+     "id": "bb-rc-18-1",
+     "rating": 2,
+     "variant": "",
+     "text": "Lapisan anti lengketnya mulai mengelupas setelah sebulan pemakaian.",
+     "review_time": "2026-09-06T03:00:00+00:00"
+    },
+    {
+     "id": "bb-rc-18-2",
+     "rating": 3,
+     "variant": "",
+     "text": "Anti lengketnya sudah baret padahal pakai centong bawaan.",
+     "review_time": "2026-09-10T03:00:00+00:00"
+    },
+    {
+     "id": "bb-rc-18-3",
+     "rating": 3,
+     "variant": "",
+     "text": "Kapasitas 1,8 liter itu air atau beras? Masak beras 1,5 liter jadi luber.",
+     "review_time": "2026-09-14T03:00:00+00:00"
+    },
+    {
+     "id": "bb-rc-18-4",
+     "rating": 5,
+     "variant": "",
+     "text": "Nasinya pulen, menu bubur juga enak.",
+     "review_time": "2026-09-17T03:00:00+00:00"
+    },
+    {
+     "id": "bb-rc-18-5",
+     "rating": 4,
+     "variant": "",
+     "text": "Timernya berguna, tapi bunyi bip-nya keras sekali.",
+     "review_time": "2026-09-21T03:00:00+00:00"
+    },
+    {
+     "id": "bb-rc-18-6",
+     "rating": 5,
+     "variant": "",
+     "text": "Sesuai deskripsi, pengemasan rapi.",
+     "review_time": "2026-09-23T03:00:00+00:00"
+    }
+   ]
+  }
+ ]
+}

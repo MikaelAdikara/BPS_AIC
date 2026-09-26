@@ -1,0 +1,486 @@
+{
+ "channel": "shopee",
+ "data_origin": "team_collected",
+ "captured_at": "2026-08-31T00:00:00+00:00",
+ "label": "Shopee reviews collected by the team",
+ "source": "Two public Shopee listings, reviews Oct 2025 - Aug 2026, collected by the team",
+ "sampling": "All collected reviews, not filtered. Product names were anonymised; account names and body measurements were not kept.",
+ "products": [
+  {
+   "source_item_id": "Produk-0964",
+   "title": "Shopee listing 0964",
+   "description": "",
+   "reviews": [
+    {
+     "id": "SHP75386226999",
+     "rating": 5,
+     "text": "Bahan:tdk tembus pandang\nDesain:menarik\nTekstur:lembut\n\nkaosnya sdh dtg, bahan melar, nyaman dan pas si ukuranku. Semua sesuai dg deskripsi.",
+     "variant": "Mocca,XXL",
+     "review_time": "2025-10-02T00:00:00+00:00"
+    },
+    {
+     "id": "SHP76397811329",
+     "rating": 5,
+     "text": "Bahan:sangat halus dan nyaman\nDesain:sederhana namun elegan\nTekstur:sangat lembut dan nyaman buat sehari hari",
+     "variant": "Abu Tua,L",
+     "review_time": "2025-10-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP77035428493",
+     "rating": 5,
+     "text": "Bahan:bagus ngak tembus pandang\nDesain:modern\nTekstur:sangat lembut\n\nBajux aku Sukak sekali...adem ngak bikin gerah",
+     "variant": "Abu M61,M",
+     "review_time": "2025-10-20T00:00:00+00:00"
+    },
+    {
+     "id": "SHP77517372849",
+     "rating": 5,
+     "text": "Bahan:halus lembut nyaman\nDesain:bagus menarik\nTekstur:halus\n\nAlhamdulillah baju saya udah sampai dgn selamat dan amann... real pict sesuai yg di live pokoknya sukaa 🥰💖 Terimakasih seller 🙏🥰",
+     "variant": "Mocca,M",
+     "review_time": "2025-10-25T00:00:00+00:00"
+    },
+    {
+     "id": "SHP77757768050",
+     "rating": 5,
+     "text": "Bahan:sejuk dan nyaman\nDesain:modern\nTekstur:sangat lembut dan halus\n\nKaos wanita polos bagus bgt modelnya trus bawahnya oval lg jahitan rapih bahan adem lembut nyaman dikulit",
+     "variant": "Hitam,XL",
+     "review_time": "2025-10-28T00:00:00+00:00"
+    },
+    {
+     "id": "SHP78252741100",
+     "rating": 5,
+     "text": "Bahan:halus dan tidak tembus\nDesain:polos putih\nTekstur:lembut\n\nBarang nya cepet banget sampe nya pesen hari Senin Selasa nya udh sampe, awalnya mau batalin pesanan karna takut lama tapi ternyata cepet🥰",
+     "variant": "Putih,M",
+     "review_time": "2025-11-04T00:00:00+00:00"
+    },
+    {
+     "id": "SHP78248305181",
+     "rating": 5,
+     "text": "Bahan:bagus banget\nDesain:modern\nTekstur:lembut\n\ndi aku ga ngecrop tpi pas ga kecil ga besar, bagus bangett, recommended sii",
+     "variant": "Hitam,M",
+     "review_time": "2025-11-04T00:00:00+00:00"
+    },
+    {
+     "id": "SHP78665146333",
+     "rating": 5,
+     "text": "Bahan:lembut\nDesain:lucu\nTekstur:nyaman\n\nBagus, bahan ringan dan nyaman sesuai pesanan, harga terjangkau",
+     "variant": "Hitam,L",
+     "review_time": "2025-11-09T00:00:00+00:00"
+    },
+    {
+     "id": "SHP78700595083",
+     "rating": 5,
+     "text": "Bahan:lembut gak nerawang\nDesain:simpel\nTekstur:lembut\n\nPas dibadan, bahannya gak tipis enaken, next beli warna lain👍🏻",
+     "variant": "Abu M61,M",
+     "review_time": "2025-11-10T00:00:00+00:00"
+    },
+    {
+     "id": "SHP78920697951",
+     "rating": 5,
+     "text": "Bahan:kualitasnya sesuai standar\nTekstur:sangat lembut dan nyaman\nDesain:imut dan menarik perhatian\n\nbaru kali ini nemu kaos yg lucu banget trs bagus banget lagi, soalnya mau dipakai di acara sekolah🎀⭐⭐⭐⭐⭐",
+     "variant": "Putih,L",
+     "review_time": "2025-11-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP79855019832",
+     "rating": 5,
+     "text": "Bahan:kaos adem\nDesain:lucu\nTekstur:lembut\n\nadem ga panas kaosnya lembut di ukiran L nya.. abu nya ga trlalu gelap ga trlalu terang bagus banget sukaa.. next mau order lagi bahanya meral juga gitu pas banget ..",
+     "variant": "Abu Tua,L",
+     "review_time": "2025-11-27T00:00:00+00:00"
+    },
+    {
+     "id": "SHP80405302429",
+     "rating": 5,
+     "text": "Bahan:lumayan\nDesain:oke\nTekstur:lembut\n\nPengemasan dan pengiriman cepet. Packaging standar dan aman. Utk barangnya sih sesuai ya size L tp utk BB 48 pas. Sesuai harga",
+     "variant": "Mocca,L",
+     "review_time": "2025-12-02T00:00:00+00:00"
+    },
+    {
+     "id": "SHP80755661220",
+     "rating": 5,
+     "text": "Bahan:bahan nya adem\nTekstur:sangat lembut & nyaman\nDesain:menarik",
+     "variant": "Mocca,L",
+     "review_time": "2025-12-05T00:00:00+00:00"
+    },
+    {
+     "id": "SHP81375100259",
+     "rating": 5,
+     "text": "Bahan:nyaman dan tidak panas, ringan, untuk olahraga\nTekstur:sangat lembut dan nyaman\nDesain:bagus dengan detail menarik\n\nOrder pertama size M, fit di badan,\nOrderan kedua Krn harga terjangkau dan bahan bagus serta nyaman ini coba size L, ingin lebih longgar, tetap pas dipakai di badan.",
+     "variant": "Khaki,L",
+     "review_time": "2025-12-11T00:00:00+00:00"
+    },
+    {
+     "id": "SHP81418955017",
+     "rating": 5,
+     "text": "Bahan:adem ringan\nTekstur:nyaman\nDesain:baguss cocok bnget di badan\n\nbagus\" kok dengan segituu worth it bangett gaess\nnnti beli lagii deh pan kapann",
+     "variant": "Mocca,M",
+     "review_time": "2025-12-12T00:00:00+00:00"
+    },
+    {
+     "id": "SHP81833340610",
+     "rating": 5,
+     "text": "Bahan:bagus\nTekstur:lembut\nDesain:real pict\n\nbagus bgtt dipake nonton konser ga gerahhhh, datangnya cepat sesuai di note makasi seller",
+     "variant": "Abu M61,M",
+     "review_time": "2025-12-15T00:00:00+00:00"
+    },
+    {
+     "id": "SHP84557452299",
+     "rating": 5,
+     "text": "Bahan:katun\nTekstur:lembut\nDesain:cutting belah\n\nSesuai harga lah lumayan buat ganti ganti\nMakasih",
+     "variant": "Mocca,XL",
+     "review_time": "2026-01-09T00:00:00+00:00"
+    },
+    {
+     "id": "SHP85382180541",
+     "rating": 5,
+     "text": "Bahan:tidak tembus pandang\nTekstur:lembut dan nyaman\nDesain:memiliki disen yg menarik\n\npaket baru aja nyampe,bajunya bagus bgt,niat hati mau buat sendiri malah di pake anak gadisku,, resiko punya anak gadis ya begini.. hehee otw co LG🤭🤭",
+     "variant": "Mocca,M",
+     "review_time": "2026-01-15T00:00:00+00:00"
+    },
+    {
+     "id": "SHP95734159145",
+     "rating": 5,
+     "text": "alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg warna terang sedikit nerawang but it’s oke overall good",
+     "variant": "Khaki,M",
+     "review_time": "2026-04-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP95797307530",
+     "rating": 5,
+     "text": "Bahan:enakeun\nTekstur:lembut\nDesain:suka bagus\n\nJangan ragu untuk beli di toko ini \nAku dah beli dua kali alhamdulillah tokonya amanah \nMasya allah berkah sllu dan sehat sllu makasih🙏",
+     "variant": "Hijau Olive,M",
+     "review_time": "2026-04-15T00:00:00+00:00"
+    }
+   ]
+  },
+  {
+   "source_item_id": "Produk-1481",
+   "title": "Shopee listing 1481",
+   "description": "",
+   "reviews": [
+    {
+     "id": "SHP91747852228",
+     "rating": 2,
+     "text": "Jelas2 HITAM nympenya MERAH",
+     "variant": "Hitam,M",
+     "review_time": "2026-03-12T00:00:00+00:00"
+    },
+    {
+     "id": "SHP97646385766",
+     "rating": 2,
+     "text": "Styling:1 kain nya dingin 1 lagi beda",
+     "variant": "Hitam,M",
+     "review_time": "2026-05-06T00:00:00+00:00"
+    },
+    {
+     "id": "SHP97775723418",
+     "rating": 2,
+     "text": "Kenyamanan:saya beli hitam sama mahogani bahan beda beda ademan yang mahogani, yang hitam jahitan ga rapi kerut di bagian leher, ukuran M kecil banget ngpres banget di badan, tb 153 bb 47, saran min buat bahan konsisten dan jahitan dibuat lebih rapi, jujur sedikit kecewa",
+     "variant": "Hitam,M",
+     "review_time": "2026-05-10T00:00:00+00:00"
+    },
+    {
+     "id": "SHP98160011380",
+     "rating": 3,
+     "text": "akuu mesennyaa warnaa maroon, tapi dikirimnya warna coklat 😓😓",
+     "variant": "maroon,XL",
+     "review_time": "2026-05-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP98459260102",
+     "rating": 2,
+     "text": "Jelek bngt pesan warna lain yg dtng warna lain ga bngt lain kali hrus lebih teliti ya sm msa iya beli dua beda bahan bajunya padahl satu toko nyesel bngt belinya",
+     "variant": "mahogany,S",
+     "review_time": "2026-05-17T00:00:00+00:00"
+    },
+    {
+     "id": "SHP98736091358",
+     "rating": 3,
+     "text": "Bahan:bahan bagus\n\nwarna mahagany kok dtgnya lebih ke wrna coksu si",
+     "variant": "mahogany,XL",
+     "review_time": "2026-05-19T00:00:00+00:00"
+    },
+    {
+     "id": "SHP98874945620",
+     "rating": 3,
+     "text": "Bahan:bagus tapi koyak",
+     "variant": "mahogany,M",
+     "review_time": "2026-05-20T00:00:00+00:00"
+    },
+    {
+     "id": "SHP98999656144",
+     "rating": 1,
+     "text": "Bahan:bahan baju warna coklatnya halus\n\nHalo kak kenapa ya chat aku gak di balas kecewa sedikit pesannya warna putih 1 dan coklat tapi yang dikirim warna hitam🥹\nSemoga kedepannya lebih teliti lagi ya dan sebenarnya yang paling kubutuh itu yang warna putih tapi ya sudah lah",
+     "variant": "mahogany,M",
+     "review_time": "2026-05-21T00:00:00+00:00"
+    },
+    {
+     "id": "SHP99165598696",
+     "rating": 2,
+     "text": "Bahan:ada robek",
+     "variant": "Hitam,S",
+     "review_time": "2026-05-28T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100434520083",
+     "rating": 1,
+     "text": "GUA CHT GA DI BALES BARANG RUSAK BOLONG” NIAT JUALAN GASI HARGA UDH MAU 50rb HARUSNY GA BLONG KAYA GINI DI KSIH BRANG BEKAS GAUSAH BELI DISINI UDH DI CHT DRI SIANG SMPE SKRG TENGAH MLAM GA DI BLS PDHL ONLINE TERUS KOCAKK❗️💩💩💩🤮",
+     "variant": "Hitam,M",
+     "review_time": "2026-06-11T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100365162416",
+     "rating": 3,
+     "text": "Masa packaginya lgsng gini sih kak😞 overall smua bajunya oke",
+     "variant": "Hitam,L",
+     "review_time": "2026-06-11T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100495421924",
+     "rating": 1,
+     "text": "pesen warna putih, yang dateng malah hitam. Saya sudah nunggu dari beberapa hari lalu, berharap sekarang bisa dipakai. Sangat mengecewakan!",
+     "variant": "Putih,M",
+     "review_time": "2026-06-12T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100501877087",
+     "rating": 3,
+     "text": "Kenyamanan:nyaman\nBahan:bagus\nDesain:oke\n\nPesan nya 4 warna \nWarna maroon,putih,hitam,dan coklat\nTapi yang datang malah hitam 2 coklat dan maroon yang putih ngga ada",
+     "variant": "mahogany,M",
+     "review_time": "2026-06-12T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100537776733",
+     "rating": 2,
+     "text": "Desain:saya harap pesanan ku di kirim kembli dengn warna sesuai di tunggu!!",
+     "variant": "mahogany,M",
+     "review_time": "2026-06-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100653031096",
+     "rating": 1,
+     "text": "Barang yg di kirimkan rusak kecewa bnget",
+     "variant": "Putih,M",
+     "review_time": "2026-06-16T00:00:00+00:00"
+    },
+    {
+     "id": "SHP100696712896",
+     "rating": 3,
+     "text": "Kenyamanan:nyaman\nBahan:bagus kok\nDesain:bagus\n\nCuman bolong dikitt sayang banget 🥲",
+     "variant": "maroon,M",
+     "review_time": "2026-06-16T00:00:00+00:00"
+    },
+    {
+     "id": "SHP101462760140",
+     "rating": 1,
+     "text": "Tekstur:ada noda putih2 di baju,tetus saya beli warna mahogany",
+     "variant": "mahogany,S",
+     "review_time": "2026-06-21T00:00:00+00:00"
+    },
+    {
+     "id": "SHP101605610896",
+     "rating": 3,
+     "text": "Tolong kalo mau kirim di cek dulu dong. \nOverall bagus",
+     "variant": "Hitam,S",
+     "review_time": "2026-06-22T00:00:00+00:00"
+    },
+    {
+     "id": "SHP101889462575",
+     "rating": 1,
+     "text": "jelek njs psen Mahogany yg dtg item di cht kaga jwb,mksdny apaan dh nysl beli dsni",
+     "variant": "mahogany,M",
+     "review_time": "2026-06-24T00:00:00+00:00"
+    },
+    {
+     "id": "SHP102869055011",
+     "rating": 3,
+     "text": "Kenyamanan:nyamn sekali di pakai\nBahan:agak tipis TPI dingin bnget sya suka\nDesain:desain cukup rapi cocok untuk sehari\"",
+     "variant": "Hitam,S",
+     "review_time": "2026-07-01T00:00:00+00:00"
+    },
+    {
+     "id": "SHP103096572152",
+     "rating": 1,
+     "text": "Kenyamanan:baju bagus\nBahan:bahan adem strecing\nDesain:bagus\n\npink 3, coklat 2, harusnya ini malah sebaliknya aku pesen baju banyak, trus dia salah kirim 1\naku gamasalah dia salah kirim 1, sudah ku komplain cht admin malah gada respon sama sekali, sudah 1 minggu loh nungguin balasan, minimal balas minta maaf atau apa kek, ini malah di cuekin, yg tdi nya mau ikhlasin malah kesel krna seller gada respon samsek.",
+     "variant": "mahogany,L",
+     "review_time": "2026-07-02T00:00:00+00:00"
+    },
+    {
+     "id": "SHP103098506420",
+     "rating": 3,
+     "text": "Kenyamanan:nyaman+presbody suka\nBahan:bahan tipis\nDesain:robek sedikit gtau knp pdhl br dtg",
+     "variant": "Putih,M",
+     "review_time": "2026-07-02T00:00:00+00:00"
+    },
+    {
+     "id": "SHP103725035041",
+     "rating": 1,
+     "text": "kecewa sih sama toko ini order nya yang warna coklat yang dateng malah warna hitam gk sesuai bangett, padahal sebelum nya saya pernah chekout baju di toko ini dan yang dateng sesuai warna hitam,dan saya chekout ke dua kali nya malah yang dateng warna hitam lagi padahal saya chekout nya warna coklat😕",
+     "variant": "mahogany,S",
+     "review_time": "2026-07-06T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104747325346",
+     "rating": 3,
+     "text": "Kenyamanan:Nyaman dipakai\nBahan:bahan bagus\nDesain:desain cukup rapi\n\nsaya ga tau kenapa mungkin ada kesalahan, saya ordernya yang warna putih, tapi yang dateng malah warna hitam",
+     "variant": "Putih,L",
+     "review_time": "2026-07-14T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104856249093",
+     "rating": 1,
+     "text": "Kenyamanan:robek\nBahan:maaf TPI barang nya robek tdk sesuai\nDesain:robek\n\nLain kali mbak , sebelum peking barang diliat dulu apakah barang yang mau di kirim itu udah sesuai apa gmna ini barang nya robek looo ,tapi nggak papa ini sebagai peringatan aja lain kali jngn kek gini lagi ke kostumer lainx yaa👍🏻",
+     "variant": "mahogany,S",
+     "review_time": "2026-07-16T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104846627383",
+     "rating": 3,
+     "text": "Yang Mahogany terlalu kecil bukan UK L itu.. aku beli kemaren warna hitam sama maron UK L pas bnget suka, makanya cek out lagi, yg ini pesen warna coksu dan Mahogany, Tpi yg dtang kecil semua 🥹🥹 kecewa bnget si aku huhuhu😭😭😭",
+     "variant": "mahogany,L",
+     "review_time": "2026-07-16T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104917855270",
+     "rating": 1,
+     "text": "Pesan UK L malah kecil bgt . Buat di anak Usia 7 tahun . Nyesel belinya , barangnya mahal . Tidak sesuai di foto\"",
+     "variant": "Hitam,L",
+     "review_time": "2026-07-17T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104937773020",
+     "rating": 1,
+     "text": "pesen warna putih di kirim warna hitam, fyi yg di vid itu bukan bajunya soalnya lagi di laundry. tapi jujur yg di kirim warna hitam padahal pesan warna putih, di desk paketnya juga tertera warna putih , tapi yang di kirim warna hitam. mengubah warna tanpa ada pemberitahuan terlebih dahulu.",
+     "variant": "Putih,L",
+     "review_time": "2026-07-17T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104921825927",
+     "rating": 1,
+     "text": "packing lama, yg dikirim jg salah, seller no respon bad bgt",
+     "variant": "Putih,L",
+     "review_time": "2026-07-17T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104951914647",
+     "rating": 3,
+     "text": "Kenyamanan:pres\nBahan:dingin\nDesain:rapi",
+     "variant": "Putih,S",
+     "review_time": "2026-07-18T00:00:00+00:00"
+    },
+    {
+     "id": "SHP104976158270",
+     "rating": 1,
+     "text": "Kenyamanan:nyaman\nBahan:bagus\nDesain:bagus\n\npadahal bagus bahannya tp dpet barang zonk",
+     "variant": "mahogany,S",
+     "review_time": "2026-07-19T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105019965254",
+     "rating": 1,
+     "text": "Kenyamanan:gak nyaman karena ada bekas rokok",
+     "variant": "Putih,M",
+     "review_time": "2026-07-22T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105062539219",
+     "rating": 2,
+     "text": "Kenyamanan:bagus nyamanan ajaa\n\nbarang nya belum aku liat jelas cumaa dari plastik nya udah robek pas baru dateng",
+     "variant": "mahogany,XL",
+     "review_time": "2026-07-24T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105065412852",
+     "rating": 2,
+     "text": "lain kali lebih teliti lagi ya☺️",
+     "variant": "Hitam,S",
+     "review_time": "2026-07-24T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105077455202",
+     "rating": 1,
+     "text": "Kenyamanan:cocok untuk dirumah\nBahan:Adem\nDesain:menarik cm tembus pandang 😁",
+     "variant": "Putih,L",
+     "review_time": "2026-07-25T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105094537334",
+     "rating": 2,
+     "text": "Sudah brpa kali di krim ga sesuai ukurn yg di pesan",
+     "variant": "Hitam,XL",
+     "review_time": "2026-07-26T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105552531687",
+     "rating": 3,
+     "text": "Tidak sesuai pesanan yang di pesan 2 yang datang satu",
+     "variant": "maroon,L",
+     "review_time": "2026-07-29T00:00:00+00:00"
+    },
+    {
+     "id": "SHP105682119824",
+     "rating": 2,
+     "text": "jahitan belum selesai di kirim!! HADEHHHHHH!!! lain kali kalo jualan yang amanah,  barang reject dikirim! iya si ada harga ada kualitas tapi eman juga beli dngn harga 40rb an tapi barangnya kayak gini!!!!",
+     "variant": "Abu-abu,S",
+     "review_time": "2026-07-30T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106145610428",
+     "rating": 3,
+     "text": "Kenyamanan:nyaman\nTekstur:pas\nDesain:oke\n\nada bagian yg koyak dan itu agak besar padahal mau di pakek hari ini",
+     "variant": "Abu-abu,S",
+     "review_time": "2026-08-02T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106211891631",
+     "rating": 1,
+     "text": "Kenyamanan:kurang\n\nbeli baju baru dikasih baju bolong,mana ga cuma 1 lagi bolongnya",
+     "variant": "maroon,S",
+     "review_time": "2026-08-03T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106400059858",
+     "rating": 1,
+     "text": "Kenyamanan:td tau\nTekstur:licin\nDesain:b aj\n\nTerawang bgt minta hitam dkirim putih! Tokony g amanah",
+     "variant": "Hitam,XL",
+     "review_time": "2026-08-04T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106395526726",
+     "rating": 2,
+     "text": "Desain:mesan nya mahogany malah yg dikirim warna lain",
+     "variant": "mahogany,L",
+     "review_time": "2026-08-04T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106356975439",
+     "rating": 2,
+     "text": "Kecewa baju nya bolong",
+     "variant": "mahogany,L",
+     "review_time": "2026-08-04T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106709811654",
+     "rating": 1,
+     "text": "pesan warna pink yang dateng malah warna coklat",
+     "variant": "Dusty Pink,S",
+     "review_time": "2026-08-06T00:00:00+00:00"
+    },
+    {
+     "id": "SHP106958175480",
+     "rating": 3,
+     "text": "Kenyamanan:lembut cuma mines bukan warna yg aku mau\nTekstur:bahannya kaos ga gerah juga enak ko tp -bukan warna yang aku mau\n\nIni tokohnya ga merhatiin kah pembelinya warna apa?,dikira kita ga beli pakai uang?,kan kita bayar kocak minimal ada tanggung jawabnya lah",
+     "variant": "Dusty Pink,S",
+     "review_time": "2026-08-08T00:00:00+00:00"
+    },
+    {
+     "id": "SHP107012810938",
+     "rating": 3,
+     "text": "Kenyamanan:enak\nTekstur:meral\nDesain:ok\n\nJujur warna ny ga sesuai ekspetasi ak, ini warna nya aga ke ungu' an gtu bukan pink muda..",
+     "variant": "Dusty Pink,M",
+     "review_time": "2026-08-09T00:00:00+00:00"
+    }
+   ]
+  }
+ ]
+}
