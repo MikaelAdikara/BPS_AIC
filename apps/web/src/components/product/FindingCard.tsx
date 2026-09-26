@@ -503,7 +503,7 @@ export function FindingCard({
               {finding.fact && (
                 <Notice tone="good">
                   <p className="count">
-                    {finding.fact.value} {finding.fact.unit}
+                    {finding.fact.raw_value || `${finding.fact.value} ${finding.fact.unit}`}
                     {finding.fact.variant ? " · " + finding.fact.variant : ""}
                   </p>
                   <p>{t("product.factTime", { time: date(finding.fact.confirmed_at) })}</p>

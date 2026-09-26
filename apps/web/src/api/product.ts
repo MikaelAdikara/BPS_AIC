@@ -45,6 +45,7 @@ export interface Finding extends Issue {
   fact: {
     value: string;
     unit: string;
+    raw_value?: string;
     variant: string;
     confirmed_at: string;
   } | null;
