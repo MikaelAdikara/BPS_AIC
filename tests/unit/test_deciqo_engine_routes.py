@@ -138,3 +138,12 @@ def test_bucket_dan_next_mengikuti_status_draf(client):
     held = [i for i in items if i["draft_status"] == "needs_merchant_fact"]
     assert held
     assert all(i["bucket"] == "needs_fact" and i["next"] == "fact" for i in held)
+
+
+def test_endpoint_rencana_keputusan(client):
+    assert client.get("/api/v1/deciqo/decisions").status_code == 401
+    uid = _signup(client, "h@x.id")
+    _seed(uid)
+    body = client.get("/api/v1/deciqo/decisions").json()
+    assert body["score_kind"] == "heuristic" and body["total"] == len(body["decisions"]) == 2
+    assert body["decisions"][0]["next_step"] == "confirm_fact"

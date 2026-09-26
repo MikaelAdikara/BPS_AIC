@@ -16,6 +16,7 @@ Keduanya juga disimpan di setiap baris `analyses` dan di setiap draf (`gate_vers
 | `GET /api/v1/deciqo/inbox` | `{"items": [InboxItem]}` terurut |
 | `GET /api/v1/deciqo/summary` | `{"products", "reviews", "findings_open", "buckets": {recurrence, needs_fact, to_do, monitoring, dismissed, not_detected}, "top": [InboxItem ×≤3], "engine": "ai"|"rules"}` |
 | `GET /api/v1/deciqo/channels` | `{"channels": [{"key", "label", "mode", "connected", "synthetic", "status", "last_success_at", "last_error", "products", "reviews", "active_findings"}]}` |
+| `GET /api/v1/deciqo/decisions` | `{"decisions": [{finding_id, product_id, product_title, channel, attribute_local, bucket, next_step, score, drivers[], example}], "total", "patterns": [...], "cross_channel": [...], "score_kind": "heuristic"}` |
 | `GET /api/v1/deciqo/ledger` | `{"calls": [...], "by_purpose": [{"provider", "purpose", "calls", "cost_usd", "unconfirmed_usd"}], "budget_usd"}` |
 
 Urutan inbox: bucket (`recurrence → needs_fact → to_do → monitoring → dismissed → not_detected`), lalu
@@ -120,3 +121,19 @@ Hasil: `findings[{id, attribute, attribute_local, finding_type, support_ids, con
 fact_applied, draft {status, text, reasons}, metrics, …}]`, `engine`, `engine_note`, `pipeline_version`,
 `verifier_version`, `usage {input_tokens, cached_tokens, output_tokens, calls, cost_usd}`, `trace`, `errors`.
 Tanpa key atau bila key ditolak, `engine` bernilai `rules` dan `engine_note` menyebut alasannya.
+
+## Rencana keputusan
+
+Heuristik yang bisa dijelaskan, bukan optimum atau prediksi profit. Hanya isu di bucket
+`recurrence`, `needs_fact`, `to_do`. `score = impact / sqrt(effort_minutes)`.
+
+- `impact` = batas bawah Wilson 95% share keluhan × 100 + min(support, 30) × 1,5 + 3 × keluhan di ★4–5
+  + 12 bila tren naik / −6 bila turun (90 hari terakhir vs sebelumnya, ulasan bertanggal saja) + 15 bila
+  muncul lagi + 2 × log10(1 + units sold); satu laporan → × 0,3.
+- `next_step` dan menit (konstanta, `measured: false`): `paste_listing` 2, `review_draft` 3,
+  `edit_listing` 8, `confirm_fact` 10, `change_process` 30, `talk_to_supplier` 45.
+- `drivers[].key` ∈ `reach` (`support`, `share`, `confident_share`), `hidden` (`n`), `rising`/`falling`
+  (`recent`, `before`), `recurrence`, `units` (`units_sold`, `illustrative_buyers`, `assumption: true`),
+  `single_report`, `effort` (`step`, `minutes`, `measured`).
+- `patterns`: atribut yang sama di beberapa produk; `cross_channel`: judul mirip (≥0,5) di channel
+  berbeda. Keduanya `kind: "candidate"`, bukan identitas SKU.

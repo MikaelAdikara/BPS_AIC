@@ -7,13 +7,13 @@ from __future__ import annotations
 
 from typing import Literal
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, Field
 
 from .. import analysis, ingest, jobs, store
 from ..auth import current_user
 from ..errors import DeciqoError, not_found
-from . import draft, facts, workspace
+from . import decision, draft, facts, workspace
 
 router = APIRouter(prefix="/api/v1/deciqo", tags=["deciqo-engine"])
 
@@ -58,9 +58,18 @@ def get_summary(user: dict = Depends(current_user)) -> dict:
 
 
 @router.get("/inbox")
-def get_inbox(user: dict = Depends(current_user)) -> dict:
+def get_inbox(q: str = Query(default="", max_length=300), channel: str = "", kind: str = "", severity: str = "",
+              status: str = "", order: Literal["priority", "reviews", "share", "recent", "product"] = "priority",
+              user: dict = Depends(current_user)) -> dict:
+    from ..insights import filter_items
     with store.database() as conn:
-        return {"items": workspace.inbox(conn, user["id"])}
+        return {"items": filter_items(workspace.inbox(conn, user["id"]), q, channel, kind, severity, status, order)}
+
+
+@router.get("/decisions")
+def get_decisions(user: dict = Depends(current_user)) -> dict:
+    with store.database() as conn:
+        return decision.plan(conn, user["id"])
 
 
 @router.get("/ledger")
@@ -73,9 +82,12 @@ def get_ledger(user: dict = Depends(current_user)) -> dict:
 
 
 @router.get("/products")
-def list_products(user: dict = Depends(current_user)) -> dict:
+def list_products(q: str = Query(default="", max_length=300), channel: str = "", status: str = "",
+                  order: Literal["priority", "reviews", "recent", "product"] = "priority",
+                  user: dict = Depends(current_user)) -> dict:
+    from ..insights import filter_items
     with store.database() as conn:
-        return {"products": workspace.products(conn, user["id"])}
+        return {"products": filter_items(workspace.products(conn, user["id"]), q=q, channel=channel, status=status, order=order)}
 
 
 @router.get("/products/{product_id}")
