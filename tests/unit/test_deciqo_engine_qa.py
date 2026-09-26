@@ -205,3 +205,52 @@ def test_qa17_tanpa_listing_draf_menunggu_listing():
 
     finding = {"id": "f", "finding_type": "missing_fact", "attribute": "size", "attribute_local": "ukuran"}
     assert draft.section(finding, None, "", False)["status"] == "needs_listing"
+
+
+# --- label AI yang benar tapi ditolak juri (paket Shopee/Tokopedia) -----------------------------
+
+DEFECT = {"attribute": "damaged / holes / tears", "attribute_local": "barang rusak / bolong / robek"}
+FAN = {"attribute": "fan rotation speed", "attribute_local": "kecepatan/rotasi kipas"}
+
+
+@pytest.mark.parametrize("text", [
+    "Kecewa baju nya bolong",  # sudah lulus sejak pecah/patah/retak/bolong masuk kelompok kualitas
+    "Bahan:bagus tapi koyak",
+    "barang nya robek tdk sesuai",
+    "ada noda putih2 di baju",
+])
+def test_qa18_kata_cacat_di_label_temuan_menandai_atribut(text):
+    assert relevance.judge(text, DEFECT).label == relevance.SUPPORTS
+
+
+def test_qa18_kata_label_temuan_tanpa_kelompok_dipakai():
+    assert relevance.judge("kipas muternya lambat", FAN).label == relevance.SUPPORTS
+
+
+@pytest.mark.parametrize("text", [
+    "pesen warna putih, yang dateng malah hitam.",
+    "akuu mesennyaa warnaa maroon, tapi dikirimnya warna coklat",
+    "Jelek bngt pesan warna lain yg dtng warna lain",
+    "jelek njs psen Mahogany yg dtg item",
+])
+def test_qa19_ejaan_pesan_dan_akhiran_nya_salah_kirim(text):
+    assert lexicon.is_wrong_item(text)
+
+
+@pytest.mark.parametrize("text", [
+    "Lapisan anti lengketnya mulai mengelupas setelah sebulan pemakaian.",
+    "Anti lengketnya sudah baret padahal pakai centong bawaan.",
+    "Kapasitas 1,8 liter itu air atau beras? Masak beras 1,5 liter jadi luber.",
+    "Pakai case tebal jadi tidak nempel sama sekali, harusnya ditulis butuh case magsafe.",
+])
+def test_qa20_triage_menangkap_keluhan_dan_pertanyaan_spesifikasi(text):
+    from app.deciqo.engine import triage
+
+    triage.set_text_adapter(None)
+    [picked], _ = triage.candidates([{"id": "a", "text": text, "rating": 5, "version_hash": "v"}])
+    assert picked["id"] == "a"
+
+
+def test_qa21_merek_lain_sebagai_pembanding_bukan_salah_kirim():
+    assert not lexicon.is_wrong_item("sudah beberapa kali sy order PB merk lain, & baru kali ini sy menemukan PB yg cepat")
+    assert lexicon.is_wrong_item("merek hp nya beda")

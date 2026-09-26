@@ -59,6 +59,9 @@ COMPLAINT_TERMS = {
     # elektronik
     "habis", "boros", "panas", "lemot", "lelet", "putus", "drop", "ngelag", "lag", "overheat",
     "kembung", "gembung", "menggembung", "bengkak", "lobet",
+    # kerusakan permukaan dan fungsi yang sering muncul di ulasan rumah tangga
+    "mengelupas", "ngelupas", "terkelupas", "baret", "tergores", "kegores", "luber", "meluber",
+    "tumpah", "lemah", "berisik", "bising", "koyak", "noda", "reject",
     # Inggris
     "broken", "damaged", "defective", "wrong", "missing", "bad", "poor", "late", "small", "tight",
 }
@@ -68,7 +71,7 @@ PRAISE_TERMS = {
     "aman", "lengkap", "bisa", "cocok", "oke", "adem", "membalas", "dibalas", "balas", "responsif",
     "berfungsi", "jalan", "original", "asli", "good", "great", "fits", "fit", "perfect",
     # "tidak real 20.000mah", "ga penuh": pujian yang dinegasikan
-    "real", "penuh", "baik",
+    "real", "penuh", "baik", "nempel",
 }
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
@@ -101,7 +104,8 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
     "service": {"penjual", "seller", "chat", "respon", "balas", "dibalas", "membalas", "admin",
                 "cs", "pelayanan", "dicuekin", "service", "responsiveness", "respons", "responsif"},
     "quality": {"kualitas", "rusak", "cacat", "kokoh", "quality", "defect", "defects",
-                "durability", "awet", "rapuh", "pecah", "patah", "retak", "bolong"},
+                "durability", "awet", "rapuh", "pecah", "patah", "retak", "bolong", "robek", "sobek",
+                "koyak", "noda", "reject", "mengelupas", "terkelupas", "baret"},
     "appearance": {"foto", "gambar", "photo", "photos", "tampilan", "appearance", "picture"},
 }
 OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "wrong_item"}
@@ -117,19 +121,19 @@ GENERIC_GROUPS = {"quality"}
 # "lama" setelah kata-kata ini berarti awet ("tahan lama", "baterainya lama"), bukan lambat.
 _LONG_LASTING = {"tahan", "baterai", "battery", "daya", "awet", "pemakaian", "dipakai", "digunakan"}
 
-_ORDER = r"\b(?:pesan|order|beli|pilih|minta)\w*\b"
+_ORDER = r"\b(?:pesan|pesen|psen|mesen|mesan|order|beli|pilih|minta)\w*\b"
 _WRONG_ITEM = [
     # "pesan L dikasih M", "pesan BLACK yang datang NAVY", "order 13pro mlh dikirim yg 13 biasa".
     # "Pesanan sudah sampai" bukan salah kirim: kedatangan saja tidak cukup, butuh "dikasih",
     # "yang datang", atau penanda kontras sebelum kata kerjanya.
-    re.compile(_ORDER + r".{0,40}?(?:\bdikasi(?:h)?\b|\by(?:an)?g (?:datang|dateng|dtg)\b|"
-               r"\b(?:malah|mlh|justru|kenapa|kok|tapi)\s+(?:\w+\s+){0,2}?(?:datang|dateng|di ?kirim|dapat|dapet)\b)", re.I),
+    re.compile(_ORDER + r".{0,40}?(?:\bdikasi(?:h)?\b|\by(?:an)?g (?:datang|dateng|dtg|dtng)\w*|"
+               r"\b(?:malah|mlh|justru|kenapa|kok|tapi)\s+(?:\w+\s+){0,2}?(?:datang|dateng|dtg|di ?kirim|dapat|dapet)\w*)", re.I),
     re.compile(r"\bsalah kirim\b|\bkirim(?:an)?(?:nya)? salah\b", re.I),
     # "tidak sesuai pesanan", "tidak sesuai yang dipesan": ungkapan marketplace untuk barang lain
     # yang datang. "sesuai pesanan" tanpa negasi adalah pujian dan tidak cocok di sini.
     re.compile(r"\b(?:tidak|gak|ga|gk|tdk|nggak|ngga|enggak|ngk)\s+sesuai\s+(?:dengan\s+|sama\s+|dgn\s+)?"
                r"(?:pesanan|orderan|y(?:an)?g\s+(?:saya\s+|sy\s+)?di\s?pesan)", re.I),
-    re.compile(r"\b(?:merek|merk)\w*\b.{0,20}?\b(?:tidak sesuai|beda|berbeda|lain)\b", re.I),
+    re.compile(r"\b(?:merek|merk)\w*\b.{0,20}?\b(?:tidak sesuai|beda|berbeda)\b", re.I),
     re.compile(r"\b(?:dus|kardus|box)\w*\b.{0,30}?\bisi\w*\b|\b(?:dus|kardus|box)\w*\s+dan\s+\w+\s+beda\b", re.I),
     re.compile(r"\b(?:yang )?(?:datang|dikirim|sampai)\b.{0,20}?\b(?:warna|ukuran|varian|size|model|tipe)\s+(?:lain|beda|berbeda)\b", re.I),
     re.compile(r"\bsalah (?:warna|ukuran|varian|size|model|tipe)\b", re.I),
@@ -243,7 +247,11 @@ def groups_in(toks) -> set[str]:
 _WRONG_LABEL = re.compile(r"\b(?:wrong|salah)\b.*\b(?:variant|varian|item|barang|kirim|dikirim|sent|size|ukuran|warna|colou?r)\b"
                           r"|\b(?:variant|varian)\b.*\b(?:wrong|salah)\b", re.I)
 _STOP = {"the", "of", "a", "an", "and", "product", "produk", "info", "information", "detail",
-         "details", "yang", "dan", "di", "untuk", "barang", "item", "issue", "masalah"}
+         "details", "yang", "dan", "di", "untuk", "barang", "item", "issue", "masalah",
+         # kata label yang terlalu umum untuk menandai atribut ("waktu sampai barang nya patah")
+         "waktu", "time", "saat", "ketika", "kondisi", "condition", "with", "vs", "versus", "dengan",
+         "pada", "atau", "per", "tiap", "setiap", "sesudah", "setelah", "after", "dalam", "luar",
+         "bagian", "sisi", "versus"}
 
 
 def attribute_groups(attribute: str, attribute_local: str = "") -> set[str]:
@@ -256,8 +264,10 @@ def attribute_groups(attribute: str, attribute_local: str = "") -> set[str]:
 
 
 def attribute_terms(attribute: str, attribute_local: str = "") -> set[str]:
-    """Kata isi label atribut, cadangan bila label tidak masuk kelompok mana pun."""
-    return {t for t in tokens(f"{attribute} {attribute_local}") if t not in _STOP and len(t) > 2}
+    """Kata isi label atribut ("kipas", "bolong", "tombol"). Kata polaritas dan negasi dibuang
+    supaya label seperti "barang tidak sesuai" tidak membuat setiap ulasan menyebut atributnya."""
+    polar = NEGATIONS | COMPLAINT_TERMS | PRAISE_TERMS
+    return {t for t in tokens(f"{attribute} {attribute_local}") if t not in _STOP and t not in polar and len(t) > 2}
 
 
 def span_text(text: str, quote: str) -> str:

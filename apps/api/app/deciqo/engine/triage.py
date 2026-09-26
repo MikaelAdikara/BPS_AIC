@@ -104,7 +104,9 @@ def signals(reviews: list[dict], conn=None) -> dict[str, dict]:
         result = {
             "v": review.get("version_hash"),
             "model": version,
-            "lexicon": lexicon.complaint_signal(review["text"]),
+            # Pertanyaan pembeli ("1,8 liter itu air atau beras?") menandai informasi yang kurang
+            # walau tidak ada kata keluhan; ini seleksi input, bukan hitungan.
+            "lexicon": lexicon.complaint_signal(review["text"]) or "?" in review["text"],
             "neg_aspects": neural.get(str(review["id"]), []),
         }
         out[review["id"]] = result

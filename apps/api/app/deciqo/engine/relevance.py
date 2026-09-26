@@ -25,9 +25,11 @@ class Verdict:
 
 def finding_scope(finding: dict) -> tuple[set[str], set[str]]:
     groups = lexicon.attribute_groups(finding.get("attribute", ""), finding.get("attribute_local", ""))
-    extra = set() if groups else lexicon.attribute_terms(finding.get("attribute", ""),
-                                                         finding.get("attribute_local", ""))
-    return groups, extra
+    if groups == {"wrong_item"}:
+        return groups, set()
+    # Kata label temuan sendiri selalu ikut: "barang rusak / bolong / robek" menandai atributnya
+    # dengan "bolong" dan "robek" walau labelnya juga masuk kelompok kualitas umum.
+    return groups, lexicon.attribute_terms(finding.get("attribute", ""), finding.get("attribute_local", ""))
 
 
 def judge(text: str, finding: dict, rating: int | None = None) -> Verdict:  # noqa: ARG001 - rating hanya metadata
