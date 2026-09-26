@@ -41,6 +41,10 @@ export interface Channel {
   last_error: string | null;
   products: number;
   reviews: number;
+  mode?: string;
+  active_findings?: number;
+  units_sold?: number | null;
+  samplings?: string[];
 }
 export interface Job {
   id: string;

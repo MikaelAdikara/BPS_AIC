@@ -144,7 +144,8 @@ def channels(conn, user_id: int) -> list[dict]:
     sources = {s["channel"]: s for s in store.rows(conn.execute("SELECT * FROM sources WHERE user_id = ?", (user_id,)))}
     counts = {r["channel"]: r for r in store.rows(conn.execute(
         "SELECT p.channel, COUNT(DISTINCT p.id) AS products, "
-        "MAX(CASE WHEN p.data_origin = 'synthetic' THEN 1 ELSE 0 END) AS synthetic "
+        "MAX(CASE WHEN p.data_origin = 'synthetic' THEN 1 ELSE 0 END) AS synthetic, "
+        "SUM(p.units_sold) AS units_sold, GROUP_CONCAT(DISTINCT p.sampling) AS samplings "
         "FROM products p WHERE p.user_id = ? GROUP BY p.channel", (user_id,)))}
     review_counts = {r["channel"]: r["n"] for r in store.rows(conn.execute(
         "SELECT p.channel, COUNT(*) AS n FROM reviews r JOIN products p ON p.id = r.product_id "
@@ -167,6 +168,10 @@ def channels(conn, user_id: int) -> list[dict]:
             "last_success_at": source.get("last_success_at"), "last_error": source.get("last_error"),
             "products": count.get("products", 0), "reviews": review_counts.get(channel, 0),
             "active_findings": active.get(channel, 0),
+            # Jumlah unit terjual yang diketahui (None bila tidak satu produk pun membawanya) dan
+            # cara ulasan diambil; keduanya menentukan boleh tidaknya proyeksi pembeli terdampak.
+            "units_sold": count.get("units_sold"),
+            "samplings": sorted(filter(None, (count.get("samplings") or "").split(","))),
         })
     return out
 

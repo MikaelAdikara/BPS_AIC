@@ -93,3 +93,17 @@ def test_landscape_splits_volume_ratings_and_map_by_channel(tmp_path):
     assert [f["id"] for f in data["map"]["findings"]] == ["f1"]
     assert data["map"]["findings"][0]["aspect"] == "delivery"
     conn.close()
+
+
+def test_channels_report_units_sold_and_sampling(tmp_path):
+    from app.deciqo.engine import workspace
+    path=tmp_path/"channels.sqlite3"
+    store.migrate(path)
+    conn=store.connect(path)
+    conn.execute("INSERT INTO users(id,email,password_hash,created_at) VALUES (1,'a@x.test','hash','')")
+    for pid,channel,units,sampling in [("a","tokopedia",120,"skewed"),("b","tokopedia",30,"unknown"),("c","lazada",None,"skewed")]:
+        conn.execute("INSERT INTO products(id,user_id,channel,source_item_id,title,units_sold,sampling) VALUES (?,1,?,?,?,?,?)",(pid,channel,pid,pid,units,sampling))
+    rows={c["key"]:c for c in workspace.channels(conn,1)}
+    assert rows["tokopedia"]["units_sold"] == 150 and rows["tokopedia"]["samplings"] == ["skewed","unknown"]
+    assert rows["lazada"]["units_sold"] is None and rows["lazada"]["samplings"] == ["skewed"]
+    conn.close()

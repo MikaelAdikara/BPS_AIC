@@ -6,6 +6,12 @@ import { useI18n } from "@/lib/i18n";
 import { LazadaFetch } from "@/components/LazadaFetch";
 import { DemoReview } from "@/components/DemoReview";
 import {
+  ChannelBoard,
+  SamplePackCard,
+  type SamplePack,
+} from "@/components/insight/ChannelBoard";
+import { sortChannels } from "@/lib/insight-model";
+import {
   Button,
   Card,
   Chip,
@@ -23,13 +29,7 @@ const options = {
   blibli: "Blibli",
   manual: "Manual",
 };
-interface Sample {
-  name: string;
-  channel: string;
-  data_origin: string;
-  captured_at: string | null;
-  label: string;
-}
+type Sample = SamplePack;
 export function SourcesScreen() {
   const { user, refresh: refreshAuth } = useAuth();
   const { channels, loading, error, refresh, run, busy } = useWorkspace();
@@ -232,53 +232,24 @@ export function SourcesScreen() {
               <EmptyState title={t("sources.empty")} description={t("sources.picker")} />
             ) : (
               <>
-                <div
-                  className="finding-picker source-tabs"
-                  role="group"
-                  aria-label={t("sources.picker")}
-                >
-                  {user.channels.map((channel) => (
-                    <Button
-                      key={channel}
-                      variant="outline"
-                      aria-pressed={tab === channel}
-                      onClick={() => {
-                        setTab(channel);
-                        setStats(null);
-                        setLocalError(null);
-                      }}
-                    >
-                      {options[channel as keyof typeof options] ?? channel}
-                    </Button>
-                  ))}
-                </div>
-                {source && (
-                  <Notice
-                    tone={source.status === "connected" ? "good" : "muted"}
-                  >
-                    <div>
-                      <Chip synthetic={source.synthetic}>{source.label}</Chip>
-                      <p>
-                        {t(
-                          "workspace." +
-                            ({
-                              connected: "sourceConnected",
-                              stale: "sourceStale",
-                              unavailable: "sourceUnavailable",
-                              disconnected: "sourceDisconnected",
-                              no_data: "sourceNoData",
-                            }[source.status] ?? "sourceNotChecked"),
-                        )}
-                      </p>
-                      {source.last_success_at && (
-                        <p>
-                          {t("sources.lastSuccess", {
-                            time: date(source.last_success_at),
-                          })}
-                        </p>
-                      )}
-                      {source.last_error && <p>{t("sources.sourceError")}</p>}
-                    </div>
+                <ChannelBoard
+                  keys={sortChannels([
+                    ...new Set([
+                      ...user.channels,
+                      ...channels.filter((c) => c.products > 0).map((c) => c.key),
+                    ]),
+                  ])}
+                  channels={channels}
+                  active={tab}
+                  onSelect={(channel) => {
+                    setTab(channel);
+                    setStats(null);
+                    setLocalError(null);
+                  }}
+                />
+                {source?.last_error && (
+                  <Notice tone="warn">
+                    <p>{t("sources.sourceError")}</p>
                   </Notice>
                 )}
                 {tab === "woocommerce" ? (
@@ -469,7 +440,7 @@ export function SourcesScreen() {
                     )}
                   </Card>
                 )}
-                <Card title={t("sources.samples")}>
+                <Card title={t("sources.samples")} lead={t("sources.packsLead")}>
                   {sampleLoading ? (
                     <LoadingState />
                   ) : sampleError ? (
@@ -490,39 +461,25 @@ export function SourcesScreen() {
                   ) : shownSamples.length === 0 ? (
                     <p className="muted">{t("sources.sampleEmpty")}</p>
                   ) : (
-                    <div className="stack">
+                    <div className="pack-grid">
                       {shownSamples.map((sample) => (
-                        <div key={sample.name}>
-                          <h3>{sample.label}</h3>
-                          <Chip synthetic={sample.data_origin === "synthetic"}>
-                            {t("sources.public")}
-                          </Chip>
-                          {sample.captured_at && (
-                            <p className="muted">
-                              {t("sources.captured", {
-                                time: date(sample.captured_at),
-                              })}
-                            </p>
-                          )}
-                          <Button
-                            variant="outline"
-                            busy={busy}
-                            onClick={() =>
-                              void perform(
-                                () =>
-                                  request(
-                                    "/deciqo/samples/" +
-                                      encodeURIComponent(sample.name),
-                                    { method: "POST" },
-                                  ),
-                                "sources.sampleDone",
-                                "sources.importing",
-                              )
-                            }
-                          >
-                            {t("sources.sampleLoad")}
-                          </Button>
-                        </div>
+                        <SamplePackCard
+                          key={sample.name}
+                          pack={sample}
+                          busy={busy}
+                          onLoad={() =>
+                            void perform(
+                              () =>
+                                request(
+                                  "/deciqo/samples/" +
+                                    encodeURIComponent(sample.name),
+                                  { method: "POST" },
+                                ),
+                              "sources.sampleDone",
+                              "sources.importing",
+                            )
+                          }
+                        />
                       ))}
                     </div>
                   )}
