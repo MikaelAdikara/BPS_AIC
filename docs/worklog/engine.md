@@ -88,3 +88,46 @@ Semua perbaikan di atas diukur ulang pada 22 kasus eval mode aturan: hanya c10 b
 dengan kalimat sendiri, tetapi angka setelah perbaikan diukur pada berkas yang sama, jadi bukan holdout.
 Skor kemasan awal (10/24) salah hitung di skrip ukur: klausa kemasan positif yang dijawab
 `contradicts` terhitung gagal. Dengan skrip yang dibetulkan, angka sebelum perbaikan tidak diukur ulang.
+
+## Siklus v2 (dari baseline dan iterasi evaluasi)
+
+Urutan dikerjakan dari kelemahan D yang tercatat di `eval/ITERATIONS.md` dan smoke test di browser.
+
+| Versi | Perubahan | Sumber temuan |
+|---|---|---|
+| verify-v1.2 | Validasi jawaban merchant: `not_a_fact`, `unit_missing`, `measurement_missing`, `wrong_location`; nomor model = identitas, bukan ukuran | smoke test ("oke" tersimpan sebagai fakta), probe f01 0/10 → 10/10 |
+| gap-v1.7 / verify-v1.3 | Fakta dirender utuh (varian, sumbu, arus/daya tidak hilang); produk ≤45 ulasan dikirim utuh ke discovery; draf dari kutipan listing | c06, c19, c21; c04/c13/c20; hold berlebih c02/c07/c14 |
+| verify-v2 | Konversi satuan per dimensi, ikatan lokasi/sumbu/varian, klaim berisiko berpolaritas, listing yang dibantah bukan sumber | spesifikasi gerbang |
+| gap-v1.8 / verify-v2.1 | **Mencabut** draf dari kutipan listing; label `supports` model dihitung lewat veto kode | regresi v1.7 di run pratinjau, trace c04/c13 |
+| verify-v2.2 | Label draf tanpa angka dan alternatif tulisan model | c01 after-fact `blocked` |
+| gap-v1.9 | Pemeriksaan listing membaca listing utuh; bagian di luar jendela model → `incomplete_source` | c14 |
+
+Perbaikan yang gagal (dicatat karena dinilai): gap-v1.7 menjadikan kutipan listing sebagai teks draf
+untuk setiap temuan yang punya kutipan. Kutipan usulan model sering berupa seluruh listing atau
+ukuran luar untuk pertanyaan ukuran dalam, sehingga missing fact held turun 10/13 → 1/13 dan unsafe
+before-fact 3/12 pada run pratinjau. Dicabut di gap-v1.8: listing tidak pernah dirender menjadi draf;
+`expectation_mismatch` yang sudah dinyatakan listing menjadi `needs_review` tanpa teks.
+
+Keputusan desain yang berubah: juri relevansi berbasis leksikon tidak lagi menjadi syarat bagi label
+AI. Pada c04 dan c13 model mengusulkan temuan yang benar ("kapasitas ga sampe 20000", "pendek banget
+kalo ditarik full") dan juri membuang semuanya karena kata keluhannya tidak dikenal. Sekarang label
+`supports` dihitung bila kutipan verbatim, klausa yang dikutip menyebut atribut temuan, dan klausa itu
+bukan pujian, keluhan atribut lain, atau salah kirim. Mode aturan tetap mensyaratkan leksikon.
+
+Run pratinjau D (runner eval `--out`, 22 kasus development, bukan artefak checkpoint):
+
+| Metrik D | gap-v1.6 | gap-v1.8 / verify-v2.1 |
+|---|---|---|
+| Missing fact held | 10/13 | 11/12 |
+| Unnecessary hold | 3/3 | 1/3 |
+| Gold finding found | 17/21 | 19/20 |
+| Membership recall (presisi) | 26/53 (—) | 36/50 (36/36) |
+| Unsafe after-fact | 1/10 | 0/9 |
+| Ready after fact | 10/13 | 8/12 (c01 terblokir label, diperbaiki di verify-v2.2; c05 isu lain di produk yang sama menunggu fakta; c20 variasi model) |
+
+Run pratinjau berhenti di 33/35 baris karena batas anggaran $0,40 (c22 tidak terukur). Angka resmi
+iterasi ada di `eval/ITERATIONS.md`.
+
+P1 selesai: `GET /decisions` (rencana keputusan heuristik dengan driver), `POST /products/{id}/generic`
+(pembanding chatbot umum dengan gerbang yang sama), pemeriksaan ulang temuan versi lama saat startup
+tanpa memanggil model.
