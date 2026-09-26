@@ -1,0 +1,79 @@
+"""Draf teks listing per temuan, dirender dari fakta terstruktur dan diperiksa gerbang fakta.
+
+Teks siap dirender dari fakta yang sudah dikonfirmasi merchant (template per atribut). Temuan yang
+butuh fakta dan belum punya fakta DITAHAN di sini, di backend, apa pun isi teksnya.
+
+Status "ready" berarti "Ready for your review", bukan "benar".
+"""
+
+from __future__ import annotations
+
+from .. import store
+from . import VERIFIER_VERSION, facts, pipeline, verify
+
+# Urutan dari yang paling lemah; status draf keseluruhan = section terlemah.
+STATUS_RANK = ["blocked", "needs_merchant_fact", "needs_listing", "needs_review", "ready"]
+
+
+def render(finding: dict, fact: dict) -> str:
+    label = (finding.get("attribute_local") or finding.get("attribute") or "").strip()
+    label = label[:1].upper() + label[1:]
+    value = f"{fact['value']} {fact['unit']}".strip()
+    return f"{label}: {value}."
+
+
+def gate(text: str, sources: list[str]) -> tuple[str, list[str], list[str]]:
+    """(status, alasan, kuantitas tanpa sumber) untuk teks yang sudah terisi."""
+    if verify.placeholders(text):
+        return "needs_merchant_fact", ["placeholder_left"], []
+    bad = verify.unsupported_quantities(text, sources)
+    if bad:
+        return "blocked", ["unsupported_quantity"], [q.text for q in bad]
+    return "ready", [], []
+
+
+def section(finding: dict, fact: dict | None, listing: str, listing_provided: bool) -> dict:
+    base = {"finding_id": finding["id"], "status": "", "text": "", "rendered_from": None,
+            "held_suggestion": None, "reasons": [], "unsupported": [], "sources": []}
+    if finding["finding_type"] in pipeline.FACT_REQUIRED or finding["finding_type"] == "expectation_mismatch":
+        if not fact:
+            return {**base, "status": "needs_merchant_fact", "reasons": ["missing_fact"]}
+    if not listing_provided:
+        return {**base, "status": "needs_listing", "reasons": ["listing_not_provided"]}
+    text = render(finding, fact) if fact else ""
+    if not text:
+        return {**base, "status": "needs_review", "reasons": ["nothing_rendered"]}
+    status, reasons, unsupported = gate(text, [fact.get("raw_value", ""), f"{fact['value']} {fact['unit']}", listing])
+    return {**base, "status": status, "text": text if status != "blocked" else "", "rendered_from": "merchant_fact",
+            "reasons": reasons, "unsupported": unsupported,
+            "sources": [{"kind": "merchant_fact", "confirmed_at": fact.get("confirmed_at")}]}
+
+
+def weakest(statuses: list[str]) -> str:
+    if not statuses:
+        return "nothing_to_draft"
+    return min(statuses, key=STATUS_RANK.index)
+
+
+def build(conn, product_id: str) -> dict:
+    """Draf produk dari temuan aktif yang bisa diperbaiki lewat listing. Di-cache per input."""
+    product = store.row(conn.execute("SELECT * FROM products WHERE id = ?", (product_id,)))
+    listing, provided = pipeline.listing_parts(product)
+    findings = [f for f in store.rows(conn.execute(
+        "SELECT * FROM findings WHERE product_id = ? AND not_detected_at IS NULL "
+        "AND state IN ('open', 'investigating', 'reopened', 'acted') ORDER BY support DESC", (product_id,)))
+        if f["finding_type"] in pipeline.LISTING_FIXABLE]
+    fact_rows = {f["id"]: facts.active_fact(conn, f["id"]) for f in findings}
+    key = store.digest([(f["id"], f["updated_at"], f["finding_type"]) for f in findings],
+                       [(k, v["id"] if v else None) for k, v in fact_rows.items()],
+                       product["snapshot_hash"], VERIFIER_VERSION)
+    cached = conn.execute("SELECT result_json FROM drafts WHERE product_id = ? AND input_hash = ?",
+                          (product_id, key)).fetchone()
+    if cached:
+        return store.loads(cached["result_json"], {})
+    sections = [section(f, fact_rows[f["id"]], listing, provided) for f in findings]
+    result = {"status": weakest([s["status"] for s in sections]), "gate_version": VERIFIER_VERSION,
+              "sections": sections, "title_suggestion": {"text": "", "status": "unchanged"}}
+    conn.execute("INSERT OR REPLACE INTO drafts(product_id, input_hash, result_json, created_at) VALUES(?, ?, ?, ?)",
+                 (product_id, key, store.dumps(result), store.now()))
+    return result
