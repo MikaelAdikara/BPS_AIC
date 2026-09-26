@@ -10,6 +10,9 @@ Setiap panggilan:
 3. Respons `incomplete` (mis. kehabisan `max_output_tokens`) adalah KEGAGALAN, bukan hasil kosong.
 4. Key ditolak (401, kuota habis, akun nonaktif): AI dimatikan untuk sisa proses, alasannya
    disimpan, dan pemanggil beralih ke analyser aturan.
+5. Gambar (purpose `vision`) dikirim sebagai URL dengan `detail: low`. Reservasinya tetap
+   dihitung konservatif `IMAGE_RESERVE_TOKENS` token input per gambar, jauh di atas biaya nyata
+   detail rendah, supaya anggaran tidak pernah terlampaui karena gambar.
 """
 
 from __future__ import annotations
@@ -38,6 +41,13 @@ class KeyRejected(LLMError):
 class BudgetExceeded(LLMError):
     pass
 
+
+class ImageUnreadable(LLMError):
+    """Provider menolak permintaan bergambar (400): biasanya URL gambar tidak bisa diunduh/dibaca."""
+
+
+# Aturan hackkit: anggap ~1500 token input per gambar saat reservasi, apa pun detailnya.
+IMAGE_RESERVE_TOKENS = 1500
 
 _rejected: dict[str, str] = {}
 _lock = threading.Lock()
@@ -168,22 +178,30 @@ def _mark_rejected(reason: str, db_path) -> None:
 
 def call_json(*, purpose: str, system: str, user: str, schema: dict, schema_name: str,
               max_output_tokens: int, user_id: int | None = None, ref: str = "",
-              reasoning: str | None = None, db_path=None) -> tuple[dict, dict]:
-    """Satu panggilan structured output. Mengembalikan (objek JSON, usage + biaya)."""
+              reasoning: str | None = None, db_path=None, images: list[str] | None = None,
+              image_detail: str = "low") -> tuple[dict, dict]:
+    """Satu panggilan structured output. Mengembalikan (objek JSON, usage + biaya).
+
+    `images`: URL gambar yang ikut dikirim di pesan user sebagai bagian `input_image`."""
     ok, reason = available(user_id)
     if not ok:
         raise KeyRejected(reason) if reason.startswith("key_rejected") else LLMError(reason)
     p = prices()
     schema_text = json.dumps(schema)
-    est_input = (len(system) + len(user) + len(schema_text)) / 2
+    images = [u for u in (images or []) if u]
+    est_input = (len(system) + len(user) + len(schema_text)) / 2 + IMAGE_RESERVE_TOKENS * len(images)
     reserve = _cost(int(est_input), 0, max_output_tokens, p)
     row_id = _reserve(purpose, user_id, ref, reserve, p, db_path)
     started = time.perf_counter()
     effort = reasoning or settings.env("DECIQO_LLM_REASONING", "low")
+    user_content: str | list = user
+    if images:
+        user_content = [{"type": "input_text", "text": user},
+                        *({"type": "input_image", "image_url": url, "detail": image_detail} for url in images)]
     try:
         response = _get_client().responses.create(
             model=model_name(),
-            input=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+            input=[{"role": "system", "content": system}, {"role": "user", "content": user_content}],
             text={"format": {"type": "json_schema", "name": schema_name, "schema": schema, "strict": True}},
             reasoning={"effort": effort},
             max_output_tokens=max_output_tokens,
@@ -197,6 +215,8 @@ def call_json(*, purpose: str, system: str, user: str, schema: dict, schema_name
         if rejection:
             _mark_rejected(rejection, db_path)
             raise KeyRejected(rejection) from exc
+        if images and type(exc).__name__ == "BadRequestError":
+            raise ImageUnreadable("BadRequestError") from exc
         raise LLMError(f"{type(exc).__name__}") from exc
     latency = int((time.perf_counter() - started) * 1000)
     usage = _usage_of(response)

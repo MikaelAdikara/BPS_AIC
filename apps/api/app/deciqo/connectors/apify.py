@@ -51,6 +51,28 @@ def spent_usd(conn) -> float:
         "SELECT COALESCE(SUM(MAX(cost_usd, reserved_usd)), 0) FROM ledger WHERE provider = 'apify'").fetchone()[0]
 
 
+GALLERY_FIELDS = ("images", "imageUrls", "gallery", "galleryImages", "imageList")
+MAX_GALLERY = 7
+
+
+def gallery(item: dict) -> list[str]:
+    """Galeri gambar produk dari record actor (nama field berbeda antar versi actor)."""
+    urls: list[str] = []
+    for name in GALLERY_FIELDS:
+        values = item.get(name)
+        for value in values if isinstance(values, list) else []:
+            if isinstance(value, dict):
+                value = value.get("url") or value.get("src") or value.get("image")
+            if not isinstance(value, str):
+                continue
+            url = value.strip()
+            if url.startswith("//"):
+                url = "https:" + url
+            if url.lower().startswith(("http://", "https://")) and url not in urls and url != item.get("imageUrl"):
+                urls.append(url)
+    return urls[:MAX_GALLERY]
+
+
 def to_catalog(items: list[dict]) -> list[dict]:
     """Keluaran actor (record product_detail + review) ke bentuk `ingest.upsert_catalog`."""
     reviews: dict[str, list[dict]] = {}
@@ -100,6 +122,7 @@ def to_catalog(items: list[dict]) -> list[dict]:
             "specs": specs,
             "variants": variants[:30],
             "image_url": item.get("imageUrl"),
+            "images": gallery(item),
             "price": _float(item.get("price") or item.get("currentPrice")),
             "units_sold": _int(item.get("sold") or item.get("itemSold")),
             "captured_at": item.get("scrapedAt"),

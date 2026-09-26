@@ -7,7 +7,7 @@ data tersimpan. Frontend hanya menampilkan; ia tidak menghitung share, severity,
 from __future__ import annotations
 
 from .. import ingest, settings, store
-from . import draft, facts, lexicon, llm, pipeline
+from . import draft, facts, lexicon, llm, pipeline, vision
 
 BUCKET_ORDER = ["recurrence", "needs_fact", "to_do", "monitoring", "dismissed", "not_detected"]
 SEVERITY_ORDER = {"high": 0, "medium": 1, "low": 2}
@@ -58,7 +58,11 @@ class ProductContext:
         self.product = product
         self.listing, self.provided = pipeline.listing_parts(product)
         self.reviews = pipeline.load_reviews(conn, product["id"])
+        self.reviews_by_id = {r["id"]: r for r in self.reviews}
         self.conn = conn
+        # Hasil cek foto pembeli (vision) dimuat sekali per produk; hanya menambah bukti.
+        self.vision_checks = vision.load_checks(conn, product)
+        self.vision_state = vision.run_state(product)
 
     def finding_view(self, finding: dict, full: bool = False) -> dict:
         conn = self.conn
@@ -94,12 +98,14 @@ class ProductContext:
                     "support_is_minimum": metrics.get("support_is_minimum", False),
                     "example": evidence["items"][0]["quote"] if evidence["items"] else ""}
         groups = lexicon.attribute_groups(finding["attribute"], finding["attribute_local"])
+        items, vision_summary = vision.enrich(finding, evidence["items"], self.reviews_by_id, self.vision_checks,
+                                              self.vision_state, self.product.get("user_id"))
         return {
             **base,
             "buyer_expectation": finding["buyer_expectation"], "merchant_question": finding["merchant_question"],
             "needs_measurement": "size" in groups or "battery" in groups,
             "listing_check": store.loads(finding["listing_check_json"], {}) or {"status": "pending"},
-            "metrics": metrics, "evidence": evidence["items"],
+            "metrics": metrics, "evidence": items, "vision_summary": vision_summary,
             "contradicting": evidence["contradicting"],
             "rejected": [r for r in store.loads(finding["rejected_json"], []) if r.get("reason")],
             "uncertain": evidence["uncertain"],
@@ -201,6 +207,7 @@ def products(conn, user_id: int) -> list[dict]:
         analysis = _analysis(conn, p["id"])
         out.append({"id": p["id"], "title": p["title"], "channel": p["channel"], "data_origin": p["data_origin"],
                     "synthetic": p["data_origin"] == "synthetic", "captured_at": p["captured_at"],
+                    "image_url": p.get("image_url"),
                     "reviews": stats["n"], "rating": round(stats["avg"], 2) if stats["avg"] else None,
                     "findings": len(active),
                     "fixable": sum(1 for f in active if f["finding_type"] in pipeline.LISTING_FIXABLE),
@@ -238,7 +245,8 @@ def product_view(conn, product: dict) -> dict:
                     "url": product["url"], "listing_text": ctx.listing, "listing_edit_text": product.get("description") or "",
                     "listing_provided": ctx.provided,
                     "data_origin": product["data_origin"], "captured_at": product["captured_at"],
-                    "synthetic": product["data_origin"] == "synthetic", "image_url": product.get("image_url")},
+                    "synthetic": product["data_origin"] == "synthetic", "image_url": product.get("image_url"),
+                    "images": vision.product_images(product), "image_ocr": vision.ocr_view(product)},
         "source": {"status": source.get("status"), "last_success_at": source.get("last_success_at")},
         "stats": {"reviews": len(ctx.reviews), "rating": round(sum(ratings) / len(ratings), 2) if ratings else None,
                   "rating_hist": hist,
@@ -254,7 +262,7 @@ def product_view(conn, product: dict) -> dict:
         "generic_draft": store.loads(stored_generic["result_json"], None) if stored_generic else None,
         "decisions": decisions,
         "reviews": [{"id": r["id"], "rating": r["rating"], "text": r["text"], "variant": r["variant"],
-                     "review_time": r["review_time"]} for r in ctx.reviews],
+                     "review_time": r["review_time"], "images": vision.review_images(r)} for r in ctx.reviews],
     }
 
 

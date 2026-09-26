@@ -159,7 +159,9 @@ pengujian terhadap penilaian manusia tentang apa yang pantas disebut kekuatan to
 akal, dan belum pernah diuji terhadap seberapa akurat hasil analisis sebenarnya pada tiap
 tingkat. Skornya sebaiknya dibaca sebagai peringatan relatif, bukan sebagai probabilitas.
 
-**Unggahan foto belum ada di antarmuka.** Skema `ReviewImage` dan `VisualPrediction` sudah siap
+**Unggahan foto belum ada di antarmuka.** (Catatan: foto ulasan yang ikut dari channel sekarang
+diperiksa oleh jalur vision LLM terpisah sebagai bukti saja - lihat "Vision lewat LLM" di bawah;
+VIS-01 tetap tertutup.) Skema `ReviewImage` dan `VisualPrediction` sudah siap
 dan panel temuan visual sudah terpasang, tetapi endpoint unggah gambar maupun model visual
 terlatih belum ada (lihat butir 1 di atas). Layar pertama menyatakan hal ini apa adanya alih-alih
 menyediakan slot yang tidak berfungsi.
@@ -348,6 +350,31 @@ abstention, dan degradasi saat model visual gagal.
 Konsekuensi yang harus dibaca apa adanya: **`AnalysisResult.contradictions` selalu kosong hari
 ini**, dan bagiannya tidak dirender. Fitur "foto membantah teksnya" ada di kode dan tidak ada
 di layar.
+
+## Vision lewat LLM: bukti foto dan teks gambar, tanpa angka evaluasi
+
+Engine Deciqo sekarang memakai model multimodal (bukan CLIP; VIS-01 tetap NO-GO dan tetap
+tertutup) untuk dua hal sempit: menanyakan apakah foto pembeli pada ulasan bintang ≤3
+memperlihatkan masalah temuan, dan membaca teks yang tercetak di gambar produk. Keterbatasannya:
+
+- **Belum dievaluasi pada set berlabel.** Tidak ada angka akurasi atau tingkat abstain. Badge
+  "foto mendukung / tidak jelas / tidak mendukung" adalah keluaran model, bukan vonis terukur.
+- **Hanya bukti.** Vision tidak membuat, menghapus, atau mengubah bucket/state/severity temuan dan
+  tidak masuk ke support, share, atau severity. Foto yang "tidak mendukung" tidak membatalkan keluhan.
+- **Abstain disengaja.** Banyak masalah tidak terlihat di foto (kapasitas baterai, kecepatan
+  pengisian, bau, lama kirim); model diminta menjawab `inconclusive`. Kepatuhannya belum diukur.
+- **Cakupan dibatasi biaya:** maks 3 foto per temuan, maks 8 temuan per produk per run, maks 8
+  gambar produk. Foto di luar batas tidak diperiksa (`skipped_reason: limit`). Reservasi anggaran
+  1500 token input per gambar walau gambar dikirim `detail: low`.
+- **OCR mengubah teks listing yang diperiksa.** Teks gambar ditempel sebagai blok "Teks pada gambar
+  produk:"; status pemeriksaan listing bisa berubah pada analisis berikutnya. Teks yang terpotong,
+  buram, atau berupa grafik tanpa huruf tidak terbaca, dan OCR tidak pernah sempurna (lihat ING-10).
+- **Privasi.** URL foto ulasan publik dan kutipan ulasan yang sudah diredaksi dikirim ke OpenAI
+  (`store=False`). Model diminta tidak mendeskripsikan orang atau menyalin nama/alamat/nomor dari foto,
+  tetapi label pengiriman di foto tetap terlihat oleh model.
+- **Tanpa key, key ditolak, atau anggaran habis:** dilewati dengan status `skipped` dan alasannya;
+  analisis tetap jalan. `DECIQO_VISION=off` mematikannya (disarankan untuk run evaluasi teks agar
+  hasilnya tidak ikut berubah karena teks gambar).
 
 ## Riwayat antar-sesi ada, tetapi bergantung pengguna menyimpan arsipnya
 

@@ -75,6 +75,13 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("specs_json", "TEXT NOT NULL DEFAULT '{}'"),
         ("variants_json", "TEXT NOT NULL DEFAULT '[]'"),
         ("image_url", "TEXT"),
+        # Galeri gambar produk selain `image_url` (URL, sudah dibatasi jumlahnya saat ingest).
+        ("images_json", "TEXT NOT NULL DEFAULT '[]'"),
+        # Hasil OCR gambar produk terakhir: {status, reason?, items: [{url, text}], model, checked_at}.
+        # Disalin dari cache `image_ocr` agar `listing_parts(product)` tidak butuh koneksi.
+        ("image_ocr_json", "TEXT NOT NULL DEFAULT '{}'"),
+        # Run cek foto pembeli terakhir: {status, reason?, checked, calls, checked_at}.
+        ("vision_json", "TEXT NOT NULL DEFAULT '{}'"),
         ("price", "REAL"),
         ("units_sold", "INTEGER"),
         # Cara ulasan tersimpan diambil: complete (semua ulasan sumber), random, skewed (sengaja
@@ -224,6 +231,31 @@ SCHEMA: dict[str, list[tuple[str, str]]] = {
         ("latency_ms", "INTEGER NOT NULL DEFAULT 0"),
         ("created_at", "TEXT NOT NULL DEFAULT ''"),
     ],
+    # Cek foto pembeli per (foto, atribut temuan, versi prompt). Hanya bukti tambahan: tidak
+    # pernah membuat, menghapus, atau mengubah bucket/state/severity temuan.
+    "vision_checks": [
+        ("user_id", "INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE"),
+        ("product_id", "TEXT NOT NULL REFERENCES products(id) ON DELETE CASCADE"),
+        ("image_url", "TEXT NOT NULL"),
+        ("attribute_key", "TEXT NOT NULL"),
+        ("prompt_version", "TEXT NOT NULL"),
+        ("finding_id", "TEXT NOT NULL DEFAULT ''"),
+        ("review_id", "TEXT NOT NULL DEFAULT ''"),
+        ("verdict", "TEXT NOT NULL DEFAULT 'inconclusive'"),
+        ("reason", "TEXT NOT NULL DEFAULT ''"),
+        ("model", "TEXT NOT NULL DEFAULT ''"),
+        ("checked_at", "TEXT NOT NULL DEFAULT ''"),
+    ],
+    # Cache OCR per gambar produk. Isinya teks yang tercetak di gambar publik, bukan data akun,
+    # jadi dipakai bersama; `user_id` hanya mencatat siapa yang membayar panggilannya.
+    "image_ocr": [
+        ("image_url", "TEXT NOT NULL"),
+        ("prompt_version", "TEXT NOT NULL"),
+        ("text", "TEXT NOT NULL DEFAULT ''"),
+        ("model", "TEXT NOT NULL DEFAULT ''"),
+        ("checked_at", "TEXT NOT NULL DEFAULT ''"),
+        ("user_id", "INTEGER REFERENCES users(id) ON DELETE SET NULL"),
+    ],
     "telegram_links": [
         ("code", "TEXT PRIMARY KEY"),
         ("user_id", "INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE"),
@@ -239,6 +271,8 @@ TABLE_CONSTRAINTS: dict[str, str] = {
     "reviews": "PRIMARY KEY (product_id, id)",
     "drafts": "PRIMARY KEY (product_id, input_hash)",
     "generic_drafts": "PRIMARY KEY (product_id, input_hash)",
+    "vision_checks": "PRIMARY KEY (user_id, image_url, attribute_key, prompt_version)",
+    "image_ocr": "PRIMARY KEY (image_url, prompt_version)",
 }
 
 INDEXES: list[str] = [
@@ -251,6 +285,7 @@ INDEXES: list[str] = [
     "CREATE INDEX IF NOT EXISTS ix_alerts_user ON alert_events(user_id, created_at)",
     "CREATE INDEX IF NOT EXISTS ix_jobs_user ON jobs(user_id, status)",
     "CREATE INDEX IF NOT EXISTS ix_ledger_user ON ledger(user_id, created_at)",
+    "CREATE INDEX IF NOT EXISTS ix_vision_product ON vision_checks(product_id, prompt_version)",
 ]
 
 _migrated_paths: set[str] = set()

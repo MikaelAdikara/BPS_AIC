@@ -150,7 +150,8 @@ def upsert_catalog(
     """Simpan produk beserta ulasannya.
 
     Setiap produk: `source_item_id`, `title`, dan opsional `url`, `description`, `specs`,
-    `variants`, `image_url`, `price`, `units_sold`, `reviews`. Setiap ulasan: `text`, dan opsional
+    `variants`, `image_url`, `images` (galeri selain gambar utama), `price`, `units_sold`, `reviews`.
+    Tanpa kunci `images`, galeri yang sudah tersimpan dipertahankan. Setiap ulasan: `text`, dan opsional
     `id` (id di sumber), `rating`, `variant`, `images`, `review_time`.
 
     `sampling` menyatakan cara ulasan diambil (lihat `SAMPLINGS`); menentukan boleh tidaknya
@@ -181,7 +182,9 @@ def upsert_catalog(
         pid = product_id(user_id, channel, source_item_id)
         title, _ = redact(normalise_text(item.get("title", "")))
         existing = store.row(conn.execute(
-            "SELECT snapshot_hash, updated_at, description FROM products WHERE id = ?", (pid,)))
+            "SELECT snapshot_hash, updated_at, description, images_json FROM products WHERE id = ?", (pid,)))
+        gallery = (store.dumps(_gallery(item.get("images"))) if "images" in item or existing is None
+                   else existing["images_json"])
         if item.get("description") is None and existing is not None:
             # Impor ulasan saja tidak menghapus listing yang sudah ditempel sebelumnya.
             description = existing["description"]
@@ -192,21 +195,21 @@ def upsert_catalog(
         if existing is None:
             conn.execute(
                 "INSERT INTO products(id, user_id, channel, source_item_id, url, title, description, "
-                "specs_json, variants_json, image_url, price, units_sold, sampling, snapshot_hash, "
+                "specs_json, variants_json, image_url, images_json, price, units_sold, sampling, snapshot_hash, "
                 "data_origin, captured_at, fetched_at, role, created_at, updated_at) "
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (pid, user_id, channel, source_item_id, item.get("url") or "", title, description,
                  store.dumps(item.get("specs") or {}), store.dumps(item.get("variants") or []),
-                 item.get("image_url"), item.get("price"), item.get("units_sold"), sampling, snapshot,
+                 item.get("image_url"), gallery, item.get("price"), item.get("units_sold"), sampling, snapshot,
                  data_origin, captured_at or now, now, role, now, now),
             )
         else:
             conn.execute(
                 "UPDATE products SET url = ?, title = ?, description = ?, specs_json = ?, "
-                "variants_json = ?, image_url = ?, price = ?, units_sold = ?, sampling = ?, snapshot_hash = ?, "
+                "variants_json = ?, image_url = ?, images_json = ?, price = ?, units_sold = ?, sampling = ?, snapshot_hash = ?, "
                 "data_origin = ?, captured_at = ?, fetched_at = ?, updated_at = ? WHERE id = ?",
                 (item.get("url") or "", title, description, store.dumps(item.get("specs") or {}),
-                 store.dumps(item.get("variants") or []), item.get("image_url"), item.get("price"),
+                 store.dumps(item.get("variants") or []), item.get("image_url"), gallery, item.get("price"),
                  item.get("units_sold"), sampling, snapshot, data_origin, captured_at or now, now,
                  now if listing_changed else existing["updated_at"], pid),
             )
@@ -216,6 +219,19 @@ def upsert_catalog(
             stats.changed_products.append(pid)
     touch_source(conn, user_id, channel, ok=True)
     return stats
+
+
+MAX_GALLERY = 7
+
+
+def _gallery(values) -> list[str]:
+    """Galeri produk: URL http(s) unik, paling banyak `MAX_GALLERY`."""
+    out: list[str] = []
+    for value in values if isinstance(values, list) else []:
+        url = value.strip() if isinstance(value, str) else ""
+        if url.lower().startswith(("http://", "https://")) and url not in out:
+            out.append(url)
+    return out[:MAX_GALLERY]
 
 
 def _upsert_reviews(conn: sqlite3.Connection, pid: str, reviews: list[dict], stats: ImportStats,

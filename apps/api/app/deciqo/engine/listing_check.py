@@ -30,16 +30,18 @@ def related_text(finding: dict, listing: str, limit: int = 3) -> list[str]:
     return [c.text for c in lexicon.clauses(listing) if lexicon.mentions(c.tokens, groups, extra)][:limit]
 
 
-def check(finding: dict, listing: str, provided: bool) -> dict:
+def check(finding: dict, listing: str, provided: bool, images: tuple[int, int] = (0, 0)) -> dict:
     """Status pemeriksaan listing untuk satu temuan.
 
     Model hanya membaca `LISTING_LIMIT` karakter pertama (keputusan sistem, tercatat di cakupan),
     tetapi pemeriksaan ini kode dan membaca listing utuh. Teks terkait yang hanya ada di luar
-    jendela model berarti temuannya disusun tanpa melihat bagian itu: `incomplete_source`."""
+    jendela model berarti temuannya disusun tanpa melihat bagian itu: `incomplete_source`.
+
+    `images`: (gambar produk yang teksnya sudah dibaca OCR dan ikut di `listing`, total gambar)."""
     listing = listing or ""
     total = len(listing)
     coverage = {"chars_checked": total, "chars_total": total, "model_chars": min(total, LISTING_LIMIT),
-                "images_read": 0, "images_total": 0}
+                "images_read": int(images[0]), "images_total": int(images[1])}
     if finding.get("finding_type") not in LISTING_FIXABLE:
         return {"status": NOT_APPLICABLE, "quote": "", "related": [], "coverage": coverage}
     if not provided:

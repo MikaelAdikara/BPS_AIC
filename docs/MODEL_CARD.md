@@ -15,6 +15,7 @@
 | Text Intelligence (NLP-01) | IndoBERT-base, fine-tuned | **terlatih** - lihat §4 untuk angka yang berlaku |
 | Text fallback | TF-IDF + Logistic Regression | **terlatih (baseline Fase 1)** |
 | Visual Intelligence (VIS-01) | CLIP ViT-B/32 zero-shot, frozen | **dievaluasi - NO-GO** (11 Agu 2026; lihat "VIS-01 - hasil gerbang Fase 3") |
+| Vision engine Deciqo (bukti foto + OCR gambar produk) | LLM multimodal (`DECIQO_LLM_MODEL`), structured output dengan abstain | **terpasang sebagai bukti saja - belum dievaluasi pada set berlabel** (lihat "Vision lewat LLM") |
 | Embedding (RET-01) | BGE-M3 | **terintegrasi** (fallback E5 → TF-IDF) |
 | Orchestrator | SEA-LION quantized | belum diintegrasikan - sistem berjalan FALLBACK (ADR-014) |
 
@@ -555,6 +556,31 @@ dijalankan apa adanya.
 Batas kesimpulan: 97 foto dari dua produk fesyen satu penjual. NO-GO berlaku untuk kondisi
 itu, bukan pernyataan bahwa CLIP tidak dapat dipakai. Encoder lain, prompt lain, atau kategori
 produk lain dapat memberi hasil berbeda - dan mengujinya adalah pekerjaan Tier 2.
+
+---
+
+## Vision lewat LLM (engine Deciqo) - jalur bukti, bukan VIS-01
+
+Jalur ini **bukan** kelanjutan VIS-01. CLIP (`adapters/vision_model.py`, `ml/visual/*`) tetap
+NO-GO dan tetap tertutup gerbangnya; tidak ada kode di jalur baru yang memanggilnya. Yang dipakai
+adalah model multimodal yang sama dengan engine teks (`DECIQO_LLM_MODEL`, OpenAI Responses API,
+structured output strict), modul `apps/api/app/deciqo/engine/vision.py`.
+
+| Aspek | Keterangan |
+| --- | --- |
+| Cek foto pembeli | Foto dari ulasan bukti temuan yang ber-rating ≤3; maks 3 foto per temuan, maks 8 temuan per produk per run. Pertanyaan spesifik ke atribut temuan ("apakah foto ini memperlihatkan masalah: <atribut>?") beserta harapan pembeli, kutipan ulasan, dan varian yang dipesan |
+| Keluaran | `{verdict: supports / contradicts / inconclusive, reason}`; alasan satu kalimat dalam bahasa akun (default Indonesia) |
+| Abstain | Model diinstruksikan menjawab `inconclusive` bila jenis masalahnya memang tidak terlihat di foto (kapasitas baterai, kecepatan pengisian, bau, lama kirim), foto tidak jelas, atau ragu. Nilai di luar enum dibaca kode sebagai `inconclusive` |
+| OCR gambar produk | Gambar utama + galeri (maks 8) → teks tercetak verbatim (klaim, angka, satuan). Masuk ke teks listing sebagai blok "Teks pada gambar produk:" sehingga pemeriksaan listing bisa mengutipnya dan `coverage.images_read/images_total` nyata |
+| Wewenang | **Hanya bukti.** Vision tidak membuat, menghapus, atau mengubah bucket/state/severity temuan. OCR memang mengubah teks listing yang diperiksa, jadi status `listing_check` dapat berubah pada analisis berikutnya - sama seperti bila merchant menempel teks itu sendiri |
+| Biaya | Purpose ledger `vision`; anggaran dan kuota akun yang sama dengan analisis. Gambar dikirim `detail: low`, tetapi reservasi dihitung 1500 token input per gambar. Cache per (foto, atribut, versi prompt) dan per gambar produk, jadi run ulang tidak memanggil model |
+| Tanpa key / anggaran habis | Dilewati dengan status `skipped` dan alasan (`no_api_key`, `budget`, `key_rejected`, `disabled`, `error`); analisis tidak pernah gagal karena vision |
+
+**Belum dievaluasi pada set berlabel.** Tidak ada angka akurasi, presisi, atau tingkat abstain
+untuk jalur ini, dan dokumen ini sengaja tidak menulis satu pun. Keluarannya ditampilkan sebagai
+bukti pendukung di samping kutipan ulasan, bukan sebagai putusan, dan tidak masuk ke angka apa pun
+(support, share, severity). Mengukurnya - misalnya memakai ulang 97 foto berlabel VIS-01 dengan
+pertanyaan per atribut - adalah pekerjaan berikutnya sebelum vonis ini boleh dikutip.
 
 ---
 

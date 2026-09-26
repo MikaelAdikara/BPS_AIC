@@ -53,25 +53,40 @@ follow_up, updated_at`.
 | `POST /api/v1/deciqo/products/{id}/analyse` | `{"force"?: bool}` | `202 {"job_id"}` |
 | `POST /api/v1/deciqo/analyse-all` | – | `202 {"job_id"}` |
 | `POST /api/v1/deciqo/products/{id}/draft` | – | Draft |
+| `POST /api/v1/deciqo/products/{id}/vision` | – | ProductView + `vision_run` + `job_id` (lihat "Vision") |
 
-**ProductView**: `product {id, title, channel, url, listing_text, listing_provided, data_origin, captured_at,
-synthetic, image_url}`, `source {status, last_success_at}`, `stats {reviews, rating, rating_hist, with_photos}`,
+**ProductView**: `product {id, title, channel, url, listing_text, listing_edit_text, listing_provided, data_origin, captured_at,
+synthetic, image_url, images[], image_ocr}`, `source {status, last_success_at}`, `stats {reviews, rating, rating_hist, with_photos}`,
 `analysis {engine, status, created_at, pipeline_version, verifier_version, note, error, trace[]}`,
 `findings [Finding]` (tanpa yang `not_detected`), `not_detected [{id, attribute_local, updated_at}]`,
-`draft` (draf tersimpan terakhir atau `null`), `generic_draft` (`null`), `decisions []`, `reviews []`.
+`draft` (draf tersimpan terakhir atau `null`), `generic_draft` (`null`), `decisions []`,
+`reviews [{id, rating, text, variant, review_time, images[]}]`.
+
+- `product.images`: URL gambar utama + galeri, tanpa duplikat (maks 8).
+- `product.image_ocr`: `{status: "done"|"skipped"|"pending", images_read, images_total, reason?}`.
+  `reason` ∈ `no_images`, `no_api_key`, `key_rejected`, `budget`, `disabled`, `error`.
+- `product.listing_text` memuat blok `Teks pada gambar produk:` bila OCR menemukan teks; `listing_edit_text`
+  tetap deskripsi yang bisa diedit merchant (tanpa teks gambar).
 
 `analysis.status`: `ready`, `failed` (provider gagal; temuan lama tidak diubah), `pending`.
 `analysis.note`: alasan mode aturan bila ada (`no_api_key`, `key_rejected:<alasan>`, `budget_exhausted:…`).
 
 **Finding** (di ProductView) = InboxItem tanpa field produk, ditambah:
 `buyer_expectation, merchant_question, needs_measurement, listing_check, metrics, evidence[], contradicting[],
-rejected[], uncertain, not_detected_at`.
+rejected[], uncertain, not_detected_at, vision_summary`.
 
 - `metrics`: `support, denominator, candidates_read, support_is_minimum, share, contradicting,
   hidden_high_star, with_photos, rating_now, rating_without, variants[]`. Semua dihitung kode dari ulasan
   tersimpan yang lolos verifier kutipan dan juri relevansi.
 - `evidence[]` / `contradicting[]`: `{review_id, quote, rating, review_time, variant, has_photo}`; `quote`
-  selalu potongan verbatim dari ulasan itu.
+  selalu potongan verbatim dari ulasan itu. Item `evidence[]` juga membawa `images: string[]` (URL foto
+  ulasan itu) dan `vision: {verdict: "supports"|"contradicts"|"inconclusive", reason, model, checked_at} | null`
+  (`null` = belum diperiksa). Bila satu ulasan punya beberapa foto yang diperiksa, yang ditampilkan adalah
+  vonis terkuat (`supports` > `contradicts` > `inconclusive`).
+- `vision_summary`: `{checked, supports, contradicts, inconclusive, skipped_reason?} | null`. `null` bila tidak
+  ada item bukti ber-rating ≤3 dengan foto. Hitungan per item bukti. `skipped_reason` (ada bila sebagian
+  item layak belum diperiksa) ∈ `no_api_key`, `key_rejected`, `budget`, `disabled`, `error`, `limit`
+  (di luar batas foto/temuan per run), `not_run`.
 - `rejected[]`: `{review_id, reason}`. Alasan: `quote_not_verbatim`, `quote_too_short`, `unknown_review_id`,
   `complaint_not_about_this_attribute`, `not_about_this_attribute`, `wrong_item_routes_to_operations`,
   `also_reports_wrong_variant`, `labelled_both_ways`, `complaint_without_attribute`.
@@ -82,6 +97,22 @@ rejected[], uncertain, not_detected_at`.
   `verification_failed`, `incomplete_source`, `conflicting`, `not_applicable` (temuan operasional/kualitas).
 - `follow_up` (hanya `acted`/`reopened`): `{state: insufficient_data|no_recurrence_observed|recurrence,
   acted_at, after, complaints, undated}`. Hanya ulasan yang ditulis setelah `acted_at` yang dihitung.
+
+## Vision
+
+`POST /api/v1/deciqo/products/{id}/vision` (sinkron) menjalankan OCR gambar produk lalu cek foto pembeli
+untuk produk itu, dan mengembalikan ProductView terbaru ditambah:
+
+- `vision_run`: `{ocr: {status, reason, images_read, images_total, changed}, photos: {status, reason?, planned,
+  checked, cached, checked_at}}`.
+- `job_id`: job analisis ulang bila teks gambar berubah (teks listing yang diperiksa ikut berubah), selain itu `null`.
+
+Hal yang sama dijalankan otomatis di analisis mode AI: OCR sebelum pemeriksaan listing (teks gambar ikut
+diperiksa di run yang sama), cek foto setelah temuan disimpan. Vision hanya menambah bukti; tidak membuat,
+menghapus, atau mengubah bucket/state/severity temuan. Tanpa key atau anggaran habis: `skipped` dengan alasan,
+bukan error, dan analisis tetap sukses. Batas: 3 foto per temuan, 8 temuan per produk per run, 8 gambar produk.
+Semua hasil di-cache (`vision_checks`, `image_ocr`); ledger purpose `vision`, reservasi 1500 token per gambar.
+`DECIQO_VISION=off` mematikan jalur ini.
 
 ## Fakta dan keputusan
 

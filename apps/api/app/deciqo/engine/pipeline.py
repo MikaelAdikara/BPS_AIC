@@ -19,7 +19,7 @@ import re
 from datetime import datetime, timedelta, timezone
 
 from .. import store
-from . import PIPELINE_VERSION, VERIFIER_VERSION, lexicon, listing_check, relevance, rules, triage, verify
+from . import PIPELINE_VERSION, VERIFIER_VERSION, lexicon, listing_check, relevance, rules, triage, verify, vision
 
 log = logging.getLogger("deciqo.engine")
 
@@ -97,11 +97,20 @@ def load_reviews(conn, product_id: str) -> list[dict]:
 
 
 def listing_parts(product: dict) -> tuple[str, bool]:
-    """Teks listing yang diperiksa (deskripsi + spesifikasi) dan apakah listing sudah diberikan."""
+    """Teks listing yang diperiksa (deskripsi + spesifikasi + teks gambar produk) dan apakah
+    listing sudah diberikan.
+
+    Teks hasil OCR gambar produk (lihat `vision.run_ocr`) ditempel sebagai blok terpisah berjudul
+    "Teks pada gambar produk:" supaya pemeriksaan listing bisa mengutipnya verbatim. Blok itu
+    tidak mengubah `provided`: listing dianggap ada hanya bila deskripsi/spesifikasi ada."""
     specs = store.loads(product.get("specs_json"), {}) or {}
     spec_text = "\n".join(f"{k}: {v}" for k, v in specs.items()) if isinstance(specs, dict) else ""
     body = "\n".join(p for p in [(product.get("description") or "").strip(), spec_text.strip()] if p)
-    return body, bool(body)
+    provided = bool(body)
+    images = vision.image_text(product)
+    if images:
+        body = f"{body}\n\n{images}" if body else images
+    return body, provided
 
 
 # --- metrik & severity ----------------------------------------------------------------------
@@ -452,8 +461,32 @@ def _engine_choice(requested: str | None, user_id: int | None) -> tuple[str, str
 
 
 def _input_hash(reviews: list[dict], product: dict, engine: str, model: str) -> str:
+    # Hasil OCR gambar produk ikut listing; hanya ditambahkan bila ada supaya hash produk tanpa
+    # gambar terbaca tetap sama seperti sebelum jalur vision ada.
+    ocr = vision.ocr_items(product)
     return store.digest(sorted(r["version_hash"] for r in reviews), product.get("snapshot_hash", ""),
-                        PIPELINE_VERSION, VERIFIER_VERSION, engine, model)
+                        PIPELINE_VERSION, VERIFIER_VERSION, engine, model, *([ocr] if ocr else []))
+
+
+def _vision_ocr(product: dict, db_path) -> dict:
+    """OCR gambar produk SEBELUM pemeriksaan listing, supaya teks gambar ikut diperiksa di run ini.
+    Semua kegagalan ditelan: analisis tidak pernah gagal karena vision."""
+    try:
+        result = vision.run_ocr(product["id"], db_path=db_path)
+    except Exception as exc:  # noqa: BLE001
+        log.error(f"OCR gambar {product['id']} dilewati: {type(exc).__name__}")
+        return product
+    with store.database(db_path) as conn:
+        return store.row(conn.execute("SELECT * FROM products WHERE id = ?", (product["id"],))) or product
+
+
+def _vision_photos(product_id: str, db_path) -> dict:
+    """Cek foto pembeli di akhir analisis. Hanya menambah bukti; kegagalan → `skipped`."""
+    try:
+        return vision.run_photo_checks(product_id, db_path=db_path)
+    except Exception as exc:  # noqa: BLE001
+        log.error(f"cek foto {product_id} dilewati: {type(exc).__name__}")
+        return {"status": "skipped", "reason": "error"}
 
 
 def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
@@ -478,12 +511,19 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         from . import llm  # noqa: PLC0415
 
         model_name = llm.model_name()
+    run_vision = mode == "ai" and not cache_only
+    if run_vision:
+        product = _vision_ocr(product, db_path)
     input_hash = _input_hash(reviews, product, mode, model_name)
     if (not force and previous and previous["status"] == "ready" and previous["input_hash"] == input_hash):
-        return {"product_id": product_id, "engine": previous["engine"], "status": "unchanged",
-                "trace": store.loads(previous["trace_json"], [])}
+        result = {"product_id": product_id, "engine": previous["engine"], "status": "unchanged",
+                  "trace": store.loads(previous["trace_json"], [])}
+        if run_vision:
+            result["vision"] = _vision_photos(product_id, db_path)
+        return result
 
     listing, provided = listing_parts(product)
+    image_coverage = vision.ocr_counts(product)
     trace = [triage_trace]
     usage: dict = {}
     ai_output = None
@@ -581,7 +621,7 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
             continue
         metrics = compute_metrics(support_ids, len(judged["contradicting"]), reviews, candidates_read,
                                   proposal["finding_type"])
-        check = listing_check.check(proposal, listing, provided)
+        check = listing_check.check(proposal, listing, provided, images=image_coverage)
         findings.append({"key": key, "proposal": proposal, "judged": judged, "support_ids": support_ids,
                          "metrics": metrics, "severity": severity(metrics, proposal["finding_type"]),
                          "listing_check": check})
@@ -605,8 +645,12 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
             "trace_json = excluded.trace_json, created_at = excluded.created_at",
             (product_id, input_hash, ai_hash, mode, PIPELINE_VERSION, VERIFIER_VERSION,
              store.dumps(summary), store.dumps(trace), store.now()))
-    return {"product_id": product_id, "engine": mode, "status": "ready", "findings": saved,
-            "trace": trace, "usage": usage, "note": note}
+    result = {"product_id": product_id, "engine": mode, "status": "ready", "findings": saved,
+              "trace": trace, "usage": usage, "note": note}
+    # Mode bisa turun ke aturan di tengah jalan (key ditolak, anggaran habis): vision ikut berhenti.
+    if run_vision and mode == "ai":
+        result["vision"] = _vision_photos(product_id, db_path)
+    return result
 
 
 def route_of(finding_type: str) -> str:

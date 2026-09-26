@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field
 from .. import analysis, ingest, jobs, store
 from ..auth import current_user
 from ..errors import DeciqoError, not_found
-from . import decision, draft, facts, generic, workspace
+from . import decision, draft, facts, generic, vision, workspace
 
 router = APIRouter(prefix="/api/v1/deciqo", tags=["deciqo-engine"])
 
@@ -128,6 +128,23 @@ def analyse_all(user: dict = Depends(current_user)) -> dict:
     with store.database() as conn:
         ids = [r["id"] for r in conn.execute("SELECT id FROM products WHERE user_id = ? ORDER BY title", (user["id"],))]
     return {"job_id": _analyse_job(user["id"], ids, force=False, kind="analyse_all", target="all")}
+
+
+@router.post("/products/{product_id}/vision")
+def run_vision(product_id: str, user: dict = Depends(current_user)) -> dict:
+    """OCR gambar produk + cek foto pembeli untuk produk ini, lalu read model terbaru.
+
+    Vision hanya menambah bukti. Tanpa key / anggaran habis: bagian itu `skipped` dengan alasan,
+    bukan error. Bila teks gambar berubah, listing yang diperiksa ikut berubah, jadi analisis
+    ulang dijalankan sebagai job (`job_id`); tanpa perubahan `job_id` bernilai null."""
+    with store.database() as conn:
+        _own_product(conn, user["id"], product_id)
+    result = vision.run_all(product_id)
+    job_id = (_analyse_job(user["id"], [product_id], force=False, kind="analyse", target=product_id)
+              if result["ocr"].get("changed") else None)
+    with store.database() as conn:
+        view = workspace.product_view(conn, _own_product(conn, user["id"], product_id))
+    return {**view, "vision_run": result, "job_id": job_id}
 
 
 @router.post("/products/{product_id}/draft")
