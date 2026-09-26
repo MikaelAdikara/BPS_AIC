@@ -137,3 +137,19 @@ Heuristik yang bisa dijelaskan, bukan optimum atau prediksi profit. Hanya isu di
   `single_report`, `effort` (`step`, `minutes`, `measured`).
 - `patterns`: atribut yang sama di beberapa produk; `cross_channel`: judul mirip (≥0,5) di channel
   berbeda. Keduanya `kind: "candidate"`, bukan identitas SKU.
+
+## Pembanding chatbot umum
+
+`POST /api/v1/deciqo/products/{id}/generic` → model dan bundle yang sama dengan engine (judul, listing
+yang dibaca model, ulasan tersimpan), prompt seller biasa. Tanpa AI → `503 generic_unavailable`.
+
+```json
+{"system": "generic_chatbot", "same_bundle": true, "model": "gpt-5-mini", "prompt_sha": "…",
+ "problems": [{"problem": "…", "suggestion": "…"}],
+ "sentences": [{"text": "…", "status": "passed|blocked", "reasons": ["unsupported_quantity", "unsupported_claim"],
+                "unsupported": ["34 x 24 cm", "kulit asli"]}],
+ "passed_text": "…", "counts": {"sentences": 4, "blocked": 2}, "gate_version": "verify-v2.2", "usage": {…}}
+```
+
+Setiap kalimat dinilai gerbang yang sama (sumber: listing dan fakta merchant; ulasan bukan sumber).
+Kalimat terblokir ditampilkan, tidak dibuang. Hasil terakhir juga ada di `ProductView.generic_draft`.

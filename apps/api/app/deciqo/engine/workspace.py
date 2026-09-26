@@ -224,6 +224,8 @@ def product_view(conn, product: dict) -> dict:
         "SELECT d.finding_id, d.decision, d.reason, d.note, d.acted_at, d.created_at FROM decisions d "
         "JOIN findings f ON f.id = d.finding_id WHERE f.product_id = ? ORDER BY d.id DESC", (product["id"],)))
     summary_json = store.loads(analysis["summary_json"], {}) if analysis else {}
+    stored_generic = store.row(conn.execute(
+        "SELECT result_json FROM generic_drafts WHERE product_id = ? ORDER BY created_at DESC LIMIT 1", (product["id"],)))
     stored_draft = store.row(conn.execute(
         "SELECT result_json FROM drafts WHERE product_id = ? ORDER BY created_at DESC LIMIT 1", (product["id"],)))
     return {
@@ -243,7 +245,7 @@ def product_view(conn, product: dict) -> dict:
         "findings": current,
         "not_detected": not_detected,
         "draft": store.loads(stored_draft["result_json"], None) if stored_draft else None,
-        "generic_draft": None,
+        "generic_draft": store.loads(stored_generic["result_json"], None) if stored_generic else None,
         "decisions": decisions,
         "reviews": [{"id": r["id"], "rating": r["rating"], "text": r["text"], "variant": r["variant"],
                      "review_time": r["review_time"]} for r in ctx.reviews],

@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field
 from .. import analysis, ingest, jobs, store
 from ..auth import current_user
 from ..errors import DeciqoError, not_found
-from . import decision, draft, facts, workspace
+from . import decision, draft, facts, generic, workspace
 
 router = APIRouter(prefix="/api/v1/deciqo", tags=["deciqo-engine"])
 
@@ -135,6 +135,14 @@ def make_draft(product_id: str, user: dict = Depends(current_user)) -> dict:
     with store.database() as conn:
         _own_product(conn, user["id"], product_id)
         return draft.build(conn, product_id)
+
+
+@router.post("/products/{product_id}/generic")
+def make_generic(product_id: str, user: dict = Depends(current_user)) -> dict:
+    """Pembanding chatbot umum dengan bundle dan pemeriksa yang sama (lihat engine/generic.py)."""
+    with store.database() as conn:
+        _own_product(conn, user["id"], product_id)
+    return generic.run(product_id)
 
 
 # --- fakta & keputusan -----------------------------------------------------------------------

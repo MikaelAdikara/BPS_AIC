@@ -147,3 +147,11 @@ def test_endpoint_rencana_keputusan(client):
     body = client.get("/api/v1/deciqo/decisions").json()
     assert body["score_kind"] == "heuristic" and body["total"] == len(body["decisions"]) == 2
     assert body["decisions"][0]["next_step"] == "confirm_fact"
+
+
+def test_pembanding_chatbot_umum_tanpa_key_503(client):
+    uid = _signup(client, "i@x.id")
+    pid = _seed(uid)
+    r = client.post(f"/api/v1/deciqo/products/{pid}/generic")
+    assert r.status_code == 503 and r.json()["detail"]["code"] == "generic_unavailable"
+    assert client.get(f"/api/v1/deciqo/products/{pid}").json()["generic_draft"] is None
