@@ -84,3 +84,29 @@ def test_chat_belum_tertaut(client):
 
 def test_uji_kirim_tanpa_bot(client):
     assert client.post("/api/v1/deciqo/telegram/test").json()["status"] == "unconfigured"
+
+
+def test_perintah_id_menampilkan_chat_sendiri(client):
+    assert telegram.handle_update(_msg("/id", chat_id=4242, sender=4242)) == "Chat ID: 4242"
+
+
+def test_chat_operator_hanya_untuk_akun_demo(client, monkeypatch):
+    from datetime import datetime, timezone
+
+    from app.deciqo import alerts, samples
+
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "123:abc")
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "111111, 222222 ,bukan-angka")
+    sent = []
+    monkeypatch.setattr(alerts, "_send_telegram", lambda base, token, chat, text, fid: sent.append((base, chat)) or {"message_id": 1})
+    with store.database() as conn:
+        demo = samples.ensure_demo_user(conn)
+        other = conn.execute("SELECT id FROM users WHERE email = 't@x.io'").fetchone()[0]
+        alerts.enqueue_event(demo["id"], "new_issue", finding_id="f_d", synthetic=True, payload={"product": "Tas"}, conn=conn)
+        alerts.enqueue_event(other, "new_issue", finding_id="f_o", synthetic=True, payload={"product": "Tas"}, conn=conn)
+    alerts.dispatch_once(datetime.now(timezone.utc))
+    real = [chat for base, chat in sent if base.startswith("https://api.telegram.org")]
+    assert real == ["111111", "222222"]
+    with store.database() as conn:
+        statuses = dict(conn.execute("SELECT finding_id, status FROM alert_events").fetchall())
+    assert statuses == {"f_d": "sent", "f_o": "simulated"}

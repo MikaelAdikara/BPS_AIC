@@ -184,7 +184,7 @@ def dispatch_once(now: datetime | None = None) -> int:
     processed = 0
     with store.database() as conn:
         pending = store.rows(conn.execute(
-            "SELECT e.*, u.telegram_chat_id, u.lang FROM alert_events e JOIN users u ON u.id = e.user_id "
+            "SELECT e.*, u.telegram_chat_id, u.lang, u.is_demo FROM alert_events e JOIN users u ON u.id = e.user_id "
             "WHERE e.status = 'pending' AND (e.next_attempt_at IS NULL OR e.next_attempt_at <= ?) "
             "ORDER BY e.id LIMIT 50", (now.replace(microsecond=0).isoformat(),)))
     for event in pending:
@@ -220,7 +220,21 @@ def _deliver(event: dict, now: datetime) -> None:
     text = render(event, event.get("lang") or "en")
     status, delivery = "unconfigured", {}
     try:
-        if event["synthetic"] and settings.telegram_demo_mode():
+        operator_chats = settings.telegram_operator_chats()
+        if token and operator_chats and event.get("is_demo") and event["synthetic"]:
+            # Operator memilih sendiri chat penerima demo di .env: pesan sintetis berlabel DEMO dikirim
+            # sungguhan ke sana. Berhasil bila minimal satu chat menerima.
+            results = []
+            for chat in operator_chats:
+                try:
+                    results.append({"chat": chat[-4:], **_send_telegram("https://api.telegram.org", token, chat,
+                                                                         text, event["finding_id"])})
+                except Exception as exc:  # noqa: BLE001
+                    results.append({"chat": chat[-4:], "error": type(exc).__name__})
+            if not any("error" not in r for r in results):
+                raise RuntimeError("all operator chats failed")
+            delivery, status = {"operator_chats": results}, "sent"
+        elif event["synthetic"] and settings.telegram_demo_mode():
             # Data sintetis tidak pernah ke chat nyata: ke sink simulasi di toko demo.
             delivery = _send_telegram(settings.woo_base_url(), token or "demo", event.get("telegram_chat_id") or "demo",
                                       text, event["finding_id"])

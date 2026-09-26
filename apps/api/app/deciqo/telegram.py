@@ -101,6 +101,16 @@ def unlink(user: dict = Depends(current_user)) -> Response:
 
 @router.post("/telegram/test")
 def test_message(user: dict = Depends(current_user)) -> dict:
+    operator = settings.telegram_operator_chats() if user.get("is_demo") else []
+    if settings.telegram_token() and operator and not user.get("telegram_chat_id"):
+        sent = 0
+        for chat in operator:
+            try:
+                send(chat, "[DEMO] Deciqo test message. Demo alerts will arrive here.")
+                sent += 1
+            except Exception as exc:  # noqa: BLE001
+                log.warning(f"pesan uji operator gagal: {type(exc).__name__}")
+        return {"status": "sent" if sent else "failed", "recipients": sent}
     if not settings.telegram_token() or not user.get("telegram_chat_id"):
         return {"status": "unconfigured",
                 "reason": "bot_not_configured" if not settings.telegram_token() else "telegram_not_linked"}
@@ -266,6 +276,10 @@ def handle_update(update: dict) -> str | None:
             return t["linked"].format(name=linked["name"]) if linked else t["contact_bad"]
         first, _, rest = text.partition(" ")
         command = first.split("@")[0].lower()
+        if command in ("/id", "/chatid"):
+            # Chat ID hanya diperlihatkan ke pemilik chat itu sendiri; dipakai operator mengisi
+            # TELEGRAM_CHAT_ID untuk penerima alert demo.
+            return f"Chat ID: {chat_id}"
         if command == "/start" and rest.strip():
             linked = redeem_code(conn, rest, chat_id)
             return _T[_lang(linked, message)]["linked"].format(name=linked["name"]) if linked else t["bad_code"]

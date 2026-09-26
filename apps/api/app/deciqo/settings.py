@@ -8,6 +8,7 @@ dalam mode aturan dengan akun demo.
 from __future__ import annotations
 
 import os
+import re
 
 
 def env(name: str, default: str = "") -> str:
@@ -96,6 +97,14 @@ def telegram_token() -> str:
 
 def telegram_demo_mode() -> bool:
     return env_bool("TELEGRAM_DEMO_MODE", True)
+
+
+def telegram_operator_chats() -> list[str]:
+    """Chat ID penerima yang diatur operator server (dipisah koma).
+
+    Hanya menerima alert akun DEMO (data sintetis), supaya demo bisa memperlihatkan pesan
+    Telegram sungguhan tanpa pernah mengarahkan data toko akun lain ke chat yang diketik manual."""
+    return [c.strip() for c in env("TELEGRAM_CHAT_ID").split(",") if re.fullmatch(r"-?\d{3,20}", c.strip())]
 
 
 def openai_configured() -> bool:
