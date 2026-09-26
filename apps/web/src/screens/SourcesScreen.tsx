@@ -5,6 +5,7 @@ import { request, ApiError } from "@/api/http.js";
 import { useI18n } from "@/lib/i18n";
 import { LazadaFetch } from "@/components/LazadaFetch";
 import { DemoReview } from "@/components/DemoReview";
+import { LocalWooStore, type LocalStoreStatus } from "@/components/LocalWooStore";
 import {
   ChannelBoard,
   SamplePackCard,
@@ -58,6 +59,32 @@ export function SourcesScreen() {
   const csvInput = useRef<HTMLInputElement>(null);
   const id = useId();
   const source = channels.find((channel) => channel.key === tab);
+  const [localStore, setLocalStore] = useState<LocalStoreStatus | null>(null);
+  useEffect(() => {
+    if (tab !== "woocommerce") return;
+    const controller = new AbortController();
+    request("/deciqo/woo/local", { signal: controller.signal })
+      .then((data) => {
+        if (!controller.signal.aborted) setLocalStore(data);
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setLocalStore(null);
+      });
+    return () => controller.abort();
+  }, [tab, channels]);
+  async function connectLocal() {
+    await perform(
+      async () => {
+        await request("/deciqo/woo/connect", {
+          method: "POST",
+          body: { mode: "local" },
+        });
+        return request("/deciqo/woo/sync", { method: "POST" });
+      },
+      "sources.synced",
+      "sources.syncing",
+    );
+  }
   useEffect(() => {
     const controller = new AbortController();
     setSampleLoading(true);
@@ -252,6 +279,13 @@ export function SourcesScreen() {
                     <p>{t("sources.sourceError")}</p>
                   </Notice>
                 )}
+                {tab === "woocommerce" && (
+                  <LocalWooStore
+                    status={localStore}
+                    busy={busy}
+                    onConnect={() => void connectLocal()}
+                  />
+                )}
                 {tab === "woocommerce" ? (
                   <Card title={t("sources.woo")} lead={t("sources.readonly")}>
                     <form
@@ -267,7 +301,7 @@ export function SourcesScreen() {
                           value={mode}
                           onChange={(event) => setMode(event.target.value)}
                         >
-                          {["demo", "own", "server"].map((value) => (
+                          {["demo", "local", "own", "server"].map((value) => (
                             <option key={value} value={value}>
                               {t("sources." + value)}
                             </option>
@@ -485,7 +519,7 @@ export function SourcesScreen() {
                   )}
                 </Card>
                 {tab === "lazada" && <LazadaFetch />}
-                {source?.synthetic && tab === "woocommerce" && (
+                {source?.synthetic && tab === "woocommerce" && !localStore?.connected && (
                   <Card title={t("sources.demoTools")}>
                     <details>
                       <summary>{t("sources.demoTools")}</summary>

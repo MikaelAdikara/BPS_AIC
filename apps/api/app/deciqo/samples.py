@@ -50,7 +50,9 @@ def delete_workspace(conn: sqlite3.Connection, user_id: int, *, keep_job: str | 
                 "DELETE FROM jobs WHERE user_id = ? AND id != ?", (user_id, keep_job)).rowcount
         else:
             counts[table] = conn.execute(f"DELETE FROM {table} WHERE user_id = ?", (user_id,)).rowcount
-    conn.execute("UPDATE users SET telegram_chat_id = NULL WHERE id = ?", (user_id,))
+    # '' bukan NULL: database lama membuat kolom ini `NOT NULL DEFAULT ''`, dan semua pembaca hanya
+    # memeriksa truthy, jadi keduanya berarti "belum terhubung".
+    conn.execute("UPDATE users SET telegram_chat_id = '' WHERE id = ?", (user_id,))
     return counts
 
 
@@ -67,18 +69,24 @@ def ensure_demo_user(conn: sqlite3.Connection) -> dict:
     return user
 
 
-def load_demo_catalog(conn: sqlite3.Connection, user_id: int) -> ingest.ImportStats:
-    """Isi katalog toko Woo sintetis dan hubungkan akun ke toko itu."""
-    stats = ingest.upsert_catalog(user_id, "woocommerce", demo_catalog.as_catalog(),
+def load_demo_catalog(conn: sqlite3.Connection, user_id: int, *, catalog: list[dict] | None = None,
+                      connection: tuple[str, str, str] | None = None) -> ingest.ImportStats:
+    """Isi katalog demo dan hubungkan akun ke tokonya.
+
+    Default: toko Woo sintetis. Dengan `catalog` + `connection` (url, user, password), katalog yang
+    sudah dibaca dari toko WordPress demo lokal dipakai dan akun tetap tersambung ke toko itu."""
+    stats = ingest.upsert_catalog(user_id, "woocommerce", catalog or demo_catalog.as_catalog(),
                                   data_origin="synthetic", sampling="complete", conn=conn)
+    base_url, key, secret = connection or (settings.woo_base_url(), settings.DEMO_WOO_KEY, settings.DEMO_WOO_SECRET)
     conn.execute(
         "INSERT INTO woo_connections(user_id, base_url, consumer_key, consumer_secret, is_demo, created_at) "
         "VALUES(?, ?, ?, ?, 1, ?) ON CONFLICT(user_id) DO UPDATE SET base_url = excluded.base_url, "
         "consumer_key = excluded.consumer_key, consumer_secret = excluded.consumer_secret, is_demo = 1",
-        (user_id, settings.woo_base_url(), settings.DEMO_WOO_KEY, settings.DEMO_WOO_SECRET, store.now()),
+        (user_id, base_url, key, secret, store.now()),
     )
     conn.execute("UPDATE sources SET label = ? WHERE id = ?",
-                 ("WooCommerce (synthetic demo store)", f"{user_id}:woocommerce"))
+                 ("WooCommerce (local demo store)" if connection else "WooCommerce (synthetic demo store)",
+                  f"{user_id}:woocommerce"))
     return stats
 
 
@@ -136,10 +144,11 @@ def apply_demo_state(conn: sqlite3.Connection, user_id: int) -> dict:
     return applied
 
 
-def populate_demo(ctx: JobContext | None, user_id: int) -> dict:
+def populate_demo(ctx: JobContext | None, user_id: int, *, catalog: list[dict] | None = None,
+                  connection: tuple[str, str, str] | None = None) -> dict:
     """Katalog → analisis → fakta/keputusan contoh. Dipakai seed startup dan reset demo."""
     with store.database() as conn:
-        stats = load_demo_catalog(conn, user_id)
+        stats = load_demo_catalog(conn, user_id, catalog=catalog, connection=connection)
     result = {"stats": stats.public()}
     result["analysis"] = analysis.analyse_products(ctx, stats.products)
     with store.database() as conn:

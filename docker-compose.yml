@@ -70,6 +70,95 @@ services:
       start_period: 20s
       retries: 10
 
+  # --- Toko WooCommerce ASLI untuk demo (opsional) ------------------------------------------
+  # `docker compose --profile store up -d --build` → storefront http://localhost:8081,
+  # admin http://localhost:8081/wp-admin. Ulasan baru memicu webhook WooCommerce ke `api`.
+  # Isi toko sama dengan katalog demo (data sintetis buatan tim).
+  wp-db:
+    profiles: ["store"]
+    image: mariadb:11
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+      MARIADB_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - wp-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 4s
+      start_period: 20s
+      retries: 20
+
+  wordpress:
+    profiles: ["store"]
+    build:
+      context: .
+      dockerfile: docker/wordpress/Dockerfile
+    ports:
+      - "127.0.0.1:8081:80"
+    environment:
+      TZ: Asia/Jakarta
+      WORDPRESS_DB_HOST: wp-db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      # Browser membuka localhost:8081, sedangkan api memanggil http://wordpress di jaringan
+      # internal: WP_HOME tetap localhost:8081 supaya tautan produk mengarah ke alamat browser.
+      # Lewat Cloudflare quick tunnel (profile `tunnel`) alamatnya https://<acak>.trycloudflare.com;
+      # hanya host dengan akhiran itu yang dipercaya sebagai alamat publik (bukan Host bebas).
+      # Environment `local` mengizinkan application password lewat HTTP.
+      WORDPRESS_CONFIG_EXTRA: |
+        $$deciqo_host = strtolower($$_SERVER['HTTP_HOST'] ?? '');
+        if (preg_match('/^[a-z0-9-]+\.trycloudflare\.com$$/', $$deciqo_host)) {
+          $$_SERVER['HTTPS'] = 'on';
+          define('WP_HOME', 'https://' . $$deciqo_host);
+          define('WP_SITEURL', 'https://' . $$deciqo_host);
+        } else {
+          define('WP_HOME', 'http://localhost:8081');
+          define('WP_SITEURL', 'http://localhost:8081');
+        }
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        define('DISALLOW_FILE_EDIT', true);
+      DECIQO_STORE_URL: http://localhost:8081
+      DECIQO_STORE_ADMIN_USER: ${WOO_LOCAL_USER:-deciqo}
+      DECIQO_STORE_ADMIN_PASSWORD: ${WOO_LOCAL_ADMIN_PASSWORD:-deciqo-demo-2026}
+      DECIQO_STORE_API_PASSWORD: ${WOO_LOCAL_API_PASSWORD:-deciqoLocalStoreKey2026}
+      DECIQO_WEBHOOK_URL: http://api:8000/api/v1/deciqo/woo/webhook
+      DECIQO_WEBHOOK_SECRET: ${WOO_WEBHOOK_SECRET:-deciqo-local-webhook-secret}
+    volumes:
+      - wp-html:/var/www/html
+    depends_on:
+      wp-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/deciqo-ready && curl -fsS -o /dev/null http://127.0.0.1/wp-json/"]
+      interval: 5s
+      timeout: 5s
+      start_period: 60s
+      retries: 60
+
+  # --- Tunnel publik untuk demo (opsional) ---------------------------------------------------
+  # Cloudflare quick tunnel: tanpa akun, URL https://<acak>.trycloudflare.com baru setiap start.
+  # `python scripts/demo_tunnel.py` menyalakan semuanya dan mencetak URL + QR. Jalankan
+  # `python scripts/demo_tunnel.py keys` dulu supaya password demo bawaan diganti yang acak.
+  tunnel-store:
+    profiles: ["tunnel"]
+    image: cloudflare/cloudflared:latest
+    command: ["tunnel", "--no-autoupdate", "--url", "http://wordpress:80"]
+    depends_on:
+      wordpress:
+        condition: service_healthy
+
+  tunnel-app:
+    profiles: ["tunnel"]
+    image: cloudflare/cloudflared:latest
+    command: ["tunnel", "--no-autoupdate", "--url", "http://web:80"]
+    depends_on:
+      web:
+        condition: service_started
+
   web:
     build:
       context: .
@@ -86,3 +175,5 @@ volumes:
   hf-cache:
   deciqo-data:
   woo-demo-data:
+  wp-db-data:
+  wp-html:

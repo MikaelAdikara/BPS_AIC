@@ -87,9 +87,11 @@ separately (`uvicorn app.deciqo.mock_woo:app --app-dir apps/api --port 8080` wit
 `GET /api/v1/version` returns the build that is running:
 
 ```json
-{"app": "deciqo", "version": "1.0.0", "commit": "abc1234", "pipeline": "gap-v1", "verifier": "verify-v1"}
+{"app": "deciqo", "version": "1.0.0", "commit": "abc1234", "pipeline": "gap-v1.19", "verifier": "verify-v2.6"}
 ```
 
+- The frozen hackathon version is `gap-v1.19` / `verify-v2.6`; the source of truth is
+  `apps/api/app/deciqo/engine/__init__.py` (`PIPELINE_VERSION`, `VERIFIER_VERSION`).
 - `commit` is injected at build time through `APP_COMMIT`; if it was not provided the value is
   `"unknown"`, never a guess.
 - `pipeline` / `verifier` change whenever engine behaviour changes and are stored with every
@@ -118,14 +120,31 @@ What the suites cover:
 | `python eval/run_final.py --rules` | End-to-end eval dry run with the rule engine; free, no API key |
 | `python eval/run_final.py --systems B0,B1,D --budget 2` | Paid eval run with a hard USD budget; stops if the key is rejected or the budget is spent |
 | `python eval/run_final.py --rescore` | Recomputes the report from stored raw outputs without calling a model |
+| `python eval/quality_gate.py --status all eval/final/<run>` | PASS/FAIL gates (integrity, safety, accuracy against Wilson lower bounds fixed before results were seen) |
+| `python eval/recall_loss.py eval/final/<run>` | Attributes every lost gold evidence to the pipeline stage that dropped it |
 
 Eval artifacts live in `eval/final/` (cases, raw outputs, manifest, report, blind label sheet).
 See [eval/README.md](eval/README.md) for the metric definitions.
 
 ## Evaluation
 
-Checkpoint 1 (test suite, first run, baseline scores, execution evidence, weaknesses found):
-[`eval/CHECKPOINT_1.md`](eval/CHECKPOINT_1.md).
+**Evaluation Artifact (PDF):** [`eval/artifact/Deciqo_Evaluation_Artifact.pdf`](eval/artifact/Deciqo_Evaluation_Artifact.pdf).
+Checkpoints: [`CHECKPOINT_1.md`](eval/CHECKPOINT_1.md) (baseline), [`CHECKPOINT_2.md`](eval/CHECKPOINT_2.md)
+(iteration), [`CHECKPOINT_3.md`](eval/CHECKPOINT_3.md) (model freeze); every cycle, including failed fixes,
+is logged in [`eval/ITERATIONS.md`](eval/ITERATIONS.md).
+
+**Frozen version `gap-v1.19`, engine D, two runs** (`eval/final/rc-v1.19/`, `rc-v1.19-r2/`; 62 cases):
+
+| Metric | Baseline `gap-v1` (development) | `gap-v1.19` development | `gap-v1.19` holdout (40 cases) |
+|---|---|---|---|
+| Gold issue found | 15/21 | 21/21, 21/21 | 36/36, 36/36 |
+| Membership recall | 20/53 | 43/53, 43/53 | 97/125, 98/125 |
+| Membership precision | 20/21 | 43/44, 43/43 | 97/97, 98/99 |
+| Missing fact held before the merchant answers | 8/13 | 11/13, 13/13 | 24/24, 23/24 |
+| Forbidden claims in drafts (after fact) | 1/8 | 0/12, 0/12 | 0/19, 0/19 |
+
+Open items (praise-only control h20, over-holding, blind human labels) are listed in
+`CHECKPOINT_3.md` §5 and in the artifact §9. The baseline description below is kept as recorded at checkpoint 1.
 
 **Question:** when a seller pastes reviews and a listing into a language model, what goes wrong,
 and does Deciqo's workflow (evidence counted from stored reviews, a listing check, a question for
@@ -142,7 +161,7 @@ phase adds the same merchant fact to every system):
   without a model.
 - **U**: the Ulasin aspect classifier as shipped (IndoBERT vs lexicon) on 120 human-labelled clauses.
 
-**Cases:** 22 synthetic development cases (`c01`–`c22`) and 10 synthetic holdout cases (`h01`–`h10`),
+**Cases:** 22 synthetic development cases (`c01`–`c22`) and 40 synthetic holdout cases (`h01`–`h40`; `h11`–`h40` written and hash-locked before the engine version under test was run),
 each aimed at a failure point: missing facts, inch vs cm, inner vs outer size, negation, water
 claims, device compatibility, disputed capacity, electrical specs, size charts per variant,
 misleading star ratings, wrong items, defects, delivery, empty or truncated listings, prompt

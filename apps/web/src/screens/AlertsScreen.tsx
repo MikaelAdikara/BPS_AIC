@@ -169,7 +169,7 @@ export function AlertRows({ events }: { events: AlertEvent[] }) {
 }
 export function AlertsScreen() {
   const { t, language, localizeError } = useI18n();
-  const { summary } = useWorkspace();
+  const { summary, alertRevision } = useWorkspace();
   const [data, setData] = useState<AlertsView | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -190,7 +190,7 @@ export function AlertsScreen() {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [revision, language, summary]);
+  }, [revision, language, summary, alertRevision]);
   const events =
     data?.events.filter((event) => kind === "all" || event.kind === kind) ?? [];
   return (

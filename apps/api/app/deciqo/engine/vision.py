@@ -21,9 +21,11 @@ Tanpa key, key ditolak, anggaran habis, atau `DECIQO_VISION=off`: dilewati denga
 
 from __future__ import annotations
 
+import ipaddress
 import logging
 import threading
 from concurrent.futures import ThreadPoolExecutor
+from urllib.parse import urlparse
 
 from .. import settings, store
 from . import llm
@@ -114,10 +116,22 @@ def _urls(values) -> list[str]:
         url = value.strip()
         if url.startswith("//"):
             url = "https:" + url
-        if url.lower().startswith(("http://", "https://")):
+        if url.lower().startswith(("http://", "https://")) and _reachable_by_model(url):
             if url not in out:
                 out.append(url)
     return out
+
+
+def _reachable_by_model(url: str) -> bool:
+    """Model vision mengambil gambar dari internet; URL lokal (mis. toko WordPress demo di
+    localhost) hanya membuat panggilan gagal, jadi dilewati."""
+    host = (urlparse(url).hostname or "").lower()
+    if not host or host == "localhost" or host.endswith((".localhost", ".local", ".test")) or "." not in host:
+        return False
+    try:
+        return ipaddress.ip_address(host).is_global
+    except ValueError:
+        return True
 
 
 def product_images(product: dict) -> list[str]:

@@ -161,6 +161,19 @@ def list_alerts(lang: str | None = None, user: dict = Depends(current_user)) -> 
     }
 
 
+@router.get("/pulse")
+def pulse(lang: str | None = None, user: dict = Depends(current_user)) -> dict:
+    """Denyut ringan untuk layar yang terbuka: job aktif (termasuk yang dipicu webhook/poller,
+    bukan oleh layar ini) dan alert terbaru. Dipanggil beberapa detik sekali."""
+    from . import jobs  # noqa: PLC0415
+
+    with store.database() as conn:
+        latest = store.row(conn.execute(
+            "SELECT * FROM alert_events WHERE user_id = ? ORDER BY id DESC LIMIT 1", (user["id"],)))
+    lang = lang if lang in {"en", "id"} else user.get("lang") or "en"
+    return {"jobs": jobs.active_for(user["id"]), "latest_alert": public_event(latest, lang) if latest else None}
+
+
 # --- pengiriman --------------------------------------------------------------------------------
 
 

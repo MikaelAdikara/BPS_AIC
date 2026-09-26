@@ -83,6 +83,29 @@ def woo_consumer_secret() -> str:
     return env("WOO_CONSUMER_SECRET", DEMO_WOO_SECRET)
 
 
+# Toko WooCommerce ASLI lokal (profile Compose `store`): WordPress di jaringan internal Docker.
+# Kredensialnya application password bernilai tetap yang juga dipasang seed toko; toko hanya
+# terjangkau dari jaringan Docker dan 127.0.0.1, dan seluruh isinya data demo.
+def woo_local_url() -> str:
+    return env("WOO_LOCAL_URL", "http://wordpress").rstrip("/")
+
+
+def woo_local_public_url() -> str:
+    return env("WOO_LOCAL_PUBLIC_URL", "http://localhost:8081").rstrip("/")
+
+
+def woo_local_user() -> str:
+    return env("WOO_LOCAL_USER", "deciqo")
+
+
+def woo_local_api_password() -> str:
+    return env("WOO_LOCAL_API_PASSWORD", "deciqoLocalStoreKey2026")
+
+
+def woo_webhook_secret() -> str:
+    return env("WOO_WEBHOOK_SECRET", "deciqo-local-webhook-secret")
+
+
 def poll_seconds() -> int:
     return env_int("DECIQO_POLL_SECONDS", 900)
 

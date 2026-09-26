@@ -14,7 +14,7 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import { useAuth } from "@/api/auth";
-import { useWorkspace } from "@/api/workspace";
+import { useWorkspace, type LiveAlert } from "@/api/workspace";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n";
 import { navigate } from "@/lib/router.js";
@@ -46,9 +46,71 @@ const stages: Record<string, string> = {
   seeding: "jobSeeding",
   importing: "jobImporting",
   drafting: "jobDrafting",
+  fetching: "jobFetching",
+  saving: "jobSaving",
 };
 function isCurrent(href: string, path: string) {
   return href === "/app" ? path === href : path.startsWith(href);
+}
+function LiveAlertCard({
+  alert,
+  onClose,
+}: {
+  alert: LiveAlert;
+  onClose: () => void;
+}) {
+  const { t } = useI18n();
+  // Baris terakhir pesan alert adalah tautan mentah; di kartu diganti tombol.
+  const [headline, ...rest] = alert.message
+    .split("\n")
+    .filter((line) => !/https?:\/\//.test(line));
+  return (
+    <section
+      className="live-alert"
+      role="status"
+      aria-live="polite"
+      aria-label={t("workspace.liveAlertTitle")}
+    >
+      <span className="live-alert__icon" aria-hidden>
+        <Bell size={18} />
+      </span>
+      <div className="live-alert__body">
+        <p className="live-alert__eyebrow">
+          <span className="pulse-dot" aria-hidden />
+          {t("workspace.liveAlertTitle")} · {t("alerts." + alert.kind)}
+        </p>
+        <strong>{alert.payload.product ?? headline}</strong>
+        {alert.payload.attribute_local && (
+          <span className="muted">{alert.payload.attribute_local}</span>
+        )}
+        {!alert.payload.product && rest.length > 0 && (
+          <span className="muted">{rest.join(" ")}</span>
+        )}
+        <div className="live-alert__actions">
+          {alert.finding_id && (
+            <a
+              className="btn btn--primary btn--sm"
+              href={"#/app/issues?f=" + encodeURIComponent(alert.finding_id)}
+              onClick={onClose}
+            >
+              {t("workspace.liveAlertOpen")}
+            </a>
+          )}
+          <a className="btn btn--outline btn--sm" href="#/app/alerts" onClick={onClose}>
+            {t("workspace.liveAlertAll")}
+          </a>
+        </div>
+      </div>
+      <Button
+        variant="text"
+        className="live-alert__close"
+        aria-label={t("common.close")}
+        onClick={onClose}
+      >
+        <X size={16} aria-hidden />
+      </Button>
+    </section>
+  );
 }
 export function WorkspaceShell({
   path,
@@ -338,6 +400,13 @@ export function WorkspaceShell({
       </div>
       {workspace.toast && (
         <Toast onClose={workspace.closeToast}>{workspace.toast}</Toast>
+      )}
+      {workspace.liveAlert && (
+        <LiveAlertCard
+          key={workspace.liveAlert.id}
+          alert={workspace.liveAlert}
+          onClose={workspace.closeLiveAlert}
+        />
       )}
     </div>
   );

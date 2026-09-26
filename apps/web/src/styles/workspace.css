@@ -1688,3 +1688,86 @@ progress { width: 100%; accent-color: var(--blue); }
     font-size: 26px;
   }
 }
+
+/* ---------------------------------------------------------------- alert live (webhook toko) */
+.live-alert {
+  position: fixed;
+  top: 20px;
+  right: var(--gutter);
+  z-index: var(--z-toast);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: min(380px, calc(100vw - 32px));
+  padding: 14px 12px 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--red-line);
+  border-left: 3px solid var(--red-base);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  animation: live-alert-in 280ms var(--ease-out);
+}
+@keyframes live-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+.live-alert__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--red-ink);
+  background: var(--red-tint);
+}
+.live-alert__body {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.live-alert__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 2px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--red-ink);
+}
+.live-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.live-alert__close {
+  flex: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-alert {
+    animation: fade-in 200ms ease;
+  }
+}
+
+/* ---------------------------------------------------------------- toko WooCommerce lokal */
+.local-store {
+  display: grid;
+  gap: 12px;
+}
+.local-store__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.local-store__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

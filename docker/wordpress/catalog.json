@@ -1,0 +1,235 @@
+{
+  "_note": "Dibuat oleh scripts/build_wp_store.py dari demo_catalog.py. Jangan diedit manual.",
+  "products": [
+    {
+      "id": 101,
+      "sku": "TAS-KNV-14",
+      "name": "Tas laptop kanvas 14 inci",
+      "price": "189000",
+      "description": "Tas laptop bahan kanvas tebal, muat laptop hingga 14 inch. Warna hitam. Dilengkapi tali bahu yang bisa diatur dan satu kantong depan untuk charger dan mouse.",
+      "attributes": [
+        {
+          "name": "Bahan",
+          "options": [
+            "Kanvas"
+          ]
+        },
+        {
+          "name": "Warna",
+          "options": [
+            "Hitam"
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1011,
+          "rating": 2,
+          "days_ago": 20,
+          "text": "Laptop 14 inch saya tidak muat, resletingnya gak bisa ditutup rapat.",
+          "author": "Rina"
+        },
+        {
+          "id": 1012,
+          "rating": 3,
+          "days_ago": 15,
+          "text": "Kantong dalamnya sempit, laptop 14 inci harus dipaksa masuk.",
+          "author": "Bagus"
+        },
+        {
+          "id": 1013,
+          "rating": 5,
+          "days_ago": 9,
+          "text": "Bahannya bagus dan jahitannya rapi, tapi agak sempit buat laptop 14 inch saya.",
+          "author": "Dewi"
+        },
+        {
+          "id": 1014,
+          "rating": 5,
+          "days_ago": 6,
+          "text": "Ukurannya pas untuk laptop 13 inch saya, masuk dengan mudah.",
+          "author": "Fajar"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "sku": "KMJ-LINEN",
+      "name": "Kemeja linen lengan panjang",
+      "price": "249000",
+      "description": "Kemeja linen lengan panjang, bahan adem dan ringan untuk dipakai seharian. Tersedia ukuran S, M, L, XL. Warna putih, krem, dan biru muda.",
+      "attributes": [
+        {
+          "name": "Ukuran",
+          "options": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "name": "Bahan",
+          "options": [
+            "Linen"
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1021,
+          "rating": 2,
+          "days_ago": 24,
+          "text": "Ukuran L kekecilan di dada, biasanya saya pakai L selalu pas.",
+          "author": "Sari"
+        },
+        {
+          "id": 1022,
+          "rating": 3,
+          "days_ago": 19,
+          "text": "Kecilan dari perkiraan, lingkar dadanya sempit.",
+          "author": "Yoga"
+        },
+        {
+          "id": 1023,
+          "rating": 2,
+          "days_ago": 13,
+          "text": "Kegedean banget XL nya, bahunya turun.",
+          "author": "Maya"
+        },
+        {
+          "id": 1024,
+          "rating": 1,
+          "days_ago": 11,
+          "text": "Pesan ukuran L yang datang malah M, kecewa.",
+          "author": "Andi"
+        },
+        {
+          "id": 1025,
+          "rating": 5,
+          "days_ago": 8,
+          "text": "Bahannya adem, enak dipakai seharian di kantor.",
+          "author": "Putri"
+        },
+        {
+          "id": 1026,
+          "rating": 4,
+          "days_ago": 4,
+          "text": "Jahitan rapi, warnanya sesuai foto.",
+          "author": "Reza"
+        }
+      ]
+    },
+    {
+      "id": 103,
+      "sku": "KRS-LIPAT",
+      "name": "Kursi lipat camping",
+      "price": "159000",
+      "description": "Kursi lipat camping rangka besi, beban maksimal 100 kg. Ukuran saat dibuka 50 x 50 x 80 cm. Mudah dilipat dan dibawa ke mana saja.",
+      "attributes": [
+        {
+          "name": "Rangka",
+          "options": [
+            "Besi"
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1031,
+          "rating": 3,
+          "days_ago": 25,
+          "text": "Setelah dilipat ternyata masih panjang, tidak muat di bagasi motor saya.",
+          "author": "Lestari"
+        },
+        {
+          "id": 1032,
+          "rating": 2,
+          "days_ago": 18,
+          "text": "Ukuran lipatnya besar, susah masuk bagasi mobil kecil.",
+          "author": "Dimas"
+        },
+        {
+          "id": 1033,
+          "rating": 2,
+          "days_ago": 22,
+          "text": "Pengiriman lama sekali, hampir dua minggu baru sampai.",
+          "author": "Rina"
+        },
+        {
+          "id": 1034,
+          "rating": 3,
+          "days_ago": 12,
+          "text": "Kurirnya lambat, paket telat seminggu dari estimasi.",
+          "author": "Bagus"
+        },
+        {
+          "id": 1035,
+          "rating": 1,
+          "days_ago": 28,
+          "text": "Penjual tidak membalas chat waktu saya tanya soal garansi.",
+          "author": "Dewi"
+        },
+        {
+          "id": 1036,
+          "rating": 2,
+          "days_ago": 26,
+          "text": "Chat ke penjual dicuekin, responnya lama sekali.",
+          "author": "Fajar"
+        },
+        {
+          "id": 1037,
+          "rating": 5,
+          "days_ago": 10,
+          "text": "Kursinya kokoh, enak buat mancing di pinggir danau.",
+          "author": "Sari"
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "sku": "BTL-750",
+      "name": "Botol minum stainless 750 ml",
+      "price": "99000",
+      "description": "Botol minum stainless steel 750 ml, dinding ganda, menjaga minuman dingin hingga 12 jam. Tutup ulir anti bocor.",
+      "attributes": [
+        {
+          "name": "Kapasitas",
+          "options": [
+            "750 ml"
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1041,
+          "rating": 5,
+          "days_ago": 21,
+          "text": "Ukuran sesuai, pas dibawa ke kantor tiap hari.",
+          "author": "Yoga"
+        },
+        {
+          "id": 1042,
+          "rating": 3,
+          "days_ago": 14,
+          "text": "Ukurannya pas di tas, airnya tetap dingin sampai sore.",
+          "author": "Maya"
+        },
+        {
+          "id": 1043,
+          "rating": 4,
+          "days_ago": 7,
+          "text": "Tutupnya rapat, tidak bocor di dalam tas.",
+          "author": "Andi"
+        },
+        {
+          "id": 1044,
+          "rating": 5,
+          "days_ago": 3,
+          "text": "Bagus, sesuai deskripsi.",
+          "author": "Putri"
+        }
+      ]
+    }
+  ]
+}

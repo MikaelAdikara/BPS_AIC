@@ -4,8 +4,9 @@ Hanya membaca produk dan ulasan yang sudah disetujui; identitas reviewer tidak p
 
 URL toko diperlakukan sebagai input tidak tepercaya (SSRF): hanya HTTPS, tanpa kredensial atau
 port aneh di URL, semua alamat hasil DNS harus publik, dicek ulang di setiap request (DNS bisa
-berubah di antara dua request), redirect tidak diikuti, dan ukuran respons dibatasi. Satu-satunya
-pengecualian adalah host toko sintetis internal, dan hanya bila `WOO_DEMO_MODE` aktif.
+berubah di antara dua request), redirect tidak diikuti, dan ukuran respons dibatasi. Pengecualiannya
+hanya dua host yang ditetapkan server, dan hanya bila `WOO_DEMO_MODE` aktif: toko sintetis
+internal (`WOO_BASE_URL`) dan toko WordPress demo lokal (`WOO_LOCAL_URL`).
 """
 
 from __future__ import annotations
@@ -48,6 +49,13 @@ def is_demo_url(url: str) -> bool:
     return settings.woo_demo_mode() and parsed.hostname is not None and parsed.hostname == demo_host()
 
 
+def is_local_url(url: str) -> bool:
+    """Toko WordPress lokal (profile `store`). Pengecualian SSRF kedua, sama sempitnya: satu host
+    yang ditetapkan server, bukan input merchant."""
+    host = urlparse(settings.woo_local_url()).hostname
+    return settings.woo_demo_mode() and host is not None and urlparse(url).hostname == host
+
+
 def _public_addresses(host: str, port: int) -> None:
     try:
         infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
@@ -67,7 +75,7 @@ def validate_store_url(url: str) -> str:
     parsed = urlparse(raw)
     if not parsed.scheme or not parsed.hostname:
         raise DeciqoError(422, "invalid_store_url", "Enter the full store address, e.g. https://shop.example.com.")
-    if is_demo_url(raw):
+    if is_demo_url(raw) or is_local_url(raw):
         return raw.rstrip("/")
     if parsed.scheme != "https":
         raise DeciqoError(422, "invalid_store_url", "The store address must start with https://.")

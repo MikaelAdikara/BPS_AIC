@@ -7,14 +7,18 @@ yang benar-benar tersimpan.
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import hmac
 import json
 import logging
 import threading
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 
 import httpx
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Request, Response
 from pydantic import BaseModel, Field
 
 from . import alerts, analysis, demo_catalog, importers, ingest, jobs, samples, settings, store
@@ -38,7 +42,7 @@ def _accepted(job_id: str, **extra) -> dict:
 
 
 class WooConnectBody(BaseModel):
-    mode: str = Field(pattern="^(demo|own|server)$")
+    mode: str = Field(pattern="^(demo|local|own|server)$")
     base_url: str | None = Field(default=None, max_length=300)
     consumer_key: str | None = Field(default=None, max_length=200)
     consumer_secret: str | None = Field(default=None, max_length=200)
@@ -64,6 +68,12 @@ def woo_connect(body: WooConnectBody, user: dict = Depends(current_user)) -> dic
         base_url, key, secret, is_demo = settings.woo_base_url(), settings.DEMO_WOO_KEY, settings.DEMO_WOO_SECRET, 1
         if not settings.woo_demo_mode():
             raise DeciqoError(409, "demo_store_disabled", "The demo store is turned off on this server.")
+    elif body.mode == "local":
+        # Toko WordPress demo lokal: WooCommerce asli, isinya data demo buatan tim.
+        if not settings.woo_demo_mode():
+            raise DeciqoError(409, "demo_store_disabled", "The demo store is turned off on this server.")
+        base_url, key, secret, is_demo = (settings.woo_local_url(), settings.woo_local_user(),
+                                          settings.woo_local_api_password(), 1)
     elif body.mode == "server":
         base_url, key, secret = settings.woo_base_url(), settings.woo_consumer_key(), settings.woo_consumer_secret()
         is_demo = int(woo.is_demo_url(base_url))
@@ -88,10 +98,15 @@ def woo_connect(body: WooConnectBody, user: dict = Depends(current_user)) -> dic
             "consumer_key = excluded.consumer_key, consumer_secret = excluded.consumer_secret, is_demo = excluded.is_demo",
             (user["id"], base_url, key, secret, is_demo, store.now()),
         )
-        ingest.touch_source(conn, user["id"], "woocommerce", ok=True,
-                            label="WooCommerce (synthetic demo store)" if is_demo else "WooCommerce")
+        ingest.touch_source(conn, user["id"], "woocommerce", ok=True, label=_woo_label(base_url, bool(is_demo)))
         return {**public_source(conn, user["id"], "woocommerce"), "synthetic": bool(is_demo),
-                "base_url": base_url}
+                "base_url": base_url, "local": woo.is_local_url(base_url)}
+
+
+def _woo_label(base_url: str, is_demo: bool) -> str:
+    if woo.is_local_url(base_url):
+        return "WooCommerce (local demo store)"
+    return "WooCommerce (synthetic demo store)" if is_demo else "WooCommerce"
 
 
 @router.delete("/woo/connect", status_code=204)
@@ -110,7 +125,10 @@ def sync_woo(ctx: jobs.JobContext | None, user_id: int, *, analyse: bool = True)
         raise jobs.JobFailed("store_not_connected", "Connect a WooCommerce store first.")
     if ctx:
         ctx.progress(stage="fetching")
-    client = woo.WooClient(connection["base_url"], connection["consumer_key"], connection["consumer_secret"])
+    # Toko lokal selalu memakai kredensial terbaru dari env: kunci demo bisa diganti setelah
+    # akun tersambung, dan baris sambungan lama tidak boleh membuat sinkron gagal autentikasi.
+    client = (_local_client() if woo.is_local_url(connection["base_url"]) else
+              woo.WooClient(connection["base_url"], connection["consumer_key"], connection["consumer_secret"]))
     try:
         catalog = client.catalog()
     except (woo.WooError, DeciqoError) as exc:
@@ -143,6 +161,107 @@ def woo_sync(user: dict = Depends(current_user)) -> dict:
     return _accepted(jobs.start(user["id"], "sync_analyse", lambda ctx: sync_woo(ctx, user["id"]), target="woo"))
 
 
+def _local_client() -> woo.WooClient:
+    return woo.WooClient(settings.woo_local_url(), settings.woo_local_user(), settings.woo_local_api_password())
+
+
+@router.get("/woo/local")
+def woo_local_status(user: dict = Depends(current_user)) -> dict:
+    """Apakah toko WordPress demo lokal menyala, dan apakah akun ini tersambung ke sana."""
+    reachable = False
+    if settings.woo_demo_mode():
+        try:
+            _local_client()._get("/products", {"per_page": 1})
+            reachable = True
+        except (woo.WooError, DeciqoError):
+            reachable = False
+    with store.database() as conn:
+        connection = _woo_connection(conn, user["id"])
+    public = settings.woo_local_public_url()
+    return {"reachable": reachable, "connected": bool(connection and woo.is_local_url(connection["base_url"])),
+            "storefront_url": public, "admin_url": f"{public}/wp-admin/edit-comments.php?comment_type=review"}
+
+
+# --- webhook WooCommerce ------------------------------------------------------------------
+#
+# Webhook bawaan WooCommerce (topik `action.comment_post` dkk.) memanggil endpoint ini setiap ada
+# ulasan baru/diubah. Isi webhook tidak dipercaya sebagai data: ia hanya memicu sinkron penuh
+# lewat REST, jalur yang sama dengan tombol Sync, sehingga data tetap dibaca dari sumbernya.
+
+_webhook_lock = threading.Lock()
+_webhook_running: set[int] = set()
+_webhook_again: set[int] = set()
+
+
+def _valid_signature(body: bytes, signature: str) -> bool:
+    expected = base64.b64encode(hmac.new(settings.woo_webhook_secret().encode(), body, hashlib.sha256).digest())
+    return hmac.compare_digest(expected.decode(), signature.strip())
+
+
+def _webhook_users(source: str) -> list[int]:
+    """Akun yang tersambung ke toko pengirim: toko lokal (webhook-nya kita pasang sendiri) atau
+    toko yang host-nya sama dengan header `X-WC-Webhook-Source`."""
+    source_host = urlparse(source or "").hostname
+    with store.database() as conn:
+        rows = store.rows(conn.execute("SELECT user_id, base_url FROM woo_connections"))
+    return [r["user_id"] for r in rows
+            if woo.is_local_url(r["base_url"]) or (source_host and urlparse(r["base_url"]).hostname == source_host)]
+
+
+def queue_webhook_sync(user_id: int) -> str | None:
+    """Sinkron karena webhook. Ulasan yang masuk saat sinkron berjalan tidak hilang: sinkron
+    diulang sekali lagi setelah selesai, bukan dijalankan paralel."""
+    with _webhook_lock:
+        if user_id in _webhook_running:
+            _webhook_again.add(user_id)
+            return None
+        _webhook_running.add(user_id)
+
+    def run(ctx):
+        rounds = []
+        try:
+            while True:
+                result = sync_woo(ctx, user_id)
+                rounds.append(result["stats"])
+                with _webhook_lock:
+                    if user_id not in _webhook_again:
+                        _webhook_running.discard(user_id)
+                        break
+                    _webhook_again.discard(user_id)
+            return {"trigger": "webhook", "rounds": len(rounds), "stats": rounds[-1],
+                    "analysis": result.get("analysis")}
+        except BaseException:
+            with _webhook_lock:
+                _webhook_running.discard(user_id)
+                _webhook_again.discard(user_id)
+            raise
+
+    try:
+        return jobs.start(user_id, "woo_webhook", run, target="woo")
+    except DeciqoError:
+        # Workspace sedang penuh; poller terjadwal tetap akan membaca ulasan ini.
+        with _webhook_lock:
+            _webhook_running.discard(user_id)
+        return None
+
+
+@router.post("/woo/webhook", status_code=202)
+async def woo_webhook(request: Request) -> dict:
+    body = await request.body()
+    signature = request.headers.get("x-wc-webhook-signature")
+    if not signature:
+        # Ping aktivasi WooCommerce (`webhook_id=...`) tidak bertanda tangan dan tidak memicu apa pun.
+        if body.startswith(b"webhook_id="):
+            return {"ok": True, "ping": True}
+        raise DeciqoError(401, "webhook_signature_missing", "Missing WooCommerce webhook signature.")
+    if not _valid_signature(body, signature):
+        raise DeciqoError(401, "webhook_signature_invalid", "The webhook signature does not match.")
+    users = _webhook_users(request.headers.get("x-wc-webhook-source", ""))
+    jobs_started = [job for job in (queue_webhook_sync(u) for u in users) if job]
+    log.info(f"webhook woo {request.headers.get('x-wc-webhook-topic', '?')}: {len(users)} akun")
+    return {"ok": True, "accounts": len(users), "jobs": jobs_started}
+
+
 # --- demo tools (hanya untuk toko sintetis) ----------------------------------------------
 
 
@@ -155,7 +274,8 @@ class DemoReviewBody(BaseModel):
 def _demo_connection(user_id: int) -> dict:
     with store.database() as conn:
         connection = _woo_connection(conn, user_id)
-    if not connection or not connection["is_demo"]:
+    if not connection or not connection["is_demo"] or woo.is_local_url(connection["base_url"]):
+        # Toko WordPress lokal adalah WooCommerce asli: ulasan ditulis langsung di storefront-nya.
         raise DeciqoError(409, "demo_only", "This works only with the synthetic demo store connected.")
     return connection
 
@@ -332,7 +452,12 @@ def workspace_reset(user: dict = Depends(current_user)) -> dict:
     def run(ctx):
         ctx.progress(stage="clearing")
         with store.database() as conn:
+            connection = _woo_connection(conn, user["id"])
             samples.delete_workspace(conn, user["id"], keep_job=ctx.id)
+        if connection and woo.is_local_url(connection["base_url"]):
+            # Toko WordPress lokal: hapus ulasan tambahan di toko, lalu isi ulang dari toko itu
+            # supaya sambungan dan id-nya tetap, dan ulasan berikutnya langsung tersinkron.
+            return _reset_local_store(ctx, user["id"])
         try:
             httpx.post(f"{settings.woo_base_url()}/demo/reset", timeout=5.0)
         except httpx.HTTPError:
@@ -340,6 +465,20 @@ def workspace_reset(user: dict = Depends(current_user)) -> dict:
         return samples.populate_demo(ctx, user["id"])
 
     return _accepted(jobs.start(user["id"], "workspace_reset", run, target="reset"))
+
+
+def _reset_local_store(ctx, user_id: int) -> dict:
+    connection = (settings.woo_local_url(), settings.woo_local_user(), settings.woo_local_api_password())
+    try:
+        httpx.post(f"{connection[0]}/wp-json/deciqo/v1/reset", auth=connection[1:], timeout=60.0).raise_for_status()
+    except httpx.HTTPError as exc:
+        log.warning(f"reset toko WordPress gagal ({type(exc).__name__}); ulasan tambahan tetap ada")
+    try:
+        catalog = _local_client().catalog()
+    except (woo.WooError, DeciqoError):
+        log.warning("toko WordPress tidak terjangkau saat reset; kembali ke toko sintetis")
+        return samples.populate_demo(ctx, user_id)
+    return samples.populate_demo(ctx, user_id, catalog=catalog, connection=connection)
 
 
 @router.delete("/workspace", status_code=204)

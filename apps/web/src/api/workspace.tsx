@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { useAuth } from "./auth";
-import { ApiError } from "./http.js";
+import { ApiError, request } from "./http.js";
 import { useI18n } from "@/lib/i18n";
 import { activeJob, pollJob } from "@/lib/jobs.js";
 import { loadWorkspace } from "@/lib/workspace-model.js";
@@ -53,6 +53,25 @@ export interface Job {
   detail: { index?: number; total?: number; stage?: string };
   error?: { code?: string } | null;
 }
+export interface LiveAlert {
+  id: number;
+  kind: string;
+  finding_id: string | null;
+  synthetic: boolean;
+  message: string;
+  created_at: string;
+  payload: { product?: string; attribute_local?: string; count?: number };
+}
+interface Pulse {
+  jobs: Job[];
+  latest_alert: LiveAlert | null;
+}
+// Job yang dimulai di luar layar ini (webhook toko, poller) tetap diikuti supaya data berubah live.
+const EXTERNAL_JOBS: Record<string, string> = {
+  woo_webhook: "workspace.jobWebhook",
+  sync_analyse: "workspace.jobSyncing",
+};
+const PULSE_MS = 3000;
 interface Summary {
   products: number;
   reviews: number;
@@ -90,11 +109,17 @@ interface ContextValue extends Data {
   closeJob: () => void;
   closeToast: () => void;
   jobLabel: string;
+  liveAlert: LiveAlert | null;
+  closeLiveAlert: () => void;
+  alertRevision: number;
 }
 const Context = createContext<ContextValue | null>(null);
 export function WorkspaceProvider({ children }: { children: ReactNode }) {
   const { user, refresh: refreshAuth } = useAuth();
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+  const [liveAlert, setLiveAlert] = useState<LiveAlert | null>(null);
+  const [alertRevision, setAlertRevision] = useState(0);
+  const lastAlert = useRef<number | null>(null);
   const [data, setData] = useState<Data>({
     channels: [],
     summary: null,
@@ -184,6 +209,58 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
       controller.current?.abort();
     };
   }, [user?.id, refresh, follow]);
+  // Denyut: alert baru dan job dari luar (webhook WooCommerce) muncul tanpa refresh halaman.
+  useEffect(() => {
+    if (!user?.id) return;
+    lastAlert.current = null;
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const adopt = async (external: Job) => {
+      active.current = true;
+      setBusy(true);
+      setJobLabel(EXTERNAL_JOBS[external.kind]);
+      try {
+        await follow(external);
+        if (mounted.current && external.kind === "woo_webhook")
+          setToastKey("workspace.webhookDone");
+      } catch (e) {
+        if (mounted.current) setError((e as ApiError).code ?? "request_failed");
+      } finally {
+        active.current = false;
+        if (mounted.current) setBusy(false);
+      }
+    };
+    const tick = async () => {
+      if (document.visibilityState === "visible") {
+        try {
+          const pulse = (await request(
+            "/deciqo/pulse?lang=" + encodeURIComponent(language),
+          )) as Pulse;
+          if (stopped) return;
+          const latest = pulse.latest_alert;
+          if (lastAlert.current === null) lastAlert.current = latest?.id ?? 0;
+          else if (latest && latest.id > lastAlert.current) {
+            lastAlert.current = latest.id;
+            setLiveAlert(latest);
+            setAlertRevision((n) => n + 1);
+            if (!active.current) void refresh();
+          }
+          const external = pulse.jobs.find(
+            (item) => activeJob(item) && item.kind in EXTERNAL_JOBS,
+          );
+          if (external && !active.current) void adopt(external);
+        } catch {
+          // Denyut hanya pelengkap; kegagalan sesaat tidak perlu ditampilkan.
+        }
+      }
+      if (!stopped) timer = setTimeout(tick, PULSE_MS);
+    };
+    timer = setTimeout(tick, PULSE_MS);
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+    };
+  }, [user?.id, language, follow, refresh]);
   const run = useCallback(
     async (
       task: () => Promise<unknown>,
@@ -233,6 +310,9 @@ export function WorkspaceProvider({ children }: { children: ReactNode }) {
         run,
         closeJob: () => setJob(null),
         closeToast: useCallback(() => setToastKey(null), []),
+        liveAlert,
+        closeLiveAlert: useCallback(() => setLiveAlert(null), []),
+        alertRevision,
       }}
     >
       {children}
