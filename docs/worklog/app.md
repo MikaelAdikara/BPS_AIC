@@ -30,3 +30,10 @@
 - Pada 375px gelap/ID, dokumen 360px tanpa overflow horizontal. Alias modul memakai /src agar hot reload kamus berbagi provider; perubahan teks terlihat tanpa layar kosong.
 - Verifikasi: 28 tes, typecheck, dan build lulus. Pemeriksa mekanis antarmuka tidak menemukan pelanggaran.
 - Sources, katalog produk, Alerts, Settings, grafik, dan decision plan belum tersambung. Landing Orang 4 telah masuk ke main.
+
+## Katalog produk
+
+- Katalog membaca urutan, jumlah ulasan, rating, jumlah temuan, jumlah yang dapat diperbaiki di listing, status analisis, dan stale dari API. Aksi investigasi semua memakai job server.
+- Browser memperlihatkan empat produk dengan label sintetis dan engine aturan. Navigasi produk berhasil. Pada 375px, dokumen 360px dan tabel 651px bergulir di dalam kartu.
+- Isu waktu pengiriman menampilkan arahan operasional, melewati formulir fakta dan draf listing.
+- Verifikasi: 28 tes, typecheck, dan build lulus. Sources, Alerts, Settings, grafik, dan decision plan belum tersambung.

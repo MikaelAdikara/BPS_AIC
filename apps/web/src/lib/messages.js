@@ -3,6 +3,7 @@ import { errors } from "./messages-errors.js";
 import { landing } from "./messages-landing.js";
 import { workspace } from "./messages-workspace.js";
 import { product } from "./messages-product.js";
+import { catalog } from "./messages-catalog.js";
 export const messages = {
   en: {
     common: common.en,
@@ -10,6 +11,7 @@ export const messages = {
     landing: landing.en,
     workspace: workspace.en,
     product: product.en,
+    catalog: catalog.en,
   },
   id: {
     common: common.id,
@@ -17,6 +19,7 @@ export const messages = {
     landing: landing.id,
     workspace: workspace.id,
     product: product.id,
+    catalog: catalog.id,
   },
 };
 export function translate(language, key, values = {}) {
