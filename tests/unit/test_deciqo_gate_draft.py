@@ -93,3 +93,10 @@ def test_listing_yang_dibantah_tidak_menjadi_sumber_angka():
                         "Powerbank. Kapasitas 20000 mAh.", True, listing_check=check)
     assert sec["status"] == "ready" and "20000" not in sec["text"]
     assert draft.sources_for(fact, "Powerbank. Kapasitas 20000 mAh.", check) == ["kapasitas terukur 9800 mAh", "9800 mah"]
+
+
+def test_label_draf_tanpa_angka_dan_alternatif_dari_model():
+    finding = _finding("conflicting_fact", "ukuran saku dalam / muat untuk tablet 11 inch", "inner pocket size")
+    sec = draft.section(finding, _fact("saku dalam 28 x 20 cm", "28 x 20", "cm"), "Tas.", True)
+    assert sec["status"] == "ready"
+    assert sec["text"] == "Ukuran saku dalam: 28 x 20 cm."

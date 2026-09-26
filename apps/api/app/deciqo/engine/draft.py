@@ -20,8 +20,16 @@ STATUS_RANK = ["blocked", "needs_merchant_fact", "needs_listing", "needs_review"
 _PURE_QUANTITY = re.compile(r"^[\d\s.,x×*]+(?:[a-z]{1,4})?\.?$", re.I)
 
 
+_LABEL_QUANTITY = re.compile(r"\s*\(?\d+(?:[.,]\d+)?\s*(?:inch|inci|in|cm|mm|kg|g|ml|l|mah|w|v|a)\)?", re.I)
+
+
 def _label(finding: dict) -> str:
+    """Label atribut untuk kalimat draf. Label ditulis model, jadi hanya bagian utamanya yang dipakai
+    ("ukuran saku dalam / muat untuk tablet 11 inch" → "Ukuran saku dalam") dan angka bersatuan di
+    dalamnya dibuang: angka di draf hanya boleh datang dari fakta."""
     label = (finding.get("attribute_local") or finding.get("attribute") or "").strip()
+    label = re.split(r"\s+/\s+|\s*\(", label)[0].strip() or label
+    label = _LABEL_QUANTITY.sub("", label).strip(" ,-")
     return label[:1].upper() + label[1:]
 
 
