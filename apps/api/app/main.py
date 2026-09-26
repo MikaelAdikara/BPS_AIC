@@ -17,6 +17,7 @@ from __future__ import annotations
 import logging
 import os
 import sys
+import threading
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -132,17 +133,23 @@ async def lifespan(app: FastAPI):
     # teks di bawah bisa hampir satu menit. Kegagalan di sini tidak boleh menahan endpoint lama.
     try:
         deciqo_app.startup()
+        deciqo_app.start_background()
     except Exception as exc:  # noqa: BLE001
         state["errors"].append(f"deciqo: {type(exc).__name__}")
         log.error(f"startup deciqo gagal: {type(exc).__name__}: {exc}")
-    try:
-        verify_taxonomy_matches_config()
-        state["service"] = _build_service()
-        state["ready"] = True
-        log.info(f"siap dalam {time.time() - started:.1f} detik")
-    except Exception as exc:
-        state["errors"].append(str(exc))
-        log.error(f"startup gagal: {exc}")
+    def load_models() -> None:
+        try:
+            verify_taxonomy_matches_config()
+            state["service"] = _build_service()
+            state["ready"] = True
+            log.info(f"siap dalam {time.time() - started:.1f} detik")
+        except Exception as exc:
+            state["errors"].append(str(exc))
+            log.error(f"startup gagal: {exc}")
+
+    # Model dimuat di thread terpisah: akun, sumber, dan workspace sudah melayani selama model
+    # teks dimuat. /readiness tetap 503 sampai pemuatan selesai.
+    threading.Thread(target=load_models, name="load-models", daemon=True).start()
     yield
 
 

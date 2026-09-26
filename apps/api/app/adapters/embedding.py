@@ -11,6 +11,8 @@ peringkatnya kurang optimal.
 
 from __future__ import annotations
 
+import os
+
 import numpy as np
 
 PRIMARY_MODEL = "BAAI/bge-m3"
@@ -41,6 +43,11 @@ class EmbeddingAdapter:
         self._load(model_name, device)
 
     def _load(self, model_name: str | None, device: str | None) -> None:
+        # EMBEDDING_MODE=tfidf (bawaan) melewati model embedding besar: mengunduhnya ~2 GB dan
+        # menahan startup beberapa menit, sedangkan retrieval tetap berjalan dengan TF-IDF.
+        if model_name is None and os.getenv("EMBEDDING_MODE", "tfidf").strip().lower() == "tfidf":
+            print("[EmbeddingAdapter] EMBEDDING_MODE=tfidf - memakai TF-IDF")
+            return
         candidates = [model_name] if model_name else [PRIMARY_MODEL, FALLBACK_MODEL]
         for candidate in candidates:
             try:

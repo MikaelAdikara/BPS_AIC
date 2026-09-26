@@ -44,10 +44,18 @@ COPY data/processed/category_baseline.json /app/data/processed/category_baseline
 COPY data/samples/demo_reviews.csv /app/data/samples/demo_reviews.csv
 COPY data/samples/demo_shopee_asli.csv /app/data/samples/demo_shopee_asli.csv
 
+# Hash commit untuk /api/v1/version. Diisi saat build (`APP_COMMIT=$(git rev-parse --short HEAD)
+# docker compose build`); tanpa itu nilainya "unknown", bukan tebakan.
+ARG APP_COMMIT=unknown
+ENV APP_COMMIT=${APP_COMMIT}
+
+# Paket contoh dan snapshot marketplace dibaca saat seed dan impor demo.
+COPY data/marketplace /app/data/marketplace
+
 # Berjalan sebagai pengguna non-root: proses ini memproses berkas yang diunggah pengguna,
 # dan tidak ada alasan ia perlu hak root untuk itu.
 RUN useradd --create-home --uid 10001 appuser \
- && mkdir -p /cache/hf && chown -R appuser:appuser /app /cache
+ && mkdir -p /cache/hf /data && chown -R appuser:appuser /app /cache /data
 USER appuser
 
 EXPOSE 8000

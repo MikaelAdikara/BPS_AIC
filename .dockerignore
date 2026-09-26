@@ -28,6 +28,7 @@ data/
 !data/processed/category_baseline.json
 !data/samples/demo_reviews.csv
 !data/samples/demo_shopee_asli.csv
+!data/marketplace/
 
 # Dokumen, prototipe desain, dan rujukan
 docs/
