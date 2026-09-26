@@ -5,6 +5,7 @@ import { workspace } from "./messages-workspace.js";
 import { product } from "./messages-product.js";
 import { catalog } from "./messages-catalog.js";
 import { settings } from "./messages-settings.js";
+import { sources } from "./messages-sources.js";
 export const messages = {
   en: {
     common: common.en,
@@ -14,6 +15,7 @@ export const messages = {
     product: product.en,
     catalog: catalog.en,
     settings: settings.en,
+    sources: sources.en,
   },
   id: {
     common: common.id,
@@ -23,6 +25,7 @@ export const messages = {
     product: product.id,
     catalog: catalog.id,
     settings: settings.id,
+    sources: sources.id,
   },
 };
 export function translate(language, key, values = {}) {

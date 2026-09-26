@@ -1,0 +1,26 @@
+.source-choice {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  min-height: 44px;
+}
+.source-choice input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.source-dialog {
+  background: var(--cream);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  width: min(520px, calc(100vw - 32px));
+}
+.source-dialog::backdrop {
+  background: rgb(0 0 0 / 60%);
+}
+.source-dialog p {
+  margin: 20px 0;
+}

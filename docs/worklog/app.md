@@ -44,3 +44,12 @@
 - Browser pada basis data uji terpisah: nomor 123 ditolak dengan pesan lokal; nama uji tersimpan dan bertahan setelah reload; profil dipulihkan dan toast Profil disimpan tampil. Pada 375px gelap/ID, dokumen 360px tanpa overflow horizontal.
 - Refresh profil berjalan di latar belakang agar workspace dan toast tidak terlepas saat penyimpanan. Perubahan berkas provider saat pengembangan memuat ulang halaman penuh untuk mencegah konteks ganda; perubahan layar tetap memakai hot update.
 - Verifikasi: 29 tes, typecheck, dan build lulus. Sources, Alerts, Telegram linking, grafik, dan decision plan belum tersambung.
+
+## Migrasi volume dan Sources
+
+- Dengan izin perluasan tugas, migrasi database mengarsipkan tabel berbasis store_id/issue_id yang bertabrakan dengan skema aktif. Tabel akun/sesi dipertahankan. Migrasi berada dalam transaksi dan snapshot SQLite dibuat sebelum rebuild container.
+- Pada volume container, arsip berisi 14 produk, 45 ulasan, 5 fakta, dan 29 alert; pemeriksaan foreign key tidak menemukan pelanggaran. Login demo lewat port 8000 berhasil. Tes migrasi/platform/sources: 27 lulus.
+- Sources menyediakan pilihan channel tersimpan, koneksi toko Woo, sinkron/disconnect, impor teks/CSV, paket contoh server, demo langsung, serta dialog reset/hapus.
+- Browser port 8000: pilihan Woo/Manual tersimpan; impor teks menghasilkan 2 baru; impor ulang menghasilkan 0 baru dan 2 tetap; investigasi dan sinkron Woo selesai. Sources gelap/ID pada 375px memiliki dokumen 360px tanpa overflow. Dialog hapus memfokuskan Batal dan kembali ke tombol pembuka sesudah dibatalkan.
+- CSV, pemuatan paket, demo langsung, dan aksi reset/hapus belum diuji end-to-end. Form penambahan satu ulasan demo, Lazada live, Alerts, grafik, decision plan, dan Telegram linking belum tersedia.
+- Verifikasi web: 29 tes, typecheck, dan build lulus. API pengujian memakai 8000; container dibangun ulang bila backend berubah.
