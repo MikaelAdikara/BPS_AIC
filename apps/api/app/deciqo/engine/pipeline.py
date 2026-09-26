@@ -352,16 +352,21 @@ def _second_read_accepts(kind: str, text: str, quote: str, proposal: dict) -> tu
 
 
 def _confirm_neutral(support: dict | None, text: str, result: dict) -> bool:
-    """Pembaca kedua menyatakan "reports" atas bukti yang sudah dihitung. Untuk klausa yang dibaca
-    kode sebagai sebutan netral, kutipan pembaca kedua (kata penentunya) menggantikan kutipan
-    membership bila verbatim; kutipan yang berbunyi pujian membatalkan konfirmasi."""
+    """Pembaca kedua menyatakan "reports" atas bukti yang sudah dihitung: dua suara independen
+    sepakat, jadi bukti tetap dihitung. Untuk klausa yang dibaca kode sebagai sebutan netral, kutipan
+    pembaca kedua (kata penentunya) menggantikan kutipan membership bila verbatim dan tidak berbunyi
+    pujian.
+
+    gap-v1.17: v1.16 membatalkan konfirmasi bila kutipan pembaca kedua berbunyi pujian menurut
+    leksikon. rc-v1.16 menunjukkan itu membuang keluhan harapan-vs-kenyataan ("kirain bisa setinggi
+    badan": "bisa" terbaca pujian); 4 bukti emas hilang. Pujian murni sudah ditangani leksikon
+    (dibaca kebalikan, bukan netral) dan gerbang sebutan netral."""
     if not support or not support.get("neutral"):
         return True
-    quote = result.get("quote", "")
-    if quote and lexicon.polarity(lexicon.tokens(quote)) == "praise":
-        return False
     support.pop("neutral", None)
-    if quote and verify.check_quote(quote, text)[0]:
+    quote = result.get("quote", "")
+    if (quote and verify.check_quote(quote, text)[0]
+            and lexicon.polarity(lexicon.tokens(quote)) != "praise"):
         support["quote"] = quote
     return True
 

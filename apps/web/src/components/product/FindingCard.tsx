@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, Camera, Check, Copy, FileText, Plus, Ruler } from "lucide-react";
+import { ArrowRight, Camera, Check, Copy, FileText, Plus, Ruler, Send } from "lucide-react";
 import { request, ApiError } from "@/api/http.js";
 import type { DraftSection, Finding, ProductView } from "@/api/product";
 import { useWorkspace } from "@/api/workspace";
@@ -115,6 +115,7 @@ export function FindingCard({
   const [detail, setDetail] = useState("");
   const [showDetail, setShowDetail] = useState(false);
   const [nextStatus, setNextStatus] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
   const [decisionError, setDecisionError] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
   const [editFact, setEditFact] = useState(false);
@@ -244,6 +245,26 @@ export function FindingCard({
     if (next === "draft" && !text) await generateDraft();
     focusStep(nextTargets[next] ?? "card");
   }
+  async function sendBrief() {
+    setSending(true);
+    try {
+      const result = (await request("/deciqo/telegram/brief", {
+        method: "POST",
+        body: { text: opsBrief(finding, view, t, attribute, day) },
+      })) as { status: string; reason?: string };
+      setNextStatus(
+        result.status === "sent"
+          ? "briefSent"
+          : result.status === "unconfigured"
+            ? "briefNoTelegram"
+            : "briefSendFailed",
+      );
+    } catch {
+      setNextStatus("briefSendFailed");
+    } finally {
+      setSending(false);
+    }
+  }
   /** Tombol "Cek foto" ada di Detail investigasi (dengan polling job-nya); buka dan jalankan. */
   function checkPhotos() {
     const details = document.getElementById("investigation-details") as HTMLDetailsElement | null;
@@ -314,9 +335,22 @@ export function FindingCard({
                 <span className="next-step__hint">{t("product.nextHint_" + finding.next)}</span>
               </span>
             </button>
-            <p role="status" className="next-step__status">
-              {nextStatus ? t("product." + nextStatus) : ""}
-            </p>
+            <div className="next-step__after">
+              <p role="status" className="next-step__status">
+                {nextStatus ? t("product." + nextStatus) : ""}
+              </p>
+              {finding.next === "route" && nextStatus && nextStatus !== "briefSent" && (
+                <Button variant="outline" size="sm" busy={sending} onClick={() => void sendBrief()}>
+                  <Send size={15} aria-hidden />
+                  {t("product.briefTelegram")}
+                </Button>
+              )}
+              {nextStatus === "briefNoTelegram" && (
+                <a className="next-step__link" href="#/app/settings">
+                  {t("product.briefConnect")}
+                </a>
+              )}
+            </div>
           </div>
         )}
         <section className="finding-step" id={formId + "-evidence"} tabIndex={-1}>

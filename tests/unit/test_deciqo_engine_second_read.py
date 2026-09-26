@@ -324,3 +324,16 @@ def test_general_praise_is_never_a_complaint(text, attribute, local):
 def test_negated_praise_is_still_a_complaint():
     assert lexicon.polarity(lexicon.tokens("tidak mendukung fast charging")) == "complaint"
     assert lexicon.polarity(lexicon.tokens("kurang efisien")) == "complaint"
+
+
+def test_expectation_complaint_confirmed_by_second_read_is_kept(monkeypatch):
+    # rc-v1.16 h23/r1: "kirain bisa ..." dibaca pujian oleh leksikon ("bisa"); dua suara yang sepakat
+    # tidak boleh dibatalkan karenanya (gap-v1.17).
+    text = "pendek banget, kirain bisa setinggi badan"
+    built, reviews = _neutral_built(text, "pendek banget")
+    monkeypatch.setattr(second_read, "run", lambda items, **kw: (
+        [{"index": 0, "review_id": "r8", "issue": 0, "verdict": "reports",
+          "quote": "kirain bisa setinggi badan"}], {}))
+    pipeline._second_read(built, reviews, [], set(), {}, user_id=None, ref="", db_path=None, cache_only=False)
+    assert pipeline.unconfirmed_neutral(built) == 0
+    assert built["k"]["judged"]["supports"]["r8"]["quote"] == "pendek banget"

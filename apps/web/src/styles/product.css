@@ -84,6 +84,20 @@
   line-height: 1.4;
   color: #e3ebff;
 }
+.next-step__after {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+.next-step__after:not(:has(.next-step__status:not(:empty))) {
+  display: none;
+}
+.next-step__link {
+  font-size: 13px;
+  color: var(--blue-dark);
+  text-underline-offset: 3px;
+}
 .next-step__status {
   font-size: 13px;
   color: var(--ink-soft);

@@ -464,3 +464,16 @@ sebelum versinya dijalankan. Gerbang `quality_gate.py` memakai batas bawah Wilso
   Ablation tanpa second read: recall holdout 106/125 → 70/125.
 
 Belum selesai: h20, hold berlebih, replikasi v1.15, label manusia buta, rebuild runtime.
+
+## Iterasi 9–10 — gerbang sebutan netral (gap-v1.16 → gap-v1.17, 26 September 2026)
+
+Rincian dan angka: [CHECKPOINT_3.md](CHECKPOINT_3.md) §2–§3.
+
+- Temuan (data nyata, 15 produk Lazada/sintetis): pujian dan kolom templat ulasan ("Pilihan kabel
+  yang serbaguna", "🔋Kapasitas:20000", "Ideal untuk laptop 14-15 inci") terhitung sebagai keluhan
+  lewat jalur `mentions_attribute_without_complaint` yang cukup dengan satu label membership.
+- gap-v1.16: sebutan netral wajib dikonfirmasi second read; kutipan pujian ditolak; kosakata pujian
+  umum di leksikon. Data nyata: 8 kutipan salah → 0. rc-v1.16: precision tetap, recall holdout
+  106/125 → 96/125; 4 bukti hilang karena `second_read_praise` ("kirain bisa ..." dibaca pujian).
+- gap-v1.17: konfirmasi second read tidak lagi dibatalkan oleh bunyi kutipan. rc-v1.17: recall
+  holdout 101/125, precision 101/102, development PASS, FAIL hanya h20. Data nyata tetap 0 kutipan salah.

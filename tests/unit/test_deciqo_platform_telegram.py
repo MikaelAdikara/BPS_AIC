@@ -110,3 +110,20 @@ def test_chat_operator_hanya_untuk_akun_demo(client, monkeypatch):
     with store.database() as conn:
         statuses = dict(conn.execute("SELECT finding_id, status FROM alert_events").fetchall())
     assert statuses == {"f_d": "sent", "f_o": "simulated"}
+
+
+def test_ringkasan_isu_tanpa_bot_tidak_terkirim(client):
+    r = client.post("/api/v1/deciqo/telegram/brief", json={"text": "Masalah: kabel bawaan (3 dari 51 ulasan)"})
+    assert r.json() == {"status": "unconfigured", "reason": "bot_not_configured"}
+
+
+def test_ringkasan_isu_ke_chat_tertaut(client, monkeypatch):
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "123:abc")
+    with store.database() as conn:
+        conn.execute("UPDATE users SET telegram_chat_id = '555' WHERE email = 't@x.io'")
+    sent = []
+    monkeypatch.setattr(telegram, "send", lambda chat, text, **kw: sent.append((chat, text)) or {})
+    r = client.post("/api/v1/deciqo/telegram/brief", json={"text": "  Masalah: kabel bawaan  "})
+    assert r.json() == {"status": "sent", "recipients": 1}
+    assert sent == [("555", "Masalah: kabel bawaan")]
+    assert client.post("/api/v1/deciqo/telegram/brief", json={"text": ""}).status_code == 422

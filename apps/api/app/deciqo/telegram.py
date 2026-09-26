@@ -18,6 +18,7 @@ from datetime import datetime, timedelta, timezone
 
 import httpx
 from fastapi import APIRouter, Depends, Response
+from pydantic import BaseModel, Field
 
 from . import settings, store
 from .auth import current_user
@@ -123,6 +124,33 @@ def test_message(user: dict = Depends(current_user)) -> dict:
         log.warning(f"pesan uji gagal: {type(exc).__name__}")
         return {"status": "failed"}
     return {"status": "sent"}
+
+
+class BriefBody(BaseModel):
+    text: str = Field(min_length=1, max_length=3500)
+
+
+@router.post("/telegram/brief")
+def send_brief(body: BriefBody, user: dict = Depends(current_user)) -> dict:
+    """Ringkasan isu untuk tim operasional/QC, dikirim ke chat Telegram merchant sendiri (bisa
+    diteruskan dari sana). Penerimanya sama dengan pesan uji: chat tertaut, atau chat operator demo."""
+    chats: list = []
+    if user.get("telegram_chat_id"):
+        chats = [user["telegram_chat_id"]]
+    elif user.get("is_demo"):
+        chats = list(settings.telegram_operator_chats())
+    if not settings.telegram_token() or not chats:
+        return {"status": "unconfigured",
+                "reason": "bot_not_configured" if not settings.telegram_token() else "telegram_not_linked"}
+    prefix = "[DEMO] " if user.get("is_demo") and not user.get("telegram_chat_id") else ""
+    sent = 0
+    for chat in chats:
+        try:
+            send(chat, prefix + body.text.strip())
+            sent += 1
+        except Exception as exc:  # noqa: BLE001
+            log.warning(f"ringkasan telegram gagal: {type(exc).__name__}")
+    return {"status": "sent" if sent else "failed", "recipients": sent}
 
 
 # --- tautan akun -----------------------------------------------------------------------------
