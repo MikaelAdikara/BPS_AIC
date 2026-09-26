@@ -34,7 +34,8 @@ import deciqo_adapter  # noqa: E402
 import scoring  # noqa: E402
 from prompts import PROMPTS, bundle_text, prompt_sha  # noqa: E402
 
-OUT = HERE / "final"
+CASES_DIR = HERE / "final"
+OUT = CASES_DIR  # bisa diganti --out; kasus selalu dibaca dari CASES_DIR
 CASE_FILES = ["cases.jsonl", "cases_holdout.jsonl"]
 ALL_SYSTEMS = ["B0", "B1", "D", "D-rules"]
 PAID = {"B0", "B1", "D"}
@@ -99,7 +100,7 @@ def git_commit() -> dict:
 def load_cases(pattern: str | None) -> list[dict]:
     rows = []
     for name in CASE_FILES:
-        path = OUT / name
+        path = CASES_DIR / name
         if not path.exists():
             continue
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -237,7 +238,12 @@ def main() -> int:
     ap.add_argument("--rescore", action="store_true", help="hanya hitung ulang report dari outputs.jsonl")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--model", default=None)
+    ap.add_argument("--out", default=None, help="folder output lain (mis. pratinjau), default eval/final")
     args = ap.parse_args()
+    global OUT
+    if args.out:
+        OUT = Path(args.out).resolve()
+        OUT.mkdir(parents=True, exist_ok=True)
 
     if args.rescore:
         cases = load_cases(None)
