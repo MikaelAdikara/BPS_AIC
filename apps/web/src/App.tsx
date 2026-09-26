@@ -8,6 +8,10 @@ import {
   type ReactNode,
 } from "react";
 import { AuthProvider, useAuth } from "@/api/auth";
+import { WorkspaceProvider } from "@/api/workspace";
+import { WorkspaceShell } from "@/components/WorkspaceShell";
+import { OverviewScreen } from "@/screens/OverviewScreen";
+import { IssuesScreen } from "@/screens/IssuesScreen";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { navigate, resolveRoute } from "@/lib/router.js";
@@ -89,9 +93,8 @@ function Frame({ children }: { children: ReactNode }) {
 }
 function Routes() {
   const [route, setRoute] = useState(() => resolveRoute(window.location.hash));
-  const { user, loading, error, refresh, logout } = useAuth();
+  const { user, loading, error, refresh } = useAuth();
   const { t, localizeError } = useI18n();
-  const [actionError, setActionError] = useState<string | null>(null);
   useEffect(() => {
     const update = () =>
       setRoute((previous) => resolveRoute(window.location.hash, previous));
@@ -164,31 +167,30 @@ function Routes() {
     "/app/settings": "settings",
   };
   return (
-    <Frame>
-      <h1>{t("common." + (labels[route.path] ?? "products"))}</h1>
-      <Card>
-        <EmptyState
-          title={t("common.unavailable")}
-          description={t("common.unavailableHint")}
-        />
-      </Card>
-      {actionError && (
-        <Notice tone="alert">{localizeError(actionError)}</Notice>
-      )}
-      <Button
-        variant="outline"
-        onClick={async () => {
-          try {
-            await logout();
-            navigate("/login");
-          } catch (e) {
-            setActionError((e as { code?: string }).code ?? "request_failed");
-          }
-        }}
-      >
-        {t("common.signOut")}
-      </Button>
-    </Frame>
+    <WorkspaceProvider key={user?.id}>
+      <WorkspaceShell path={route.path}>
+        {route.path === "/app" ? (
+          <OverviewScreen />
+        ) : route.path === "/app/issues" ? (
+          <IssuesScreen query={route.query} />
+        ) : (
+          <>
+            <h1>{t("common." + (labels[route.path] ?? "products"))}</h1>
+            <Card>
+              <EmptyState
+                title={t("common.unavailable")}
+                description={t("common.unavailableHint")}
+                action={
+                  <a className="btn btn--outline" href="#/app/issues">
+                    {t("workspace.backIssues")}
+                  </a>
+                }
+              />
+            </Card>
+          </>
+        )}
+      </WorkspaceShell>
+    </WorkspaceProvider>
   );
 }
 class Boundary extends Component<

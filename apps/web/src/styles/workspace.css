@@ -1,0 +1,242 @@
+.workspace-shell {
+  display: grid;
+  grid-template-columns: 256px minmax(0, 1fr);
+  min-height: 100vh;
+}
+.workspace-sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  background: var(--white);
+  border-right: 1px solid var(--line);
+  gap: 32px;
+}
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.workspace-sidebar nav {
+  display: grid;
+  gap: 6px;
+}
+.nav-item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.nav-item:hover {
+  background: var(--cream);
+}
+.nav-item[aria-current="page"] {
+  background: var(--blue-tint);
+  color: var(--blue-dark);
+  font-weight: 600;
+}
+.nav-count {
+  margin-left: auto;
+  font: 500 12px var(--font-mono);
+}
+.sidebar-footer {
+  margin-top: auto;
+  display: grid;
+  gap: 12px;
+}
+.account {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  background: var(--cream);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.account .chip {
+  justify-self: start;
+}
+.sidebar-preferences {
+  display: grid;
+  gap: 8px;
+}
+.workspace-main {
+  width: 100%;
+  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  padding: 32px var(--gutter);
+  align-content: start;
+  gap: 26px;
+}
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.page-header p {
+  margin-top: 8px;
+  max-width: 65ch;
+}
+.mobile-header,
+.drawer-close {
+  display: none;
+}
+.bucket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.bucket-grid:empty {
+  display: none;
+}
+.bucket-card {
+  display: block;
+  border-radius: var(--radius-card);
+  padding: 20px;
+  text-decoration: none;
+  border: 1px solid currentColor;
+}
+.bucket-card .metric__hint {
+  color: inherit;
+}
+.bucket-card:hover {
+  filter: brightness(0.98);
+}
+.channel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+}
+.channel-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.channel-list li:first-child {
+  padding-top: 0;
+}
+.channel-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.channel-list p {
+  font-size: 13px;
+}
+.issue-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.issue-tabs [aria-pressed="true"] {
+  background: var(--blue-tint);
+  color: var(--blue-dark);
+}
+.issue-row {
+  position: relative;
+}
+.issue-row:hover {
+  background: var(--cream);
+}
+.issue-row td {
+  vertical-align: top;
+}
+.issue-row td:first-child {
+  min-width: 260px;
+}
+.issue-row td:last-child {
+  min-width: 210px;
+}
+.issue-link {
+  color: var(--ink);
+  text-decoration: none;
+}
+.issue-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.issue-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 8px;
+}
+.count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.job-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.drawer-scrim {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-scrim);
+}
+@media (max-width: 899px) {
+  .workspace-shell {
+    display: block;
+  }
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+  }
+  .workspace-sidebar {
+    display: none;
+  }
+  .workspace-sidebar.is-open {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(300px, calc(100vw - 32px));
+    z-index: var(--z-drawer);
+    overflow-y: auto;
+  }
+  .drawer-close {
+    display: inline-flex;
+  }
+  .workspace-main {
+    padding-top: 24px;
+  }
+  .bucket-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bucket-card {
+    padding: 16px;
+  }
+  .bucket-card .metric__label {
+    overflow-wrap: anywhere;
+  }
+  .channel-list .utility-bar {
+    gap: 6px;
+  }
+}

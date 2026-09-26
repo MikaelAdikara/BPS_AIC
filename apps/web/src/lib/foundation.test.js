@@ -5,6 +5,12 @@ import { parseRoute, resolveRoute } from "./router.js";
 import { readPreference, writePreference } from "./storage.js";
 import { ApiError, request } from "../api/http.js";
 
+test("Vite alias uses canonical forward slashes on Windows", async () => {
+  const { default: config } = await import("../../vite.config.js");
+  assert.equal(config.resolve.alias["@"].includes("\\"), false);
+  assert.ok(config.resolve.alias["@"].endsWith("/src"));
+});
+
 test("all namespaces have matching EN/ID keys and interpolation values", () => {
   for (const namespace of Object.keys(messages.en)) {
     assert.deepEqual(

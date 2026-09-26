@@ -9,3 +9,15 @@
 - Browser dengan API lokal: pengguna tanpa sesi diarahkan ke login; login demo membuka workspace; sesi bertahan saat reload; logout kembali ke login. Pergantian EN/ID dan tema bekerja; bahasa/tema bertahan saat reload. Pada lebar 375px, lebar dokumen 360px, tanpa overflow horizontal.
 - Halaman workspace masih berupa slot. Read model, shell navigasi, Overview, dan Issues belum tersambung. Landing/login lengkap belum terpasang; layar penghubung sementara menyediakan tombol login demo.
 - Antarmuka komponen dan integrasi layar publik didokumentasikan di `apps/web/README.md`.
+
+## Shell, Overview, dan Issues
+
+- Shell navigasi, kartu akun, badge jumlah isu terbuka dari API, drawer mobile dengan penguncian fokus, dan toggle bahasa/tema tersedia.
+- Konteks workspace memuat channels, summary, inbox, dan status bersama. Bucket, support, denominator, serta urutan mengikuti API; tab hanya menyaring bucket yang sudah diterima.
+- Overview menampilkan bucket aktif, isu prioritas, channel dan waktu sinkron, label data sintetis, dan mode aturan. Issues menyediakan tab serta keadaan kosong; pemilihan tab disimpan per tab browser.
+- Fungsi `run()` mengikuti job, menampilkan progres/toast, lalu memuat ulang workspace. Polling berhenti setelah delapan error beruntun, berhenti segera pada 401/404, dan dapat melanjutkan job dari status server setelah reload.
+- Browser memakai API dari source repo pada port 8002 dan basis data uji terpisah. Port 8000 sedang dilayani container dengan respons auth yang tidak sesuai kontrak source; perlu rebuild dari commit yang dipakai untuk demo.
+- Browser: akun demo menampilkan 4 produk, 21 ulasan, bucket 2 perlu fakta / 3 siap ditindak / 1 dipantau dari API. Tab Diabaikan kosong, tab Perlu Anda menampilkan kutipan asli dan support/denominator. Pada 375px gelap/ID: halaman 360px, tabel 286px dengan konten 663px hanya bergulir di dalam kartu. Fokus Tab dari kontrol terakhir drawer kembali ke kontrol pertama.
+- Alias Vite dinormalisasi ke forward slash. Sebelum perbaikan, hot reload memuat provider bahasa lewat dua URL modul dan layar kosong; setelah perbaikan, hot reload kamus dan pergantian bahasa berhasil. Tes regresi alias ditambahkan.
+- Verifikasi: 28 tes lulus, typecheck dan build lulus; pemeriksa mekanis antarmuka tidak menemukan pelanggaran.
+- Halaman produk, Sources, Alerts, Settings, serta grafik dan decision plan belum tersambung. Landing/login tetap menunggu pemiliknya.
