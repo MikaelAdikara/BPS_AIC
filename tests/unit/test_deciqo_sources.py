@@ -225,3 +225,20 @@ def test_alert_tanpa_teks_ulasan_dan_dedupe(env):
     assert first and again is None
     message = alerts.render(event, "id")
     assert message.startswith(alerts.DEMO_PREFIX) and "rahasia" not in message and "3 dari 4" in message
+
+
+def test_snapshot_lazada_bertanggal_dimuat(env):
+    from app.deciqo import routes_sources
+
+    name = routes_sources.latest_lazada_snapshot()
+    if name is None:
+        pytest.skip("snapshot Lazada belum ada di data/marketplace")
+    client = _client()
+    _login(client, "lz@x.io")
+    job = client.get(f"/api/v1/deciqo/jobs/{client.post('/api/v1/deciqo/lazada/snapshot').json()['job_id']}").json()
+    assert job["status"] == "done", job
+    with store.database() as conn:
+        origins = {r[0] for r in conn.execute("SELECT DISTINCT data_origin FROM products")}
+        captured = conn.execute("SELECT captured_at FROM products LIMIT 1").fetchone()[0]
+    assert origins == {"public_snapshot"} and captured.startswith("2026-")
+    assert job["result"]["stats"]["inserted"] > 100

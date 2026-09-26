@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 
 from . import alerts, analysis, demo_catalog, importers, ingest, jobs, samples, settings, store
 from .auth import current_user
-from .connectors import woo
+from .connectors import apify, woo
 from .errors import DeciqoError, not_found
 
 log = logging.getLogger("deciqo.sources")
@@ -229,6 +229,51 @@ def import_reviews(body: ImportBody, user: dict = Depends(current_user)) -> dict
                                      "analysis": analysis.analyse_products(ctx, stats.changed_products)},
                         target=",".join(stats.products))
     return _accepted(job_id, stats=stats.public(), product_ids=stats.products)
+
+
+# --- Lazada -----------------------------------------------------------------------------------
+
+
+class LazadaFetchBody(BaseModel):
+    urls: list[str] = Field(min_length=1, max_length=apify.MAX_URLS)
+
+
+@router.post("/lazada/fetch", status_code=202)
+def lazada_fetch(body: LazadaFetchBody, user: dict = Depends(current_user)) -> dict:
+    if not settings.apify_tokens():
+        raise DeciqoError(503, "fetch_unconfigured", "Live Lazada fetch is not configured on this server.")
+    for url in body.urls:
+        apify.product_item_id(url)
+
+    def run(ctx):
+        ctx.progress(index=0, total=len(body.urls), stage="fetching")
+        try:
+            catalog = apify.fetch_products(body.urls, user_id=user["id"])
+        except DeciqoError as exc:
+            with store.database() as conn:
+                ingest.touch_source(conn, user["id"], "lazada", ok=False, error=exc.detail["message"])
+            raise jobs.JobFailed(exc.code, exc.detail["message"]) from exc
+        ctx.progress(stage="saving")
+        stats = ingest.upsert_catalog(user["id"], "lazada", catalog, data_origin="public_live",
+                                      captured_at=store.now())
+        return {"stats": stats.public(), "products": len(catalog),
+                "analysis": analysis.analyse_products(ctx, stats.changed_products)}
+
+    return _accepted(jobs.start(user["id"], "lazada_fetch", run, target=",".join(sorted(body.urls))))
+
+
+def latest_lazada_snapshot() -> str | None:
+    names = [name for name, pack in list_packs().items()
+             if pack["channel"] == "lazada" and pack["data_origin"] == "public_snapshot"]
+    return sorted(names)[-1] if names else None
+
+
+@router.post("/lazada/snapshot", status_code=202)
+def lazada_snapshot(user: dict = Depends(current_user)) -> dict:
+    name = latest_lazada_snapshot()
+    if not name:
+        raise DeciqoError(404, "unknown_sample", "No dated Lazada snapshot is available.")
+    return load_sample(name, user)
 
 
 # --- paket contoh ----------------------------------------------------------------------------
