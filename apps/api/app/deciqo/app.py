@@ -111,3 +111,4 @@ def start_background() -> None:
     menjalankan startup tanpa thread yang hidup terus."""
     _optional_hook("app.deciqo.alerts", "start_dispatcher")
     _optional_hook("app.deciqo.routes_sources", "start_poller")
+    _optional_hook("app.deciqo.telegram", "start_polling")
