@@ -1,0 +1,131 @@
+"""Regresi dari QA engine atas ulasan marketplace nyata (snapshot Lazada di data/marketplace).
+
+Setiap kasus di sini diambil dari ulasan yang benar-benar salah dinilai. Teks disalin dari
+snapshot (atau dipersingkat tanpa mengubah kata kunci). Kasus yang belum diperbaiki ditandai
+`xfail(strict=True)`: begitu perbaikannya masuk, tes akan lulus tak terduga dan penandanya wajib
+dilepas, sehingga daftar ini selalu jujur tentang apa yang masih gagal.
+"""
+
+from __future__ import annotations
+
+import pytest
+
+from app.deciqo.engine import lexicon, relevance, rules
+
+QUALITY = {"attribute": "product quality", "attribute_local": "kualitas produk"}
+STITCHING = {"attribute": "stitching quality", "attribute_local": "kualitas jahitan"}
+DELIVERY = {"attribute": "delivery time", "attribute_local": "waktu pengiriman"}
+SIZE = {"attribute": "product size", "attribute_local": "ukuran produk"}
+BATTERY = {"attribute": "battery life", "attribute_local": "daya tahan baterai"}
+WRONG = {"attribute": "wrong variant sent", "attribute_local": "varian yang dikirim salah"}
+
+open_issue = pytest.mark.xfail(strict=True, reason="QA: belum diperbaiki")
+
+
+# --- pujian terbaca sebagai keluhan ------------------------------------------------------------
+
+
+@open_issue
+@pytest.mark.parametrize("text", ["Tahan lama dan awet", "Konstruksi yang tahan lama dan kokoh"])
+def test_qa01_tahan_lama_adalah_pujian(text):
+    assert relevance.judge(text, QUALITY).label != relevance.SUPPORTS
+
+
+@open_issue
+def test_qa01_daya_tahan_baterai_lama_adalah_pujian():
+    assert relevance.judge("Daya Tahan Baterai:Daya tahan baterai yang lama", BATTERY).label != relevance.SUPPORTS
+
+
+# --- salah kirim ------------------------------------------------------------------------------
+
+
+@open_issue
+@pytest.mark.parametrize("text", [
+    "terimakasih pesanan udah sampai",
+    "Alhamdulillah pesanannya sudah sampai",
+    "Terima kasih pesanan telah sampai",
+    "ALHAMDULILLAH SUDAH SAMPAI DENGAN SELAMAT SESUAI PESANAN KEREN, SEKARANG CEKOUT BESOK NYA SAMPAI",
+    "Mantraaap sesuai pesanan, produk presisi semoga awet sampai Kakek Nenek...",
+    "pesanan sudah sampai pengiriman ke pulau sulawesi hanya 5 Hari",
+])
+def test_qa02_pesanan_sampai_bukan_salah_kirim(text):
+    assert not lexicon.is_wrong_item(text)
+
+
+@open_issue
+def test_qa02_barang_rusak_dikirim_bukan_salah_kirim():
+    assert not lexicon.is_wrong_item("kecewa udah beli mahal mahal malah dikirim barang rusak")
+
+
+@pytest.mark.parametrize("text", [
+    "PESAN WARNA BIRU DIKASIH HITAM TANPA KONFIRMASI PULA",
+    "order 13pro mlh dikirim yg 13 biasa",
+    "saya pesan nya BLACK yang datang NAVY",
+    "pesan e 38 kenapa datang 39",
+    "Salah kirim",
+])
+def test_qa02_salah_kirim_nyata_tetap_terdeteksi(text):
+    assert lexicon.is_wrong_item(text)
+
+
+# --- kata umum terbaca sebagai atribut ukuran ------------------------------------------------
+
+
+@open_issue
+@pytest.mark.parametrize("text", [
+    "sayangnya eggk hidup satu handset 'y eggk masuk di cas 🔋Daya Tahan Baterai:Daya tahan baterai yang lama",
+    "Kapasitas besar untuk penggunaan yang lebih lama",
+    "cuman yang R nih longgar pas pengisian nya",
+])
+def test_qa03_bukan_keluhan_ukuran(text):
+    assert relevance.judge(text, SIZE).label != relevance.SUPPORTS
+
+
+# --- keluhan kualitas yang menyebut "dikirim" -------------------------------------------------
+
+
+@open_issue
+@pytest.mark.parametrize("text", [
+    "KLw Memang Rusak Jngn Dikirim Dong",
+    "barang cacat dikirim aowkwkwkwkwkekkekeke",
+    "ada yang cacat harusnya di qc dulu sebelum dikirim",
+])
+def test_qa04_cacat_yang_dikirim_bukan_keluhan_pengiriman(text):
+    assert relevance.judge(text, DELIVERY).label != relevance.SUPPORTS
+
+
+def test_qa04_keluhan_pengiriman_nyata_tetap_mendukung():
+    assert relevance.judge("pengiriman lama", DELIVERY).label == relevance.SUPPORTS
+    assert relevance.judge("9hari nungguin pas dateng paket nye cacat", DELIVERY).label != relevance.CONTRADICTS
+
+
+# --- ulasan berformat templat Lazada ("Label:isi" + emoji) ---------------------------------
+
+
+@open_issue
+def test_qa05_templat_lazada_dipecah_per_label():
+    text = "🎧Kualitas Suara:sangat jernih bagus 🎧Kenyamanan:nyaman sekali 🔋Daya Tahan Baterai:cukup lama"
+    assert len(lexicon.clauses(text)) >= 3
+
+
+# --- ejaan negasi informal ---------------------------------------------------------------------
+
+
+@open_issue
+@pytest.mark.parametrize("text", ["barang tida sesuay ukurannya", "ukurannya GX sesuai", "ukuran eggk sesuai"])
+def test_qa06_negasi_informal(text):
+    assert relevance.judge(text, SIZE).label == relevance.SUPPORTS
+
+
+# --- analyser aturan ---------------------------------------------------------------------------
+
+
+@open_issue
+def test_qa07_jahitan_tidak_menyalin_bukti_kualitas_umum():
+    text = "jangan mau beli di toko ini barang tida sesuay dan cepat rusak baru 1 hari"
+    assert relevance.judge(text, STITCHING).label != relevance.SUPPORTS
+
+
+@open_issue
+def test_qa08_soft_case_laptop_dikenali_sebagai_tas():
+    assert rules.product_kind('Soft Case Laptop 14" ASUS. LENOVO. HP. ACER') == "bag"
