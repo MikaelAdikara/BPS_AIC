@@ -46,6 +46,8 @@ from app.schemas import (  # noqa: E402
     verify_taxonomy_matches_config,
 )
 from app.services.analyze import AnalyzeService  # noqa: E402
+from app import deciqo  # noqa: E402
+from app.deciqo import app as deciqo_app  # noqa: E402
 
 REPO_ROOT = APP_ROOT.parents[2]
 SAMPLE_DIR = REPO_ROOT / "data" / "samples"
@@ -126,6 +128,13 @@ def _build_service() -> AnalyzeService:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     started = time.time()
+    # Deciqo lebih dulu: migrasi dan akun demo hanya butuh milidetik, sedangkan pemuatan model
+    # teks di bawah bisa hampir satu menit. Kegagalan di sini tidak boleh menahan endpoint lama.
+    try:
+        deciqo_app.startup()
+    except Exception as exc:  # noqa: BLE001
+        state["errors"].append(f"deciqo: {type(exc).__name__}")
+        log.error(f"startup deciqo gagal: {type(exc).__name__}: {exc}")
     try:
         verify_taxonomy_matches_config()
         state["service"] = _build_service()
@@ -138,9 +147,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Ulasin API",
-    version="0.1.0",
-    description="Mengubah ulasan pelanggan UMKM menjadi rekomendasi aksi dengan bukti kutipan.",
+    title="Deciqo API",
+    version=deciqo.APP_VERSION,
+    description="Mengubah ulasan tersimpan menjadi isu berbukti, fakta, draf, dan tindak lanjut.",
     lifespan=lifespan,
     # Dokumentasi OpenAPI diletakkan DI BAWAH /api/ - bukan di /docs bawaan FastAPI. Di belakang
     # nginx hanya /api/ yang diteruskan ke proses ini; /docs jatuh ke aplikasi web (SPA) dan
@@ -154,9 +163,13 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:5173"],
-    allow_methods=["GET", "POST"],
+    # Cookie sesi ikut dikirim dari dev server Vite; di produksi nginx menyajikan web dan API dari
+    # origin yang sama sehingga CORS tidak terlibat.
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
     allow_headers=["*"],
 )
+deciqo_app.include(app)
 
 
 def _error(code: ErrorCode, message: str, recoverable: bool, action: str | None = None):

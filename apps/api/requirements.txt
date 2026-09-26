@@ -26,3 +26,8 @@ transformers>=5.0
 pillow>=10.3
 pytesseract>=0.3.10
 python-multipart>=0.0.9
+
+# Deciqo. httpx dipakai konektor Woo/Apify dan pengiriman Telegram (timeout dan batas ukuran
+# respons bisa diatur per request); openai adalah klien Responses API untuk engine.
+httpx>=0.27
+openai>=1.60
