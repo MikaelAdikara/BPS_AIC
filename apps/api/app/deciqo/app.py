@@ -104,4 +104,10 @@ def startup() -> None:
     _optional_hook("app.deciqo.jobs", "recover")
     _optional_hook("app.deciqo.samples", "seed_demo")
     _optional_hook("app.deciqo.engine.pipeline", "on_startup")
-    _optional_hook("app.deciqo.jobs", "start_background")
+
+
+def start_background() -> None:
+    """Thread latar: pengirim alert dan polling Woo. Terpisah dari `startup()` supaya tes bisa
+    menjalankan startup tanpa thread yang hidup terus."""
+    _optional_hook("app.deciqo.alerts", "start_dispatcher")
+    _optional_hook("app.deciqo.routes_sources", "start_poller")
