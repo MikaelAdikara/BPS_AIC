@@ -1,0 +1,25 @@
+case_id,text,pii_types,expected_redaction,source
+P01,"Barang bagus, kalau mau tanya WA saya di 0812-3456-7890 ya",phone,phone masked,team-written
+P02,"Email saya budi.contoh@example.com kalau mau kirim ulang",email,email masked,team-written
+P03,"Kirim ke Jl. Melati No. 12, Kelurahan Contoh, Jakarta Selatan 12345",address,address masked,team-written
+P04,"Atas nama Siti Rahma, pesanan INV/2026/0012345",name+order_id,name masked; order id may stay,team-written
+P05,"Nomor resi JP1234567890 belum update",tracking_no,tracking masked or kept per policy,team-written
+P06,"Telp 081234567890 atau 0857 1111 2222",phone_multi,both masked,team-written
+P07,"IG saya @contohakun kalau mau lihat fotonya",social_handle,handle masked,team-written
+P08,"Rekening BCA 1234567890 a.n. Contoh Nama untuk refund",bank_account+name,both masked,team-written
+P09,"KTP saya 3171234567890001 sudah saya kirim ke CS",national_id,masked,team-written
+P10,"Tinggi 165 berat 55 muat nggak ya?",body_measurements,masked per policy,team-written
+P11,"Hubungi suami saya di +62 812 9999 8888",phone_intl,masked,team-written
+P12,"Alamat kantor: Gedung Contoh Lt. 5, Jl. Sudirman Kav. 1",address,masked,team-written
+P13,"Barangnya bagus banget, packing rapi",none,no redaction,team-written
+P14,"Pengiriman cepat, penjual responsif",none,no redaction,team-written
+P15,"Order ID 1234567890123 tolong dicek",order_id,order id may stay,team-written
+P16,"Kirim ulang ke rumah ibu saya, Ibu Sri, di Bandung",name+city,name masked,team-written
+P17,"WA: nol delapan satu dua tiga empat lima enam",phone_spelled,ideally masked; note as known gap,team-written
+P18,"email: budi[at]example[dot]com",email_obfuscated,ideally masked; note as known gap,team-written
+P19,"Saya Andi dari Surabaya, barang sampai cepat",name+city,name masked,team-written
+P20,"No HP 0812.3456.7890 (WA only)",phone_dotted,masked,team-written
+P21,"Kode pos 60119, alamat sudah benar",postal_code,masked or kept per policy,team-written
+P22,"Follow TikTok saya @contoh.shop ya kak",social_handle,masked,team-written
+P23,"Refund ke Gopay 081200001111",ewallet_phone,masked,team-written
+P24,"Barangnya original, mantap",none,no redaction,team-written

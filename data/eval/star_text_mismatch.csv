@@ -1,0 +1,22 @@
+review_id,text,rating,complaint_present,aspect,severity_guess,source,notes
+SHP95734159145,"alhamdulillah pket dah sampe, pas di badan suka sma baju nya, kaos yg warna terang sedikit nerawang but it's oke overall good",5,1,kualitas_produk,ringan,real-shopee,"bintang 5 berisi keluhan nerawang; sekaligus campuran Inggris - kandidat utama demo"
+SHP80405302429,"Bahan:lumayan Desain:oke Tekstur:lembut Pengemasan dan pengiriman cepet. Packaging standar dan aman. Utk barangnya sih sesuai ya size L tp utk BB 48 pas. Sesuai harga",5,1,ukuran_varian,ringan,real-shopee,"catatan ukuran tersirat: size L terasa pas untuk BB 48"
+SHP81375100259,"Order pertama size M, fit di badan, Orderan kedua Krn harga terjangkau dan bahan bagus serta nyaman ini coba size L, ingin lebih longgar",5,1,ukuran_varian,ringan,real-shopee,"preferensi ukuran, bukan cacat - uji batas"
+SHP78252741100,"Barang nya cepet banget sampe nya pesen hari Senin Selasa nya udh sampe, awalnya mau batalin pesanan karna takut lama tapi ternyata cepet",5,0,,,real-shopee,"kontrol negatif: menyebut kata 'lama' tapi bukan keluhan"
+SHP78248305181,"di aku ga ngecrop tpi pas ga kecil ga besar, bagus bangett, recommended sii",5,0,,,real-shopee,"kontrol negatif: menyebut 'kecil/besar' dalam konteks positif"
+SHP78700595083,"Pas dibadan, bahannya gak tipis enaken, next beli warna lain",5,0,,,real-shopee,"kontrol negatif: 'tipis' dinegasikan"
+SHP75386226999,"kaosnya sdh dtg, bahan melar, nyaman dan pas si ukuranku. Semua sesuai dg deskripsi.",5,0,,,real-shopee,kontrol negatif
+SHP77035428493,"Bajux aku Sukak sekali...adem ngak bikin gerah",5,0,,,real-shopee,kontrol negatif
+SHP84557452299,"Sesuai harga lah lumayan buat ganti ganti Makasih",5,0,,,real-shopee,"kontrol negatif: pujian datar"
+SM01,"Bahannya oke sih, cuma kekecilan banget di badan aku. Sizechartnya kurang akurat.",4,1,ukuran_varian,sedang,team-written,pola yang dicari
+SM02,"Pengiriman cepat, penjual ramah. Cuma dusnya penyok waktu sampai.",5,1,kemasan,ringan,team-written,"juga menguji G1: kemasan vs kualitas produk"
+SM03,"Produk bagus, sesuai foto. Tapi CS lama balasnya, 2 hari baru dibalas.",4,1,pelayanan_penjual,sedang,team-written,
+SM04,"Suka warnanya. Sayang jahitan bagian dalam agak berantakan.",5,1,kualitas_produk,ringan,team-written,
+SM05,"Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.",4,1,pengiriman,sedang,team-written,
+SM06,"Mantap, recommended seller!",5,0,,,team-written,kontrol negatif
+SM07,"Sesuai deskripsi, puas.",5,0,,,team-written,kontrol negatif
+SM08,"Oke lah untuk harga segini.",4,0,,,team-written,"kontrol negatif, ambigu"
+SM09,"Barangnya bagus banget, pengiriman cepat, cuma dusnya penyok waktu sampai",5,1,kemasan,ringan,team-written,"kasus yang terbukti gagal pada uji 23 Sep - masuk kualitas_produk"
+SM10,"Good product, however the size chart is misleading",4,1,ukuran_varian,sedang,team-written,"versi Inggris dari SM01, untuk irisan bahasa"
+SM11,"Nice shirt but the packaging arrived crushed",5,1,kemasan,ringan,team-written,"Inggris + kemasan: menguji G1 dan G2 sekaligus"
+SM12,"Material feels thin for the price, still okay though",4,1,kualitas_produk,ringan,team-written,"terbukti gagal pada uji 23 Sep - tidak terdeteksi negatif"

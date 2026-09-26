@@ -1,0 +1,11 @@
+scenario_id,description,aspect,history_reviews,history_aspect_hits,window_size,window_aspect_hits,expected_alert,notes
+A01,"clear packaging burst after quiet history",kemasan,120,3,10,4,1,"laju dasar 2.5%, jendela 40% - harus terbit"
+A02,"no burst, steady low rate",kemasan,120,3,10,0,0,"kontrol negatif"
+A03,"steady high rate, no change",pengiriman,120,24,10,2,0,"laju dasar 20%, jendela 20% - tidak ada lonjakan"
+A04,"small shop, too little history",ukuran_varian,18,1,10,3,0,"n minimum belum terpenuhi - harus menolak, bukan alert"
+A05,"burst just below threshold",kualitas_produk,200,10,10,2,0,"batas bawah, dipakai untuk menguji ambang"
+A06,"burst just above threshold",kualitas_produk,200,10,10,4,1,"batas atas"
+A07,"two aspects rising at once",kemasan|pengiriman,150,6,10,3,1,"alert harus menyebut aspek yang benar, bukan digabung"
+A08,"burst then recovery",kemasan,150,5,10,1,0,"lonjakan sudah lewat - tidak boleh alert ulang"
+A09,"single very negative review",kualitas_produk,150,6,10,1,0,"satu ulasan tidak boleh memicu alert"
+A10,"shuffled timeline control",kemasan,150,15,10,1,0,"dipakai 200x dengan urutan diacak untuk menghitung false-alarm rate"

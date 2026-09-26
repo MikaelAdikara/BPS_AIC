@@ -1,0 +1,33 @@
+clause,aspect,sentiment,phenomenon,source
+"kualitas not oke",kualitas_produk,negatif,english_negation,team-written
+"barangnya not worth it",harga_value,negatif,english_negation,team-written
+"not bad lah",kualitas_produk,positif,english_litotes,team-written
+"packingnya not safe, penyok",kemasan,negatif,english_negation,team-written
+"seller not responsive sama sekali",pelayanan_penjual,negatif,english_negation,team-written
+"shipping not fast but ok lah",pengiriman,netral,english_negation_mild,team-written
+"sizenya not fit di badan aku",ukuran_varian,negatif,english_negation,team-written
+"not recommended buat yang cari bahan tebal",kualitas_produk,negatif,english_negation,team-written
+"quality is good, no complaints",kualitas_produk,positif,english_positive,team-written
+"barang ori, not fake",keaslian,positif,english_negation_positive,team-written
+"ga worth it sih harganya",harga_value,negatif,id_negation,team-written
+"nggak sesuai sama deskripsi",kesesuaian_deskripsi,negatif,id_negation,team-written
+"bukan barang jelek, cuma kekecilan",ukuran_varian,negatif,id_contrast,team-written
+"tidak ada cacat sama sekali",kualitas_produk,positif,id_negation_positive,team-written
+"kurang tebal bahannya",kualitas_produk,negatif,id_mild_negative,team-written
+"sizenya pas banget, fit to body",ukuran_varian,positif,code_mixed_positive,team-written
+"delivery cepet banget, next day sampai",pengiriman,positif,code_mixed_positive,team-written
+"packagingnya rapi banget, bubble wrap thick",kemasan,positif,code_mixed_positive,team-written
+"the color is different from the picture",kesesuaian_deskripsi,negatif,english_clause,team-written
+"item arrived damaged, box was crushed",kemasan,negatif,english_clause,team-written
+"seller replied fast, very helpful",pelayanan_penjual,positif,english_clause,team-written
+"material feels cheap for this price",harga_value,negatif,english_clause,team-written
+"runs small, order one size up",ukuran_varian,negatif,english_clause,team-written
+"came with a missing part",kualitas_produk,negatif,english_clause,team-written
+"took two weeks to arrive",pengiriman,negatif,english_clause,team-written
+"legit product, same as official store",keaslian,positif,english_clause,team-written
+"bahannya oke tapi jahitannya lepas",kualitas_produk,negatif,id_mixed_sentiment,team-written
+"harganya murah tapi kualitas sepadan",harga_value,positif,id_mixed_sentiment,team-written
+"barang sampai tapi salah warna",kesesuaian_deskripsi,negatif,id_mixed_sentiment,team-written
+"produknya bagus, cuma dusnya penyok",kemasan,negatif,id_mixed_sentiment,team-written
+"can confirm it is not the original one",keaslian,negatif,english_negation,team-written
+"tidak tembus pandang, aman dipakai",kualitas_produk,positif,id_negation_positive,real-shopee

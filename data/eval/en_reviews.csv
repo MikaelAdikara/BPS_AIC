@@ -1,0 +1,41 @@
+review_text,rating,aspect,sentiment,variant,source
+"Material feels thin and the stitching came loose after one wash.",2,kualitas_produk,negatif,en,team-written
+"Arrived in three days, well packed, very happy.",5,pengiriman,positif,en,team-written
+"Size runs small. I usually wear M, had to return for L.",3,ukuran_varian,negatif,en,team-written
+"Colour is nothing like the photo, much duller in person.",2,kesesuaian_deskripsi,negatif,en,team-written
+"Box was crushed but the item inside was fine.",4,kemasan,negatif,en,team-written
+"Seller answered my question within minutes, great service.",5,pelayanan_penjual,positif,en,team-written
+"Good value for the price, would buy again.",5,harga_value,positif,en,team-written
+"Item looks fake, the logo is off-centre.",1,keaslian,negatif,en,team-written
+"Delivery took almost two weeks with no update.",2,pengiriman,negatif,en,team-written
+"Quality is decent lah, not bad for the price.",4,kualitas_produk,positif,singlish,team-written
+"Very shiok, fast delivery, will order again.",5,pengiriman,positif,singlish,team-written
+"Cannot fit leh, size damn small.",2,ukuran_varian,negatif,singlish,team-written
+"Packaging so-so only, but item ok.",3,kemasan,netral,singlish,team-written
+"Seller never reply my message, quite disappointing.",2,pelayanan_penjual,negatif,singlish,team-written
+"Price quite expensive compared to other shops.",3,harga_value,negatif,singlish,team-written
+"The zipper broke on the second day.",1,kualitas_produk,negatif,en,team-written
+"Exactly as described, no surprises.",5,kesesuaian_deskripsi,positif,en,team-written
+"Smells strongly of chemicals when unpacked.",2,kualitas_produk,negatif,en,team-written
+"Bubble wrap was generous, nothing damaged.",5,kemasan,positif,en,team-written
+"Ordered two, only one arrived.",1,pelayanan_penjual,negatif,en,team-written
+"The fabric is soft but it shrank after washing.",3,kualitas_produk,negatif,en,team-written
+"Shipping was free and still fast, impressive.",5,pengiriman,positif,en,team-written
+"Description says waterproof, it is not.",1,kesesuaian_deskripsi,negatif,en,team-written
+"Fits true to size, very comfortable.",5,ukuran_varian,positif,en,team-written
+"Cheap plastic, feels like it will break soon.",2,kualitas_produk,negatif,en,team-written
+"Came with a free gift, nice touch from the seller.",5,pelayanan_penjual,positif,en,team-written
+"Item is authentic, verified with the brand.",5,keaslian,positif,en,team-written
+"Courier left it outside without knocking.",2,pengiriman,negatif,en,team-written
+"Worth every cent, better than the branded one.",5,harga_value,positif,en,team-written
+"The print started peeling after two uses.",2,kualitas_produk,negatif,en,team-written
+"Nice product but the packaging was torn.",4,kemasan,negatif,en,team-written
+"Good product, however the size chart is misleading.",4,ukuran_varian,negatif,en,team-written
+"Fast response but the item was out of stock after payment.",3,pelayanan_penjual,negatif,en,team-written
+"Too expensive for the quality, honestly.",2,harga_value,negatif,en,team-written
+"Perfect condition, sealed and original.",5,keaslian,positif,en,team-written
+"It works but the battery drains very fast.",3,fungsi_teknis,negatif,en,team-written
+"Setup was easy, app connected on the first try.",5,fungsi_teknis,positif,en,team-written
+"Stopped charging after a week.",1,fungsi_teknis,negatif,en,team-written
+"Everything fine, no issues so far.",5,lainnya,positif,en,team-written
+"Item ok but delivery guy was rude.",4,pelayanan_penjual,negatif,en,team-written

@@ -1,0 +1,41 @@
+order_index,product,rating,reviewer,review_text,language,purpose
+1,Linen Shirt,5,Ani,"Bahannya adem, jahitan rapi, suka banget",id,baseline_positive
+2,Linen Shirt,4,Budi,"Warnanya sedikit beda dari foto tapi masih oke",id,baseline_mild
+3,Canvas Tote,5,Citra,"Kuat dan muat banyak, recommended",id,baseline_positive
+4,Linen Shirt,5,Dedi,"Pengiriman cepat, packing rapi",id,baseline_positive
+5,Canvas Tote,4,Eka,"Talinya agak tipis tapi masih kuat",id,baseline_mild
+6,Ceramic Mug,5,Fajar,"Bagus, sesuai deskripsi",id,baseline_positive
+7,Linen Shirt,4,Gita,"Ukurannya agak kekecilan, sizechart kurang akurat",id,star_text_mismatch_demo
+8,Ceramic Mug,5,Hani,"Cantik, cocok buat hadiah",id,baseline_positive
+9,Canvas Tote,5,Indra,"Harga worth it banget",id,baseline_positive
+10,Linen Shirt,5,Joko,"Seller fast response",id,baseline_positive
+11,Ceramic Mug,4,Kiki,"Sampai dengan selamat, aman",id,baseline_positive
+12,Canvas Tote,5,Lina,"Bagus, akan beli lagi",id,baseline_positive
+13,Linen Shirt,5,Maya,"Adem dipakai seharian",id,baseline_positive
+14,Ceramic Mug,5,Nanda,"Packingnya aman pakai bubble wrap",id,baseline_positive
+15,Canvas Tote,4,Oki,"Oke lah untuk harga segini",id,baseline_mild
+16,Linen Shirt,5,Putri,"Sesuai ekspektasi",id,baseline_positive
+17,Ceramic Mug,5,Qori,"Mug-nya tebal, tidak gampang panas",id,baseline_positive
+18,Canvas Tote,5,Rina,"Muat laptop 14 inci",id,baseline_positive
+19,Linen Shirt,4,Sandi,"Bagus tapi pengiriman agak lama",id,baseline_mild
+20,Ceramic Mug,5,Tania,"Suka banget warnanya",id,baseline_positive
+21,Canvas Tote,5,Umi,"Bahan tebal, jahitan rapi",id,baseline_positive
+22,Linen Shirt,5,Vina,"Nyaman dipakai kerja",id,baseline_positive
+23,Ceramic Mug,4,Wawan,"Ada sedikit bercak tapi tidak mengganggu",id,baseline_mild
+24,Canvas Tote,5,Xena,"Pengiriman cepat",id,baseline_positive
+25,Linen Shirt,5,Yoga,"Mantap, sesuai foto",id,baseline_positive
+26,Ceramic Mug,5,Zahra,"Bagus untuk kado",id,baseline_positive
+27,Canvas Tote,5,Adi,"Seller ramah dan responsif",id,baseline_positive
+28,Linen Shirt,4,Bella,"Good quality for the price",en,baseline_positive_en
+29,Ceramic Mug,5,Cakra,"Arrived safely, well packed",en,baseline_positive_en
+30,Canvas Tote,5,Dina,"Exactly as described",en,baseline_positive_en
+31,Linen Shirt,2,Erik,"Dusnya penyok waktu sampai, bajunya ikut kusut",id,BURST_packaging_1
+32,Ceramic Mug,1,Fira,"Mugnya retak, packingnya cuma plastik tipis",id,BURST_packaging_2
+33,Canvas Tote,2,Gani,"Kemasan rusak, kotaknya sobek di beberapa sisi",id,BURST_packaging_3
+34,Linen Shirt,2,Hesti,"Box arrived crushed, no bubble wrap at all",en,BURST_packaging_4
+35,Ceramic Mug,1,Iwan,"Packing asal-asalan, barang pecah",id,BURST_packaging_5
+36,Canvas Tote,5,Jaka,"Bagus, pengiriman cepat",id,after_burst_control
+37,Linen Shirt,5,Kartika,"Adem dan nyaman",id,after_burst_control
+38,Ceramic Mug,5,Lukman,"Sesuai deskripsi",id,after_burst_control
+39,Canvas Tote,4,Mira,"Ok lah, tidak ada masalah",id,after_burst_control
+40,Linen Shirt,5,Nino,"Puas dengan pembelian ini",id,after_burst_control

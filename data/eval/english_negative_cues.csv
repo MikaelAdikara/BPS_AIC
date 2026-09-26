@@ -1,0 +1,31 @@
+case_id,clause,expected_aspect,expected_sentiment,cue,source,notes
+EN01,"Material feels thin and the stitching came loose after one wash",kualitas_produk,negatif,"thin, came loose",team-written,"terbukti gagal 23 Sep: terbaca netral"
+EN02,"Size runs small, order one size up",ukuran_varian,negatif,runs small,team-written,"terbukti gagal 23 Sep"
+EN03,"The fabric is flimsy for this price",kualitas_produk,negatif,flimsy,team-written,
+EN04,"Print started peeling after two uses",kualitas_produk,negatif,peeling,team-written,
+EN05,"The zipper is faulty",kualitas_produk,negatif,faulty,team-written,
+EN06,"Bottle was leaking inside the box",kualitas_produk,negatif,leaking,team-written,
+EN07,"Fabric arrived stained",kualitas_produk,negatif,stained,team-written,
+EN08,"Screen came scratched",kualitas_produk,negatif,scratched,team-written,
+EN09,"Runs too tight around the shoulders",ukuran_varian,negatif,too tight,team-written,
+EN10,"Colour is duller than the photo",kesesuaian_deskripsi,negatif,duller,team-written,
+EN11,"Not as described at all",kesesuaian_deskripsi,negatif,not as described,team-written,
+EN12,"Took two weeks to arrive with no update",pengiriman,negatif,took two weeks,team-written,
+EN13,"Courier left it outside without knocking",pengiriman,negatif,left it outside,team-written,
+EN14,"Seller never replied to my message",pelayanan_penjual,negatif,never replied,team-written,
+EN15,"Overpriced for what you get",harga_value,negatif,overpriced,team-written,
+EN16,"Looks fake, the logo is off-centre",keaslian,negatif,fake,team-written,
+EN17,"Smells strongly of chemicals",kualitas_produk,negatif,smells strongly,team-written,
+EN18,"It shrank after washing",kualitas_produk,negatif,shrank,team-written,
+EN19,"Battery drains very fast",fungsi_teknis,negatif,drains fast,team-written,
+EN20,"Stopped charging after a week",fungsi_teknis,negatif,stopped charging,team-written,
+EN21,"Quality is decent lah, not bad for the price",kualitas_produk,positif,not bad,team-written,"Singlish, kontrol positif - jangan sampai terbaca negatif"
+EN22,"Very shiok, fast delivery",pengiriman,positif,shiok,team-written,"Singlish kontrol positif"
+EN23,"Cannot fit leh, size damn small",ukuran_varian,negatif,cannot fit,team-written,Singlish
+EN24,"Packaging so-so only, but item ok",kemasan,netral,so-so,team-written,"Singlish, netral - uji batas"
+EN25,"Fits true to size, very comfortable",ukuran_varian,positif,true to size,team-written,kontrol positif
+EN26,"Exactly as described, no surprises",kesesuaian_deskripsi,positif,as described,team-written,kontrol positif
+EN27,"kualitas not oke",kualitas_produk,negatif,negasi Inggris,team-written,"kasus negasi yang sudah terdokumentasi"
+EN28,"barangnya not worth it",harga_value,negatif,negasi Inggris,team-written,
+EN29,"seller not responsive sama sekali",pelayanan_penjual,negatif,negasi Inggris,team-written,
+EN30,"barang ori, not fake",keaslian,positif,negasi membalik ke positif,team-written,"kontrol: negasi atas kata negatif"

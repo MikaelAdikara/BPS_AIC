@@ -1,0 +1,25 @@
+case_id,clause,expected_aspect,expected_sentiment,pattern,source,notes
+KP01,"Kemasan rusak, kotaknya sobek di beberapa sisi",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal 23 Sep: masuk kualitas_produk"
+KP02,"dusnya penyok waktu sampai",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal 23 Sep"
+KP03,"Paket datang dalam kondisi kardus penyok dan bubble wrap tipis",kemasan,negatif,kemasan+kerusakan,team-written,
+KP04,"packingnya cuma plastik tipis",kemasan,negatif,kemasan+kualitas kemasan,team-written,
+KP05,"box-nya ringsek tapi barangnya aman",kemasan,negatif,kemasan+kerusakan,team-written,"klausa kedua positif untuk produk"
+KP06,"bungkusnya sobek, isinya untung tidak kenapa-kenapa",kemasan,negatif,kemasan+kerusakan,team-written,
+KP07,"segelnya sudah terbuka waktu diterima",kemasan,negatif,kemasan,team-written,
+KP08,"amplopnya basah kena hujan",kemasan,negatif,kemasan,team-written,
+KP09,"dikemas asal-asalan",kemasan,negatif,kemasan,team-written,
+KP10,"tidak pakai bubble wrap sama sekali",kemasan,negatif,kemasan+negasi,team-written,
+KP11,"mugnya retak",kualitas_produk,negatif,produk+kerusakan,team-written,"kontrol: produk yang rusak, bukan kemasan"
+KP12,"gelasnya pecah waktu dibuka",kualitas_produk,negatif,produk+kerusakan,team-written,kontrol
+KP13,"jahitannya lepas setelah sekali cuci",kualitas_produk,negatif,produk+kerusakan,team-written,kontrol
+KP14,"bahannya sobek di bagian lengan",kualitas_produk,negatif,produk+kerusakan,team-written,"kontrol penting: 'sobek' pada produk, bukan kemasan"
+KP15,"layarnya lecet",kualitas_produk,negatif,produk+kerusakan,team-written,kontrol
+KP16,"Mugnya retak, packingnya cuma plastik tipis",dua_klausa,negatif,produk+kemasan,team-written,"harus terpecah jadi dua klausa dengan dua aspek berbeda"
+KP17,"Kemasan rapi, barangnya juga mulus",kemasan,positif,kemasan positif,team-written,kontrol positif
+KP18,"Packing aman pakai bubble wrap tebal",kemasan,positif,kemasan positif,team-written,kontrol positif
+KP19,"dus penyok sedikit tapi masih bisa diterima",kemasan,negatif,kemasan+kerusakan ringan,team-written,"severity ringan, bukan tinggi"
+KP20,"kardusnya basah tapi produknya kering",kemasan,negatif,kemasan+kerusakan,team-written,
+KP21,"The box arrived crushed",kemasan,negatif,kemasan Inggris,team-written,"menguji G1 dan G2 sekaligus"
+KP22,"packaging was torn but the item is fine",kemasan,negatif,kemasan Inggris,team-written,
+KP23,"no bubble wrap at all, item was scratched",dua_klausa,negatif,kemasan+produk Inggris,team-written,
+KP24,"pengiriman cepat, kemasan rapi, produk mulus",kemasan,positif,tiga aspek positif,team-written,kontrol
