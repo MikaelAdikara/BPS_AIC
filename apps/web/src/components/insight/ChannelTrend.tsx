@@ -34,12 +34,15 @@ export function ChannelTrend({
   evidence,
   channels: all,
   channel,
+  rangeLabel,
   height = 260,
 }: {
   volume: Record<string, number | string>[];
   evidence: Record<string, number | string>[];
   channels: string[];
   channel: string;
+  /** Rentang aktif sebagai tanggal, mis. "28 Agu – 26 Sep 2026". */
+  rangeLabel?: string;
   height?: number;
 }) {
   const { t, language } = useI18n();
@@ -98,7 +101,9 @@ export function ChannelTrend({
             <Activity size={18} aria-hidden />
             {t("insights.trendTitle")}
           </h2>
-          <p className="muted">{t("insights.trendLead")}</p>
+          <p className="muted">
+            {rangeLabel ? t("insights.trendLeadRange", { range: rangeLabel }) : t("insights.trendLead")}
+          </p>
         </div>
         <div className="segmented segmented--sm" role="group" aria-label={t("insights.trendTitle")}>
           <button type="button" aria-pressed={mode === "all"} onClick={() => setMode("all")}>

@@ -28,16 +28,18 @@ export function SamplingBadge({ kind }: { kind: string }) {
   );
 }
 
-function Stat({ label, value, alert }: { label: string; value: ReactNode; alert?: boolean }) {
+function Stat({ label, value, alert, muted, title }: { label: string; value: ReactNode; alert?: boolean; muted?: boolean; title?: string }) {
   return (
-    <span className={"channel-card__stat" + (alert ? " is-alert" : "")}>
+    <span className={"channel-card__stat" + (alert ? " is-alert" : "") + (muted ? " is-muted" : "")} title={title}>
       <strong className="count">{value}</strong>
       <small>{label}</small>
     </span>
   );
 }
 
-/** Kartu per kanal yang juga berfungsi sebagai tab: status berwarna, volume, dan isu terbuka. */
+/** Kartu per kanal yang juga berfungsi sebagai tab: status berwarna, volume, dan isu terbuka.
+ * Setiap kartu punya empat slot angka yang sama (unit terjual "—" abu bila tidak dilaporkan)
+ * dan footer tetap di bawah, sehingga kartu dalam satu baris sejajar. */
 export function ChannelBoard({
   keys,
   channels,
@@ -85,7 +87,6 @@ export function ChannelBoard({
               <span className="channel-card__status">
                 <i aria-hidden />
                 {t("workspace." + status.key)}
-                {channel?.synthetic && <em>{t("sources.origin_synthetic")}</em>}
               </span>
               {hasData ? (
                 <span className="channel-card__stats">
@@ -96,16 +97,23 @@ export function ChannelBoard({
                     value={number(channel!.active_findings ?? 0)}
                     alert={(channel!.active_findings ?? 0) > 0}
                   />
-                  {channel!.units_sold != null && (
+                  {channel!.units_sold != null ? (
                     <Stat label={t("sources.statUnits")} value={number(channel!.units_sold)} />
+                  ) : (
+                    <Stat label={t("sources.statUnits")} value="—" muted title={t("sources.unitsUnknown")} />
                   )}
                 </span>
               ) : (
                 <span className="channel-card__empty muted">{t("sources.noDataYet")}</span>
               )}
               <span className="channel-card__foot">
-                {channel?.samplings?.map((kind) => <SamplingBadge key={kind} kind={kind} />)}
-                <span className="muted">
+                {(channel?.samplings?.length || channel?.synthetic) && (
+                  <span className="channel-card__badges">
+                    {channel?.samplings?.map((kind) => <SamplingBadge key={kind} kind={kind} />)}
+                    {channel?.synthetic && <span className="channel-card__origin">{t("sources.origin_synthetic")}</span>}
+                  </span>
+                )}
+                <span className="muted channel-card__synced">
                   {synced && !Number.isNaN(synced.getTime())
                     ? t("sources.lastSync", { time: synced.toLocaleString(language === "id" ? "id-ID" : "en-GB") })
                     : t("sources.neverSynced")}

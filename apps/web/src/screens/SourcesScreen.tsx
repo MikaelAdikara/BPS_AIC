@@ -161,7 +161,7 @@ export function SourcesScreen() {
           {t("sources.choose")}
         </Button>
       </header>
-      <div className="stack">
+      <div className="stack sources-page">
         {editing && (
           <Card title={t("sources.picker")}>
             <fieldset className="source-grid">
@@ -255,7 +255,7 @@ export function SourcesScreen() {
                 {tab === "woocommerce" ? (
                   <Card title={t("sources.woo")} lead={t("sources.readonly")}>
                     <form
-                      className="stack"
+                      className="stack sources-form"
                       onSubmit={(event) => void connect(event)}
                     >
                       <div className="field">
@@ -339,7 +339,7 @@ export function SourcesScreen() {
                 ) : (
                   <Card title={options[tab as keyof typeof options] ?? tab}>
                     <form
-                      className="stack"
+                      className="stack sources-form"
                       onSubmit={(event) => void importReviews(event)}
                     >
                       <Field

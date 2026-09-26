@@ -1,0 +1,182 @@
+/* Kontrol rentang tanggal Overview: preset + tombol kalender yang selalu menulis tanggalnya,
+ * popover react-day-picker memakai token (terang/gelap) dan target sentuh 44px. */
+.date-range {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}
+.date-range__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 160ms var(--ease-out),
+    background 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+.date-range__trigger > svg:first-child {
+  color: var(--blue);
+}
+.date-range__trigger:hover {
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line-strong));
+  background: var(--blue-tint);
+}
+.date-range__trigger[data-custom],
+.date-range__trigger[aria-expanded="true"] {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 14%, transparent);
+}
+.date-range__chev {
+  color: var(--muted);
+  transition: transform 160ms var(--ease-out);
+}
+.date-range__trigger[aria-expanded="true"] .date-range__chev {
+  transform: rotate(180deg);
+}
+.date-range__pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: calc(var(--z-sticky) + 5);
+  display: grid;
+  gap: 8px;
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gutter));
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-float);
+  transform-origin: top right;
+  animation: date-pop 160ms var(--ease-out);
+}
+@keyframes date-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+.date-range__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.date-range__foot p {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.date-range__actions {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Token react-day-picker dipetakan ke token aplikasi; selector berlapis agar menang atas
+ * style.css bawaan yang dimuat lewat JS. */
+.date-range__pop .rdp-root {
+  --rdp-accent-color: var(--blue);
+  --rdp-accent-background-color: var(--blue-tint);
+  --rdp-day-height: 44px;
+  --rdp-day-width: 44px;
+  --rdp-day_button-height: 42px;
+  --rdp-day_button-width: 42px;
+  --rdp-day_button-border-radius: 12px;
+  --rdp-selected-border: 2px solid var(--blue);
+  --rdp-today-color: var(--blue-dark);
+  --rdp-months-gap: 24px;
+  --rdp-nav-height: 44px;
+  --rdp-nav_button-height: 40px;
+  --rdp-nav_button-width: 40px;
+  --rdp-range_middle-background-color: var(--blue-tint);
+  --rdp-range_middle-color: var(--ink);
+  --rdp-range_start-color: #fff;
+  --rdp-range_end-color: #fff;
+  --rdp-outside-opacity: 0.45;
+  --rdp-disabled-opacity: 0.35;
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.date-range__pop .rdp-caption_label {
+  font-size: 14px;
+  font-weight: 600;
+  padding-inline: 6px;
+}
+.date-range__pop .rdp-weekday {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  opacity: 1;
+}
+.date-range__pop .rdp-chevron {
+  fill: var(--ink-soft);
+}
+.date-range__pop .rdp-button_previous,
+.date-range__pop .rdp-button_next {
+  border-radius: 10px;
+}
+.date-range__pop .rdp-button_previous:hover:not(:disabled),
+.date-range__pop .rdp-button_next:hover:not(:disabled),
+.date-range__pop .rdp-day:not(.rdp-disabled):not(.rdp-selected) .rdp-day_button:hover {
+  background: var(--gray-surface);
+}
+.date-range__pop .rdp-day_button {
+  transition: background 160ms var(--ease-out);
+}
+.date-range__pop .rdp-today:not(.rdp-selected) .rdp-day_button {
+  font-weight: 700;
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--blue) 60%, transparent);
+}
+.date-range__pop .rdp-selected .rdp-day_button {
+  font-weight: 600;
+}
+.date-range__pop .rdp-day_button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+@media (max-width: 640px) {
+  .date-range__pop {
+    left: 0;
+    right: auto;
+    transform-origin: top left;
+  }
+}
+@media (max-width: 380px) {
+  .date-range__pop {
+    padding: 8px;
+  }
+  .date-range__pop .rdp-root {
+    --rdp-day-height: 42px;
+    --rdp-day-width: 42px;
+    --rdp-day_button-height: 40px;
+    --rdp-day_button-width: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .date-range__pop {
+    animation: none;
+  }
+  .date-range__chev {
+    transition: none;
+  }
+}

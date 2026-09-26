@@ -18,10 +18,13 @@ export function RatingMix({
   allTime,
   window,
   channel,
+  windowLabel,
 }: {
   allTime: Record<string, number[]>;
   window: Record<string, number[]>;
   channel: string;
+  /** Label tanggal rentang aktif; tanpa ini tombol memakai "Rentang ini". */
+  windowLabel?: string;
 }) {
   const { t, language } = useI18n();
   const [scope, setScope] = useState<"all" | "window">("all");
@@ -48,7 +51,7 @@ export function RatingMix({
             {t("insights.ratingAll")}
           </button>
           <button type="button" aria-pressed={scope === "window"} onClick={() => setScope("window")}>
-            {t("insights.ratingWindow")}
+            {windowLabel ?? t("insights.ratingWindow")}
           </button>
         </div>
       </header>

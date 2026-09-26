@@ -78,22 +78,35 @@ const kindTones: Record<string, Tone> = {
   job_failed: "alert",
   digest: "muted",
 };
+/** Ringkasan satu-dua baris: tanpa awalan demo (sudah ada chip sintetis) dan tanpa baris tautan. */
+function summarize(message: string) {
+  return message
+    .replace(/^\[DEMO[^\]]*\]\s*/, "")
+    .split("\n")
+    .filter((line) => line.trim() && !line.includes("://"))
+    .join(" ");
+}
+const failures = new Set(["permanent_failure"]);
+/** Linimasa alert: tiap event satu kartu yang menempel ke garis, ikon tepat di atas garis. */
 export function AlertRows({ events }: { events: AlertEvent[] }) {
   const { t, language } = useI18n();
   return (
-    <ol className="timeline">
+    <ol className="alert-tl">
       {events.map((event, index) => {
         const Icon = kindIcons[event.kind] ?? Bell;
+        const tone = kindTones[event.kind] ?? "muted";
+        const created = new Date(event.created_at);
         const newDay =
           index === 0 ||
-          new Date(events[index - 1].created_at).toDateString() !==
-            new Date(event.created_at).toDateString();
+          new Date(events[index - 1].created_at).toDateString() !== created.toDateString();
+        const summary = summarize(event.message);
+        const showAttempts = event.attempts > 1 || failures.has(event.status);
         return (
-          <li key={event.id} className="timeline__item">
+          <li key={event.id} className="alert-tl__item">
             {newDay && (
-              <h3 className="timeline__date">
+              <h3 className="alert-tl__date">
                 <time dateTime={event.created_at}>
-                  {new Date(event.created_at).toLocaleDateString(language, {
+                  {created.toLocaleDateString(language, {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
@@ -101,52 +114,44 @@ export function AlertRows({ events }: { events: AlertEvent[] }) {
                 </time>
               </h3>
             )}
-            <div className="timeline__row">
-              <span className={"timeline__icon tone-" + (kindTones[event.kind] ?? "muted")} aria-hidden>
+            <article className="alert-tl__event">
+              <span className={"alert-tl__icon tone-" + tone} aria-hidden>
                 <Icon size={16} />
               </span>
-              <div className="timeline__body">
-                <div className="timeline__head">
-                  <strong>
-                    {event.payload.product ?? event.payload.attribute_local ?? ""}
-                  </strong>
-                  <time className="muted count" dateTime={event.created_at}>
-                    {new Date(event.created_at).toLocaleTimeString(language, {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+              <div className="alert-tl__card">
+                <div className="alert-tl__head">
+                  <div className="alert-tl__chips">
+                    <Chip tone={tone}>
+                      {t("alerts." + (kinds.includes(event.kind) ? event.kind : "unknown"))}
+                    </Chip>
+                    <Chip tone={statuses[event.status] ?? "muted"}>
+                      <i className="status-dot" aria-hidden />
+                      {t("alerts." + (event.status in statuses ? event.status : "unknown"))}
+                    </Chip>
+                    {event.synthetic && <Chip synthetic />}
+                  </div>
+                  <time
+                    className="alert-tl__time count"
+                    dateTime={event.created_at}
+                    title={created.toLocaleString(language)}
+                  >
+                    {created.toLocaleTimeString(language, { hour: "2-digit", minute: "2-digit" })}
                   </time>
                 </div>
-                <div className="finding-picker">
-                  <Chip tone={kindTones[event.kind] ?? "muted"}>
-                    {t(
-                      "alerts." +
-                        (kinds.includes(event.kind) ? event.kind : "unknown"),
-                    )}
-                  </Chip>
-                  <Chip tone={statuses[event.status] ?? "muted"}>
-                    <i className="status-dot" aria-hidden />
-                    {t(
-                      "alerts." +
-                        (event.status in statuses ? event.status : "unknown"),
-                    )}
-                  </Chip>
-                  {event.synthetic && <Chip synthetic />}
-                </div>
-                <p className="muted timeline__meta">
-                  <time dateTime={event.created_at}>
-                    {new Date(event.created_at).toLocaleString(language)}
-                  </time>{" "}
-                  · {t("alerts.attempts", { count: event.attempts })}
-                </p>
-                <div className="timeline__actions">
-                  <details>
+                <p className="alert-tl__summary">{summary || event.message}</p>
+                {showAttempts && (
+                  <p className={"alert-tl__attempts" + (failures.has(event.status) ? " is-failed" : "")}>
+                    {t("alerts.attempts", { count: event.attempts })}
+                  </p>
+                )}
+                <div className="alert-tl__foot">
+                  <details className="alert-tl__more">
                     <summary>{t("alerts.message")}</summary>
-                    <p className="draft-text">{event.message}</p>
+                    <p className="alert-tl__full">{event.message}</p>
                   </details>
                   {event.finding_id && (
                     <a
-                      className="card-link"
+                      className="card-link alert-tl__open"
                       href={"#/app/issues?f=" + encodeURIComponent(event.finding_id)}
                     >
                       {t("alerts.open")}
@@ -155,7 +160,7 @@ export function AlertRows({ events }: { events: AlertEvent[] }) {
                   )}
                 </div>
               </div>
-            </div>
+            </article>
           </li>
         );
       })}

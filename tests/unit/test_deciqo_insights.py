@@ -107,3 +107,74 @@ def test_channels_report_units_sold_and_sampling(tmp_path):
     assert rows["tokopedia"]["units_sold"] == 150 and rows["tokopedia"]["samplings"] == ["skewed","unknown"]
     assert rows["lazada"]["units_sold"] is None and rows["lazada"]["samplings"] == ["skewed"]
     conn.close()
+
+
+def test_resolve_range_parses_validates_and_clamps():
+    import pytest
+    from datetime import date
+    from app.deciqo.errors import DeciqoError
+    today = date(2026, 9, 26)
+    assert insights.resolve_range(None, 1, start="2026-08-28", end="2026-09-26", today=today) == (date(2026, 8, 28), today, False)
+    # Akhir di masa depan dipotong ke hari ini; start kosong memakai `days`.
+    assert insights.resolve_range(None, 1, days="7", end="2026-12-01", today=today) == (date(2026, 9, 20), today, False)
+    assert insights.resolve_range(None, 1, start="2026-09-26", end="2026-09-26", today=today)[:2] == (today, today)
+    for bad in [dict(start="2026-09-10", end="2026-09-01"), dict(start="26/09/2026"), dict(start="2020-01-01", end="2026-09-26")]:
+        with pytest.raises(DeciqoError) as error:
+            insights.resolve_range(None, 1, today=today, **bad)
+        assert error.value.code == "invalid_range"
+
+
+def _seed_patterns(conn):
+    conn.execute("INSERT INTO users(id,email,password_hash,created_at) VALUES (1,'a@x.test','hash','')")
+    for pid, time in [("p1", "2026-09-20T01:00:00Z"), ("p2", "2026-06-01T01:00:00Z")]:
+        conn.execute("INSERT INTO products(id,user_id,channel,source_item_id,title) VALUES (?,1,'manual',?,?)", (pid, pid, pid))
+        for rid in ("r1", "r2"):
+            conn.execute("INSERT INTO reviews(product_id,id,rating,text,version_hash,review_time) VALUES (?,?,2,'bukti','h',?)", (pid, rid, time))
+        blob = pipeline.write_evidence([{"review_id": "r1", "quote": "bukti"}, {"review_id": "r2", "quote": "bukti"}], [], 0,
+                                       {"support": 2, "denominator": 2, "candidates_read": 2, "share": 1})
+        conn.execute("INSERT INTO findings(id,product_id,attribute,attribute_local,attribute_key,finding_type,evidence_json,support,denominator,candidates_read) "
+                     "VALUES (?,?,'packaging','kemasan','packaging','operational',?,2,2,2)", (pid + "f", pid, blob))
+
+
+def test_overview_range_payload_previous_period_and_pattern_counts(tmp_path):
+    from datetime import date
+    path = tmp_path / "range.sqlite3"
+    store.migrate(path)
+    conn = store.connect(path)
+    _seed_patterns(conn)
+    data = insights.overview_data(conn, 1, start=date(2026, 9, 1), end=date(2026, 9, 26))
+    assert data["range"] == {"start": "2026-09-01", "end": "2026-09-26", "days": 26, "all": False}
+    assert len(data["series"]) == 26 and data["total"] == 2
+    # Hanya p1 punya bukti di rentang ini: pola lintas produk kosong di rentang, jadi kartu jatuh ke
+    # semua ulasan tersimpan dan menyebutnya lewat patterns_scope.
+    assert data["patterns_scope"] == "all" and len(data["one_fix_candidates"]) == 1
+    wide = insights.overview_data(conn, 1, start=date(2026, 5, 1), end=date(2026, 9, 26))
+    assert wide["previous"] == 0 and wide["total"] == 4
+    [group] = wide["one_fix_candidates"]
+    assert (group["label"], group["attribute"], group["products"], group["reviews"]) == ("kemasan", "packaging", 2, 4)
+    # Periode pembanding = panjang sama tepat sebelum start.
+    later = insights.overview_data(conn, 1, start=date(2026, 7, 28), end=date(2026, 9, 26))
+    assert later["total"] == 2 and later["previous"] == 2
+    first, last, everything = insights.resolve_range(conn, 1, all_time=True, today=date(2026, 9, 26))
+    assert (first, last, everything) == (date(2026, 6, 1), date(2026, 9, 26), True)
+    everything_data = insights.overview_data(conn, 1, start=first, end=last, all_time=True)
+    assert everything_data["range"]["all"] is True and everything_data["patterns_scope"] == "all"
+    assert len(everything_data["one_fix_candidates"]) == 1
+    conn.close()
+
+
+def test_overview_route_accepts_start_end_and_all(monkeypatch):
+    app = FastAPI()
+    app.include_router(insights.router)
+    app.dependency_overrides[insights.current_user] = lambda: {"id": 1}
+    monkeypatch.setattr(insights.store, "database", lambda: nullcontext(None))
+    seen = []
+    monkeypatch.setattr(insights, "overview_data", lambda conn, uid, days=30, **kw: seen.append((days, kw)) or {"ok": True})
+    with TestClient(app) as client:
+        assert client.get("/api/v1/deciqo/overview?start=2026-09-01&end=2026-09-10").status_code == 200
+        assert seen[-1][1]["start"].isoformat() == "2026-09-01" and seen[-1][1]["all_time"] is False
+        assert client.get("/api/v1/deciqo/overview?all=true").status_code == 200
+        assert seen[-1][1]["all_time"] is True
+        response = client.get("/api/v1/deciqo/overview?start=2026-09-10&end=2026-09-01")
+        assert response.status_code == 422 and response.json()["detail"]["code"] == "invalid_range"
+        assert client.get("/api/v1/deciqo/overview").status_code == 200 and seen[-1][0] == 30

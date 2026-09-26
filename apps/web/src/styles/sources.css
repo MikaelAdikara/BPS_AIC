@@ -1,6 +1,6 @@
 .source-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
   gap: 10px;
   border: 0;
   padding: 0;
@@ -79,14 +79,18 @@
 }
 .channel-board__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  grid-auto-rows: 1fr;
   gap: 12px;
 }
+/* Kolom flex: footer didorong ke bawah sehingga kartu setinggi baris tetap rata. */
 .channel-card {
   position: relative;
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+  min-width: 0;
+  height: 100%;
   padding: 14px 16px 12px;
   border-radius: var(--radius-card);
   border: 1px solid var(--line);
@@ -119,7 +123,11 @@
 }
 .channel-card__top strong {
   flex: 1;
+  min-width: 0;
   font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .channel-card__mark {
   width: 10px;
@@ -129,6 +137,8 @@
   flex: none;
 }
 .channel-card__mode {
+  flex: none;
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -154,23 +164,20 @@
   background: var(--tone);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone) 18%, transparent);
 }
-.channel-card__status em {
-  font-style: normal;
-  font-size: 11px;
-  color: var(--muted);
-  padding-left: 6px;
-  border-left: 1px solid var(--line);
-}
+/* Empat slot tetap: angka satu garis dasar, label selalu di bawah angka. */
 .channel-card__stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(58px, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
   padding: 10px 0;
   border-block: 1px solid var(--line);
 }
 .channel-card__stat {
   display: grid;
-  gap: 1px;
+  grid-template-rows: auto auto;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
 }
 .channel-card__stat strong {
   font-size: 17px;
@@ -180,20 +187,46 @@
   font-size: 11px;
   color: var(--muted);
 }
+.channel-card__stat small {
+  line-height: 1.3;
+}
 .channel-card__stat.is-alert strong {
   color: var(--red-ink);
 }
+.channel-card__stat.is-muted strong {
+  color: var(--muted);
+}
 .channel-card__empty {
+  display: flex;
+  align-items: center;
+  min-height: 62px;
   font-size: 12.5px;
   padding: 10px 0;
   border-block: 1px dashed var(--line);
 }
 .channel-card__foot {
+  display: grid;
+  gap: 6px;
+  margin-top: auto;
+  font-size: 11.5px;
+}
+.channel-card__badges {
   display: flex;
   flex-wrap: wrap;
+  gap: 6px;
+}
+.channel-card__origin {
+  display: inline-flex;
   align-items: center;
-  gap: 6px 8px;
-  font-size: 11.5px;
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px dashed var(--gray-line);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.channel-card__synced {
+  overflow-wrap: anywhere;
 }
 .sampling-badge {
   display: inline-flex;
@@ -231,7 +264,7 @@
 /* --- paket contoh ---------------------------------------------------------------------- */
 .pack-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 12px;
 }
 .pack-card {
@@ -278,4 +311,37 @@
 .pack-card__foot {
   display: flex;
   justify-content: flex-end;
+}
+
+/* --- lebar konten halaman sumber ------------------------------------------------------- */
+/* Kartu memenuhi lebar yang sama; formulir di dalamnya dibatasi agar baris input tidak
+ * melebar ke seluruh layar lebar. */
+.sources-page {
+  min-width: 0;
+}
+.sources-page > .card {
+  width: 100%;
+}
+.sources-page .card__body > form,
+.sources-page .card__body > .stack {
+  max-width: 720px;
+}
+.sources-page .field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+.sources-page .field input[type="file"] {
+  padding: 8px 10px;
+  max-width: 100%;
+}
+@media (max-width: 520px) {
+  .channel-card {
+    padding: 12px 14px 10px;
+  }
+  .channel-card__stats {
+    gap: 6px;
+  }
+  .channel-card__stat strong {
+    font-size: 16px;
+  }
 }

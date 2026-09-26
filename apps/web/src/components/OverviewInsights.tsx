@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Bell,
@@ -39,6 +39,14 @@ import { CountUp } from "./visual/motion";
 import { IssueMap, ChannelDot } from "./insight/IssueMap";
 import { ChannelTrend } from "./insight/ChannelTrend";
 import { RatingMix } from "./insight/RatingMix";
+import {
+  DateRangeControl,
+  activeRange,
+  formatRange,
+  rangeQuery,
+  type RangeValue,
+  type ResolvedRange,
+} from "./DateRangeControl";
 import { channelLabel, sortChannels, type Landscape } from "@/lib/insight-model";
 interface Plan extends Issue {
   share: number;
@@ -60,8 +68,18 @@ interface Decision {
   score: number;
   drivers: Plan["drivers"];
 }
+type CandidateItem = Issue & { image_url?: string | null };
+interface CandidateGroup {
+  label: string;
+  attribute?: string;
+  products?: number;
+  reviews?: number;
+  items: CandidateItem[];
+}
 interface Insights extends Landscape {
   days: number;
+  range?: ResolvedRange;
+  patterns_scope?: "range" | "all";
   series: { date: string; count: number }[];
   total: number;
   previous: number;
@@ -73,8 +91,61 @@ interface Insights extends Landscape {
   plan: Plan[];
   ranking_channels: { key: string; count: number }[];
   ranking_types: { key: string; count: number }[];
-  one_fix_candidates: { label: string; items: Issue[] }[];
-  same_product_candidates: { label: string; items: Issue[] }[];
+  one_fix_candidates: CandidateGroup[];
+  same_product_candidates: CandidateGroup[];
+}
+/** Angka di dalam kalimat terjemahan dirender mono (angka = hasil hitungan). */
+function monoNumbers(text: string): ReactNode {
+  return text.split(/(\d[\d.,]*)/).map((part, index) =>
+    index % 2 ? <span key={index} className="count">{part}</span> : <Fragment key={index}>{part}</Fragment>,
+  );
+}
+/** Satu pola: atribut, jumlah produk dan ulasan, lalu daftar produk yang dilipat. */
+function CandidateRow({ group, same }: { group: CandidateGroup; same: boolean }) {
+  const { t, language } = useI18n();
+  const products = group.products ?? new Set(group.items.map((item) => item.product_id)).size;
+  const reviews = group.reviews ?? group.items.reduce((sum, item) => sum + (item.support ?? 0), 0);
+  const number = (value: number) => new Intl.NumberFormat(language).format(value);
+  const title = same || language === "id" ? group.label : group.attribute ?? group.label;
+  return (
+    <li className="pattern-row">
+      <div className="pattern-row__head">
+        <strong className="pattern-row__title">{title}</strong>
+        <span className="pattern-row__counts">
+          {monoNumbers(t(same ? "overview.sameCounts" : "overview.patternCounts", {
+            products: number(products),
+            reviews: number(reviews),
+          }))}
+        </span>
+      </div>
+      <details className="pattern-row__list">
+        <summary>{t(same ? "overview.sameShow" : "overview.patternShow", { count: group.items.length })}</summary>
+        <ul>
+          {group.items.map((item) => (
+            <li key={item.id}>
+              <a className="pattern-item" href={issueLink(item)}>
+                <span className="pattern-item__thumb" aria-hidden>
+                  {item.image_url ? <img src={item.image_url} alt="" loading="lazy" /> : <Package size={16} />}
+                </span>
+                <span className="pattern-item__text">
+                  <span className="pattern-item__title" title={item.product_title}>{item.product_title}</span>
+                  <span className="pattern-item__meta">
+                    <ChannelDot channel={item.channel} />
+                    {channelLabel(item.channel)}
+                    {same && <> · {language === "id" ? item.attribute_local : item.attribute}</>}
+                  </span>
+                </span>
+                <span className="pattern-item__n">
+                  {monoNumbers(t("overview.itemReviews", { count: number(item.support ?? 0) }))}
+                </span>
+                <ArrowRight size={14} aria-hidden className="pattern-item__go" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </li>
+  );
 }
 const typeKeys: Record<string, string> = {
   missing_fact: "typeMissingFact",
@@ -184,7 +255,7 @@ function EvidenceChart({ data }: { data: Insights }) {
 export function OverviewInsights() {
   const { summary } = useWorkspace();
   const { t, language, localizeError } = useI18n();
-  const [days, setDays] = useState(30);
+  const [range, setRange] = useState<RangeValue>({ preset: 30 });
   const [data, setData] = useState<Insights | null>(null);
   const [alerts, setAlerts] = useState<AlertEvent[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -197,7 +268,7 @@ export function OverviewInsights() {
     setLoading(true);
     setError(null);
     Promise.allSettled([
-      request("/deciqo/overview?days=" + days, { signal: controller.signal }),
+      request("/deciqo/overview?" + rangeQuery(range), { signal: controller.signal }),
       request("/deciqo/alerts?lang=" + language, { signal: controller.signal }),
       request("/deciqo/decisions", { signal: controller.signal }),
     ]).then(([insights, events, decisions]) => {
@@ -224,7 +295,10 @@ export function OverviewInsights() {
       setLoading(false);
     });
     return () => controller.abort();
-  }, [days, summary, language, revision]);
+  }, [range, summary, language, revision]);
+  const months = t("overview.monthsShort").split(",");
+  const shown = activeRange(range, data?.range);
+  const rangeLabel = shown ? formatRange(shown.start, shown.end, months) : undefined;
   const percent = (value: number) =>
     new Intl.NumberFormat(language, {
       style: "percent",
@@ -240,18 +314,7 @@ export function OverviewInsights() {
           <h2>{t("overview.insights")}</h2>
           <p className="muted">{t("overview.insightsLead")}</p>
         </div>
-        <div className="segmented" role="group" aria-label={t("overview.days")}>
-          {[7, 30, 90].map((value) => (
-            <button
-              key={value}
-              type="button"
-              aria-pressed={days === value}
-              onClick={() => setDays(value)}
-            >
-              {t("overview.dayOption", { count: value })}
-            </button>
-          ))}
-        </div>
+        <DateRangeControl value={range} onChange={setRange} resolved={data?.range} />
       </div>
       {loading && !data ? (
         <LoadingState />
@@ -292,8 +355,14 @@ export function OverviewInsights() {
                 evidence={data.evidence_by_channel}
                 channels={data.channels}
                 channel={channel}
+                rangeLabel={rangeLabel}
               />
-              <RatingMix allTime={data.ratings_by_channel} window={data.ratings_window_by_channel} channel={channel} />
+              <RatingMix
+                allTime={data.ratings_by_channel}
+                window={data.ratings_window_by_channel}
+                channel={channel}
+                windowLabel={rangeLabel}
+              />
             </div>
             <div className="insights-grid">
               <Card title={t("overview.evidence")} icon={<ChartSpline size={18} aria-hidden />}>
@@ -448,37 +517,35 @@ export function OverviewInsights() {
                 />
               </Card>
             </div>
-            {(["one_fix_candidates", "same_product_candidates"] as const).map(
-              (key) =>
+            {(["one_fix_candidates", "same_product_candidates"] as const).map((key) => {
+              const same = key === "same_product_candidates";
+              return (
                 data[key].length > 0 && (
                   <Card
                     key={key}
+                    className="pattern-card"
                     icon={<Layers size={18} aria-hidden />}
-                    title={t(
-                      "overview." +
-                        (key === "one_fix_candidates" ? "candidates" : "same"),
-                    )}
-                    lead={t("overview.candidateHint")}
+                    title={t(same ? "overview.same" : "overview.candidates")}
+                    lead={t(same ? "overview.sameLead" : "overview.candidatesLead")}
                   >
-                    <ul className="candidate-list">
+                    {!same && (
+                      <p className="muted pattern-card__scope">
+                        <CalendarDays size={14} aria-hidden />
+                        {data.patterns_scope === "range" && rangeLabel
+                          ? t("overview.patternScopeRange", { range: rangeLabel })
+                          : t("overview.patternScopeAll")}
+                      </p>
+                    )}
+                    <ul className="pattern-list">
                       {data[key].map((group) => (
-                        <li key={group.label}>
-                          <strong>{group.label}</strong>
-                          <ul>
-                            {group.items.map((item) => (
-                              <li key={item.id}>
-                                <a href={issueLink(item)}>
-                                  {item.product_title} · {item.channel}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
+                        <CandidateRow key={group.label + group.items[0]?.id} group={group} same={same} />
                       ))}
                     </ul>
+                    <p className="muted pattern-card__note">{t("overview.candidateHint")}</p>
                   </Card>
-                ),
-            )}
+                )
+              );
+            })}
           </div>
         )
       )}
