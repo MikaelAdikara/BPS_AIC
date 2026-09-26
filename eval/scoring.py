@@ -378,7 +378,7 @@ def write_all(cases: list[dict], rows: dict, out_dir: Path) -> None:
     labels, key = render_blind(cases, rows)
     if labels:
         with (out_dir / "labels.csv").open("w", encoding="utf-8", newline="") as fh:
-            w = csv.DictWriter(fh, fieldnames=list(labels[0].keys()))
+            w = csv.DictWriter(fh, fieldnames=list(labels[0].keys()), lineterminator="\n")
             w.writeheader()
             w.writerows(labels)
         (out_dir / "blind_key.json").write_text(json.dumps(key, indent=2), encoding="utf-8")
