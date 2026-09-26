@@ -53,13 +53,26 @@ def render(finding: dict, fact: dict) -> str:
 
 
 def gate(text: str, sources: list[str]) -> tuple[str, list[str], list[str]]:
-    """(status, alasan, kuantitas tanpa sumber) untuk teks yang sudah terisi."""
+    """(status, alasan, hal tanpa sumber) untuk teks yang sudah terisi. Urutan: placeholder →
+    kuantitas tanpa sumber → klaim berisiko tanpa sumber berpolaritas sama → ready."""
     if verify.placeholders(text):
         return "needs_merchant_fact", ["placeholder_left"], []
     bad = verify.unsupported_quantities(text, sources)
     if bad:
         return "blocked", ["unsupported_quantity"], [q.text for q in bad]
+    claims = verify.unsupported_claims(text, sources)
+    if claims:
+        return "blocked", ["unsupported_claim"], [("not " if not c.positive else "") + c.text for c in claims]
     return "ready", [], []
+
+
+def sources_for(fact: dict, listing: str, listing_check: dict | None) -> list[str]:
+    """Sumber draf: fakta merchant, ditambah listing KECUALI listing sedang dibantah pembeli. Listing
+    yang menyatakan 20000 mAh dan dibantah tidak boleh membenarkan angka itu lagi."""
+    out = [fact.get("raw_value", ""), f"{fact['value']} {fact['unit']}".strip()]
+    if (listing_check or {}).get("status") != "conflicting":
+        out.append(listing)
+    return out
 
 
 def section(finding: dict, fact: dict | None, listing: str, listing_provided: bool,
@@ -87,7 +100,7 @@ def section(finding: dict, fact: dict | None, listing: str, listing_provided: bo
     text = render(finding, fact) if fact else ""
     if not text:
         return {**base, "status": "needs_review", "reasons": ["nothing_rendered"]}
-    status, reasons, unsupported = gate(text, [fact.get("raw_value", ""), f"{fact['value']} {fact['unit']}", listing])
+    status, reasons, unsupported = gate(text, sources_for(fact, listing, check))
     return {**base, "status": status, "text": text if status != "blocked" else "", "rendered_from": "merchant_fact",
             "reasons": reasons, "unsupported": unsupported,
             "sources": [{"kind": "merchant_fact", "confirmed_at": fact.get("confirmed_at")}]}

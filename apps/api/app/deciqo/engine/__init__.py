@@ -5,4 +5,4 @@ ditampilkan di `/api/v1/version`.
 """
 
 PIPELINE_VERSION = "gap-v1.7"
-VERIFIER_VERSION = "verify-v1.3"
+VERIFIER_VERSION = "verify-v2"

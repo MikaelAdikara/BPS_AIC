@@ -67,3 +67,22 @@ def test_produk_kecil_semua_ulasan_dikirim_ke_discovery():
     picked, trace = triage.candidates(reviews)
     assert {r["id"] for r in picked} == {"0", "1", "2"}
     assert trace["kept"] == 3
+
+
+def test_gerbang_menolak_klaim_berisiko_tanpa_sumber():
+    status, reasons, unsupported = draft.gate("Bahan kulit asli, garansi 1 tahun.", ["Tas bahan kanvas", "garansi 1 tahun"])
+    assert status == "blocked" and "unsupported_claim" in reasons
+    assert any("kulit asli" in u for u in unsupported)
+
+
+def test_gerbang_menerima_klaim_bersumber_dengan_polaritas_sama():
+    assert draft.gate("Tidak untuk berenang.", ["Tahan cipratan, tidak untuk berenang."])[0] == "ready"
+
+
+def test_listing_yang_dibantah_tidak_menjadi_sumber_angka():
+    check = {"status": "conflicting", "quote": "Kapasitas 20000 mAh"}
+    fact = _fact("kapasitas terukur 9800 mAh", "9800", "mah")
+    sec = draft.section(_finding("conflicting_fact", "kapasitas baterai", "battery capacity"), fact,
+                        "Powerbank. Kapasitas 20000 mAh.", True, listing_check=check)
+    assert sec["status"] == "ready" and "20000" not in sec["text"]
+    assert draft.sources_for(fact, "Powerbank. Kapasitas 20000 mAh.", check) == ["kapasitas terukur 9800 mAh", "9800 mah"]
