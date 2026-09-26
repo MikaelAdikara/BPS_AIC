@@ -4,5 +4,5 @@ Versi dinaikkan setiap perilaku berubah; keduanya tercatat di setiap analisis da
 ditampilkan di `/api/v1/version`.
 """
 
-PIPELINE_VERSION = "gap-v1.8"
+PIPELINE_VERSION = "gap-v1.9"
 VERIFIER_VERSION = "verify-v2.2"

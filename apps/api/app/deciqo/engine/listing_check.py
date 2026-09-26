@@ -31,25 +31,33 @@ def related_text(finding: dict, listing: str, limit: int = 3) -> list[str]:
 
 
 def check(finding: dict, listing: str, provided: bool) -> dict:
-    total = len(listing or "")
-    checked_text = (listing or "")[:LISTING_LIMIT]
-    coverage = {"chars_checked": len(checked_text), "chars_total": total, "images_read": 0, "images_total": 0}
+    """Status pemeriksaan listing untuk satu temuan.
+
+    Model hanya membaca `LISTING_LIMIT` karakter pertama (keputusan sistem, tercatat di cakupan),
+    tetapi pemeriksaan ini kode dan membaca listing utuh. Teks terkait yang hanya ada di luar
+    jendela model berarti temuannya disusun tanpa melihat bagian itu: `incomplete_source`."""
+    listing = listing or ""
+    total = len(listing)
+    coverage = {"chars_checked": total, "chars_total": total, "model_chars": min(total, LISTING_LIMIT),
+                "images_read": 0, "images_total": 0}
     if finding.get("finding_type") not in LISTING_FIXABLE:
         return {"status": NOT_APPLICABLE, "quote": "", "related": [], "coverage": coverage}
     if not provided:
         return {"status": NOT_PROVIDED, "quote": "", "related": [], "coverage": coverage}
     proposed = (finding.get("listing_evidence") or "").strip()
-    related = related_text(finding, checked_text)
+    related = related_text(finding, listing)
+    in_window = related_text(finding, listing[:LISTING_LIMIT])
     if proposed:
-        if verify.quote_in(proposed, checked_text):
+        if verify.quote_in(proposed, listing):
             status = CONFLICTING if finding.get("finding_type") == "conflicting_fact" else EVIDENCE_FOUND
             return {"status": status, "quote": proposed, "related": related, "coverage": coverage}
         return {"status": VERIFICATION_FAILED, "quote": "", "related": related, "coverage": coverage,
                 "reason": "listing_quote_not_verbatim"}
+    if related and not in_window:
+        return {"status": INCOMPLETE_SOURCE, "quote": "", "related": related, "coverage": coverage,
+                "reason": "related_text_beyond_model_window"}
     if related:
         # Listing memuat kata terkait yang tidak dikutip: jangan klaim listing diam soal ini.
         return {"status": VERIFICATION_FAILED, "quote": "", "related": related, "coverage": coverage,
                 "reason": "related_text_not_quoted"}
-    if total > LISTING_LIMIT:
-        return {"status": INCOMPLETE_SOURCE, "quote": "", "related": [], "coverage": coverage}
     return {"status": NOT_FOUND, "quote": "", "related": [], "coverage": coverage}

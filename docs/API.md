@@ -74,7 +74,9 @@ rejected[], uncertain, not_detected_at`.
 - `rejected[]`: `{review_id, reason}`. Alasan: `quote_not_verbatim`, `quote_too_short`, `unknown_review_id`,
   `complaint_not_about_this_attribute`, `not_about_this_attribute`, `wrong_item_routes_to_operations`,
   `also_reports_wrong_variant`, `labelled_both_ways`, `complaint_without_attribute`.
-- `listing_check`: `{status, quote, related[], coverage {chars_checked, chars_total, images_read, images_total}, reason?}`.
+- `listing_check`: `{status, quote, related[], coverage {chars_checked, chars_total, model_chars, images_read, images_total}, reason?}`.
+  Kode memeriksa listing utuh; `model_chars` adalah bagian yang dibaca model. Teks terkait yang hanya ada di luar
+  bagian itu memberi status `incomplete_source` (`reason: related_text_beyond_model_window`).
   `status` ∈ `not_provided`, `pending`, `evidence_found`, `not_found_in_checked_content`,
   `verification_failed`, `incomplete_source`, `conflicting`, `not_applicable` (temuan operasional/kualitas).
 - `follow_up` (hanya `acted`/`reopened`): `{state: insufficient_data|no_recurrence_observed|recurrence,
