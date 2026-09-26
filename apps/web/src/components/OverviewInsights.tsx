@@ -1,6 +1,27 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Bell,
+  CalendarDays,
+  ChartSpline,
+  Clock,
+  EyeOff,
+  Layers,
+  ListOrdered,
+  MessageSquareWarning,
+  Package,
+  Percent,
+  Plug,
+  Sparkles,
+  Star,
+  Tag,
+  TrendingDown,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { request, ApiError } from "@/api/http.js";
 import { useWorkspace, type Issue } from "@/api/workspace";
+import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n";
 import { issueLink } from "@/lib/workspace-model.js";
 import { AlertRows, type AlertEvent } from "@/screens/AlertsScreen";
@@ -10,10 +31,11 @@ import {
   Chip,
   EmptyState,
   LoadingState,
-  Metric,
   Notice,
   Table,
 } from "./ui";
+import { AreaChart, BarList, Meter } from "./visual/charts";
+import { CountUp } from "./visual/motion";
 interface Plan extends Issue {
   share: number;
   confidence_low: number;
@@ -58,101 +80,77 @@ const typeKeys: Record<string, string> = {
   product_quality: "typeQuality",
   operational: "typeOperations",
 };
-function Ranking({
-  rows,
-  types = false,
-}: {
-  rows: { key: string; count: number }[];
-  types?: boolean;
-}) {
-  const { t } = useI18n();
-  const max = Math.max(1, ...rows.map((row) => row.count));
-  return (
-    <ul className="ranking-list">
-      {rows.map((row) => (
-        <li key={row.key}>
-          <div>
-            <span>
-              {types
-                ? t("workspace." + (typeKeys[row.key] ?? "typeOperations"))
-                : row.key}
-            </span>
-            <strong className="count">{row.count}</strong>
-          </div>
-          <svg viewBox="0 0 100 6" aria-hidden="true">
-            <rect width="100" height="6" fill="var(--line)" />
-            <rect
-              width={(row.count / max) * 100}
-              height="6"
-              fill="var(--blue)"
-            />
-          </svg>
-        </li>
-      ))}
-    </ul>
-  );
-}
 function EvidenceChart({ data }: { data: Insights }) {
   const { t, language } = useI18n();
-  const id = useId();
-  const max = Math.max(1, ...data.series.map((row) => row.count));
-  const x = (index: number) =>
-    20 + (index / Math.max(1, data.series.length - 1)) * 560;
-  const y = (count: number) => 130 - (count / max) * 110;
-  const line = data.series
-    .map((row, index) => `${x(index)},${y(row.count)}`)
-    .join(" ");
+  const locale = language === "id" ? "id-ID" : "en-GB";
+  const short = (date: string) =>
+    new Date(date + "T00:00:00").toLocaleDateString(locale, {
+      day: "numeric",
+      month: "short",
+    });
+  const direction = data.delta > 0 ? "up" : data.delta < 0 ? "down" : "flat";
+  const Trend = data.delta < 0 ? TrendingDown : TrendingUp;
   return (
     <>
-      <p className="muted">{t("overview.scope")}</p>
+      <p className="muted chart-scope">{t("overview.scope")}</p>
       {data.total === 0 ? (
         <Notice tone="muted">{t("overview.noEvidence")}</Notice>
       ) : (
-        <svg
-          className="evidence-chart"
-          viewBox="0 0 600 160"
-          role="img"
-          aria-labelledby={id}
-        >
-          <title id={id}>{t("overview.evidence")}</title>
-          <path
-            d={`M20,130 L${line.replaceAll(" ", " L")} L580,130 Z`}
-            fill="var(--blue-tint)"
-          />
-          <polyline
-            points={line}
-            fill="none"
-            stroke="var(--blue)"
-            strokeWidth="3"
-          />
-          {data.series.map((row, index) => (
-            <circle
-              key={row.date}
-              cx={x(index)}
-              cy={y(row.count)}
-              r="4"
-              fill="var(--blue)"
-              tabIndex={0}
-            >
-              <title>
-                {row.date}: {row.count}
-              </title>
-            </circle>
-          ))}
-          <text x="20" y="155" fill="var(--muted)" fontSize="12">
-            {data.series[0]?.date}
-          </text>
-          <text
-            x="580"
-            y="155"
-            textAnchor="end"
-            fill="var(--muted)"
-            fontSize="12"
-          >
-            {data.series.at(-1)?.date}
-          </text>
-        </svg>
+        <AreaChart
+          title={t("overview.evidence")}
+          valueLabel={t("overview.count")}
+          formatLabel={short}
+          data={data.series.map((row) => ({ label: row.date, value: row.count }))}
+        />
       )}
+      <div className="metric-tiles">
+        <div className="metric-tile">
+          <span className="metric-tile__label">
+            <MessageSquareWarning size={14} aria-hidden />
+            {t("overview.total")}
+          </span>
+          <span className="metric-tile__value">
+            <CountUp value={data.total} />
+            <span className={"delta delta--" + direction}>
+              <Trend size={12} aria-hidden />
+              {data.delta > 0 ? "+" : ""}
+              {data.delta}
+            </span>
+          </span>
+        </div>
+        <div className="metric-tile">
+          <span className="metric-tile__label">
+            <Trend size={14} aria-hidden />
+            {t("overview.delta")}
+          </span>
+          <span className="metric-tile__value">
+            <CountUp value={data.delta} format={(value) => (value > 0 ? "+" : "") + value} />
+          </span>
+        </div>
+        <div className="metric-tile">
+          <span className="metric-tile__label">
+            <Package size={14} aria-hidden />
+            {t("overview.affected")}
+          </span>
+          <span className="metric-tile__value">
+            <CountUp value={data.affected_products} />
+          </span>
+        </div>
+        <div className="metric-tile">
+          <span className="metric-tile__label">
+            <Star size={14} aria-hidden />
+            {t("overview.rating")}
+          </span>
+          <span className="metric-tile__value">
+            <CountUp value={data.average_rating} decimals={data.average_rating == null ? 0 : 2} />
+            {data.average_rating != null && <Star size={16} className="star-icon" aria-hidden />}
+          </span>
+        </div>
+      </div>
+      <p className="muted chart-note">
+        <CalendarDays size={14} aria-hidden />
+        {t("overview.undated", { count: data.undated })}
+      </p>
       <details>
         <summary>{t("overview.table")}</summary>
         <Table>
@@ -189,7 +187,6 @@ export function OverviewInsights() {
   const [error, setError] = useState<string | null>(null);
   const [revision, setRevision] = useState(0);
   const [expanded, setExpanded] = useState(false);
-  const id = useId();
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
@@ -228,23 +225,28 @@ export function OverviewInsights() {
       style: "percent",
       maximumFractionDigits: 1,
     }).format(value);
+  const maxScore = Math.max(0.0001, ...(data?.plan.map((item) => item.score) ?? [0]));
   return (
     <div className="stack">
-      <div className="field">
-        <label htmlFor={id}>{t("overview.days")}</label>
-        <select
-          id={id}
-          value={days}
-          onChange={(event) => setDays(Number(event.target.value))}
-        >
+      <div className="section-bar">
+        <div>
+          <h2>{t("overview.insights")}</h2>
+          <p className="muted">{t("overview.insightsLead")}</p>
+        </div>
+        <div className="segmented" role="group" aria-label={t("overview.days")}>
           {[7, 30, 90].map((value) => (
-            <option key={value} value={value}>
+            <button
+              key={value}
+              type="button"
+              aria-pressed={days === value}
+              onClick={() => setDays(value)}
+            >
               {t("overview.dayOption", { count: value })}
-            </option>
+            </button>
           ))}
-        </select>
+        </div>
       </div>
-      {loading ? (
+      {loading && !data ? (
         <LoadingState />
       ) : error ? (
         <Notice
@@ -259,10 +261,53 @@ export function OverviewInsights() {
         </Notice>
       ) : (
         data && (
-          <>
+          <div className={cn("stack", loading && "is-refreshing")} aria-busy={loading || undefined}>
+            <div className="insights-grid">
+              <Card title={t("overview.evidence")} icon={<ChartSpline size={18} aria-hidden />}>
+                <EvidenceChart data={data} />
+              </Card>
+              <section className="brief-card" aria-labelledby="brief-title">
+                <span className="brief-card__rings" aria-hidden />
+                <h2 id="brief-title">
+                  <Sparkles size={16} aria-hidden />
+                  {t("overview.brief")}
+                </h2>
+                <p className="brief-card__big">{t("overview.briefText", { count: data.open })}</p>
+                {data.plan[0] && (
+                  <>
+                    <p>
+                      {t("overview.next", {
+                        product: data.plan[0].product_title,
+                      })}
+                    </p>
+                    <a
+                      className="btn"
+                      href={issueLink(data.plan[0])}
+                    >
+                      {t("overview.open")}
+                      <ArrowRight size={16} aria-hidden />
+                    </a>
+                    {data.plan.length > 1 && (
+                      <ol className="brief-card__queue" start={2}>
+                        {data.plan.slice(1, 4).map((item) => (
+                          <li key={item.id}>
+                            <a href={issueLink(item)}>
+                              <span>{language === "id" ? item.attribute_local : item.attribute}</span>
+                              <small>{item.product_title}</small>
+                            </a>
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </>
+                )}
+                <p className="muted">{t("overview.rules")}</p>
+              </section>
+            </div>
             <Card
               title={t("overview.plan")}
               lead={t("overview.planLead", { count: data.open })}
+              icon={<ListOrdered size={18} aria-hidden />}
             >
               {data.plan.length === 0 ? (
                 <EmptyState
@@ -271,38 +316,51 @@ export function OverviewInsights() {
                 />
               ) : (
                 <ol className="decision-list">
-                  {data.plan.slice(0, expanded ? undefined : 5).map((item) => (
-                    <li key={item.id}>
+                  {data.plan.slice(0, expanded ? undefined : 5).map((item, index) => (
+                    <li key={item.id} className="decision-item">
+                      <span className="decision-rank" aria-hidden>
+                        {index + 1}
+                      </span>
                       <div>
-                        <strong>
+                        <h3>
                           {language === "id"
                             ? item.attribute_local
                             : item.attribute}
-                        </strong>
-                        <p>{t("overview."+item.next_step)}</p>
-                        <p className="muted">{t("overview.score",{score:item.score})}</p>
-                        <p className="muted">
+                        </h3>
+                        <p className="decision-item__next">
+                          <ArrowRight size={14} aria-hidden />
+                          {t("overview."+item.next_step)}
+                        </p>
+                        <p className="muted decision-item__meta">
                           {item.product_title} · {item.channel}
                         </p>
+                        <div className="decision-score">
+                          <span>{t("overview.score",{score:item.score})}</span>
+                          <Meter value={item.score} max={maxScore} label={t("overview.score",{score:item.score})} />
+                        </div>
                         <div className="finding-picker">
-                          <Chip>
+                          <Chip tone="info">
+                            <Users size={12} aria-hidden />
                             {item.support_is_minimum ? "≥ " : ""}{t("overview.reach", { count: item.support })}
                           </Chip>
-                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key}>{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{buyers:driver.illustrative_buyers??"—",sold:driver.units_sold??"—"}):t("overview."+driver.key,{recent:driver.recent == null ? "—" : percent(driver.recent),before:driver.before == null ? "—" : percent(driver.before)})}</Chip>)}
+                          {item.drivers.filter(driver=>["rising","falling","single_report","units"].includes(driver.key)).map(driver=><Chip key={driver.key} tone={driver.key==="rising"?"alert":driver.key==="falling"?"good":"muted"}>{driver.key==="rising"?<TrendingUp size={12} aria-hidden />:driver.key==="falling"?<TrendingDown size={12} aria-hidden />:null}{driver.key==="single_report"?t("overview.single"):driver.key==="units"?t("overview.units",{buyers:driver.illustrative_buyers??"—",sold:driver.units_sold??"—"}):t("overview."+driver.key,{recent:driver.recent == null ? "—" : percent(driver.recent),before:driver.before == null ? "—" : percent(driver.before)})}</Chip>)}
                           <Chip>
+                            <Percent size={12} aria-hidden />
                             {t("overview.share", {
                               share: percent(item.share),
                               low: percent(item.confidence_low),
                             })}
                           </Chip>
                           {item.hidden_high_star > 0 && (
-                            <Chip>
+                            <Chip tone="warn">
+                              <EyeOff size={12} aria-hidden />
                               {t("overview.hidden", {
                                 count: item.hidden_high_star,
                               })}
                             </Chip>
                           )}
                           <Chip>
+                            <Clock size={12} aria-hidden />
                             {t("overview.minutes", {
                               count: item.estimated_minutes,
                             })}
@@ -320,64 +378,41 @@ export function OverviewInsights() {
                         </div>
                         {item.support_is_minimum && <p className="muted">{t("product.minimum", {read:item.candidates_read, total:item.denominator})}</p>}
                       </div>
-                      <a className="btn btn--outline" href={issueLink(item)}>
+                      <a className="btn btn--outline btn--sm" href={issueLink(item)}>
                         {t("overview.open")}
+                        <ArrowRight size={14} aria-hidden />
                       </a>
                     </li>
                   ))}
                 </ol>
               )}
-              {data.plan.length > 5 && <Button variant="text" onClick={() => setExpanded(value => !value)}>{t(expanded ? "overview.showFewer" : "overview.showAll")}</Button>}
-              <details>
-                <summary>{t("overview.heuristic")}</summary>
-                <p>{t("overview.heuristicHint")}</p>
-              </details>
+              <div className="plan-foot">
+                <details>
+                  <summary>{t("overview.heuristic")}</summary>
+                  <p>{t("overview.heuristicHint")}</p>
+                </details>
+                {data.plan.length > 5 && <Button variant="text" onClick={() => setExpanded(value => !value)}>{t(expanded ? "overview.showFewer" : "overview.showAll")}</Button>}
+              </div>
             </Card>
-            <div className="insights-grid">
-              <Card title={t("overview.evidence")}>
-                <EvidenceChart data={data} />
-                <div className="evidence-metrics">
-                  <Metric value={data.total} label={t("overview.total")} />
-                  <Metric value={data.delta} label={t("overview.delta")} />
-                  <Metric
-                    value={data.affected_products}
-                    label={t("overview.affected")}
-                  />
-                  <Metric
-                    value={data.average_rating ?? "—"}
-                    label={t("overview.rating")}
-                  />
-                </div>
-                <p className="muted">
-                  {t("overview.undated", { count: data.undated })}
-                </p>
+            <div className="insights-grid insights-grid--even">
+              <Card title={t("overview.channel")} icon={<Plug size={18} aria-hidden />}>
+                <BarList
+                  rows={data.ranking_channels.map((row) => ({
+                    key: row.key,
+                    label: row.key,
+                    value: row.count,
+                  }))}
+                />
               </Card>
-              <Card title={t("overview.brief")}>
-                <p>{t("overview.briefText", { count: data.open })}</p>
-                {data.plan[0] && (
-                  <>
-                    <p>
-                      {t("overview.next", {
-                        product: data.plan[0].product_title,
-                      })}
-                    </p>
-                    <a
-                      className="btn btn--primary"
-                      href={issueLink(data.plan[0])}
-                    >
-                      {t("overview.open")}
-                    </a>
-                  </>
-                )}
-                <p className="muted">{t("overview.rules")}</p>
-              </Card>
-            </div>
-            <div className="insights-grid">
-              <Card title={t("overview.channel")}>
-                <Ranking rows={data.ranking_channels} />
-              </Card>
-              <Card title={t("overview.type")}>
-                <Ranking rows={data.ranking_types} types />
+              <Card title={t("overview.type")} icon={<Tag size={18} aria-hidden />}>
+                <BarList
+                  color="color-mix(in srgb, var(--blue) 55%, var(--sky-deep))"
+                  rows={data.ranking_types.map((row) => ({
+                    key: row.key,
+                    label: t("workspace." + (typeKeys[row.key] ?? "typeOperations")),
+                    value: row.count,
+                  }))}
+                />
               </Card>
             </div>
             {(["one_fix_candidates", "same_product_candidates"] as const).map(
@@ -385,13 +420,14 @@ export function OverviewInsights() {
                 data[key].length > 0 && (
                   <Card
                     key={key}
+                    icon={<Layers size={18} aria-hidden />}
                     title={t(
                       "overview." +
                         (key === "one_fix_candidates" ? "candidates" : "same"),
                     )}
                     lead={t("overview.candidateHint")}
                   >
-                    <ul>
+                    <ul className="candidate-list">
                       {data[key].map((group) => (
                         <li key={group.label}>
                           <strong>{group.label}</strong>
@@ -410,14 +446,20 @@ export function OverviewInsights() {
                   </Card>
                 ),
             )}
-          </>
+          </div>
         )
       )}
       <Card
         title={t("overview.alerts")}
-        action={<a href="#/app/alerts">{t("overview.allAlerts")}</a>}
+        icon={<Bell size={18} aria-hidden />}
+        action={
+          <a className="card-link" href="#/app/alerts">
+            {t("overview.allAlerts")}
+            <ArrowRight size={14} aria-hidden />
+          </a>
+        }
       >
-        {loading ? (
+        {loading && !alerts ? (
           <LoadingState />
         ) : alerts === null ? (
           <Notice tone="warn">{t("common.unavailable")}</Notice>

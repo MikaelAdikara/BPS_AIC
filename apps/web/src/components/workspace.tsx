@@ -1,4 +1,6 @@
+import { Quote } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { Meter } from "./visual/charts";
 import { useWorkspace, type Issue } from "@/api/workspace";
 import { issueLink } from "@/lib/workspace-model.js";
 import {
@@ -98,15 +100,20 @@ export function IssuesTable({ items }: { items: Issue[] }) {
             tone: "muted" as Tone,
           };
           return (
-            <tr key={item.id} className="issue-row">
+            <tr key={item.id} className={"issue-row rail-" + bucket.tone}>
               <td>
                 <a className="issue-link" href={issueLink(item)}>
                   <strong>{item.product_title}</strong>
                 </a>
-                <p>
+                <p className="issue-attr">
                   {language === "id" ? item.attribute_local : item.attribute}
                 </p>
-                {item.example && <q className="muted">{item.example}</q>}
+                {item.example && (
+                  <p className="issue-quote muted">
+                    <Quote size={12} aria-hidden />
+                    <q>{item.example}</q>
+                  </p>
+                )}
                 <div className="issue-meta">
                   <span>{item.channel}</span>
                   {item.synthetic && <Chip synthetic />}
@@ -125,14 +132,24 @@ export function IssuesTable({ items }: { items: Issue[] }) {
                   )}
                 </Chip>
               </td>
-              <td className="count">
-                {item.support_is_minimum ? "≥ " : ""}
-                {item.support} / {item.denominator}
+              <td className="issue-support">
+                <span className="count">
+                  {item.support_is_minimum ? "≥ " : ""}
+                  {item.support} / {item.denominator}
+                </span>
+                <Meter
+                  value={item.support}
+                  max={Math.max(1, item.denominator)}
+                  label={t("workspace.reviews")}
+                />
               </td>
               <td>
-                <Chip tone={bucket.tone}>{t("workspace." + bucket.key)}</Chip>
+                <Chip tone={bucket.tone}>
+                  <i className="status-dot" aria-hidden />
+                  {t("workspace." + bucket.key)}
+                </Chip>
                 {item.next && nextKeys[item.next] && (
-                  <p>{t("workspace." + nextKeys[item.next])}</p>
+                  <p className="issue-next">{t("workspace." + nextKeys[item.next])}</p>
                 )}
               </td>
             </tr>

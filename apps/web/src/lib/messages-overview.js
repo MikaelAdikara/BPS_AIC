@@ -1,6 +1,8 @@
 export const overview = {
   en: {
     showAll: "Show all decisions",
+    insights: "Insights",
+    insightsLead: "The range sets the evidence chart and its totals. The plan and rankings cover every open issue.",
     showFewer: "Show the first five",
     plan: "Decision plan: do these first",
     planLead: "{count} open decisions in the server's suggested order.",
@@ -55,6 +57,8 @@ export const overview = {
   },
   id: {
     showAll: "Tampilkan semua keputusan",
+    insights: "Wawasan",
+    insightsLead: "Rentang mengatur grafik bukti dan totalnya. Urutan keputusan dan peringkat mencakup semua isu terbuka.",
     showFewer: "Tampilkan lima teratas",
     plan: "Urutan keputusan: mulai dari sini",
     planLead: "{count} keputusan terbuka dalam urutan saran server.",

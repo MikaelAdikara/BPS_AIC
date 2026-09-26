@@ -348,7 +348,7 @@ export function ProductScreen({
       </Card>
       <div className="page-header">
         <div
-          className="issue-tabs"
+          className="segmented issue-tabs"
           role="group"
           aria-label={t("product.findings")}
         >
@@ -358,7 +358,7 @@ export function ProductScreen({
             ["ops", "filterOps"],
           ].map(([value, key]) => (
             <button
-              className="btn btn--text"
+              type="button"
               aria-pressed={filter === value}
               key={value}
               onClick={() => setFilter(value)}

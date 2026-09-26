@@ -1,14 +1,46 @@
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  border: 0;
+  padding: 0;
+  margin: 0 0 16px;
+}
 .source-choice {
   display: flex;
   align-items: start;
   gap: 12px;
   min-height: 44px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--cream);
+  cursor: pointer;
+  transition:
+    border-color var(--duration-state),
+    background var(--duration-state),
+    box-shadow var(--duration-state);
+}
+.source-choice:hover {
+  border-color: color-mix(in srgb, var(--blue) 40%, var(--line));
+}
+.source-choice:has(input:checked) {
+  border-color: var(--blue);
+  background: var(--blue-tint);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 14%, transparent);
 }
 .source-choice input {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
   margin-top: 2px;
+  accent-color: var(--blue);
+}
+.source-tabs .btn[aria-pressed="true"] {
+  background: var(--blue-tint);
+  border-color: var(--blue);
+  color: var(--blue-dark);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 14%, transparent);
 }
 .source-dialog {
   background: var(--cream);
@@ -17,9 +49,15 @@
   border-radius: var(--radius-md);
   padding: 24px;
   width: min(520px, calc(100vw - 32px));
+  box-shadow: var(--shadow-float);
+}
+.source-dialog[open] {
+  animation: rise-in 280ms var(--ease-out);
 }
 .source-dialog::backdrop {
   background: rgb(0 0 0 / 60%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 .source-dialog p {
   margin: 20px 0;

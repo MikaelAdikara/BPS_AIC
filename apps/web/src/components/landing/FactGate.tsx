@@ -1,9 +1,12 @@
 import { useRef, useState, type FormEvent } from "react";
-import { AlertCircle, Lock, LockOpen, RotateCcw, Ruler } from "lucide-react";
+import { AlertCircle, Lock, LockOpen, RotateCcw, Ruler, ShieldHalf } from "lucide-react";
 import { BrandMark } from "@/components/Brand.jsx";
 import { Button } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n";
+import { BorderBeam } from "@/components/visual/BorderBeam";
+import { Reveal } from "@/components/visual/motion";
+import { Eyebrow } from "./Sections";
 
 /** Demo konsep di sisi klien: draf tertahan sampai pengunjung (sebagai merchant) mengisi ukuran
  *  yang memuat angka. Tidak memanggil API dan tidak menyimpan apa pun. */
@@ -36,13 +39,14 @@ export function FactGate() {
   return (
     <section id="gate" className="lp-section lp-gate" aria-labelledby="lp-gate-title">
       <div className="lp-wrap">
-        <div className="lp-gate__head">
+        <Reveal className="lp-gate__head">
+          <Eyebrow icon={ShieldHalf}>{t("landing.eyebrow.gate")}</Eyebrow>
           <h2 id="lp-gate-title" className="lp-h2">
             <span>{t("landing.gate.titleA")}</span>{" "}
             <span className="lp-accent">{t("landing.gate.titleB")}</span>
           </h2>
           <p className="lp-lead">{t("landing.gate.lead")}</p>
-        </div>
+        </Reveal>
         <div className="lp-gate__grid">
           <article className="gate-generic" aria-label={t("landing.gate.genericLabel")}>
             <p className="gate-generic__label">{t("landing.gate.genericLabel")}</p>
@@ -60,6 +64,7 @@ export function FactGate() {
           </article>
 
           <article className={cn("gate-deciqo", released && "is-released")} aria-label="Deciqo">
+            {!released && <BorderBeam size={180} duration={8} from="var(--amber-base)" to="var(--blue)" />}
             <header className="gate-deciqo__head">
               <span className="gate-deciqo__brand">
                 <BrandMark size={22} />

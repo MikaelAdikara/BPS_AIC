@@ -9,26 +9,100 @@
   color: var(--blue-dark);
 }
 .next-step {
-  padding: 16px 20px;
-  background: var(--ink);
-  color: var(--white);
-  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  padding: 16px 20px 16px 58px;
+  color: #fff;
+  border-radius: var(--radius-card);
+  background:
+    radial-gradient(70% 120% at 100% 0%, #6f9bff, transparent 60%),
+    linear-gradient(135deg, #2a66ff, #1447e6);
+  box-shadow: 0 14px 30px -18px #1d5bffcc;
+}
+.next-step::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: #ffffff26
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7h9M8 3.5 11.5 7 8 10.5'/%3E%3C/svg%3E")
+    center no-repeat;
+}
+.next-step strong {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.next-step p {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.card .stack:has(> .finding-step) {
+  counter-reset: fstep;
 }
 .finding-step {
+  position: relative;
   display: grid;
   gap: 16px;
-  border-top: 1px solid var(--line);
-  padding-top: 26px;
+  padding: 6px 0 26px 52px;
+  counter-increment: fstep;
+}
+.finding-step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--blue-tint);
+  color: var(--blue-dark);
+  border: 1px solid color-mix(in srgb, var(--blue) 30%, transparent);
+  background-image: radial-gradient(circle, var(--blue) 0 4px, transparent 5px);
+}
+.finding-step::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 42px;
+  bottom: 6px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(var(--line-strong), var(--line));
+}
+.finding-step:last-of-type {
+  padding-bottom: 0;
+}
+.finding-step:last-of-type::after {
+  display: none;
 }
 .finding-step h3 {
   font-size: 18px;
   line-height: 1.3;
   font-weight: 600;
+  padding-top: 4px;
 }
 .evidence-metrics {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.evidence-metrics > div {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+.evidence-metrics .metric__value {
+  font-size: 24px;
 }
 .fact-fields {
   display: grid;
@@ -51,10 +125,38 @@
   gap: 12px;
 }
 .pipeline-list li {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  padding: 10px 12px 10px 34px;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+.pipeline-list li::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 17px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px var(--blue-tint);
+}
+.pipeline-list li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 30px;
+  height: 24px;
+  width: 1px;
+  background: var(--line-strong);
+}
+.pipeline-list {
+  gap: 8px !important;
 }
 .finding-step details {
   padding: 12px 0;
@@ -63,7 +165,6 @@
   cursor: pointer;
   color: var(--blue-dark);
   min-height: 44px;
-  display: list-item;
 }
 .finding-step .btn {
   justify-self: start;
@@ -95,6 +196,9 @@
     font-size: 24px;
   }
   .next-step {
-    padding: 16px;
+    padding: 16px 16px 16px 54px;
+  }
+  .finding-step {
+    padding-left: 44px;
   }
 }

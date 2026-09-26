@@ -5,6 +5,20 @@ import { request, ApiError } from "@/api/http.js";
 import { useI18n, type Language } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { TelegramSettings } from "@/components/TelegramSettings";
+import { Meter } from "@/components/visual/charts";
+import {
+  Bot,
+  Cpu,
+  GitCommit,
+  Globe,
+  Monitor,
+  Moon,
+  RefreshCw,
+  Server as ServerIcon,
+  Sun,
+  UserRound,
+  Wallet,
+} from "lucide-react";
 import {
   Button,
   Card,
@@ -95,12 +109,24 @@ export function SettingsScreen() {
         </div>
       </header>
       <div className="stack">
-        <Card title={t("settings.profile")}>
+        <Card title={t("settings.profile")} icon={<UserRound size={18} aria-hidden />}>
           <form className="stack" onSubmit={(event) => void save(event)}>
-            <p>
-              <span className="muted">{t("settings.email")}: </span>
-              {user?.email}
-            </p>
+            <div className="profile-head">
+              <span className="profile-head__avatar" aria-hidden>
+                {(name || user?.email || "?")
+                  .split(/\s+/)
+                  .slice(0, 2)
+                  .map((part) => part[0]?.toUpperCase())
+                  .join("")}
+              </span>
+              <div>
+                <strong>{name || user?.name}</strong>
+                <p>
+                  <span className="muted">{t("settings.email")}: </span>
+                  {user?.email}
+                </p>
+              </div>
+            </div>
             <Field
               label={t("settings.name")}
               value={name}
@@ -125,42 +151,65 @@ export function SettingsScreen() {
             </div>
           </form>
         </Card>
-        <Card title={t("settings.display")}>
-          <div className="stack">
+        <Card title={t("settings.display")} icon={<Monitor size={18} aria-hidden />}>
+          <div className="display-grid">
             <div className="field">
-              <label htmlFor={id + "-lang"}>{t("settings.language")}</label>
-              <select
-                id={id + "-lang"}
-                value={language}
-                onChange={(event) =>
-                  setLanguage(event.target.value as Language)
-                }
-              >
-                <option value="en">English</option>
-                <option value="id">Bahasa Indonesia</option>
-              </select>
+              <span className="field__label" id={id + "-lang"}>
+                {t("settings.language")}
+              </span>
+              <div className="segmented" role="group" aria-labelledby={id + "-lang"}>
+                {(
+                  [
+                    ["en", "English"],
+                    ["id", "Bahasa Indonesia"],
+                  ] as const
+                ).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={language === value}
+                    onClick={() => setLanguage(value as Language)}
+                  >
+                    <Globe size={14} aria-hidden />
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div>
-              <p className="muted">{t("settings.theme")}</p>
-              <Button
-                variant="outline"
-                aria-pressed={theme === "dark"}
-                onClick={toggleTheme}
-              >
-                {t("settings." + theme)}
-              </Button>
+            <div className="field">
+              <span className="field__label" id={id + "-theme"}>
+                {t("settings.theme")}
+              </span>
+              <div className="segmented" role="group" aria-labelledby={id + "-theme"}>
+                {(["light", "dark"] as const).map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={theme === value}
+                    onClick={() => {
+                      if (theme !== value) toggleTheme();
+                    }}
+                  >
+                    {value === "light" ? <Sun size={14} aria-hidden /> : <Moon size={14} aria-hidden />}
+                    {t("settings." + value)}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </Card>
         <TelegramSettings />
         <Card
           title={t("settings.server")}
+          icon={<ServerIcon size={18} aria-hidden />}
           action={
             <Button
               variant="outline"
+              size="sm"
               disabled={loading}
               onClick={() => setRevision((value) => value + 1)}
             >
+              <RefreshCw size={14} aria-hidden className={loading ? "spinner" : undefined} />
               {t("settings.refresh")}
             </Button>
           }
@@ -171,53 +220,77 @@ export function SettingsScreen() {
             <Notice tone="alert">{localizeError(error)}</Notice>
           ) : (
             server && (
-              <dl className="stack">
+              <dl className="spec-grid">
                 <div>
-                  <dt className="muted">{t("settings.engine")}</dt>
+                  <dt>
+                    <Cpu size={14} aria-hidden />
+                    {t("settings.engine")}
+                  </dt>
                   <dd>
-                    {t("settings." + (server.engine === "ai" ? "ai" : "rules"))}
+                    <Chip tone={server.engine === "ai" ? "good" : "muted"}>
+                      <i className="status-dot" aria-hidden />
+                      {t("settings." + (server.engine === "ai" ? "ai" : "rules"))}
+                    </Chip>
                   </dd>
                 </div>
                 <div>
-                  <dt className="muted">{t("settings.model")}</dt>
-                  <dd>{server.llm?.model ?? "—"}</dd>
+                  <dt>
+                    <Bot size={14} aria-hidden />
+                    {t("settings.model")}
+                  </dt>
+                  <dd className="count">{server.llm?.model ?? "—"}</dd>
                 </div>
                 <div>
-                  <dt className="muted">{t("settings.fetch")}</dt>
+                  <dt>
+                    <Globe size={14} aria-hidden />
+                    {t("settings.fetch")}
+                  </dt>
                   <dd>
-                    {t(
-                      "settings." +
-                        (server.fetch?.configured
-                          ? "configured"
-                          : "unavailable"),
-                    )}
+                    <Chip tone={server.fetch?.configured ? "good" : "warn"}>
+                      <i className="status-dot" aria-hidden />
+                      {t(
+                        "settings." +
+                          (server.fetch?.configured
+                            ? "configured"
+                            : "unavailable"),
+                      )}
+                    </Chip>
                   </dd>
                 </div>
-                <div>
-                  <dt className="muted">{t("settings.spent")}</dt>
-                  <dd className="count">{number(server.llm?.spent_usd)}</dd>
-                </div>
-                <div>
-                  <dt className="muted">{t("settings.limit")}</dt>
-                  <dd className="count">{number(server.llm?.budget_usd)}</dd>
+                <div className="spec-grid__wide">
+                  <dt>
+                    <Wallet size={14} aria-hidden />
+                    {t("settings.spent")} / {t("settings.limit")}
+                  </dt>
+                  <dd>
+                    <span className="count spec-grid__money">
+                      {number(server.llm?.spent_usd)} / {number(server.llm?.budget_usd)}
+                    </span>
+                    <Meter
+                      value={server.llm?.spent_usd ?? 0}
+                      max={server.llm?.budget_usd || 1}
+                      label={t("settings.spent")}
+                      warn
+                    />
+                  </dd>
                 </div>
               </dl>
             )
           )}
         </Card>
-        <Card title={t("settings.version")}>
+        <Card title={t("settings.version")} icon={<GitCommit size={18} aria-hidden />}>
           {loading ? (
             <LoadingState />
           ) : version ? (
-            <dl className="stack">
+            <dl className="spec-grid">
               <div>
                 <dt>{version.app}</dt>
-                <dd>{version.version}</dd>
+                <dd className="count">{version.version}</dd>
               </div>
               {(["pipeline", "verifier", "commit"] as const).map((key) => (
                 <div key={key}>
-                  <dt className="muted">{t("settings." + key)}</dt>
-                  <dd className="break-word">{version[key] || "—"}</dd>
+                  <dt>{t("settings." + key)}</dt>
+                  <dd className="break-word count">{version[key] || "—"}</dd>
                 </div>
               ))}
             </dl>

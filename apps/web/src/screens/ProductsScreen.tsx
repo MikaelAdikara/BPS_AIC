@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { request, ApiError } from "@/api/http.js";
 import { useWorkspace } from "@/api/workspace";
+import { Package, ScanSearch, Star } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
+import { Meter } from "@/components/visual/charts";
 import { RunPanel } from "@/components/RunPanel";
 import {
   ListFilters,
@@ -80,16 +82,19 @@ export function ProductsScreen() {
             )
           }
         >
+          <ScanSearch size={16} aria-hidden />
           {t("catalog.analyse")}
         </Button>
       </header>
       <RunPanel />
-      <ListFilters
-        filters={filters}
-        onChange={setFilters}
-        onClear={clear}
-        products
-      />
+      <div className="toolbar-card">
+        <ListFilters
+          filters={filters}
+          onChange={setFilters}
+          onClear={clear}
+          products
+        />
+      </div>
       {loading ? (
         <LoadingState />
       ) : error ? (
@@ -138,30 +143,61 @@ export function ProductsScreen() {
                 {products.map((product) => (
                   <tr key={product.id}>
                     <td>
-                      <a
-                        href={
-                          "#/app/listings/" + encodeURIComponent(product.id)
-                        }
-                      >
-                        {product.title}
-                      </a>
-                      {product.synthetic && (
+                      <div className="product-cell">
+                        <span className="product-cell__icon" aria-hidden>
+                          <Package size={16} />
+                        </span>
                         <div>
-                          <Chip>{t("catalog.synthetic")}</Chip>
+                          <a
+                            className="product-cell__link"
+                            href={
+                              "#/app/listings/" + encodeURIComponent(product.id)
+                            }
+                          >
+                            {product.title}
+                          </a>
+                          {product.synthetic && (
+                            <div>
+                              <Chip>{t("catalog.synthetic")}</Chip>
+                            </div>
+                          )}
                         </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className="channel-tag">{product.channel}</span>
+                    </td>
+                    <td className="count">{product.reviews}</td>
+                    <td className="rating-cell">
+                      {product.rating == null ? (
+                        "—"
+                      ) : (
+                        <>
+                          <span className="count">
+                            <Star size={13} className="star-icon" aria-hidden />
+                            {new Intl.NumberFormat(language, {
+                              maximumFractionDigits: 1,
+                            }).format(product.rating)}
+                          </span>
+                          <Meter
+                            value={product.rating}
+                            max={5}
+                            label={t("catalog.rating")}
+                            tone={product.rating < 3 ? "alert" : product.rating < 4 ? "warn" : "good"}
+                          />
+                        </>
                       )}
                     </td>
-                    <td>{product.channel}</td>
-                    <td className="count">{product.reviews}</td>
-                    <td className="count">
-                      {product.rating == null
-                        ? "—"
-                        : new Intl.NumberFormat(language, {
-                            maximumFractionDigits: 1,
-                          }).format(product.rating)}
+                    <td>
+                      <span className={"num-badge" + (product.findings ? " is-on" : "")}>
+                        {product.findings}
+                      </span>
                     </td>
-                    <td className="count">{product.findings}</td>
-                    <td className="count">{product.fixable}</td>
+                    <td>
+                      <span className={"num-badge" + (product.fixable ? " is-fix" : "")}>
+                        {product.fixable}
+                      </span>
+                    </td>
                     <td>
                       <Chip
                         tone={
@@ -169,9 +205,12 @@ export function ProductsScreen() {
                             ? "alert"
                             : product.stale
                               ? "warn"
-                              : "muted"
+                              : product.analysis_status === "ready"
+                                ? "good"
+                                : "muted"
                         }
                       >
+                        <i className="status-dot" aria-hidden />
                         {t(
                           "catalog." +
                             (product.stale

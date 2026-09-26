@@ -102,14 +102,14 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
       </header>
       <StateGate>
         <div
-          className="issue-tabs"
+          className="segmented issue-tabs"
           role="group"
           aria-label={t("workspace.filters")}
         >
           {tabs.map((item) => (
             <button
               key={item.value}
-              className="btn btn--text"
+              type="button"
               aria-pressed={
                 item.value === effective ||
                 (item.value === "needs" &&
@@ -118,12 +118,19 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
               onClick={() => select(item.value)}
             >
               {t("workspace." + item.key)}
+              {!filterLoading && (
+                <span className="tab-count">
+                  {issuesForTab(filtered, item.value).length}
+                </span>
+              )}
             </button>
           ))}
         </div>
-        <ListFilters filters={filters} onChange={setFilters} onClear={clear} />
-        <Card>
-          {filterLoading ? (
+        <div className="toolbar-card">
+          <ListFilters filters={filters} onChange={setFilters} onClear={clear} />
+        </div>
+        <Card className={filterLoading && filtered.length ? "is-refreshing" : undefined}>
+          {filterLoading && !filtered.length ? (
             <LoadingState />
           ) : filterError ? (
             <Notice

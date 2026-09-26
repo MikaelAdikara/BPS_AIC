@@ -164,7 +164,7 @@ export function SourcesScreen() {
       <div className="stack">
         {editing && (
           <Card title={t("sources.picker")}>
-            <fieldset className="stack">
+            <fieldset className="source-grid">
               <legend className="visually-hidden">{t("sources.picker")}</legend>
               {Object.entries(options).map(([channel, label]) => (
                 <label key={channel} className="source-choice">
@@ -233,7 +233,7 @@ export function SourcesScreen() {
             ) : (
               <>
                 <div
-                  className="finding-picker"
+                  className="finding-picker source-tabs"
                   role="group"
                   aria-label={t("sources.picker")}
                 >

@@ -1,0 +1,181 @@
+/* Gerak bersama: reveal saat masuk layar, marquee, border beam, dan pembukaan halaman.
+ * Setiap animasi punya keadaan dasar yang terlihat; `prefers-reduced-motion` di base.css
+ * mematikan animasinya dan konten tetap tampil utuh. */
+
+/* ---------------------------------------------------------------- reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(6px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out),
+    filter 700ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+.reveal--scale {
+  transform: translateY(18px) scale(0.97);
+}
+
+/* kata demi kata untuk judul hero */
+.words > span {
+  display: inline-block;
+  animation: word-in 900ms var(--ease-emphasis) both;
+  animation-delay: calc(var(--w, 0) * 70ms + 80ms);
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(10px);
+  }
+}
+
+/* pembukaan konten workspace: kartu naik berurutan */
+.page-enter > * {
+  animation: rise-in 560ms var(--ease-out) both;
+}
+.page-enter > *:nth-child(2) { animation-delay: 50ms; }
+.page-enter > *:nth-child(3) { animation-delay: 100ms; }
+.page-enter > *:nth-child(4) { animation-delay: 150ms; }
+.page-enter > *:nth-child(5) { animation-delay: 200ms; }
+.page-enter > *:nth-child(n + 6) { animation-delay: 250ms; }
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- marquee */
+.marquee {
+  --duration: 40s;
+  --gap: 1rem;
+  display: flex;
+  gap: var(--gap);
+  overflow: hidden;
+}
+.marquee--vertical {
+  flex-direction: column;
+}
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-around;
+  gap: var(--gap);
+  animation: marquee var(--duration) linear infinite;
+}
+.marquee--vertical .marquee__track {
+  flex-direction: column;
+  animation-name: marquee-vertical;
+}
+.marquee--reverse .marquee__track {
+  animation-direction: reverse;
+}
+.marquee--pause:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+@keyframes marquee-vertical {
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+.marquee--fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* ---------------------------------------------------------------- border beam */
+.border-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: calc(var(--beam-width, 1.5) * 1px) solid transparent;
+  -webkit-mask:
+    linear-gradient(transparent, transparent) padding-box,
+    linear-gradient(#fff, #fff) border-box;
+  mask:
+    linear-gradient(transparent, transparent) padding-box,
+    linear-gradient(#fff, #fff) border-box;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.border-beam::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  width: calc(var(--beam-size, 220) * 1px);
+  background: linear-gradient(to left, var(--beam-from), var(--beam-to), transparent);
+  offset-anchor: 90% 50%;
+  offset-path: rect(0 auto auto 0 round calc(var(--beam-size, 220) * 1px));
+  animation: border-beam calc(var(--beam-duration, 12) * 1s) linear infinite;
+  animation-delay: var(--beam-delay, 0s);
+}
+@keyframes border-beam {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------- denyut status */
+.pulse-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  animation: ping 1.8s var(--ease-out) infinite;
+}
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- mengambang */
+.float {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+@keyframes float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .border-beam {
+    display: none;
+  }
+}

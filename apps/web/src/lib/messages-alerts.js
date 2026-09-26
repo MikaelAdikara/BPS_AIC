@@ -4,6 +4,7 @@ export const alerts = {
     lead: "Delivery history and the rules that create alerts.",
     refresh: "Refresh alerts",
     all: "All alert types",
+    history: "Delivery history",
     empty: "No alerts yet",
     emptyHint:
       "New findings, recurrence, source problems, and completed jobs appear here.",
@@ -41,6 +42,7 @@ export const alerts = {
     lead: "Riwayat pengiriman dan aturan yang membuat alert.",
     refresh: "Perbarui alert",
     all: "Semua jenis alert",
+    history: "Riwayat pengiriman",
     empty: "Belum ada alert",
     emptyHint:
       "Temuan baru, keluhan berulang, masalah sumber, dan tugas selesai akan muncul di sini.",
