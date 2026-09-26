@@ -125,9 +125,13 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
     "quality": {"kualitas", "rusak", "cacat", "kokoh", "quality", "defect", "defects",
                 "durability", "awet", "rapuh", "pecah", "patah", "retak", "bolong", "robek", "sobek",
                 "koyak", "noda", "reject", "mengelupas", "terkelupas", "baret"},
-    "appearance": {"foto", "gambar", "photo", "photos", "tampilan", "appearance", "picture"},
+    "appearance": {"foto", "poto", "gambar", "photo", "photos", "tampilan", "appearance", "picture"},
+    # gap-v1.18: kompensasi pesanan. Tanpa kelompok ini keluhan voucher/koin terbaca "tidak menyebut
+    # atribut apa pun" dan second read bisa menempelkannya ke temuan kurir.
+    "refund": {"refund", "refunded", "voucher", "voucer", "vocer", "koin", "coin", "coins", "cashback",
+               "retur", "return", "pengembalian", "dikembalikan", "kompensasi"},
 }
-OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "wrong_item"}
+OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "refund", "wrong_item"}
 # Kata yang terlalu umum untuk menandai atribut sendirian: "masuk di cas", "kapasitas besar",
 # "barang cacat dikirim". Hanya dihitung bila klausa tidak menyebut kata kuat kelompok lain.
 WEAK_TERMS: dict[str, set[str]] = {

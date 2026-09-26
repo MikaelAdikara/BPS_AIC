@@ -477,3 +477,17 @@ Rincian dan angka: [CHECKPOINT_3.md](CHECKPOINT_3.md) §2–§3.
   106/125 → 96/125; 4 bukti hilang karena `second_read_praise` ("kirain bisa ..." dibaca pujian).
 - gap-v1.17: konfirmasi second read tidak lagi dibatalkan oleh bunyi kutipan. rc-v1.17: recall
   holdout 101/125, precision 101/102, development PASS, FAIL hanya h20. Data nyata tetap 0 kutipan salah.
+
+## Iterasi 11–12 — pengelompokan antar-temuan (gap-v1.17 → gap-v1.18 → gap-v1.19, 26 September 2026)
+
+Rincian dan angka: [CHECKPOINT_3.md](CHECKPOINT_3.md) §2a.
+
+- Temuan (data nyata): klausa yang sama terhitung di dua atau tiga temuan (17 pasang), dan keluhan
+  foto/voucher masuk temuan ukuran/kurir (4 kutipan). Penyebab: second read `dispute` diterima tanpa
+  memeriksa atribut klausa, dan tidak ada tahap yang melihat klausa sudah dipakai temuan lain.
+- gap-v1.18: veto second read untuk kutipan atribut lain, kelompok leksikon `refund` dan "poto",
+  `exclusive_clauses` (satu klausa satu temuan). Data nyata: 17 → 0 pasang, 4 → 0 salah kelompok.
+  Dua run eval + replikasi v1.17: recall holdout 97/96 vs 101/99; 3–4 bukti emas terbuang oleh veto
+  ("ga nyala" = baterai pada tahan air, "ipad air" = air pada kompatibilitas).
+- gap-v1.19: veto dibatasi ke keluhan meta (foto/gambar, kompensasi). Data nyata identik dengan
+  v1.18; bukti emas terbuang oleh veto 0 di dua run; recall holdout 97/98, precision 97/97 dan 98/99.

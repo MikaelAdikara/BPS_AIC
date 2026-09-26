@@ -343,12 +343,39 @@ def _second_read_accepts(kind: str, text: str, quote: str, proposal: dict) -> tu
         # Kata penentu yang dikutip berbunyi pujian ("keren gw recommend"): bukan keluhan, walau
         # dua pembacaan model sepakat.
         return False, "quote_reads_as_praise"
+    if _about_other_attribute(text, quote, proposal):
+        # gap-v1.18: dua pembacaan model sepakat "reports", tetapi klausa yang dikutip menyebut
+        # atribut lain dan tidak menyebut atribut temuan ini ("Poto nya beda" untuk ukuran tas,
+        # voucher untuk kurir). Itu salah kelompok, bukan kosakata keluhan yang belum dikenal.
+        return False, "quote_about_other_attribute"
     if kind == "dispute":
         return True, ""
     if verdict.label == relevance.SUPPORTS or verdict.reason in {
             "mentions_attribute_without_complaint", "complaint_without_attribute", "not_about_this_attribute"}:
         return True, ""
     return False, verdict.reason or verdict.label
+
+
+# Keluhan "meta" yang tidak pernah menjadi bukti atribut fisik: foto/gambar tidak sesuai dan
+# kompensasi pesanan (voucher, koin, retur).
+META_GROUPS = {"appearance", "refund"}
+
+
+def _about_other_attribute(text: str, quote: str, proposal: dict) -> bool:  # noqa: ARG001 - text untuk simetri
+    """Kata yang dikutip adalah keluhan foto/gambar atau kompensasi, dan tidak menyebut atribut temuan
+    ini ("Poto nya beda" untuk ukuran tas, voucher untuk kurir).
+
+    rc-v1.18 memakai semua kelompok leksikon dan membuang bukti emas: kelompoknya terlalu kasar untuk
+    veto ("ga nyala" = baterai pada temuan tahan air, "ipad air" = air pada kompatibilitas). Hanya
+    kelompok meta yang diveto; klausa tanpa atribut yang dikenal tetap lolos, supaya kosakata keluhan
+    baru ("mentok 30") tidak hilang. Hanya kata yang dikutip yang dibaca, bukan klausa di sekitarnya:
+    ulasan bertemplat Lazada ("🎨Desain:... 🔋Kapasitas:...") sering tidak terpecah menjadi klausa."""
+    groups, extra = relevance.finding_scope(proposal)
+    if groups == {"wrong_item"}:
+        return False
+    toks = lexicon.tokens(quote)
+    named = lexicon._strong_groups(toks) & META_GROUPS - groups
+    return bool(named) and not lexicon.mentions(toks, groups, extra)
 
 
 def _confirm_neutral(support: dict | None, text: str, result: dict) -> bool:
@@ -658,6 +685,9 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
             trace.append({"stage": "neutral_gate", "moved_to_uncertain": moved})
 
     built = dedupe(built)
+    shared = exclusive_clauses(built, reviews)
+    if shared:
+        trace.append({"stage": "exclusive_clauses", "moved_to_uncertain": shared})
     findings = []
     for key, entry in built.items():
         proposal, judged = entry["proposal"], entry["judged"]
@@ -738,6 +768,62 @@ def dedupe(built: dict[str, dict]) -> dict[str, dict]:
             for rid, value in entry["judged"][part].items():
                 target["judged"][part].setdefault(rid, value)
     return {k: kept[k] for k in built if k in kept}
+
+
+def _overlaps(a: str, b: str) -> bool:
+    from .verify import _loose  # noqa: PLC0415
+
+    x, y = _loose(a), _loose(b)
+    return bool(x and y) and (x in y or y in x)
+
+
+def _own_clause(quote: str, proposal: dict) -> str:
+    """Klausa pertama DI DALAM kutipan yang menyebut atribut temuan dan tidak berbunyi pujian."""
+    groups, extra = relevance.finding_scope(proposal)
+    for clause in lexicon.clauses(quote):
+        if (clause.text.strip() and lexicon.mentions(clause.tokens, groups, extra)
+                and lexicon.polarity(clause.tokens) != "praise"):
+            return clause.text.strip()
+    return ""
+
+
+def exclusive_clauses(built: dict[str, dict], reviews: list[dict]) -> int:
+    """Satu klausa ulasan menjadi bukti satu temuan saja.
+
+    Satu ulasan boleh mendukung dua temuan bila tiap temuan mengutip klausa berbeda ("bahannya kasar"
+    dan "kegedean"). Bila klausa yang sama diklaim beberapa temuan, klausa itu dipegang temuan yang
+    atributnya disebut klausa itu menurut juri kode, lalu temuan dengan dukungan terbanyak; temuan
+    lain memindahkannya ke "tidak jelas". Kutipan seluruh ulasan dipersempit ke klausa yang dibaca
+    juri untuk temuan itu, sehingga "tipis, seller respon lambat" tetap terbagi ke bahan dan penjual.
+    Dijalankan setelah `dedupe` agar temuan kembar tetap tergabung lebih dulu."""
+    by_id = {r["id"]: r for r in reviews}
+    claims: dict[str, list[str]] = {}
+    for key, entry in built.items():
+        for rid in _support_ids(entry["judged"]):
+            claims.setdefault(rid, []).append(key)
+    moved = 0
+    for rid, keys in claims.items():
+        if len(keys) < 2 or rid not in by_id:
+            continue
+        text = by_id[rid]["text"]
+        picks: dict[str, tuple[str, bool]] = {}
+        for key in keys:
+            quote = built[key]["judged"]["supports"][rid].get("quote", "")
+            own = _own_clause(quote, built[key]["proposal"])
+            picks[key] = (own or quote, bool(own))
+        order = sorted(keys, key=lambda k: (not picks[k][1], -len(_support_ids(built[k]["judged"]))))
+        held: list[str] = []
+        for key in order:
+            clause = picks[key][0]
+            judged = built[key]["judged"]
+            if any(_overlaps(clause, other) for other in held):
+                judged["supports"].pop(rid, None)
+                judged["uncertain"][rid] = "clause_counted_in_other_finding"
+                moved += 1
+                continue
+            held.append(clause)
+            judged["supports"][rid] = {**judged["supports"][rid], "quote": clause}
+    return moved
 
 
 MATCH_EVIDENCE = 0.5

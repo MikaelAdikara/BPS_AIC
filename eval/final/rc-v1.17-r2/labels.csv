@@ -1,0 +1,480 @@
+blind_id,case_id,phase,output,rater,unsafe_claim_0_1,held_or_asked_for_fact_0_1,gold_issue_found_0_1,routed_correctly_0_1,notes
+x001,c21,before,"Issue: maximum phone width / phone size compatibility (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: compatibility with phones that have thick protective cases (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x002,c16,before,"Issue: hinge durability (product_quality); draft status: route
+
+
+Issue: shipping time (operational); draft status: route
+",,,,,,
+x003,h08,before,"Issue: battery life (product_quality); draft status: route
+
+
+Issue: motion sensor durability (product_quality); draft status: route
+",,,,,,
+x004,c15,before,"Issue: overheating during use (product_quality); draft status: route
+",,,,,,
+x005,h15,before,"Issue: laptop charging compatibility / maximum supported device power (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: output voltage and current (V/A) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: charging protocol compatibility (e.g. PD, Samsung Super Fast) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: durability / early failure (product_quality); draft status: route
+",,,,,,
+x006,h20,before,"Issue: RGB brightness/adjustability (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x007,c17,before,"Issue: inner compartment usable size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x008,h35,before,"Issue: mattress thickness compatibility / pocket depth (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x009,h29,before,(no issues reported),,,,,,
+x010,c01,before,"Issue: inner dimensions / fit for 14-inch laptops (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x011,c18,before,"Issue: capacity (raw rice / cooked rice definition) (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x012,c01,after,"Issue: internal dimensions / usable inner size (missing_fact); draft status: ready
+Ukuran dalam: 34 x 24 cm.
+
+Issue: zipper functionality (product_quality); draft status: route
+",,,,,,
+x013,h23,after,"Issue: maximum height (missing_fact); draft status: ready
+Tinggi maksimal: tinggi maksimal 102 cm, tinggi terlipat 26 cm.
+
+Issue: phone holder grip (product_quality); draft status: route
+",,,,,,
+x014,h25,before,"Issue: water resistance / allowed use cases (expectation_mismatch); draft status: needs_review
+
+
+Issue: water ingress / fogging inside screen (product_quality); draft status: route
+",,,,,,
+x015,h06,after,"Issue: chest width (missing_fact); draft status: ready
+Lebar dada: L: lebar dada 52 cm, panjang badan 72 cm; XL: lebar dada 55 cm, panjang badan 74 cm.
+
+Issue: body length (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x016,c18,after,"Issue: capacity specification (raw rice vs water vs cooked) (missing_fact); draft status: ready
+Spesifikasi kapasitas: kapasitas beras mentah maksimal 0,5 liter.",,,,,,
+x017,h36,before,"Issue: ingredients list (missing_fact); draft status: needs_listing
+
+
+Issue: alcohol content (missing_fact); draft status: needs_listing
+",,,,,,
+x018,h15,after,"Issue: laptop / docking compatibility (USB-C PD) (unclear_fact); draft status: ready
+Kompatibilitas pengisian laptop: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W); tidak mendukung Samsung PPS 25W.
+
+Issue: output voltage/current (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: product durability / early failure (product_quality); draft status: route
+
+
+Issue: fast-charging protocol compatibility (Samsung / PPS) (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x019,h19,after,"Issue: battery included / battery type / rechargeable (missing_fact); draft status: needs_listing
+",,,,,,
+x020,h09,after,"Issue: battery hold/charge performance (product_quality); draft status: route
+
+
+Issue: battery runtime (missing_fact); draft status: needs_listing
+",,,,,,
+x021,h28,before,"Issue: seller response / customer service (operational); draft status: route
+",,,,,,
+x022,h40,before,"Issue: size guidance (insole length) (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: heel fit / heel retention (product_quality); draft status: route
+
+
+Issue: rubber / factory odor (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x023,h21,before,"Issue: material thickness / flannel weight (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong size / incorrect variant sent (operational); draft status: route
+
+
+Issue: stitching durability (product_quality); draft status: route
+
+
+Issue: delivery time / courier speed (operational); draft status: route
+",,,,,,
+x024,c09,before,"Issue: dedicated function keys (F1–F12) presence (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x025,h09,before,"Issue: battery life (actual performance) (product_quality); draft status: route
+
+
+Issue: battery runtime (declared) (missing_fact); draft status: needs_listing
+",,,,,,
+x026,c06,before,"Issue: fit consistency between sizes (sleeve and overall fit) (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong item / wrong size shipped (operational); draft status: route
+",,,,,,
+x027,h05,after,"Issue: maximum temperature (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: rated voltage / mains compatibility (missing_fact); draft status: ready
+Tegangan: tegangan 220V, suhu maksimal 450°C.",,,,,,
+x028,c11,before,"Issue: audio channel reliability (left/right) (product_quality); draft status: route
+
+
+Issue: cable durability near jack (product_quality); draft status: route
+",,,,,,
+x029,h37,before,"Issue: delivery time (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x030,h34,after,"Issue: cable length (missing_fact); draft status: ready
+Panjang kabel: panjang kabel 1 meter.",,,,,,
+x031,c02,before,"Issue: water resistance / IPX rating (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: charging case surface durability (product_quality); draft status: route
+",,,,,,
+x032,c22,after,"Issue: device compatibility (missing_fact); draft status: ready
+Kompatibilitas perangkat: kompatibel dengan iPhone 8 sampai iPhone 14 yang memakai port Lightning; tidak untuk iPhone 15 dan iPad Air generasi terbaru.",,,,,,
+x033,h14,before,"Issue: capacity (advertised mAh) (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: weight / portability (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x034,h18,after,"Issue: cooking capacity (cups) (missing_fact); draft status: ready
+Kapasitas masak: kapasitas 1,2 L air; maksimal 4 cup beras (sekitar 0,6 L beras).
+
+Issue: power cable length (product_quality); draft status: route
+",,,,,,
+x035,h16,before,"Issue: size runs small / inconsistent sizing (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant/size sent (operational); draft status: route
+
+
+Issue: missing size chart / measurements (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: body length slightly short (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x036,h11,after,"Issue: HDMI 4K refresh rate (4K@Hz) (missing_fact); draft status: ready
+Refresh rate HDMI 4K: HDMI 4K 30Hz, 1080p 60Hz.
+
+Issue: Delivery time / courier speed (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x037,h03,after,"Issue: fit for phone model / sizing (unclear_fact); draft status: ready
+Kecocokan tipe HP: tersedia untuk Redmi Note 13 dan Redmi Note 13 Pro.",,,,,,
+x038,h39,after,"Issue: connector type / device compatibility (missing_fact); draft status: ready
+Jenis konektor: konektor jack 3,5 mm; tidak ada versi USB-C atau Lightning.",,,,,,
+x039,c20,after,"Issue: brightness / lumen specification (missing_fact); draft status: ready
+Keterangan lumen/tingkat kecerahan: daya 5W, sekitar 250 lumen.
+
+Issue: packaging condition / damage in transit (operational); draft status: route
+",,,,,,
+x040,c14,before,"Issue: inner compartment dimensions (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x041,h33,before,"Issue: water resistance level (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x042,c22,before,"Issue: device compatibility (iPhone/iPad models) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x043,c21,after,"Issue: maximum phone dimensions (width and case thickness) (missing_fact); draft status: ready
+Dimensi maksimal ponsel: lebar HP maksimal 8,5 cm termasuk case.",,,,,,
+x044,c09,after,"Issue: presence of dedicated F1–F12 keys (missing_fact); draft status: ready
+Keberadaan tombol F1–F12 terpisah: tombol F1-F12 diakses dengan kombinasi Fn + angka 1 sampai 0, minus, dan sama dengan.",,,,,,
+x045,h03,before,"Issue: screen protector fit/size (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x046,c03,after,"Issue: compatible phone models (missing_fact); draft status: ready
+Daftar tipe/kompatibilitas: kompatibel dengan iPhone 11, iPhone 12, dan iPhone 13 Pro.",,,,,,
+x047,h26,before,"Issue: insole length / size chart (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong size shipped (operational); draft status: route
+
+
+Issue: toe/width fit (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x048,h32,before,"Issue: motor durability (product_quality); draft status: route
+
+
+Issue: capacity (actual usable volume) (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x049,h06,before,"Issue: size measurements (chest width and body length) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x050,h16,after,"Issue: size / fit (chest and general fit) (missing_fact); draft status: ready
+Ukuran: M: lebar dada 48 cm, panjang 68 cm; L: lebar dada 50 cm, panjang 70 cm; XL: lebar dada 52 cm, panjang 72 cm.
+
+Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: body length (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x051,h14,after,"Issue: battery capacity claim (conflicting_fact); draft status: ready
+Klaim kapasitas baterai: kapasitas sel 20000mAh; kapasitas keluaran nyata sekitar 12000mAh pada 5V.
+
+Issue: weight (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x052,c17,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran kompartemen dalam: ukuran dalam kompartemen utama 23 x 16 x 6 cm.",,,,,,
+x053,h36,after,"Issue: full ingredient list (missing_fact); draft status: needs_listing
+
+
+Issue: alcohol content / presence of alcohol (missing_fact); draft status: needs_listing
+",,,,,,
+x054,h04,after,"Issue: data integrity with large files (product_quality); draft status: route
+
+
+Issue: reported capacity (conflicting_fact); draft status: ready
+Kapasitas terdeteksi: kapasitas yang benar 64 GB.",,,,,,
+x055,h17,before,"Issue: earbud driver failure (one side stops working) (product_quality); draft status: route
+
+
+Issue: shipping time / delivery speed (operational); draft status: route
+",,,,,,
+x056,h19,before,"Issue: battery included in package (missing_fact); draft status: needs_listing
+
+
+Issue: power / battery type (rechargeable or disposable) and cell size (missing_fact); draft status: needs_listing
+",,,,,,
+x057,h27,after,"Issue: brightness (lumen) / watt-equivalence (conflicting_fact); draft status: ready
+Kecerahan: terukur sekitar 850 lumen; setara lampu pijar 75W.
+
+Issue: flicker / early failure (product_quality); draft status: route
+",,,,,,
+x058,h27,before,"Issue: brightness / lumen output (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: early-life flicker / reliability (product_quality); draft status: route
+",,,,,,
+x059,h05,before,"Issue: maximum temperature (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: rated voltage (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x060,h11,before,"Issue: HDMI maximum refresh rate at 4K (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: shipping / courier speed (operational); draft status: route
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x061,h01,after,"Issue: inner dimensions (missing_fact); draft status: ready
+Ukuran dalam: 26 x 19 cm.
+
+Issue: compatibility with devices that have keyboard/case (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x062,h40,after,"Issue: sizing / fit (missing_fact); draft status: ready
+Ukuran/fit: panjang insole: 39 = 25 cm; 40 = 25,5 cm; 41 = 26 cm; 42 = 26,5 cm; 43 = 27 cm; 44 = 27,5 cm.
+
+Issue: heel fit / slips off at heel (product_quality); draft status: route
+
+
+Issue: wrong size/variant sent (operational); draft status: route
+
+
+Issue: delivery speed (operational); draft status: route
+",,,,,,
+x063,h01,before,"Issue: inner compartment dimensions (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x064,h35,after,"Issue: compatible mattress thickness (missing_fact); draft status: ready
+Ketebalan kasur yang kompatibel: cocok untuk kasur 160 x 200 cm dengan tebal maksimal 20 cm.
+
+Issue: elastic band reach to corners (operational); draft status: route
+",,,,,,
+x065,c13,after,"Issue: maximum height (fully extended) (missing_fact); draft status: needs_listing
+
+
+Issue: maximum load capacity / stability with heavy phones (missing_fact); draft status: needs_listing
+",,,,,,
+x066,h30,before,"Issue: ear cushion durability (product_quality); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x067,h02,before,"Issue: water resistance (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x068,c12,before,"Issue: packaging protection (operational); draft status: route
+
+
+Issue: delivery speed (operational); draft status: route
+
+
+Issue: product condition on arrival (product_quality); draft status: route
+",,,,,,
+x069,c04,after,"Issue: battery capacity (mAh) (conflicting_fact); draft status: ready
+Kapasitas baterai: kapasitas rated 13000 mAh pada output 5V.",,,,,,
+x070,h24,after,"Issue: hot retention duration (conflicting_fact); draft status: ready
+Waktu menjaga panas: menjaga air panas di atas 60 derajat Celsius selama sekitar 6 jam.
+
+Issue: consistency of thermal performance between units (product_quality); draft status: route
+",,,,,,
+x071,h38,before,(no issues reported),,,,,,
+x072,h39,before,"Issue: connector type (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x073,h26,after,"Issue: shoe fit (size runs small) (unclear_fact); draft status: ready
+Kecocokan ukuran: panjang insole: 39 = 24,5 cm; 40 = 25 cm; 41 = 25,5 cm; 42 = 26 cm; 43 = 26,5 cm; 44 = 27 cm.
+
+Issue: insole length (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: wrong variant sent (operational); draft status: route
+",,,,,,
+x074,c19,before,"Issue: USB output current (Ampere) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: overheating under heavy load (product_quality); draft status: route
+",,,,,,
+x075,c10,before,"Issue: wrong variant sent (operational); draft status: route
+
+
+Issue: waktu pengiriman (operational); draft status: route
+
+
+Issue: usable cable length for bed use (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x076,h23,before,"Issue: maximum extended height (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: phone holder grip (product_quality); draft status: route
+",,,,,,
+x077,h34,before,"Issue: cable length (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x078,h13,after,"Issue: compatibility with iPhone 13 variants (unclear_fact); draft status: ready
+Kompatibilitas dengan varian iPhone 13: hanya untuk iPhone 13 (6,1 inch), tidak untuk iPhone 13 mini, 13 Pro, atau 13 Pro Max.
+
+Issue: shipping speed (operational); draft status: route
+",,,,,,
+x079,h22,before,"Issue: shipping/packaging protection (operational); draft status: route
+
+
+Issue: dead pixel / panel defects (product_quality); draft status: route
+",,,,,,
+x080,h31,before,"Issue: battery runtime (conflicting_fact); draft status: needs_merchant_fact
+
+
+Issue: noise level at highest speed (product_quality); draft status: route
+",,,,,,
+x081,c20,before,"Issue: brightness (lumens/watt) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: packaging condition (operational); draft status: route
+",,,,,,
+x082,c05,before,"Issue: laptop compatibility (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: output voltage/current specs (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: durability / failure rate (product_quality); draft status: route
+",,,,,,
+x083,h12,before,"Issue: water resistance (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: bluetooth connection range (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x084,h13,before,"Issue: model compatibility (iPhone 13 variants) (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: shipping / delivery time (operational); draft status: route
+",,,,,,
+x085,c07,before,"Issue: water resistance / waterproofing (expectation_mismatch); draft status: needs_review
+",,,,,,
+x086,c03,before,"Issue: compatible phone models / fit (camera cutout and size) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: variant naming clarity (unclear_fact); draft status: needs_merchant_fact
+",,,,,,
+x087,c19,after,"Issue: USB output (ampere/volt and total) (missing_fact); draft status: ready
+Output USB: output USB total 5V 2,4A (12W).
+
+Issue: overheating / safety under high-load appliances (product_quality); draft status: route
+",,,,,,
+x088,h18,before,"Issue: inner cooking capacity (cups) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x089,c05,after,"Issue: output voltage/current (V/A) specification (missing_fact); draft status: ready
+Spesifikasi tegangan/arus output: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W).
+
+Issue: laptop charging compatibility / supported devices (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: product durability / early failure (product_quality); draft status: route
+",,,,,,
+x090,h24,before,"Issue: hot retention (hours) (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x091,h07,before,"Issue: shipping time (operational); draft status: route
+",,,,,,
+x092,c08,before,(no issues reported),,,,,,
+x093,h21,after,"Issue: material thickness (conflicting_fact); draft status: ready
+Ketebalan bahan: bahan katun flanel 130 gsm (ketebalan tipis-sedang).
+
+Issue: see-through / transparency (expectation_mismatch); draft status: needs_review
+
+
+Issue: wrong variant / wrong size sent (operational); draft status: route
+
+
+Issue: stitching quality (product_quality); draft status: route
+
+
+Issue: wash durability / stretch after wash (product_quality); draft status: route
+
+
+Issue: delivery time (operational); draft status: route
+",,,,,,
+x094,c06,after,"Issue: fit consistency between sizes (unclear_fact); draft status: needs_merchant_fact
+
+
+Issue: size chart (measurements) (missing_fact); draft status: ready
+Tabel ukuran: M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm.
+
+Issue: wrong size/variant sent (operational); draft status: route
+",,,,,,
+x095,c04,before,"Issue: battery capacity (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
+x096,h31,after,"Issue: battery runtime (conflicting_fact); draft status: ready
+Masa pakai baterai: daya tahan baterai sekitar 8 jam di kecepatan 1 dan sekitar 2,5 jam di kecepatan 3.
+
+Issue: runtime per speed (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: noise at high speed (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: battery reliability (early failure) (product_quality); draft status: route
+",,,,,,
+x097,h10,before,(no issues reported),,,,,,
+x098,c13,before,"Issue: maximum extended height (missing_fact); draft status: needs_listing
+
+
+Issue: maximum load capacity (missing_fact); draft status: needs_listing
+
+
+Issue: stability with heavier phones / wobble (product_quality); draft status: route
+",,,,,,
+x099,h04,before,"Issue: reliability with large/many files (product_quality); draft status: route
+
+
+Issue: advertised capacity (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
