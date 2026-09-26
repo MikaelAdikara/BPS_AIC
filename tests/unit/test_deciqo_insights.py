@@ -68,3 +68,28 @@ def test_empty_overview_has_zero_series_and_no_invented_rating(tmp_path):
     assert data["total"] == 0 and data["plan"] == []
     assert data["average_rating"] is None
     conn.close()
+
+
+def test_landscape_splits_volume_ratings_and_map_by_channel(tmp_path):
+    path=tmp_path/"map.sqlite3"
+    store.migrate(path)
+    conn=store.connect(path)
+    conn.execute("INSERT INTO users(id,email,password_hash,created_at) VALUES (1,'a@x.test','hash',''),(2,'b@x.test','hash','')")
+    for pid,uid,channel in [("p1",1,"lazada"),("p2",1,"tokopedia"),("x",2,"lazada")]:
+        conn.execute("INSERT INTO products(id,user_id,channel,source_item_id,title) VALUES (?,?,?,?,?)",(pid,uid,channel,pid,pid))
+    rows=[("p1","r1",5,"2026-09-26T01:00:00Z"),("p1","r2",1,"2026-09-25T01:00:00Z"),("p2","r3",None,"2026-09-26T02:00:00Z"),
+          ("p2","r4",3,None),("x","r5",1,"2026-09-26T01:00:00Z")]
+    for pid,rid,rating,time in rows:
+        conn.execute("INSERT INTO reviews(product_id,id,rating,text,version_hash,review_time) VALUES (?,?,?,'teks','h',?)",(pid,rid,rating,time))
+    blob=pipeline.write_evidence([{"review_id":"r2","quote":"teks"}],[],0,{"support":1,"denominator":2,"candidates_read":2})
+    conn.execute("INSERT INTO findings(id,product_id,attribute,attribute_local,finding_type,evidence_json,support,denominator,candidates_read) VALUES ('f1','p1','delivery','pengiriman','operational',?,1,2,2)",(blob,))
+    data=insights.overview_data(conn,1,7,datetime(2026,9,26,tzinfo=timezone.utc))
+    assert data["channels"] == ["lazada","tokopedia"]
+    assert data["volume_by_channel"][-1] == {"date":"2026-09-26","lazada":1,"tokopedia":1}
+    assert data["evidence_by_channel"][-2] == {"date":"2026-09-25","lazada":1,"tokopedia":0}
+    assert data["ratings_by_channel"] == {"lazada":[1,0,0,0,1],"tokopedia":[0,0,1,0,0]}
+    assert data["ratings_window_by_channel"] == {"lazada":[1,0,0,0,1]}
+    assert {p["id"] for p in data["map"]["products"]} == {"p1","p2"}
+    assert [f["id"] for f in data["map"]["findings"]] == ["f1"]
+    assert data["map"]["findings"][0]["aspect"] == "delivery"
+    conn.close()

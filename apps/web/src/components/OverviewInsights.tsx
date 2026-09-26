@@ -36,6 +36,10 @@ import {
 } from "./ui";
 import { AreaChart, BarList, Meter } from "./visual/charts";
 import { CountUp } from "./visual/motion";
+import { IssueMap, ChannelDot } from "./insight/IssueMap";
+import { ChannelTrend } from "./insight/ChannelTrend";
+import { RatingMix } from "./insight/RatingMix";
+import { channelLabel, sortChannels, type Landscape } from "@/lib/insight-model";
 interface Plan extends Issue {
   share: number;
   confidence_low: number;
@@ -56,7 +60,7 @@ interface Decision {
   score: number;
   drivers: Plan["drivers"];
 }
-interface Insights {
+interface Insights extends Landscape {
   days: number;
   series: { date: string; count: number }[];
   total: number;
@@ -187,6 +191,7 @@ export function OverviewInsights() {
   const [error, setError] = useState<string | null>(null);
   const [revision, setRevision] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [channel, setChannel] = useState("");
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
@@ -262,6 +267,32 @@ export function OverviewInsights() {
       ) : (
         data && (
           <div className={cn("stack", loading && "is-refreshing")} aria-busy={loading || undefined}>
+            {data.channels.length > 1 && (
+              <div className="filter-bar" role="group" aria-label={t("insights.filterTitle")}>
+                <span className="filter-bar__label">{t("insights.filterTitle")}</span>
+                <div className="filter-chips">
+                  <button type="button" aria-pressed={!channel} onClick={() => setChannel("")}>
+                    {t("insights.allChannels")}
+                  </button>
+                  {sortChannels(data.channels).map((c) => (
+                    <button key={c} type="button" aria-pressed={channel === c} onClick={() => setChannel(channel === c ? "" : c)}>
+                      <ChannelDot channel={c} />
+                      {channelLabel(c)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            <IssueMap data={data} channel={channel} onChannel={setChannel} />
+            <div className="insight-duo">
+              <ChannelTrend
+                volume={data.volume_by_channel}
+                evidence={data.evidence_by_channel}
+                channels={data.channels}
+                channel={channel}
+              />
+              <RatingMix allTime={data.ratings_by_channel} window={data.ratings_window_by_channel} channel={channel} />
+            </div>
             <div className="insights-grid">
               <Card title={t("overview.evidence")} icon={<ChartSpline size={18} aria-hidden />}>
                 <EvidenceChart data={data} />

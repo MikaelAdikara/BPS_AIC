@@ -10,6 +10,7 @@ import { alerts } from "./messages-alerts.js";
 import { telegram } from "./messages-telegram.js";
 import { overview } from "./messages-overview.js";
 import { filters } from "./messages-filters.js";
+import { insights } from "./messages-insights.js";
 export const messages = {
   en: {
     common: common.en,
@@ -24,6 +25,7 @@ export const messages = {
     telegram: telegram.en,
     overview: overview.en,
     filters: filters.en,
+    insights: insights.en,
   },
   id: {
     common: common.id,
@@ -38,6 +40,7 @@ export const messages = {
     telegram: telegram.id,
     overview: overview.id,
     filters: filters.id,
+    insights: insights.id,
   },
 };
 export function translate(language, key, values = {}) {
