@@ -154,3 +154,35 @@ def test_anggaran_habis_ditolak_sebelum_memanggil(db, monkeypatch):
     result = pipeline.analyse(pid, db_path=path)
     assert client.calls == []
     assert result["engine"] == "rules" and result["note"].startswith("budget_exhausted")
+
+
+class NoCallClient:
+    responses = property(lambda self: (_ for _ in ()).throw(AssertionError("model dipanggil")))
+
+
+def test_startup_memeriksa_ulang_dengan_verifier_baru_tanpa_memanggil_model(db, monkeypatch):
+    path, pid = db
+    llm.set_client(FakeClient())
+    pipeline.analyse(pid, db_path=path)
+    with store.database(path) as conn:
+        # Kenaikan versi mengubah input_hash (versi ikut di-hash) dan kolom versinya.
+        conn.execute("UPDATE analyses SET verifier_version = 'verify-lama', pipeline_version = 'gap-lama', "
+                     "input_hash = 'hash-versi-lama'")
+        conn.execute("UPDATE findings SET support = 99")
+    llm.set_client(NoCallClient())
+    result = pipeline.recheck_stale(db_path=path)
+    assert result == {"rechecked": 1, "skipped": 0}
+    with store.database(path) as conn:
+        row = conn.execute("SELECT verifier_version, pipeline_version FROM analyses").fetchone()
+        assert tuple(row) == (pipeline.VERIFIER_VERSION, pipeline.PIPELINE_VERSION)
+        assert conn.execute("SELECT support FROM findings").fetchone()[0] == 2
+
+
+def test_startup_tidak_mengganti_engine_bila_key_tidak_ada(db, monkeypatch):
+    path, pid = db
+    llm.set_client(FakeClient())
+    pipeline.analyse(pid, db_path=path)
+    with store.database(path) as conn:
+        conn.execute("UPDATE analyses SET verifier_version = 'verify-lama'")
+    monkeypatch.delenv("OPENAI_API_KEY")
+    assert pipeline.recheck_stale(db_path=path) == {"rechecked": 0, "skipped": 1}

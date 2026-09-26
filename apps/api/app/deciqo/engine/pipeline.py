@@ -279,7 +279,7 @@ def _input_hash(reviews: list[dict], product: dict, engine: str, model: str) -> 
 
 
 def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
-            db_path=None) -> dict:
+            db_path=None, cache_only: bool = False) -> dict:
     """Analisis satu produk dan simpan hasilnya. Mengembalikan ringkasan (engine, temuan, trace)."""
     # 1. baca
     with store.database(db_path) as conn:
@@ -322,6 +322,8 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         if not force and cached.get("ai_hash") == ai_hash and cached.get("ai_output"):
             ai_output = cached["ai_output"]
             trace.append({"stage": "discovery", "cached": True, "proposed": len(ai_output["proposals"])})
+        elif cache_only:
+            return {"product_id": product_id, "engine": mode, "status": "skipped_no_cache", "trace": trace}
         else:
             try:
                 ai_output = discovery.run_all(product, listing, provided, candidates, membership_reviews,
@@ -624,7 +626,51 @@ def _after_save(conn, product, user, fid, old, metrics, items, proposal) -> None
                                  version="new", conn=conn)
 
 
+def recheck_stale(db_path=None) -> dict:
+    """Nilai ulang temuan tersimpan yang dibuat versi pipeline/verifier lama, TANPA memanggil model.
+
+    Kutipan dan label model tersimpan di cache analisis, jadi verifier dan juri baru bisa diterapkan
+    ulang. Produk yang cache AI-nya tidak ada, atau yang engine-nya akan berganti (mis. key sudah
+    tidak ada), dilewati supaya label lama tidak ditimpa hasil mode lain."""
+    with store.database(db_path) as conn:
+        stale = store.rows(conn.execute(
+            "SELECT product_id, engine FROM analyses WHERE status = 'ready' "
+            "AND (pipeline_version != ? OR verifier_version != ?)", (PIPELINE_VERSION, VERIFIER_VERSION)))
+        user_of = {r["id"]: r["user_id"] for r in conn.execute("SELECT id, user_id FROM products")}
+    done = skipped = 0
+    for row in stale:
+        mode, _ = _engine_choice(None, user_of.get(row["product_id"]))
+        if mode != row["engine"]:
+            skipped += 1
+            continue
+        try:
+            result = analyse(row["product_id"], db_path=db_path, cache_only=True)
+        except Exception as exc:  # noqa: BLE001 - satu produk gagal tidak menghentikan pemeriksaan
+            log.error(f"pemeriksaan ulang {row['product_id']} gagal: {type(exc).__name__}")
+            skipped += 1
+            continue
+        if result.get("status") == "skipped_no_cache":
+            skipped += 1
+        else:
+            done += 1
+    return {"rechecked": done, "skipped": skipped}
+
+
 def on_startup() -> None:
-    """Hook startup: proses baru boleh mencoba key lagi (mungkin sudah diganti)."""
+    """Hook startup: proses baru boleh mencoba key lagi, lalu temuan dari versi lama dinilai ulang
+    di latar (tanpa model) supaya label aman versi lama tidak terbawa."""
     with store.database() as conn:
         store.set_kv(conn, "llm_key_rejected", "")
+
+    def run():
+        try:
+            from ..jobs import ANALYSIS_LOCK  # noqa: PLC0415
+
+            with ANALYSIS_LOCK:
+                log.info(f"pemeriksaan ulang temuan versi lama: {recheck_stale()}")
+        except Exception as exc:  # noqa: BLE001
+            log.error(f"pemeriksaan ulang saat startup gagal: {type(exc).__name__}")
+
+    import threading  # noqa: PLC0415
+
+    threading.Thread(target=run, name="engine-recheck", daemon=True).start()

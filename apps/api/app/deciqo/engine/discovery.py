@@ -118,8 +118,10 @@ def build_user(title: str, listing: str, provided: bool, candidates: list[dict],
 
 def ai_hash(product: dict, listing: str, provided: bool, candidates: list[dict], reviews: list[dict], total: int,
             existing: list[dict] | None = None) -> str:
+    # Daftar isu lama sengaja tidak masuk hash: setelah analisis pertama daftar itu selalu berubah,
+    # sehingga pemeriksaan ulang tanpa perubahan ulasan akan membayar model lagi. Parafrasa atribut
+    # ditangani pencocokan identitas di pipeline.
     return store.digest(product.get("title", ""), listing[:listing_check.LISTING_LIMIT], provided,
-                        [(e.get("attribute"), e.get("attribute_local")) for e in existing or []],
                         [(c["id"], c.get("rating"), c.get("variant"), c["text"]) for c in candidates],
                         [(r["id"], r.get("rating"), r["text"]) for r in reviews], total, llm.model_name(),
                         PROMPT_SHA, membership.PROMPT_SHA)
