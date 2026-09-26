@@ -35,11 +35,13 @@ def gate(text: str, sources: list[str]) -> tuple[str, list[str], list[str]]:
 def section(finding: dict, fact: dict | None, listing: str, listing_provided: bool) -> dict:
     base = {"finding_id": finding["id"], "status": "", "text": "", "rendered_from": None,
             "held_suggestion": None, "reasons": [], "unsupported": [], "sources": []}
+    # Tanpa listing, temuan adalah kebutuhan pembeli: draf menunggu listing ditempel dulu, dan
+    # merchant tidak diminta fakta untuk listing yang belum ada (sama dengan bucket/next di inbox).
+    if not listing_provided:
+        return {**base, "status": "needs_listing", "reasons": ["listing_not_provided"]}
     if finding["finding_type"] in pipeline.FACT_REQUIRED or finding["finding_type"] == "expectation_mismatch":
         if not fact:
             return {**base, "status": "needs_merchant_fact", "reasons": ["missing_fact"]}
-    if not listing_provided:
-        return {**base, "status": "needs_listing", "reasons": ["listing_not_provided"]}
     text = render(finding, fact) if fact else ""
     if not text:
         return {**base, "status": "needs_review", "reasons": ["nothing_rendered"]}

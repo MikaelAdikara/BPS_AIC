@@ -68,7 +68,7 @@ PRAISE_TERMS = {
     "aman", "lengkap", "bisa", "cocok", "oke", "adem", "membalas", "dibalas", "balas", "responsif",
     "berfungsi", "jalan", "original", "asli", "good", "great", "fits", "fit", "perfect",
     # "tidak real 20.000mah", "ga penuh": pujian yang dinegasikan
-    "real", "penuh",
+    "real", "penuh", "baik",
 }
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
@@ -101,7 +101,7 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
     "service": {"penjual", "seller", "chat", "respon", "balas", "dibalas", "membalas", "admin",
                 "cs", "pelayanan", "dicuekin", "service", "responsiveness", "respons", "responsif"},
     "quality": {"kualitas", "rusak", "cacat", "kokoh", "quality", "defect", "defects",
-                "durability", "awet", "rapuh"},
+                "durability", "awet", "rapuh", "pecah", "patah", "retak", "bolong"},
     "appearance": {"foto", "gambar", "photo", "photos", "tampilan", "appearance", "picture"},
 }
 OPERATIONAL_GROUPS = {"delivery", "packaging", "service", "wrong_item"}
@@ -136,7 +136,7 @@ _WRONG_ITEM = [
     re.compile(r"\bwrong (?:item|size|colou?r|variant)\b", re.I),
 ]
 _CLAUSE_SPLIT = re.compile(
-    r"(?<!\d)[.,](?!\d)|(?<=\d)[.,](?!\d)|[;!?\n]+|\s(?=(?:tapi|tetapi|namun|sayangnya|padahal|cuma|hanya saja)\b)"
+    r"(?<!\d)[.,](?!\d)|(?<=\d)[.,](?!\d)|[;!?\n]+|\s(?=(?:tapi|tetapi|tp|tpi|namun|sayangnya|padahal|cuma|hanya saja)\b)"
     # Templat ulasan Lazada: "🎧Kualitas Suara:jernih 🔋Daya Tahan Baterai:lama". Setiap emoji dan
     # setiap "Label:" memulai klausa baru supaya pujian dan keluhan tidak tercampur.
     r"|[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\uFE0F]+"
@@ -158,8 +158,13 @@ def stem(word: str) -> str:
     return SLANG.get(word, word)
 
 
+_MULTIPLE = re.compile(r"\b\d+\s*(?:x|kali)\s+lipat\b", re.I)
+
+
 def tokens(text: str) -> list[str]:
-    return [stem(w) for w in _WORD.findall(normalise(text))]
+    # "2x lipat" / "dua kali lipat" berarti kelipatan; kata "lipat" di situ bukan ukuran lipat.
+    text = _MULTIPLE.sub(" kelipatan ", normalise(text)).replace("kali lipat", "kelipatan")
+    return [stem(w) for w in _WORD.findall(text)]
 
 
 @dataclass(frozen=True)
@@ -201,6 +206,8 @@ def polarity(toks: tuple[str, ...] | list[str]) -> str:
             else:
                 complaint = True
         elif tok in PRAISE_TERMS:
+            if negated and any(t in COMPLAINT_TERMS for t in toks[i + 1:i + 3]):
+                continue  # "tidak cepat rusak": yang dinegasikan keluhan sesudahnya
             if negated:
                 complaint = True
             else:

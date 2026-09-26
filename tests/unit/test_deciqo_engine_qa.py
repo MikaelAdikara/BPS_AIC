@@ -170,3 +170,38 @@ def test_qa12_tidak_sesuai_pesanan_adalah_salah_kirim(text):
 
 def test_qa12_sesuai_pesanan_bukan_salah_kirim():
     assert not lexicon.is_wrong_item("Barang sampai sesuai pesanan.. barang bagus sesuai harga.")
+
+
+# --- paket Tokopedia 2019 / Shopee (tanpa listing, ulasan tanpa tanggal) ------------------------
+
+
+def test_qa13_negasi_frasa_cepat_rusak_adalah_pujian():
+    text = "Produk bekerja dengan baik, tidak cepat rusak walau sudah dipakai berkali-kali"
+    assert relevance.judge(text, QUALITY).label != relevance.SUPPORTS
+
+
+def test_qa13_tidak_cepat_tetap_keluhan_pengiriman():
+    assert relevance.judge("pengirimannya tidak cepat", DELIVERY).label == relevance.SUPPORTS
+
+
+def test_qa14_dua_kali_lipat_bukan_ukuran():
+    assert relevance.judge("harga beda 2x lipat dgn yg asli", SIZE).label != relevance.SUPPORTS
+
+
+@pytest.mark.parametrize("text", ["Barangnya pecah ketika sampai", "waktu sampai barang nya patah"])
+def test_qa15_barang_pecah_saat_sampai_adalah_kualitas(text):
+    assert relevance.judge(text, DELIVERY).label != relevance.SUPPORTS
+    assert relevance.judge(text, QUALITY).label == relevance.SUPPORTS
+
+
+def test_qa16_tp_memisah_klausa():
+    text = "Sesuai dgn yg di gambar tp qo kurir'a lama ya kirim'a"
+    appearance = {"attribute": "appearance versus photos", "attribute_local": "kesesuaian dengan foto"}
+    assert relevance.judge(text, appearance).label != relevance.SUPPORTS
+
+
+def test_qa17_tanpa_listing_draf_menunggu_listing():
+    from app.deciqo.engine import draft
+
+    finding = {"id": "f", "finding_type": "missing_fact", "attribute": "size", "attribute_local": "ukuran"}
+    assert draft.section(finding, None, "", False)["status"] == "needs_listing"
