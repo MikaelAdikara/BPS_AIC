@@ -1,0 +1,1993 @@
+{
+ "channel": "tokopedia",
+ "data_origin": "public_dataset",
+ "captured_at": "2022-12-31T00:00:00+00:00",
+ "label": "Tokopedia reviews, PRDECT-ID (public dataset)",
+ "source": "PRDECT-ID, Sutoyo et al., Data in Brief (2022); HuggingFace ZakyF/PRDECT-ID, CC-BY-4.0",
+ "sampling": "23 products with at least 10 reviews and a price of at least Rp10,000, ranked by the number of 1-3 star reviews, at most 2 per category; all reviews the dataset holds for each product. The dataset over-represents negative reviews (a third are 1 star while listings average 4.7-4.9), so complaint shares are not projected to units sold. Price and units sold are the listing figures in the dataset. Collection dates are not published; 2022 is the publication year. No review dates and no listing text.",
+ "sampling_kind": "skewed",
+ "products": [
+  {
+   "source_item_id": "pd-b18d1aa1191a",
+   "title": "Speeds Door Chinning Bar / Pull UP bar Speeds / Iron Gym 013-4",
+   "description": "",
+   "price": 64000.0,
+   "units_sold": 8814,
+   "reviews": [
+    {
+     "id": "pd-b18d1aa1191a-0",
+     "rating": 1,
+     "text": "kecewa sama seller dan toko nya.. beli produk flash sale tp malah stok kosong.. udah gitu kirim nya lama banget, seller nya jaka sembung lagi.."
+    },
+    {
+     "id": "pd-b18d1aa1191a-1",
+     "rating": 1,
+     "text": "Kecewa aja sih sama kebijakan tokonya huhu"
+    },
+    {
+     "id": "pd-b18d1aa1191a-2",
+     "rating": 1,
+     "text": "TOKO TIDAK AMANAH. Diminta untuk dikirim kekurangannya yaitu karet, baut dll untuk penahan stick-nya namun kena GHOSTING. Tidak ada kabar dan itikad baik hingga saat ini. Terima kasih"
+    },
+    {
+     "id": "pd-b18d1aa1191a-3",
+     "rating": 1,
+     "text": "KIRIM PAKET GA NGOTAK.. RESOLUSI ARBITER TOKOPEDIA USELESS.. ??"
+    },
+    {
+     "id": "pd-b18d1aa1191a-4",
+     "rating": 1,
+     "text": "barang tidak dikirim, dikasih resi kosong"
+    },
+    {
+     "id": "pd-b18d1aa1191a-5",
+     "rating": 1,
+     "text": "barang yg dikirim ternyata cacat produk, sisi yg satunya lepasan tdk ada ukuran/pengait nya,"
+    },
+    {
+     "id": "pd-b18d1aa1191a-6",
+     "rating": 1,
+     "text": "Cuman bisa dipanjangin sebelah, sebelah yang nga bs dipanjangin sudah karatan, karet yg dikasih mudah lepas, nga dikasih kotak, kondisi barang seperti barang seken, nga dikasih baut sama karet kecil, kalau emg ada double check dari pihak speeds knp hal sepele untuk satu produk aja bs begini kejadiannya?"
+    },
+    {
+     "id": "pd-b18d1aa1191a-7",
+     "rating": 1,
+     "text": "produk kehilangan salah satu karet sampingnya, sudah di cek dalam box tapi tidak ada"
+    },
+    {
+     "id": "pd-b18d1aa1191a-8",
+     "rating": 1,
+     "text": "sebelah tidak bisa diputar."
+    },
+    {
+     "id": "pd-b18d1aa1191a-9",
+     "rating": 1,
+     "text": "Bulatan besi yg disekrup tidak ada dan salah satu ujungnya tidak bisa diputar."
+    },
+    {
+     "id": "pd-b18d1aa1191a-10",
+     "rating": 1,
+     "text": "besi disalah satu sisi gak bisa diatur panjang pendeknya karena sudah dol jadi alat gak bisa digunakan, mengecewakan sekali"
+    },
+    {
+     "id": "pd-b18d1aa1191a-11",
+     "rating": 1,
+     "text": "ukurannya terlalu pendek"
+    },
+    {
+     "id": "pd-b18d1aa1191a-12",
+     "rating": 1,
+     "text": "Hanya bisa di putar sebelah dan baut gampang kalah sama obeng"
+    },
+    {
+     "id": "pd-b18d1aa1191a-13",
+     "rating": 1,
+     "text": "Patah waktu mau di kencangkan"
+    },
+    {
+     "id": "pd-b18d1aa1191a-14",
+     "rating": 1,
+     "text": "Ada parts yg kurang, sdh dicomplain & jelaskan di chat tp respon nya kurang coperative"
+    },
+    {
+     "id": "pd-b18d1aa1191a-15",
+     "rating": 1,
+     "text": "knop kanan gabisa diputar"
+    },
+    {
+     "id": "pd-b18d1aa1191a-16",
+     "rating": 1,
+     "text": "saya kira dapet lengkap kurang ternyata apa solusinya?"
+    },
+    {
+     "id": "pd-b18d1aa1191a-17",
+     "rating": 1,
+     "text": "barang datang dengan cepat, tapi salah barang. yang datang malah ab wheel aa."
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-0101bf259b60",
+   "title": "Kereta Thomas Mainan Thomas",
+   "description": "",
+   "price": 59000.0,
+   "units_sold": 37200,
+   "reviews": [
+    {
+     "id": "pd-0101bf259b60-0",
+     "rating": 1,
+     "text": "kualitas main amat buruk."
+    },
+    {
+     "id": "pd-0101bf259b60-1",
+     "rating": 1,
+     "text": "barang nya rusak"
+    },
+    {
+     "id": "pd-0101bf259b60-2",
+     "rating": 1,
+     "text": "bahannya jelek kualitasnya sangat jelek baru brp menit sudah rusak"
+    },
+    {
+     "id": "pd-0101bf259b60-3",
+     "rating": 1,
+     "text": "nggak bisa jalan kereta nya.. anakqu jadi kecewa"
+    },
+    {
+     "id": "pd-0101bf259b60-4",
+     "rating": 1,
+     "text": "barang tidak sampai, mengecewakan sekali"
+    },
+    {
+     "id": "pd-0101bf259b60-5",
+     "rating": 1,
+     "text": "barang tidak berfungsi/tidak bisa jalan."
+    },
+    {
+     "id": "pd-0101bf259b60-6",
+     "rating": 1,
+     "text": "kualitas main amat buruk."
+    },
+    {
+     "id": "pd-0101bf259b60-7",
+     "rating": 1,
+     "text": "bahannya jelek kualitasnya sangat jelek baru brp menit sudah rusak"
+    },
+    {
+     "id": "pd-0101bf259b60-8",
+     "rating": 1,
+     "text": "jelek barang sampai disini udah rusak GK bisa jalan"
+    },
+    {
+     "id": "pd-0101bf259b60-9",
+     "rating": 1,
+     "text": "saya belom menerima paket ini kenapa sudah selesai yah gimana sih!!!!"
+    },
+    {
+     "id": "pd-0101bf259b60-10",
+     "rating": 1,
+     "text": "buruk"
+    },
+    {
+     "id": "pd-0101bf259b60-11",
+     "rating": 1,
+     "text": "saya belom menerima paket ini kenapa sudah selesai yah gimana sih!!!!"
+    },
+    {
+     "id": "pd-0101bf259b60-12",
+     "rating": 1,
+     "text": "tiba2 selesai padahal gak ada barang yang datang sama sekali, penipu ya?"
+    },
+    {
+     "id": "pd-0101bf259b60-13",
+     "rating": 1,
+     "text": "ga adda mesin nya,, jangan di beli..."
+    },
+    {
+     "id": "pd-0101bf259b60-14",
+     "rating": 1,
+     "text": "mentang2 dapetnya gratis dari tokped , ehh dikirimnyapun seenak jidat , packing jelek , mainannya gak dicek dulu , rodanya depannya gak ada , jadi keretanya gak bisa jalan , sorry gak difoto ,keburu kesel , sekarang pun mainannya udh ancur kayaknya sama ponakan saya.. next kalo ada pesanan jangan diliat dari apapun ya , cukup layani aja dengan penuh hati .."
+    },
+    {
+     "id": "pd-0101bf259b60-15",
+     "rating": 1,
+     "text": "merek kereta nya beda banget sama di gambar yg dijual. merek yg dijual keluaran china. dan bukan merek thomas train set, tapi thamos train set. rel kretanya juga gk bisa rata stabil. kalo nyari kualitas mending cari yang lain. saya aja ketipu sebenrnya. gk liat review dulu. mgkn kalo penjualnya ngasih barang yg sesuai gambar saya bakal puas."
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-f925d920d773",
+   "title": "Makanan kucing - Bolt Repack 1kg - Bolt Ikan",
+   "description": "",
+   "price": 18900.0,
+   "units_sold": 104900,
+   "reviews": [
+    {
+     "id": "pd-f925d920d773-0",
+     "rating": 1,
+     "text": "kecewa"
+    },
+    {
+     "id": "pd-f925d920d773-1",
+     "rating": 1,
+     "text": "saya kecewa , sudah sering banget beli disini tapi packingan nya rusak . bolong bolong kayak dimakan tikus . ga mungkin banget kalau ini pecah dijalan . bisa minta retur ga soalnya ga layak banget"
+    },
+    {
+     "id": "pd-f925d920d773-2",
+     "rating": 1,
+     "text": "Sangat Kecewa,, beli 3 Pcs dan kemasan semuanya bolong sperti d gigit tikus"
+    },
+    {
+     "id": "pd-f925d920d773-3",
+     "rating": 1,
+     "text": "Minta yg bentuk ikan eee malah diksh yg bentuk donat.... kucing sy gak mau yg bentuk donat.... kecewa sy.."
+    },
+    {
+     "id": "pd-f925d920d773-4",
+     "rating": 1,
+     "text": "Minta yg bentuk donat yang dateng ikan, alhasil kucing tidak doyan ,mubazir deh tidak terpakai.."
+    },
+    {
+     "id": "pd-f925d920d773-5",
+     "rating": 1,
+     "text": "saya pesan yg donat sudah lewat SMS tapi yg dikirim yg ikan saya kecewa sebab kucing saya gak doyan.....saya udah bilang gak apa-apa pakai kantong polos ... saya kecewaaaaaa"
+    },
+    {
+     "id": "pd-f925d920d773-6",
+     "rating": 1,
+     "text": "Tetap kecewa, barang yang sampai ke kostumer sudah bocor. walau alasannya rusak di ekpedisinya ckck"
+    },
+    {
+     "id": "pd-f925d920d773-7",
+     "rating": 1,
+     "text": "beli 4 pack (4kg). yg dikirim cuma 3 pack (3kg). kecewa."
+    },
+    {
+     "id": "pd-f925d920d773-8",
+     "rating": 1,
+     "text": "Sudah dua Kali belanja d tolong Billy buat saya kecewa, pengirimannya lama sekali 2-3 Hari. padahal hanya wilayah Jakarta tidak sampai luar Kota. Minta tolong dong pilih kurir yang cepat,"
+    },
+    {
+     "id": "pd-f925d920d773-9",
+     "rating": 1,
+     "text": "Yg beli wiskas junior bau bangke.. kucing gk pd doyan"
+    },
+    {
+     "id": "pd-f925d920d773-10",
+     "rating": 1,
+     "text": "Barang pesan 3 kg dikirim 1kg brengsek"
+    },
+    {
+     "id": "pd-f925d920d773-11",
+     "rating": 1,
+     "text": "Order tgl 28 feb 22 baru diterima hari ini tgl 4 Mar 22, Diketerangan Estimasi diterima tgl 1-2 Maret 22, padahal sama sama jakarta, cukup sekali aja beli disini, kapok. NOT RECOMMENDED SELLER."
+    },
+    {
+     "id": "pd-f925d920d773-12",
+     "rating": 1,
+     "text": "tidak dikrm2 eksp dan toko gak bertanggung jawab."
+    },
+    {
+     "id": "pd-f925d920d773-13",
+     "rating": 1,
+     "text": "Terakhir saya beli nge packnya g kenceng sobek semua berceceran dijalan saya beli 6 rusak 5 yg 5 sobek semua isinya tumpah kemana2 yg satu pack sampe k saya dah tinggal 1/4 4n mungkin driver yg bawa jg g ati2 bawanya tapi klw nge packnya kuat mungkin g kejadian saya biasa beli g pernah seperti ini"
+    },
+    {
+     "id": "pd-f925d920d773-14",
+     "rating": 1,
+     "text": "Moon maaf ya gan, tadi paketnya sy buka ternyata ada 1 bungkus seperti sudah di buka dengan silet/cutter krn sobekannya rapih dari ujung ke ujung dan bungkusnya di posisikan terbalik dan ketika di buka jadi berantakan semua isinya. Saya pesan 3 kg (3 bungkus) yg rusak 1 kg (1 bungkus). Saya sudah sering pesan dan sudah 2 kali kejadian seperti ini. Tp kejadian yg sekarang yg paling parah dan maaf tidak bisa saya toleransi krn menurut saya sudah kelewatan. Dan saya selalu kasih bintang 5 setiap selesai transaksi namun yg skrng ini mohon maaf, saya kasih bintang 1 supaya ada perbaikan di kemudian hari."
+    },
+    {
+     "id": "pd-f925d920d773-15",
+     "rating": 2,
+     "text": "barang sudah diterima dalam keadaan cacat,seperti ada yg nyobek,lain kali packingnya jangan cuma kresek doank,itu jga cma 1 lapis"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-63828bc625bf",
+   "title": "YJ-01 Nano Spray Gun Disinfectant Wireless 800 ml",
+   "description": "",
+   "price": 115000.0,
+   "units_sold": 3483,
+   "reviews": [
+    {
+     "id": "pd-63828bc625bf-0",
+     "rating": 1,
+     "text": "Kecewa sekal"
+    },
+    {
+     "id": "pd-63828bc625bf-1",
+     "rating": 1,
+     "text": "Seller menggapangkan dan menyepelekan pembeli. Pengiriman lama, pelayanan tidak memuaskan. Seller bilang �wajar lah lama dikirim, kan barang diskon� Sudah lama dikirim, pas di pick up gagal pick up, tidak di follow up lg sama seller. Sampai saya complain baru di kerjain untuk kirim. Kualitas barang, standar. Intinya saya bisa beli dimana saja barang sejenis. Tp sangat menyesal berhubungan dengan seller seperti ini."
+    },
+    {
+     "id": "pd-63828bc625bf-2",
+     "rating": 1,
+     "text": "saya beli Nano Spray di Mic_acc88, barang tidak bagus, saya kembalikan ke toko Mic_acc88, saya minta tukar, oleh toko Mic_acc88 ditukar dengan barang yang sama, ternyata barangnya sama jeleknya, saya minta tukar lagi, saya minta Merk MIXIO WH-08, karena saya lihat gambar di toko MIC_acc88 ada, barangnya lebih murah, saya sudah sampaikan apabila MIXIO WH-08 bagus, saya mau beli lagi dengan menambah uang, ternyata barang yang dikirim kesaya bukan MIXIO WH-08, saya tidak tau barang itu type apa, saya kecewa, sisa uang juga tidak dikembalikan, toko MIX_acc88 tidak menjawab chating saya, kalau menjawab hanya sepatah sepatah kata, tidak memberikan penjelasan dengan baik, bagainana nasib sisa pembelian saya, padahal sudah saya sampaikan, apabila mengirim MIXIO WH-08, sesuai permintaan saya, maka saya akan beli lagi"
+    },
+    {
+     "id": "pd-63828bc625bf-3",
+     "rating": 2,
+     "text": "kecewa tdk spt yg diharapkan basah semua keluar airnya meskipun udah diputer mulai dr yg plg kecil maupun yg besarrr"
+    },
+    {
+     "id": "pd-63828bc625bf-4",
+     "rating": 1,
+     "text": "BARANG GAK BISA DIPAKAI ?????????????????????????????????? PARAH INI MAH"
+    },
+    {
+     "id": "pd-63828bc625bf-5",
+     "rating": 1,
+     "text": "penipu ini penjual, nano apanya, basah, becek, sudah mahal, *********"
+    },
+    {
+     "id": "pd-63828bc625bf-6",
+     "rating": 1,
+     "text": "produk yang dikirim,tombol putih buat setting besar kecil nya semprotan tidak berfungsi,. bagaimana?katanya garansi 30hari"
+    },
+    {
+     "id": "pd-63828bc625bf-7",
+     "rating": 1,
+     "text": "3x pesan, sdh mints tolong dikirimkan dgn nota, dan di iyakan penjual, namun 3x pesan juga Nota tidak di berikan"
+    },
+    {
+     "id": "pd-63828bc625bf-8",
+     "rating": 1,
+     "text": "barang yang dikirim tidak sesuai yang dipesan."
+    },
+    {
+     "id": "pd-63828bc625bf-9",
+     "rating": 1,
+     "text": "gagal produk baut tdk pas n tmpt pengisian jg tdk pas n tdk bs n boros pemakaiqnnya"
+    },
+    {
+     "id": "pd-63828bc625bf-10",
+     "rating": 1,
+     "text": "barang tidak lengkap"
+    },
+    {
+     "id": "pd-63828bc625bf-11",
+     "rating": 1,
+     "text": "spray air tdk keluar embun"
+    },
+    {
+     "id": "pd-63828bc625bf-12",
+     "rating": 1,
+     "text": "saya beli 5..yg 2 ada kabel charger..3 lagi tidak ada..jadi gimana?"
+    },
+    {
+     "id": "pd-63828bc625bf-13",
+     "rating": 1,
+     "text": "spray tdk sesuai gambar..semprotannya spt mainan pistol anak2 aja"
+    },
+    {
+     "id": "pd-63828bc625bf-14",
+     "rating": 1,
+     "text": "Tidak bisa berfungsi walaupun sudah di charge, padahl sudah beli mahal�"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-9e0250dbebd9",
+   "title": "Lux Hand Sanitizer Jasmine 50ml",
+   "description": "",
+   "price": 29100.0,
+   "units_sold": 143400,
+   "reviews": [
+    {
+     "id": "pd-9e0250dbebd9-0",
+     "rating": 5,
+     "text": "barang sudah sampai, dipacking dengan aman dan dpt hrga promo lg, thanks seller"
+    },
+    {
+     "id": "pd-9e0250dbebd9-1",
+     "rating": 5,
+     "text": "Mantab, murah dan berkualitas"
+    },
+    {
+     "id": "pd-9e0250dbebd9-2",
+     "rating": 5,
+     "text": "sdh diterima dg baik,tdk ada yg bocor. pengiriman cepat"
+    },
+    {
+     "id": "pd-9e0250dbebd9-3",
+     "rating": 1,
+     "text": "zooonk, produk ini tdk ada dlm paket yg sy order?? kecewa sm toko ini ??"
+    },
+    {
+     "id": "pd-9e0250dbebd9-4",
+     "rating": 2,
+     "text": "isi tidak penuh dan tidak ada wangi nya. segel hanya pakai solatip seadanya"
+    },
+    {
+     "id": "pd-9e0250dbebd9-5",
+     "rating": 2,
+     "text": "tidak ada tutupnya,walaupun saya beli harga murah tp jadi gabisa dibawa kemana mana karna barang rusak"
+    },
+    {
+     "id": "pd-9e0250dbebd9-6",
+     "rating": 3,
+     "text": "agak kecewa beli 13 pcs di ksh yg exp bln 4 2022 semua..."
+    },
+    {
+     "id": "pd-9e0250dbebd9-7",
+     "rating": 1,
+     "text": "EDny kurang sebulan pantes dijual 1rb"
+    },
+    {
+     "id": "pd-9e0250dbebd9-8",
+     "rating": 1,
+     "text": "parah banget sih responnya, komplain barang kurang, disuruh via wa, sudah wa disuruh lagi lewat marketplace, ampun dah, sejelek ini pelayanan sekelas OFFICIAL UNILEVER"
+    },
+    {
+     "id": "pd-9e0250dbebd9-9",
+     "rating": 1,
+     "text": "saya dimarahin emak saya barangnya kurang"
+    },
+    {
+     "id": "pd-9e0250dbebd9-10",
+     "rating": 1,
+     "text": "sangat amat buruk, mereka yg blg exp nya 2023 tapi yang datang malah 2022 bulan 4, sekelas Unilever begini toh ternyata. mereka suruh refund kalau barangnya udh sampe baru ongkir nya di ganti, apakah kalian bisa ganti waktu yg kebuang untuk nunggu paket itu? packingnya lagi, anter nya lagi, g kerjaan. ya semoga Unilever yg amat besar ini sadar diri akan kesalahan nya dan kelalaiannya. dan tolong jangan menyusahkan pembeli, saya beli bukan gratisan ??"
+    },
+    {
+     "id": "pd-9e0250dbebd9-11",
+     "rating": 5,
+     "text": "packingnya rapihh bangetttt, aman perjalanan jabodetabek"
+    },
+    {
+     "id": "pd-9e0250dbebd9-12",
+     "rating": 5,
+     "text": "Produk sampai dengan cepaat dan amaan, thank youu ????"
+    },
+    {
+     "id": "pd-9e0250dbebd9-13",
+     "rating": 1,
+     "text": "Order 30pcs datangnya 29pcs. Ketahuan nya setelah dibongkar dan diberesin masuk ke kotak, ada satu kemasan 5 yg isinya cuma 4!!! Complain ditolak, krn gaada video unboxing.. Ternyata Unilever Official Account pun tak bisa dipercaya.. ??????"
+    },
+    {
+     "id": "pd-9e0250dbebd9-14",
+     "rating": 1,
+     "text": "pertama liat flash salenya langsung beli. ndak buka deskripsi dulu. I mean Unilever official store gitu. ternyata, expirednya sisa 4 bulan lagi. padahal dulu beli hand sanitizer merek sebelah pas sale juga tapi expirednya masih lama. pantes ini cepet banget diproses. biasanya 2 Hari baru diproses. ini cuma jeda beberapa menit. pelajaran penting. jangan percaya brand????. tetep kudu baca review Dan deskripsi."
+    },
+    {
+     "id": "pd-9e0250dbebd9-15",
+     "rating": 1,
+     "text": "Saya membeli 20 item, dan yg saya terima hanya 10. sudah komplain tdk bisa karena memang saya video ulang dikarenakan video pertama tidak ke rekam."
+    },
+    {
+     "id": "pd-9e0250dbebd9-16",
+     "rating": 1,
+     "text": "exp dekat padahal udah beli banyak buat di jual lagi... ini pengalaman klo harga miring mumer harus waspada ."
+    },
+    {
+     "id": "pd-9e0250dbebd9-17",
+     "rating": 1,
+     "text": "exp 26 april 2022 saya beli total kurang lebih 48pcs buat di jual lagi ... klo tau exp dekat g akan ambil .?? sudah ini dpt zonk segitu banyak mo dipakai sendiri g bakal habis sampai exp"
+    },
+    {
+     "id": "pd-9e0250dbebd9-18",
+     "rating": 1,
+     "text": "pesen 10 dikirim 4"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-4f0ef1c1cb3a",
+   "title": "Mainan Anak CROCODILE DENTIST GAME / MAINAN GIGI BUAYA - GIGIT BUAYA",
+   "description": "",
+   "price": 27000.0,
+   "units_sold": 11000,
+   "reviews": [
+    {
+     "id": "pd-4f0ef1c1cb3a-0",
+     "rating": 1,
+     "text": "barang datang di kasih yang rusak, sungguh mengecewakan!!!! mainan nya tidak bisa nyangap... kapok beli di sini lagi!!!"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-1",
+     "rating": 1,
+     "text": "Kecewa barang pas sampai gak bisa dipakai"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-2",
+     "rating": 1,
+     "text": "Pengiriman Lama dan Mainan Gak berfungsi dengan baik"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-3",
+     "rating": 1,
+     "text": "maennanya macet g bisa nutup mulutnya,,kecewa"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-4",
+     "rating": 1,
+     "text": "KECEWA"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-5",
+     "rating": 1,
+     "text": "Retak... padahal sudah pakai asuransi... sangat kecewaaa"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-6",
+     "rating": 1,
+     "text": "BArang nya rusak, yah ada harga ada kualitas"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-7",
+     "rating": 1,
+     "text": "barang retak malas retur nanti lama lagi anaknya keburu sedih"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-8",
+     "rating": 1,
+     "text": "Kualitas produk mengecewakan. Mulut buaya baru dibuka 2x sudah stuck dan tidak bisa dipakai lagi. Klaim bisa mengembalikan barang juga ternyata prosedurnya tidak mudah. Akhirnya cuma jadi sampah di rumah."
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-9",
+     "rating": 1,
+     "text": "Proses pengiriman mengecewakan. Sebagai customer sangat merasa tdk dibantu ketika bertanya penjual merespon dengan kurang baik. So sad"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-10",
+     "rating": 1,
+     "text": "Saya kecewa, di tunggu tidak ada respon yg baik dari penjual nya,"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-11",
+     "rating": 1,
+     "text": "PRODUK CACAT KEPALANYA PENYOK, MINTA TUKAR GAK DIKASIH"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-12",
+     "rating": 1,
+     "text": "JELEK BARU DICOBA 2KALI UDAH RUSAK. . GIGINYA GA BISA DI PENCET LAGI"
+    },
+    {
+     "id": "pd-4f0ef1c1cb3a-13",
+     "rating": 1,
+     "text": "PRODUK CACAT KEPALANYA PENYOK, MINTA TUKAR GAK DIKASIH"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-35470145221c",
+   "title": "Kertas HVS A4 | 75 Grm | PaperOne",
+   "description": "",
+   "price": 37300.0,
+   "units_sold": 7560,
+   "reviews": [
+    {
+     "id": "pd-35470145221c-0",
+     "rating": 1,
+     "text": "Mengecewakan. Kemasan luar kertas sobek besar. Kelihatannya seperti karena basah, krn ada bagian ujung kertas yg melengkung. Padahal pengiriman d pack dgn bubble wrap. Saya terima krn saya gak sempat bikin video unboxing"
+    },
+    {
+     "id": "pd-35470145221c-1",
+     "rating": 1,
+     "text": "bungkusan barang robek, ada bagian kertas yg sudah kuning menandakan barang sudah lama terbuka. sangat mengecewakan"
+    },
+    {
+     "id": "pd-35470145221c-2",
+     "rating": 1,
+     "text": "bungkusan barang robek, ada bagian kertas yg sudah kuning menandakan barang sudah lama terbuka. sangat mengecewakan"
+    },
+    {
+     "id": "pd-35470145221c-3",
+     "rating": 1,
+     "text": "sangat buruk dan kecewa pakingan gak rapih cuma pake bubble warp aja jadi pas paket sampe udah sobek."
+    },
+    {
+     "id": "pd-35470145221c-4",
+     "rating": 1,
+     "text": "packing buruk. kertas sampai pada sobek bungkusnya."
+    },
+    {
+     "id": "pd-35470145221c-5",
+     "rating": 1,
+     "text": "tokonya songgong brg rusak minta dibebanin ke konsumen, ngak usah jd penjual kalo bubble dibebankan ke. pembeli"
+    },
+    {
+     "id": "pd-35470145221c-6",
+     "rating": 1,
+     "text": "tokonya songgong brg rusak minta dibebanin ke konsumen, ngak usah jd penjual kalo bubble dibebankan ke. pembeli"
+    },
+    {
+     "id": "pd-35470145221c-7",
+     "rating": 5,
+     "text": "benar benar disarankan untuk pembeli lain membeli tambahan packing.. tapi selebihnya kertasnya ok tidak cacat sama sekali.. harganya juga terjangkau.. best lah??"
+    },
+    {
+     "id": "pd-35470145221c-8",
+     "rating": 5,
+     "text": "mantaaaaaaaaapppppp pelayanan cepat pengirimannya... top markotop 10 bintang recommended. pagi order malam udah nyampe... luar biasa"
+    },
+    {
+     "id": "pd-35470145221c-9",
+     "rating": 1,
+     "text": "dateng2 udah robek bungkusnya & kertas kotor. udah wanti2 ke penjualnya pdhal biar ga kayak gini eh tetep aja begini, bingung??"
+    },
+    {
+     "id": "pd-35470145221c-10",
+     "rating": 1,
+     "text": "PENIPUAN! Barang yg dikirim HVS F4, saya baru sadar setelah pesanan selesai jadi tidak bisa ajukan komplain. [nama]-hati dengan penjual ini teman-teman yg mau pesan, lebih baik di toko lain saja. Thx"
+    },
+    {
+     "id": "pd-35470145221c-11",
+     "rating": 1,
+     "text": "Sampai rumah, pas bungkus paket dibuka semua bungkus kertas sudah terbuka, kertas2 banyak yg rusak dan kotor. Sangat tidak recommended"
+    },
+    {
+     "id": "pd-35470145221c-12",
+     "rating": 1,
+     "text": "Pengiriman tidak sesuai jadwal , pengiriman sangat lama tidak di proses proses , di anjurkan sangat kalau buru� jgn beli di toko ini pelayanan buruk , hanya cepat membalas chat saat mau beli , klau sudah beli boro� di bales , di read saja tidak"
+    },
+    {
+     "id": "pd-35470145221c-13",
+     "rating": 1,
+     "text": "Pengiriman tidak sesuai jadwal , pengiriman sangat lama tidak di proses proses , di anjurkan sangat kalau buru� jgn beli di toko ini pelayanan buruk , hanya cepat membalas chat saat mau beli , klau sudah beli boro� di bales , di read saja tidak"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-b5bc284c353b",
+   "title": "Legging Stripe Anak Perempuan 7 - 13 Th / Leging Strip / Lejing Polos - Hitam, polos",
+   "description": "",
+   "price": 14000.0,
+   "units_sold": 3085,
+   "reviews": [
+    {
+     "id": "pd-b5bc284c353b-0",
+     "rating": 4,
+     "text": "warna pinknya tdk sesuai????"
+    },
+    {
+     "id": "pd-b5bc284c353b-1",
+     "rating": 3,
+     "text": "Tidak sama dgn gambar"
+    },
+    {
+     "id": "pd-b5bc284c353b-2",
+     "rating": 3,
+     "text": "tidak sesuai gambar dan kecil"
+    },
+    {
+     "id": "pd-b5bc284c353b-3",
+     "rating": 3,
+     "text": "Kurang sesuai dengan deskripsi, yg katanya muat untuk 7-13 tahun, anak 10 tahun aja kekecilan. panjangnya juga bukan 78, hanya 75."
+    },
+    {
+     "id": "pd-b5bc284c353b-4",
+     "rating": 3,
+     "text": "barangnya gak sesuai gambar, biasa aja, pantes hrg murah"
+    },
+    {
+     "id": "pd-b5bc284c353b-5",
+     "rating": 3,
+     "text": "barang tidak sesuai dengan di foto, leggingnya jg ada yg sobek"
+    },
+    {
+     "id": "pd-b5bc284c353b-6",
+     "rating": 2,
+     "text": "Respon Lama,proses Lama. Not Recomended!"
+    },
+    {
+     "id": "pd-b5bc284c353b-7",
+     "rating": 2,
+     "text": "tipis banget, ukurannya terlalu kecil tidak sesuai usia"
+    },
+    {
+     "id": "pd-b5bc284c353b-8",
+     "rating": 2,
+     "text": "warna tidak sesuai. yaudalah drpd repot2 ngirim balik."
+    },
+    {
+     "id": "pd-b5bc284c353b-9",
+     "rating": 1,
+     "text": "baru d cobain langsung sobek tengahnya Hahaaa maklumlah harga menentukan kualitas juga"
+    },
+    {
+     "id": "pd-b5bc284c353b-10",
+     "rating": 1,
+     "text": "bahan tipis .gak sesuai motif garis spt foto.minta pink dikirim warna merah.cape deh.mending fotonya diganti .jgn pajang foto yg gak sesuai brg ready. saya pesen 2polos.1 strip. 2 yg 14rb 1 yg 19rb. cb dicek dulu.dan minta warna pink"
+    },
+    {
+     "id": "pd-b5bc284c353b-11",
+     "rating": 1,
+     "text": "kecewa pesen 4 barang yg dikirim cuma 1 ga amanah banget semoga berkah aja deh"
+    },
+    {
+     "id": "pd-b5bc284c353b-12",
+     "rating": 5,
+     "text": "barang diterima dengan baik, kualitas baik, pengiriman cepat, makasih"
+    },
+    {
+     "id": "pd-b5bc284c353b-13",
+     "rating": 5,
+     "text": "pengiriman cepat, produk nyaman buat dipakai dirumah."
+    },
+    {
+     "id": "pd-b5bc284c353b-14",
+     "rating": 5,
+     "text": "barang sudah sampai sesuai dengan pesanan recommended"
+    },
+    {
+     "id": "pd-b5bc284c353b-15",
+     "rating": 5,
+     "text": "ukurannya sesuai anak saya, bahannya bagus, anak saya suka. makasih ya"
+    },
+    {
+     "id": "pd-b5bc284c353b-16",
+     "rating": 5,
+     "text": "bahan adem pengiriman lumayan cepat"
+    },
+    {
+     "id": "pd-b5bc284c353b-17",
+     "rating": 4,
+     "text": "lumayan bahannya dan harganya murah"
+    },
+    {
+     "id": "pd-b5bc284c353b-18",
+     "rating": 4,
+     "text": "barang oke sesuai pesanan"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-41f209f61ea0",
+   "title": "TUKU - TUKUCUR Kopi Susu Tetangga 1 Liter - Normal",
+   "description": "",
+   "price": 85000.0,
+   "units_sold": 86600,
+   "reviews": [
+    {
+     "id": "pd-41f209f61ea0-0",
+     "rating": 1,
+     "text": "setelah minum jadi mual2, beda rasanya dengan yang biasa"
+    },
+    {
+     "id": "pd-41f209f61ea0-1",
+     "rating": 1,
+     "text": "jujur kecewa, udah beli kesekian kali. baru diminum sehari bsknya sudah asem. jadi g bisa diminum. Mohon dipastikan tgl kadaluarsanya."
+    },
+    {
+     "id": "pd-41f209f61ea0-2",
+     "rating": 1,
+     "text": "Kali ini kecewa, dapet yang udah kadaluarsa padahal baru minum sehari besoknya udah asem, gak bisa diminum.. mohon di pastikan tgl kadaluarsanya.. jujur kecewa banget"
+    },
+    {
+     "id": "pd-41f209f61ea0-3",
+     "rating": 1,
+     "text": "Kecewa sama anter aja! Jadi basi kopsus saya karena sameday tapi nyampenya malem"
+    },
+    {
+     "id": "pd-41f209f61ea0-4",
+     "rating": 1,
+     "text": "Baru sehari udh basi T_T"
+    },
+    {
+     "id": "pd-41f209f61ea0-5",
+     "rating": 1,
+     "text": "Belum ada 2 hari di kulkas, tapi udah BASI. hiks."
+    },
+    {
+     "id": "pd-41f209f61ea0-6",
+     "rating": 1,
+     "text": "aku dikirimin kopi langsung masukin kulkas. besok di cobain basi ??"
+    },
+    {
+     "id": "pd-41f209f61ea0-7",
+     "rating": 1,
+     "text": "Pesen kopi keluarga 2 botol, yg dikirim cm 1 botol. Penjual dichat tidak ada respon sama sekali. Sangat mengecewakan penjualnya."
+    },
+    {
+     "id": "pd-41f209f61ea0-8",
+     "rating": 1,
+     "text": "mon maap, pemesanan ke-2 ini rasanya beda dg pemesanan pertama yg luar biasa enaknya. yg ini lebih pahit drpd sblmnya. lagipula pada pemesanan ini saya menemukan rambut di dalam kopinya :( mohon dijaga kualitas dan rasanya meski bnyk pesanan ya. tks."
+    },
+    {
+     "id": "pd-41f209f61ea0-9",
+     "rating": 1,
+     "text": "baru diminum sedikit, besoknya udah basi :("
+    },
+    {
+     "id": "pd-41f209f61ea0-10",
+     "rating": 1,
+     "text": "Pesen hari selasa malem, nyampe rumah rabu sore.. kamis masih aman, jumat pagi di minum udh asem.. padahal masih banyak.. jadi kecewa :("
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-c75fc4e516b9",
+   "title": "BAJU SETELAN ANAK LAKI-LAKI ASTRONOT UK 1-10 TAHUN - 3 TAHUN",
+   "description": "",
+   "price": 29900.0,
+   "units_sold": 2095,
+   "reviews": [
+    {
+     "id": "pd-c75fc4e516b9-0",
+     "rating": 4,
+     "text": "Sayang banget dicuci pake mesin cuci langsung hancur??"
+    },
+    {
+     "id": "pd-c75fc4e516b9-1",
+     "rating": 3,
+     "text": "ternyata sablonnya tidak sesuai dengan gambar huhu"
+    },
+    {
+     "id": "pd-c75fc4e516b9-2",
+     "rating": 3,
+     "text": "Sablonan kurang bagus. Pas di cuci ancur sablonannya"
+    },
+    {
+     "id": "pd-c75fc4e516b9-3",
+     "rating": 2,
+     "text": "begitu di cuci sablonan lepas"
+    },
+    {
+     "id": "pd-c75fc4e516b9-4",
+     "rating": 2,
+     "text": "sablonan tidak bagus..klo dicuci nempel"
+    },
+    {
+     "id": "pd-c75fc4e516b9-5",
+     "rating": 2,
+     "text": "bahannya tipis bgt. dipake panas sablonan juga jelek."
+    },
+    {
+     "id": "pd-c75fc4e516b9-6",
+     "rating": 2,
+     "text": "Maaf tp sablonnya bener2 ga layak??????"
+    },
+    {
+     "id": "pd-c75fc4e516b9-7",
+     "rating": 1,
+     "text": "baju nya tipis.. model celana nya juga gak sama dengan di foto..gak real fict mnurut saya..sablon nya licin sekali cuci dijemur lengket dan lepas.. nyesel belanja di sini gak sesuai dgn expektasi saya"
+    },
+    {
+     "id": "pd-c75fc4e516b9-8",
+     "rating": 1,
+     "text": "sablonnya jelek bgttttt"
+    },
+    {
+     "id": "pd-c75fc4e516b9-9",
+     "rating": 1,
+     "text": "parah banget nih baju di cuci sekali langsung sablon nya ilangg rontok semua. . pArah jelek kualitas nya"
+    },
+    {
+     "id": "pd-c75fc4e516b9-10",
+     "rating": 5,
+     "text": "bagus bajunya buat sehari hari anak"
+    },
+    {
+     "id": "pd-c75fc4e516b9-11",
+     "rating": 5,
+     "text": "wajar lah harga segitu mah, baguss"
+    },
+    {
+     "id": "pd-c75fc4e516b9-12",
+     "rating": 5,
+     "text": "bagus kak baju nya jahitan nya rapi cocok untuk pakaian sehari hari harga sesuai pelayanan nya bagus"
+    },
+    {
+     "id": "pd-c75fc4e516b9-13",
+     "rating": 5,
+     "text": "bahannya sih bagus , sesuai pesanan mudah�an muat ya soalnya buat kado, trmksh ??"
+    },
+    {
+     "id": "pd-c75fc4e516b9-14",
+     "rating": 5,
+     "text": "Baju bagus, tanpa cacat dan harga bersahabat"
+    },
+    {
+     "id": "pd-c75fc4e516b9-15",
+     "rating": 4,
+     "text": "kualitas sesuai harga, pengiriman cepat"
+    },
+    {
+     "id": "pd-c75fc4e516b9-16",
+     "rating": 4,
+     "text": "kualitas barang sesuai harga, bahan lumayan halus, tapi sablon agak kasar sepertinya jangan di cuci dengan mesin cuci, pengiriman cepat"
+    },
+    {
+     "id": "pd-c75fc4e516b9-17",
+     "rating": 3,
+     "text": "sablonnya pudar dan tipis bahannya tipis,but worth it for the price"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-40b25047808a",
+   "title": "MOOIMOM Casual Hipseat Carrier Gendongan Bayi - 3 - 36 Bulan, Abu-abu",
+   "description": "",
+   "price": 399000.0,
+   "units_sold": 3008,
+   "reviews": [
+    {
+     "id": "pd-40b25047808a-0",
+     "rating": 5,
+     "text": "Bahannya nyaman ??. Nyaman di punggung. Beban tersebar merata. Desain ergonomis. Gampang dipakai. Penjualnya ramah banget. Bahannya fleksibel."
+    },
+    {
+     "id": "pd-40b25047808a-1",
+     "rating": 5,
+     "text": "Bahannya nyaman ??. Nyaman di punggung. Nyaman di punggung. Desain ergonomis. Desain ergonomis. Beban tersebar merata. Beban tersebar merata. Gampang dipakai. Gampang dipakai. Bahannya fleksibel. Penjualnya ramah banget. Proses pesanan cepat. Proses pesanan cepat. Packaging aman ??. Packaging rapi. Packaging rapi. Respon penjualnya top."
+    },
+    {
+     "id": "pd-40b25047808a-2",
+     "rating": 5,
+     "text": "Bahannya nyaman ?? Nyaman di punggung Packaging aman ?? Gampang dipakai Packaging rapi Bahannya fleksibel Penjualnya ramah banget Desain ergonomis Proses pesanan cepat"
+    },
+    {
+     "id": "pd-40b25047808a-3",
+     "rating": 5,
+     "text": "Bagus banget dan nyaman untuk baby, Sangat worth it dengan harganya ????Bahannya nyaman ??. Desain ergonomis. Nyaman di punggung. Gampang dipakai. Beban tersebar merata. Bahannya fleksibel. Proses pesanan cepat. Penjualnya ramah banget. Packaging aman ??. Packaging rapi. Respon penjualnya top."
+    },
+    {
+     "id": "pd-40b25047808a-4",
+     "rating": 5,
+     "text": "Nyaman di punggung Penjualnya ramah banget"
+    },
+    {
+     "id": "pd-40b25047808a-5",
+     "rating": 4,
+     "text": "Bahannya nyaman ??. Nyaman di punggung. Gampang dipakai."
+    },
+    {
+     "id": "pd-40b25047808a-6",
+     "rating": 4,
+     "text": "Gampang dipakai. Nyaman di punggung."
+    },
+    {
+     "id": "pd-40b25047808a-7",
+     "rating": 5,
+     "text": "Bahannya nyaman ??. Beban tersebar merata. Bahannya fleksibel. Gampang dipakai. Desain ergonomis. Nyaman di punggung."
+    },
+    {
+     "id": "pd-40b25047808a-8",
+     "rating": 2,
+     "text": "Box hancur!!!! Padahal customer beli untuk kado!!! Mengecewakan. Masa bungkus cuma pake plastik tipis? Toko besar tapi gak modal bubble wrap!!!!"
+    },
+    {
+     "id": "pd-40b25047808a-9",
+     "rating": 2,
+     "text": "box nya rusak padahal pesenan orang & buat kado. Mengecewakan"
+    },
+    {
+     "id": "pd-40b25047808a-10",
+     "rating": 2,
+     "text": "Kardus rusak, packing jelek"
+    },
+    {
+     "id": "pd-40b25047808a-11",
+     "rating": 1,
+     "text": "seller tidak responsive, pesan dan pengajuan pembatalan selisih 2 menit, malah ditolak pengajuannya. padahal udah chat pengen ganti tipe barang sama alamat pengiriman tapi gak diwaro. payah"
+    },
+    {
+     "id": "pd-40b25047808a-12",
+     "rating": 1,
+     "text": "packingnya jelek sekali. handling produknya tidak bagus. mau kasih kado ke orang masa kardusnya jelek begini. biki. malu aja"
+    },
+    {
+     "id": "pd-40b25047808a-13",
+     "rating": 1,
+     "text": "pihak toko lama dalam mengirim barang,warna barang tidak sesuai"
+    },
+    {
+     "id": "pd-40b25047808a-14",
+     "rating": 1,
+     "text": "Kecewa berat. Kardus rusak padahal untuk kado"
+    },
+    {
+     "id": "pd-40b25047808a-15",
+     "rating": 1,
+     "text": "1. Pesan abu-abu yg dtg pink. Yakali bapak pake pink 2. Kalo mmg abu abu habis, ada loh fitur chat untuk konfirmasi ke pembeli, bersedia ganti warna atau tidak3. Kardus rusak, barang lama dijual kembali 4. Penjual tidak meminta maaf atas kesalahan yg dilakukan, dan tidak memberikan solusi atas kekeliruan yg terjadi 5. Penjual prosesnya lama banget, beli jumat pagi diproses senin alasannya sabtu minggu libur. Kayak PNS ya. 6. Barangnya gak nyaman banget, sakit kalo dipake terutama di bagian panggul. Kesimpulannya NOT RECOMMENDED SELLER AT ALL!"
+    },
+    {
+     "id": "pd-40b25047808a-16",
+     "rating": 1,
+     "text": "Kecewa dengan waktu pengiriman. Order jam 11.52 sengaja pilih sameday biar hari itu juga sampainya karena butuh cepat gendongan ini. Malah dikirim hari berikutnya. Kalau tidak bisa kirim di hari yang sama, tidak perlu diaktifkan pilihan kurir samedaynya. Atau infokan, untuk sameday itu maksimal order jam berapa baru bisa dikirim di hari yang sama."
+    },
+    {
+     "id": "pd-40b25047808a-17",
+     "rating": 1,
+     "text": "Penjual tidak ramah"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-bdb34c56305a",
+   "title": "Minyak Telon My baby 150 150ml",
+   "description": "",
+   "price": 31478.0,
+   "units_sold": 34300,
+   "reviews": [
+    {
+     "id": "pd-bdb34c56305a-0",
+     "rating": 5,
+     "text": "packing supeeerr rapi dan aman sampai rumah thank you seller semakin lancar usahanya"
+    },
+    {
+     "id": "pd-bdb34c56305a-1",
+     "rating": 5,
+     "text": "mantulllll....??????Tidak memicu alergi. Menggunakan bahan alami. Aman untuk bayi ??. Tanpa bahan pengawet."
+    },
+    {
+     "id": "pd-bdb34c56305a-2",
+     "rating": 5,
+     "text": "packing sangat aman . selalu puas thx seller sukses"
+    },
+    {
+     "id": "pd-bdb34c56305a-3",
+     "rating": 5,
+     "text": "pengiriman sangat cepat respon penjual juga baik packing amat bangt terima kasih seller"
+    },
+    {
+     "id": "pd-bdb34c56305a-4",
+     "rating": 5,
+     "text": "Terima kasih atas pelayanannya yang baik dan cepat senang belanja di sini semoga sukses selalu untuk tokopedianya"
+    },
+    {
+     "id": "pd-bdb34c56305a-5",
+     "rating": 5,
+     "text": "bakal langganan packing amaannnnnnn ??"
+    },
+    {
+     "id": "pd-bdb34c56305a-6",
+     "rating": 5,
+     "text": "puas blnj disni.bsok bli lgi.peking jga bgus.free kardus dan bubble didlamnya.trimksih"
+    },
+    {
+     "id": "pd-bdb34c56305a-7",
+     "rating": 4,
+     "text": "barang sesuai dan pengiriman cepat"
+    },
+    {
+     "id": "pd-bdb34c56305a-8",
+     "rating": 1,
+     "text": "gak pernah saya kasih bintang 1 ke toko manapun, tapi untuk x ini saya kecewa Barang saya yg minyak kayu putih gak di kirim. semoga berkah ka walau cuma uang sgitu dan gak lagi2 belanja di toko yg GAK AMANAH ini"
+    },
+    {
+     "id": "pd-bdb34c56305a-9",
+     "rating": 1,
+     "text": "tidak recommended , hanya memikirkan untung , tidak memikirkan keluhan konsumen"
+    },
+    {
+     "id": "pd-bdb34c56305a-10",
+     "rating": 1,
+     "text": "KAPOK BELI DISINI"
+    },
+    {
+     "id": "pd-bdb34c56305a-11",
+     "rating": 1,
+     "text": "Official store produknya cuman d bungkus plastik ??? Sebercanda itu tokopedia lolosin ini toko jadi official store"
+    },
+    {
+     "id": "pd-bdb34c56305a-12",
+     "rating": 1,
+     "text": "Barangnya ancur cuman d bungkus plastik, dengan harga segitu kualitas toko official store tp barang d terima ancur mah KAPOK"
+    },
+    {
+     "id": "pd-bdb34c56305a-13",
+     "rating": 1,
+     "text": "Packing cm kresek tipis jd dus nya rusak gini. Kurang recomended cara packing aplg buat produk yg mudah rusak gini. Hadehh kecewa"
+    },
+    {
+     "id": "pd-bdb34c56305a-14",
+     "rating": 1,
+     "text": "Sangat amat kecewa, tidak layak jual"
+    },
+    {
+     "id": "pd-bdb34c56305a-15",
+     "rating": 2,
+     "text": "Packingnya cm kresek krg aman, jd pas dateng peot pdhl buat d jual, haduhh.."
+    },
+    {
+     "id": "pd-bdb34c56305a-16",
+     "rating": 1,
+     "text": "PRODUK DIKIRIM TIDAK LENGKAP !!!"
+    },
+    {
+     "id": "pd-bdb34c56305a-17",
+     "rating": 2,
+     "text": "admin cs nya ga nyambung ditanya apa jawab nya apa"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-73791e1b3e01",
+   "title": "TRIPOD 2,1 METER Stand Kamera HP Selfie Make Up Vlog Live",
+   "description": "",
+   "price": 110000.0,
+   "units_sold": 8821,
+   "reviews": [
+    {
+     "id": "pd-73791e1b3e01-0",
+     "rating": 3,
+     "text": "Barang Sampai tapi banyak yang tergores dan penyok di penyangga nya :("
+    },
+    {
+     "id": "pd-73791e1b3e01-1",
+     "rating": 3,
+     "text": "gimana mau dipake ?? orang buat letak hpnya aja ngga ada... percuma"
+    },
+    {
+     "id": "pd-73791e1b3e01-2",
+     "rating": 3,
+     "text": "barang gampang rusak"
+    },
+    {
+     "id": "pd-73791e1b3e01-3",
+     "rating": 2,
+     "text": "barang tidak dibungkus bubble .. sampai rumah pecah dech???? nanya sama penjual ktnya tidak bisa claim.. walaupun ada video unboxing ???? ga papa itung2 sedekah aja ke tokonya.. tapi kwalitas tripotnya bagus dan kokoh.."
+    },
+    {
+     "id": "pd-73791e1b3e01-4",
+     "rating": 2,
+     "text": "barang tidak sesuai pesanan, tempat penyimpan hp nya tidak ada.. kecewa"
+    },
+    {
+     "id": "pd-73791e1b3e01-5",
+     "rating": 2,
+     "text": "salah satu kakinya ada yg bengkok, jadi gabisa dipake, udah minta refund tetep gabisa yasudahlah"
+    },
+    {
+     "id": "pd-73791e1b3e01-6",
+     "rating": 1,
+     "text": "tertera harga aslinya 110rb.. kirain barangnya kualitas premium lah minimal, ternyata yg dateng barang kualitas rendah, packing nya juga asal2an.. payah."
+    },
+    {
+     "id": "pd-73791e1b3e01-7",
+     "rating": 1,
+     "text": "kecewa, sudah di tunggu hampir sebulan, barang gak sampe malah return"
+    },
+    {
+     "id": "pd-73791e1b3e01-8",
+     "rating": 1,
+     "text": "saya tidak menerima produk sama sekali dari kurir dan kurir tidak menelfon saya kalo barang sudah diantarkan dan dititipkan di siapa karena saya belum menerima paket saya saya mengajukan komplain"
+    },
+    {
+     "id": "pd-73791e1b3e01-9",
+     "rating": 5,
+     "text": "mantul boskuhhh barang istimewa"
+    },
+    {
+     "id": "pd-73791e1b3e01-10",
+     "rating": 5,
+     "text": "Kualitasnya bagus. Berfungsi dengan baik."
+    },
+    {
+     "id": "pd-73791e1b3e01-11",
+     "rating": 5,
+     "text": "Kakinya gampang diatur. Berfungsi dengan baik. Kualitas sesuai harga."
+    },
+    {
+     "id": "pd-73791e1b3e01-12",
+     "rating": 5,
+     "text": "Berfungsi dengan baik. Kualitas sesuai harga. Penjualnya ramah banget. Proses pesanan cepat. Respon penjualnya top."
+    },
+    {
+     "id": "pd-73791e1b3e01-13",
+     "rating": 4,
+     "text": "Build kokoh. Kakinya gampang diatur. Berfungsi dengan baik. Berfungsi dengan baik."
+    },
+    {
+     "id": "pd-73791e1b3e01-14",
+     "rating": 4,
+     "text": "Penjualnya ramah . Respon penjualnya bagus.Proses pesanan cepat."
+    },
+    {
+     "id": "pd-73791e1b3e01-15",
+     "rating": 4,
+     "text": "pengiriman nya cepet tapi packing nya gak aman banget soalnya cuman dipacking sama plastik tanpa bubble wrap maupun kardus tapi over all bagus sih ini juga dapet gratis dari Tokopedia terimakasih tokopedia"
+    },
+    {
+     "id": "pd-73791e1b3e01-16",
+     "rating": 3,
+     "text": "Proses pesanan cepat. Kualitas sesuai harga. Berfungsi dengan baik."
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-aefd0786e9b5",
+   "title": "Lifebuoy Shampo Anti Ketombe Anti Dandruff Milknutristrong 900Ml",
+   "description": "",
+   "price": 76900.0,
+   "units_sold": 10000,
+   "reviews": [
+    {
+     "id": "pd-aefd0786e9b5-0",
+     "rating": 5,
+     "text": "produk asli, murah, pengiriman cepat. abang kurir nya jg baik bgt, jagain bener paketnya smp masukin tas biar ga basah kena hujan.diantr malem2 smbl minta maaf..duhh murah rejekinya ya"
+    },
+    {
+     "id": "pd-aefd0786e9b5-1",
+     "rating": 5,
+     "text": "packing rapi dan aman, pengiriman cepat, produk sesuai pesanan. makasih buat bonusnya"
+    },
+    {
+     "id": "pd-aefd0786e9b5-2",
+     "rating": 5,
+     "text": "Terimakasih paketnya sudah saya terima.... sukses terus ya"
+    },
+    {
+     "id": "pd-aefd0786e9b5-3",
+     "rating": 1,
+     "text": "Pengiriman Lama!"
+    },
+    {
+     "id": "pd-aefd0786e9b5-4",
+     "rating": 1,
+     "text": "BARANG TIDAK SAMPAI KARENA BROKEN!!!! PROSES LAMAAA!!!! DARI TANGGAL 10 APRIL BELI, BROKEN TGL 18 APR. SAMPAI TGL 24 APRIL HARI INI MASIH BELUM ADA PRODUK DATANG DAN UANG BELUM KEMBALI. BURUK SEKALI PELAYANANNYA!!!!"
+    },
+    {
+     "id": "pd-aefd0786e9b5-5",
+     "rating": 1,
+     "text": "Kayak *** pelayanannya"
+    },
+    {
+     "id": "pd-aefd0786e9b5-6",
+     "rating": 1,
+     "text": "Pihak Ekspedisi antaraja payah lama sekali?"
+    },
+    {
+     "id": "pd-aefd0786e9b5-7",
+     "rating": 2,
+     "text": "Packaging sangat buruk sekali gan... Penyok� dan isolasi sebagian sudah terbuka, seperti habis dibongkar..."
+    },
+    {
+     "id": "pd-aefd0786e9b5-8",
+     "rating": 3,
+     "text": "lamaaaaaa bngt kirimnya"
+    },
+    {
+     "id": "pd-aefd0786e9b5-9",
+     "rating": 1,
+     "text": "packing berantakan ada yg bocir tumpah semua"
+    },
+    {
+     "id": "pd-aefd0786e9b5-10",
+     "rating": 5,
+     "text": "mantap banget barangnya sesuai deskripsi.harga juga murah. pengemasan aman bgt.pake dus sama wrap. next time order lagi. sukses terus lapaknya gan."
+    },
+    {
+     "id": "pd-aefd0786e9b5-11",
+     "rating": 5,
+     "text": "langganan bulanan, recommended????? i"
+    },
+    {
+     "id": "pd-aefd0786e9b5-12",
+     "rating": 5,
+     "text": "pengiriman cepat banget pokonya the best sukses selalu ??????????"
+    },
+    {
+     "id": "pd-aefd0786e9b5-13",
+     "rating": 1,
+     "text": "jangan mau beli disini.. kemasan nya jelek, barang sampai dalam keadaan pecah dan seller nya gk mau tanggung jawab"
+    },
+    {
+     "id": "pd-aefd0786e9b5-14",
+     "rating": 1,
+     "text": "sangat tidak recomanded, Harga promo tp masih tetap mahal dari toko sebelah bahkan lapak online lain nya. Official store mempermainkan harga ??, mau monopoli tokopedia ??"
+    },
+    {
+     "id": "pd-aefd0786e9b5-15",
+     "rating": 1,
+     "text": "Sy pesan 1 shampoo dan 2 body wash. Yg sy terima hanya 2 body wash. Shampoo tdk sy terima. Salah sy tdk membuat video unboxing (karena percaya sj dgn seller official). Win win solution sy berikan bintang 1. Terima ksh"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-6935be7de22a",
+   "title": "Senter Kepala COB LED Rechargeable / HEADLAMP SOROT",
+   "description": "",
+   "price": 19500.0,
+   "units_sold": 10000,
+   "reviews": [
+    {
+     "id": "pd-6935be7de22a-0",
+     "rating": 5,
+     "text": "Lampunya terang. Pas di kepala. Produk yang diterima lengkap."
+    },
+    {
+     "id": "pd-6935be7de22a-1",
+     "rating": 5,
+     "text": "Produk yang diterima lengkap. Lampunya terang. Pas di kepala. pengiriman standard. paket sampai dengan aman. makasih"
+    },
+    {
+     "id": "pd-6935be7de22a-2",
+     "rating": 5,
+     "text": "Terima kasih barang sampai dan sesuai deskripsi"
+    },
+    {
+     "id": "pd-6935be7de22a-3",
+     "rating": 1,
+     "text": "mengecewakan"
+    },
+    {
+     "id": "pd-6935be7de22a-4",
+     "rating": 1,
+     "text": "mengecewakan"
+    },
+    {
+     "id": "pd-6935be7de22a-5",
+     "rating": 1,
+     "text": "gak bisa nyala."
+    },
+    {
+     "id": "pd-6935be7de22a-6",
+     "rating": 1,
+     "text": "maaf saya kasih bintang 1 katanya barang udha dicek. aktual sampe saya rusak??"
+    },
+    {
+     "id": "pd-6935be7de22a-7",
+     "rating": 1,
+     "text": "sy apes diorderan yang entah keberapa ini. ternyata penjual tidak ramah terhadap pelanggan"
+    },
+    {
+     "id": "pd-6935be7de22a-8",
+     "rating": 1,
+     "text": "penjual bilang batterynya 18650 ternyata battery tanam yg tdk bisa di ganti2. Kecewa lah aku."
+    },
+    {
+     "id": "pd-6935be7de22a-9",
+     "rating": 1,
+     "text": "tali senter kepala ,berubah... gak bagus.... kecewa."
+    },
+    {
+     "id": "pd-6935be7de22a-10",
+     "rating": 1,
+     "text": "barangnya kurang satu"
+    },
+    {
+     "id": "pd-6935be7de22a-11",
+     "rating": 1,
+     "text": "ada satu kurang kabel satu.. jadi tolong lebih teliti lagi dalam pengiriman nya"
+    },
+    {
+     "id": "pd-6935be7de22a-12",
+     "rating": 1,
+     "text": "Ini retak gimana ya kok pembungkusnya apa nggak dicek dulu sebelum dikirim"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-7cea99892a4b",
+   "title": "FLASH SALE - Makanan Kucing Bolt Repack 1KG - IKAN",
+   "description": "",
+   "price": 19500.0,
+   "units_sold": 47800,
+   "reviews": [
+    {
+     "id": "pd-7cea99892a4b-0",
+     "rating": 1,
+     "text": "Sangat kecewa dengan pengiriman yang sangat lama dan sangat sangat bermasalah di ekspedisi pengiriman s*c**at dan penjual tidak fast response."
+    },
+    {
+     "id": "pd-7cea99892a4b-1",
+     "rating": 1,
+     "text": "kecewa bagt. barang yg di kirim tidak sesuai. masih kurang 3 lagi. padahal uda langganan ko malah kecewain gitu...uda komplin ko malah ga respon ya.."
+    },
+    {
+     "id": "pd-7cea99892a4b-2",
+     "rating": 1,
+     "text": "kecewa makanan yg di kirim kurang 1"
+    },
+    {
+     "id": "pd-7cea99892a4b-3",
+     "rating": 1,
+     "text": "kecewa gw belanja di sini gak amanah seller nya gw pesen 3 yg di kirim cuma 2 gak seberapa sih harga nya tapi gak jujur yg jual nya, moga berkah aja dah lu dagang dari hasil gak jujur??"
+    },
+    {
+     "id": "pd-7cea99892a4b-4",
+     "rating": 1,
+     "text": "chat ga di baca pdhl online, salah pengiriman tp ga ada tanggung jawab sama sekali. kaka mau ak doain bangkrut ga tokonya? lain kali jangan kek gitu lah GA BERKAH NANTI REJEKINYA!"
+    },
+    {
+     "id": "pd-7cea99892a4b-5",
+     "rating": 1,
+     "text": "SANGAT KECEWA ..!!! INI REAL YG SAYA ALAMI ... SILAHKAN BACA CHAT SAYA DGN SELLER INI SEBELUM MEMBELI, BARANG DIKIRIM TIDAK SESUAI PESANAN, SUDAH DIRETUR, TAPI CERDIKNYA SELLER TIDAK MENGIRIMKAN PESANAN SAYA YG SEHARUSNYA SAYA PESAN.. SUDAH 15 HARIII LHOO GUYS..UANG TIDAK KEMBALI, BARANG PUN TIDAK SAMPAI.. HAHA..SILAHKAN SAJA JIKA SELLER SANGGUP BAWA KE AKHIRAT.. SEMOGA KALIAN TIDAK TERTIPU SEPERTI SAYA.."
+    },
+    {
+     "id": "pd-7cea99892a4b-6",
+     "rating": 1,
+     "text": "di chat minta pengiriman instan, jawabanya menyanggupi, tp setelah di bayar, ngga di kirim2. kalo overload knp nyanggupin. kacau nih bikin kapok."
+    },
+    {
+     "id": "pd-7cea99892a4b-7",
+     "rating": 1,
+     "text": "Dapet 1 bolong. Pelayanan gak ramah. Udh tau salah gak ada kata maaf. Pesen yg smpe hari ini. Di kirim malah bsk dgn alesan ngbodohin customer. Pdhl beli dsni udh berkali2 tp 2 kali pembelian terakhir selalu ngaret. Klo salah ya minta maaf bukan malah boong. Paket jg di kirim berantakan asal masukin. Jangan sombong mentang2 udh bnyk yg beli. Inget tanpa customer anda bukan siapa2."
+    },
+    {
+     "id": "pd-7cea99892a4b-8",
+     "rating": 1,
+     "text": "packaging kurang rapih, semua kemasan produk BOLT sobek.. sehingga ketika unboxing, isi makanan berantakan"
+    },
+    {
+     "id": "pd-7cea99892a4b-9",
+     "rating": 1,
+     "text": "DUANYA LAGI GOIB"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-5068c7d47cda",
+   "title": "Daster Wanita Kekinian Adem - Warna Random",
+   "description": "",
+   "price": 30500.0,
+   "units_sold": 15200,
+   "reviews": [
+    {
+     "id": "pd-5068c7d47cda-0",
+     "rating": 5,
+     "text": "Ukuran sesuai. Tidak menerawang. Bahan menyerap keringat. Jahitannya rapi. Warnanya bagus ??."
+    },
+    {
+     "id": "pd-5068c7d47cda-1",
+     "rating": 5,
+     "text": "adem bahannya"
+    },
+    {
+     "id": "pd-5068c7d47cda-2",
+     "rating": 5,
+     "text": "Trimaksih daster sudah sampai. Dapat grtisan dari toped jdi gak perlu komplain aneh2 nmnya grtisan Yg datang emang gak sesuai sih sma gambar. bagus bahannya tebel trnyata gak nerawang. Ringan dipakai. Tidak menerawang. Ukuran sesuai. Warnanya bagus ??. Bahan menyerap keringat. Jahitannya rapi."
+    },
+    {
+     "id": "pd-5068c7d47cda-3",
+     "rating": 5,
+     "text": "asli bagus bgt"
+    },
+    {
+     "id": "pd-5068c7d47cda-4",
+     "rating": 5,
+     "text": "BAGUS BANGETT MAKASII DPT HADIAH DR TOKPEDDDDDTidak menerawang. Ukuran sesuai. Ringan dipakai. Warnanya bagus ??. Bahan menyerap keringat. Jahitannya rapi."
+    },
+    {
+     "id": "pd-5068c7d47cda-5",
+     "rating": 4,
+     "text": "paket cepat sampai, bagus, danrapih, trimakasih kakak.Warnanya bagus ??. Ukuran sesuai. Jahitannya rapi."
+    },
+    {
+     "id": "pd-5068c7d47cda-6",
+     "rating": 4,
+     "text": "lumayan bagus bahan a , cpt jga proses pengiriman a"
+    },
+    {
+     "id": "pd-5068c7d47cda-7",
+     "rating": 4,
+     "text": "barang bagus, meskipun agak panas"
+    },
+    {
+     "id": "pd-5068c7d47cda-8",
+     "rating": 3,
+     "text": "Bahan menyerap keringat. Ringan dipakai"
+    },
+    {
+     "id": "pd-5068c7d47cda-9",
+     "rating": 3,
+     "text": "bahan tipis.. kayaknya ga bisa di pakai"
+    },
+    {
+     "id": "pd-5068c7d47cda-10",
+     "rating": 3,
+     "text": "yaampunnn.... mentang� Rp. 0 x nih yah krna penguna baru... baju sih baju tapi gimna mau dipake lobang lehernya itu kecill amed,, anak yg 11 tahun pun gak bisa pakai... padahal mah lumayan lah bahannya walaupun tipis.."
+    },
+    {
+     "id": "pd-5068c7d47cda-11",
+     "rating": 3,
+     "text": "barangnya gx sesuai sama yg d gambar"
+    },
+    {
+     "id": "pd-5068c7d47cda-12",
+     "rating": 2,
+     "text": "tidak sesuai"
+    },
+    {
+     "id": "pd-5068c7d47cda-13",
+     "rating": 2,
+     "text": "enggak sesuai sama yg digambar"
+    },
+    {
+     "id": "pd-5068c7d47cda-14",
+     "rating": 1,
+     "text": "dasternya adem ya iyalah pada bolong/sobek gitu ya jelas ademnya,,mentang2 gretongan,,,haahaaa parah asli"
+    },
+    {
+     "id": "pd-5068c7d47cda-15",
+     "rating": 1,
+     "text": "auhh bgt sma yg d gambar mentang2 pngguna baru dpt grtisan eh dpt nya daster 10rban d loak...????lucu tokped apa toko nya nih gak mau rugi...gak smpet foto sya ksihkan sma nenek sya.ampunn dah.."
+    },
+    {
+     "id": "pd-5068c7d47cda-16",
+     "rating": 1,
+     "text": "jelek bgt nyesal jadi nya"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-80e48f80bee9",
+   "title": "Masker strap / Tali Masker / Aksesoris masker Korea - type Banding - 3.Red",
+   "description": "",
+   "price": 15000.0,
+   "units_sold": 18000,
+   "reviews": [
+    {
+     "id": "pd-80e48f80bee9-0",
+     "rating": 5,
+     "text": "packing rapi. proses pengiriman cepat."
+    },
+    {
+     "id": "pd-80e48f80bee9-1",
+     "rating": 5,
+     "text": "bagus strap nya...seller jg krmnya cepat"
+    },
+    {
+     "id": "pd-80e48f80bee9-2",
+     "rating": 5,
+     "text": "Kualitas nya bagus ?? Warna2 nya sesuai dengan yg di etalase ?? Pengiriman cepat banget ???? Thank you??????"
+    },
+    {
+     "id": "pd-80e48f80bee9-3",
+     "rating": 5,
+     "text": "Pembelian yg kesekian kali disini ????"
+    },
+    {
+     "id": "pd-80e48f80bee9-4",
+     "rating": 4,
+     "text": "bgs, cepat respon dan pengirimanny"
+    },
+    {
+     "id": "pd-80e48f80bee9-5",
+     "rating": 4,
+     "text": "puas banget ????????????????"
+    },
+    {
+     "id": "pd-80e48f80bee9-6",
+     "rating": 4,
+     "text": "Barang sesuai gambar dan deskripsi, namun tali nya kependekan."
+    },
+    {
+     "id": "pd-80e48f80bee9-7",
+     "rating": 3,
+     "text": "Ternyata kecil hanya cocok buat anak anak kl buat dewasa kepala besar terlalu nyekek tapi warna bagus sesuai pesanan"
+    },
+    {
+     "id": "pd-80e48f80bee9-8",
+     "rating": 3,
+     "text": "ckup bagus..terimakasih"
+    },
+    {
+     "id": "pd-80e48f80bee9-9",
+     "rating": 3,
+     "text": "minta yg biru di kasih toska"
+    },
+    {
+     "id": "pd-80e48f80bee9-10",
+     "rating": 3,
+     "text": "Baru mau di pake, clipnya copot"
+    },
+    {
+     "id": "pd-80e48f80bee9-11",
+     "rating": 3,
+     "text": "kan pesanan nya wrn yellow..yg dikirim graay sih hmmm"
+    },
+    {
+     "id": "pd-80e48f80bee9-12",
+     "rating": 2,
+     "text": "Saya pesan yg putih biasa, kenapa di kirim yg ini, tidak sesuai"
+    },
+    {
+     "id": "pd-80e48f80bee9-13",
+     "rating": 1,
+     "text": "barang dikirim tidak sesuai jumlah pesanan"
+    },
+    {
+     "id": "pd-80e48f80bee9-14",
+     "rating": 1,
+     "text": "gak sesuai ekspektasi, ternyata di ol shop lain harga jauh banget lebih murah"
+    },
+    {
+     "id": "pd-80e48f80bee9-15",
+     "rating": 1,
+     "text": "Baru diple, ps mau buka, cantelannya patah"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-2451c4b86268",
+   "title": "KABEL DATA LED BASEUS HALO FAST CHARGING IPHONE/MICRO USB/TYPE-C 1M - Hitam, TYPE C",
+   "description": "",
+   "price": 109000.0,
+   "units_sold": 41000,
+   "reviews": [
+    {
+     "id": "pd-2451c4b86268-0",
+     "rating": 3,
+     "text": "Seller very slow response, semua step selalu last minute baru lanjut. Ketika official store lain, hanya butuh 1-2 maks 3 hari barang sampai setelah order, ini baru diterima setelah 5 hari"
+    },
+    {
+     "id": "pd-2451c4b86268-1",
+     "rating": 3,
+     "text": "yg micro ini sering rusak coba di tingkatkn lg kualitasnya"
+    },
+    {
+     "id": "pd-2451c4b86268-2",
+     "rating": 3,
+     "text": "Tidak berfungsi dengan baik"
+    },
+    {
+     "id": "pd-2451c4b86268-3",
+     "rating": 2,
+     "text": "belum seminggu udah ga fungsi"
+    },
+    {
+     "id": "pd-2451c4b86268-4",
+     "rating": 2,
+     "text": "pelayanan kurang cepat dan ramah"
+    },
+    {
+     "id": "pd-2451c4b86268-5",
+     "rating": 1,
+     "text": "Awalnya seneng karena barang cepat sampai dan bagus, ternyata belum sampai sebulan sudah rusak ga bisa dipake lg ??"
+    },
+    {
+     "id": "pd-2451c4b86268-6",
+     "rating": 1,
+     "text": "sebentar pakai sudah patah. aku pikir besi ternyata plastik"
+    },
+    {
+     "id": "pd-2451c4b86268-7",
+     "rating": 5,
+     "text": "pengiriman super cepet. super recommended bgt. cepat mengisi daya. terima kasih"
+    },
+    {
+     "id": "pd-2451c4b86268-8",
+     "rating": 5,
+     "text": "Bagus banget kabel nya ada rgb nya pengiriman nya juga cepet. Terima kasih banyak."
+    },
+    {
+     "id": "pd-2451c4b86268-9",
+     "rating": 5,
+     "text": "Product sesuai deskripsi, packing rapih. Beneran fast charging ! Terima Kasih baseus !"
+    },
+    {
+     "id": "pd-2451c4b86268-10",
+     "rating": 5,
+     "text": "barang telah sampai.. semoga awet.. terima kasih"
+    },
+    {
+     "id": "pd-2451c4b86268-11",
+     "rating": 4,
+     "text": "Berfungsi dengan baik, fast charge jalan"
+    },
+    {
+     "id": "pd-2451c4b86268-12",
+     "rating": 4,
+     "text": "sesuai dg deskripsi produk"
+    },
+    {
+     "id": "pd-2451c4b86268-13",
+     "rating": 3,
+     "text": "Lain x waktu pengiriman harap lebih cepat. Yg lainnya sdh bagus!"
+    },
+    {
+     "id": "pd-2451c4b86268-14",
+     "rating": 3,
+     "text": "Brang bagus. Kbel bisa cuma kalo di pake panas di pegangan lampunnya"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-011f67142dea",
+   "title": "Madame Gie Madame Perfect Brow - Pensil alis - Godly Grey",
+   "description": "",
+   "price": 20000.0,
+   "units_sold": 12300,
+   "reviews": [
+    {
+     "id": "pd-011f67142dea-0",
+     "rating": 5,
+     "text": "Teksturnya keras. Hasilnya awet. Beneran waterproof. Gampang dipakai. Gampang dibawa-bawa. Proses pesanan cepat. Penjualnya ramah banget. Packaging aman ??. Packaging rapi. Respon penjualnya top."
+    },
+    {
+     "id": "pd-011f67142dea-1",
+     "rating": 5,
+     "text": "Gampang dibawa-bawa Hasilnya awet Packaging aman ?? Gampang dipakai"
+    },
+    {
+     "id": "pd-011f67142dea-2",
+     "rating": 5,
+     "text": "Teksturnya creamy. Gampang dipakai. Packaging aman ??."
+    },
+    {
+     "id": "pd-011f67142dea-3",
+     "rating": 5,
+     "text": "Gampang dipakai. Gampang dibawa-bawa. Packaging aman ??."
+    },
+    {
+     "id": "pd-011f67142dea-4",
+     "rating": 4,
+     "text": "Teksturnya keras. Hasilnya tebal. Gampang dipakai. Gampang dibawa-bawa. Packaging aman ??. Proses pesanan cepat."
+    },
+    {
+     "id": "pd-011f67142dea-5",
+     "rating": 4,
+     "text": "Gampang dipakai. Packaging aman ??. Proses pesanan cepat. Gampang dibawa-bawa. tapi syg pas baru nyampe dibuka udh patah"
+    },
+    {
+     "id": "pd-011f67142dea-6",
+     "rating": 3,
+     "text": "aku doang yang ngerasa apa gimaba tapi warna yang ini ga terlalu out as much i expected. Tapi overall i loved it"
+    },
+    {
+     "id": "pd-011f67142dea-7",
+     "rating": 3,
+     "text": "salah kasih wrna, ak pesen brown yang datang grey... huhu"
+    },
+    {
+     "id": "pd-011f67142dea-8",
+     "rating": 2,
+     "text": "barangnya sih bagus,,, cuma sellernya aja yg nyebelin... maksudnya pengen ganti alamat doang,,, tp malah ga bisaa"
+    },
+    {
+     "id": "pd-011f67142dea-9",
+     "rating": 2,
+     "text": "Kualitas produk bgs sebenarnya, tapi sayangnya isi pensil alisnya patah2, ajukan komplain n seller mau tukarkan, tapi kan repot pembeli hrs krm balik lagi barangnya yg ga seberapa. Kalo dituker n dtg brg rusak lg kan apes, bikin kerjaan namanya. Saran aja, klo bs gnti lsg ke pembeli tanpa hrs retur2 krn nama brand ini lumayan baik n marketnya bsr. Kalo ga bs gnti stdknya kompensasi potongan hrga. Klo pembeli hrs krm balik lagi pensil alis rusak yg hrganya 10rban lebih, keknya mending ikhlaskan aja kebetulan dpet brg cacat."
+    },
+    {
+     "id": "pd-011f67142dea-10",
+     "rating": 2,
+     "text": "pesan godly grey malah datang nya lovely brown , gak teliti banget admin nya"
+    },
+    {
+     "id": "pd-011f67142dea-11",
+     "rating": 2,
+     "text": "ada satu yang salah dong pengirimanya gimana kurang teliti"
+    },
+    {
+     "id": "pd-011f67142dea-12",
+     "rating": 1,
+     "text": "utk pencil alis nya yg matic sampai di tempat patah, free kaca ny pecah"
+    },
+    {
+     "id": "pd-011f67142dea-13",
+     "rating": 1,
+     "text": "ga ngerti konsepnya gimana, pas dibuka pensilnya langsung patah gini hadeh"
+    },
+    {
+     "id": "pd-011f67142dea-14",
+     "rating": 1,
+     "text": "sedih kirang pensil alis, tolong lebih teliti lagi"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-a5e0f3a9f867",
+   "title": "Onix Dispenser Galon Air Aqua Pompa Galon Automatic",
+   "description": "",
+   "price": 70000.0,
+   "units_sold": 13300,
+   "reviews": [
+    {
+     "id": "pd-a5e0f3a9f867-0",
+     "rating": 5,
+     "text": "Material Produk Bagus. Produk Sesuai. Kualitas Produk Bagus. Produk Berfungsi Dengan Baik."
+    },
+    {
+     "id": "pd-a5e0f3a9f867-1",
+     "rating": 4,
+     "text": "Mantap, pas sih walau agak goyang2 ga lengket ke galon, tpi speed air keluar cukup, mulutnya mungkin yah agak kurang panjang dikit"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-2",
+     "rating": 4,
+     "text": "Produk Sesuai. Produk Berfungsi Dengan Baik."
+    },
+    {
+     "id": "pd-a5e0f3a9f867-3",
+     "rating": 5,
+     "text": "Produk Berfungsi Dengan Baik. Produk Sesuai. Udah dipake.. makasih yaa"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-4",
+     "rating": 5,
+     "text": "barang sangat bagus ..............Kualitas Produk Bagus."
+    },
+    {
+     "id": "pd-a5e0f3a9f867-5",
+     "rating": 3,
+     "text": "cepet banget rusaknya baru sebulan pake gak bisa nyala ._."
+    },
+    {
+     "id": "pd-a5e0f3a9f867-6",
+     "rating": 2,
+     "text": "Barang kurang bagus, bocor dibagian saluran keluar saat di operasikan . ??"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-7",
+     "rating": 2,
+     "text": "sudah macet harus di ketok2 dulu baru nyala Mesin"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-8",
+     "rating": 2,
+     "text": "alatnya eror"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-9",
+     "rating": 2,
+     "text": "gak fungsi walau udah di charge seharian. apes aja ini mah"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-10",
+     "rating": 1,
+     "text": "barang ngk bisa berfungsi.setelah di cek ic mati.jadi beli barang untuk di buang.tolong dong klau kirim barang di cek/tes dulu?????.sangat kecewaaa.."
+    },
+    {
+     "id": "pd-a5e0f3a9f867-11",
+     "rating": 1,
+     "text": "Produk tidak bagus"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-12",
+     "rating": 1,
+     "text": "BARANG RUSAK, TIDAK BISA ADI CHARGE . SEHINGA TIDAK BISA DIPAKAI. RESPON PENJUAL SANGAT LAMBAT !!. SAYA KECEWA SBGI PEMBELI !"
+    },
+    {
+     "id": "pd-a5e0f3a9f867-13",
+     "rating": 1,
+     "text": "saya beli item ini tetapi pompa elektrik ini tidak bisa di charge. sehingga tidak bisa di pakai. pihak penjual tidak ada respon ! tidak bisa membantu ! saya sangat kecewa. NOT RECOMENDDED !!"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-f4d59dbc1f5b",
+   "title": "Toolset ToolKit Dengan Box 16 Pcs HJ-C016",
+   "description": "",
+   "price": 179000.0,
+   "units_sold": 877,
+   "reviews": [
+    {
+     "id": "pd-f4d59dbc1f5b-0",
+     "rating": 5,
+     "text": "mantap, barang oke"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-1",
+     "rating": 5,
+     "text": "pengiriman cepat, barangnya lengkap sesuai pesanan"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-2",
+     "rating": 5,
+     "text": "Proses cepat produk berfungsi dgn baik"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-3",
+     "rating": 1,
+     "text": "plastik, yah ada harga ada kualitas"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-4",
+     "rating": 1,
+     "text": "kualitas barangnya mengecewakan"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-5",
+     "rating": 3,
+     "text": "gak sesuai expektasi dengan bahan toolsnya... dari gambar terlihat kuat, tapi pas sampai seperti besi gak kokoh... karena dapat harga murah, jadi gak terlalu kecewa... klo dengan harga asli 100 rb keatas... pasti saya kecewa belinya... mending pasang harga yang wajar ya..."
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-6",
+     "rating": 1,
+     "text": "pesan 3 yg datang 1 parah"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-7",
+     "rating": 2,
+     "text": "ga sesuai expetasi.....barang2 nya ga kuat.ukuran kcl kaya mainan."
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-8",
+     "rating": 2,
+     "text": "low quality, harga nggak berbohong."
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-9",
+     "rating": 2,
+     "text": "packing nya jelek. casing nya penyok�...kualitas jg kurang...bbrp tidak pas ditempat nya"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-10",
+     "rating": 3,
+     "text": "kualitas ala kadar nya. obeng buat buka mur,ujung matanya kalah. meletot. padahalur nya ngga terlalu kenceng. bahannya kurang bagus"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-11",
+     "rating": 3,
+     "text": "kualitas barang tidak bagus"
+    },
+    {
+     "id": "pd-f4d59dbc1f5b-12",
+     "rating": 5,
+     "text": "recommended seller buat pelapak,sesuai pesanan.to markotop"
+    }
+   ]
+  },
+  {
+   "source_item_id": "pd-32067933a621",
+   "title": "box clover segi 4 / kotak kado hadiah gift makanan cd bingkisan",
+   "description": "",
+   "price": 12900.0,
+   "units_sold": 3930,
+   "reviews": [
+    {
+     "id": "pd-32067933a621-0",
+     "rating": 5,
+     "text": "bagus . packing aman"
+    },
+    {
+     "id": "pd-32067933a621-1",
+     "rating": 5,
+     "text": "Bagus kotaknya, harga nya murah.. Pengiriman cepet..."
+    },
+    {
+     "id": "pd-32067933a621-2",
+     "rating": 5,
+     "text": "Barang yg di pesan sesuai dan packing rapi"
+    },
+    {
+     "id": "pd-32067933a621-3",
+     "rating": 1,
+     "text": "barang dikrm beda dgn yg pesan"
+    },
+    {
+     "id": "pd-32067933a621-4",
+     "rating": 1,
+     "text": "ada bagian yang sobek"
+    },
+    {
+     "id": "pd-32067933a621-5",
+     "rating": 1,
+     "text": "Ga dikirim barangnya :("
+    },
+    {
+     "id": "pd-32067933a621-6",
+     "rating": 2,
+     "text": "brg yg diterima tidak sama dgn yg di etalase toko, tipis seperti kotak nasi padang, pdhl dikira tebal krn utk kirim kado ke luar kota..."
+    },
+    {
+     "id": "pd-32067933a621-7",
+     "rating": 2,
+     "text": "Gak ada instruksinya.. bingung jadinya"
+    },
+    {
+     "id": "pd-32067933a621-8",
+     "rating": 1,
+     "text": "Ga jelas ga ada instruksinya, rakitnya ginana... sepertinya juga barangnya beda sama yg saya pesan."
+    },
+    {
+     "id": "pd-32067933a621-9",
+     "rating": 2,
+     "text": "Pengiriman lama dan tidak ada cara perakitan box yang susah."
+    },
+    {
+     "id": "pd-32067933a621-10",
+     "rating": 2,
+     "text": "Susah d bikinnya, ga ngerti, ribet... packing juga kurang... bahkan ada yg lecek dan robek kertasnya... ya uda lah"
+    },
+    {
+     "id": "pd-32067933a621-11",
+     "rating": 5,
+     "text": "Bagusssss bangeeettttt ????????????"
+    },
+    {
+     "id": "pd-32067933a621-12",
+     "rating": 1,
+     "text": "Seller Tidak jujur. saya beli 2 macam barang, salah satu stok kosong tp tidak diinfokan. Tapi lgsg kirim yg satunya. pdhl sudah nunggu2. pikir penyelesaian gampang ya, buyer bisa tinggal minta refund. tapi saya rugi waktu dan ongkir."
+    }
+   ]
+  }
+ ]
+}

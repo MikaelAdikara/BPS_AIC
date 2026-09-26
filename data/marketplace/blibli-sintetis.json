@@ -4,11 +4,13 @@
  "captured_at": "2026-09-26T03:00:00+00:00",
  "label": "Blibli synthetic example",
  "source": "Written by the team to show the import format with a listing",
- "sampling": "Synthetic example, not customer data.",
+ "sampling": "Synthetic example, not customer data. Every review of each synthetic product is included; units sold is part of the example.",
+ "sampling_kind": "complete",
  "products": [
   {
    "source_item_id": "bb-rc-18",
    "title": "Rice cooker digital 1,8 liter",
+   "units_sold": 870,
    "description": "Rice cooker digital kapasitas 1,8 liter, panci anti lengket, 8 menu masak, timer 24 jam. Daya 400 watt.",
    "reviews": [
     {
@@ -51,6 +53,63 @@
      "rating": 5,
      "variant": "",
      "text": "Sesuai deskripsi, pengemasan rapi.",
+     "review_time": "2026-09-23T03:00:00+00:00"
+    }
+   ]
+  },
+  {
+   "source_item_id": "bb-steamer-1200",
+   "title": "Setrika uap genggam 1200 watt",
+   "units_sold": 460,
+   "description": "Setrika uap genggam 1200 watt, tangki air 250 ml, siap dipakai dalam 30 detik. Bisa dipakai tegak untuk gorden dan kemeja yang digantung.",
+   "reviews": [
+    {
+     "id": "bb-steamer-1200-1",
+     "rating": 2,
+     "variant": "",
+     "text": "Panasnya lebih dari satu menit, bukan 30 detik seperti di deskripsi.",
+     "review_time": "2026-09-04T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-2",
+     "rating": 3,
+     "variant": "",
+     "text": "Waktu dipakai tegak airnya netes ke kemeja.",
+     "review_time": "2026-09-08T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-3",
+     "rating": 4,
+     "variant": "",
+     "text": "Uapnya kencang dan praktis, tapi tangkinya cepat habis, sekitar 5 menit.",
+     "review_time": "2026-09-11T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-4",
+     "rating": 2,
+     "variant": "",
+     "text": "Dipakai tegak untuk gorden malah menetes, bajunya jadi basah bercak.",
+     "review_time": "2026-09-14T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-5",
+     "rating": 5,
+     "variant": "",
+     "text": "Ringan, cocok buat kemeja kerja pagi-pagi.",
+     "review_time": "2026-09-17T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-6",
+     "rating": 5,
+     "variant": "",
+     "text": "Pengiriman cepat, barang aman.",
+     "review_time": "2026-09-20T03:00:00+00:00"
+    },
+    {
+     "id": "bb-steamer-1200-7",
+     "rating": 3,
+     "variant": "",
+     "text": "Tunggu panasnya lama, hampir satu setengah menit.",
      "review_time": "2026-09-23T03:00:00+00:00"
     }
    ]

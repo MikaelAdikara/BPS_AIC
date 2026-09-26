@@ -5,6 +5,7 @@
  "label": "Lazada public snapshot (2026-09-26)",
  "source": "Public Lazada product pages via Apify actor lergassy~lazada-scraper",
  "removed": "Reviewer names and profile data are not copied; phone numbers, emails and handles in review text are redacted.",
+ "sampling_kind": "skewed",
  "products": [
   {
    "source_item_id": "7902942086",

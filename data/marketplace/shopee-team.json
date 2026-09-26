@@ -5,6 +5,7 @@
  "label": "Shopee reviews collected by the team",
  "source": "Two public Shopee listings, reviews Oct 2025 - Aug 2026, collected by the team",
  "sampling": "All collected reviews, not filtered. Product names were anonymised; account names and body measurements were not kept.",
+ "sampling_kind": "unknown",
  "products": [
   {
    "source_item_id": "Produk-0964",

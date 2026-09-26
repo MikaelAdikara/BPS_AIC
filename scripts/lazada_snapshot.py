@@ -73,6 +73,10 @@ def main() -> int:
         "label": f"Lazada public snapshot ({day})",
         "source": "Public Lazada product pages via Apify actor " + apify.ACTOR,
         "removed": "Reviewer names and profile data are not copied; phone numbers, emails and handles in review text are redacted.",
+        "sampling": "Per product: the 30 newest reviews plus up to 10 reviews each at 1, 2 and 3 stars. The star mix "
+                    "is therefore NOT the product's real rating distribution.",
+        # Bintang rendah sengaja diperbanyak: share keluhan tidak boleh diproyeksikan ke unit terjual.
+        "sampling_kind": "skewed",
         "products": catalog,
     }
     out = REPO / "data" / "marketplace" / f"lazada-snapshot-{day}.json"

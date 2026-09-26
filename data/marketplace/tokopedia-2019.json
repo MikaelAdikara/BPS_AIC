@@ -4,13 +4,15 @@
  "captured_at": "2019-12-31T00:00:00+00:00",
  "label": "Tokopedia Product Reviews 2019 (public dataset)",
  "source": "HuggingFace farhamu/tokopedia-product-reviews-2019, Apache-2.0",
- "sampling": "6 products with at least 25 reviews and the highest share of 1-3 star reviews (electronics, phones, fashion); first 60 reviews per product in dataset order. The dataset has no review dates and no listing text.",
+ "sampling": "6 products with at least 25 reviews and the highest share of 1-3 star reviews (electronics, phones, fashion); first 60 reviews per product in dataset order. The dataset has no review dates and no listing text. Units sold is the dataset's rounded-down Tokopedia counter.",
+ "sampling_kind": "unknown",
  "products": [
   {
    "source_item_id": "323865568",
    "title": "Sabuk Penyangga / Power Magnetic Posture Support / Penyangga Punggung",
    "url": "https://www.tokopedia.com/handphonetiam/sabuk-penyangga-power-magnetic-posture-support-penyangga-punggung",
    "description": "",
+   "units_sold": 250,
    "reviews": [
     {
      "id": "tp323865568-0",
@@ -159,6 +161,7 @@
    "title": "KIPAS PENDINGIN LAPTOP 1 BIG FAN / COOLING PAD 1 KIPAS BESAR M-TECH",
    "url": "https://www.tokopedia.com/multikomputer201/kipas-pendingin-laptop-1-big-fan-cooling-pad-1-kipas-besar-m-tech",
    "description": "",
+   "units_sold": 90,
    "reviews": [
     {
      "id": "tp212916484-0",
@@ -357,6 +360,7 @@
    "title": "NOKIA 130 dual sim handphone hp",
    "url": "https://www.tokopedia.com/anshopp123/nokia-130-dual-sim-handphone-hp",
    "description": "",
+   "units_sold": 2700,
    "reviews": [
     {
      "id": "tp266910555-0",
@@ -665,6 +669,7 @@
    "title": "HOT! Holder Handphone untuk motor / sepeda - MT0-017",
    "url": "https://www.tokopedia.com/clacc/hot-holder-handphone-untuk-motor-sepeda-mt0-017",
    "description": "",
+   "units_sold": 45,
    "reviews": [
     {
      "id": "tp26039844-0",
@@ -798,6 +803,7 @@
    "title": "LCD Writing Tablet Board 8.5 inch Papan Tulis LCD Digital",
    "url": "https://www.tokopedia.com/handphonetiam/lcd-writing-tablet-board-8-5-inch-papan-tulis-lcd-digital",
    "description": "",
+   "units_sold": 658,
    "reviews": [
     {
      "id": "tp355367091-0",
@@ -1106,6 +1112,7 @@
    "title": "Headset Bluetooth Mini S530 - Micro Sport Stereo Bluetooth Earphone",
    "url": "https://www.tokopedia.com/handphonetiam/headset-bluetooth-mini-s530-micro-sport-stereo-bluetooth-earphone",
    "description": "",
+   "units_sold": 4400,
    "reviews": [
     {
      "id": "tp55299234-0",

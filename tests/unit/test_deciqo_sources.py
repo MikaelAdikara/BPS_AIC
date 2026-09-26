@@ -258,7 +258,25 @@ def test_semua_paket_channel_bisa_dimuat(env):
         assert job["result"]["stats"]["inserted"] > 0, name
     with store.database() as conn:
         channels = {r[0] for r in conn.execute("SELECT DISTINCT channel FROM products")}
+        sampling = dict(conn.execute("SELECT channel, sampling FROM products GROUP BY channel").fetchall())
     assert {"tokopedia", "shopee", "tiktok", "blibli", "lazada"} <= channels
+    # Paket yang memperbanyak bintang rendah tidak boleh tersimpan sebagai sampel yang bisa diproyeksikan.
+    assert sampling["lazada"] == "skewed" and sampling["tiktok"] == "complete"
+    assert all(p["sampling_kind"] in ingest.SAMPLINGS for p in packs.values())
+
+
+def test_paket_tokopedia_membawa_unit_terjual(env):
+    import json
+
+    from app.deciqo import routes_sources
+
+    packs = {n: p for n, p in routes_sources.list_packs().items() if p["channel"] == "tokopedia"}
+    if "tokopedia-prdect" not in packs:
+        pytest.skip("paket PRDECT-ID belum dibangun")
+    assert sum(p["products"] for p in packs.values()) >= 25
+    assert packs["tokopedia-prdect"]["sampling_kind"] == "skewed"
+    pack = json.loads((routes_sources.MARKETPLACE_DIR / "tokopedia-prdect.json").read_text(encoding="utf-8"))
+    assert all(p["units_sold"] > 0 and p["price"] > 0 for p in pack["products"])
 
 
 def test_status_tidak_memakai_penolakan_key_basi(env, monkeypatch):
