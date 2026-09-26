@@ -251,3 +251,11 @@ tidak pernah dibaca discovery, seperti c04 dan c13 di atas):
    Celah yang sudah diketahui di data: nomor yang dieja dan email "[at] [dot]" (0/2).
 
 Label s01–s03 adalah label tim, bukan penilai independen; interval lebar karena n kecil.
+
+**f01 validasi fakta (probe, engine gap-v1.6).** Ditemukan saat smoke test di browser: pada isu tas
+laptop demo, jawaban "oke" disimpan sebagai fakta ("Fact saved"), lalu "32 x 24" tanpa satuan juga.
+`facts.validate` hanya menolak jawaban kosong. Probe di `components.py`: jawaban tidak valid ditolak
+**0/10** ("oke", "ya sudah", "sip", "done", "32 x 24" tanpa satuan, "sekitar segitu lah", "ukuran
+luar 36 x 27 cm" untuk pertanyaan ukuran dalam, "oke" untuk kompatibilitas, "13000" tanpa mAh,
+"sudah dicek"); jawaban valid diterima 5/5. Kasus eval end-to-end tidak menangkap ini karena fakta
+yang diberikan runner selalu valid; karena itu probe ini ditambahkan.

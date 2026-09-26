@@ -228,12 +228,57 @@ def s10() -> dict:
                               "no_false_redaction": clean, "optional_masked_info": optional}}
 
 
+# Probe validasi fakta merchant. Temuan sintetis minimal; `accept` = jawaban yang seharusnya
+# diterima, selain itu seharusnya ditolak dengan kode yang bisa ditindaklanjuti.
+_SIZE_INNER = {"id": "probe-size", "product_id": "probe", "attribute": "inner compartment size",
+               "attribute_local": "ukuran kompartemen dalam", "finding_type": "missing_fact",
+               "merchant_question": "Berapa ukuran kompartemen dalam (panjang x lebar, cm)?"}
+_COMPAT = {"id": "probe-compat", "product_id": "probe", "attribute": "compatible phone models",
+           "attribute_local": "tipe HP yang cocok", "finding_type": "missing_fact",
+           "merchant_question": "Tipe HP apa saja yang cocok dengan casing ini?"}
+_CAPACITY = {"id": "probe-cap", "product_id": "probe", "attribute": "battery capacity",
+             "attribute_local": "kapasitas baterai", "finding_type": "conflicting_fact",
+             "merchant_question": "Berapa kapasitas baterai sebenarnya (mAh)?"}
+FACT_PROBES = [
+    ("size", _SIZE_INNER, "oke", "", False),
+    ("size", _SIZE_INNER, "ya sudah", "", False),
+    ("size", _SIZE_INNER, "sip", "", False),
+    ("size", _SIZE_INNER, "done", "", False),
+    ("size", _SIZE_INNER, "32 x 24", "", False),
+    ("size", _SIZE_INNER, "sekitar segitu lah", "", False),
+    ("size", _SIZE_INNER, "ukuran luar 36 x 27 cm", "", False),
+    ("size", _SIZE_INNER, "32 x 24", "cm", True),
+    ("size", _SIZE_INNER, "32 x 24 cm", "", True),
+    ("size", _SIZE_INNER, "ukuran dalam 32 x 24 x 3 cm", "", True),
+    ("compat", _COMPAT, "iPhone 11, iPhone 12", "", True),
+    ("compat", _COMPAT, "oke", "", False),
+    ("capacity", _CAPACITY, "13000", "", False),
+    ("capacity", _CAPACITY, "13000 mAh", "", True),
+    ("capacity", _CAPACITY, "sudah dicek", "", False),
+]
+
+
+def f01() -> dict:
+    from app.deciqo.engine import facts  # noqa: PLC0415
+    reject, accept = Tally(), Tally()
+    for kind, finding, raw, unit, should_accept in FACT_PROBES:
+        try:
+            facts.validate(finding, raw, unit)
+            accepted, code = True, ""
+        except Exception as exc:  # DeciqoError membawa kode penolakan
+            accepted, code = False, getattr(exc, "code", type(exc).__name__)
+        label = f"{kind}: {raw!r}{(' + ' + unit) if unit else ''} -> {'accepted' if accepted else 'rejected ' + str(code)}"
+        (accept if should_accept else reject).add(accepted == should_accept, label)
+    return {"deciqo_facts": {"invalid_answer_rejected": reject, "valid_answer_accepted": accept}}
+
+
 SUITES = [
     ("s01", "Kemasan + kerusakan dalam satu klausa", s01),
     ("s02", "Negasi Inggris, Singlish, dan campuran", s02),
     ("s03", "Keluhan di ulasan bintang 4–5 dan kontrolnya", s03),
     ("s04", "Input aneh di parser tempel dan sinyal keluhan", s04),
     ("s10", "Redaksi PII fiktif di pintu ingest", s10),
+    ("f01", "Validasi jawaban fakta merchant (probe)", f01),
 ]
 
 
@@ -256,9 +301,9 @@ def main() -> None:
             for m, t in metrics.items():
                 md.append(f"| {sys_} | {m} | {t.cell()} |")
         fails = [(sys_, m, f) for sys_, metrics in res.items() for m, t in metrics.items()
-                 if sys_.startswith("deciqo") for f in t.fail[:6]]
+                 if sys_.startswith("deciqo") for f in t.fail[:8]]
         if fails:
-            md += ["", "Contoh kegagalan Deciqo (maks. 6 per metrik):", ""]
+            md += ["", "Contoh kegagalan Deciqo (maks. 8 per metrik):", ""]
             md += [f"- `{m}` {f}" for _s, m, f in fails]
         md.append("")
     md += ["## Tidak dijalankan", "",
