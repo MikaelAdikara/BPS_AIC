@@ -5,6 +5,8 @@ import { Package, ScanSearch, Star } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { Meter } from "@/components/visual/charts";
 import { RunPanel } from "@/components/RunPanel";
+import { ChannelDot } from "@/components/insight/IssueMap";
+import { channelLabel } from "@/lib/insight-model";
 import {
   ListFilters,
   useListFilters,
@@ -165,7 +167,10 @@ export function ProductsScreen() {
                       </div>
                     </td>
                     <td>
-                      <span className="channel-tag">{product.channel}</span>
+                      <span className="channel-tag">
+                        <ChannelDot channel={product.channel} />
+                        {channelLabel(product.channel)}
+                      </span>
                     </td>
                     <td className="count">{product.reviews}</td>
                     <td className="rating-cell">

@@ -16,6 +16,7 @@ import {
   Notice,
 } from "@/components/ui";
 import { IssuesTable, StateGate } from "@/components/workspace";
+import { UrgencyStrip } from "@/components/insight/UrgencyStrip";
 const tabs = [
   { value: "needs", key: "tabNeeds" },
   { value: "monitoring", key: "tabMonitoring" },
@@ -129,6 +130,13 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
         <div className="toolbar-card">
           <ListFilters filters={filters} onChange={setFilters} onClear={clear} />
         </div>
+        {!filterLoading && (
+          <UrgencyStrip
+            items={filtered}
+            active={effective}
+            onSelect={select}
+          />
+        )}
         <Card className={filterLoading && filtered.length ? "is-refreshing" : undefined}>
           {filterLoading && !filtered.length ? (
             <LoadingState />

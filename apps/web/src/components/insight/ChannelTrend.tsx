@@ -51,7 +51,9 @@ export function ChannelTrend({
   const seen = useInView<HTMLDivElement>(0.25);
   const rows = mode === "all" ? volume : evidence;
   const channels = sortChannels(all).filter((c) => !channel || c === channel);
-  const shown = channels.filter((c) => !off.has(c));
+  const sums = Object.fromEntries(channels.map((c) => [c, rows.reduce((sum, row) => sum + Number(row[c] ?? 0), 0)]));
+  // Kanal tanpa satu pun ulasan di jendela ini hanya jadi garis datar di nol: cukup di legenda.
+  const shown = channels.filter((c) => !off.has(c) && sums[c] > 0);
   const total = rows.reduce((sum, row) => sum + channels.reduce((s, c) => s + Number(row[c] ?? 0), 0), 0);
   const short = (date: string) =>
     new Date(date + "T00:00:00").toLocaleDateString(locale, { day: "numeric", month: "short" });
@@ -202,21 +204,20 @@ export function ChannelTrend({
             <button
               key={c}
               type="button"
-              aria-pressed={!off.has(c)}
+              disabled={!sums[c]}
+              aria-pressed={!off.has(c) && sums[c] > 0}
               onClick={() =>
                 setOff((current) => {
                   const next = new Set(current);
                   if (next.has(c)) next.delete(c);
-                  else if (channels.length - next.size > 1) next.add(c);
+                  else if (channels.filter((k) => sums[k] > 0 && !next.has(k)).length > 1) next.add(c);
                   return next;
                 })
               }
             >
               <i style={{ background: channelColor(c) }} aria-hidden />
               {channelLabel(c)}
-              <span className="count muted">
-                {rows.reduce((sum, row) => sum + Number(row[c] ?? 0), 0)}
-              </span>
+              <span className="count muted">{sums[c]}</span>
             </button>
           ))}
         </div>

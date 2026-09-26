@@ -315,7 +315,7 @@ export function IssueMap({
               }}
             >
               <g transform={transform}>
-                <g className="map-links">
+                <g className={cn("map-links", active && "has-active")}>
                   {links.map(([a, b]) => {
                     const pa = placed[a];
                     const pb = placed[b];
