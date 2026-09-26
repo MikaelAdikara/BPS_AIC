@@ -1,0 +1,4 @@
+# validasi kasus - commit 516dd91 - 2026-09-26T04:27:14Z (UTC)
+# perintah: python eval/validate_cases.py
+32 kasus diperiksa
+cakupan kategori: capacity_conflict=3, cm_inch=3, compatibility=3, delivery=5, electrical=4, hidden_high_star=9, informal=30, injection=2, inner_outer=4, missing_fact=15, mixed=3, negation=2, no_listing=2, praise_low_star=5, praise_only=2, quality=6, size_chart_variant=2, truncated_listing=1, water_claims=3, wrong_item=3

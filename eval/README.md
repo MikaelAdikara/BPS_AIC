@@ -1,5 +1,8 @@
 # Eval Deciqo
 
+Isi checkpoint 1 (kerangka, eksekusi pertama, skor baseline, bukti eksekusi, daftar kelemahan):
+[`CHECKPOINT_1.md`](CHECKPOINT_1.md).
+
 Pertanyaan yang diuji: kalau seller menempel ulasan dan listing ke model bahasa, apa yang salah
 di jawabannya, dan apakah alur Deciqo (temuan berbukti, pemeriksaan listing, pertanyaan fakta,
 gerbang draf) menutup kesalahan itu. Semua kasus di sini **sintetis** (ditulis tim, bukan data

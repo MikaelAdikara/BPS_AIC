@@ -1,0 +1,5 @@
+# rescore baseline - commit 516dd91 - 2026-09-26T04:28:20Z (UTC)
+# perintah: salin final/run1-baseline-gap-v1/ ke folder sementara, lalu
+#   python eval/run_final.py --rescore --out <folder sementara>
+# hasil: report.md dihitung ulang dari outputs.jsonl tanpa panggilan model.
+# bagian metrik (dari '## development' sampai akhir) identik dengan final/run1-baseline-gap-v1/report.md

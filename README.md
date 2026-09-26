@@ -122,6 +122,9 @@ See [eval/README.md](eval/README.md) for the metric definitions.
 
 ## Evaluation
 
+Checkpoint 1 (test suite, first run, baseline scores, execution evidence, weaknesses found):
+[`eval/CHECKPOINT_1.md`](eval/CHECKPOINT_1.md).
+
 **Question:** when a seller pastes reviews and a listing into a language model, what goes wrong,
 and does Deciqo's workflow (evidence counted from stored reviews, a listing check, a question for
 the missing fact, a gate before a draft is marked ready) close those gaps?
