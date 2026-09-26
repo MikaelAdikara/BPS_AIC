@@ -1,6 +1,6 @@
 case_id,clause,expected_aspect,expected_sentiment,cue,source,notes
-EN01,"Material feels thin and the stitching came loose after one wash",kualitas_produk,negatif,"thin, came loose",team-written,"terbukti gagal 23 Sep: terbaca netral"
-EN02,"Size runs small, order one size up",ukuran_varian,negatif,runs small,team-written,"terbukti gagal 23 Sep"
+EN01,"Material feels thin and the stitching came loose after one wash",kualitas_produk,negatif,"thin, came loose",team-written,"terbukti gagal pada classifier aspek: terbaca netral"
+EN02,"Size runs small, order one size up",ukuran_varian,negatif,runs small,team-written,"terbukti gagal pada classifier aspek"
 EN03,"The fabric is flimsy for this price",kualitas_produk,negatif,flimsy,team-written,
 EN04,"Print started peeling after two uses",kualitas_produk,negatif,peeling,team-written,
 EN05,"The zipper is faulty",kualitas_produk,negatif,faulty,team-written,

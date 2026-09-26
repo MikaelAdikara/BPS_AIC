@@ -16,7 +16,7 @@ SM05,"Barang sesuai. Tapi estimasi 3 hari jadi 8 hari.",4,1,pengiriman,sedang,te
 SM06,"Mantap, recommended seller!",5,0,,,team-written,kontrol negatif
 SM07,"Sesuai deskripsi, puas.",5,0,,,team-written,kontrol negatif
 SM08,"Oke lah untuk harga segini.",4,0,,,team-written,"kontrol negatif, ambigu"
-SM09,"Barangnya bagus banget, pengiriman cepat, cuma dusnya penyok waktu sampai",5,1,kemasan,ringan,team-written,"kasus yang terbukti gagal pada uji 23 Sep - masuk kualitas_produk"
+SM09,"Barangnya bagus banget, pengiriman cepat, cuma dusnya penyok waktu sampai",5,1,kemasan,ringan,team-written,"kasus yang terbukti gagal pada classifier aspek - masuk kualitas_produk"
 SM10,"Good product, however the size chart is misleading",4,1,ukuran_varian,sedang,team-written,"versi Inggris dari SM01, untuk irisan bahasa"
 SM11,"Nice shirt but the packaging arrived crushed",5,1,kemasan,ringan,team-written,"Inggris + kemasan: menguji G1 dan G2 sekaligus"
-SM12,"Material feels thin for the price, still okay though",4,1,kualitas_produk,ringan,team-written,"terbukti gagal pada uji 23 Sep - tidak terdeteksi negatif"
+SM12,"Material feels thin for the price, still okay though",4,1,kualitas_produk,ringan,team-written,"terbukti gagal pada classifier aspek - tidak terdeteksi negatif"

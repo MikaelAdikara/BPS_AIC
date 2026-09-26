@@ -1,6 +1,6 @@
 case_id,clause,expected_aspect,expected_sentiment,pattern,source,notes
-KP01,"Kemasan rusak, kotaknya sobek di beberapa sisi",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal 23 Sep: masuk kualitas_produk"
-KP02,"dusnya penyok waktu sampai",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal 23 Sep"
+KP01,"Kemasan rusak, kotaknya sobek di beberapa sisi",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal pada classifier aspek: masuk kualitas_produk"
+KP02,"dusnya penyok waktu sampai",kemasan,negatif,kemasan+kerusakan,team-written,"terbukti gagal pada classifier aspek"
 KP03,"Paket datang dalam kondisi kardus penyok dan bubble wrap tipis",kemasan,negatif,kemasan+kerusakan,team-written,
 KP04,"packingnya cuma plastik tipis",kemasan,negatif,kemasan+kualitas kemasan,team-written,
 KP05,"box-nya ringsek tapi barangnya aman",kemasan,negatif,kemasan+kerusakan,team-written,"klausa kedua positif untuk produk"
