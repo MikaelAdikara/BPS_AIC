@@ -9,6 +9,10 @@
 # Port dibind ke 127.0.0.1: aplikasi ini menyimpan akun dan data toko, jadi tidak dibuka ke
 # jaringan venue secara default.
 
+# Nama project tetap: tanpa ini Compose menurunkannya dari nama folder, sehingga clone di folder
+# lain (atau start.bat vs terminal di direktori berbeda) membuat volume baru yang kosong.
+name: deciqo-local
+
 x-api-env: &api-env
   TZ: Asia/Jakarta
   DECIQO_DB_PATH: /data/deciqo.sqlite3
