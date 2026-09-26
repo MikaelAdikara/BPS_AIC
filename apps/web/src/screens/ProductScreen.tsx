@@ -24,6 +24,7 @@ import {
   type Tone,
 } from "@/components/ui";
 import { buckets } from "@/components/workspace";
+import { GenericComparison } from "@/components/GenericComparison";
 const nextKeys: Record<string, string> = {
   recurrence: "nextRecurrence",
   fact: "nextFact",
@@ -58,6 +59,7 @@ const reasons: Record<string, string> = {
   unsupported_quantity: "reasonUnsupported",
   unsupported_claim: "reasonUnsupported",
   placeholder: "reasonPlaceholder",
+  already_in_listing: "reasonAlreadyListing",
 };
 const rejectedReasons: Record<string, string> = {
   quote_not_verbatim: "rejectedQuote",
@@ -169,6 +171,8 @@ export function ProductScreen({
     : [
           "public",
           "public_snapshot",
+          "public_live",
+          "public_dataset",
           "lazada_public",
           "research_dataset",
           "team_collected",
@@ -223,6 +227,7 @@ export function ProductScreen({
           </a>
         )}
       </header>
+      <GenericComparison productId={productId} result={view.generic_draft} refresh={load} />
       {workspace.error && (
         <Notice tone="alert">{localizeError(workspace.error)}</Notice>
       )}
@@ -628,6 +633,7 @@ function FindingCard({
               })}
             </p>
           )}
+          {coverage?.model_chars != null && <p className="muted">{t("product.modelCoverage", { count: coverage.model_chars, total: coverage.chars_total })}</p>}
         </section>
         {finding.listing_fixable ? (
           <>

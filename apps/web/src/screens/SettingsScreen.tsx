@@ -4,6 +4,7 @@ import { useWorkspace } from "@/api/workspace";
 import { request, ApiError } from "@/api/http.js";
 import { useI18n, type Language } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
+import { TelegramSettings } from "@/components/TelegramSettings";
 import {
   Button,
   Card,
@@ -151,12 +152,7 @@ export function SettingsScreen() {
             </div>
           </div>
         </Card>
-        <Card title={t("settings.telegram")}>
-          <Chip tone={user?.telegram_linked ? "good" : "muted"}>
-            {t("settings." + (user?.telegram_linked ? "linked" : "notLinked"))}
-          </Chip>
-          <p className="muted">{t("settings.telegramHint")}</p>
-        </Card>
+        <TelegramSettings />
         <Card
           title={t("settings.server")}
           action={

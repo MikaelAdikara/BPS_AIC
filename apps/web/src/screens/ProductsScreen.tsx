@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { request, ApiError } from "@/api/http.js";
 import { useWorkspace } from "@/api/workspace";
 import { useI18n } from "@/lib/i18n";
+import { RunPanel } from "@/components/RunPanel";
+import {
+  ListFilters,
+  useListFilters,
+  filterQuery,
+} from "@/components/ListFilters";
 import {
   Button,
   Card,
@@ -25,8 +31,12 @@ interface Product {
   engine: string | null;
 }
 export function ProductsScreen() {
+  const { filters, setFilters, clear } = useListFilters(
+    "deciqo-products-filters",
+  );
+  const params = filterQuery(filters);
   const { t, language, localizeError } = useI18n();
-  const { summary, busy, run } = useWorkspace();
+  const { summary, busy, run, status } = useWorkspace();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -35,18 +45,23 @@ export function ProductsScreen() {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
-    request("/deciqo/products", { signal: controller.signal })
-      .then((data) => {
-        if (!controller.signal.aborted) setProducts(data.products);
-      })
-      .catch((e: ApiError) => {
-        if (!controller.signal.aborted) setError(e.code);
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
-      });
-    return () => controller.abort();
-  }, [revision, summary]);
+    const timer = setTimeout(() => {
+      request("/deciqo/products?" + params, { signal: controller.signal })
+        .then((data) => {
+          if (!controller.signal.aborted) setProducts(data.products);
+        })
+        .catch((e: ApiError) => {
+          if (!controller.signal.aborted) setError(e.code);
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setLoading(false);
+        });
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [revision, summary, params]);
   return (
     <>
       <header className="page-header">
@@ -56,7 +71,7 @@ export function ProductsScreen() {
         </div>
         <Button
           busy={busy}
-          disabled={loading || products.length === 0}
+          disabled={!status?.engine_ready || !summary?.products}
           onClick={() =>
             void run(
               () => request("/deciqo/analyse-all", { method: "POST" }),
@@ -68,6 +83,13 @@ export function ProductsScreen() {
           {t("catalog.analyse")}
         </Button>
       </header>
+      <RunPanel />
+      <ListFilters
+        filters={filters}
+        onChange={setFilters}
+        onClear={clear}
+        products
+      />
       {loading ? (
         <LoadingState />
       ) : error ? (

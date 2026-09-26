@@ -16,6 +16,7 @@ import { ProductScreen } from "@/screens/ProductScreen";
 import { ProductsScreen } from "@/screens/ProductsScreen";
 import { SettingsScreen } from "@/screens/SettingsScreen";
 import { SourcesScreen } from "@/screens/SourcesScreen";
+import { AlertsScreen } from "@/screens/AlertsScreen";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import { ThemeProvider } from "@/lib/theme";
 import { navigate, resolveRoute } from "@/lib/router.js";
@@ -177,6 +178,8 @@ function Routes() {
           <OverviewScreen />
         ) : route.path === "/app/issues" ? (
           <IssuesScreen query={route.query} />
+        ) : route.path === "/app/alerts" ? (
+          <AlertsScreen />
         ) : route.path === "/app/sources" ? (
           <SourcesScreen />
         ) : route.path === "/app/settings" ? (

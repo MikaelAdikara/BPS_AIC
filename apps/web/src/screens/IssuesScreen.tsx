@@ -1,8 +1,20 @@
 import { useEffect, useState } from "react";
-import { useWorkspace } from "@/api/workspace";
+import { useWorkspace, type Issue } from "@/api/workspace";
+import { request, ApiError } from "@/api/http.js";
+import {
+  ListFilters,
+  useListFilters,
+  filterQuery,
+} from "@/components/ListFilters";
 import { useI18n } from "@/lib/i18n";
 import { issuesForTab, issueLink } from "@/lib/workspace-model.js";
-import { Card, EmptyState } from "@/components/ui";
+import {
+  Button,
+  Card,
+  EmptyState,
+  LoadingState,
+  Notice,
+} from "@/components/ui";
 import { IssuesTable, StateGate } from "@/components/workspace";
 const tabs = [
   { value: "needs", key: "tabNeeds" },
@@ -29,8 +41,37 @@ function storedTab() {
   }
 }
 export function IssuesScreen({ query }: { query: URLSearchParams }) {
+  const { filters, setFilters, clear } = useListFilters(
+    "deciqo-issues-filters",
+  );
+  const params = filterQuery(filters);
+  const [filtered, setFiltered] = useState<Issue[]>([]);
+  const [filterLoading, setFilterLoading] = useState(true);
+  const [filterError, setFilterError] = useState<string | null>(null);
+  const [revision, setRevision] = useState(0);
   const { inbox, loading, error } = useWorkspace();
-  const { t } = useI18n();
+  const { t, localizeError } = useI18n();
+  useEffect(() => {
+    const controller = new AbortController();
+    setFilterLoading(true);
+    setFilterError(null);
+    const timer = setTimeout(() => {
+      request("/deciqo/inbox?" + params, { signal: controller.signal })
+        .then((data) => {
+          if (!controller.signal.aborted) setFiltered(data.items);
+        })
+        .catch((e: ApiError) => {
+          if (!controller.signal.aborted) setFilterError(e.code);
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setFilterLoading(false);
+        });
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [params, inbox, revision]);
   const [tab, setTab] = useState(() => query.get("tab") ?? storedTab());
   useEffect(() => {
     const requested = query.get("tab");
@@ -43,7 +84,7 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
     }
   }, [query, inbox, loading, error]);
   const effective = validTabs.includes(tab) ? tab : "needs";
-  const items = issuesForTab(inbox, effective);
+  const items = issuesForTab(filtered, effective);
   function select(value: string) {
     setTab(value);
     try {
@@ -80,8 +121,22 @@ export function IssuesScreen({ query }: { query: URLSearchParams }) {
             </button>
           ))}
         </div>
+        <ListFilters filters={filters} onChange={setFilters} onClear={clear} />
         <Card>
-          {items.length > 0 || inbox.length === 0 ? (
+          {filterLoading ? (
+            <LoadingState />
+          ) : filterError ? (
+            <Notice
+              tone="alert"
+              action={
+                <Button onClick={() => setRevision((value) => value + 1)}>
+                  {t("common.retry")}
+                </Button>
+              }
+            >
+              {localizeError(filterError)}
+            </Notice>
+          ) : items.length > 0 || inbox.length === 0 ? (
             <IssuesTable items={items} />
           ) : (
             <EmptyState

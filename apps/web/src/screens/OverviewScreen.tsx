@@ -13,6 +13,7 @@ import {
   type Tone,
 } from "@/components/ui";
 import { IssuesTable, StateGate, buckets } from "@/components/workspace";
+import { OverviewInsights } from "@/components/OverviewInsights";
 const overviewBuckets = [
   { bucket: "recurrence", hint: "hintRecurrence", tab: "recurrence" },
   { bucket: "needs_fact", hint: "hintNeedsFact", tab: "needs_fact" },
@@ -117,6 +118,7 @@ export function OverviewScreen() {
                   </a>
                 ))}
             </div>
+            <OverviewInsights />
             <Card
               title={t("workspace.whatFirst")}
               action={<a href="#/app/issues">{t("workspace.viewAll")}</a>}

@@ -53,3 +53,11 @@
 - Browser port 8000: pilihan Woo/Manual tersimpan; impor teks menghasilkan 2 baru; impor ulang menghasilkan 0 baru dan 2 tetap; investigasi dan sinkron Woo selesai. Sources gelap/ID pada 375px memiliki dokumen 360px tanpa overflow. Dialog hapus memfokuskan Batal dan kembali ke tombol pembuka sesudah dibatalkan.
 - CSV, pemuatan paket, demo langsung, dan aksi reset/hapus belum diuji end-to-end. Form penambahan satu ulasan demo, Lazada live, Alerts, grafik, decision plan, dan Telegram linking belum tersedia.
 - Verifikasi web: 29 tes, typecheck, dan build lulus. API pengujian memakai 8000; container dibangun ulang bila backend berubah.
+
+## Overview, filter, alert, dan kontrak engine
+
+- Overview memakai read model server untuk grafik bukti unik per produk/ulasan, rentang waktu, ranking, dan keputusan dengan driver heuristik. Kandidat lintas produk/channel memakai hasil engine; bukan identitas SKU.
+- Filter dan urutan produk/isu dikirim ke API. Alerts menyediakan status, aturan, pesan, dan tautan temuan. Settings menyediakan kode tautan Telegram, status kedaluwarsa, unlink, dan tombol uji.
+- Produk menampilkan alasan already_in_listing, cakupan model_chars, pembanding chatbot umum dengan kalimat terblokir tetap terlihat, serta anggaran dan perkiraan investigasi dari server.
+- Verifikasi: 29 tes web, typecheck, build, dan 90 tes backend terarah lulus. Korpus PII mencakup nomor bertitik, email tersamar, nama kontekstual, alamat gedung, dan ukuran pribadi. Tes startup memastikan pemeriksaan ulang di thread latar memegang ANALYSIS_LOCK.
+- Pemeriksaan browser untuk fitur tambahan belum selesai. Pengiriman Telegram nyata dan pembandingan provider nyata belum diuji.

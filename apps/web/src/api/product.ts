@@ -46,6 +46,7 @@ export interface Finding extends Issue {
     coverage?: {
       chars_checked: number;
       chars_total: number;
+      model_chars?: number;
       images_read: number;
       images_total: number;
     };
@@ -87,6 +88,14 @@ export interface ProductView {
   findings: Finding[];
   not_detected: { id: string; attribute_local: string }[];
   draft: { status: string; sections: DraftSection[] } | null;
+  generic_draft: {
+    model: string;
+    same_bundle: boolean;
+    gate_version: string;
+    problems: { problem: string; suggestion: string }[];
+    sentences: { text: string; status: string; reasons: string[]; unsupported: string[] }[];
+    counts: { sentences: number; blocked: number };
+  } | null;
   decisions: {
     finding_id: string;
     decision: string;

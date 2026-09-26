@@ -6,6 +6,10 @@ import { product } from "./messages-product.js";
 import { catalog } from "./messages-catalog.js";
 import { settings } from "./messages-settings.js";
 import { sources } from "./messages-sources.js";
+import { alerts } from "./messages-alerts.js";
+import { telegram } from "./messages-telegram.js";
+import { overview } from "./messages-overview.js";
+import { filters } from "./messages-filters.js";
 export const messages = {
   en: {
     common: common.en,
@@ -16,6 +20,10 @@ export const messages = {
     catalog: catalog.en,
     settings: settings.en,
     sources: sources.en,
+    alerts: alerts.en,
+    telegram: telegram.en,
+    overview: overview.en,
+    filters: filters.en,
   },
   id: {
     common: common.id,
@@ -26,6 +34,10 @@ export const messages = {
     catalog: catalog.id,
     settings: settings.id,
     sources: sources.id,
+    alerts: alerts.id,
+    telegram: telegram.id,
+    overview: overview.id,
+    filters: filters.id,
   },
 };
 export function translate(language, key, values = {}) {

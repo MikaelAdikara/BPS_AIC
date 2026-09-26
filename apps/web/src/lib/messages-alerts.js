@@ -1,0 +1,76 @@
+export const alerts = {
+  en: {
+    title: "Alerts",
+    lead: "Delivery history and the rules that create alerts.",
+    refresh: "Refresh alerts",
+    all: "All alert types",
+    empty: "No alerts yet",
+    emptyHint:
+      "New findings, recurrence, source problems, and completed jobs appear here.",
+    linked: "Telegram connected",
+    unlinked: "Telegram is not connected. Real alerts wait in the log.",
+    manage: "Manage in Settings",
+    rules: "When alerts are created",
+    newRule:
+      "New issue: at least {min_support} supporting reviews within {window_days} days, or a high-impact listing gap.",
+    reopenRule:
+      "Recurrence after a decision; a {cooldown_hours}-hour cooldown prevents repeated alerts.",
+    sourceRule:
+      "Source problems: revoked access or {consecutive_failures} consecutive sync failures.",
+    deliveryRule:
+      "Up to {max_per_hour} alerts per hour, with at most {max_attempts} delivery attempts. Messages contain metadata, never review text.",
+    new_issue: "New issue",
+    reopened: "Came back",
+    source_problem: "Source problem",
+    job_done: "Job completed",
+    job_failed: "Job failed",
+    digest: "Digest",
+    sent: "Sent",
+    simulated: "Simulated",
+    unconfigured: "Waiting for Telegram",
+    pending: "Waiting to send",
+    permanent_failure: "Delivery failed",
+    digested: "Included in digest",
+    unknown: "Status unavailable",
+    message: "Show message",
+    open: "Open finding",
+    attempts: "Delivery attempts: {count}",
+  },
+  id: {
+    title: "Alert",
+    lead: "Riwayat pengiriman dan aturan yang membuat alert.",
+    refresh: "Perbarui alert",
+    all: "Semua jenis alert",
+    empty: "Belum ada alert",
+    emptyHint:
+      "Temuan baru, keluhan berulang, masalah sumber, dan tugas selesai akan muncul di sini.",
+    linked: "Telegram terhubung",
+    unlinked: "Telegram belum terhubung. Alert sungguhan menunggu di log.",
+    manage: "Kelola di Pengaturan",
+    rules: "Kapan alert dibuat",
+    newRule:
+      "Isu baru: minimal {min_support} ulasan pendukung dalam {window_days} hari, atau celah listing berdampak tinggi.",
+    reopenRule:
+      "Keluhan berulang setelah keputusan; jeda {cooldown_hours} jam mencegah alert berulang.",
+    sourceRule:
+      "Masalah sumber: akses dicabut atau {consecutive_failures} kegagalan sinkron beruntun.",
+    deliveryRule:
+      "Maksimal {max_per_hour} alert per jam, dengan paling banyak {max_attempts} percobaan kirim. Pesan berisi metadata, tanpa teks ulasan.",
+    new_issue: "Isu baru",
+    reopened: "Muncul lagi",
+    source_problem: "Masalah sumber",
+    job_done: "Tugas selesai",
+    job_failed: "Tugas gagal",
+    digest: "Ringkasan",
+    sent: "Terkirim",
+    simulated: "Disimulasikan",
+    unconfigured: "Menunggu Telegram",
+    pending: "Menunggu dikirim",
+    permanent_failure: "Pengiriman gagal",
+    digested: "Masuk ringkasan",
+    unknown: "Status belum tersedia",
+    message: "Lihat pesan",
+    open: "Buka temuan",
+    attempts: "Percobaan kirim: {count}",
+  },
+};
