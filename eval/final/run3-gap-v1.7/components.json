@@ -1,7 +1,7 @@
 {
-  "commit": "1a88bdf",
-  "pipeline_version": "gap-v1.9",
-  "verifier_version": "verify-v2.2",
+  "commit": "39c3780",
+  "pipeline_version": "gap-v1.7",
+  "verifier_version": "verify-v1.3",
   "suites": {
     "s01": {
       "deciqo_lexicon": {

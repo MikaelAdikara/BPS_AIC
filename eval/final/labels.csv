@@ -577,9 +577,11 @@ Catatan penjual:
 - Jika Anda butuh klaim ketahanan air atau gambar yang menampilkan penggunaan outdoor basah, tolong konfirmasi apakah perangkat memiliki sertifikasi IP dan kirimkan dokumen yang relevan.
 
 Jika Anda mau, saya bisa juga menulis teks peringatan singkat untuk gambar utama, contoh FAQ untuk listing, dan skrip layanan pelanggan untuk menjawab keluhan pelanggan yang terkena air.",,,,,,
-x015,c15,before,"Issue: device temperature / overheating (product_quality); draft status: route
-",,,,,,
-x016,c05,before,"Issue: laptop charging capability (missing_fact); draft status: needs_merchant_fact
+x015,c15,before,(no issues reported),,,,,,
+x016,c05,before,"Issue: device compatibility / laptop support (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: output voltage and current (V/A) (missing_fact); draft status: needs_merchant_fact
 ",,,,,,
 x017,c16,before,"Ringkasan masalah berulang dari review:
 - Engsel/ketahanan: satu pembeli melaporkan engsel longgar setelah 3 hari hingga ponsel jatuh — isu kualitas/ketahanan.
@@ -1227,7 +1229,11 @@ Notes for the seller (placeholders / items to confirm)
 If you’d like, I can:
 - Draft a short troubleshooting FAQ and returns workflow text for your product page and customer messages.
 - Draft a QC checklist you can give to the manufacturer/packing team.",,,,,,
-x031,c13,before,(no issues reported),,,,,,
+x031,c13,before,"Issue: maximum height (extended) (missing_fact); draft status: needs_listing
+
+
+Issue: maximum load capacity (missing_fact); draft status: needs_listing
+",,,,,,
 x032,c18,before,(no issues reported),,,,,,
 x033,c03,before,"Issue: product size (missing_fact); draft status: needs_merchant_fact
 ",,,,,,
@@ -1380,7 +1386,8 @@ Catatan untuk listing visual:
 - Cantumkan contoh takaran di gambar: ""2 cup beras mentah = ±4 cup nasi matang = 2–3 porsi"".
 
 Dengan pembaruan ini pelanggan akan lebih paham apa yang mereka dapatkan dan keluhan tentang ""kapasitas tidak sesuai"" dapat berkurang. Jika mau, saya bisa bantu susun versi singkat untuk halaman toko dan versi panjang untuk deskripsi lengkap.",,,,,,
-x038,c18,before,(no issues reported),,,,,,
+x038,c18,before,"Issue: capacity definition (raw rice vs cooked rice) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
 x039,c08,before,"Summary of recurring customer problems
 - No recurring product complaints found in the four reviews provided. Reviews consistently report positive experiences: silent clicks, comfortable size, long battery life (customer report), and receiver connects immediately (customer report).
 - No delivery/packaging/defect complaints present. If such issues arise later, they should be handled by:
@@ -1482,16 +1489,16 @@ Jika Anda setuju dengan perubahan di atas, tolong jawab pertanyaan placeholder:
 
 Saya akan menghasilkan versi final listing setelah mendapatkan jawaban tersebut.",,,,,,
 x041,c18,after,(no issues reported),,,,,,
-x042,c18,after,"Issue: claimed serving size (2-3 people) (expectation_mismatch); draft status: ready
-Kapasitas untuk 2-3 orang: kapasitas beras mentah maksimal 0,5 liter.",,,,,,
-x043,c10,before,"Issue: wrong color variant sent (operational); draft status: route
+x042,c18,after,"Issue: capacity meaning (1.2 L) (unclear_fact); draft status: ready
+Makna kapasitas 1,2 L: kapasitas beras mentah maksimal 0,5 liter.",,,,,,
+x043,c10,before,"Issue: wrong variant sent (operational); draft status: route
 
 
-Issue: delivery speed (operational); draft status: route
+Issue: suitability of 1 m length for use on bed (expectation_mismatch); draft status: needs_review
 
 
-Issue: usable length / suitability for use in bed (unclear_fact); draft status: ready
-Kecukupan panjang saat dipakai (mis. di kasur): Kabel data USB-C ke USB-C, mendukung pengisian sampai 60W. Tersedia panjang 1 m dan 2 m, warna hitam dan putih.",,,,,,
+Issue: delivery time (operational); draft status: route
+",,,,,,
 x044,c21,before,"Ringkasan masalah yang berulang
 - Banyak pembeli mengeluhkan produk tidak muat untuk ponsel ukuran besar (sebut contoh 6,7 inch). Tidak ada informasi ukuran maksimal di listing.
 - Jepitan tidak cukup lebar/tebal untuk ponsel yang memakai case tebal.
@@ -1604,7 +1611,10 @@ Garansi & layanan:
 - (Cantumkan durasi garansi, syarat garansi, dan cara menghubungi layanan pelanggan.)
 
 Dengan pembaruan ini pelanggan akan punya ekspektasi yang jelas tentang kapasitas dan performa fast-charging sehingga komplain berkurang. Jika Anda mau, saya bisa bantu menulis versi singkat untuk halaman marketplace dan versi panjang untuk deskripsi lengkap + FAQ/guideline.",,,,,,
-x047,c11,before,"Issue: earphone driver reliability (left/right channel) (product_quality); draft status: route
+x047,c11,before,"Issue: channel reliability (left/right) (product_quality); draft status: route
+
+
+Issue: cable durability near jack (product_quality); draft status: route
 ",,,,,,
 x048,c05,before,(no issues reported),,,,,,
 x049,c09,before,"Ringkasan masalah berulang dari ulasan pelanggan
@@ -1741,13 +1751,10 @@ If you want, I will:
 - Insert the confirmed missing facts above into the listing text once you provide them.
 - Create variant image suggestions and a cart-confirmation text block to reduce wrong-variant orders.
 - Draft a short fulfillment checklist and a customer-service reply template for wrong-item reports and shipping delays. Which of these would you like next?",,,,,,
-x051,c06,before,"Issue: size chart / measurements (missing_fact); draft status: ready
-Tabel ukuran / ukuran badan: Tersedia ukuran S, M, L, XL.",,,,,,
-x052,c01,after,"Issue: inner compartment size (missing_fact); draft status: ready
-Ukuran dalam kompartemen: 34 x 24 cm.
-
-Issue: zipper closure (product_quality); draft status: route
+x051,c06,before,"Issue: size chart (missing_fact); draft status: needs_merchant_fact
 ",,,,,,
+x052,c01,after,"Issue: inner compartment size (missing_fact); draft status: ready
+Ukuran dalam kompartemen: 34 x 24 cm.",,,,,,
 x053,c13,after,(no issues reported),,,,,,
 x054,c18,after,"Berikut analisis singkat, rekomendasi tindakan, lalu contoh teks listing yang sudah diperbaiki.
 
@@ -1935,11 +1942,7 @@ Tips penjualan tambahan:
 Jika mau, saya bisa menulis versi teks listing yang lebih singkat untuk tampilan mobile atau menambahkan FAQ lengkap berdasarkan jawaban Anda tentang dimensi dan apakah baterai termasuk. Mana yang Anda butuhkan selanjutnya?",,,,,,
 x058,c22,before,"Issue: product size (unclear_fact); draft status: needs_merchant_fact
 ",,,,,,
-x059,c16,before,"Issue: hinge durability (product_quality); draft status: route
-
-
-Issue: shipping speed (operational); draft status: route
-",,,,,,
+x059,c16,before,(no issues reported),,,,,,
 x060,c05,before,"Ringkasan masalah berulang dari ulasan pelanggan
 - Spesifikasi listrik tidak jelas: pelanggan menanyakan voltase/arus (V/A) dan profil Power Delivery sehingga khawatir merusak perangkat.
 - Kompatibilitas tidak disebutkan: tidak ada info apakah bisa ngecas laptop atau model tertentu.
@@ -2186,8 +2189,11 @@ Jika Anda ingin kami menambahkan detail lain ke listing (mis. ukuran fisik, bera
 — End —",,,,,,
 x066,c06,before,"Issue: size chart measurements (missing_fact); draft status: needs_merchant_fact
 ",,,,,,
-x067,c19,before,"Issue: USB output current (missing_fact); draft status: ready
-Arus output USB (ampere): Stopkontak 4 lubang dengan 3 port USB, kabel 3 m, beban maksimal 2200W, dilengkapi saklar on/off.",,,,,,
+x067,c19,before,"Issue: USB output current (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: socket overheating (product_quality); draft status: route
+",,,,,,
 x068,c15,before,"Ringkasan masalah berulang (dari review)
 - Klaim garansi/orisinalitas: pelanggan minta dicantumkan “garansi resmi 5 tahun” dan “original Lenovo”. Ini menandakan ada kekhawatiran/pertanyaan soal keaslian dan garansi.
 - Overheating: 2 dari 4 review mengeluh adaptor terasa sangat panas setelah dipakai ~1 jam.
@@ -2243,8 +2249,8 @@ Pesan singkat untuk implementasi sekarang
 Jika mau, saya bisa:
 - Menulis versi listing final berdasarkan mana opsi (A atau B) yang benar.
 - Menyusun teks jawaban singkat untuk membalas review-review negatif (ID).",,,,,,
-x069,c02,before,"Issue: water resistance / IPX rating (unclear_fact); draft status: ready
-Ketahanan air / rating IPX: Earphone TWS X10, Bluetooth 5.3, baterai sampai 30 jam dengan charging case. Tahan cipratan keringat dan hujan ringan (IPX4). Tidak untuk dipakai berenang.",,,,,,
+x069,c02,before,"Issue: water resistance / IPX4 use cases (expectation_mismatch); draft status: needs_review
+",,,,,,
 x070,c17,before,"Ringkasan masalah berulang dari review
 - Ruang dalam terasa lebih kecil daripada yang diharapkan (pelanggan: powerbank tidak muat).
 - Kantong/sekatan dalam sempit sehingga charger laptop atau barang tebal tidak bisa masuk.
@@ -2304,15 +2310,15 @@ Tambahan visual yang disarankan untuk listing:
 Jika Anda mau, saya bisa:
 - Membuat versi listing yang lebih pendek untuk marketplace (Tokopedia/Shopee), dan versi panjang untuk deskripsi lengkap.
 - Menyusun teks FAQ ukuran/retur yang bisa ditambahkan ke halaman produk.",,,,,,
-x071,c17,after,"Issue: usable inner compartment size (missing_fact); draft status: ready
-Ukuran dalam yang dapat digunakan: ukuran dalam kompartemen utama 23 x 16 x 6 cm.",,,,,,
+x071,c17,after,"Issue: internal compartment usable size (missing_fact); draft status: ready
+Ukuran bagian dalam yang bisa digunakan: ukuran dalam kompartemen utama 23 x 16 x 6 cm.",,,,,,
 x072,c05,after,(no issues reported),,,,,,
-x073,c22,before,"Issue: device compatibility / connector type (missing_fact); draft status: ready
-Kompatibilitas perangkat / tipe konektor: Kabel Lightning ke USB-C panjang 1 m, mendukung pengisian cepat untuk iPhone dengan kepala charger PD.",,,,,,
-x074,c07,before,"Issue: water resistance (expectation_mismatch); draft status: ready
-Ketahanan terhadap air: Speaker ini tidak tahan air, jauhkan dari hujan dan percikan air.",,,,,,
-x075,c09,before,"Issue: function keys (F1–F12) presence (missing_fact); draft status: ready
-Keberadaan tombol fungsi F1–F12: Keyboard mechanical 68 key, switch red, lampu RGB, kabel USB-C lepas pasang. Keycap double shot.",,,,,,
+x073,c22,before,"Issue: device compatibility (which iPhone/iPad models supported) (missing_fact); draft status: needs_merchant_fact
+",,,,,,
+x074,c07,before,"Issue: water resistance / IP rating (expectation_mismatch); draft status: needs_review
+",,,,,,
+x075,c09,before,"Issue: function keys (F1–F12) presence (missing_fact); draft status: needs_merchant_fact
+",,,,,,
 x076,c17,after,"Ringkas temuan & rekomendasi
 
 Masalah berulang dari ulasan:
@@ -2577,7 +2583,8 @@ Issue: product size (unclear_fact); draft status: needs_merchant_fact
 
 Issue: delivery time (operational); draft status: route
 ",,,,,,
-x082,c04,before,(no issues reported),,,,,,
+x082,c04,before,"Issue: battery capacity (rated vs measured) (conflicting_fact); draft status: needs_merchant_fact
+",,,,,,
 x083,c13,before,(no issues reported),,,,,,
 x084,c19,before,"Ringkasan masalah berulang (dari ulasan)
 - Colokan terasa panas saat digunakan untuk perangkat daya besar (dispenser, rice cooker).
@@ -2628,7 +2635,11 @@ Catatan terakhir untuk penjual/pabrikan:
 Jika Anda mau, saya bisa:
 - Menyusun versi listing yang lebih singkat untuk marketplace (Tokopedia/Shopee/Bukalapak), atau
 - Membuat template jawaban untuk menanggapi ulasan panas/slow charge dari pembeli.",,,,,,
-x085,c20,after,(no issues reported),,,,,,
+x085,c20,after,"Issue: brightness / lumen rating (missing_fact); draft status: ready
+Keterangan lumen/terang: daya 5W, sekitar 250 lumen.
+
+Issue: packaging condition on delivery (operational); draft status: route
+",,,,,,
 x086,c21,after,"Recurring customer problems (from reviews)
 - Many buyers report the holder does not fit large phones (several say their ~6.7"" phones are too big).
 - Buyers say the listing did not state the maximum phone width.
@@ -2668,7 +2679,11 @@ Placeholders you must fill before publishing
 - [[mirror stem diameter / fit range — seller to provide]]
 
 If you want, I can draft the image captions, FAQ lines, and a short installation instruction panel once you provide the two missing size values.",,,,,,
-x087,c20,before,(no issues reported),,,,,,
+x087,c20,before,"Issue: luminous flux (brightness rating) (missing_fact); draft status: needs_merchant_fact
+
+
+Issue: packaging condition on delivery (operational); draft status: route
+",,,,,,
 x088,c22,before,"Ringkasan masalah yang muncul dari ulasan pelanggan
 - Kebingungan kompatibilitas: beberapa pembeli mencoba pada iPhone 15 atau iPad Air terbaru dan kabel tidak muat (karena perangkat tersebut sudah beralih ke port USB‑C).
 - Informasi produk kurang jelas: deskripsi saat ini tidak menjelaskan model iPhone/iPad mana yang didukung.
@@ -2728,7 +2743,7 @@ Kalimat singkat untuk FAQ atau bagian penjelasan cepat:
 
 Jika Anda ingin, saya bisa susun juga versi singkat untuk halaman produk (headline + poin singkat) dan versi panjang untuk deskripsi lengkap.",,,,,,
 x089,c07,before,(no issues reported),,,,,,
-x090,c22,after,"Issue: device compatibility (missing_fact); draft status: ready
+x090,c22,after,"Issue: device compatibility (which iPhone/iPad models / port type) (missing_fact); draft status: ready
 Kompatibilitas perangkat: kompatibel dengan iPhone 8 sampai iPhone 14 yang memakai port Lightning; tidak untuk iPhone 15 dan iPad Air generasi terbaru.",,,,,,
 x091,c14,before,"Ringkasan masalah pelanggan yang muncul (dari ulasan)
 - Sulit menemukan ukuran dalam karena deskripsi panjang dan tidak menonjol (r1).
@@ -2790,12 +2805,12 @@ Catatan untuk penjual (implementasi cepat)
 - Buat satu FAQ singkat khusus “Apakah kamera/lensa saya muat?” yang menganjurkan pembeli membandingkan dimensi lensa mereka dengan ukuran dalam.
 
 Jika Anda mau, saya bisa menata ulang deskripsi lengkap menjadi format marketplace (judul, poin-poin, foto teks overlay) siap tempel.",,,,,,
-x092,c17,before,"Issue: internal compartment usable size (missing_fact); draft status: ready
-Ukuran bagian dalam yang dapat digunakan: Ukuran luar 25 x 18 x 8 cm. Bahan nylon, 2 kompartemen dengan tali elastis.",,,,,,
+x092,c17,before,"Issue: internal compartment size (missing_fact); draft status: needs_merchant_fact
+",,,,,,
 x093,c19,after,"Issue: USB output current (missing_fact); draft status: ready
 Arus output USB: output USB total 5V 2,4A (12W).
 
-Issue: plug/socket heating when under load (product_quality); draft status: route
+Issue: socket overheating (product_quality); draft status: route
 ",,,,,,
 x094,c03,after,"Recurring customer problems (from reviews)
 - Fit/compatibility confusion and errors
@@ -2993,11 +3008,8 @@ Pengiriman & layanan pelanggan
 Jika you want, I can draft specific seller-facing language to add to the store page about processing time, packaging improvements, and a returns policy — but I need confirmation of the handling time, the exact items included in the box, and the warranty/return terms to avoid guessing. Please provide those details and I will insert them where I marked placeholders.",,,,,,
 x102,c22,after,"Issue: product size (unclear_fact); draft status: needs_merchant_fact
 ",,,,,,
-x103,c21,after,"Issue: maximum phone width / clamp opening (missing_fact); draft status: ready
-Lebar maksimal HP / bukaan jepitan: lebar HP maksimal 8,5 cm termasuk case.
-
-Issue: compatibility with phone cases / case thickness (missing_fact); draft status: ready
-Kompatibilitas dengan casing / ketebalan case: Holder HP untuk motor, dipasang di batang spion, bahan plastik ABS, bisa diputar 360 derajat.",,,,,,
+x103,c21,after,"Issue: maximum phone size / compatibility with phone + case (missing_fact); draft status: ready
+Ukuran maksimal HP: lebar HP maksimal 8,5 cm termasuk case.",,,,,,
 x104,c06,after,"Summary — recurring customer problems
 - Sizing/fit inconsistency: Multiple reviews report the fit is tight in the chest and sleeves (reviewers for L and M). One reviewer found S a bit large and one M found the size ""pas"". Overall this indicates customers are uncertain about fit for the slim-fit cut.
 - Missing size chart / measurement details: A reviewer explicitly asked for a size chart.
@@ -3193,10 +3205,10 @@ Praktis, bergaya, dan rechargeable — lampu meja LED ini ideal untuk pencahayaa
 Jika Anda mau, saya bisa juga:
 - Menyusun teks FAQ singkat untuk ditambahkan di halaman produk (mis. soal waktu pengisian, garansi, isi paket).
 - Membantu merancang template pengemasan atau checklist quality control singkat.",,,,,,
-x109,c01,before,"Issue: inner compartment size (missing_fact); draft status: ready
-Ukuran dalam: Ukuran luar 36 x 26 cm.
+x109,c01,before,"Issue: internal dimensions / usable inner pocket size (missing_fact); draft status: needs_merchant_fact
 
-Issue: zipper functionality (product_quality); draft status: route
+
+Issue: zipper closure / zipper functionality (product_quality); draft status: route
 ",,,,,,
 x110,c08,before,(no issues reported),,,,,,
 x111,c19,before,"A. Recurring customer problems (from reviews)
@@ -3389,7 +3401,14 @@ Jika mau, saya bisa:
 - Buat teks listing versi singkat untuk tampilan mobile.
 - Membuat template foto/keterangan yang menunjukkan perbedaan tiap mode (mis. foto 3 panel: Hangat/Netral/Putih).
 - Susun teks garansi dan kebijakan retur yang jelas untuk dimasukkan ke listing. Mau saya bantu lanjut?",,,,,,
-x114,c13,after,(no issues reported),,,,,,
+x114,c13,after,"Issue: maximum height / extended length (missing_fact); draft status: needs_listing
+
+
+Issue: maximum load capacity / phone weight limit (missing_fact); draft status: needs_listing
+
+
+Issue: stability when supporting heavier phones (product_quality); draft status: route
+",,,,,,
 x115,c19,before,(no issues reported),,,,,,
 x116,c14,before,"Ringkasan masalah pelanggan (berulang)
 - Sulit menemukan ukuran dalam di deskripsi yang sangat panjang — bikin pembeli ragu apakah kameranya muat.
@@ -3657,19 +3676,19 @@ x121,c01,before,"Issue: inner compartment size (missing_fact); draft status: nee
 x122,c21,before,"Issue: maximum phone width / supported phone size (missing_fact); draft status: needs_merchant_fact
 
 
-Issue: compatibility with phones that have thick cases (missing_fact); draft status: needs_merchant_fact
+Issue: compatibility with phones that have thick cases / case clearance (missing_fact); draft status: needs_merchant_fact
 ",,,,,,
 x123,c12,before,"Issue: delivery time (operational); draft status: route
 
 
-Issue: packaging (operational); draft status: route
-
-
-Issue: front surface condition (product_quality); draft status: route
+Issue: packaging protection (operational); draft status: route
 ",,,,,,
 x124,c02,before,(no issues reported),,,,,,
-x125,c05,after,"Issue: supported devices / laptop compatibility (missing_fact); draft status: ready
-Kompatibilitas perangkat / dukungan laptop: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W).",,,,,,
+x125,c05,after,"Issue: output voltage and current (missing_fact); draft status: ready
+Tegangan dan arus output: output USB-C PD 5V 3A, 9V 3A, 11V 3A (maksimal 33W).
+
+Issue: laptop compatibility / supported devices (missing_fact); draft status: needs_merchant_fact
+",,,,,,
 x126,c02,before,"Ringkasan masalah yang muncul dari ulasan pelanggan
 - Salah kaprah soal ketahanan air: beberapa pelanggan mengira produk “tahan air” untuk penggunaan di kolam atau saat mandi, lalu earbud mati/kemasukan air.
 - Ketahanan casing: ada keluhan casing mudah tergores.
@@ -3773,7 +3792,8 @@ Placeholders / informasi yang kami butuhkan dari Anda (seller) to complete listi
 
 If you want, I can produce updated product images text/callouts and an FAQ block to paste into the product page.",,,,,,
 x128,c19,after,(no issues reported),,,,,,
-x129,c04,after,(no issues reported),,,,,,
+x129,c04,after,"Issue: battery capacity (conflicting_fact); draft status: ready
+Kapasitas baterai: kapasitas rated 13000 mAh pada output 5V.",,,,,,
 x130,c02,before,"Recurring customer problems (from reviews)
 - Kebingungan/penyalahgunaan terhadap ketahanan air: beberapa pembeli mencoba pakai saat berenang atau mandi dan mengalami kerusakan. Satu review menyebut earphone ""mati"" setelah dipakai renang; satu lain mengatakan aman di hujan ringan tetapi masuk air saat mandi.
 - Casing mudah tergores: satu pembeli melaporkan casing pengisi daya gampang kegores.
@@ -3808,7 +3828,7 @@ Tambahan rekomendasi untuk pembeli
 
 Jika Anda ingin, saya bisa membuat versi singkat untuk judul/point bullet atau menambahkan FAQ ringkas untuk halaman produk.",,,,,,
 x131,c09,after,"Issue: presence of dedicated function keys (F1–F12) (missing_fact); draft status: ready
-Keberadaan tombol fungsi F1–F12 terpisah: tombol F1-F12 diakses dengan kombinasi Fn + angka 1 sampai 0, minus, dan sama dengan.",,,,,,
+Keberadaan tombol fungsi: tombol F1-F12 diakses dengan kombinasi Fn + angka 1 sampai 0, minus, dan sama dengan.",,,,,,
 x132,c21,before,"Summary — recurring customer problems
 - Multiple buyers report large phones don't fit (one specifically says their phone is 6.7"" and ""kegedean"").
 - Buyers say the listing does not state the maximum phone size/capacity.
@@ -3857,8 +3877,11 @@ Short FAQ to add on listing page
 - Apakah bisa dipakai dengan casing? — Untuk casing tipis: biasanya muat. Untuk casing tebal: kami sarankan melepas casing jika melebihi ketebalan maksimum.
 
 If you want, I can draft variant text for the product images (measurement overlay) and a short FAQ image.",,,,,,
-x133,c03,after,"Issue: phone model compatibility / fit (size and camera cutout) (missing_fact); draft status: ready
-Kompatibilitas model ponsel / kecocokan (ukuran dan lubang kamera): kompatibel dengan iPhone 11, iPhone 12, dan iPhone 13 Pro.",,,,,,
+x133,c03,after,"Issue: compatible phone models / variant naming (missing_fact); draft status: ready
+Daftar tipe/penamaan varian: kompatibel dengan iPhone 11, iPhone 12, dan iPhone 13 Pro.
+
+Issue: camera cutout alignment (operational); draft status: route
+",,,,,,
 x134,c17,after,"Ringkasan masalah yang muncul dari review
 - Keluhan berulang:
   - Ukuran bagian dalam terasa jauh lebih kecil dari ekspektasi pembeli (r1, r2).
@@ -3964,11 +3987,11 @@ FAQ singkat (opsional untuk listing):
 Jika Anda ingin, saya bisa:
 - Bantu menulis respons standar untuk menanggapi review negatif di toko online.  
 - Membuat FAQ lengkap atau bagian tanya jawab teknis untuk listing.",,,,,,
-x136,c03,before,"Issue: supported models / compatibility (missing_fact); draft status: ready
-Tipe yang didukung / kecocokan: Tersedia banyak tipe, pilih di varian.
+x136,c03,before,"Issue: compatible phone models / variant mapping (unclear_fact); draft status: needs_merchant_fact
 
-Issue: camera cutout alignment (expectation_mismatch); draft status: ready
-Posisi lubang kamera: Tersedia banyak tipe, pilih di varian.",,,,,,
+
+Issue: camera cutout alignment (product_quality); draft status: route
+",,,,,,
 x137,c03,after,"Ringkasan masalah yang berulang (dari review)
 - Varian/tipe tidak jelas: pelanggan bingung memilih varian dan tidak ada keterangan tipe di listing (r2, r4).
 - Kesalahan kecocokan ukuran/kamera: case yang dipesan tidak pas untuk model yang dimaksud (lubang kamera tidak pas, kekecilan) — risiko salah pilih varian (r1, r2).
@@ -4113,7 +4136,7 @@ Contoh kata-kata untuk promosi/ikhtisar (pakai setelah konfirmasi placeholders):
 - ""Praktis untuk 1–2 orang, memasak cepat dengan panci anti-lengket — ideal untuk kamar kos, kantor, atau keluarga kecil. Daya rendah 300W hemat energi.""
 
 Jika Anda menjawab pertanyaan di bagian ""Pertanyaan yang perlu Anda jawab"", saya akan menggabungkan jawaban Anda dan mengirimkan versi listing final tanpa placeholder.",,,,,,
-x139,c06,after,"Issue: size measurements (size chart) (missing_fact); draft status: ready
-Ukuran / tabel ukuran: M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm.",,,,,,
-x140,c14,before,"Issue: internal dimensions / usable interior space (missing_fact); draft status: needs_merchant_fact
+x139,c06,after,"Issue: size chart (measurements per size) (missing_fact); draft status: ready
+Tabel ukuran: M: lingkar dada 100 cm, panjang lengan 60 cm; L: lingkar dada 106 cm, panjang lengan 62 cm.",,,,,,
+x140,c14,before,"Issue: inner compartment size (missing_fact); draft status: needs_merchant_fact
 ",,,,,,

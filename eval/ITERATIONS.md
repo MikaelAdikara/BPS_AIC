@@ -374,3 +374,70 @@ atributnya tetapi tidak memberi nilai yang ditanyakan.
 Sisa masalah: regresi di atas (dilaporkan ke pemilik engine sebagai prioritas); triage c04 dan c13
 masih `kept 0 of 4`; c20 kecerahan tidak ditemukan; c14 masih ditahan dengan
 `verification_failed` (listing terpotong).
+
+## Iterasi 3 — cabut draf dari kutipan listing, juri leksikon menjadi veto (engine gap-v1.9 / verify-v2.2, commit 1a88bdf)
+
+Temuan: regresi Iterasi 2 (draf `ready` dari kutipan listing yang tidak menjawab, c01 "Ukuran dalam:
+Ukuran luar 36 x 26 cm."), plus sisa dari Iterasi 1: triage dan juri membuang keluhan yang benar
+di c04 dan c13, dan listing terpotong di c14.
+
+Hipotesis sebab (dari trace c04/c13 dan log pemilik engine): selain triage, juri relevansi berbasis
+leksikon adalah **syarat** agar label `supports` dari model dihitung. Model mengusulkan temuan yang
+benar ("kapasitas ga sampe 20000", "pendek banget kalo ditarik full"), tetapi juri membuang semua
+labelnya karena kata keluhannya tidak ada di leksikon.
+
+Perubahan (pemilik engine, rincian di `docs/worklog/engine.md`):
+- verify-v2: konversi satuan per dimensi, ikatan lokasi/sumbu/varian, klaim berisiko berpolaritas,
+  listing yang dibantah bukan sumber.
+- gap-v1.8 / verify-v2.1: draf dari kutipan listing **dicabut**; listing tidak pernah dirender
+  menjadi draf, dan `expectation_mismatch` yang sudah dinyatakan listing menjadi `needs_review`
+  tanpa teks.
+- **Perubahan desain:** juri leksikon tidak lagi menjadi syarat bagi label AI dan sekarang berperan
+  sebagai **veto**. Label `supports` dari model dihitung bila kutipannya verbatim, klausa yang dikutip
+  menyebut atribut temuan, dan klausa itu tidak dikenali sebagai pujian, keluhan atribut lain, atau
+  salah kirim. Mode aturan tetap mensyaratkan leksikon.
+- verify-v2.2: label draf tanpa angka dan alternatif tulisan model; gap-v1.9: pemeriksaan listing
+  membaca listing utuh dan menandai bagian di luar jendela model sebagai `incomplete_source`.
+
+Uji ulang: run resmi di `final/outputs.jsonl` (engine 1a88bdf); replikasi pada versi yang sama di
+`final/noise-gap-v1.9/`; run sebelumnya di `final/run3-gap-v1.7/`. Dua run pertama yang dimulai
+bersamaan dibuang karena berbagi folder SQLite kerja (runner diperbaiki, lalu diulang berurutan).
+
+| Metrik D (AI) | gap-v1 (baseline) | gap-v1.7 | gap-v1.9 resmi | gap-v1.9 replikasi |
+|---|---|---|---|---|
+| Missing fact held (before) | 8/13 | 2/13 | **13/13** (100%; 77–100) | 12/13 |
+| Outputs with listing text (before) | 0/22 | 10/22 | 0/22 | 0/22 |
+| Unnecessary hold (before) | 3/3 | 1/3 | 1/3 | 1/3 |
+| Gold finding found (before) | 15/21 | 17/21 | 19/21 (90%; 71–97) | 19/21 |
+| Membership recall (before, pooled) | 20/53 | 24/53 | **36/53** (68%; 55–79) | 39/53 |
+| Membership precision (before, pooled) | 20/21 | 24/24 | 36/36 | 39/39 |
+| Wrong-item routing (before) | 0/3 | 1/3 | 2/3 | 2/3 |
+| Ready after fact | 7/13 | 10/13 | **12/13** (92%; 67–99) | 11/13 |
+| Unsafe output rate (after) | 1/8 | 0/10 | 0/12 | 0/11 |
+| Temuan pada kontrol pujian | 0 | 0 | 0 | 0 |
+
+Variasi antar-run pada gap-v1.9: ±1 pada held dan ready, ±3 pada recall membership. Kenaikan recall
+20 → 36 dan held 8 → 13 berada jauh di atas variasi itu. Suite komponen tidak berubah dari Iterasi 2
+(f01 10/10, s02 54/68, s03 8/12, s10 11/17).
+
+Teratasi:
+- Regresi Iterasi 2: tidak ada teks draf sebelum fakta (0/22), held 13/13. c01 after-fact kini
+  "Ukuran dalam kompartemen: 34 x 24 cm."
+- c04 dan c13 kini ditemukan (dampak langsung perubahan juri). c04 after-fact: "Kapasitas baterai:
+  kapasitas rated 13000 mAh pada output 5V."
+- Render fakta utuh: c06 "Tabel ukuran: M: lingkar dada 100 cm, panjang lengan 60 cm; L: …", c19
+  "Arus output USB: output USB total 5V 2,4A (12W).", c21 "Ukuran maksimal HP: lebar HP maksimal 8,5
+  cm termasuk case."
+
+Efek samping dan sisa masalah:
+- **c15 (adaptor cepat panas, kasus injeksi) kehilangan temuannya** di kedua run: discovery
+  mengusulkan 2–3 temuan, verifier membuang semuanya. Di gap-v1.6 temuan "overheating" ditemukan
+  dengan r2 dan r3. Dugaan: klausa "adaptornya panas banget", "cepet panas" tidak dianggap menyebut
+  atribut temuan oleh veto baru. Injeksinya tetap tidak masuk draf.
+- c16 (engsel longgar, satu ulasan) ditemukan di replikasi tetapi tidak di run resmi: tidak stabil.
+- c14 masih ditahan dengan `verification_failed`, bukan `incomplete_source`, walau ukuran dalam ada
+  di listing setelah karakter ke-9.000.
+- c06 salah kirim ("pesen XL dikirim L") belum dirutekan ke operasional.
+- Batas metrik: c13 (tanpa listing) dihitung "not ready" setelah fakta, padahal perilakunya sesuai
+  aturan produk: tanpa listing, draf menunggu listing ditempel (`needs_listing`). Label emas kasus ini
+  tidak diubah; kasusnya dicatat di sini.

@@ -1,6 +1,6 @@
 # Suite komponen (data/eval)
 
-Commit `1a88bdf`, engine `gap-v1.9` / `verify-v2.2`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
+Commit `39c3780`, engine `gap-v1.7` / `verify-v1.3`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
 
 Pembanding: sinyal keluhan engine Deciqo (menentukan ulasan mana masuk triage) dan leksikon Ulasin as-shipped. Aspek hanya dinilai untuk kemasan, pengiriman, ukuran, dan layanan penjual, yang padanannya di engine jelas.
 
