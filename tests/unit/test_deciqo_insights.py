@@ -1,8 +1,26 @@
 """Angka Overview: deduplikasi per produk, rentang waktu, filter, dan isolasi akun."""
 from datetime import datetime, timezone
+from contextlib import nullcontext
+
+from fastapi import FastAPI
+from fastapi.testclient import TestClient
 
 from app.deciqo import insights, store
 from app.deciqo.engine import pipeline
+
+
+def test_overview_accepts_query_string_ranges(monkeypatch):
+    app = FastAPI()
+    app.include_router(insights.router)
+    app.dependency_overrides[insights.current_user] = lambda: {"id": 1}
+    monkeypatch.setattr(insights.store, "database", lambda: nullcontext(None))
+    monkeypatch.setattr(insights, "overview_data", lambda conn, uid, days: {"days": days})
+    with TestClient(app) as client:
+        for days in (7, 30, 90):
+            response = client.get(f"/api/v1/deciqo/overview?days={days}")
+            assert response.status_code == 200
+            assert response.json() == {"days": days}
+        assert client.get("/api/v1/deciqo/overview?days=31").status_code == 422
 
 
 def test_unique_product_review_pairs_dates_and_account_isolation(tmp_path):

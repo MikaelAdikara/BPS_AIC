@@ -33,9 +33,9 @@ def filter_items(items, q="", channel="", kind="", severity="", status="", order
 
 
 @router.get("/overview")
-def overview(days: Literal[7, 30, 90] = 30, user: dict = Depends(current_user)):
+def overview(days: Literal["7", "30", "90"] = "30", user: dict = Depends(current_user)):
     with store.database() as conn:
-        return overview_data(conn, user["id"], days)
+        return overview_data(conn, user["id"], int(days))
 
 
 def overview_data(conn, user_id, days=30, now=None):
