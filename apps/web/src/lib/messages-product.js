@@ -51,7 +51,7 @@ export const product = {
     listingTitle: "Paste the current listing",
     listingHint:
       "Deciqo compares complaints with exactly this text. Without it, findings describe buyer needs.",
-    listingField: "Current title and description",
+    listingField: "Listing description",
     saveListing: "Save listing and investigate",
     listingSaved: "Listing saved",
     findings: "Choose an issue to work on",
@@ -209,7 +209,7 @@ export const product = {
     listingTitle: "Tempel listing saat ini",
     listingHint:
       "Deciqo membandingkan keluhan dengan teks ini. Tanpa listing, temuan menunjukkan kebutuhan pembeli.",
-    listingField: "Judul dan deskripsi saat ini",
+    listingField: "Deskripsi listing",
     saveListing: "Simpan listing dan investigasi",
     listingSaved: "Listing tersimpan",
     findings: "Pilih isu yang akan dikerjakan",

@@ -32,7 +32,7 @@ PII_PATTERNS: list[tuple[str, re.Pattern[str], str]] = [
     ),
     ("telepon", re.compile(r"\b(?:wa|telp|telepon|hp)\s*:\s*(?:nol|kosong)(?:\s+(?:nol|kosong|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan)){5,14}\b", re.I), "[nomor telepon]"),
     ("nama", re.compile(r"(?<=Atas nama )[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|(?<=a.n. )[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|\bIbu\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}|(?<=Saya )[A-Z][a-z]+(?=\s+dari\b)"), "[nama]"),
-    ("ukuran_pribadi", re.compile(r"\b(?:tinggi|berat)\s+(?:badan\s+)?\d+(?:[.,]\d+)?(?:\s*(?:cm|kg))?\b", re.I), "[ukuran pribadi]"),
+    ("ukuran_pribadi", re.compile(r"\b(?:tinggi|berat)\s+(?:(?:badan|saya|aku|ku)\s+){0,2}\d+(?:[.,]\d+)?(?:\s*(?:cm|kg))?\b", re.I), "[ukuran pribadi]"),
     (
         "nomor_panjang",
         # Rekening/kartu/NIK - deretan 10+ digit yang berdiri sendiri.

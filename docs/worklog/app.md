@@ -95,3 +95,9 @@
 - Probe produksi menemukan bahwa listing_text berisi deskripsi dan spesifikasi sumber. Menyimpan teks gabungan sebagai deskripsi menggandakan spesifikasi dan memicu analisis ulang.
 - ProductView menambah listing_edit_text untuk deskripsi mentah; listing_text tetap teks gabungan yang diperiksa. Editor memakai listing_edit_text. Server menganggap penyimpanan ulang teks gabungan yang identik sebagai tidak berubah.
 - Tes round-trip memastikan spesifikasi hanya muncul sekali, teks tidak berubah tidak memicu perubahan, dan deskripsi baru tetap memakai spesifikasi sumber. Editor/route/pipeline: 19 tes lulus; web: 29 tes, typecheck, dan build lulus.
+
+## Verifikasi produksi lanjutan
+
+- Seluruh 587 tes unit backend lulus setelah perbaikan editor. Browser produksi menampilkan model_chars 143/143 dan menyimpan ulang deskripsi tanpa analisis baru; toast Listing saved terlihat.
+- Filter dampak tinggi di Issues produksi menghasilkan 18 baris; pada 375px lebar dokumen 360px. Filter dipulihkan setelah pengujian.
+- Snapshot memperlihatkan ukuran pribadi berbentuk tinggi saya. Redaksi mencakup kata ganti pada ukuran pribadi, dengan tes regresi; spesifikasi tinggi/berat produk tetap dipertahankan.

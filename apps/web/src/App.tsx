@@ -239,10 +239,13 @@ function Application() {
     </Boundary>
   );
 }
-export default function App() {
+function RecoveryScreen() {
   const language = readPreference("deciqo-language", "en") === "id" ? "id" : "en";
+  return <main className="workspace-main stack" role="alert"><h1>{translate(language, "common.unknownError")}</h1><button className="btn btn--primary" onClick={() => window.location.reload()}>{translate(language, "common.retry")}</button></main>;
+}
+export default function App() {
   return (
-    <Boundary fallback={<main className="workspace-main stack" role="alert"><h1>{translate(language, "common.unknownError")}</h1><button className="btn btn--primary" onClick={() => window.location.reload()}>{translate(language, "common.retry")}</button></main>}>
+    <Boundary fallback={<RecoveryScreen />}>
     <I18nProvider>
       <ThemeProvider>
         <AuthProvider>

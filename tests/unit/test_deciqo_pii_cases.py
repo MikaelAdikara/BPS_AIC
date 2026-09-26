@@ -25,3 +25,8 @@ def test_redaction_cases(case):
 @pytest.mark.parametrize("text", ["dibawa jalan jalan", "blok warnanya bagus", "tinggi tas 165 cm", "berat produk 55 kg", "Saya puas dari awal", "Atas nama produk ini tidak tertulis ukuran"])
 def test_product_evidence_is_preserved(text):
     assert redact(text) == (text, False)
+
+
+@pytest.mark.parametrize("text", ["tinggi saya 183 cm", "berat badan saya 55 kg", "tinggi aku 165", "berat badan 55"])
+def test_personal_measurements_with_pronouns(text):
+    assert redact(text) == ("[ukuran pribadi]", True)
