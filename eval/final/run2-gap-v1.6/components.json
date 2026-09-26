@@ -1,7 +1,7 @@
 {
-  "commit": "39c3780",
-  "pipeline_version": "gap-v1.7",
-  "verifier_version": "verify-v1.3",
+  "commit": "1d5ae76",
+  "pipeline_version": "gap-v1.6",
+  "verifier_version": "verify-v1.1",
   "suites": {
     "s01": {
       "deciqo_lexicon": {
@@ -298,9 +298,20 @@
     "f01": {
       "deciqo_facts": {
         "invalid_answer_rejected": {
-          "k": 10,
+          "k": 0,
           "n": 10,
-          "failures": []
+          "failures": [
+            "size: 'oke' -> accepted",
+            "size: 'ya sudah' -> accepted",
+            "size: 'sip' -> accepted",
+            "size: 'done' -> accepted",
+            "size: '32 x 24' -> accepted",
+            "size: 'sekitar segitu lah' -> accepted",
+            "size: 'ukuran luar 36 x 27 cm' -> accepted",
+            "compat: 'oke' -> accepted",
+            "capacity: '13000' -> accepted",
+            "capacity: 'sudah dicek' -> accepted"
+          ]
         },
         "valid_answer_accepted": {
           "k": 5,

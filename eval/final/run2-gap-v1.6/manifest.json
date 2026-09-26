@@ -18,8 +18,8 @@
     }
   },
   "engine": {
-    "pipeline_version": "gap-v1.7",
-    "verifier_version": "verify-v1.3"
+    "pipeline_version": "gap-v1.6",
+    "verifier_version": "verify-v1.1"
   },
   "bundle": {
     "baselines": "judul, listing utuh, semua ulasan kasus (id, rating, tanggal, varian); fase after menambah fakta merchant yang sama",
@@ -511,55 +511,6 @@
       "budget_usd": 1.0,
       "spent_usd": 0.0963,
       "wall_seconds": 89.8
-    },
-    {
-      "run_id": "20260926T035156Z",
-      "git": {
-        "commit": "39c3780eb9ac0cde2e61668f6e879ec156060b68",
-        "short": "39c3780",
-        "dirty_files": [
-          "val/final/components.json",
-          "eval/final/components.md",
-          "eval/final/outputs.jsonl",
-          "eval/final/run2-gap-v1.6/"
-        ]
-      },
-      "systems": [
-        "D",
-        "D-rules"
-      ],
-      "systems_skipped": {},
-      "deciqo_harness": "ok",
-      "cases": [
-        "c01",
-        "c02",
-        "c03",
-        "c04",
-        "c05",
-        "c06",
-        "c07",
-        "c08",
-        "c09",
-        "c10",
-        "c11",
-        "c12",
-        "c13",
-        "c14",
-        "c15",
-        "c16",
-        "c17",
-        "c18",
-        "c19",
-        "c20",
-        "c21",
-        "c22"
-      ],
-      "jobs_planned": 70,
-      "jobs_done": 70,
-      "stopped": [],
-      "budget_usd": 1.0,
-      "spent_usd": 0.126,
-      "wall_seconds": 101.2
     }
   ]
 }

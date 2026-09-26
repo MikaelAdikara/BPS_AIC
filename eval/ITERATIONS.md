@@ -325,3 +325,52 @@ Efek samping: c19 after-fact kini `ready` (sebelumnya `blocked`), tetapi teksnya
 (ampere/volt): 5 v."** Fakta merchant "5V 2,4A (12W)" kehilangan arus dan dayanya. Draf ini tidak
 terkena pola terlarang c19, jadi unsafe rate tidak menangkapnya. Ini batas metrik: draf yang
 membuang sebagian fakta tidak dihitung sebagai klaim tanpa sumber.
+
+## Iterasi 2 — validasi fakta dan hold berlebih (engine gap-v1.7 / verify-v1.3, commit 39c3780)
+
+Temuan: dari Iterasi 1 dan smoke test, (a) jawaban "oke" dan angka tanpa satuan diterima sebagai
+fakta (f01 0/10); (b) draf tetap ditahan walau listing sudah menjawab (c02, c07, c14: 3/3); (c) fakta
+dirender tidak utuh (c19 "5 v", c21 atribut hilang, c06 tabel ukuran dirangkai).
+
+Perubahan (pemilik engine): verify-v1.2 validasi jawaban merchant dengan kode `not_a_fact`,
+`unit_missing`, `measurement_missing`, `wrong_location`; gap-v1.7 / verify-v1.3 draf tidak menahan
+yang sudah dijawab listing dan fakta dirender utuh.
+
+Uji ulang (run sebelumnya disimpan di `final/run2-gap-v1.6/`):
+
+| Metrik D (AI) | gap-v1.6 | gap-v1.7 |
+|---|---|---|
+| f01 jawaban tidak valid ditolak | 0/10 | **10/10** |
+| f01 jawaban valid diterima | 5/5 | 5/5 |
+| Unnecessary hold (before) | 3/3 | 1/3 |
+| Ready after fact | 10/13 | 10/13 |
+| Unsafe output rate (after) | 1/10 (c06) | 0/10 |
+| **Missing fact held (before)** | 10/13 | **2/13 (15%; 4–42)** |
+| Outputs with listing text (before) | 0/22 | 10/22 |
+| Unsafe output rate (before) | undefined | **2/10 (20%; 6–51)** |
+
+Teratasi: validasi fakta (10/10); c06 kini "Ukuran / tabel ukuran: M: lingkar dada 100 cm, panjang
+lengan 60 cm; L: …"; c19 "Arus output USB: output USB total 5V 2,4A (12W)."; c21 memakai atribut
+lengkap; c02 dan c07 tidak lagi ditahan.
+
+**Efek samping (perbaikan sebagian gagal):** draf yang "sudah dijawab listing" kini dibuat untuk
+setiap temuan yang punya kutipan listing, walau kutipan itu tidak menjawab pertanyaannya. Sebelum
+fakta diberikan, D menulis draf `ready` pada 8 kasus yang butuh fakta, dengan menempelkan potongan
+listing di bawah label atribut:
+
+- c01: **"Ukuran dalam: Ukuran luar 36 x 26 cm."** (ukuran luar dipakai sebagai ukuran dalam, persis
+  titik rawan `inner_outer`); c17 sama: "Ukuran bagian dalam yang dapat digunakan: Ukuran luar 25 x 18 x 8 cm. …".
+- c03: "Tipe yang didukung / kecocokan: Tersedia banyak tipe, pilih di varian."
+- c09: "Keberadaan tombol fungsi F1–F12: Keyboard mechanical 68 key, switch red, …".
+- c19: "Arus output USB (ampere): Stopkontak 4 lubang dengan 3 port USB, …".
+- c22: "Kompatibilitas perangkat / tipe konektor: Kabel Lightning ke USB-C …" (terkena pola terlarang
+  kompatibilitas iPhone).
+
+Hipotesis sebab: status `evidence_found` dari pemeriksaan listing dipakai sebagai "listing
+menjawab pertanyaan", padahal `evidence_found` hanya berarti ada potongan listing yang membahas
+atribut yang sama. Kutipan tentang ukuran luar, daftar varian, atau spesifikasi umum membahas
+atributnya tetapi tidak memberi nilai yang ditanyakan.
+
+Sisa masalah: regresi di atas (dilaporkan ke pemilik engine sebagai prioritas); triage c04 dan c13
+masih `kept 0 of 4`; c20 kecerahan tidak ditemukan; c14 masih ditahan dengan
+`verification_failed` (listing terpotong).

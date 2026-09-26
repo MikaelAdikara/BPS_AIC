@@ -1,6 +1,6 @@
 # Suite komponen (data/eval)
 
-Commit `39c3780`, engine `gap-v1.7` / `verify-v1.3`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
+Commit `1d5ae76`, engine `gap-v1.6` / `verify-v1.1`. Deterministik, tanpa model. Label dari `data/eval/` (asal per baris di berkas itu). Format sel: `k/n (persen; interval Wilson 95%)`.
 
 Pembanding: sinyal keluhan engine Deciqo (menentukan ulasan mana masuk triage) dan leksikon Ulasin as-shipped. Aspek hanya dinilai untuk kemasan, pengiriman, ukuran, dan layanan penjual, yang padanannya di engine jelas.
 
@@ -101,8 +101,19 @@ Contoh kegagalan Deciqo (maks. 8 per metrik):
 
 | Sistem | Metrik | Hasil |
 |---|---|---|
-| deciqo_facts | invalid_answer_rejected | 10/10 (100%; 72–100) |
+| deciqo_facts | invalid_answer_rejected | 0/10 (0%; 0–28) |
 | deciqo_facts | valid_answer_accepted | 5/5 (100%; 57–100) |
+
+Contoh kegagalan Deciqo (maks. 8 per metrik):
+
+- `invalid_answer_rejected` size: 'oke' -> accepted
+- `invalid_answer_rejected` size: 'ya sudah' -> accepted
+- `invalid_answer_rejected` size: 'sip' -> accepted
+- `invalid_answer_rejected` size: 'done' -> accepted
+- `invalid_answer_rejected` size: '32 x 24' -> accepted
+- `invalid_answer_rejected` size: 'sekitar segitu lah' -> accepted
+- `invalid_answer_rejected` size: 'ukuran luar 36 x 27 cm' -> accepted
+- `invalid_answer_rejected` compat: 'oke' -> accepted
 
 ## Tidak dijalankan
 
