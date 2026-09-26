@@ -354,8 +354,20 @@ def job_status(job_id: str, user: dict = Depends(current_user)) -> dict:
 
 
 def _llm_status(conn) -> dict:
-    spent = conn.execute("SELECT COALESCE(SUM(cost_usd), 0) FROM ledger WHERE provider = 'openai'").fetchone()[0]
-    rejected = store.get_kv(conn, "llm_key_rejected") or None
+    # Rumus yang sama dengan penjaga anggaran engine: biaya terkonfirmasi + reservasi yang belum
+    # selesai atau gagal tanpa usage, supaya angka di layar sama dengan yang membatasi panggilan.
+    spent = conn.execute(
+        "SELECT COALESCE(SUM(CASE WHEN status = 'ok' THEN cost_usd ELSE reserved_usd END), 0) "
+        "FROM ledger WHERE provider = 'openai'").fetchone()[0]
+    # Status penolakan key dibaca dari engine (memori proses), bukan dari kv_state: nilai di kv
+    # bertahan setelah restart walau key sudah diganti, sehingga layar menyebut mode aturan padahal
+    # engine sudah kembali memakai AI.
+    try:
+        from .engine import llm  # noqa: PLC0415
+
+        rejected = llm.key_rejected()
+    except ImportError:
+        rejected = None
     return {"configured": settings.openai_configured(), "key_rejected": rejected,
             "model": settings.llm_model(), "budget_usd": settings.ai_budget_usd(), "spent_usd": round(spent, 4)}
 

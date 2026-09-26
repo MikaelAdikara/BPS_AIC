@@ -259,3 +259,16 @@ def test_semua_paket_channel_bisa_dimuat(env):
     with store.database() as conn:
         channels = {r[0] for r in conn.execute("SELECT DISTINCT channel FROM products")}
     assert {"tokopedia", "shopee", "tiktok", "blibli", "lazada"} <= channels
+
+
+def test_status_tidak_memakai_penolakan_key_basi(env, monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
+    client = _client()
+    _login(client, "st@x.io")
+    with store.database() as conn:
+        store.set_kv(conn, "llm_key_rejected", "invalid_or_revoked_key")
+        conn.execute("INSERT INTO ledger(provider, status, cost_usd, reserved_usd, created_at) "
+                     "VALUES('openai', 'ok', 0.01, 0.05, ''), ('openai', 'unknown:Timeout', 0, 0.02, '')")
+    body = client.get("/api/v1/deciqo/status").json()
+    assert body["engine"] == "ai" and body["llm"]["key_rejected"] is None
+    assert body["llm"]["spent_usd"] == pytest.approx(0.03)
