@@ -297,3 +297,39 @@ def test_qa23_kerusakan_kemasan_bukan_kualitas_produk(text):
 
 def test_qa23_barang_rusak_dan_dus_penyok_tetap_kualitas():
     assert relevance.judge("barangnya rusak, dusnya juga penyok", QUALITY).label == relevance.SUPPORTS
+
+
+# --- label AI: kode memegang veto, bukan syarat leksikon lengkap --------------------------------
+
+
+def _ai(proposal, reviews, labels):
+    from app.deciqo.engine import pipeline
+
+    return pipeline._judge_pairs(proposal, reviews, "ai", labels)
+
+
+CAP = {"attribute": "battery capacity", "attribute_local": "kapasitas baterai", "finding_type": "conflicting_fact"}
+
+
+def test_qa26_keluhan_tanpa_kata_leksikon_dihitung_bila_klausa_menyebut_atribut():
+    reviews = [{"id": "a", "rating": 2, "text": "kapasitasnya gak nyampe 10rb, cuma kuat 1x ngecas"}]
+    judged = _ai(CAP, reviews, [{"review_id": "a", "label": "supports", "quote": "kapasitasnya gak nyampe 10rb"}])
+    assert set(judged["supports"]) == {"a"}
+
+
+def test_qa26_pujian_tetap_diveto():
+    reviews = [{"id": "b", "rating": 5, "text": "kapasitasnya mantap, sesuai deskripsi"}]
+    judged = _ai(CAP, reviews, [{"review_id": "b", "label": "supports", "quote": "kapasitasnya mantap, sesuai deskripsi"}])
+    assert "b" not in judged["supports"]
+
+
+def test_qa26_keluhan_atribut_lain_tetap_diveto():
+    reviews = [{"id": "c", "rating": 1, "text": "pengirimannya lama banget, seminggu baru sampai"}]
+    judged = _ai(CAP, reviews, [{"review_id": "c", "label": "supports", "quote": "pengirimannya lama banget"}])
+    assert "c" not in judged["supports"]
+
+
+def test_qa26_klausa_tanpa_atribut_tetap_ditolak():
+    reviews = [{"id": "d", "rating": 1, "text": "pokoknya nyesel beli di sini"}]
+    judged = _ai(CAP, reviews, [{"review_id": "d", "label": "supports", "quote": "pokoknya nyesel beli di sini"}])
+    assert "d" not in judged["supports"]

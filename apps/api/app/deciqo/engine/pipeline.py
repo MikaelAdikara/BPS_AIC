@@ -226,6 +226,12 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
                 supports[rid] = {"quote": quotes[rid]}
             elif verdict.label == relevance.CONTRADICTS:
                 uncertain[rid] = "labelled_both_ways"
+            elif verdict.label == relevance.UNCERTAIN and verdict.reason == "mentions_attribute_without_complaint":
+                # Model membaca keluhan yang kosakatanya belum dikenal leksikon ("gak nyampe 10rb",
+                # "pendek banget kalo ditarik full"). Kode tetap memegang veto: kutipan verbatim,
+                # klausa yang dikutip menyebut atribut temuan, dan klausa itu bukan pujian, bukan
+                # keluhan atribut lain, dan bukan laporan salah kirim.
+                supports[rid] = {"quote": quotes[rid]}
             elif verdict.label == relevance.UNCERTAIN:
                 uncertain[rid] = verdict.reason
             else:

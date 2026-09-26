@@ -44,13 +44,20 @@ def test_satuan_dari_form_ikut_dirender():
     assert sec["text"] == "Ukuran kompartemen dalam: 30 x 22 cm."
 
 
-def test_listing_sudah_menyatakan_atribut_tidak_ditahan():
+def test_listing_sudah_menyatakan_harapan_tidak_ditahan_tapi_tidak_dirender():
+    # Listing tidak pernah dijadikan teks draf: kutipan listing usulan model bisa berupa seluruh
+    # listing atau hal yang hanya terkait. Merchant diminta meninjau, bukan diberi teks.
     check = {"status": "evidence_found", "quote": "Tahan cipratan air (IPX4), tidak untuk berenang"}
     sec = draft.section(_finding("expectation_mismatch", "ketahanan air", "water resistance"), None,
                         "Earphone. Tahan cipratan air (IPX4), tidak untuk berenang.", True, listing_check=check)
-    assert sec["status"] == "ready"
-    assert sec["rendered_from"] == "listing"
-    assert "tidak untuk berenang" in sec["text"]
+    assert sec["status"] == "needs_review"
+    assert sec["text"] == "" and sec["reasons"] == ["already_in_listing"]
+
+
+def test_ukuran_luar_di_listing_tidak_menjawab_pertanyaan_ukuran_dalam():
+    check = {"status": "evidence_found", "quote": "Ukuran luar 40 x 30 x 10 cm"}
+    sec = draft.section(_finding(), None, "Tas selempang. Ukuran luar 40 x 30 x 10 cm.", True, listing_check=check)
+    assert sec["status"] == "needs_merchant_fact" and sec["text"] == ""
 
 
 def test_listing_yang_dibantah_bukan_sumber():

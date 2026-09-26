@@ -86,16 +86,15 @@ def section(finding: dict, fact: dict | None, listing: str, listing_provided: bo
     needs_fact = finding["finding_type"] in pipeline.FACT_REQUIRED or finding["finding_type"] == "expectation_mismatch"
     check = listing_check or {}
     if needs_fact and not fact:
-        # Listing yang sudah menyatakan atributnya (kutipan verbatim, tidak dibantah) adalah sumber:
-        # tidak perlu menahan draf menunggu merchant mengulang hal yang sama. Listing yang sedang
-        # dibantah pembeli (`conflicting`) bukan sumber untuk koreksinya sendiri.
+        # Listing tidak pernah dirender menjadi teks draf: kutipan usulan model bisa berupa seluruh
+        # listing atau hal yang hanya terkait ("ukuran luar" untuk pertanyaan ukuran dalam). Hanya
+        # ekspektasi yang sudah dinyatakan listing (pembeli salah tangkap) yang tidak ditahan:
+        # merchant diminta meninjau penekanannya, tanpa teks baru.
         quote = (check.get("quote") or "").strip()
-        if check.get("status") == "evidence_found" and quote and verify.quote_in(quote, listing):
-            text = f"{_label(finding)}: {quote.rstrip('.')}."
-            status, reasons, unsupported = gate(text, [listing])
-            return {**base, "status": status, "text": text if status != "blocked" else "",
-                    "rendered_from": "listing", "reasons": reasons or ["already_in_listing"],
-                    "unsupported": unsupported, "sources": [{"kind": "listing", "quote": quote}]}
+        if (finding["finding_type"] == "expectation_mismatch" and check.get("status") == "evidence_found"
+                and quote and verify.quote_in(quote, listing)):
+            return {**base, "status": "needs_review", "reasons": ["already_in_listing"],
+                    "sources": [{"kind": "listing", "quote": quote}]}
         return {**base, "status": "needs_merchant_fact", "reasons": ["missing_fact"]}
     text = render(finding, fact) if fact else ""
     if not text:
