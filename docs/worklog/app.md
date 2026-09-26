@@ -37,3 +37,10 @@
 - Browser memperlihatkan empat produk dengan label sintetis dan engine aturan. Navigasi produk berhasil. Pada 375px, dokumen 360px dan tabel 651px bergulir di dalam kartu.
 - Isu waktu pengiriman menampilkan arahan operasional, melewati formulir fakta dan draf listing.
 - Verifikasi: 28 tes, typecheck, dan build lulus. Sources, Alerts, Settings, grafik, dan decision plan belum tersambung.
+
+## Settings dasar
+
+- Profil membaca akun aktif; nama dan nomor telepon disimpan melalui PATCH /auth/me. Bahasa/tema memakai provider bersama. Status engine, model, fetch, dan anggaran berasal dari status server; versi/pipeline/verifier/commit berasal dari endpoint version.
+- Browser pada basis data uji terpisah: nomor 123 ditolak dengan pesan lokal; nama uji tersimpan dan bertahan setelah reload; profil dipulihkan dan toast Profil disimpan tampil. Pada 375px gelap/ID, dokumen 360px tanpa overflow horizontal.
+- Refresh profil berjalan di latar belakang agar workspace dan toast tidak terlepas saat penyimpanan. Perubahan berkas provider saat pengembangan memuat ulang halaman penuh untuk mencegah konteks ganda; perubahan layar tetap memakai hot update.
+- Verifikasi: 29 tes, typecheck, dan build lulus. Sources, Alerts, Telegram linking, grafik, dan decision plan belum tersambung.

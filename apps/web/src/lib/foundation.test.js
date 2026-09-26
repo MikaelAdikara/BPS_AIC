@@ -9,6 +9,27 @@ test("Vite alias shares the root module URL during hot reload on Windows", async
   const { default: config } = await import("../../vite.config.js");
   assert.equal(config.resolve.alias["@"], "/src");
 });
+test("provider edits reload the page while screen edits keep hot updates", async () => {
+  const { default: config } = await import("../../vite.config.js");
+  const plugin = config.plugins.find(
+    (plugin) => plugin.name === "reload-context-providers",
+  );
+  const sent = [];
+  const server = { ws: { send: (message) => sent.push(message) } };
+  assert.deepEqual(
+    plugin.handleHotUpdate({ file: "C:\\web\\src\\api\\auth.tsx", server }),
+    [],
+  );
+  assert.deepEqual(sent, [{ type: "full-reload" }]);
+  assert.equal(
+    plugin.handleHotUpdate({
+      file: "C:/web/src/screens/SettingsScreen.tsx",
+      server,
+    }),
+    undefined,
+  );
+  assert.equal(sent.length, 1);
+});
 
 test("all namespaces have matching EN/ID keys and interpolation values", () => {
   for (const namespace of Object.keys(messages.en)) {

@@ -21,7 +21,7 @@ type ContextValue = {
   user: User | null;
   loading: boolean;
   error: string | null;
-  refresh: () => Promise<void>;
+  refresh: (background?: boolean) => Promise<void>;
   login: (email: string, password: string) => Promise<User>;
   register: (email: string, password: string, name: string) => Promise<User>;
   logout: () => Promise<void>;
@@ -33,9 +33,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const revision = useRef(0);
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (background = false) => {
     const current = ++revision.current;
-    setLoading(true);
+    if (!background) setLoading(true);
     setError(null);
     try {
       const next = await request("/auth/me");

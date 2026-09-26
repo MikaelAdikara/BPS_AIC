@@ -1,5 +1,6 @@
 export const errors = {
   en: {
+    invalid_phone: "Enter a phone number with 8 to 15 digits, or leave it empty.",
     bad_credentials: "Email or password is incorrect.",
     too_many_attempts: "Too many attempts. Please try again later.",
     signup_closed: "Registration is closed. Sign in with an existing account.",
@@ -25,6 +26,7 @@ export const errors = {
       "The server returned an unreadable response. Please try again.",
   },
   id: {
+    invalid_phone: "Masukkan nomor telepon dengan 8 sampai 15 digit, atau kosongkan.",
     bad_credentials: "Email atau kata sandi salah.",
     too_many_attempts: "Terlalu banyak percobaan. Coba lagi nanti.",
     signup_closed: "Pendaftaran ditutup. Masuk dengan akun yang sudah ada.",

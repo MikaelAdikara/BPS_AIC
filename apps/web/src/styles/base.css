@@ -67,6 +67,9 @@ textarea {
 [hidden] {
   display: none !important;
 }
+.break-word {
+  overflow-wrap: anywhere;
+}
 .stack {
   display: grid;
   gap: 20px;
