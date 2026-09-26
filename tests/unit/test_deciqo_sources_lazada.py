@@ -75,3 +75,12 @@ def test_tanpa_token_fetch_nonaktif(monkeypatch):
     with pytest.raises(DeciqoError) as err:
         apify.run_actor({}, max_charge=0.1, user_id=None, ref="")
     assert err.value.code == "fetch_unconfigured"
+
+
+def test_deskripsi_html_kosong_atau_ter_escape_tidak_masuk_listing():
+    # Actor kadang mengirim kerangka HTML kosong, mentah atau di-escape, di `description`.
+    for raw in ("<html> <head></head> <body> </body> </html>",
+                "&lt;html&gt; &lt;head&gt;&lt;/head&gt; &lt;body&gt; &lt;/body&gt; &lt;/html&gt;"):
+        item = {"type": "product_detail", "itemId": "222", "title": "Laptop Bag 14 Inch",
+                "url": "https://www.lazada.sg/products/pdp-i222.html", "descriptionHtml": "", "description": raw}
+        assert apify.to_catalog([item])[0]["description"] == ""

@@ -12,7 +12,7 @@ pertanyaan sempit dengan structured output:
   atau mengubah bucket/state/severity temuan mana pun.
 - **OCR gambar produk.** Gambar utama + galeri → teks yang tercetak (klaim, angka, satuan)
   secara verbatim. Teks itu ikut ke `pipeline.listing_parts` sebagai blok terpisah
-  "Teks pada gambar produk:" supaya pemeriksaan listing bisa mengutipnya.
+  "Text on product images:" supaya pemeriksaan listing bisa mengutipnya.
 
 Tanpa key, key ditolak, anggaran habis, atau `DECIQO_VISION=off`: dilewati dengan status
 `skipped` dan alasannya, tanpa exception. Semua hasil di-cache (tabel `vision_checks` dan
@@ -41,7 +41,7 @@ MAX_ERRORS = 3
 VERDICTS = ("supports", "contradicts", "inconclusive")
 # Urutan kekuatan saat satu ulasan punya beberapa foto yang diperiksa.
 _STRENGTH = {"supports": 0, "contradicts": 1, "inconclusive": 2}
-OCR_HEADER = "Teks pada gambar produk:"
+OCR_HEADER = "Text on product images:"
 
 PHOTO_SCHEMA = {
     "type": "object",

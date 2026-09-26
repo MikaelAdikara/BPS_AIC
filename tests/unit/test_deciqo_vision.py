@@ -289,7 +289,7 @@ def test_ocr_masuk_listing_parts_dan_cakupan(db, monkeypatch):
     listing, provided = pipeline.listing_parts(product)
     assert provided
     assert listing.startswith("Tas kanvas tebal")
-    assert "\n\nTeks pada gambar produk:\n20000mAh\nFast Charging 22.5W" in listing
+    assert "\n\nText on product images:\n20000mAh\nFast Charging 22.5W" in listing
     assert vision.ocr_counts(product) == (3, 3)
     check = listing_check.check({"finding_type": "missing_fact", "attribute": "battery capacity",
                                  "listing_evidence": "20000mAh"}, listing, provided, images=(3, 3))
@@ -313,7 +313,7 @@ def test_analisis_ai_menjalankan_ocr_sebelum_listing_dan_cek_foto_di_akhir(db, m
     coverage = store.loads(f["listing_check_json"])["coverage"]
     assert coverage["images_read"] == 3 and coverage["images_total"] == 3
     discovery_kw = next(kw for kw in client.kwargs if kw["text"]["format"]["name"] == "discovery")
-    assert "Teks pada gambar produk:" in discovery_kw["input"][1]["content"]
+    assert "Text on product images:" in discovery_kw["input"][1]["content"]
     calls = len(client.calls)
     again = pipeline.analyse(pid, db_path=path)
     assert again["status"] == "unchanged" and len(client.calls) == calls  # semuanya dari cache

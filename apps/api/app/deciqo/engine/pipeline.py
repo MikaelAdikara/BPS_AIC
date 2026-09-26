@@ -101,7 +101,7 @@ def listing_parts(product: dict) -> tuple[str, bool]:
     listing sudah diberikan.
 
     Teks hasil OCR gambar produk (lihat `vision.run_ocr`) ditempel sebagai blok terpisah berjudul
-    "Teks pada gambar produk:" supaya pemeriksaan listing bisa mengutipnya verbatim. Blok itu
+    "Text on product images:" supaya pemeriksaan listing bisa mengutipnya verbatim. Blok itu
     tidak mengubah `provided`: listing dianggap ada hanya bila deskripsi/spesifikasi ada."""
     specs = store.loads(product.get("specs_json"), {}) or {}
     spec_text = "\n".join(f"{k}: {v}" for k, v in specs.items()) if isinstance(specs, dict) else ""

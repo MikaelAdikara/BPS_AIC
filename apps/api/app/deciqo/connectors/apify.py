@@ -10,6 +10,7 @@ Nama/handle reviewer tidak pernah disalin ke katalog.
 
 from __future__ import annotations
 
+import html
 import logging
 import re
 import time
@@ -110,7 +111,10 @@ def to_catalog(items: list[dict]) -> list[dict]:
             values = [f"{v.get('name')}: {v.get('value')}" for v in (variant.get("values") or []) if isinstance(v, dict)]
             if values:
                 variants.append(", ".join(values))
-        description = clean_html(item.get("descriptionHtml")) or (item.get("description") or "").strip()
+        # `description` kadang berisi HTML yang di-escape ("&lt;html&gt;...") atau kerangka HTML kosong;
+        # di-unescape dulu supaya tag ikut dibuang dan listing kosong tetap terbaca kosong.
+        description = (clean_html(item.get("descriptionHtml"))
+                       or clean_html(html.unescape(item.get("description") or "")))
         highlights = item.get("highlights")
         if isinstance(highlights, list) and highlights:
             description = (" ".join(str(h) for h in highlights) + "\n" + description).strip()
