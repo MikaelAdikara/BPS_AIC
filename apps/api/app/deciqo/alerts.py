@@ -148,13 +148,13 @@ def public_event(event: dict, lang: str) -> dict:
 
 
 @router.get("/alerts")
-def list_alerts(user: dict = Depends(current_user)) -> dict:
+def list_alerts(lang: str | None = None, user: dict = Depends(current_user)) -> dict:
     with store.database() as conn:
         events = store.rows(conn.execute(
             "SELECT * FROM alert_events WHERE user_id = ? ORDER BY created_at DESC, id DESC LIMIT 100",
             (user["id"],)))
     return {
-        "events": [public_event(e, user.get("lang") or "en") for e in events],
+        "events": [public_event(e, lang if lang in {"en", "id"} else user.get("lang") or "en") for e in events],
         "rules": RULES,
         "telegram": {"linked": bool(user.get("telegram_chat_id")), "bot_configured": bool(settings.telegram_token()),
                      "demo_sink": settings.telegram_demo_mode()},

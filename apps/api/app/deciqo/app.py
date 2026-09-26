@@ -14,7 +14,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from . import APP_NAME, APP_VERSION, alerts, auth, routes_sources, settings, store, telegram
+from . import APP_NAME, APP_VERSION, alerts, auth, insights, routes_sources, settings, store, telegram
 from .engine import routes as engine_routes
 
 log = logging.getLogger("deciqo")
@@ -81,6 +81,7 @@ def include(app: FastAPI) -> None:
     app.include_router(alerts.router)
     app.include_router(telegram.router)
     app.include_router(engine_routes.router)
+    app.include_router(insights.router)
 
 
 def _optional_hook(module: str, name: str) -> None:
