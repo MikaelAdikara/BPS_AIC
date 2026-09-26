@@ -22,13 +22,17 @@ from dataclasses import dataclass
 # Urutan penting: pola yang lebih spesifik didahulukan agar tidak dipotong pola yang lebih umum.
 # Contoh: email harus diproses sebelum angka, kalau tidak "user123@mail.com" tercabik.
 PII_PATTERNS: list[tuple[str, re.Pattern[str], str]] = [
+    ("email", re.compile(r"\b[\w.+-]+\s*\[at\]\s*[\w-]+(?:\s*\[dot\]\s*[\w-]+)+", re.I), "[email]"),
     ("email", re.compile(r"\b[\w.+-]+@[\w-]+\.[\w.]{2,}\b", re.I), "[email]"),
     (
         "telepon",
         # Nomor Indonesia: +62/62/0 diikuti 8-13 digit, boleh disela spasi/strip.
-        re.compile(r"(?:\+?62|0)[\s-]?8[\d\s-]{7,13}\d"),
+        re.compile(r"(?<!\w)(?:\+?62|0)[\s.-]?8(?:[\s.-]?\d){7,11}(?!\d)"),
         "[nomor telepon]",
     ),
+    ("telepon", re.compile(r"\b(?:wa|telp|telepon|hp)\s*:\s*(?:nol|kosong)(?:\s+(?:nol|kosong|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan)){5,14}\b", re.I), "[nomor telepon]"),
+    ("nama", re.compile(r"(?<=Atas nama )[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|(?<=a.n. )[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}|\bIbu\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}|(?<=Saya )[A-Z][a-z]+(?=\s+dari\b)"), "[nama]"),
+    ("ukuran_pribadi", re.compile(r"\b(?:tinggi|berat)\s+(?:badan\s+)?\d+(?:[.,]\d+)?(?:\s*(?:cm|kg))?\b", re.I), "[ukuran pribadi]"),
     (
         "nomor_panjang",
         # Rekening/kartu/NIK - deretan 10+ digit yang berdiri sendiri.

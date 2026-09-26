@@ -43,6 +43,7 @@ DATA_ORIGINS = (
 _ADDRESS = re.compile(r"\b(?:[Jj]l\.?|[Jj]ln\.?|[Jj]alan|[Gg]g\.|[Gg]ang|[Pp]erum)\s+[A-Z][\w.]*(?:\s+[A-Z0-9][\w./-]*){0,4}")
 _REDACTION = [(name, pattern, repl) for name, pattern, repl in PII_PATTERNS if name != "alamat"]
 _REDACTION.append(("alamat", _ADDRESS, "[alamat]"))
+_REDACTION.append(("alamat", re.compile(r"\bGedung\s+[A-Z][\w.]*(?:\s+Lt\.?\s*\d+)?"), "[alamat]"))
 
 
 def redact(text: str) -> tuple[str, bool]:
