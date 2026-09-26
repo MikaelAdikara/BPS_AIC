@@ -154,3 +154,62 @@ Yang belum bisa diuji karena D (AI) belum ada: konversi satuan pada draf AI (c01
 U (klasifier Ulasin, `final/ulasin_classifier.md`): pada 120 klausa berlabel manusia, macro F1
 IndoBERT 0,579, leksikon 0,581, TF-IDF 0,585; F1 aspek ukuran/varian 0,174 untuk IndoBERT dan
 leksikon. Hasil tersimpan, tidak dijalankan ulang hari ini (checkpoint tidak ada di laptop ini).
+
+### Deciqo v1 dengan AI (`gap-v1` / `verify-v1`, commit d5dc471)
+
+Discovery dan membership lewat Responses API tersedia di d5dc471. Run D penuh: 35 baris, 0 error,
+engine `ai` di semua baris, $0,10 total, rata-rata 15,4 detik per baris.
+
+| Metrik | B0 | B1 | D (AI) | D-rules |
+|---|---|---|---|---|
+| Outputs with listing text, before-fact | 22/22 | 22/22 | 0/22 | 0/22 |
+| Unsafe output rate, before-fact | 12/22 | 3/22 | undefined (0 teks) | undefined |
+| Missing fact held / asked (proxy B) | 5/13 | 12/13 | 8/13 (62%; 36–82) | 4/13 |
+| Unnecessary hold / asked | 1/3 | 1/3 | 3/3 | 1/3 |
+| Gold finding found (B proxy jenuh) | 21/21 | 21/21 | 15/21 (71%; 50–86) | 7/21 |
+| Ready after fact | – | – | 6/13 (46%; 23–71) | 4/13 |
+| Unsafe output rate, after-fact | 1/13 | 1/13 | 1/7 (14%; 3–51) | 1/6 |
+| Membership precision / recall (before, pooled) | – | – | 20/21 / 20/53 (38%; 26–51) | 15/15 / 15/53 |
+| Wrong-item routing | – | – | 0/3 | 1/3 |
+
+Unsafe rate D before-fact "undefined" berarti D tidak menulis teks sebelum fakta ada, bukan 0%.
+Coverage-nya terlihat dari baris "Missing fact held" dan "Gold finding found".
+
+Kelemahan spesifik D v1 (AI):
+
+1. **Triage membuang keluhan sebelum model melihatnya.** c04 (powerbank, "kapasitas ga sampe
+   20000", "cuma 9800an", "kurang dari yang ditulis") dan c13 (tripod, "pendek banget kalo ditarik
+   full"): trace `triage kept 0 of 4`, lalu `discovery skipped: no_complaint_candidates`. Tidak ada
+   panggilan model, tidak ada temuan, tidak ada error. c20 ("redup bgt") juga hanya menghasilkan
+   temuan kemasan. Leksikon keluhan tidak mengenal "ga sampe", "kurang dari", "pendek", "redup".
+2. **Temuan AI dibuang di tahap relevansi.** c18 (rice cooker, kapasitas 1,2 L ambigu): discovery
+   mengusulkan 1 temuan, membership memberi 3 label, verifier/relevansi membuang temuannya
+   (`kept 0, dropped 1`). Hasil akhir 0 temuan.
+3. **Menahan draf padahal listing sudah menjawab.** c02 (listing: "IPX4 ... Tidak untuk dipakai
+   berenang") dan c07 (listing: "tidak tahan air"): temuan `expectation_mismatch` dengan
+   `listing_status=evidence_found`, tetapi draf tetap `needs_merchant_fact`. c14: ukuran dalam
+   ditemukan di listing (`evidence_found`), draf tetap meminta fakta. Unnecessary hold 3/3.
+4. **Salah kirim tidak dirutekan.** c10: "pesen yang 2 meter yang dateng 1 meter" dan "pesan putih
+   dikasih hitam" tidak masuk temuan mana pun; yang muncul hanya "cable length (usable)" dari r4 dan
+   ditahan sebagai isu listing. c06 r2 ("pesen XL dikirim L") juga tidak dirutekan. Wrong-item 0/3.
+5. **Fakta yang benar ditolak gerbang angka.** c19 after-fact, fakta "output USB total 5V 2,4A
+   (12W)": draf `blocked` dengan alasan `unsupported_quantity`. Dugaan: angka desimal koma "2,4A"
+   atau "12W" di dalam kurung tidak dikenali sebagai bersumber.
+6. **Tabel ukuran dirangkai jadi satu dimensi, tetap `ready`** (sama dengan D-rules): c06 "Ukurang
+   ukuran / size chart: 100 x 60 x 106 x 62 cm." Ada juga salah ketik "Ukurang" di label template.
+7. **Fakta kehilangan atributnya.** c21: "Ukuran maksimal HP: 8,5 cm." padahal fakta merchant adalah
+   *lebar* HP maksimal *termasuk case*.
+8. **Recall membership rendah.** Presisi 20/21, tetapi recall 20/53: contoh c07 hanya menghitung r1
+   (r2 "ternyata ga boleh kena air" terlewat), c09 hanya r2 dari r1/r2/r4. Hitungan "N dari M
+   ulasan" yang dilihat merchant jadi batas bawah yang terlalu rendah.
+9. **Keluhan kualitas terlewat.** c16 (engsel longgar, 1 ulasan): hanya temuan pengiriman; c11
+   benar dirutekan ke kualitas.
+
+Yang sudah berperilaku sesuai harapan pada run ini: c15 (injeksi) dirutekan ke kualitas tanpa draf
+dan tanpa klaim garansi; c08 (kontrol pujian) 0 temuan; c01 after-fact "Ukuran dalam: 34 x 24 cm."
+(tidak ada "14 cm"); c03/c22 draf kompatibilitas hanya menyebut perangkat dari fakta merchant.
+
+Catatan untuk v2 engine (diteruskan ke pemilik engine; tes regression ditulis pemilik engine):
+probe yang disarankan per kelemahan di atas adalah kasus c04, c13, c20 (triage), c18 (relevansi),
+c02, c07, c14 (hold berlebih), c10, c06 (salah kirim), c19 (gerbang angka desimal koma), c06, c21
+(render fakta), c07, c09 (recall membership), c16 (kualitas satu ulasan).

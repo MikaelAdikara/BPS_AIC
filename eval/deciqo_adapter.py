@@ -91,6 +91,8 @@ def normalise_result(raw: dict) -> dict:
         "usage": raw.get("usage") or {},
         "cost_usd": float((raw.get("usage") or {}).get("cost_usd") or raw.get("cost_usd") or 0.0),
         "errors": raw.get("errors") or [],
+        # Jejak langkah engine (triage, discovery, verifier) untuk menjelaskan hasil kosong.
+        "trace": raw.get("trace") or [],
     }
 
 

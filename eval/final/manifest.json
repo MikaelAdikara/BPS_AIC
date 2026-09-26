@@ -350,6 +350,110 @@
       "budget_usd": 1.0,
       "spent_usd": 0.0,
       "wall_seconds": 5.1
+    },
+    {
+      "run_id": "20260926T030452Z",
+      "git": {
+        "commit": "15915f54b73d26ef47716c93948fc2c0714a93a1",
+        "short": "15915f5",
+        "dirty_files": [
+          "val/final/outputs.jsonl"
+        ]
+      },
+      "systems": [
+        "D"
+      ],
+      "systems_skipped": {},
+      "deciqo_harness": "ok",
+      "cases": [
+        "c01"
+      ],
+      "jobs_planned": 2,
+      "jobs_done": 2,
+      "stopped": [],
+      "budget_usd": 0.5,
+      "spent_usd": 0.0105,
+      "wall_seconds": 60.1
+    },
+    {
+      "run_id": "20260926T030600Z",
+      "git": {
+        "commit": "15915f54b73d26ef47716c93948fc2c0714a93a1",
+        "short": "15915f5",
+        "dirty_files": [
+          "val/final/blind_key.json",
+          "eval/final/labels.csv",
+          "eval/final/manifest.json",
+          "eval/final/outputs.jsonl",
+          "eval/final/report.md"
+        ]
+      },
+      "systems": [
+        "D"
+      ],
+      "systems_skipped": {},
+      "deciqo_harness": "ok",
+      "cases": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05",
+        "c06",
+        "c07",
+        "c08",
+        "c09",
+        "c10",
+        "c11",
+        "c12",
+        "c13",
+        "c14",
+        "c15",
+        "c16",
+        "c17",
+        "c18",
+        "c19",
+        "c20",
+        "c21",
+        "c22"
+      ],
+      "jobs_planned": 35,
+      "jobs_done": 35,
+      "stopped": [],
+      "budget_usd": 3.0,
+      "spent_usd": 0.0968,
+      "wall_seconds": 96.0
+    },
+    {
+      "run_id": "20260926T030811Z",
+      "git": {
+        "commit": "15915f54b73d26ef47716c93948fc2c0714a93a1",
+        "short": "15915f5",
+        "dirty_files": [
+          "val/deciqo_adapter.py",
+          "eval/final/blind_key.json",
+          "eval/final/labels.csv",
+          "eval/final/manifest.json",
+          "eval/final/outputs.jsonl",
+          "eval/final/report.md"
+        ]
+      },
+      "systems": [
+        "D"
+      ],
+      "systems_skipped": {},
+      "deciqo_harness": "ok",
+      "cases": [
+        "c04",
+        "c13",
+        "c18"
+      ],
+      "jobs_planned": 6,
+      "jobs_done": 6,
+      "stopped": [],
+      "budget_usd": 0.5,
+      "spent_usd": 0.0045,
+      "wall_seconds": 16.5
     }
   ]
 }
