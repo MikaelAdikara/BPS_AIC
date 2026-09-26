@@ -302,9 +302,12 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         else:
             try:
                 ai_output = discovery.run_all(product, listing, provided, candidates, membership_reviews,
-                                              len(reviews), user_id=product["user_id"], ref=product_id)
+                                              len(reviews), user_id=product["user_id"], ref=product_id,
+                                              db_path=db_path)
             except llm.KeyRejected as exc:
                 mode, note = "rules", f"key_rejected:{exc.reason}"
+            except llm.BudgetExceeded as exc:
+                mode, note = "rules", f"budget_exhausted:{str(exc)[:80]}"
             except llm.LLMError as exc:
                 _record_failure(product_id, previous, exc, db_path)
                 raise AnalysisFailed(str(exc)) from exc
@@ -514,3 +517,9 @@ def _after_save(conn, product, user, fid, old, metrics, items, proposal) -> None
             alerts.enqueue_event(product["user_id"], "new_issue", finding_id=fid,
                                  payload={**payload, "count": metrics["support"]}, synthetic=synthetic,
                                  version="new", conn=conn)
+
+
+def on_startup() -> None:
+    """Hook startup: proses baru boleh mencoba key lagi (mungkin sudah diganti)."""
+    with store.database() as conn:
+        store.set_kv(conn, "llm_key_rejected", "")
