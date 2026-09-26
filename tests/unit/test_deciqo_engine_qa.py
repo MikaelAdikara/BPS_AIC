@@ -128,3 +128,45 @@ def test_qa09_kata_depan_terpisah_tetap_salah_kirim():
 def test_qa09_mengisi_daya_bukan_keluhan_pengiriman():
     text = "Saya pakai baru berapa hari doang dicas sampai 6 -7 jam malah pas dipakai gak sampai 5 menit"
     assert relevance.judge(text, DELIVERY).label != relevance.SUPPORTS
+
+
+# --- label AI dinilai pada klausa yang dikutip, bukan seluruh ulasan ------------------------
+
+CAPACITY = {"attribute": "battery capacity (mAh)", "attribute_local": "kapasitas baterai"}
+
+
+def test_qa10_pujian_di_klausa_lain_tidak_membatalkan_keluhan_yang_dikutip():
+    text = ("quick charge nya berfungsi dengan baik, dipakai untuk charge Redmi Note 10s dengan kapasitas "
+            "baterai 5000mah dari 37% sampai 100%, jadi sepertinya baterai tidak real 20.000mah")
+    verdict = relevance.judge_span(text, "jadi sepertinya baterai tidak real 20.000mah", CAPACITY)
+    assert verdict.label == relevance.SUPPORTS
+
+
+def test_qa10_negasi_di_luar_kutipan_tetap_terbaca():
+    # Kutipan yang memotong negasi tidak boleh mengubah makna: klausa utuh yang dinilai.
+    verdict = relevance.judge_span("Ukurannya tidak kekecilan kok, pas.", "kekecilan kok", SIZE)
+    assert verdict.label != relevance.SUPPORTS
+
+
+@pytest.mark.parametrize("text", [
+    "baru datang aja udh kembung sebelah",
+    "batrai nya mudah bengkak dan gembung setelah beberapa kali di cas",
+    "ngisi 1 hp ajah ga penuh , powerbank nya cepat lobet",
+    "tp untuk super fast charging gk bsa",
+])
+def test_qa11_keluhan_baterai_elektronik(text):
+    assert relevance.judge(text, BATTERY).label == relevance.SUPPORTS
+
+
+@pytest.mark.parametrize("text", [
+    "tidak sesuai pesanan.....tokonya kurang rekomendate",
+    "merek tidak sesuai",
+    "di deskripsi mizuno dusnya juga mizuno isinya nike kocak",
+    "Barang tidak sesuai yang dipesan, merk nya saja sudah beda.",
+])
+def test_qa12_tidak_sesuai_pesanan_adalah_salah_kirim(text):
+    assert lexicon.is_wrong_item(text)
+
+
+def test_qa12_sesuai_pesanan_bukan_salah_kirim():
+    assert not lexicon.is_wrong_item("Barang sampai sesuai pesanan.. barang bagus sesuai harga.")

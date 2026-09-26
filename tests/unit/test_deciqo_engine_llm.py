@@ -92,7 +92,9 @@ def test_jalur_ai_menghitung_dari_label_yang_lolos_verifier(db):
     assert f["support"] == 2  # r4 ditolak: kutipan bukan salinan persis
     assert f["contradicting"] == 1
     rejected = store.loads(f["rejected_json"])
-    assert {"review_id": "r4", "reason": "quote_not_verbatim"} in rejected
+    r4 = next(r for r in rejected if r["review_id"] == "r4")
+    assert r4["reason"] == "quote_not_verbatim"
+    assert r4["quote"] == "tas terlalu sempit untuk laptop"  # kutipan usulan disimpan untuk audit
     assert store.loads(f["listing_check_json"])["status"] == "evidence_found"
     rows = _ledger(path)
     assert [r["purpose"] for r in rows] == ["discovery", "membership"]

@@ -75,3 +75,17 @@ def judge(text: str, finding: dict, rating: int | None = None) -> Verdict:  # no
     if neutral_mention:
         return Verdict(UNCERTAIN, "mentions_attribute_without_complaint", neutral_mention[0].text)
     return Verdict(UNRELATED, "not_about_this_attribute")
+
+
+def judge_span(text: str, quote: str, finding: dict, rating: int | None = None) -> Verdict:
+    """Nilai label model pada klausa yang dikutipnya, bukan seluruh ulasan.
+
+    Ulasan panjang sering memuji satu hal lalu mengeluh hal lain; menilai seluruh teks membuat
+    pujian di klausa lain membatalkan keluhan yang dikutip. Salah kirim tetap dinilai dari seluruh
+    ulasan karena penandanya ("pesan L ... yang datang M") bisa berada di luar kutipan."""
+    full = judge(text, finding, rating)
+    groups, _ = finding_scope(finding)
+    if groups == {"wrong_item"} or full.reason in {"wrong_item_routes_to_operations", "also_reports_wrong_variant"}:
+        return full
+    span = lexicon.span_text(text, quote)
+    return judge(span, finding, rating) if span else full

@@ -35,12 +35,13 @@ def _base_slang() -> dict[str, str]:
 NEGATIONS = {"tidak", "tak", "gak", "ga", "gk", "nggak", "ngga", "engga", "enggak", "kurang",
              "bukan", "belum", "tdk", "kagak", "no", "not", "never",
              # ejaan yang muncul di ulasan marketplace nyata
-             "tida", "gx", "egk", "eggk", "eggak", "engak", "nda", "ndak", "kaga", "gaa"}
+             "tida", "gx", "egk", "eggk", "eggak", "engak", "nda", "ndak", "kaga", "gaa", "ngk", "nggk"}
 SLANG = {k: v for k, v in _base_slang().items() if " " not in v}
 SLANG.update({"gede": "besar", "gedean": "gedean", "jaitan": "jahitan", "baterai": "baterai",
               "batre": "baterai", "batrai": "baterai", "hp": "hp", "dtg": "datang", "dateng": "datang",
               "dapet": "dapat", "sampe": "sampai", "nyampe": "sampai", "cepet": "cepat",
-              "sesuay": "sesuai", "sesuwai": "sesuai", "mlh": "malah"})
+              "sesuay": "sesuai", "sesuwai": "sesuai", "mlh": "malah", "bsa": "bisa", "bsia": "bisa",
+              "lowbat": "lobet", "lowbet": "lobet"})
 NEGATION_WINDOW = 3
 
 COMPLAINT_TERMS = {
@@ -57,6 +58,7 @@ COMPLAINT_TERMS = {
     "lama", "telat", "terlambat", "lambat", "molor", "dicuekin", "cuek", "slow",
     # elektronik
     "habis", "boros", "panas", "lemot", "lelet", "putus", "drop", "ngelag", "lag", "overheat",
+    "kembung", "gembung", "menggembung", "bengkak", "lobet",
     # Inggris
     "broken", "damaged", "defective", "wrong", "missing", "bad", "poor", "late", "small", "tight",
 }
@@ -65,6 +67,8 @@ PRAISE_TERMS = {
     "rapat", "mantap", "nyaman", "kokoh", "enak", "suka", "puas", "mudah", "gampang", "ramah",
     "aman", "lengkap", "bisa", "cocok", "oke", "adem", "membalas", "dibalas", "balas", "responsif",
     "berfungsi", "jalan", "original", "asli", "good", "great", "fits", "fit", "perfect",
+    # "tidak real 20.000mah", "ga penuh": pujian yang dinegasikan
+    "real", "penuh",
 }
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.
@@ -85,7 +89,9 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
               "water", "resistant"},
     "battery": {"baterai", "battery", "mati", "nyala", "error", "charge", "cas", "daya", "mah",
                 "power", "charging", "kapasitas", "pengisian", "ngecas", "casan", "powerbank",
-                "dicas", "dicharge", "ngisi", "mengisi"},
+                "dicas", "dicharge", "ngisi", "mengisi",
+                # baterai yang menggembung
+                "kembung", "gembung", "menggembung", "bengkak"},
     "compatibility": {"kompatibel", "compatible", "compatibility", "iphone", "samsung", "xiaomi",
                       "oppo", "vivo", "device", "perangkat"},
     "contents": {"isi", "kelengkapan", "aksesoris", "contents", "bonus", "included"},
@@ -119,6 +125,12 @@ _WRONG_ITEM = [
     re.compile(_ORDER + r".{0,40}?(?:\bdikasi(?:h)?\b|\by(?:an)?g (?:datang|dateng|dtg)\b|"
                r"\b(?:malah|mlh|justru|kenapa|kok|tapi)\s+(?:\w+\s+){0,2}?(?:datang|dateng|di ?kirim|dapat|dapet)\b)", re.I),
     re.compile(r"\bsalah kirim\b|\bkirim(?:an)?(?:nya)? salah\b", re.I),
+    # "tidak sesuai pesanan", "tidak sesuai yang dipesan": ungkapan marketplace untuk barang lain
+    # yang datang. "sesuai pesanan" tanpa negasi adalah pujian dan tidak cocok di sini.
+    re.compile(r"\b(?:tidak|gak|ga|gk|tdk|nggak|ngga|enggak|ngk)\s+sesuai\s+(?:dengan\s+|sama\s+|dgn\s+)?"
+               r"(?:pesanan|orderan|y(?:an)?g\s+(?:saya\s+|sy\s+)?di\s?pesan)", re.I),
+    re.compile(r"\b(?:merek|merk)\w*\b.{0,20}?\b(?:tidak sesuai|beda|berbeda|lain)\b", re.I),
+    re.compile(r"\b(?:dus|kardus|box)\w*\b.{0,30}?\bisi\w*\b|\b(?:dus|kardus|box)\w*\s+dan\s+\w+\s+beda\b", re.I),
     re.compile(r"\b(?:yang )?(?:datang|dikirim|sampai)\b.{0,20}?\b(?:warna|ukuran|varian|size|model|tipe)\s+(?:lain|beda|berbeda)\b", re.I),
     re.compile(r"\bsalah (?:warna|ukuran|varian|size|model|tipe)\b", re.I),
     re.compile(r"\bwrong (?:item|size|colou?r|variant)\b", re.I),
@@ -239,6 +251,30 @@ def attribute_groups(attribute: str, attribute_local: str = "") -> set[str]:
 def attribute_terms(attribute: str, attribute_local: str = "") -> set[str]:
     """Kata isi label atribut, cadangan bila label tidak masuk kelompok mana pun."""
     return {t for t in tokens(f"{attribute} {attribute_local}") if t not in _STOP and len(t) > 2}
+
+
+def span_text(text: str, quote: str) -> str:
+    """Klausa utuh dari `text` yang ditimpa kutipan, digabung dengan pemisah klausa.
+
+    Kutipan yang memotong negasi ("kekecilan kok" dari "tidak kekecilan kok") tetap dinilai
+    bersama klausanya, sehingga maknanya tidak berubah."""
+    from .verify import _loose  # noqa: PLC0415
+
+    full, q = _loose(text), _loose(quote)
+    start = full.find(q) if q else -1
+    if start < 0:
+        return ""
+    end = start + len(q)
+    picked, pos = [], 0
+    for clause in clauses(text):
+        loose = _loose(clause.text)
+        at = full.find(loose, pos) if loose else -1
+        if at < 0:
+            continue
+        pos = at + len(loose)
+        if at < end and start < at + len(loose):
+            picked.append(clause.text)
+    return " . ".join(picked)
 
 
 def is_wrong_item(text: str) -> bool:

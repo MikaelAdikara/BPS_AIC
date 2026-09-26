@@ -53,8 +53,12 @@ def build_user(findings: list[dict], batch: list[dict]) -> str:
 def run(findings: list[dict], reviews: list[dict], *, user_id=None, ref="", db_path=None) -> tuple[list[dict], dict]:
     labels: list[dict] = []
     usage: dict = {}
-    for start in range(0, len(reviews), BATCH):
-        batch = reviews[start:start + BATCH]
+    # Batch seimbang (51 ulasan → 26 + 25, bukan 50 + 1): satu panggilan kecil di ujung tetap
+    # membayar seluruh prompt dan skema, dan menambah latensi tanpa manfaat.
+    batches = max(1, -(-len(reviews) // BATCH))
+    size = -(-len(reviews) // batches) if reviews else BATCH
+    for start in range(0, len(reviews), size):
+        batch = reviews[start:start + size]
         data, part = llm.call_json(purpose="membership", system=SYSTEM, user=build_user(findings, batch),
                                    schema=SCHEMA, schema_name="membership", max_output_tokens=MAX_OUTPUT_TOKENS,
                                    user_id=user_id, ref=ref, reasoning=None, db_path=db_path)

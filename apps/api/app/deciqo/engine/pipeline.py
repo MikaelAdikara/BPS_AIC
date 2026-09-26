@@ -56,6 +56,16 @@ def attribute_key(attribute: str) -> str:
     return " ".join(sorted(kept)) or "general"
 
 
+WRONG_ITEM_KEY = "sent variant wrong"
+
+
+def finding_key(proposal: dict) -> str:
+    """Semua temuan salah kirim satu produk adalah satu isu, apa pun kata-kata model."""
+    if lexicon.attribute_groups(proposal.get("attribute", ""), proposal.get("attribute_local", "")) == {"wrong_item"}:
+        return WRONG_ITEM_KEY
+    return attribute_key(proposal.get("attribute", ""))
+
+
 def finding_id(product_id: str, key: str) -> str:
     return store.short_id("f", product_id, key)
 
@@ -189,8 +199,10 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
 
     model_labels: dict[str, set[str]] = {}
     quotes: dict[str, str] = {}
+    proposed: dict[str, str] = {}  # kutipan usulan model per ulasan, untuk audit penolakan
     for item in labels:
         rid = str(item.get("review_id", ""))
+        proposed.setdefault(rid, str(item.get("quote", ""))[:300])
         review = by_id.get(rid)
         if review is None:
             rejected[rid] = "unknown_review_id"
@@ -204,7 +216,7 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
     for rid, said in model_labels.items():
         rejected.pop(rid, None)
         review = by_id[rid]
-        verdict = relevance.judge(review["text"], proposal, review.get("rating"))
+        verdict = relevance.judge_span(review["text"], quotes[rid], proposal, review.get("rating"))
         if verdict.reason in {"wrong_item_routes_to_operations", "also_reports_wrong_variant"}:
             wrong_item.add(rid)
         if len(said) > 1:
@@ -226,7 +238,8 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
             else:
                 rejected[rid] = verdict.reason or "not_about_this_attribute"
     return {"supports": supports, "contradicting": contradicting, "uncertain": uncertain,
-            "rejected": rejected, "wrong_item": wrong_item}
+            "rejected": rejected, "wrong_item": wrong_item, "proposed": proposed,
+            "model_label": {rid: "/".join(sorted(said)) for rid, said in model_labels.items()}}
 
 
 def _wrong_item_proposal() -> dict:
@@ -341,7 +354,7 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         judged = _judge_pairs(proposal, reviews, mode, labels_by_index.get(index, []))
         quotes_rejected += sum(1 for r in judged["rejected"].values() if r.startswith("quote_"))
         wrong_item_ids |= judged["wrong_item"]
-        key = attribute_key(proposal.get("attribute", ""))
+        key = finding_key(proposal)
         if key in built:  # parafrasa atribut yang sama: satukan, jangan membuat isu baru
             target = built[key]["judged"]
             for part in ("supports", "contradicting", "uncertain", "rejected"):
@@ -354,7 +367,7 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
                                   for b in built.values()):
         proposal = _wrong_item_proposal()
         judged = _judge_pairs(proposal, [r for r in reviews if r["id"] in wrong_item_ids], "rules", [])
-        built[attribute_key(proposal["attribute"])] = {"proposal": proposal, "judged": judged}
+        built[finding_key(proposal)] = {"proposal": proposal, "judged": judged}
 
     findings = []
     for key, entry in built.items():
@@ -433,8 +446,10 @@ def _persist(conn, product: dict, user: dict, reviews: list[dict], findings: lis
         p, judged, metrics = f["proposal"], f["judged"], f["metrics"]
         items = _evidence_items({rid: judged["supports"][rid] for rid in f["support_ids"]}, by_id)
         contra = _evidence_items(judged["contradicting"], by_id)
-        rejected = [{"review_id": rid, "reason": reason} for rid, reason in judged["rejected"].items()]
-        rejected += [{"review_id": rid, "reason": reason} for rid, reason in judged["uncertain"].items()]
+        proposed, said = judged.get("proposed", {}), judged.get("model_label", {})
+        rejected = [{"review_id": rid, "reason": reason, "quote": proposed.get(rid, ""),
+                     "model_label": said.get(rid, "")}
+                    for part in ("rejected", "uncertain") for rid, reason in judged[part].items()]
         values = {
             "attribute": p.get("attribute", ""), "attribute_key": f["key"],
             "attribute_local": p.get("attribute_local", ""), "finding_type": p["finding_type"],
