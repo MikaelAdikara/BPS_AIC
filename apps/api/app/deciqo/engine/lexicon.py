@@ -52,6 +52,8 @@ COMPLAINT_TERMS = {
     "bau", "susah", "ribet", "hilang", "zonk", "parah", "nyesel", "menyesal", "murahan", "rapuh",
     # pengiriman / layanan
     "lama", "telat", "terlambat", "lambat", "molor", "dicuekin", "cuek", "slow",
+    # elektronik
+    "habis", "boros", "panas", "lemot", "lelet", "putus", "drop", "ngelag", "lag", "overheat",
     # Inggris
     "broken", "damaged", "defective", "wrong", "missing", "bad", "poor", "late", "small", "tight",
 }
@@ -69,7 +71,8 @@ ATTRIBUTE_GROUPS: dict[str, set[str]] = {
              "lebar", "tinggi", "besar", "kecil", "dimensi", "lingkar", "dada", "pinggang", "bahu",
              "lengan", "lipat", "dilipat", "lipatan", "kompartemen", "kantong", "inch", "inci",
              "cm", "fit", "dimension", "dimensions", "measurement", "measurements", "folded",
-             "inner", "compartment", "chart", "tabel", "kesempitan", "dipaksa"},
+             "inner", "compartment", "chart", "tabel", "kesempitan", "dipaksa", "length", "width",
+             "height", "depth", "large", "tight", "loose", "small"},
     "color": {"warna", "color", "colour", "pudar"},
     "material": {"bahan", "kain", "material", "tebal", "tipis", "ketebalan", "kanvas", "katun",
                  "kulit", "fabric", "thickness", "gramasi", "leather"},
