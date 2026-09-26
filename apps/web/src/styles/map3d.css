@@ -1,0 +1,558 @@
+/* Peta isu (3D + 2D) dan panel sampingnya. Menimpa gaya dasar di insight.css lewat `.map3d`
+ * supaya file itu tetap milik layar Insight. Tinggi kanvas tetap; daftar menggulir sendiri. */
+.map3d {
+  --map3d-stage-h: 520px;
+  --map3d-side-w: 320px;
+}
+
+/* --- tata letak ----------------------------------------------------------------------------- */
+.map3d .map3d-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--map3d-side-w);
+  min-height: 0;
+}
+.map3d-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.map3d-guide {
+  margin: 0;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.map3d-notice {
+  margin: 0;
+  padding: 8px 18px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--status-warning) 10%, transparent);
+  border-bottom: 1px solid var(--line);
+}
+.map3d .map3d-stage {
+  position: relative;
+  height: var(--map3d-stage-h);
+  min-height: 0;
+  overflow: hidden;
+}
+.map3d .map3d-stage.is-3d {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, color-mix(in srgb, var(--blue) 9%, transparent), transparent 70%),
+    var(--map-surface);
+}
+.map3d-canvas {
+  position: absolute;
+  inset: 0;
+}
+.map3d-canvas--gl {
+  cursor: grab;
+  touch-action: none;
+}
+.map3d-canvas--gl:active {
+  cursor: grabbing;
+}
+.map3d-canvas--gl canvas {
+  display: block;
+  outline: none;
+}
+.map3d-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* label hub 2D: sedikit lebih besar dari semula, lebar sesuai `LABEL_CHAR` di insight-model */
+.map3d .map-label {
+  font: 600 11px/1 var(--font-ui);
+  fill: var(--ink);
+  stroke-width: 3.5px;
+}
+
+/* --- legenda (kiri atas) ------------------------------------------------------------------- */
+.map3d-legend {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: grid;
+  gap: 6px;
+  min-width: 164px;
+  max-width: min(240px, calc(100% - 24px));
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  box-shadow: 0 1px 2px rgba(10, 23, 51, 0.05), 0 6px 18px -10px rgba(10, 23, 51, 0.3);
+  pointer-events: none;
+}
+.map3d-legend__title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.map3d-legend ul {
+  display: grid;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.map3d-legend li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--ink);
+  transition: opacity var(--duration-state);
+}
+.map3d-legend li i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.map3d-legend li span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.map3d-legend li strong {
+  font: 600 12px/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+.map3d-legend li.is-off {
+  opacity: 0.4;
+}
+.map3d-legend li.is-off span {
+  text-decoration: line-through;
+}
+.map3d-legend__healthy {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted);
+}
+.map3d-legend__healthy i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--map-healthy);
+}
+
+/* --- alat (kanan atas) --------------------------------------------------------------------- */
+.map3d-tools {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.map3d-tools > button,
+.map3d-view button {
+  display: grid;
+  place-items: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--white) 92%, transparent);
+  color: var(--ink-soft);
+  font: 600 12.5px/1 var(--font-ui);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(10, 23, 51, 0.06), 0 4px 12px -6px rgba(10, 23, 51, 0.22);
+  transition: color var(--duration-state), border-color var(--duration-state), background var(--duration-state),
+    transform var(--duration-state);
+}
+.map3d-tools > button:hover,
+.map3d-view button:hover {
+  color: var(--blue-dark);
+  border-color: color-mix(in srgb, var(--blue) 50%, transparent);
+}
+.map3d-tools > button:active,
+.map3d-view button:active {
+  transform: scale(0.95);
+}
+.map3d-tools > button[aria-pressed="false"] {
+  color: var(--muted);
+}
+.map3d-view {
+  display: flex;
+  margin-right: 4px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(10, 23, 51, 0.06), 0 4px 12px -6px rgba(10, 23, 51, 0.22);
+}
+.map3d-view button {
+  min-width: 42px;
+  box-shadow: none;
+}
+.map3d-view button:first-child {
+  border-radius: 10px 0 0 10px;
+}
+.map3d-view button:last-child {
+  border-radius: 0 10px 10px 0;
+  margin-left: -1px;
+}
+.map3d-view button[aria-pressed="true"] {
+  position: relative;
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.map3d .map3d-tip {
+  z-index: 4;
+  max-width: 248px;
+}
+
+/* --- panel samping ------------------------------------------------------------------------- */
+.map3d .map3d-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  width: var(--map3d-side-w);
+  max-height: none;
+  min-height: 0;
+  overflow-y: auto;
+  border-left: 1px solid var(--line);
+  /* Tinggi baris grid ditentukan kanvas, bukan isi panel: daftar yang panjang menggulir sendiri. */
+  contain: size;
+}
+.map3d-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.map3d-filters {
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  border-bottom: 1px solid var(--line);
+  flex: none;
+}
+.map3d-field {
+  display: grid;
+  gap: 6px;
+}
+.map3d-field--inline {
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+}
+.map3d-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.map3d .map3d-filters .filter-chips button {
+  min-height: 32px;
+}
+
+.map3d-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 180px;
+}
+.map3d-list__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 16px;
+  flex: none;
+}
+.map3d-list__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--gray-surface);
+  font: 600 11.5px/1 var(--font-mono);
+  letter-spacing: 0;
+  color: var(--ink-soft);
+}
+.map3d-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink-soft);
+  font: 500 12.5px/1 var(--font-ui);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.map3d-clear:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line-strong));
+}
+.map3d-list__empty {
+  padding: 4px 16px 16px;
+  font-size: 13px;
+}
+.map3d-rows {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  margin: 0;
+  padding: 0 8px 12px;
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.map3d-rows > li {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: background var(--duration-state), border-color var(--duration-state);
+}
+.map3d-rows > li.is-selected {
+  background: color-mix(in srgb, var(--blue) 7%, transparent);
+  border-color: color-mix(in srgb, var(--blue) 35%, transparent);
+}
+.map3d-row {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 11px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--duration-state);
+}
+.map3d-rows > li:not(.is-selected) .map3d-row:hover {
+  background: var(--gray-surface);
+}
+.map3d-row__top {
+  display: grid;
+  grid-template-columns: 9px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+}
+.map3d-row__top strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.map3d-row__nodot {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  background: var(--line-strong);
+}
+.map3d-row__count {
+  min-width: 2ch;
+  text-align: right;
+  font: 600 13px/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+.map3d-row__bar {
+  display: flex;
+  gap: 2px;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.map3d-row__bar span {
+  min-width: 4px;
+}
+.map3d-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 12.5px;
+}
+.map3d-row__meta .map-tip__badge {
+  flex: none;
+  padding: 1px 7px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.map3d-row__issue {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink-soft);
+}
+.map3d .map3d-detail {
+  margin: 0 8px 8px;
+  padding-top: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--blue) 20%, var(--line));
+}
+.map3d .map3d-detail a {
+  padding: 8px 6px;
+}
+.map3d .map3d-detail strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- layar sempit: panel di bawah kanvas --------------------------------------------------- */
+@media (max-width: 1080px) {
+  .map3d .map3d-body {
+    grid-template-columns: 1fr;
+  }
+  .map3d .map3d-side {
+    width: auto;
+    contain: none;
+    overflow: visible;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .map3d .map3d-filters {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: start;
+  }
+  .map3d .map3d-filters .map3d-heading {
+    grid-column: 1 / -1;
+  }
+  .map3d .map3d-rows {
+    max-height: 440px;
+  }
+}
+@media (max-width: 767px) {
+  .map3d {
+    --map3d-stage-h: 420px;
+  }
+  .map3d-guide {
+    padding: 10px 16px;
+  }
+  .map3d-legend {
+    top: auto;
+    bottom: 10px;
+    left: 10px;
+    min-width: 0;
+  }
+  .map3d-tools {
+    top: 10px;
+    right: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map3d-tools > button,
+  .map3d-view button,
+  .map3d-rows > li {
+    transition: none;
+  }
+}
+
+/* --- legenda interaktif & filter ringkas --------------------------------------------------- */
+.map3d .map3d-legend {
+  pointer-events: auto;
+  gap: 8px;
+}
+.map3d-legend__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.map3d-legend__switch {
+  display: flex;
+  padding: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--gray-surface);
+}
+.map3d-legend__switch button {
+  min-height: 26px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font: 600 11.5px/1 var(--font-ui);
+  cursor: pointer;
+  transition: background var(--duration-state), color var(--duration-state);
+}
+.map3d-legend__switch button[aria-pressed="true"] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgba(10, 23, 51, 0.12);
+}
+.map3d .map3d-urgency {
+  gap: 6px;
+}
+.map3d .map3d-urgency button {
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.map3d .map3d-urgency button .count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.map3d-list__head .map3d-heading {
+  min-width: 0;
+  white-space: nowrap;
+}
+.map3d .map3d-rows > li.is-selected {
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  border-color: color-mix(in srgb, var(--blue) 50%, transparent);
+}
+@media (max-width: 767px) {
+  /* Legenda jadi pita di bawah kanvas supaya tidak menutupi titik. */
+  .map3d .map3d-legend {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    box-shadow: none;
+    padding: 8px 12px 10px;
+  }
+  .map3d .map3d-legend ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+  .map3d .map3d-legend li {
+    display: inline-flex;
+  }
+  .map3d .map3d-canvas {
+    bottom: 92px;
+  }
+}

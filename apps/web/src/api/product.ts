@@ -5,6 +5,30 @@ export interface Evidence {
   rating?: number | null;
   review_time?: string | null;
   variant?: string;
+  /** URL foto ulasan ini (kontrak vision; boleh tidak ada). */
+  images?: string[] | null;
+  /** Hasil cek foto; null = belum diperiksa. */
+  vision?: VisionCheck | null;
+}
+export type VisionVerdict = "supports" | "contradicts" | "inconclusive";
+export interface VisionCheck {
+  verdict: VisionVerdict;
+  reason: string;
+  model?: string;
+  checked_at?: string;
+}
+export interface VisionSummary {
+  checked: number;
+  supports: number;
+  contradicts: number;
+  inconclusive: number;
+  skipped_reason?: string | null;
+}
+export interface ImageOcr {
+  status: "done" | "skipped" | "pending" | (string & {});
+  images_read: number;
+  images_total: number;
+  reason?: string | null;
 }
 export interface DraftSection {
   finding_id: string;
@@ -42,6 +66,7 @@ export interface Finding extends Issue {
   contradicting: Evidence[];
   rejected: { review_id: string; reason: string }[];
   uncertain: number;
+  vision_summary?: VisionSummary | null;
   listing_check: {
     status: string;
     quote: string;
@@ -75,6 +100,8 @@ export interface ProductView {
     captured_at: string;
     synthetic: boolean;
     image_url?: string | null;
+    images?: string[] | null;
+    image_ocr?: ImageOcr | null;
   };
   source: { status: string; last_success_at: string | null };
   stats: {

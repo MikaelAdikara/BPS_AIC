@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { request, ApiError } from "@/api/http.js";
 import { useWorkspace } from "@/api/workspace";
-import { Package, ScanSearch, Star } from "lucide-react";
+import { ScanSearch, Star } from "lucide-react";
+import { ProductImage } from "@/components/product/ProductImage";
 import { useI18n } from "@/lib/i18n";
 import { Meter } from "@/components/visual/charts";
 import { RunPanel } from "@/components/RunPanel";
@@ -33,6 +34,8 @@ interface Product {
   analysis_status: string;
   stale: boolean;
   engine: string | null;
+  /** Belum dikirim GET /deciqo/products; dipakai bila tersedia. */
+  image_url?: string | null;
 }
 export function ProductsScreen() {
   const { filters, setFilters, clear } = useListFilters(
@@ -146,12 +149,15 @@ export function ProductsScreen() {
                   <tr key={product.id}>
                     <td>
                       <div className="product-cell">
-                        <span className="product-cell__icon" aria-hidden>
-                          <Package size={16} />
-                        </span>
+                        <ProductImage
+                          src={product.image_url}
+                          size={40}
+                          className="product-cell__thumb"
+                        />
                         <div>
                           <a
                             className="product-cell__link"
+                            title={product.title}
                             href={
                               "#/app/listings/" + encodeURIComponent(product.id)
                             }

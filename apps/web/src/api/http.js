@@ -6,10 +6,10 @@ export class ApiError extends Error {
     this.status = status;
   }
 }
-/** @param {string} path @param {{method?:string,body?:unknown,signal?:AbortSignal}} options */
-export async function request(path, { method = "GET", body, signal } = {}) {
+/** @param {string} path @param {{method?:string,body?:unknown,signal?:AbortSignal,timeout?:number}} options */
+export async function request(path, { method = "GET", body, signal, timeout = 30000 } = {}) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30000);
+  const timer = setTimeout(() => controller.abort(), timeout);
   const abort = () => controller.abort();
   if (signal?.aborted) controller.abort();
   else signal?.addEventListener("abort", abort, { once: true });

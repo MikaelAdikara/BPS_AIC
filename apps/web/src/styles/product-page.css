@@ -1,0 +1,621 @@
+/* Halaman produk (Batch B): header ringkas, "Yang perlu kamu lakukan", kartu temuan padat,
+   bagian terlipat. Semua warna dari token; tema gelap ikut lewat token. */
+
+.product-page {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.product-back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--blue-dark);
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
+
+/* --- gambar produk ------------------------------------------------------------------- */
+.product-thumb {
+  display: block;
+  flex: none;
+  width: var(--thumb, 40px);
+  height: var(--thumb, 40px);
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+.product-thumb--empty {
+  display: grid;
+  place-items: center;
+  color: var(--blue-dark);
+  background: var(--blue-tint);
+  border-color: color-mix(in srgb, var(--blue) 18%, transparent);
+}
+.product-cell__thumb {
+  border-radius: 10px;
+}
+
+/* --- header ringkas ------------------------------------------------------------------ */
+.product-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: start;
+  padding: 20px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.product-head__media {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.product-head__image {
+  width: 112px;
+  height: 112px;
+  border-radius: var(--radius-card);
+}
+.product-head__strip {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-width: 112px;
+}
+.product-head__thumb {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: none;
+  cursor: pointer;
+  transition: border-color var(--duration-state);
+}
+.product-head__thumb .product-thumb {
+  border-radius: 8px;
+}
+.product-head__thumb[aria-pressed="true"] {
+  border-color: var(--blue);
+}
+.product-head__body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.product-head__title {
+  font: 600 20px/1.3 var(--font-ui);
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.product-head__meta,
+.product-head__stats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.product-head__meta {
+  gap: 8px;
+}
+.product-head__meta .channel-tag {
+  align-items: center;
+  gap: 6px;
+}
+.product-head__stats {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.product-head__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.product-head__origin {
+  font-size: 12px;
+}
+.product-head__live {
+  white-space: nowrap;
+}
+
+/* --- listing belum ada ---------------------------------------------------------------- */
+.listing-prompt {
+  border-color: var(--amber-line);
+}
+.listing-prompt .card__header {
+  background: var(--amber-surface);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* --- "Yang perlu kamu lakukan" -------------------------------------------------------- */
+.action-plan .card__body {
+  padding: 8px 12px 12px;
+}
+.action-plan__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.action-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 10px 4px 0;
+  border-radius: var(--radius-md);
+  transition: background var(--duration-state);
+}
+.action-row + .action-row {
+  border-top: 1px solid var(--line);
+}
+.action-row:hover {
+  background: var(--cream);
+}
+.action-row.is-selected {
+  background: var(--blue-tint);
+}
+.action-row.is-selected + .action-row,
+.action-row + .action-row.is-selected {
+  border-top-color: transparent;
+}
+.action-row__main {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "name chevron" "meta chevron";
+  gap: 4px 12px;
+  align-items: center;
+  min-height: 56px;
+  padding: 10px 8px 10px 30px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.action-row__main::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 17px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rail, var(--line-strong));
+}
+.action-row__name {
+  grid-area: name;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.action-row__meta {
+  grid-area: meta;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+.action-row__meta .chip {
+  font-size: 11px;
+  padding: 1px 8px;
+}
+.action-row__count {
+  font: 500 12px/1.4 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+.action-row__chevron {
+  grid-area: chevron;
+  color: var(--muted);
+  transition: transform var(--duration-state) var(--ease-out);
+}
+.action-row__main:hover .action-row__chevron,
+.action-row.is-selected .action-row__chevron {
+  transform: translateX(2px);
+  color: var(--blue-dark);
+}
+.action-row__cta {
+  white-space: nowrap;
+}
+
+/* --- kartu temuan dipadatkan ---------------------------------------------------------- */
+.finding-card {
+  scroll-margin-top: 88px;
+}
+.finding-card:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+.finding-card .next-step {
+  padding: 12px 16px 12px 52px;
+}
+.finding-card .next-step::before {
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.finding-card .next-step p {
+  font-size: 15px;
+}
+.finding-card .finding-step {
+  gap: 12px;
+  padding: 2px 0 22px 44px;
+  scroll-margin-top: 88px;
+}
+.finding-card .finding-step::before {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background-image: radial-gradient(circle, var(--blue) 0 3px, transparent 4px);
+}
+.finding-card .finding-step::after {
+  left: 12px;
+  top: 32px;
+}
+.finding-card .finding-step h3 {
+  font-size: 15px;
+  padding-top: 3px;
+}
+.finding-card .finding-step:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: var(--radius-md);
+}
+.finding-card .finding-step details {
+  padding: 0;
+}
+.finding-step__note {
+  font-size: 13px;
+}
+
+.evidence-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--cream);
+  overflow: hidden;
+}
+.evidence-stats--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 8px;
+}
+.evidence-stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 10px 14px;
+  min-width: 0;
+}
+.evidence-stats > div + div {
+  border-left: 1px solid var(--line);
+}
+.evidence-stats dt {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+.evidence-stats dd {
+  margin: 0;
+  font: 600 18px/1.3 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.vision-summary {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.evidence-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.evidence-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 16px;
+  align-items: start;
+  padding: 12px 14px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.evidence-item__quote {
+  margin: 0;
+  min-width: 0;
+}
+.evidence-item__quote p {
+  overflow-wrap: anywhere;
+}
+.evidence-item__quote footer {
+  margin-top: 6px;
+  font: 12px/1.4 var(--font-mono);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.evidence-item__photos {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+  max-width: 240px;
+}
+.evidence-item__thumbs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.evidence-thumb {
+  display: block;
+  width: 72px;
+  height: 72px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--white);
+  cursor: zoom-in;
+  transition:
+    transform var(--duration-state) var(--ease-out),
+    box-shadow var(--duration-state);
+}
+.evidence-thumb:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+.evidence-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.evidence-thumb__empty {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--gray-surface);
+}
+.vision-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.evidence-item__reason {
+  font-size: 12px;
+  text-align: right;
+}
+
+.photo-lightbox {
+  max-width: min(92vw, 880px);
+  max-height: 92vh;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-frame);
+}
+.photo-lightbox::backdrop {
+  background: rgba(6, 10, 20, 0.72);
+}
+.photo-lightbox figure {
+  margin: 0;
+  display: grid;
+}
+.photo-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(92vh - 72px);
+  object-fit: contain;
+  margin: 0 auto;
+}
+.photo-lightbox figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+}
+.photo-lightbox figcaption a {
+  color: var(--blue-dark);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.fact-form[hidden] {
+  display: none;
+}
+.finding-card .fact-fields {
+  grid-template-columns: minmax(0, 2fr) minmax(110px, 1fr);
+  align-items: start;
+}
+.finding-step--draft {
+  outline: none;
+}
+.draft-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.draft-status:empty {
+  display: none;
+}
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.decision-grid .stack {
+  align-content: start;
+}
+
+/* --- kartu terlipat (Detail investigasi, chatbot umum) -------------------------------- */
+details.disclosure-card > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  min-height: 60px;
+  padding: 14px 22px;
+  border-radius: var(--radius-card);
+}
+details.disclosure-card > summary::before {
+  flex: none;
+}
+details.disclosure-card > summary:hover {
+  background: var(--cream);
+}
+details.disclosure-card > summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+details.disclosure-card[open] > summary {
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+.disclosure-card__title {
+  font: 600 16px/1.3 var(--font-ui);
+}
+.disclosure-card__hint {
+  flex: 1 1 260px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.disclosure-card__body {
+  display: grid;
+  gap: 20px;
+  padding: 20px 22px;
+}
+.details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.details-line {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.details-status:empty {
+  display: none;
+}
+.details-section {
+  display: grid;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.details-section h3 {
+  font: 600 15px/1.3 var(--font-ui);
+}
+
+@media (max-width: 720px) {
+  .product-head {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    padding: 16px;
+  }
+  .product-head__image {
+    width: 88px;
+    height: 88px;
+  }
+  .product-head__strip {
+    max-width: 88px;
+  }
+  .product-head__title {
+    font-size: 17px;
+    -webkit-line-clamp: 3;
+  }
+  .product-head__live {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .action-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 4px 0 12px;
+  }
+  .action-row__cta {
+    margin-left: 30px;
+    justify-self: start;
+  }
+  .evidence-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .evidence-stats > div:nth-child(3) {
+    border-left: 0;
+  }
+  .evidence-stats > div:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .evidence-item {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .evidence-item__photos {
+    justify-items: start;
+    max-width: none;
+  }
+  .evidence-item__thumbs {
+    justify-content: flex-start;
+  }
+  .evidence-item__reason {
+    text-align: left;
+  }
+  .finding-card .fact-fields,
+  .decision-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .finding-card .finding-step {
+    padding-left: 38px;
+  }
+  details.disclosure-card > summary,
+  .disclosure-card__body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action-row,
+  .action-row__chevron,
+  .evidence-thumb,
+  .product-head__thumb {
+    transition: none;
+  }
+  .action-row__main:hover .action-row__chevron,
+  .action-row.is-selected .action-row__chevron,
+  .evidence-thumb:hover {
+    transform: none;
+  }
+}
+
+/* Katalog: judul listing marketplace sering sangat panjang; potong di 2 baris, judul lengkap di title. */
+.product-cell__link {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

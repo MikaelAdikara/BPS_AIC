@@ -149,14 +149,37 @@ export function leafRadius(support: number) {
   return 3.2 + Math.min(5, Math.sqrt(Math.max(0, support)) * 1.1);
 }
 
+/** Volume ulasan sebuah kelompok: produk memakai jumlah ulasannya, kelompok lain memakai jumlah
+ * ulasan yang menyebut isunya. Satu ukuran untuk semua hub supaya besar-kecilnya sebanding. */
+export function groupVolume(group: Group) {
+  if (group.product) return Math.max(0, group.product.reviews);
+  return group.findings.reduce((sum, f) => sum + Math.max(0, f.support), 0);
+}
+
+/** Skala akar dengan batas bawah/atas: hub terbesar = `max`, hub tanpa ulasan = `min`. */
+export function hubRadius(volume: number, maxVolume: number, min = 8, max = 22) {
+  if (maxVolume <= 0) return min;
+  return min + (max - min) * Math.sqrt(Math.min(1, Math.max(0, volume) / maxVolume));
+}
+
+/** Potong label dengan elipsis, sebisanya di batas kata supaya tidak berhenti di tengah kata. */
+export function clipLabel(text: string, max = 22) {
+  const clean = text.trim().replace(/\s+/g, " ");
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max - 1);
+  const space = cut.lastIndexOf(" ");
+  const base = space >= max - 9 ? cut.slice(0, space) : cut;
+  return base.replace(/[\s,.;:\-–(]+$/, "") + "…";
+}
+
 /** Tata letak deterministik: titik isu mengelilingi hubnya dalam cincin, hub didorong saling
  * menjauh (tabrakan per cincin) dan ditarik ringan ke pusat serta ke hub yang berbagi aspek. */
 export function layout(groups: Group[], links: [number, number][], iterations = 260): Placed[] {
+  const maxVolume = groups.reduce((m, g) => Math.max(m, groupVolume(g)), 0);
   const placed: Placed[] = groups.map((group, index) => {
     const n = group.findings.length;
-    // Hub produk sebesar volume ulasannya; hub kelompok lain sebesar jumlah isunya.
-    const volume = group.product ? group.product.reviews : n * 4;
-    const r = n === 0 ? 5 + Math.min(4, Math.sqrt(volume) * 0.5) : 7 + Math.min(13, Math.sqrt(volume) * 1.25);
+    // Semua hub memakai skala yang sama; hub sehat sedikit lebih kecil agar hub berisu menonjol.
+    const r = hubRadius(groupVolume(group), maxVolume, n === 0 ? 6 : 8, n === 0 ? 14 : 22);
     const leaves: Placed["leaves"] = [];
     let ringRadius = r + 16;
     let placedCount = 0;
@@ -256,9 +279,11 @@ export function bounds(placed: Placed[]) {
   if (!placed.length) return { x: -100, y: -100, w: 200, h: 200 };
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (const p of placed) {
-    minX = Math.min(minX, p.x - p.ring);
-    minY = Math.min(minY, p.y - p.ring - 14);
-    maxX = Math.max(maxX, p.x + p.ring);
+    // Label di atas hub bisa lebih lebar dari cincinnya; sertakan supaya tidak terpotong tepi.
+    const half = Math.max(p.ring, (clipLabel(p.group.label).length * LABEL_CHAR) / 2 + 4);
+    minX = Math.min(minX, p.x - half);
+    minY = Math.min(minY, p.y - p.ring - 16);
+    maxX = Math.max(maxX, p.x + half);
     maxY = Math.max(maxY, p.y + p.ring);
   }
   return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
@@ -289,17 +314,28 @@ export function spreadLabels<T extends { y: number }>(items: T[], gap: number, m
   return sorted;
 }
 
-/** Pilih label hub yang tidak saling tumpuk, mulai dari kelompok paling mendesak. */
-export function pickLabels(placed: Placed[], wanted: Set<string>, charWidth = 5.4, height = 12) {
+/** Lebar rata-rata satu karakter label peta (unit tata letak, font 11px). */
+export const LABEL_CHAR = 6.1;
+
+/** Pilih label hub yang tidak saling tumpuk dan tidak menutupi hub lain, mulai dari kelompok
+ * paling mendesak. Lebar memakai teks yang benar-benar tampil (sudah dipotong). */
+export function pickLabels(placed: Placed[], wanted: Set<string>, charWidth = LABEL_CHAR, height = 13) {
   const boxes: { x0: number; x1: number; y0: number; y1: number }[] = [];
   const out = new Set<string>();
   const order = [...placed].sort((a, b) => b.group.score - a.group.score);
   for (const p of order) {
     if (!wanted.has(p.group.key)) continue;
-    const width = Math.min(22, p.group.label.length) * charWidth;
+    const width = clipLabel(p.group.label).length * charWidth + 6;
     const y = p.y - p.ring + 2;
-    const box = { x0: p.x - width / 2, x1: p.x + width / 2, y0: y - height, y1: y + 2 };
+    const box = { x0: p.x - width / 2, x1: p.x + width / 2, y0: y - height, y1: y + 3 };
     if (boxes.some((b) => b.x0 < box.x1 && box.x0 < b.x1 && b.y0 < box.y1 && box.y0 < b.y1)) continue;
+    const coversHub = placed.some((o) => {
+      if (o === p) return false;
+      const nx = Math.max(box.x0, Math.min(o.x, box.x1));
+      const ny = Math.max(box.y0, Math.min(o.y, box.y1));
+      return Math.hypot(o.x - nx, o.y - ny) < o.r;
+    });
+    if (coversHub) continue;
     boxes.push(box);
     out.add(p.group.key);
   }
