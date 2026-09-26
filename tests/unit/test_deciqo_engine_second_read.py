@@ -267,3 +267,60 @@ def test_cache_key_changes_with_issue_set():
     a = second_read.cache_key("r1", "teks", ["k1"])
     assert a == second_read.cache_key("r1", "teks", ["k1"])
     assert a != second_read.cache_key("r1", "teks", ["k1", "k2"])
+
+
+# --- gap-v1.16: sebutan netral dan pujian ---------------------------------------------------------
+
+def _neutral_built(text: str, quote: str) -> tuple[dict, list[dict]]:
+    proposal = {"attribute": "battery capacity (real)", "attribute_local": "kapasitas baterai",
+                "finding_type": "conflicting_fact"}
+    reviews = [{"id": "r8", "rating": 3, "text": text}]
+    judged = {"supports": {"r8": {"quote": quote, "neutral": True}}, "contradicting": {}, "uncertain": {},
+              "rejected": {}, "model_label": {"r8": "supports"}}
+    return {"k": {"proposal": proposal, "judged": judged}}, reviews
+
+
+def test_neutral_template_field_needs_a_second_vote(monkeypatch):
+    # Kolom templat Lazada ("Kapasitas:20000") menyebut atribut tanpa keluhan. Tanpa suara kedua
+    # ulasan ini tidak dihitung.
+    built, reviews = _neutral_built("Kapasitas:20000 Kecepatan Pengisian:biasa", "Kapasitas:20000")
+    monkeypatch.setattr(second_read, "run", lambda items, **kw: ([], {}))
+    pipeline._second_read(built, reviews, [], set(), {}, user_id=None, ref="", db_path=None, cache_only=False)
+    assert pipeline.unconfirmed_neutral(built) == 1
+    assert "r8" not in built["k"]["judged"]["supports"]
+    assert built["k"]["judged"]["uncertain"]["r8"] == "neutral_mention_unconfirmed"
+
+
+def test_confirmed_neutral_mention_shows_the_deciding_words(monkeypatch):
+    text = "Kapasitas:20000 katanya, dipakai sekali udah abis"
+    built, reviews = _neutral_built(text, "Kapasitas:20000")
+    monkeypatch.setattr(second_read, "run", lambda items, **kw: (
+        [{"index": 0, "review_id": "r8", "issue": 0, "verdict": "reports",
+          "quote": "dipakai sekali udah abis"}], {}))
+    pipeline._second_read(built, reviews, [], set(), {}, user_id=None, ref="", db_path=None, cache_only=False)
+    assert pipeline.unconfirmed_neutral(built) == 0
+    assert built["k"]["judged"]["supports"]["r8"]["quote"] == "dipakai sekali udah abis"
+
+
+def test_second_read_quote_that_reads_as_praise_is_not_counted():
+    proposal = {"attribute": "fast charging", "attribute_local": "pengisian cepat", "finding_type": "conflicting_fact"}
+    text = "sudah mendukung fitur vooc di hp Oppo keren gw recommend"
+    ok, reason = pipeline._second_read_accepts("dispute", text, "keren gw recommend", proposal)
+    assert not ok and reason == "quote_reads_as_praise"
+
+
+@pytest.mark.parametrize(("text", "attribute", "local"), [
+    ("Pilihan kabel yang serbaguna,", "included cable type", "kabel bawaan"),
+    ("Ideal untuk laptop 14-15 inci", "laptop compartment maximum size", "ukuran kompartemen laptop"),
+    ("Kecepatan pengisian yang efisien", "fast charging / output current", "pengisian cepat"),
+])
+def test_general_praise_is_never_a_complaint(text, attribute, local):
+    from app.deciqo.engine import relevance  # noqa: PLC0415
+
+    verdict = relevance.judge(text, {"attribute": attribute, "attribute_local": local})
+    assert verdict.label != relevance.SUPPORTS
+
+
+def test_negated_praise_is_still_a_complaint():
+    assert lexicon.polarity(lexicon.tokens("tidak mendukung fast charging")) == "complaint"
+    assert lexicon.polarity(lexicon.tokens("kurang efisien")) == "complaint"

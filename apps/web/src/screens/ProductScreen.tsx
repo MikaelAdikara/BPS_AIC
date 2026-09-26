@@ -209,6 +209,7 @@ export function ProductScreen({
           mutate={mutate}
           focus={focus}
           copyNotice={copyNotice?.id === finding.id ? copyNotice.status : null}
+          onListing={() => select(finding, "listing")}
         />
       )}
       <InvestigationDetails

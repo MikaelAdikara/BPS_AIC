@@ -81,6 +81,12 @@ PRAISE_TERMS = {
     "real", "penuh", "baik", "nempel",
     "worth", "recommended", "responsive", "described", "replied", "reply", "respond", "fast",
     "nice", "happy", "fine", "sturdy", "generous", "okay", "ok",
+    # gap-v1.16: pujian umum yang lolos sebagai "sebutan netral" di data Lazada ("Pilihan kabel
+    # yang serbaguna", "Ideal untuk laptop 14-15 inci", "keren gw recommend"). Dinegasikan tetap
+    # keluhan: "kurang efisien", "tidak mendukung fast charging".
+    "serbaguna", "efisien", "ideal", "keren", "recommend", "rekomen", "rekomendasi", "mendukung",
+    "berguna", "praktis", "memuaskan", "sempurna", "lancar", "stabil", "mantul", "joss", "jos",
+    "versatile", "efficient", "useful", "excellent",
 }
 
 # Kosakata atribut per kelompok. Dipakai bersama juri relevansi dan pemeriksaan listing.

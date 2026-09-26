@@ -95,6 +95,8 @@ MAX_IMAGES_PER_REQUEST = int(os.getenv("MAX_IMAGES_PER_REQUEST", "10"))
 # Log terstruktur tanpa PII - hanya review_id dan metadata agregat (bagian 37.1).
 logging.basicConfig(level=logging.INFO, format='{"level":"%(levelname)s","msg":"%(message)s"}')
 log = logging.getLogger("ulasin")
+# httpx menulis URL lengkap di level INFO; URL Bot API Telegram memuat token bot.
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 state: dict = {"ready": False, "service": None, "errors": []}
 

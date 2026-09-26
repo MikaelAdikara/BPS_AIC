@@ -117,7 +117,7 @@
   font-size: var(--text-hero);
   line-height: 1.04;
   letter-spacing: -0.032em;
-  max-width: 17ch;
+  max-width: min(100%, 23ch);
   text-wrap: balance;
 }
 .lp-hero__title > span {

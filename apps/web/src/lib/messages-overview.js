@@ -65,6 +65,8 @@ export const overview = {
     rangeDialog: "Choose a date range",
     rangeHint: "Pick a start date, then an end date. Up to {count} days.",
     rangeApply: "Apply",
+    rangeFrom: "From",
+    rangeTo: "To",
     rangeCancel: "Cancel",
     monthsShort: "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     candidateHint:
@@ -140,6 +142,8 @@ export const overview = {
     rangeDialog: "Pilih rentang tanggal",
     rangeHint: "Pilih tanggal mulai, lalu tanggal akhir. Maksimal {count} hari.",
     rangeApply: "Terapkan",
+    rangeFrom: "Dari",
+    rangeTo: "Sampai",
     rangeCancel: "Batal",
     monthsShort: "Jan,Feb,Mar,Apr,Mei,Jun,Jul,Agu,Sep,Okt,Nov,Des",
     candidateHint:

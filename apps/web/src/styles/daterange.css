@@ -71,6 +71,35 @@
     transform: translateY(-4px) scale(0.98);
   }
 }
+.date-range__inputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.date-range__inputs label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.date-range__inputs input {
+  min-height: 40px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--ink);
+  font: 500 14px/1.2 var(--font-ui);
+  font-variant-numeric: tabular-nums;
+  color-scheme: light dark;
+}
+.date-range__inputs input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
 .date-range__foot {
   display: flex;
   flex-wrap: wrap;

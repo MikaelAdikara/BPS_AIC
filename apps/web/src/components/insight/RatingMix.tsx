@@ -27,7 +27,8 @@ export function RatingMix({
   windowLabel?: string;
 }) {
   const { t, language } = useI18n();
-  const [scope, setScope] = useState<"all" | "window">("all");
+  // Default mengikuti rentang tanggal di atas; "Sepanjang waktu" hanya pembanding.
+  const [scope, setScope] = useState<"all" | "window">("window");
   const source = scope === "all" ? allTime : window;
   const counts = sumStars(source, channel);
   const total = counts.reduce((s, v) => s + v, 0);
@@ -47,11 +48,11 @@ export function RatingMix({
           <p className="muted">{t("insights.ratingLead")}</p>
         </div>
         <div className="segmented segmented--sm" role="group" aria-label={t("insights.ratingTitle")}>
-          <button type="button" aria-pressed={scope === "all"} onClick={() => setScope("all")}>
-            {t("insights.ratingAll")}
-          </button>
           <button type="button" aria-pressed={scope === "window"} onClick={() => setScope("window")}>
             {windowLabel ?? t("insights.ratingWindow")}
+          </button>
+          <button type="button" aria-pressed={scope === "all"} onClick={() => setScope("all")}>
+            {t("insights.ratingAll")}
           </button>
         </div>
       </header>

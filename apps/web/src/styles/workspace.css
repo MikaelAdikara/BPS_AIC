@@ -353,6 +353,7 @@
 .workspace-main {
   width: 100%;
   max-width: calc(var(--page-max) + 2 * var(--gutter));
+  margin-inline: auto;
   padding: 28px var(--gutter) 56px;
   align-content: start;
   gap: 26px;

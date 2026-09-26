@@ -259,7 +259,9 @@ def _judge_pairs(proposal: dict, reviews: list[dict], engine: str, labels: list[
                 # "pendek banget kalo ditarik full"). Kode tetap memegang veto: kutipan verbatim,
                 # klausa yang dikutip menyebut atribut temuan, dan klausa itu bukan pujian, bukan
                 # keluhan atribut lain, dan bukan laporan salah kirim.
-                supports[rid] = {"quote": quotes[rid]}
+                # gap-v1.16: klausa netral ("Kapasitas:20000", "Pilihan kabel yang serbaguna") baru
+                # dihitung setelah pembaca kedua juga menyatakan "reports"; lihat `_confirm_neutral`.
+                supports[rid] = {"quote": quotes[rid], "neutral": True}
             elif verdict.label == relevance.UNCERTAIN:
                 uncertain[rid] = verdict.reason
             else:
@@ -337,12 +339,46 @@ def _second_read_accepts(kind: str, text: str, quote: str, proposal: dict) -> tu
     verdict = relevance.judge_span(text, quote, proposal)
     if verdict.reason in _WRONG_ITEM_REASONS:
         return False, verdict.reason
+    if lexicon.polarity(lexicon.tokens(quote)) == "praise":
+        # Kata penentu yang dikutip berbunyi pujian ("keren gw recommend"): bukan keluhan, walau
+        # dua pembacaan model sepakat.
+        return False, "quote_reads_as_praise"
     if kind == "dispute":
         return True, ""
     if verdict.label == relevance.SUPPORTS or verdict.reason in {
             "mentions_attribute_without_complaint", "complaint_without_attribute", "not_about_this_attribute"}:
         return True, ""
     return False, verdict.reason or verdict.label
+
+
+def _confirm_neutral(support: dict | None, text: str, result: dict) -> bool:
+    """Pembaca kedua menyatakan "reports" atas bukti yang sudah dihitung. Untuk klausa yang dibaca
+    kode sebagai sebutan netral, kutipan pembaca kedua (kata penentunya) menggantikan kutipan
+    membership bila verbatim; kutipan yang berbunyi pujian membatalkan konfirmasi."""
+    if not support or not support.get("neutral"):
+        return True
+    quote = result.get("quote", "")
+    if quote and lexicon.polarity(lexicon.tokens(quote)) == "praise":
+        return False
+    support.pop("neutral", None)
+    if quote and verify.check_quote(quote, text)[0]:
+        support["quote"] = quote
+    return True
+
+
+def unconfirmed_neutral(built: dict[str, dict]) -> int:
+    """Sebutan netral yang tidak dikonfirmasi pembaca kedua (dilewati, gagal, atau cache kosong)
+    pindah ke "tidak jelas": hitungan tidak boleh bertumpu pada satu label model atas klausa yang
+    tidak berbunyi keluhan."""
+    moved = 0
+    for entry in built.values():
+        judged = entry["judged"]
+        for rid, value in list(judged["supports"].items()):
+            if value.get("neutral"):
+                judged["supports"].pop(rid)
+                judged["uncertain"][rid] = "neutral_mention_unconfirmed"
+                moved += 1
+    return moved
 
 
 def _second_read(built: dict[str, dict], reviews: list[dict], candidates: list[dict], wrong_item_ids: set[str],
@@ -421,11 +457,13 @@ def _second_read(built: dict[str, dict], reviews: list[dict], candidates: list[d
         if item["kind"] == "confirm":
             if not result:
                 continue  # tidak ada suara kedua (dilewati model/provider): aturan lama berlaku
-            if result.get("verdict") == "reports" and result.get("issue") == 0:
-                continue
             judged = built[item["targets"][0]]["judged"]
+            reports = result.get("verdict") == "reports" and result.get("issue") == 0
+            if reports and _confirm_neutral(judged["supports"].get(item["review_id"]), item["text"], result):
+                continue
             judged["supports"].pop(item["review_id"], None)
-            judged["uncertain"][item["review_id"]] = f"second_read_{result.get('verdict', 'unclear')}"
+            judged["uncertain"][item["review_id"]] = (
+                "second_read_praise" if reports else f"second_read_{result.get('verdict', 'unclear')}")
             trace["withdrawn"] += 1
             continue
         if not result or result.get("verdict") != "reports" or not 0 <= result.get("issue", -1) < len(item["targets"]):
@@ -609,6 +647,10 @@ def analyse(product_id: str, force: bool = False, *, engine: str | None = None,
         trace.append(sr_trace)
         if sr_usage:
             usage = llm.add_usage(dict(usage), sr_usage)
+    if mode == "ai" and built:
+        moved = unconfirmed_neutral(built)
+        if moved:
+            trace.append({"stage": "neutral_gate", "moved_to_uncertain": moved})
 
     built = dedupe(built)
     findings = []

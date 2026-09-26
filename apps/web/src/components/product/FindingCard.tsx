@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { Copy, Ruler } from "lucide-react";
+import { ArrowRight, Camera, Check, Copy, FileText, Plus, Ruler } from "lucide-react";
 import { request, ApiError } from "@/api/http.js";
 import type { DraftSection, Finding, ProductView } from "@/api/product";
 import { useWorkspace } from "@/api/workspace";
@@ -7,7 +7,14 @@ import { useI18n } from "@/lib/i18n";
 import { Button, Card, Chip, Field, Notice, type Tone } from "@/components/ui";
 import { buckets } from "@/components/workspace";
 import { EvidenceList } from "./EvidenceList";
-import { draftText, prefersReducedMotion, skipReasonKey, type FocusStep } from "./actions";
+import {
+  decisionPresets,
+  draftText,
+  opsBrief,
+  prefersReducedMotion,
+  skipReasonKey,
+  type FocusStep,
+} from "./actions";
 
 const nextKeys: Record<string, string> = {
   recurrence: "nextRecurrence",
@@ -18,6 +25,21 @@ const nextKeys: Record<string, string> = {
   monitoring: "nextMonitoring",
   paste_listing: "nextPasteListing",
 };
+/** Tombol "Langkah berikutnya": bagian kartu yang dituju untuk setiap `finding.next`. */
+const nextTargets: Record<string, FocusStep> = {
+  recurrence: "evidence",
+  fact: "fact",
+  apply: "draft",
+  draft: "draft",
+  route: "decision",
+  monitoring: "decision",
+  paste_listing: "listing",
+};
+const DISMISS_REASONS = [
+  ["false_positive", "falsePositive"],
+  ["not_relevant", "notRelevant"],
+  ["wont_fix", "wontFix"],
+] as const;
 const checks: Record<string, { key: string; tone: Tone }> = {
   not_provided: { key: "checkNotProvided", tone: "warn" },
   pending: { key: "checkPending", tone: "muted" },
@@ -71,6 +93,7 @@ export function FindingCard({
   mutate,
   focus,
   copyNotice,
+  onListing,
 }: {
   finding: Finding;
   section?: DraftSection;
@@ -79,6 +102,8 @@ export function FindingCard({
   /** Permintaan fokus dari kartu "Yang perlu kamu lakukan"; nonce memicu ulang untuk langkah yang sama. */
   focus: { step: FocusStep; nonce: number } | null;
   copyNotice?: string | null;
+  /** Membuka editor listing di halaman (langkah "Tempel listing saat ini"). */
+  onListing?: () => void;
 }) {
   const { t, language, localizeError } = useI18n();
   const { busy } = useWorkspace();
@@ -86,8 +111,10 @@ export function FindingCard({
   const [unit, setUnit] = useState("cm");
   const [variant, setVariant] = useState("");
   const [factError, setFactError] = useState<string | null>(null);
-  const [note, setNote] = useState("");
-  const [reason, setReason] = useState("");
+  const [preset, setPreset] = useState(0);
+  const [detail, setDetail] = useState("");
+  const [showDetail, setShowDetail] = useState(false);
+  const [nextStatus, setNextStatus] = useState<string | null>(null);
   const [decisionError, setDecisionError] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<string | null>(null);
   const [editFact, setEditFact] = useState(false);
@@ -107,16 +134,22 @@ export function FindingCard({
   const text = draftText(section);
   const url = "/deciqo/findings/" + encodeURIComponent(finding.id);
   const attribute = language === "id" ? finding.attribute_local : finding.attribute;
+  const presets = decisionPresets(finding);
+  const other = preset === presets.length;
+  // Catatan keputusan dirakit dari pilihan cepat + detail opsional; server tetap menyimpan catatan.
+  const note = [other ? "" : t("product." + presets[preset]), detail.trim()]
+    .filter(Boolean)
+    .join(" — ");
 
   useEffect(() => {
     if (copyNotice) setCopyStatus(copyNotice);
   }, [copyNotice, focus?.nonce]);
 
-  useEffect(() => {
-    if (!focus) return;
+  /** Gulir ke bagian kartu dan pindahkan fokus keyboard ke kontrol pertamanya. */
+  function focusStep(step: FocusStep) {
     const behavior: ScrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
     const byId = (id: string) => document.getElementById(id);
-    if (focus.step === "fact") setEditFact(true);
+    if (step === "fact") setEditFact(true);
     let inner = 0;
     const outer = requestAnimationFrame(() => {
       inner = requestAnimationFrame(() => {
@@ -124,15 +157,21 @@ export function FindingCard({
         let scrollTarget: HTMLElement | null = card;
         let focusTarget: HTMLElement | null = card;
         const fact = byId(formId + "-fact");
-        const note = byId(formId + "-note");
-        if (focus.step === "fact" && fact) {
+        const decisionStep = byId(formId + "-decision");
+        const evidence = byId(formId + "-evidence");
+        if (step === "fact" && fact) {
           scrollTarget = fact.closest(".finding-step");
           focusTarget = fact;
-        } else if (focus.step === "draft" && draftRef.current) {
+        } else if (step === "draft" && draftRef.current) {
           scrollTarget = draftRef.current;
           focusTarget = byId(formId + "-copy") ?? draftRef.current;
-        } else if (focus.step === "decision" && note) {
-          focusTarget = note;
+        } else if (step === "decision" && decisionStep) {
+          scrollTarget = decisionStep;
+          focusTarget =
+            decisionStep.querySelector<HTMLElement>("button:not([disabled])") ?? decisionStep;
+        } else if (step === "evidence" && evidence) {
+          scrollTarget = evidence;
+          focusTarget = evidence;
         }
         scrollTarget?.scrollIntoView({ behavior, block: "start" });
         focusTarget?.focus({ preventScroll: true });
@@ -142,6 +181,11 @@ export function FindingCard({
       cancelAnimationFrame(outer);
       cancelAnimationFrame(inner);
     };
+  }
+
+  useEffect(() => {
+    if (!focus) return;
+    return focusStep(focus.step);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus?.nonce]);
 
@@ -160,19 +204,57 @@ export function FindingCard({
       }
     }, "product.factSaved");
   }
-  async function decision(kind: string) {
+  async function decision(kind: string, reason = "") {
     setDecisionError(null);
     await mutate(async () => {
       try {
         return await request(url + "/decision", {
           method: "POST",
-          body: { decision: kind, note, reason },
+          body: { decision: kind, note: kind === "acted" ? note : "", reason },
         });
       } catch (e) {
         setDecisionError((e as ApiError).code ?? "request_failed");
         throw e;
       }
     }, "product.decisionSaved");
+  }
+  function generateDraft() {
+    return mutate(
+      () =>
+        request("/deciqo/products/" + encodeURIComponent(view.product.id) + "/draft", {
+          method: "POST",
+        }),
+      "product.draftSaved",
+      "workspace.jobDrafting",
+    );
+  }
+  /** Tombol "Langkah berikutnya" menjalankan langkah itu, bukan sekadar menyebutnya. */
+  async function runNext() {
+    const next = finding.next ?? "";
+    setNextStatus(null);
+    if (next === "paste_listing" && onListing) return onListing();
+    if (next === "route") {
+      try {
+        await navigator.clipboard.writeText(opsBrief(finding, view, t, attribute, day));
+        setNextStatus("briefCopied");
+      } catch {
+        setNextStatus("briefFailed");
+      }
+    }
+    if (next === "draft" && !text) await generateDraft();
+    focusStep(nextTargets[next] ?? "card");
+  }
+  /** Tombol "Cek foto" ada di Detail investigasi (dengan polling job-nya); buka dan jalankan. */
+  function checkPhotos() {
+    const details = document.getElementById("investigation-details") as HTMLDetailsElement | null;
+    if (details) details.open = true;
+    const button = document.getElementById("investigation-check-photos");
+    button?.scrollIntoView({
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+      block: "center",
+    });
+    button?.click();
+    button?.focus({ preventScroll: true });
   }
   async function copy() {
     if (!text) return;
@@ -188,6 +270,12 @@ export function FindingCard({
     return Number.isNaN(parsed.getTime())
       ? value
       : parsed.toLocaleString(language === "id" ? "id-ID" : "en-GB");
+  }
+  function day(value: string) {
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime())
+      ? value
+      : parsed.toLocaleDateString(language === "id" ? "id-ID" : "en-GB", { dateStyle: "medium" });
   }
   const percent = new Intl.NumberFormat(language === "id" ? "id-ID" : "en-GB", {
     style: "percent",
@@ -210,12 +298,28 @@ export function FindingCard({
           {metrics.support === 1 && <Chip>{t("product.singleReport")}</Chip>}
         </div>
         {finding.next && nextKeys[finding.next] && (
-          <div className="next-step" aria-live="polite">
-            <strong>{t("product.next")}</strong>
-            <p>{t("workspace." + nextKeys[finding.next])}</p>
+          <div className="next-step-wrap">
+            <button
+              type="button"
+              className="next-step"
+              disabled={busy}
+              onClick={() => void runNext()}
+            >
+              <span className="next-step__icon" aria-hidden>
+                <ArrowRight size={18} />
+              </span>
+              <span className="next-step__text">
+                <span className="next-step__label">{t("product.next")}</span>
+                <span className="next-step__title">{t("workspace." + nextKeys[finding.next])}</span>
+                <span className="next-step__hint">{t("product.nextHint_" + finding.next)}</span>
+              </span>
+            </button>
+            <p role="status" className="next-step__status">
+              {nextStatus ? t("product." + nextStatus) : ""}
+            </p>
           </div>
         )}
-        <section className="finding-step">
+        <section className="finding-step" id={formId + "-evidence"} tabIndex={-1}>
           <h3>{t("product.stepEvidence")}</h3>
           <dl className="evidence-stats">
             <div>
@@ -251,16 +355,30 @@ export function FindingCard({
               : t("product.coverage", { count: metrics.denominator })}
           </p>
           {vision && (vision.checked > 0 || vision.skipped_reason) && (
-            <p className="vision-summary">
-              {vision.checked > 0
-                ? t("product.visionSummary", {
-                    checked: vision.checked,
-                    supports: vision.supports,
-                    contradicts: vision.contradicts,
-                  })
-                : t("product.visionSkipped", { reason: t(skipReasonKey(vision.skipped_reason)) })}
-              {vision.checked > 0 && <span className="muted"> · {t("product.visionHint")}</span>}
-            </p>
+            <div className="vision-summary">
+              <p>
+                {vision.checked > 0
+                  ? t("product.visionSummary", {
+                      checked: vision.checked,
+                      supports: vision.supports,
+                      contradicts: vision.contradicts,
+                    })
+                  : vision.skipped_reason === "not_run"
+                    ? t("product.photosNotRun")
+                    : t("product.visionSkipped", {
+                        reason: t(skipReasonKey(vision.skipped_reason)),
+                      })}
+                {vision.checked > 0 && <span className="muted"> · {t("product.visionHint")}</span>}
+              </p>
+              {vision.checked === 0 &&
+                vision.skipped_reason === "not_run" &&
+                metrics.with_photos > 0 && (
+                  <Button variant="outline" size="sm" onClick={checkPhotos}>
+                    <Camera size={15} aria-hidden />
+                    {t("product.checkPhotos")}
+                  </Button>
+                )}
+            </div>
           )}
           <EvidenceList evidence={finding.evidence} formatDate={date} />
           {metrics.support > finding.evidence.length && (
@@ -425,15 +543,23 @@ export function FindingCard({
                   </div>
                 </>
               ) : (
-                <p className="muted">
-                  {t(
-                    status === "needs_review"
-                      ? "product.draftReview"
-                      : status === "needs_merchant_fact" || status === "needs_listing"
-                        ? "product.draftHeld"
-                        : "product.draftPending",
+                <div className="draft-empty">
+                  <p className="muted">
+                    {t(
+                      status === "needs_review"
+                        ? "product.draftReview"
+                        : status === "needs_merchant_fact" || status === "needs_listing"
+                          ? "product.draftHeld"
+                          : "product.draftPending",
+                    )}
+                  </p>
+                  {status !== "needs_merchant_fact" && status !== "needs_listing" && (
+                    <Button variant="outline" size="sm" busy={busy} onClick={() => void generateDraft()}>
+                      <FileText size={15} aria-hidden />
+                      {t("product.generateDraft")}
+                    </Button>
                   )}
-                </p>
+                </div>
               )}
               <p role="status" className="draft-status">
                 {copyStatus ? t("product." + copyStatus) : ""}
@@ -451,55 +577,81 @@ export function FindingCard({
         ) : (
           <Notice tone="info">{t("product.opsHint")}</Notice>
         )}
-        <section className="finding-step">
+        <section className="finding-step" id={formId + "-decision"} tabIndex={-1}>
           <h3>{t("product.stepDecision")}</h3>
           {["acted", "dismissed"].includes(finding.state) ? (
-            <Button variant="outline" busy={busy} onClick={() => void decision("reopened")}>
-              {t("product.reopen")}
-            </Button>
+            <div className="decision-done">
+              <Button variant="outline" busy={busy} onClick={() => void decision("reopened")}>
+                {t("product.reopen")}
+              </Button>
+            </div>
           ) : (
-            <div className="decision-grid">
-              <div className="stack">
-                <div className="field">
-                  <label htmlFor={formId + "-note"}>{t("product.decisionNote")}</label>
+            <div className="decision">
+              <fieldset className="decision__picks">
+                <legend>{t("product.decisionWhat")}</legend>
+                <div className="pick-row">
+                  {[...presets, "doneOther"].map((key, index) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className="pick"
+                      aria-pressed={preset === index}
+                      onClick={() => {
+                        setPreset(index);
+                        if (index === presets.length) {
+                          setShowDetail(true);
+                          requestAnimationFrame(() =>
+                            document.getElementById(formId + "-note")?.focus(),
+                          );
+                        }
+                      }}
+                    >
+                      {preset === index && <Check size={14} aria-hidden />}
+                      {t("product." + key)}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+              {showDetail || other ? (
+                <div className="field decision__detail">
+                  <label htmlFor={formId + "-note"}>
+                    {t(other ? "product.detailRequired" : "product.detailOptional")}
+                  </label>
                   <textarea
                     id={formId + "-note"}
-                    rows={3}
-                    maxLength={2000}
-                    value={note}
-                    onChange={(event) => setNote(event.target.value)}
-                    aria-describedby={formId + "-note-hint"}
+                    rows={2}
+                    maxLength={900}
+                    value={detail}
+                    placeholder={t("product.detailPlaceholder")}
+                    onChange={(event) => setDetail(event.target.value)}
                   />
-                  <p id={formId + "-note-hint"} className="field__hint">
-                    {t("product.noteHint")}
-                  </p>
                 </div>
-                <Button busy={busy} disabled={!note.trim()} onClick={() => void decision("acted")}>
-                  {t("product.applied")}
+              ) : (
+                <button type="button" className="decision__add" onClick={() => setShowDetail(true)}>
+                  <Plus size={14} aria-hidden />
+                  {t("product.addDetail")}
+                </button>
+              )}
+              <div className="decision__actions">
+                <Button busy={busy} disabled={!note} onClick={() => void decision("acted")}>
+                  <Check size={16} aria-hidden />
+                  {t("product.markDone")}
                 </Button>
+                <p className="muted decision__follow">{t("product.decisionFollow")}</p>
               </div>
-              <div className="stack">
-                <div className="field">
-                  <label htmlFor={formId + "-reason"}>{t("product.reason")}</label>
-                  <select
-                    id={formId + "-reason"}
-                    value={reason}
-                    onChange={(event) => setReason(event.target.value)}
+              <div className="decision__dismiss">
+                <span className="muted">{t("product.dismissLead")}</span>
+                {DISMISS_REASONS.map(([value, key]) => (
+                  <Button
+                    key={value}
+                    variant="text"
+                    size="sm"
+                    busy={busy}
+                    onClick={() => void decision("dismissed", value)}
                   >
-                    <option value="">{t("product.chooseReason")}</option>
-                    <option value="false_positive">{t("product.falsePositive")}</option>
-                    <option value="not_relevant">{t("product.notRelevant")}</option>
-                    <option value="wont_fix">{t("product.wontFix")}</option>
-                  </select>
-                </div>
-                <Button
-                  variant="outline"
-                  disabled={!reason}
-                  busy={busy}
-                  onClick={() => void decision("dismissed")}
-                >
-                  {t("product.dismiss")}
-                </Button>
+                    {t("product." + key)}
+                  </Button>
+                ))}
               </div>
             </div>
           )}

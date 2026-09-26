@@ -1,10 +1,53 @@
-import type { DraftSection, Finding } from "@/api/product";
+import type { DraftSection, Finding, ProductView } from "@/api/product";
 
 /** Satu aksi utama per temuan, dipakai kartu "Yang perlu kamu lakukan" dan kartu temuan. */
 export type ActionKind = "listing" | "fact" | "copy" | "ops" | "review";
 
 /** Bagian kartu temuan yang difokuskan setelah aksi dipilih. */
-export type FocusStep = "listing" | "fact" | "draft" | "decision" | "card";
+export type FocusStep = "listing" | "fact" | "draft" | "decision" | "evidence" | "card";
+
+/** Pilihan cepat "Apa yang sudah Anda lakukan?" sesuai rute isu (kunci pesan `product.*`). */
+export function decisionPresets(finding: Finding): string[] {
+  if (finding.listing_fixable) return ["doneListing1", "doneListing2", "doneListing3"];
+  if (finding.finding_type === "product_quality")
+    return ["doneQuality1", "doneQuality2", "doneQuality3"];
+  return ["doneOps1", "doneOps2", "doneOps3"];
+}
+
+type Translate = (key: string, values?: Record<string, string | number>) => string;
+
+/** Ringkasan siap kirim untuk tim operasional/QC: isu, hitungan, dan kutipan verbatim. */
+export function opsBrief(
+  finding: Finding,
+  view: ProductView,
+  t: Translate,
+  attribute: string,
+  formatDate: (value: string) => string,
+): string {
+  const metrics = finding.metrics;
+  const quality = finding.finding_type === "product_quality";
+  const quotes = finding.evidence.slice(0, 5).map((item) => {
+    const meta = [
+      item.rating != null ? item.rating + "★" : "",
+      item.variant ?? "",
+      item.review_time ? formatDate(item.review_time) : "",
+    ].filter(Boolean);
+    return `- “${item.quote}”` + (meta.length ? ` (${meta.join(", ")})` : "");
+  });
+  return [
+    `[Deciqo] ${view.product.title}`,
+    t("product.briefIssue", {
+      attribute,
+      support: metrics.support,
+      total: metrics.denominator,
+    }),
+    "",
+    t("product.briefQuotes"),
+    ...quotes,
+    "",
+    t(quality ? "product.briefAskQuality" : "product.briefAskOps"),
+  ].join("\n");
+}
 
 const BUCKET_ORDER = [
   "recurrence",

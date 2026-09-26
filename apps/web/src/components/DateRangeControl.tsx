@@ -116,8 +116,24 @@ export function DateRangeControl({
 
   function toggle() {
     if (open) return close();
-    setDraft(current ? { from: fromIso(current.start), to: fromIso(current.end) } : undefined);
+    const next = current ? { from: fromIso(current.start), to: fromIso(current.end) } : undefined;
+    const anchor = next?.to ?? today;
+    setDraft(next);
+    setMonth(new Date(anchor.getFullYear(), anchor.getMonth() - (monthCount - 1), 1));
     setOpen(true);
+  }
+  /** Tanggal diketik langsung: batas bawah/atas ditukar bila terbalik, masa depan dipotong ke hari ini. */
+  function typed(edge: "from" | "to", raw: string) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) return;
+    let day = fromIso(raw);
+    if (day > today) day = today;
+    let from = edge === "from" ? day : draft?.from ?? day;
+    let to = edge === "to" ? day : draft?.to ?? draft?.from ?? day;
+    if (from > to) [from, to] = [to, from];
+    const earliest = shift(to, 1 - MAX_RANGE_DAYS);
+    if (from < earliest) from = earliest;
+    setDraft({ from, to });
+    setMonth(new Date(to.getFullYear(), to.getMonth() - (monthCount - 1), 1));
   }
   function apply() {
     if (!draft?.from) return;
@@ -125,8 +141,7 @@ export function DateRangeControl({
     close();
   }
   const monthCount = wide ? 2 : 1;
-  const anchor = draft?.to ?? draft?.from ?? today;
-  const firstMonth = new Date(anchor.getFullYear(), anchor.getMonth() - (monthCount - 1), 1);
+  const [month, setMonth] = useState<Date>(today);
 
   return (
     <div className="date-range" ref={root}>
@@ -164,7 +179,8 @@ export function DateRangeControl({
             autoFocus
             locale={language === "id" ? idLocale : enGB}
             numberOfMonths={monthCount}
-            defaultMonth={firstMonth}
+            month={month}
+            onMonthChange={setMonth}
             endMonth={today}
             disabled={{ after: today }}
             excludeDisabled
@@ -172,6 +188,26 @@ export function DateRangeControl({
             selected={draft}
             onSelect={setDraft}
           />
+          <div className="date-range__inputs">
+            <label>
+              <span>{t("overview.rangeFrom")}</span>
+              <input
+                type="date"
+                value={draft?.from ? isoDay(draft.from) : ""}
+                max={isoDay(today)}
+                onChange={(event) => typed("from", event.target.value)}
+              />
+            </label>
+            <label>
+              <span>{t("overview.rangeTo")}</span>
+              <input
+                type="date"
+                value={draft?.to ? isoDay(draft.to) : draft?.from ? isoDay(draft.from) : ""}
+                max={isoDay(today)}
+                onChange={(event) => typed("to", event.target.value)}
+              />
+            </label>
+          </div>
           <div className="date-range__foot">
             <p className="muted">
               {draft?.from

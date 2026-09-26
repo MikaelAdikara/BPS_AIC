@@ -207,7 +207,7 @@ export function InvestigationDetails({
   }
 
   return (
-    <details className="card disclosure-card">
+    <details className="card disclosure-card" id="investigation-details">
       <summary>
         <span className="disclosure-card__title">{t("product.detailsTitle")}</span>
         <span className="disclosure-card__hint muted">
@@ -238,6 +238,7 @@ export function InvestigationDetails({
           </Button>
           {hasPhotos && (
             <Button
+              id="investigation-check-photos"
               variant="outline"
               busy={visionBusy}
               disabled={visionState === "unavailable"}

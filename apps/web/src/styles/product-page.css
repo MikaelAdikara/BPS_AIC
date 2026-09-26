@@ -4,6 +4,9 @@
 .product-page {
   display: grid;
   gap: 20px;
+  width: 100%;
+  max-width: 1040px;
+  margin-inline: auto;
   min-width: 0;
 }
 .product-back {
@@ -243,17 +246,6 @@
   outline: 2px solid var(--blue);
   outline-offset: 3px;
 }
-.finding-card .next-step {
-  padding: 12px 16px 12px 52px;
-}
-.finding-card .next-step::before {
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.finding-card .next-step p {
-  font-size: 15px;
-}
 .finding-card .finding-step {
   gap: 12px;
   padding: 2px 0 22px 44px;
@@ -464,13 +456,110 @@
 .draft-status:empty {
   display: none;
 }
-.decision-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+.draft-empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
 }
-.decision-grid .stack {
-  align-content: start;
+.vision-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+/* --- langkah 5: keputusan satu klik ------------------------------------------------- */
+.decision {
+  display: grid;
+  gap: 14px;
+}
+.decision__picks {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.decision__picks legend {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pick-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink-soft);
+  font: 500 14px/1.3 var(--font-ui);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--duration-state),
+    border-color var(--duration-state),
+    color var(--duration-state);
+}
+.pick:hover {
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line-strong));
+  color: var(--ink);
+}
+.pick[aria-pressed="true"] {
+  border-color: var(--blue);
+  background: var(--blue-tint);
+  color: var(--blue-dark);
+}
+.pick:focus-visible,
+.decision__add:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.decision__add {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: var(--blue-dark);
+  font: 500 14px/1.3 var(--font-ui);
+  cursor: pointer;
+}
+.decision__detail textarea {
+  min-height: 64px;
+}
+.decision__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+.decision__follow {
+  flex: 1 1 260px;
+  font-size: 13px;
+}
+.decision__dismiss {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+.decision__dismiss > span {
+  margin-right: 4px;
 }
 
 /* --- kartu terlipat (Detail investigasi, chatbot umum) -------------------------------- */
@@ -584,8 +673,7 @@ details.disclosure-card[open] > summary {
   .evidence-item__reason {
     text-align: left;
   }
-  .finding-card .fact-fields,
-  .decision-grid {
+  .finding-card .fact-fields {
     grid-template-columns: minmax(0, 1fr);
   }
   .finding-card .finding-step {
@@ -602,7 +690,8 @@ details.disclosure-card[open] > summary {
   .action-row,
   .action-row__chevron,
   .evidence-thumb,
-  .product-head__thumb {
+  .product-head__thumb,
+  .pick {
     transition: none;
   }
   .action-row__main:hover .action-row__chevron,
